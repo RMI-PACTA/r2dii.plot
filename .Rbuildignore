@@ -1,0 +1,6 @@
+^r2dii\.ggplot\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^charts/.*$
+^colors/.*$
+^example_script\.R$
