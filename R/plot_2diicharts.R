@@ -1,4 +1,10 @@
+#' Create a generic ggplot object with default aesthetics
+#'
+#' @description
+#' Returns a ggplot with common aesthetics, like removed gridlines, grey axis lines etc.
+#'
 #' @import ggplot2
+#' @export
 
 create_general_plot_with_default_settings <- function() {
 
@@ -10,17 +16,33 @@ create_general_plot_with_default_settings <- function() {
   p_general <- ggplot() +
     theme_classic() +
     theme(plot.margin=unit(c(0.5,1,0.5,0.5),"cm")) +
-    theme(axis.line = element_line(colour= supporting_elts_color)) +
+    theme(axis.line = element_line(colour = supporting_elts_color)) +
     theme(axis.ticks = element_line(colour = supporting_elts_color)) +
     theme(plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold", family = font_family, size = 14, margin = margin(25, 2, 8, 2))) +
-    theme(axis.text = element_text(family=font_family, size = font_size_ticks, margin= margin(5, 5, 5, 5))) +
-    theme(axis.title = element_text(family=font_family, size = font_size_axis_titles, margin= margin(5, 5, 5, 5)))
+    theme(axis.text = element_text(family = font_family, size = font_size_ticks, margin = margin(5, 5, 5, 5))) +
+    theme(axis.title = element_text(family = font_family, size = font_size_axis_titles, margin = margin(5, 5, 5, 5)))
 
   return(p_general)
 }
 
+#' Create a trajectory alignment chart in a ggplot object
+#'
+#' @param data filtered input data (dataframe with columns: year, metric_type, metric and value)
+#' @param plotTitle title of the plot (character string; default = "")
+#' @param xTitle title of the x-axis (character string; default = "")
+#' @param yTitle title of the y-axis (character string; default = "")
+#' @param annotateData flag indicating whether the data should be annotated (boolean; default = FALSE)
+#' @param scenario_specs dataframe containing scenario specifications like color or label (dataframe with columns: scenario, label, color)
+#' @param worstColor the color that should be used for the area worse than any scenario (character string with hex color code, default = "#E07B73")
+#' @param mainLineMetric dataframe containing information about metric that should be plotted as the main line (datframe with columns: metric, label)
+#' @param additionalLineMetrics dataframe containing information about additional metrics that should be plotted as lines (datframe with columns: metric, label; default = data.frame())
+#'
+#' @description
+#' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
+#'
 #' @import ggplot2
 #' @import dplyr
+#' @export
 
 plot_trajectory_chart <- function(data,plotTitle = "", xTitle="", yTitle="", annotateData = FALSE,
                                   scenario_specs,worstColor = "#E07B73" ,mainLineMetric,
@@ -117,10 +139,22 @@ plot_trajectory_chart <- function(data,plotTitle = "", xTitle="", yTitle="", ann
   return(p_trajectory)
 }
 
+#' Create a techmix chart in a ggplot object
+#'
+#' @param data filtered input data (dataframe with columns: technology, metric_type, metric and value)
+#' @param plotTitle title of the plot (character string; default = "")
+#' @param showLegend flag indicating whether legend should be shown (boolean; default = TRUE)
+#' @param df_tech_colors dataframe cotaining colors per technology (dataframe with columns: technology, label, color)
+#' @param df_bar_specs dataframe containing order of bars and their labels (datframe with columns: metric_type, label)
+#'
+#' @description
+#' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
+#'
 #' @import ggplot2
 #' @import dplyr
+#' @export
 
-plot_techmix_chart <- function(data,plotTitle, showLegend, df_tech_colors, df_bar_specs) {
+plot_techmix_chart <- function(data,plotTitle = "", showLegend = TRUE, df_tech_colors, df_bar_specs) {
 
   data_colors <- df_tech_colors %>%
     filter(.data$technology %in% unique(!!data$technology))
@@ -160,7 +194,12 @@ plot_techmix_chart <- function(data,plotTitle, showLegend, df_tech_colors, df_ba
   return(p_techmix)
 }
 
+#' Get the predefined technology colors for a sector
+#'
+#' @param sector sector for which we want to retrieve colors (a character string)
+#'
 #' @import dplyr
+#' @export
 
 get_sector_colors <- function(sector) {
 

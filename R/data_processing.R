@@ -1,4 +1,12 @@
+#' Performs initial processing on raw input data in banks' format
+#'
+#' @param data raw input data in the banks' format
+#'
+#' @description
+#' The data is processed so that it can be used later in data filtering functions for charts. 'metric_type' variable is added which depends on 'metric' and the 'metric' values themselves are edited for plotting purposes.
+#'
 #' @import dplyr
+#' @export
 
 process_input_data <- function(data) {
   data <- data %>% mutate(metric_type = case_when(
@@ -13,7 +21,19 @@ process_input_data <- function(data) {
     ))
 }
 
+#' Filters pre-processed data to be ready for plotting a trajectory chart for a technology
+#'
+#' @param data pre-processed input data
+#' @param sector sector for which to filter the data (a character string)
+#' @param technology technology for which to filter the data (a character string)
+#' @param region region for which to filter the data (a character string)
+#' @param scenario_source scenario source for which to filter the data (a character string)
+#' @param value_name the name of the value to be plotted in the trajectory chart (a character string)
+#' @param end_year cut off year for the chart (an integer; default = 2025)
+#' @param normalize_to_start_year flab indicating whether the values should be normalized (boolean; default = TRUE)
+#'
 #' @import dplyr
+#' @export
 
 filter_data_for_trajectory_chart <- function(data,sector,technology,
                                              region,scenario_source,
@@ -39,7 +59,18 @@ filter_data_for_trajectory_chart <- function(data,sector,technology,
   return(data_filtered)
 }
 
+#' Filters pre-processed data to be ready for plotting a techmix chart for a sector
+#'
+#' @param data pre-processed input data
+#' @param sector sector for which to filter the data (a character string)
+#' @param years years which we want to plot in the graph (an array of integer values)
+#' @param region region for which to filter the data (a character string)
+#' @param scenario_source scenario source for which to filter the data (a character string)
+#' @param scenario scenario to plot in the graph (a character string)
+#' @param value_name the name of the value to be plotted as a bar chart (a character string)
+#'
 #' @import dplyr
+#' @export
 
 filter_data_for_techmix_chart <- function(data,sector,years,
                                           region,scenario_source,

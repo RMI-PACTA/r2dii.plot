@@ -1,3 +1,10 @@
+#' Imports example data set for plotting
+#'
+#' @description
+#' The example data set has the same structure as the banks' data and can be used to explore the plotting possibilities.
+
+#' @export
+
 get_example_data <- function() {
   data <- structure(list(sector = c("automotive", "automotive", "automotive",
                                     "automotive", "automotive", "automotive", "automotive", "automotive",
