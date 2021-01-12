@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# r2dii.ggplot
+# r2dii.ggplot <a href='https://github.com/2DegreesInvesting/r2dii.ggplot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
 
 <!-- badges: start -->
 
