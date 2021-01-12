@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# r2dii.interactive
+# r2dii.ggplot
 
 <!-- badges: start -->
 [![Lifecycle:

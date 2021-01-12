@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# r2dii.interactive
+# r2dii.ggplot
 
 <!-- badges: start -->
 
