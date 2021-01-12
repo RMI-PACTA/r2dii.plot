@@ -10,6 +10,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
+  fig.align = "left",
   out.width = "100%"
 )
 ```
@@ -77,6 +78,7 @@ plot <- plot_trajectory_chart(data_trajectory,
 plot
 ```
 And here is the expected output plot:
+
 ![Trajectory chart example](man/figures/README-/trajectory_example.png)
 
 
@@ -102,4 +104,5 @@ plot_techmix_power <- plot_techmix_chart(data_techmix_power,"Technology mix for 
 plot_techmix_power
 ```
 And here is the expected output plot:
+
 ![Technology mix chart example](man/figures/README-/example_techmix.png)

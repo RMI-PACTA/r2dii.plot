@@ -68,8 +68,9 @@ plot <- plot_trajectory_chart(data_trajectory,
 plot
 ```
 
-And here is the expected output plot: ![Trajectory chart
-example](man/figures/README-/trajectory_example.png)
+And here is the expected output plot:
+
+![Trajectory chart example](man/figures/README-/trajectory_example.png)
 
 This is a basic example usage of plot\_techmix\_chart():
 
@@ -93,5 +94,6 @@ plot_techmix_power <- plot_techmix_chart(data_techmix_power,"Technology mix for 
 plot_techmix_power
 ```
 
-And here is the expected output plot: ![Technology mix chart
-example](man/figures/README-/example_techmix.png)
+And here is the expected output plot:
+
+![Technology mix chart example](man/figures/README-/example_techmix.png)
