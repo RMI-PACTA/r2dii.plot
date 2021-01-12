@@ -1,10 +1,22 @@
+---
+output: github_document
+always_allow_html: yes
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # r2dii.interactive
 
 <!-- badges: start -->
-
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
@@ -14,10 +26,7 @@ coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/gra
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions)
 <!-- badges: end -->
 
-The goal of r2dii.ggplot is to provide users with plotting and data
-processing functions that will allow the users to create standard 2DII
-plots using `PACTA_analysis` or banks’ output data as input. The plots
-are in the form of ggplot objects.
+The goal of r2dii.ggplot is to provide users with plotting and data processing functions that will allow the users to create standard 2DII plots using `PACTA_analysis` or banks' output data as input. The plots are in the form of ggplot objects. 
 
 ## Installation
 
