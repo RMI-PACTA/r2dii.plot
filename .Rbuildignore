@@ -6,3 +6,6 @@
 ^example_script\.R$
 ^README\.Rmd$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
