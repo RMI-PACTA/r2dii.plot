@@ -20,18 +20,11 @@ are in the form of ggplot objects.
 
 ## Installation
 
-<!--
-You can install the released version of r2dii.ggplot from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("r2dii.ggplot")
-```
--->
-
 You can install the development version of r2dii.ggplot from
 [GitHub](https://github.com/2DegreesInvesting/r2dii.ggplot) with:
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 ```
 
@@ -63,11 +56,13 @@ plot <- plot_trajectory_chart(data_trajectory,
                               annotateData = FALSE,
                               scenario_specs,worstColor,
                               mainLineMetric, additionalLineMetrics)
+#> Selecting by value_low
 
 
 plot
 ```
 
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 And here is the expected output plot:
 
 ![Trajectory chart example](man/figures/README-/trajectory_example.png)
@@ -94,6 +89,7 @@ plot_techmix_power <- plot_techmix_chart(data_techmix_power,"Technology mix for 
 plot_techmix_power
 ```
 
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 And here is the expected output plot:
 
 ![Technology mix chart example](man/figures/README-/example_techmix.png)
