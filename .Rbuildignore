@@ -4,3 +4,4 @@
 ^charts/.*$
 ^colors/.*$
 ^example_script\.R$
+^README\.Rmd$
