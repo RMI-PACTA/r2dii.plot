@@ -30,18 +30,11 @@ The goal of r2dii.ggplot is to provide users with plotting and data processing f
 
 ## Installation
 
-<!--
-You can install the released version of r2dii.ggplot from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("r2dii.ggplot")
-```
--->
-
 You can install the development version of r2dii.ggplot from
 [GitHub](https://github.com/2DegreesInvesting/r2dii.ggplot) with:
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 ```
 
