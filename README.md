@@ -30,7 +30,7 @@ devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 
 ## Example
 
-This is a basic example usage of plot\_trajectory\_chart():
+This is a basic example usage of `plot_trajectory_chart()`:
 
 ``` r
 library(r2dii.ggplot)
@@ -63,20 +63,14 @@ plot <- plot_trajectory_chart(data_trajectory,
 )
 #> Selecting by value_low
 
-
 plot
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-And here is the expected output plot:
 
-![Trajectory chart example](man/figures/README-/trajectory_example.png)
-
-This is a basic example usage of plot\_techmix\_chart():
+This is a basic example usage of `plot_techmix_chart()`:
 
 ``` r
-library(r2dii.ggplot)
-
 example_data <- get_example_data()
 example_data <- process_input_data(example_data)
 
@@ -96,10 +90,8 @@ bars_labels_specs <- data.frame(
 plot_techmix_power <- plot_techmix_chart(data_techmix_power, "Technology mix for the Power sector",
   showLegend = TRUE, tech_colors_power, bars_labels_specs
 )
+
 plot_techmix_power
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-And here is the expected output plot:
-
-![Technology mix chart example](man/figures/README-/example_techmix.png)
