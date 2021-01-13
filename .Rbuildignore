@@ -5,3 +5,4 @@
 ^colors/.*$
 ^example_script\.R$
 ^README\.Rmd$
+^\.github$
