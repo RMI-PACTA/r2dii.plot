@@ -11,6 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/r2dii.ggplot)](https://CRAN.R-project.org/package=r2dii.ggplot)
 [![Codecov test
 coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot?branch=master)
+[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions)
 <!-- badges: end -->
 
 The goal of r2dii.ggplot is to provide users with plotting and data
