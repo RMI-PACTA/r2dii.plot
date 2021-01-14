@@ -41,6 +41,7 @@ create_general_plot_with_default_settings <- function() {
 #'
 #' @import ggplot2
 #' @import dplyr
+#' @import r2dii.data
 #' @export
 
 plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = "", annotateData = FALSE,
