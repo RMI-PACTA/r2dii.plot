@@ -173,14 +173,20 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
 
 #' Create a techmix chart in a ggplot object
 #'
-#' @param data filtered input data (dataframe with columns: technology, metric_type, metric and value)
-#' @param plotTitle title of the plot (character string; default = "")
-#' @param showLegend flag indicating whether legend should be shown (boolean; default = TRUE)
-#' @param df_tech_colors dataframe containing colors per technology (dataframe with columns: technology, label, color)
-#' @param df_bar_specs dataframe containing order of bars and their labels (datframe with columns: metric_type, label)
+#' @param data filtered input data (dataframe with columns: technology,
+#'   metric_type, metric and value).
+#' @param plotTitle title of the plot (character string; default = "").
+#' @param showLegend flag indicating whether legend should be shown (boolean;
+#'   default = TRUE).
+#' @param df_tech_colors dataframe containing colors per technology (dataframe
+#'   with columns: technology, label, color).
+#' @param df_bar_specs dataframe containing order of bars and their labels
+#'   (datframe with columns: metric_type, label).
 #'
 #' @description
-#' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
+#' The function returns a ggplot object containing a stacked bar chart showing a
+#' technology mix for different categories (portfolio, scenario, benchmark,
+#' etc.).
 #'
 #' @import ggplot2
 #' @import dplyr
