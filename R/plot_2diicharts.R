@@ -191,7 +191,8 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
 #' @import ggplot2
 #' @import dplyr
 #' @export
-
+#' @examples
+#' # TODO create an example or copy-paste an exising one from README or a test.
 plot_techmix_chart <- function(data, plotTitle = "", showLegend = TRUE, df_tech_colors, df_bar_specs) {
   data_colors <- df_tech_colors %>%
     filter(.data$technology %in% unique(!!data$technology))
