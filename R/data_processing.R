@@ -1,12 +1,16 @@
 #' Performs initial processing on raw input data in banks' format
 #'
-#' @param data raw input data in the banks' format
+#' The data is processed so that it can be used later in data filtering
+#' functions for charts. 'metric_type' variable is added which depends on
+#' 'metric' and the 'metric' values themselves are edited for plotting purposes.
 #'
-#' @description
-#' The data is processed so that it can be used later in data filtering functions for charts. 'metric_type' variable is added which depends on 'metric' and the 'metric' values themselves are edited for plotting purposes.
+#' @param data Raw input data in the banks' format.
 #'
+#' @return An object of class "ggolot".
 #' @export
-
+#'
+#' @examples
+#' # TODO
 process_input_data <- function(data) {
   data <- data %>%
     mutate(metric_type = case_when(
