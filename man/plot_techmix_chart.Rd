@@ -32,3 +32,6 @@ The function returns a ggplot object containing a stacked bar chart showing a
 technology mix for different categories (portfolio, scenario, benchmark,
 etc.).
 }
+\examples{
+# TODO create an example or copy-paste an exising one from README or a test.
+}

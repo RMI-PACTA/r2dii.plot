@@ -5,7 +5,7 @@
 #' @description
 #' The data is processed so that it can be used later in data filtering functions for charts. 'metric_type' variable is added which depends on 'metric' and the 'metric' values themselves are edited for plotting purposes.
 #'
-#' @import dplyr
+
 #' @export
 
 process_input_data <- function(data) {
@@ -33,7 +33,7 @@ process_input_data <- function(data) {
 #' @param end_year cut off year for the chart (an integer; default = 2025)
 #' @param normalize_to_start_year flab indicating whether the values should be normalized (boolean; default = TRUE)
 #'
-#' @import dplyr
+
 #' @export
 
 filter_data_for_trajectory_chart <- function(data, sector, technology,
@@ -72,7 +72,7 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
 #' @param scenario scenario to plot in the graph (a character string)
 #' @param value_name the name of the value to be plotted as a bar chart (a character string)
 #'
-#' @import dplyr
+
 #' @export
 
 filter_data_for_techmix_chart <- function(data, sector, years,

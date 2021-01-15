@@ -3,7 +3,7 @@
 #' @description
 #' Returns a ggplot with common aesthetics, like removed gridlines, grey axis lines etc.
 #'
-#' @import ggplot2
+
 #' @export
 
 create_general_plot_with_default_settings <- function() {
@@ -38,9 +38,9 @@ create_general_plot_with_default_settings <- function() {
 #' @description
 #' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
 #'
-#' @import ggplot2
-#' @import dplyr
-#' @import r2dii.data
+
+
+
 #' @export
 
 plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = "", annotateData = FALSE,
@@ -188,8 +188,6 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
 #' technology mix for different categories (portfolio, scenario, benchmark,
 #' etc.).
 #'
-#' @import ggplot2
-#' @import dplyr
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an exising one from README or a test.
@@ -238,7 +236,7 @@ plot_techmix_chart <- function(data, plotTitle = "", showLegend = TRUE, df_tech_
 #'
 #' @param sector sector for which we want to retrieve colors (a character string)
 #'
-#' @import dplyr
+
 #' @export
 
 get_sector_colors <- function(sector) {
