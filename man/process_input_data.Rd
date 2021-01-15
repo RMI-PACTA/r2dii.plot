@@ -7,8 +7,16 @@
 process_input_data(data)
 }
 \arguments{
-\item{data}{raw input data in the banks' format}
+\item{data}{Raw input data in the banks' format.}
+}
+\value{
+An object of class "ggolot".
 }
 \description{
-The data is processed so that it can be used later in data filtering functions for charts. 'metric_type' variable is added which depends on 'metric' and the 'metric' values themselves are edited for plotting purposes.
+The data is processed so that it can be used later in data filtering
+functions for charts. 'metric_type' variable is added which depends on
+'metric' and the 'metric' values themselves are edited for plotting purposes.
+}
+\examples{
+# TODO
 }
