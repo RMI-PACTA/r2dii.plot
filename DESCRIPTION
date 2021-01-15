@@ -18,8 +18,8 @@ Depends:
 Imports: 
     dplyr,
     ggplot2,
-    scales,
-    r2dii.data
+    r2dii.data,
+    scales
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
