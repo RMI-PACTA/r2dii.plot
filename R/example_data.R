@@ -4,6 +4,10 @@
 #' used to explore the plotting possibilities.
 #'
 #' @export
+#'
+#' @return A dataframe.
+#'
+#' @examples
 #' get_example_data()
 get_example_data <- function() {
   data <- structure(list(
