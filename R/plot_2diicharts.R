@@ -31,8 +31,7 @@ create_general_plot_with_default_settings <- function() {
 #' @param xTitle title of the x-axis (character string; default = "")
 #' @param yTitle title of the y-axis (character string; default = "")
 #' @param annotateData flag indicating whether the data should be annotated (boolean; default = FALSE)
-#' @param scenario_specs dataframe containing scenario specifications like color or label (dataframe with columns: scenario, label, color)
-#' @param worstColor the color that should be used for the area worse than any scenario (character string with hex color code, default = "#E07B73")
+#' @param scenario_specs_good_to_bad dataframe containing scenario specifications like color or label, ordered from the most to least sustainable (dataframe with columns: scenario, label, color)
 #' @param mainLineMetric dataframe containing information about metric that should be plotted as the main line (datframe with columns: metric, label)
 #' @param additionalLineMetrics dataframe containing information about additional metrics that should be plotted as lines (datframe with columns: metric, label; default = data.frame())
 #'
@@ -45,8 +44,9 @@ create_general_plot_with_default_settings <- function() {
 #' @export
 
 plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = "", annotateData = FALSE,
-                                  scenario_specs, worstColor = "#E07B73", mainLineMetric,
+                                  scenario_specs_good_to_bad, mainLineMetric,
                                   additionalLineMetrics = data.frame()) {
+
   p_general <- create_general_plot_with_default_settings()
 
   p_trajectory <- p_general +
@@ -68,36 +68,61 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
   upper_area_border <- max(data$value)
   last_year <- max(data$year)
 
-  data_scenarios <- data %>%
-    filter(.data$metric_type == "scenario") %>%
-    group_by(.data$year) %>%
-    arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
-    mutate(value_low = dplyr::lag(.data$value, n = 1, default = lower_area_border))
+  year <- unique(data$year)
+  data_worse_than_scenarios <- data.frame(year)
 
-  year <- unique(data_scenarios$year)
-  data_worst_than_scenarios <- data.frame(year)
-  data_worst_than_scenarios$value <- upper_area_border
-  data_worst_than_scenarios <- left_join(data_worst_than_scenarios,
-    data_scenarios %>%
-      select(.data$year, value_low = .data$value) %>%
-      group_by(.data$year) %>% top_n(n = 1),
-    by = "year"
-  )
+  green_or_brown <- r2dii.data::green_or_brown
+  tech_green_or_brown <- green_or_brown[green_or_brown$technology == data$technology[1],]$green_or_brown
 
-  p_trajectory <- p_trajectory +
-    geom_ribbon(
-      data = data_worst_than_scenarios,
-      aes(ymin = .data$value_low, ymax = .data$value, x = year, group = 1),
-      fill = worstColor, alpha = 0.75
-    )
+  if (tech_green_or_brown == "brown") {
+
+    scenario_specs <- scenario_specs_good_to_bad
+
+    data_worse_than_scenarios$value <- upper_area_border
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year,.data$metric,.data$value)
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
+      mutate(value_low = dplyr::lag(.data$value, n = 1, default = lower_area_border))
+
+  } else if (tech_green_or_brown == "green") {
+
+    scenario_specs <- scenario_specs_good_to_bad[nrow(scenario_specs_good_to_bad):1,]
+
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year,.data$metric,value_low = .data$value)
+
+    data_worse_than_scenarios$value_low <- lower_area_border
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
+      mutate(value = dplyr::lead(.data$value_low, n = 1, default = upper_area_border))
+  }
 
   for (i in 1:length(scenario_specs$scenario)) {
     scen <- scenario_specs$scenario[i]
     color <- scenario_specs$color[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
     p_trajectory <- p_trajectory +
-      geom_ribbon(data = data_scen, aes(ymin = .data$value_low, ymax = .data$value, x = year, group = 1), fill = color, alpha = 0.75) +
-      geom_line(data = data_scen, aes(x = year, y = .data$value), color = color)
+      geom_ribbon(data = data_scen, aes(ymin = .data$value_low, ymax = .data$value, x = year, group = 1), fill = color, alpha = 0.75)
+
+    if (scen != "worse") {
+      if (tech_green_or_brown == "brown") {
+        p_trajectory <- p_trajectory +
+          geom_line(data = data_scen, aes(x = year, y = .data$value), color = color)
+      } else if (tech_green_or_brown == "green") {
+        p_trajectory <- p_trajectory +
+          geom_line(data = data_scen, aes(x = year, y = .data$value_low), color = color)
+      }
+    }
 
     if (annotateData) {
       p_trajectory <- p_trajectory +

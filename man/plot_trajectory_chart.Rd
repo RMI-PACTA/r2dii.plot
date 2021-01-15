@@ -10,8 +10,7 @@ plot_trajectory_chart(
   xTitle = "",
   yTitle = "",
   annotateData = FALSE,
-  scenario_specs,
-  worstColor = "#E07B73",
+  scenario_specs_good_to_bad,
   mainLineMetric,
   additionalLineMetrics = data.frame()
 )
@@ -27,9 +26,7 @@ plot_trajectory_chart(
 
 \item{annotateData}{flag indicating whether the data should be annotated (boolean; default = FALSE)}
 
-\item{scenario_specs}{dataframe containing scenario specifications like color or label (dataframe with columns: scenario, label, color)}
-
-\item{worstColor}{the color that should be used for the area worse than any scenario (character string with hex color code, default = "#E07B73")}
+\item{scenario_specs_good_to_bad}{dataframe containing scenario specifications like color or label, ordered from the most to least sustainable (dataframe with columns: scenario, label, color)}
 
 \item{mainLineMetric}{dataframe containing information about metric that should be plotted as the main line (datframe with columns: metric, label)}
 
