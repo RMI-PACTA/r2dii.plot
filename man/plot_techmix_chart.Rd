@@ -25,7 +25,7 @@ default = TRUE).}
 with columns: technology, label, color).}
 
 \item{df_bar_specs}{dataframe containing order of bars and their labels
-(datframe with columns: metric_type, label).}
+(dataframe with columns: metric_type, label).}
 }
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a

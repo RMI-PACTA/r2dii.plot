@@ -28,9 +28,9 @@ plot_trajectory_chart(
 
 \item{scenario_specs_good_to_bad}{dataframe containing scenario specifications like color or label, ordered from the most to least sustainable (dataframe with columns: scenario, label, color)}
 
-\item{mainLineMetric}{dataframe containing information about metric that should be plotted as the main line (datframe with columns: metric, label)}
+\item{mainLineMetric}{dataframe containing information about metric that should be plotted as the main line (dataframe with columns: metric, label)}
 
-\item{additionalLineMetrics}{dataframe containing information about additional metrics that should be plotted as lines (datframe with columns: metric, label; default = data.frame())}
+\item{additionalLineMetrics}{dataframe containing information about additional metrics that should be plotted as lines (dataframe with columns: metric, label; default = data.frame())}
 }
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)

@@ -32,8 +32,8 @@ create_general_plot_with_default_settings <- function() {
 #' @param yTitle title of the y-axis (character string; default = "")
 #' @param annotateData flag indicating whether the data should be annotated (boolean; default = FALSE)
 #' @param scenario_specs_good_to_bad dataframe containing scenario specifications like color or label, ordered from the most to least sustainable (dataframe with columns: scenario, label, color)
-#' @param mainLineMetric dataframe containing information about metric that should be plotted as the main line (datframe with columns: metric, label)
-#' @param additionalLineMetrics dataframe containing information about additional metrics that should be plotted as lines (datframe with columns: metric, label; default = data.frame())
+#' @param mainLineMetric dataframe containing information about metric that should be plotted as the main line (dataframe with columns: metric, label)
+#' @param additionalLineMetrics dataframe containing information about additional metrics that should be plotted as lines (dataframe with columns: metric, label; default = data.frame())
 #'
 #' @description
 #' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
@@ -181,7 +181,7 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
 #' @param df_tech_colors dataframe containing colors per technology (dataframe
 #'   with columns: technology, label, color).
 #' @param df_bar_specs dataframe containing order of bars and their labels
-#'   (datframe with columns: metric_type, label).
+#'   (dataframe with columns: metric_type, label).
 #'
 #' @description
 #' The function returns a ggplot object containing a stacked bar chart showing a
