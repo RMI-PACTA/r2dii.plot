@@ -46,7 +46,7 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
     filter(.data$region == !!region) %>%
     filter(.data$scenario_source == !!scenario_source) %>%
     filter(.data$year <= end_year) %>%
-    select(.data$year, .data$metric_type, .data$metric, value = !!value_name)
+    select(.data$year, .data$metric_type, .data$metric, .data$technology, value = !!value_name)
 
   if (normalize_to_start_year) {
     data_filtered <- left_join(data_filtered, data_filtered[data_filtered$year == min(data_filtered$year), ],
@@ -55,7 +55,7 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
       mutate(value = .data$value.x / .data$value.y) %>%
       select(
         year = .data$year.x, .data$metric_type,
-        .data$metric, .data$value
+        .data$metric, .data$value, technology = .data$technology.x
       )
   }
 
