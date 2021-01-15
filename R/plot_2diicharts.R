@@ -46,7 +46,6 @@ create_general_plot_with_default_settings <- function() {
 plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = "", annotateData = FALSE,
                                   scenario_specs_good_to_bad, mainLineMetric,
                                   additionalLineMetrics = data.frame()) {
-
   p_general <- create_general_plot_with_default_settings()
 
   p_trajectory <- p_general +
@@ -72,10 +71,9 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
   data_worse_than_scenarios <- data.frame(year)
 
   green_or_brown <- r2dii.data::green_or_brown
-  tech_green_or_brown <- green_or_brown[green_or_brown$technology == data$technology[1],]$green_or_brown
+  tech_green_or_brown <- green_or_brown[green_or_brown$technology == data$technology[1], ]$green_or_brown
 
   if (tech_green_or_brown == "brown") {
-
     scenario_specs <- scenario_specs_good_to_bad
 
     data_worse_than_scenarios$value <- upper_area_border
@@ -83,20 +81,18 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
 
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
-      select(.data$year,.data$metric,.data$value)
+      select(.data$year, .data$metric, .data$value)
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
       arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
       mutate(value_low = dplyr::lag(.data$value, n = 1, default = lower_area_border))
-
   } else if (tech_green_or_brown == "green") {
-
-    scenario_specs <- scenario_specs_good_to_bad[nrow(scenario_specs_good_to_bad):1,]
+    scenario_specs <- scenario_specs_good_to_bad[nrow(scenario_specs_good_to_bad):1, ]
 
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
-      select(.data$year,.data$metric,value_low = .data$value)
+      select(.data$year, .data$metric, value_low = .data$value)
 
     data_worse_than_scenarios$value_low <- lower_area_border
     data_worse_than_scenarios$metric <- "worse"
