@@ -6,23 +6,32 @@
 \usage{
 plot_techmix_chart(
   data,
-  plotTitle = "",
-  showLegend = TRUE,
+  plot_title = "",
+  show_legend = TRUE,
   df_tech_colors,
   df_bar_specs
 )
 }
 \arguments{
-\item{data}{filtered input data (dataframe with columns: technology, metric_type, metric and value)}
+\item{data}{filtered input data (dataframe with columns: technology,
+metric_type, metric and value).}
 
-\item{plotTitle}{title of the plot (character string; default = "")}
+\item{plot_title}{title of the plot (character string; default = "").}
 
-\item{showLegend}{flag indicating whether legend should be shown (boolean; default = TRUE)}
+\item{show_legend}{flag indicating whether legend should be shown (boolean;
+default = TRUE).}
 
-\item{df_tech_colors}{dataframe cotaining colors per technology (dataframe with columns: technology, label, color)}
+\item{df_tech_colors}{dataframe containing colors per technology (dataframe
+with columns: technology, label, color).}
 
-\item{df_bar_specs}{dataframe containing order of bars and their labels (datframe with columns: metric_type, label)}
+\item{df_bar_specs}{dataframe containing order of bars and their labels
+(dataframe with columns: metric_type, label).}
 }
 \description{
-The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
+The function returns a ggplot object containing a stacked bar chart showing a
+technology mix for different categories (portfolio, scenario, benchmark,
+etc.).
+}
+\examples{
+# TODO create an example or copy-paste an exising one from README or a test.
 }

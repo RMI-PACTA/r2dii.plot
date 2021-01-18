@@ -8,15 +8,19 @@ Authors@R:
            email = "monika.furdyna@gmail.com",
            comment = c(ORCID = "FIXME"))
 Description: Allows the user to create standardized 2DII
-    graphis, like trajectory charts or technology mix charts, and outputs
+    graphs, like trajectory charts or technology mix charts, and outputs
     them as 'ggplot' objects. It also contains data processing functions
     that prepare the standard bank's data to be an input for the plotting
     functions.
 License: MIT + file LICENSE
+Depends: 
+    R (>= 3.4)
 Imports: 
     dplyr,
     ggplot2,
-    scales
+    r2dii.data,
+    scales,
+    magrittr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

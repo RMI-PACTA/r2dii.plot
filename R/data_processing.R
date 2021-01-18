@@ -1,13 +1,16 @@
 #' Performs initial processing on raw input data in banks' format
 #'
-#' @param data raw input data in the banks' format
+#' The data is processed so that it can be used later in data filtering
+#' functions for charts. 'metric_type' variable is added which depends on
+#' 'metric' and the 'metric' values themselves are edited for plotting purposes.
 #'
-#' @description
-#' The data is processed so that it can be used later in data filtering functions for charts. 'metric_type' variable is added which depends on 'metric' and the 'metric' values themselves are edited for plotting purposes.
+#' @param data Raw input data in the format of banks' output.
 #'
-#' @import dplyr
+#' @return A dataframe with additional column: metric type and modified metric
 #' @export
-
+#'
+#' @examples
+#' # TODO
 process_input_data <- function(data) {
   data <- data %>%
     mutate(metric_type = case_when(
@@ -33,7 +36,6 @@ process_input_data <- function(data) {
 #' @param end_year cut off year for the chart (an integer; default = 2025)
 #' @param normalize_to_start_year flab indicating whether the values should be normalized (boolean; default = TRUE)
 #'
-#' @import dplyr
 #' @export
 
 filter_data_for_trajectory_chart <- function(data, sector, technology,
@@ -46,16 +48,18 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
     filter(.data$region == !!region) %>%
     filter(.data$scenario_source == !!scenario_source) %>%
     filter(.data$year <= end_year) %>%
-    select(.data$year, .data$metric_type, .data$metric, value = !!value_name)
+    select(.data$year, .data$metric_type, .data$metric, .data$technology,
+           value = !!value_name)
 
   if (normalize_to_start_year) {
-    data_filtered <- left_join(data_filtered, data_filtered[data_filtered$year == min(data_filtered$year), ],
+    data_filtered <- left_join(data_filtered,
+                               data_filtered[data_filtered$year == min(data_filtered$year), ],
       by = c("metric_type", "metric")
     ) %>%
       mutate(value = .data$value.x / .data$value.y) %>%
       select(
         year = .data$year.x, .data$metric_type,
-        .data$metric, .data$value
+        .data$metric, .data$value, technology = .data$technology.x
       )
   }
 
@@ -72,7 +76,6 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
 #' @param scenario scenario to plot in the graph (a character string)
 #' @param value_name the name of the value to be plotted as a bar chart (a character string)
 #'
-#' @import dplyr
 #' @export
 
 filter_data_for_techmix_chart <- function(data, sector, years,
@@ -85,7 +88,10 @@ filter_data_for_techmix_chart <- function(data, sector, years,
     filter(.data$scenario_source == !!scenario_source) %>%
     filter(.data$metric_type %in% c("portfolio", "benchmark") |
       (.data$metric_type == "scenario" & .data$metric == scenario)) %>%
-    mutate(metric_type = paste0(.data$metric_type, "_", as.character(.data$year))) %>%
-    select(.data$technology, .data$metric_type, .data$metric, value = !!value_name) %>%
+    mutate(
+      metric_type = paste0(.data$metric_type, "_", as.character(.data$year))
+      ) %>%
+    select(.data$technology, .data$metric_type, .data$metric,
+           value = !!value_name)
     return(data_filtered)
 }

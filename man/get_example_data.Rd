@@ -6,6 +6,13 @@
 \usage{
 get_example_data()
 }
+\value{
+A dataframe.
+}
 \description{
-The example data set has the same structure as the banks' data and can be used to explore the plotting possibilities.
+The example data set has the same structure as the banks' data and can be
+used to explore the plotting possibilities.
+}
+\examples{
+get_example_data()
 }

@@ -3,7 +3,6 @@
 #' @description
 #' Returns a ggplot with common aesthetics, like removed gridlines, grey axis lines etc.
 #'
-#' @import ggplot2
 #' @export
 
 create_general_plot_with_default_settings <- function() {
@@ -17,9 +16,14 @@ create_general_plot_with_default_settings <- function() {
     theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm")) +
     theme(axis.line = element_line(colour = supporting_elts_color)) +
     theme(axis.ticks = element_line(colour = supporting_elts_color)) +
-    theme(plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold", family = font_family, size = 14, margin = margin(25, 2, 8, 2))) +
-    theme(axis.text = element_text(family = font_family, size = font_size_ticks, margin = margin(5, 5, 5, 5))) +
-    theme(axis.title = element_text(family = font_family, size = font_size_axis_titles, margin = margin(5, 5, 5, 5)))
+    theme(plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold",
+                                    family = font_family, size = 14,
+                                    margin = margin(25, 2, 8, 2))) +
+    theme(axis.text = element_text(family = font_family, size = font_size_ticks,
+                                   margin = margin(5, 5, 5, 5))) +
+    theme(axis.title = element_text(family = font_family,
+                                    size = font_size_axis_titles,
+                                    margin = margin(5, 5, 5, 5)))
 
   return(p_general)
 }
@@ -27,35 +31,34 @@ create_general_plot_with_default_settings <- function() {
 #' Create a trajectory alignment chart in a ggplot object
 #'
 #' @param data filtered input data (dataframe with columns: year, metric_type, metric and value)
-#' @param plotTitle title of the plot (character string; default = "")
-#' @param xTitle title of the x-axis (character string; default = "")
-#' @param yTitle title of the y-axis (character string; default = "")
-#' @param annotateData flag indicating whether the data should be annotated (boolean; default = FALSE)
-#' @param scenario_specs dataframe containing scenario specifications like color or label (dataframe with columns: scenario, label, color)
-#' @param worstColor the color that should be used for the area worse than any scenario (character string with hex color code, default = "#E07B73")
-#' @param mainLineMetric dataframe containing information about metric that should be plotted as the main line (datframe with columns: metric, label)
-#' @param additionalLineMetrics dataframe containing information about additional metrics that should be plotted as lines (datframe with columns: metric, label; default = data.frame())
+#' @param plot_title title of the plot (character string; default = "")
+#' @param x_title title of the x-axis (character string; default = "")
+#' @param y_title title of the y-axis (character string; default = "")
+#' @param annotate_data flag indicating whether the data should be annotated (boolean; default = FALSE)
+#' @param scenario_specs_good_to_bad dataframe containing scenario specifications like color or label, ordered from the most to least sustainable (dataframe with columns: scenario, label, color)
+#' @param main_line_metric dataframe containing information about metric that should be plotted as the main line (dataframe with columns: metric, label)
+#' @param additional_line_metrics dataframe containing information about additional metrics that should be plotted as lines (dataframe with columns: metric, label; default = data.frame())
 #'
 #' @description
 #' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
 #'
-#' @import ggplot2
-#' @import dplyr
 #' @export
 
-plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = "", annotateData = FALSE,
-                                  scenario_specs, worstColor = "#E07B73", mainLineMetric,
-                                  additionalLineMetrics = data.frame()) {
+plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
+                                  y_title = "", annotate_data = FALSE,
+                                  scenario_specs_good_to_bad, main_line_metric,
+                                  additional_line_metrics = data.frame()) {
+
   p_general <- create_general_plot_with_default_settings()
 
   p_trajectory <- p_general +
     coord_cartesian(expand = FALSE, clip = "off") +
     theme(axis.line = element_blank()) +
-    xlab(xTitle) +
-    ylab(yTitle) +
-    labs(title = plotTitle)
+    xlab(x_title) +
+    ylab(y_title) +
+    labs(title = plot_title)
 
-  if (annotateData) {
+  if (annotate_data) {
     p_trajectory <- p_trajectory +
       theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
   } else {
@@ -67,42 +70,75 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
   upper_area_border <- max(data$value)
   last_year <- max(data$year)
 
-  data_scenarios <- data %>%
-    filter(.data$metric_type == "scenario") %>%
-    group_by(.data$year) %>%
-    arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
-    mutate(value_low = dplyr::lag(.data$value, n = 1, default = lower_area_border))
+  year <- unique(data$year)
+  data_worse_than_scenarios <- data.frame(year)
 
-  year <- unique(data_scenarios$year)
-  data_worst_than_scenarios <- data.frame(year)
-  data_worst_than_scenarios$value <- upper_area_border
-  data_worst_than_scenarios <- left_join(data_worst_than_scenarios,
-    data_scenarios %>%
-      select(.data$year, value_low = .data$value) %>%
-      group_by(.data$year) %>% top_n(n = 1),
-    by = "year"
-  )
+  green_or_brown <- r2dii.data::green_or_brown
+  tech_green_or_brown <- green_or_brown[
+    green_or_brown$technology == data$technology[1], ]$green_or_brown
 
-  p_trajectory <- p_trajectory +
-    geom_ribbon(
-      data = data_worst_than_scenarios,
-      aes(ymin = .data$value_low, ymax = .data$value, x = year, group = 1),
-      fill = worstColor, alpha = 0.75
-    )
+  if (tech_green_or_brown == "brown") {
+    scenario_specs <- scenario_specs_good_to_bad
+
+    data_worse_than_scenarios$value <- upper_area_border
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year, .data$metric, .data$value)
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      arrange(.data$year, factor(.data$metric,
+                                 levels = scenario_specs$scenario)) %>%
+      mutate(value_low = dplyr::lag(.data$value, n = 1,
+                                    default = lower_area_border))
+  } else if (tech_green_or_brown == "green") {
+    scenario_specs <- scenario_specs_good_to_bad[nrow(scenario_specs_good_to_bad):1, ]
+
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year, .data$metric, value_low = .data$value)
+
+    data_worse_than_scenarios$value_low <- lower_area_border
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      arrange(.data$year, factor(.data$metric,
+                                 levels = scenario_specs$scenario)) %>%
+      mutate(value = dplyr::lead(.data$value_low, n = 1,
+                                 default = upper_area_border))
+  }
 
   for (i in 1:length(scenario_specs$scenario)) {
     scen <- scenario_specs$scenario[i]
     color <- scenario_specs$color[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
     p_trajectory <- p_trajectory +
-      geom_ribbon(data = data_scen, aes(ymin = .data$value_low, ymax = .data$value, x = year, group = 1), fill = color, alpha = 0.75) +
-      geom_line(data = data_scen, aes(x = year, y = .data$value), color = color)
+      geom_ribbon(data = data_scen, aes(ymin = .data$value_low,
+                                        ymax = .data$value, x = year, group = 1),
+                  fill = color, alpha = 0.75)
 
-    if (annotateData) {
+    if (scen != "worse") {
+      if (tech_green_or_brown == "brown") {
+        p_trajectory <- p_trajectory +
+          geom_line(data = data_scen, aes(x = year, y = .data$value),
+                    color = color)
+      } else if (tech_green_or_brown == "green") {
+        p_trajectory <- p_trajectory +
+          geom_line(data = data_scen, aes(x = year, y = .data$value_low),
+                    color = color)
+      }
+    }
+
+    if (annotate_data) {
       p_trajectory <- p_trajectory +
         annotate("segment",
-          x = last_year, xend = last_year + 0.75, y = data_scen[data_scen$year == last_year, ]$value,
-          yend = data_scen[data_scen$year == last_year, ]$value, colour = color
+          x = last_year, xend = last_year + 0.75,
+          y = data_scen[data_scen$year == last_year, ]$value,
+          yend = data_scen[data_scen$year == last_year, ]$value,
+          colour = color
         ) +
         annotate("text",
           x = (last_year + 0.85), (y <- data_scen[data_scen$year == last_year, ]$value),
@@ -111,35 +147,40 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
     }
   }
 
-  data_mainline <- data %>% filter(.data$metric == mainLineMetric$metric)
+  data_mainline <- data %>% filter(.data$metric == main_line_metric$metric)
   p_trajectory <- p_trajectory +
-    geom_line(data = data_mainline, aes(x = year, y = .data$value), linetype = "solid")
+    geom_line(data = data_mainline, aes(x = year, y = .data$value),
+              linetype = "solid")
 
-  if (annotateData) {
+  if (annotate_data) {
     p_trajectory <- p_trajectory +
       annotate("text",
-        x = (last_year + 0.1), (y <- data_mainline[data_mainline$year == last_year, ]$value),
-        label = mainLineMetric$label, hjust = 0, size = 3
+        x = (last_year + 0.1), (
+          y <- data_mainline[data_mainline$year == last_year, ]$value
+          ),
+        label = main_line_metric$label, hjust = 0, size = 3
       )
   }
 
-  if (length(additionalLineMetrics) >= 1) {
+  if (length(additional_line_metrics) >= 1) {
     linetypes_supporting <- c("dashed", "solid", "solid", "twodash")
     colors_supporting <- c("black", "gray", "grey46", "black")
 
-    for (i in 1:length(additionalLineMetrics$metric)) {
-      metric_line <- additionalLineMetrics$metric[i]
+    for (i in 1:length(additional_line_metrics$metric)) {
+      metric_line <- additional_line_metrics$metric[i]
       linetype_metric <- linetypes_supporting[i]
       color_metric <- colors_supporting[i]
-      label_metric <- additionalLineMetrics$label[i]
+      label_metric <- additional_line_metrics$label[i]
       data_metric <- data %>% filter(.data$metric == metric_line)
       p_trajectory <- p_trajectory +
-        geom_line(data = data_metric, aes(x = year, y = .data$value), linetype = linetype_metric, color = color_metric)
+        geom_line(data = data_metric, aes(x = year, y = .data$value),
+                  linetype = linetype_metric, color = color_metric)
 
-      if (annotateData) {
+      if (annotate_data) {
         p_trajectory <- p_trajectory +
           annotate("text",
-            x = (last_year + 0.1), (y <- data_metric[data_metric$year == last_year, ]$value),
+            x = (last_year + 0.1), (
+              y <- data_metric[data_metric$year == last_year, ]$value),
             label = label_metric, hjust = 0, size = 3
           )
       }
@@ -151,20 +192,26 @@ plot_trajectory_chart <- function(data, plotTitle = "", xTitle = "", yTitle = ""
 
 #' Create a techmix chart in a ggplot object
 #'
-#' @param data filtered input data (dataframe with columns: technology, metric_type, metric and value)
-#' @param plotTitle title of the plot (character string; default = "")
-#' @param showLegend flag indicating whether legend should be shown (boolean; default = TRUE)
-#' @param df_tech_colors dataframe cotaining colors per technology (dataframe with columns: technology, label, color)
-#' @param df_bar_specs dataframe containing order of bars and their labels (datframe with columns: metric_type, label)
+#' @param data filtered input data (dataframe with columns: technology,
+#'   metric_type, metric and value).
+#' @param plot_title title of the plot (character string; default = "").
+#' @param show_legend flag indicating whether legend should be shown (boolean;
+#'   default = TRUE).
+#' @param df_tech_colors dataframe containing colors per technology (dataframe
+#'   with columns: technology, label, color).
+#' @param df_bar_specs dataframe containing order of bars and their labels
+#'   (dataframe with columns: metric_type, label).
 #'
 #' @description
-#' The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
+#' The function returns a ggplot object containing a stacked bar chart showing a
+#' technology mix for different categories (portfolio, scenario, benchmark,
+#' etc.).
 #'
-#' @import ggplot2
-#' @import dplyr
 #' @export
-
-plot_techmix_chart <- function(data, plotTitle = "", showLegend = TRUE, df_tech_colors, df_bar_specs) {
+#' @examples
+#' # TODO create an example or copy-paste an exising one from README or a test.
+plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
+                               df_tech_colors, df_bar_specs) {
   data_colors <- df_tech_colors %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -176,7 +223,7 @@ plot_techmix_chart <- function(data, plotTitle = "", showLegend = TRUE, df_tech_
   p_techmix <- p_general +
     xlab("") +
     ylab("") +
-    labs(title = plotTitle)
+    labs(title = plot_title)
 
   p_techmix <- p_techmix +
     geom_bar(data = data, aes(
@@ -184,17 +231,19 @@ plot_techmix_chart <- function(data, plotTitle = "", showLegend = TRUE, df_tech_
       x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
       y = .data$value
     ), position = "fill", stat = "identity", width = .5) +
-    scale_y_continuous(labels = scales::percent_format(), expand = c(0, 0), sec.axis = dup_axis()) +
+    scale_y_continuous(labels = scales::percent_format(), expand = c(0, 0),
+                       sec.axis = dup_axis()) +
     scale_x_discrete(labels = rev(df_bar_specs$label)) +
     scale_fill_manual(labels = data_colors$label, values = data_colors$color) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank())
 
-  if (showLegend) {
+  if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
-      theme(legend.text = element_text(family = "Helvetica", size = 9, margin = margin(5, 5, 5, 5))) +
+      theme(legend.text = element_text(family = "Helvetica", size = 9,
+                                       margin = margin(5, 5, 5, 5))) +
       theme(legend.title = element_blank()) +
       guides(fill = guide_legend(ncol = 4, byrow = TRUE))
   } else {
@@ -209,7 +258,6 @@ plot_techmix_chart <- function(data, plotTitle = "", showLegend = TRUE, df_tech_
 #'
 #' @param sector sector for which we want to retrieve colors (a character string)
 #'
-#' @import dplyr
 #' @export
 
 get_sector_colors <- function(sector) {
