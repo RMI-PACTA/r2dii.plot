@@ -16,9 +16,14 @@ create_general_plot_with_default_settings <- function() {
     theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm")) +
     theme(axis.line = element_line(colour = supporting_elts_color)) +
     theme(axis.ticks = element_line(colour = supporting_elts_color)) +
-    theme(plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold", family = font_family, size = 14, margin = margin(25, 2, 8, 2))) +
-    theme(axis.text = element_text(family = font_family, size = font_size_ticks, margin = margin(5, 5, 5, 5))) +
-    theme(axis.title = element_text(family = font_family, size = font_size_axis_titles, margin = margin(5, 5, 5, 5)))
+    theme(plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold",
+                                    family = font_family, size = 14,
+                                    margin = margin(25, 2, 8, 2))) +
+    theme(axis.text = element_text(family = font_family, size = font_size_ticks,
+                                   margin = margin(5, 5, 5, 5))) +
+    theme(axis.title = element_text(family = font_family,
+                                    size = font_size_axis_titles,
+                                    margin = margin(5, 5, 5, 5)))
 
   return(p_general)
 }
@@ -39,9 +44,11 @@ create_general_plot_with_default_settings <- function() {
 #'
 #' @export
 
-plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title = "", annotate_data = FALSE,
+plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
+                                  y_title = "", annotate_data = FALSE,
                                   scenario_specs_good_to_bad, main_line_metric,
                                   additional_line_metrics = data.frame()) {
+
   p_general <- create_general_plot_with_default_settings()
 
   p_trajectory <- p_general +
@@ -67,7 +74,8 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
   data_worse_than_scenarios <- data.frame(year)
 
   green_or_brown <- r2dii.data::green_or_brown
-  tech_green_or_brown <- green_or_brown[green_or_brown$technology == data$technology[1], ]$green_or_brown
+  tech_green_or_brown <- green_or_brown[
+    green_or_brown$technology == data$technology[1], ]$green_or_brown
 
   if (tech_green_or_brown == "brown") {
     scenario_specs <- scenario_specs_good_to_bad
@@ -81,8 +89,10 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
-      arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
-      mutate(value_low = dplyr::lag(.data$value, n = 1, default = lower_area_border))
+      arrange(.data$year, factor(.data$metric,
+                                 levels = scenario_specs$scenario)) %>%
+      mutate(value_low = dplyr::lag(.data$value, n = 1,
+                                    default = lower_area_border))
   } else if (tech_green_or_brown == "green") {
     scenario_specs <- scenario_specs_good_to_bad[nrow(scenario_specs_good_to_bad):1, ]
 
@@ -95,8 +105,10 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
-      arrange(.data$year, factor(.data$metric, levels = scenario_specs$scenario)) %>%
-      mutate(value = dplyr::lead(.data$value_low, n = 1, default = upper_area_border))
+      arrange(.data$year, factor(.data$metric,
+                                 levels = scenario_specs$scenario)) %>%
+      mutate(value = dplyr::lead(.data$value_low, n = 1,
+                                 default = upper_area_border))
   }
 
   for (i in 1:length(scenario_specs$scenario)) {
@@ -104,23 +116,29 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
     color <- scenario_specs$color[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
     p_trajectory <- p_trajectory +
-      geom_ribbon(data = data_scen, aes(ymin = .data$value_low, ymax = .data$value, x = year, group = 1), fill = color, alpha = 0.75)
+      geom_ribbon(data = data_scen, aes(ymin = .data$value_low,
+                                        ymax = .data$value, x = year, group = 1),
+                  fill = color, alpha = 0.75)
 
     if (scen != "worse") {
       if (tech_green_or_brown == "brown") {
         p_trajectory <- p_trajectory +
-          geom_line(data = data_scen, aes(x = year, y = .data$value), color = color)
+          geom_line(data = data_scen, aes(x = year, y = .data$value),
+                    color = color)
       } else if (tech_green_or_brown == "green") {
         p_trajectory <- p_trajectory +
-          geom_line(data = data_scen, aes(x = year, y = .data$value_low), color = color)
+          geom_line(data = data_scen, aes(x = year, y = .data$value_low),
+                    color = color)
       }
     }
 
     if (annotate_data) {
       p_trajectory <- p_trajectory +
         annotate("segment",
-          x = last_year, xend = last_year + 0.75, y = data_scen[data_scen$year == last_year, ]$value,
-          yend = data_scen[data_scen$year == last_year, ]$value, colour = color
+          x = last_year, xend = last_year + 0.75,
+          y = data_scen[data_scen$year == last_year, ]$value,
+          yend = data_scen[data_scen$year == last_year, ]$value,
+          colour = color
         ) +
         annotate("text",
           x = (last_year + 0.85), (y <- data_scen[data_scen$year == last_year, ]$value),
@@ -131,12 +149,15 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
 
   data_mainline <- data %>% filter(.data$metric == main_line_metric$metric)
   p_trajectory <- p_trajectory +
-    geom_line(data = data_mainline, aes(x = year, y = .data$value), linetype = "solid")
+    geom_line(data = data_mainline, aes(x = year, y = .data$value),
+              linetype = "solid")
 
   if (annotate_data) {
     p_trajectory <- p_trajectory +
       annotate("text",
-        x = (last_year + 0.1), (y <- data_mainline[data_mainline$year == last_year, ]$value),
+        x = (last_year + 0.1), (
+          y <- data_mainline[data_mainline$year == last_year, ]$value
+          ),
         label = main_line_metric$label, hjust = 0, size = 3
       )
   }
@@ -152,12 +173,14 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
       label_metric <- additional_line_metrics$label[i]
       data_metric <- data %>% filter(.data$metric == metric_line)
       p_trajectory <- p_trajectory +
-        geom_line(data = data_metric, aes(x = year, y = .data$value), linetype = linetype_metric, color = color_metric)
+        geom_line(data = data_metric, aes(x = year, y = .data$value),
+                  linetype = linetype_metric, color = color_metric)
 
       if (annotate_data) {
         p_trajectory <- p_trajectory +
           annotate("text",
-            x = (last_year + 0.1), (y <- data_metric[data_metric$year == last_year, ]$value),
+            x = (last_year + 0.1), (
+              y <- data_metric[data_metric$year == last_year, ]$value),
             label = label_metric, hjust = 0, size = 3
           )
       }
@@ -187,7 +210,8 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "", y_title =
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an exising one from README or a test.
-plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE, df_tech_colors, df_bar_specs) {
+plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
+                               df_tech_colors, df_bar_specs) {
   data_colors <- df_tech_colors %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -207,7 +231,8 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE, df_tec
       x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
       y = .data$value
     ), position = "fill", stat = "identity", width = .5) +
-    scale_y_continuous(labels = scales::percent_format(), expand = c(0, 0), sec.axis = dup_axis()) +
+    scale_y_continuous(labels = scales::percent_format(), expand = c(0, 0),
+                       sec.axis = dup_axis()) +
     scale_x_discrete(labels = rev(df_bar_specs$label)) +
     scale_fill_manual(labels = data_colors$label, values = data_colors$color) +
     coord_flip() +
@@ -217,7 +242,8 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE, df_tec
   if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
-      theme(legend.text = element_text(family = "Helvetica", size = 9, margin = margin(5, 5, 5, 5))) +
+      theme(legend.text = element_text(family = "Helvetica", size = 9,
+                                       margin = margin(5, 5, 5, 5))) +
       theme(legend.title = element_blank()) +
       guides(fill = guide_legend(ncol = 4, byrow = TRUE))
   } else {
