@@ -6,8 +6,8 @@
 \usage{
 plot_techmix_chart(
   data,
-  plotTitle = "",
-  showLegend = TRUE,
+  plot_title = "",
+  show_legend = TRUE,
   df_tech_colors,
   df_bar_specs
 )
@@ -16,9 +16,9 @@ plot_techmix_chart(
 \item{data}{filtered input data (dataframe with columns: technology,
 metric_type, metric and value).}
 
-\item{plotTitle}{title of the plot (character string; default = "").}
+\item{plot_title}{title of the plot (character string; default = "").}
 
-\item{showLegend}{flag indicating whether legend should be shown (boolean;
+\item{show_legend}{flag indicating whether legend should be shown (boolean;
 default = TRUE).}
 
 \item{df_tech_colors}{dataframe containing colors per technology (dataframe
