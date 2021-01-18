@@ -4,9 +4,9 @@
 #' functions for charts. 'metric_type' variable is added which depends on
 #' 'metric' and the 'metric' values themselves are edited for plotting purposes.
 #'
-#' @param data Raw input data in the banks' format.
+#' @param data Raw input data in the format of banks' output.
 #'
-#' @return An object of class "ggolot".
+#' @return A dataframe with additional column: metric type and modified metric
 #' @export
 #'
 #' @examples

@@ -7,10 +7,10 @@
 process_input_data(data)
 }
 \arguments{
-\item{data}{Raw input data in the banks' format.}
+\item{data}{Raw input data in the format of banks' output.}
 }
 \value{
-An object of class "ggolot".
+A dataframe with additional column: metric type and modified metric
 }
 \description{
 The data is processed so that it can be used later in data filtering
