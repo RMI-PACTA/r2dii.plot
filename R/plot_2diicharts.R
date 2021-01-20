@@ -342,8 +342,13 @@ get_sector_colors <- function(sector) {
   return(colors)
 }
 
-get_2dii_colours <- function() {
-  tibble::tribble(
+#' Get the 2DII colour palette
+#'
+#' @export
+
+r2dii_colours <- function() {
+  # styler: off
+  tribble(
     ~label, ~colour_hex,
     "dark_blue",   "#1b324f",
     "green",   "#00c082",
@@ -355,4 +360,5 @@ get_2dii_colours <- function() {
     "grey",   "#d0d7e1",
     "moss_green",   "#4a5e54"
   )
+  # styler: on
 }
