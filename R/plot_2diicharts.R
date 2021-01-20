@@ -221,7 +221,7 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 #' @param plot_title title of the plot (character string; default = "").
 #' @param show_legend flag indicating whether legend should be shown (boolean;
 #'   default = TRUE).
-#' @param df_tech_colors dataframe containing colors per technology (dataframe
+#' @param df_tech_colours dataframe containing colors per technology (dataframe
 #'   with columns: technology, label, color).
 #' @param df_bar_specs dataframe containing order of bars and their labels
 #'   (dataframe with columns: metric_type, label).

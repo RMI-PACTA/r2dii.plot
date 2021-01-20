@@ -8,7 +8,7 @@ plot_techmix_chart(
   data,
   plot_title = "",
   show_legend = TRUE,
-  df_tech_colors,
+  df_tech_colours,
   df_bar_specs
 )
 }
@@ -21,7 +21,7 @@ metric_type, metric and value).}
 \item{show_legend}{flag indicating whether legend should be shown (boolean;
 default = TRUE).}
 
-\item{df_tech_colors}{dataframe containing colors per technology (dataframe
+\item{df_tech_colours}{dataframe containing colors per technology (dataframe
 with columns: technology, label, color).}
 
 \item{df_bar_specs}{dataframe containing order of bars and their labels
