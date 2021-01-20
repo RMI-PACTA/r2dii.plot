@@ -235,8 +235,8 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 #' @examples
 #' # TODO create an example or copy-paste an exising one from README or a test.
 plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
-                               df_tech_colors, df_bar_specs) {
-  data_colors <- df_tech_colors %>%
+                               df_tech_colours, df_bar_specs) {
+  data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
   data <- data %>%
@@ -251,7 +251,7 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
 
   p_techmix <- p_techmix +
     geom_bar(data = data, aes(
-      fill = factor(.data$technology, levels = data_colors$technology),
+      fill = factor(.data$technology, levels = data_colours$technology),
       x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
       y = .data$value
     ), position = "fill", stat = "identity", width = .5) +
@@ -260,7 +260,7 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
       sec.axis = dup_axis()
     ) +
     scale_x_discrete(labels = rev(df_bar_specs$label)) +
-    scale_fill_manual(labels = data_colors$label, values = data_colors$color) +
+    scale_fill_manual(labels = data_colours$label, values = data_colours$colour) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank())
@@ -288,7 +288,7 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
 #'
 #' @export
 
-get_r2dii_sector_colours <- function(sector) {
+get_r2dii_technology_colours <- function(sector) {
   # styler: off
   all_colours <- tribble(
          ~sector,     ~technology,                         ~label, ~colour_hex,

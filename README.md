@@ -80,14 +80,14 @@ data_techmix_power <- filter_data_for_techmix_chart(example_data,
   scenario = "sds", value_name = "technology_share"
 )
 
-tech_colors_power <- get_sector_colors("power")
+tech_colours_power <- get_r2dii_technology_colours("power")
 bars_labels_specs <- data.frame(
   "metric_type" = c("portfolio_2020", "benchmark_2020", "portfolio_2025", "benchmark_2025", "scenario_2025"),
   "label" = c("Portfolio 2020", "Benchmark 2020", "Portfolio 2025", "Benchmark 2025", "Target SDS 2025")
 )
 
 plot_techmix_power <- plot_techmix_chart(data_techmix_power, "Technology mix for the Power sector",
-  show_legend = TRUE, tech_colors_power, bars_labels_specs
+  show_legend = TRUE, tech_colours_power, bars_labels_specs
 )
 
 plot_techmix_power
