@@ -288,65 +288,44 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
 #'
 #' @export
 
-get_sector_colors <- function(sector) {
-  all_colors <- structure(
-    list(
-      sector = c(
-        "Power", "Power", "Power", "Power",
-        "Power", "Power", "Automotive", "Automotive", "Automotive", "Automotive",
-        "Automotive", "Automotive", "Automotive", "Oil&Gas", "Oil&Gas",
-        "Fossil Fuels", "Fossil Fuels", "Fossil Fuels"
-      ),
-      technology = c(
-        "CoalCap", "OilCap", "GasCap", "NuclearCap", "HydroCap", "RenewablesCap",
-        "Electric", "Electric_HDV", "FuelCell", "Hybrid", "Hybrid_HDV",
-        "ICE", "ICE_HDV", "Gas", "Oil", "Gas", "Oil", "Coal"
-      ),
-      label = c(
-        "Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity", "Electric", "Electric Heavy Duty Vehicles",
-        "FuelCell", "Hybrid", "Hybrid Heavy Duty Vehicles", "ICE", "ICE Heavy Duty Vehicles",
-        "Gas", "Oil", "Gas", "Oil", "Coal"
-      ),
-      color_hex = c(
-        "#7A2701", "#a63603", "#e6550d", "#fd8d3c", "#fdbe85", "#ffd4ad", "#548995",
-        "#609cab", "#6cb0c0", "#78c4d6", "#93cfde", "#aedbe6", "#c9e7ee",
-        "#b9b5b0", "#181716", "#b9b5b0", "#181716", "#4e3b37"
-      )
-    ),
-    class = c("spec_tbl_df", "tbl_df", "tbl", "data.frame"), row.names = c(NA, -18L),
-    spec = structure(list(cols = list(sector = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    )), technology = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    )), label = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    )), color_hex = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    ))), default = structure(list(), class = c(
-      "collector_guess",
-      "collector"
-    )), skip = 1L), class = "col_spec")
+get_r2dii_sector_colours <- function(sector) {
+  # styler: off
+  all_colours <- tribble(
+         ~sector,     ~technology,                         ~label, ~colour_hex,
+         "Power",       "CoalCap",                "Coal Capacity",  "#7A2701",
+         "Power",        "OilCap",                 "Oil Capacity",  "#a63603",
+         "Power",        "GasCap",                 "Gas Capacity",  "#e6550d",
+         "Power",    "NuclearCap",             "Nuclear Capacity",  "#fd8d3c",
+         "Power",      "HydroCap",               "Hydro Capacity",  "#fdbe85",
+         "Power", "RenewablesCap",          "Renewables Capacity",  "#ffd4ad",
+    "Automotive",      "Electric",                     "Electric",  "#548995",
+    "Automotive",  "Electric_HDV", "Electric Heavy Duty Vehicles",  "#609cab",
+    "Automotive",      "FuelCell",                     "FuelCell",  "#6cb0c0",
+    "Automotive",        "Hybrid",                       "Hybrid",  "#78c4d6",
+    "Automotive",    "Hybrid_HDV",   "Hybrid Heavy Duty Vehicles",  "#93cfde",
+    "Automotive",           "ICE",                          "ICE",  "#aedbe6",
+    "Automotive",       "ICE_HDV",      "ICE Heavy Duty Vehicles",  "#c9e7ee",
+       "Oil&Gas",           "Gas",                          "Gas",  "#b9b5b0",
+       "Oil&Gas",           "Oil",                          "Oil",  "#181716",
+  "Fossil Fuels",           "Gas",                          "Gas",  "#b9b5b0",
+  "Fossil Fuels",           "Oil",                          "Oil",  "#181716",
+  "Fossil Fuels",          "Coal",                         "Coal",  "#4e3b37"
   )
+  # styler: on
 
-  all_colors <- all_colors %>%
+  all_colours <- all_colours %>%
     mutate(sector = tolower(.data$sector), technology = tolower(.data$technology))
 
-  colors <- all_colors %>%
+  colours <- all_colours %>%
     filter(.data$sector == !!sector) %>%
-    select(.data$technology, .data$label, color = .data$color_hex)
-
-  return(colors)
+    select(.data$technology, .data$label, colour = .data$colour_hex)
 }
 
 #' Get the 2DII colour palette
 #'
 #' @export
 
-r2dii_colours <- function() {
+r2dii_palette_colours <- function() {
   # styler: off
   tribble(
     ~label, ~colour_hex,
