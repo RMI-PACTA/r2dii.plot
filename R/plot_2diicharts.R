@@ -343,29 +343,16 @@ get_sector_colors <- function(sector) {
 }
 
 get_2dii_colours <- function() {
-  colours <- structure(
-    list(
-      label = c(
-        "dark_blue", "green", "orange", "dark_purple", "yellow", "soft_blue",
-        "ruby_red", "grey", "moss_green"
-      ),
-      colour_hex = c(
-        "#1b324f", "#00c082", "#ff9623", "#574099", "#f2e06e", "#78c4d6",
-        "#a63d57", "#d0d7e1", "#4a5e54"
-      )
-    ),
-    class = c("spec_tbl_df", "tbl_df", "tbl", "data.frame"), row.names = c(NA, -9L),
-    spec = structure(list(cols = list(
-      label = structure(list(), class = c(
-        "collector_character", "collector"
-      )),
-      colour_hex = structure(list(), class = c(
-        "collector_character", "collector"
-      ))
-    ), default = structure(list(), class = c(
-      "collector_guess", "collector"
-    )), skip = 1L), class = "col_spec")
+  tibble::tribble(
+    ~label, ~colour_hex,
+    "dark_blue",   "#1b324f",
+    "green",   "#00c082",
+    "orange",   "#ff9623",
+    "dark_purple",   "#574099",
+    "yellow",   "#f2e06e",
+    "soft_blue",   "#78c4d6",
+    "ruby_red",   "#a63d57",
+    "grey",   "#d0d7e1",
+    "moss_green",   "#4a5e54"
   )
-
-  return(colours)
 }
