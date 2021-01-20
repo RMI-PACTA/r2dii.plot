@@ -32,7 +32,7 @@ data_techmix_power <- filter_data_for_techmix_chart(example_data,sector = "power
                                                     scenario_source = "demo_2020",
                                                     scenario = "sds",value_name = "technology_share")
 
-tech_colors_power <- get_sector_colors("power")
+tech_colors_power <- get_r2dii_technology_colours("power")
 bars_labels_specs <- data.frame("metric_type" = c("portfolio_2020", "benchmark_2020","portfolio_2025","benchmark_2025","scenario_2025"),
                  "label" = c("Portfolio 2020", "Benchmark 2020", "Portfolio 2025", "Benchmark 2025", "Target SDS 2025"))
 
@@ -45,7 +45,7 @@ data_techmix_auto <- filter_data_for_techmix_chart(example_data,sector = "automo
                                                    scenario_source = "demo_2020",
                                                   scenario = "sds",value_name = "technology_share")
 
-tech_colors_auto <- get_sector_colors("automotive")
+tech_colors_auto <- get_r2dii_technology_colours("automotive")
 
 plot_techmix_auto <- plot_techmix_chart(data_techmix_auto,
                                         "Technology mix for the Automotive sector",

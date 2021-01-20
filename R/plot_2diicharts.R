@@ -16,14 +16,20 @@ create_general_plot_with_default_settings <- function() {
     theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm")) +
     theme(axis.line = element_line(colour = supporting_elts_color)) +
     theme(axis.ticks = element_line(colour = supporting_elts_color)) +
-    theme(plot.title = element_text(hjust = 0.5, vjust = 0.5, face = "bold",
-                                    family = font_family, size = 14,
-                                    margin = margin(25, 2, 8, 2))) +
-    theme(axis.text = element_text(family = font_family, size = font_size_ticks,
-                                   margin = margin(5, 5, 5, 5))) +
-    theme(axis.title = element_text(family = font_family,
-                                    size = font_size_axis_titles,
-                                    margin = margin(5, 5, 5, 5)))
+    theme(plot.title = element_text(
+      hjust = 0.5, vjust = 0.5, face = "bold",
+      family = font_family, size = 14,
+      margin = margin(25, 2, 8, 2)
+    )) +
+    theme(axis.text = element_text(
+      family = font_family, size = font_size_ticks,
+      margin = margin(5, 5, 5, 5)
+    )) +
+    theme(axis.title = element_text(
+      family = font_family,
+      size = font_size_axis_titles,
+      margin = margin(5, 5, 5, 5)
+    ))
 
   return(p_general)
 }
@@ -48,7 +54,6 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
                                   y_title = "", annotate_data = FALSE,
                                   scenario_specs_good_to_bad, main_line_metric,
                                   additional_line_metrics = data.frame()) {
-
   p_general <- create_general_plot_with_default_settings()
 
   p_trajectory <- p_general +
@@ -75,7 +80,8 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 
   green_or_brown <- r2dii.data::green_or_brown
   tech_green_or_brown <- green_or_brown[
-    green_or_brown$technology == data$technology[1], ]$green_or_brown
+    green_or_brown$technology == data$technology[1],
+  ]$green_or_brown
 
   if (tech_green_or_brown == "brown") {
     scenario_specs <- scenario_specs_good_to_bad
@@ -90,9 +96,12 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
       arrange(.data$year, factor(.data$metric,
-                                 levels = scenario_specs$scenario)) %>%
-      mutate(value_low = dplyr::lag(.data$value, n = 1,
-                                    default = lower_area_border))
+        levels = scenario_specs$scenario
+      )) %>%
+      mutate(value_low = dplyr::lag(.data$value,
+        n = 1,
+        default = lower_area_border
+      ))
   } else if (tech_green_or_brown == "green") {
     scenario_specs <- scenario_specs_good_to_bad[nrow(scenario_specs_good_to_bad):1, ]
 
@@ -106,9 +115,12 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
       arrange(.data$year, factor(.data$metric,
-                                 levels = scenario_specs$scenario)) %>%
-      mutate(value = dplyr::lead(.data$value_low, n = 1,
-                                 default = upper_area_border))
+        levels = scenario_specs$scenario
+      )) %>%
+      mutate(value = dplyr::lead(.data$value_low,
+        n = 1,
+        default = upper_area_border
+      ))
   }
 
   for (i in 1:length(scenario_specs$scenario)) {
@@ -116,19 +128,27 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
     color <- scenario_specs$color[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
     p_trajectory <- p_trajectory +
-      geom_ribbon(data = data_scen, aes(ymin = .data$value_low,
-                                        ymax = .data$value, x = year, group = 1),
-                  fill = color, alpha = 0.75)
+      geom_ribbon(
+        data = data_scen, aes(
+          ymin = .data$value_low,
+          ymax = .data$value, x = year, group = 1
+        ),
+        fill = color, alpha = 0.75
+      )
 
     if (scen != "worse") {
       if (tech_green_or_brown == "brown") {
         p_trajectory <- p_trajectory +
-          geom_line(data = data_scen, aes(x = year, y = .data$value),
-                    color = color)
+          geom_line(
+            data = data_scen, aes(x = year, y = .data$value),
+            color = color
+          )
       } else if (tech_green_or_brown == "green") {
         p_trajectory <- p_trajectory +
-          geom_line(data = data_scen, aes(x = year, y = .data$value_low),
-                    color = color)
+          geom_line(
+            data = data_scen, aes(x = year, y = .data$value_low),
+            color = color
+          )
       }
     }
 
@@ -149,15 +169,17 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 
   data_mainline <- data %>% filter(.data$metric == main_line_metric$metric)
   p_trajectory <- p_trajectory +
-    geom_line(data = data_mainline, aes(x = year, y = .data$value),
-              linetype = "solid")
+    geom_line(
+      data = data_mainline, aes(x = year, y = .data$value),
+      linetype = "solid"
+    )
 
   if (annotate_data) {
     p_trajectory <- p_trajectory +
       annotate("text",
         x = (last_year + 0.1), (
           y <- data_mainline[data_mainline$year == last_year, ]$value
-          ),
+        ),
         label = main_line_metric$label, hjust = 0, size = 3
       )
   }
@@ -173,8 +195,10 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
       label_metric <- additional_line_metrics$label[i]
       data_metric <- data %>% filter(.data$metric == metric_line)
       p_trajectory <- p_trajectory +
-        geom_line(data = data_metric, aes(x = year, y = .data$value),
-                  linetype = linetype_metric, color = color_metric)
+        geom_line(
+          data = data_metric, aes(x = year, y = .data$value),
+          linetype = linetype_metric, color = color_metric
+        )
 
       if (annotate_data) {
         p_trajectory <- p_trajectory +
@@ -197,7 +221,7 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 #' @param plot_title title of the plot (character string; default = "").
 #' @param show_legend flag indicating whether legend should be shown (boolean;
 #'   default = TRUE).
-#' @param df_tech_colors dataframe containing colors per technology (dataframe
+#' @param df_tech_colours dataframe containing colors per technology (dataframe
 #'   with columns: technology, label, color).
 #' @param df_bar_specs dataframe containing order of bars and their labels
 #'   (dataframe with columns: metric_type, label).
@@ -211,8 +235,8 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 #' @examples
 #' # TODO create an example or copy-paste an exising one from README or a test.
 plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
-                               df_tech_colors, df_bar_specs) {
-  data_colors <- df_tech_colors %>%
+                               df_tech_colours, df_bar_specs) {
+  data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
   data <- data %>%
@@ -227,14 +251,16 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
 
   p_techmix <- p_techmix +
     geom_bar(data = data, aes(
-      fill = factor(.data$technology, levels = data_colors$technology),
+      fill = factor(.data$technology, levels = data_colours$technology),
       x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
       y = .data$value
     ), position = "fill", stat = "identity", width = .5) +
-    scale_y_continuous(labels = scales::percent_format(), expand = c(0, 0),
-                       sec.axis = dup_axis()) +
+    scale_y_continuous(
+      labels = scales::percent_format(), expand = c(0, 0),
+      sec.axis = dup_axis()
+    ) +
     scale_x_discrete(labels = rev(df_bar_specs$label)) +
-    scale_fill_manual(labels = data_colors$label, values = data_colors$color) +
+    scale_fill_manual(labels = data_colours$label, values = data_colours$colour) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank())
@@ -242,8 +268,10 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
-      theme(legend.text = element_text(family = "Helvetica", size = 9,
-                                       margin = margin(5, 5, 5, 5))) +
+      theme(legend.text = element_text(
+        family = "Helvetica", size = 9,
+        margin = margin(5, 5, 5, 5)
+      )) +
       theme(legend.title = element_blank()) +
       guides(fill = guide_legend(ncol = 4, byrow = TRUE))
   } else {
@@ -260,56 +288,56 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
 #'
 #' @export
 
-get_sector_colors <- function(sector) {
-  all_colors <- structure(
-    list(
-      sector = c(
-        "Power", "Power", "Power", "Power",
-        "Power", "Power", "Automotive", "Automotive", "Automotive", "Automotive",
-        "Automotive", "Automotive", "Automotive", "Oil&Gas", "Oil&Gas",
-        "Fossil Fuels", "Fossil Fuels", "Fossil Fuels"
-      ),
-      technology = c(
-        "CoalCap", "OilCap", "GasCap", "NuclearCap", "HydroCap", "RenewablesCap",
-        "Electric", "Electric_HDV", "FuelCell", "Hybrid", "Hybrid_HDV",
-        "ICE", "ICE_HDV", "Gas", "Oil", "Gas", "Oil", "Coal"
-      ),
-      label = c(
-        "Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity", "Electric", "Electric Heavy Duty Vehicles",
-        "FuelCell", "Hybrid", "Hybrid Heavy Duty Vehicles", "ICE", "ICE Heavy Duty Vehicles",
-        "Gas", "Oil", "Gas", "Oil", "Coal"
-      ),
-      color_hex = c(
-        "#7A2701", "#a63603", "#e6550d", "#fd8d3c", "#fdbe85", "#ffd4ad", "#548995",
-        "#609cab", "#6cb0c0", "#78c4d6", "#93cfde", "#aedbe6", "#c9e7ee",
-        "#b9b5b0", "#181716", "#b9b5b0", "#181716", "#4e3b37"
-      )
-    ),
-    class = c("spec_tbl_df", "tbl_df", "tbl", "data.frame"), row.names = c(NA, -18L),
-    spec = structure(list(cols = list(sector = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    )), technology = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    )), label = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    )), color_hex = structure(list(), class = c(
-      "collector_character",
-      "collector"
-    ))), default = structure(list(), class = c(
-      "collector_guess",
-      "collector"
-    )), skip = 1L), class = "col_spec")
+get_r2dii_technology_colours <- function(sector) {
+  # styler: off
+  all_colours <- tribble(
+         ~sector,     ~technology,                         ~label, ~colour_hex,
+         "Power",       "CoalCap",                "Coal Capacity",  "#7A2701",
+         "Power",        "OilCap",                 "Oil Capacity",  "#a63603",
+         "Power",        "GasCap",                 "Gas Capacity",  "#e6550d",
+         "Power",    "NuclearCap",             "Nuclear Capacity",  "#fd8d3c",
+         "Power",      "HydroCap",               "Hydro Capacity",  "#fdbe85",
+         "Power", "RenewablesCap",          "Renewables Capacity",  "#ffd4ad",
+    "Automotive",      "Electric",                     "Electric",  "#548995",
+    "Automotive",  "Electric_HDV", "Electric Heavy Duty Vehicles",  "#609cab",
+    "Automotive",      "FuelCell",                     "FuelCell",  "#6cb0c0",
+    "Automotive",        "Hybrid",                       "Hybrid",  "#78c4d6",
+    "Automotive",    "Hybrid_HDV",   "Hybrid Heavy Duty Vehicles",  "#93cfde",
+    "Automotive",           "ICE",                          "ICE",  "#aedbe6",
+    "Automotive",       "ICE_HDV",      "ICE Heavy Duty Vehicles",  "#c9e7ee",
+       "Oil&Gas",           "Gas",                          "Gas",  "#b9b5b0",
+       "Oil&Gas",           "Oil",                          "Oil",  "#181716",
+  "Fossil Fuels",           "Gas",                          "Gas",  "#b9b5b0",
+  "Fossil Fuels",           "Oil",                          "Oil",  "#181716",
+  "Fossil Fuels",          "Coal",                         "Coal",  "#4e3b37"
   )
+  # styler: on
 
-  all_colors <- all_colors %>%
+  all_colours <- all_colours %>%
     mutate(sector = tolower(.data$sector), technology = tolower(.data$technology))
 
-  colors <- all_colors %>%
+  colours <- all_colours %>%
     filter(.data$sector == !!sector) %>%
-    select(.data$technology, .data$label, color = .data$color_hex)
+    select(.data$technology, .data$label, colour = .data$colour_hex)
+}
 
-  return(colors)
+#' Get the 2DII colour palette
+#'
+#' @export
+
+r2dii_palette_colours <- function() {
+  # styler: off
+  tribble(
+    ~label, ~colour_hex,
+    "dark_blue",   "#1b324f",
+    "green",   "#00c082",
+    "orange",   "#ff9623",
+    "dark_purple",   "#574099",
+    "yellow",   "#f2e06e",
+    "soft_blue",   "#78c4d6",
+    "ruby_red",   "#a63d57",
+    "grey",   "#d0d7e1",
+    "moss_green",   "#4a5e54"
+  )
+  # styler: on
 }
