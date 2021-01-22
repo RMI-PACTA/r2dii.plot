@@ -1,5 +1,7 @@
 #' Returns a custom 2dii ggplot theme
 #'
+#' @param font_family optional argument specifying the font that should be used in a graph (character string taking the same values as standard ggplot font families; default = "Helvetica")
+#'
 #' @description
 #' Returns a ggplot theme which can be applied to all graphs to appear according to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
 #'
@@ -94,9 +96,9 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
                                   y_title = "", annotate_data = FALSE,
                                   scenario_specs_good_to_bad, main_line_metric,
                                   additional_line_metrics = data.frame()) {
-  p_general <- create_general_plot_with_default_settings()
 
-  p_trajectory <- p_general +
+  p_trajectory <- ggplot() +
+    theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
     theme(axis.line = element_blank()) +
     xlab(x_title) +
