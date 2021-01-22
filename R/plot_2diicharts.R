@@ -309,7 +309,7 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
-      guides(fill = guide_legend(ncol = 4, byrow = TRUE))
+      guides(fill = guide_legend(ncol = 3, byrow = TRUE))
   } else {
     p_techmix <- p_techmix +
       theme(legend.position = "none")
