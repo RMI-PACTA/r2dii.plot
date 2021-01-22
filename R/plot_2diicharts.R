@@ -284,9 +284,8 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   data <- data %>%
     filter(.data$metric_type %in% df_bar_specs$metric_type)
 
-  p_general <- create_general_plot_with_default_settings()
-
-  p_techmix <- p_general +
+  p_techmix <- ggplot() +
+    theme_2dii_ggplot() +
     xlab("") +
     ylab("") +
     labs(title = plot_title)
@@ -310,11 +309,6 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
-      theme(legend.text = element_text(
-        family = "Helvetica", size = 9,
-        margin = margin(5, 5, 5, 5)
-      )) +
-      theme(legend.title = element_blank()) +
       guides(fill = guide_legend(ncol = 4, byrow = TRUE))
   } else {
     p_techmix <- p_techmix +
