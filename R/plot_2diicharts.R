@@ -40,42 +40,6 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
     )
 }
 
-#' Create a generic ggplot object with default aesthetics
-#'
-#' @description
-#' Returns a ggplot with common aesthetics, like removed gridlines, grey axis lines etc.
-#'
-#' @export
-
-create_general_plot_with_default_settings <- function() {
-  font_family <- "Helvetica"
-  font_size_ticks <- 10
-  font_size_axis_titles <- 12
-  supporting_elts_color <- "#C0C0C0"
-
-  p_general <- ggplot() +
-    theme_classic() +
-    theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm")) +
-    theme(axis.line = element_line(colour = supporting_elts_color)) +
-    theme(axis.ticks = element_line(colour = supporting_elts_color)) +
-    theme(plot.title = element_text(
-      hjust = 0.5, vjust = 0.5, face = "bold",
-      family = font_family, size = 14,
-      margin = margin(25, 2, 8, 2)
-    )) +
-    theme(axis.text = element_text(
-      family = font_family, size = font_size_ticks,
-      margin = margin(5, 5, 5, 5)
-    )) +
-    theme(axis.title = element_text(
-      family = font_family,
-      size = font_size_axis_titles,
-      margin = margin(5, 5, 5, 5)
-    ))
-
-  return(p_general)
-}
-
 #' Create a trajectory alignment chart in a ggplot object
 #'
 #' @param data filtered input data (dataframe with columns: year, metric_type, metric and value)
