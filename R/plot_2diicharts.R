@@ -1,37 +1,43 @@
-#' Create a generic ggplot object with default aesthetics
+#' Returns a custom 2dii ggplot theme
+#'
+#' @param font_family optional argument specifying the font that should be used in a graph (character string taking the same values as standard ggplot font families; default = "Helvetica")
 #'
 #' @description
-#' Returns a ggplot with common aesthetics, like removed gridlines, grey axis lines etc.
+#' Returns a ggplot theme which can be applied to all graphs to appear according to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
 #'
 #' @export
 
-create_general_plot_with_default_settings <- function() {
-  font_family <- "Helvetica"
+theme_2dii_ggplot <- function(font_family = "Helvetica") {
+
   font_size_ticks <- 10
   font_size_axis_titles <- 12
   supporting_elts_color <- "#C0C0C0"
 
-  p_general <- ggplot() +
-    theme_classic() +
-    theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm")) +
-    theme(axis.line = element_line(colour = supporting_elts_color)) +
-    theme(axis.ticks = element_line(colour = supporting_elts_color)) +
-    theme(plot.title = element_text(
-      hjust = 0.5, vjust = 0.5, face = "bold",
-      family = font_family, size = 14,
-      margin = margin(25, 2, 8, 2)
-    )) +
-    theme(axis.text = element_text(
-      family = font_family, size = font_size_ticks,
-      margin = margin(5, 5, 5, 5)
-    )) +
-    theme(axis.title = element_text(
-      family = font_family,
-      size = font_size_axis_titles,
-      margin = margin(5, 5, 5, 5)
-    ))
-
-  return(p_general)
+  theme_classic() %+replace%
+    theme(
+      plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm"),
+      axis.line = element_line(colour = supporting_elts_color),
+      axis.ticks = element_line(colour = supporting_elts_color),
+      plot.title = element_text(
+        hjust = 0.5, vjust = 0.5, face = "bold",
+        family = font_family, size = 14,
+        margin = margin(25, 2, 8, 2)
+      ),
+      axis.text = element_text(
+        family = font_family, size = font_size_ticks,
+        margin = margin(5, 5, 5, 5)
+      ),
+      axis.title = element_text(
+        family = font_family,
+        size = font_size_axis_titles,
+        margin = margin(5, 5, 5, 5)
+      ),
+      legend.text = element_text(
+        family = font_family, size = 9,
+        margin = margin(5, 5, 5, 5)
+      ),
+      legend.title = element_blank()
+    )
 }
 
 #' Create a trajectory alignment chart in a ggplot object
@@ -54,9 +60,9 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
                                   y_title = "", annotate_data = FALSE,
                                   scenario_specs_good_to_bad, main_line_metric,
                                   additional_line_metrics = data.frame()) {
-  p_general <- create_general_plot_with_default_settings()
 
-  p_trajectory <- p_general +
+  p_trajectory <- ggplot() +
+    theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
     theme(axis.line = element_blank()) +
     xlab(x_title) +
@@ -242,9 +248,8 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   data <- data %>%
     filter(.data$metric_type %in% df_bar_specs$metric_type)
 
-  p_general <- create_general_plot_with_default_settings()
-
-  p_techmix <- p_general +
+  p_techmix <- ggplot() +
+    theme_2dii_ggplot() +
     xlab("") +
     ylab("") +
     labs(title = plot_title)
@@ -268,12 +273,7 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
-      theme(legend.text = element_text(
-        family = "Helvetica", size = 9,
-        margin = margin(5, 5, 5, 5)
-      )) +
-      theme(legend.title = element_blank()) +
-      guides(fill = guide_legend(ncol = 4, byrow = TRUE))
+      guides(fill = guide_legend(ncol = 3, byrow = TRUE))
   } else {
     p_techmix <- p_techmix +
       theme(legend.position = "none")
