@@ -97,3 +97,36 @@ filter_data_for_techmix_chart <- function(data, sector, years,
     )
   return(data_filtered)
 }
+
+#'
+#'
+
+filter_data_for_metareport_security_type_chart <- function(data_total_portfolio,
+                                                           other_asset_types = c(
+                                                             "Funds", "Others",
+                                                             "Unclassifiable"
+                                                           )) {
+
+  data_filtered_all <- data_total_portfolio %>%
+    select(.data$investor_name, .data$asset_type, .data$value_usd) %>%
+    group_by(.data$investor_name, .data$asset_type) %>%
+    summarise(total_value=sum(.data$value_usd, na.rm=T)) %>%
+    ungroup() %>%
+    group_by(.data$investor_name) %>%
+    mutate(total_peergroup=sum(.data$total_value, na.rm=T)) %>%
+    ungroup() %>%
+    mutate(share=.data$total_value/.data$total_peergroup) %>%
+    select(.data$investor_name, .data$asset_type, .data$share)
+
+  data_in_analysis <- data_filtered_all %>%
+    filter(!(.data$asset_type %in% other_asset_types))
+
+  data_other <- data_filtered_all %>%
+    filter(.data$asset_type %in% other_asset_types) %>%
+    group_by(.data$investor_name) %>%
+    summarise(share = sum(.data$share)) %>%
+    mutate(asset_type = "Other")
+
+  data_filtered <- rbind(data_in_analysis,data_other) %>%
+    arrange(.data$investor_name)
+}
