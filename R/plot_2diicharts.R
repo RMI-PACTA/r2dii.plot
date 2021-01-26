@@ -239,7 +239,7 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 #'
 #' @export
 #' @examples
-#' # TODO create an example or copy-paste an exising one from README or a test.
+#' # TODO create an example or copy-paste an existing one from README or a test.
 plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
                                df_tech_colours, df_bar_specs) {
   data_colours <- df_tech_colours %>%
@@ -280,6 +280,29 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   }
 
   return(p_techmix)
+}
+
+plot_metareport_security_types_chart <- function(data){
+
+  r2dii_colors <- r2dii_palette_colours()
+
+  p_bar <- ggplot(
+      data=data,
+      aes(fill=asset_type, x=investor_name, y=share)
+    ) +
+    theme_2dii_ggplot() +
+    geom_bar(stat="identity", width=0.8) +
+    coord_flip() +
+    scale_fill_manual(values=r2dii_colors$colour_hex) +
+    scale_y_continuous(
+      labels = scales::percent_format(), expand = c(0, 0),
+      sec.axis = dup_axis()
+    ) +
+    ylab("") +
+    xlab("") +
+    theme(axis.line.y = element_blank()) +
+    theme(axis.ticks.y = element_blank()) +
+    theme(legend.position = "bottom")
 }
 
 #' Get the predefined technology colors for a sector
