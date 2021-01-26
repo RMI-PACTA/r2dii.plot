@@ -98,8 +98,15 @@ filter_data_for_techmix_chart <- function(data, sector, years,
   return(data_filtered)
 }
 
+#' Aggregates and filters PACTA analysis total_portfolio data to be an input for metareport security type bar chart
 #'
+#' @param data_total_portfolio dataframe in the shape of ".._total_portfolio.rda" dataset from PACTA analysis output in "30_Processed_Inputs" folder (dataframe)
+#' @param other_asset_types array of character strings that should be summed up as "Other" asset type (array of character strings; default = c("Funds","Others","Unclassifiable"))
 #'
+#' @description
+#' This function filters and aggregates one of PACTA analysis result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to form an input that can be used for plotting metareport security type coverage per investor type bar chart
+#'
+#' @export
 
 filter_data_for_metareport_security_type_chart <- function(data_total_portfolio,
                                                            other_asset_types = c(
