@@ -66,7 +66,7 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
 #'
 #' @export
 
-plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
+plot_trajectory <- function(data, plot_title = "", x_title = "",
                                   y_title = "", annotate_data = FALSE,
                                   scenario_specs_good_to_bad, main_line_metric,
                                   additional_line_metrics = data.frame()) {
@@ -224,11 +224,11 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
               y <- data_metric[data_metric$year == last_year, ]$value),
             label = label_metric, hjust = 0, size = 3
           )
+      } else {
+        p_trajectory
       }
     }
   }
-
-  return(p_trajectory)
 }
 
 #' Create a techmix chart in a ggplot object
@@ -251,7 +251,7 @@ plot_trajectory_chart <- function(data, plot_title = "", x_title = "",
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
-plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
+plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
                                df_tech_colours, df_bar_specs) {
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
@@ -290,7 +290,6 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
       theme(legend.position = "none")
   }
 
-  return(p_techmix)
 }
 
 #' Create a bar chart with overview of asset types per investor type
@@ -316,7 +315,7 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
 #' @export
 
 
-plot_metareport_security_types_chart <- function(data, bars_asset_type_specs =
+plot_metareport_security_types <- function(data, bars_asset_type_specs =
                                                    data.frame(
                                                      "asset_type" =
                                                        c("Equity", "Bonds", "Others"),
