@@ -16,7 +16,8 @@ plot_trajectory_chart(
 )
 }
 \arguments{
-\item{data}{filtered input data (dataframe with columns: year, metric_type, metric and value)}
+\item{data}{filtered input data (dataframe with columns: year, metric_type,
+metric and value)}
 
 \item{plot_title}{title of the plot (character string; default = "")}
 
@@ -24,14 +25,22 @@ plot_trajectory_chart(
 
 \item{y_title}{title of the y-axis (character string; default = "")}
 
-\item{annotate_data}{flag indicating whether the data should be annotated (boolean; default = FALSE)}
+\item{annotate_data}{flag indicating whether the data should be annotated
+(boolean; default = FALSE)}
 
-\item{scenario_specs_good_to_bad}{dataframe containing scenario specifications like color or label, ordered from the most to least sustainable (dataframe with columns: scenario, label, color)}
+\item{scenario_specs_good_to_bad}{dataframe containing scenario
+specifications like color or label, ordered from the most to least
+sustainable (dataframe with columns: scenario, label, color)}
 
-\item{main_line_metric}{dataframe containing information about metric that should be plotted as the main line (dataframe with columns: metric, label)}
+\item{main_line_metric}{dataframe containing information about metric that
+should be plotted as the main line (dataframe with columns: metric, label)}
 
-\item{additional_line_metrics}{dataframe containing information about additional metrics that should be plotted as lines (dataframe with columns: metric, label; default = data.frame())}
+\item{additional_line_metrics}{dataframe containing information about
+additional metrics that should be plotted as lines (dataframe with columns:
+metric, label; default = data.frame())}
 }
 \description{
-The function returns a ggplot object containing a stacked bar chart showing a technology mix for different categories (portfolio, scenario, benchmark, etc.)
+The function returns a ggplot object containing a stacked bar
+chart showing a technology mix for different categories (portfolio, scenario,
+benchmark, etc.)
 }

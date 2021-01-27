@@ -2,7 +2,8 @@
 % Please edit documentation in R/data_processing.R
 \name{filter_data_for_trajectory_chart}
 \alias{filter_data_for_trajectory_chart}
-\title{Filters pre-processed data to be ready for plotting a trajectory chart for a technology}
+\title{Filters pre-processed data to be ready for plotting a trajectory chart for a
+technology}
 \usage{
 filter_data_for_trajectory_chart(
   data,
@@ -20,18 +21,23 @@ filter_data_for_trajectory_chart(
 
 \item{sector}{sector for which to filter the data (a character string)}
 
-\item{technology}{technology for which to filter the data (a character string)}
+\item{technology}{technology for which to filter the data (a character
+string)}
 
 \item{region}{region for which to filter the data (a character string)}
 
-\item{scenario_source}{scenario source for which to filter the data (a character string)}
+\item{scenario_source}{scenario source for which to filter the data (a
+character string)}
 
-\item{value_name}{the name of the value to be plotted in the trajectory chart (a character string)}
+\item{value_name}{the name of the value to be plotted in the trajectory chart
+(a character string)}
 
 \item{end_year}{cut off year for the chart (an integer; default = 2025)}
 
-\item{normalize_to_start_year}{flab indicating whether the values should be normalized (boolean; default = TRUE)}
+\item{normalize_to_start_year}{flab indicating whether the values should be
+normalized (boolean; default = TRUE)}
 }
 \description{
-Filters pre-processed data to be ready for plotting a trajectory chart for a technology
+Filters pre-processed data to be ready for plotting a trajectory chart for a
+technology
 }

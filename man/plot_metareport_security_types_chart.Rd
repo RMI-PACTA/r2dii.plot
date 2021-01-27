@@ -13,12 +13,24 @@ plot_metareport_security_types_chart(
 )
 }
 \arguments{
-\item{data}{dataframe filetred for the chart. With columns: investor_name, asset_type, share (dataframe)}
+\item{data}{dataframe filetred for the chart. With columns: investor_name,
+asset_type, share (dataframe)}
 
-\item{bars_asset_type_specs}{(optional) dataframe with specifications for each asset type, columns: asset_type, legend label, r2dii_colour_name  (dataframe; default = data.frame("asset_type" = c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"), "r2dii_colour_name" = c("dark_blue","green","grey")))                                                      ,}
+\item{bars_asset_type_specs}{(optional) dataframe with specifications for
+each asset type, columns: asset_type, legend label, r2dii_colour_name
+(dataframe; default = data.frame("asset_type" =
+c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"),
+"r2dii_colour_name" = c("dark_blue","green","grey")))
+,}
 
-\item{bars_labels_specs}{= (optional) dataframe with labels for investor types, columns: investor_type, label. If no is specified, investor_type from data is used as label. (dataframe; default = NULL)}
+\item{bars_labels_specs}{= (optional) dataframe with labels for investor
+types, columns: investor_type, label. If no is specified, investor_type
+from data is used as label. (dataframe; default = NULL)}
 }
 \description{
-This function plots a horizontal stacked bar chart with composition of investors securities per investor type. No need to specify the colours if the security types in your dataset are only: Equity, Bonds and Others. Otherwise full specification needs to be passed to the function, for all security types.
+This function plots a horizontal stacked bar chart with
+composition of investors securities per investor type. No need to specify the
+colours if the security types in your dataset are only: Equity, Bonds and
+Others. Otherwise full specification needs to be passed to the function, for
+all security types.
 }

@@ -2,7 +2,8 @@
 % Please edit documentation in R/data_processing.R
 \name{filter_data_for_metareport_security_type_chart}
 \alias{filter_data_for_metareport_security_type_chart}
-\title{Aggregates and filters PACTA analysis total_portfolio data to be an input for metareport security type bar chart}
+\title{Aggregates and filters PACTA analysis total_portfolio data to be an input for
+metareport security type bar chart}
 \usage{
 filter_data_for_metareport_security_type_chart(
   data_total_portfolio,
@@ -10,10 +11,17 @@ filter_data_for_metareport_security_type_chart(
 )
 }
 \arguments{
-\item{data_total_portfolio}{dataframe in the shape of ".._total_portfolio.rda" dataset from PACTA analysis output in "30_Processed_Inputs" folder (dataframe)}
+\item{data_total_portfolio}{dataframe in the shape of
+".._total_portfolio.rda" dataset from PACTA analysis output in
+"30_Processed_Inputs" folder (dataframe)}
 
-\item{other_asset_types}{array of character strings that should be summed up as "Other" asset type (array of character strings; default = c("Funds","Others","Unclassifiable"))}
+\item{other_asset_types}{array of character strings that should be summed up
+as "Other" asset type (array of character strings; default =
+c("Funds","Others","Unclassifiable"))}
 }
 \description{
-This function filters and aggregates one of PACTA analysis result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to form an input that can be used for plotting metareport security type coverage per investor type bar chart
+This function filters and aggregates one of PACTA analysis
+result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
+form an input that can be used for plotting metareport security type coverage
+per investor type bar chart
 }

@@ -25,16 +25,21 @@ process_input_data <- function(data) {
     ))
 }
 
-#' Filters pre-processed data to be ready for plotting a trajectory chart for a technology
+#' Filters pre-processed data to be ready for plotting a trajectory chart for a
+#' technology
 #'
 #' @param data pre-processed input data
 #' @param sector sector for which to filter the data (a character string)
-#' @param technology technology for which to filter the data (a character string)
+#' @param technology technology for which to filter the data (a character
+#'   string)
 #' @param region region for which to filter the data (a character string)
-#' @param scenario_source scenario source for which to filter the data (a character string)
-#' @param value_name the name of the value to be plotted in the trajectory chart (a character string)
+#' @param scenario_source scenario source for which to filter the data (a
+#'   character string)
+#' @param value_name the name of the value to be plotted in the trajectory chart
+#'   (a character string)
 #' @param end_year cut off year for the chart (an integer; default = 2025)
-#' @param normalize_to_start_year flab indicating whether the values should be normalized (boolean; default = TRUE)
+#' @param normalize_to_start_year flab indicating whether the values should be
+#'   normalized (boolean; default = TRUE)
 #'
 #' @export
 
@@ -67,15 +72,19 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
   return(data_filtered)
 }
 
-#' Filters pre-processed data to be ready for plotting a techmix chart for a sector
+#' Filters pre-processed data to be ready for plotting a techmix chart for a
+#' sector
 #'
 #' @param data pre-processed input data
 #' @param sector sector for which to filter the data (a character string)
-#' @param years years which we want to plot in the graph (an array of integer values)
+#' @param years years which we want to plot in the graph (an array of integer
+#'   values)
 #' @param region region for which to filter the data (a character string)
-#' @param scenario_source scenario source for which to filter the data (a character string)
+#' @param scenario_source scenario source for which to filter the data (a
+#'   character string)
 #' @param scenario scenario to plot in the graph (a character string)
-#' @param value_name the name of the value to be plotted as a bar chart (a character string)
+#' @param value_name the name of the value to be plotted as a bar chart (a
+#'   character string)
 #'
 #' @export
 
@@ -98,13 +107,20 @@ filter_data_for_techmix_chart <- function(data, sector, years,
   return(data_filtered)
 }
 
-#' Aggregates and filters PACTA analysis total_portfolio data to be an input for metareport security type bar chart
+#' Aggregates and filters PACTA analysis total_portfolio data to be an input for
+#' metareport security type bar chart
 #'
-#' @param data_total_portfolio dataframe in the shape of ".._total_portfolio.rda" dataset from PACTA analysis output in "30_Processed_Inputs" folder (dataframe)
-#' @param other_asset_types array of character strings that should be summed up as "Other" asset type (array of character strings; default = c("Funds","Others","Unclassifiable"))
+#' @param data_total_portfolio dataframe in the shape of
+#'   ".._total_portfolio.rda" dataset from PACTA analysis output in
+#'   "30_Processed_Inputs" folder (dataframe)
+#' @param other_asset_types array of character strings that should be summed up
+#'   as "Other" asset type (array of character strings; default =
+#'   c("Funds","Others","Unclassifiable"))
 #'
-#' @description
-#' This function filters and aggregates one of PACTA analysis result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to form an input that can be used for plotting metareport security type coverage per investor type bar chart
+#' @description This function filters and aggregates one of PACTA analysis
+#' result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
+#' form an input that can be used for plotting metareport security type coverage
+#' per investor type bar chart
 #'
 #' @export
 
@@ -113,16 +129,15 @@ filter_data_for_metareport_security_type_chart <- function(data_total_portfolio,
                                                              "Funds", "Others",
                                                              "Unclassifiable"
                                                            )) {
-
   data_filtered_all <- data_total_portfolio %>%
     select(.data$investor_name, .data$asset_type, .data$value_usd) %>%
     group_by(.data$investor_name, .data$asset_type) %>%
-    summarise(total_value=sum(.data$value_usd, na.rm=T)) %>%
+    summarise(total_value = sum(.data$value_usd, na.rm = T)) %>%
     ungroup() %>%
     group_by(.data$investor_name) %>%
-    mutate(total_peergroup=sum(.data$total_value, na.rm=T)) %>%
+    mutate(total_peergroup = sum(.data$total_value, na.rm = T)) %>%
     ungroup() %>%
-    mutate(share=.data$total_value/.data$total_peergroup) %>%
+    mutate(share = .data$total_value / .data$total_peergroup) %>%
     select(.data$investor_name, .data$asset_type, .data$share)
 
   data_in_analysis <- data_filtered_all %>%
@@ -134,6 +149,6 @@ filter_data_for_metareport_security_type_chart <- function(data_total_portfolio,
     summarise(share = sum(.data$share)) %>%
     mutate(asset_type = "Others")
 
-  data_filtered <- rbind(data_in_analysis,data_other) %>%
+  data_filtered <- rbind(data_in_analysis, data_other) %>%
     arrange(.data$investor_name)
 }

@@ -2,7 +2,8 @@
 % Please edit documentation in R/data_processing.R
 \name{filter_data_for_techmix_chart}
 \alias{filter_data_for_techmix_chart}
-\title{Filters pre-processed data to be ready for plotting a techmix chart for a sector}
+\title{Filters pre-processed data to be ready for plotting a techmix chart for a
+sector}
 \usage{
 filter_data_for_techmix_chart(
   data,
@@ -19,16 +20,20 @@ filter_data_for_techmix_chart(
 
 \item{sector}{sector for which to filter the data (a character string)}
 
-\item{years}{years which we want to plot in the graph (an array of integer values)}
+\item{years}{years which we want to plot in the graph (an array of integer
+values)}
 
 \item{region}{region for which to filter the data (a character string)}
 
-\item{scenario_source}{scenario source for which to filter the data (a character string)}
+\item{scenario_source}{scenario source for which to filter the data (a
+character string)}
 
 \item{scenario}{scenario to plot in the graph (a character string)}
 
-\item{value_name}{the name of the value to be plotted as a bar chart (a character string)}
+\item{value_name}{the name of the value to be plotted as a bar chart (a
+character string)}
 }
 \description{
-Filters pre-processed data to be ready for plotting a techmix chart for a sector
+Filters pre-processed data to be ready for plotting a techmix chart for a
+sector
 }

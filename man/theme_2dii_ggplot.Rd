@@ -7,8 +7,12 @@
 theme_2dii_ggplot(font_family = "Helvetica")
 }
 \arguments{
-\item{font_family}{optional argument specifying the font that should be used in a graph (character string taking the same values as standard ggplot font families; default = "Helvetica")}
+\item{font_family}{optional argument specifying the font that should be used
+in a graph (character string taking the same values as standard ggplot font
+families; default = "Helvetica")}
 }
 \description{
-Returns a ggplot theme which can be applied to all graphs to appear according to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
+Returns a ggplot theme which can be applied to all graphs to
+appear according to 2DII plotting aesthetics, like removed gridlines, grey
+axis lines etc.
 }
