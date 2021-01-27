@@ -224,11 +224,10 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
               y <- data_metric[data_metric$year == last_year, ]$value),
             label = label_metric, hjust = 0, size = 3
           )
-      } else {
-        p_trajectory
       }
     }
   }
+  p_trajectory
 }
 
 #' Create a techmix chart in a ggplot object
