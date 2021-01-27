@@ -132,7 +132,7 @@ filter_data_for_metareport_security_type_chart <- function(data_total_portfolio,
     filter(.data$asset_type %in% other_asset_types) %>%
     group_by(.data$investor_name) %>%
     summarise(share = sum(.data$share)) %>%
-    mutate(asset_type = "Other")
+    mutate(asset_type = "Others")
 
   data_filtered <- rbind(data_in_analysis,data_other) %>%
     arrange(.data$investor_name)
