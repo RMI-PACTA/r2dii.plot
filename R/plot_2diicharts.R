@@ -282,27 +282,52 @@ plot_techmix_chart <- function(data, plot_title = "", show_legend = TRUE,
   return(p_techmix)
 }
 
-plot_metareport_security_types_chart <- function(data){
 
+
+plot_metareport_security_types_chart <- function(data, bars_asset_type_specs =
+                                                   data.frame(
+                                                    "asset_type" =
+                                                      c("Equity","Bonds","Others"),
+                                                    "label" =
+                                                      c("Equity","Bonds","Others"),
+                                                    "r2dii_colour_name" =
+                                                      c("dark_blue","green","grey")
+                                                  ), bars_labels_specs = NULL) {
   r2dii_colors <- r2dii_palette_colours()
+
+  bars_asset_type_specs <- left_join(bars_asset_type_specs,r2dii_colors, by = c("r2dii_colour_name" = "label"))
+
+  if (is.null(bars_labels_specs)) {
+    bars_labels_specs = data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
 
   p_bar <- ggplot(
       data=data,
-      aes(fill=asset_type, x=investor_name, y=share)
+      aes(fill = factor(.data$asset_type, levels = rev(bars_asset_type_specs$asset_type)),
+          x=factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
+          y=.data$share
+          )
     ) +
     theme_2dii_ggplot() +
     geom_bar(stat="identity", width=0.8) +
     coord_flip() +
-    scale_fill_manual(values=r2dii_colors$colour_hex) +
+    scale_fill_manual(values=rev(bars_asset_type_specs$colour_hex)) +
+    scale_x_discrete(labels = rev(bars_labels_specs$label)) +
     scale_y_continuous(
-      labels = scales::percent_format(), expand = c(0, 0),
+      labels = scales::percent_format(),
+      expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
     ylab("") +
     xlab("") +
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank()) +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom") +
+    guides(fill = guide_legend(reverse=TRUE))
+
 }
 
 #' Get the predefined technology colors for a sector
