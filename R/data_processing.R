@@ -25,29 +25,34 @@ process_input_data <- function(data) {
     ))
 }
 
-#' Filters pre-processed data to be ready for plotting a trajectory chart for a technology
+#' Prepares pre-processed data to be ready for plotting a trajectory chart for a
+#' technology
 #'
-#' @param data pre-processed input data
-#' @param sector sector for which to filter the data (a character string)
-#' @param technology technology for which to filter the data (a character string)
-#' @param region region for which to filter the data (a character string)
-#' @param scenario_source scenario source for which to filter the data (a character string)
-#' @param value_name the name of the value to be plotted in the trajectory chart (a character string)
-#' @param end_year cut off year for the chart (an integer; default = 2025)
-#' @param normalize_to_start_year flab indicating whether the values should be normalized (boolean; default = TRUE)
+#' @param data_preprocessed pre-processed input data
+#' @param sector_filter sector for which to filter the data (a character string)
+#' @param technology_filter technology for which to filter the data (a character
+#'   string)
+#' @param region_filter region for which to filter the data (a character string)
+#' @param scenario_source_filter scenario source for which to filter the data (a
+#'   character string)
+#' @param value_name the name of the value to be plotted in the trajectory chart
+#'   (a character string)
+#' @param end_year_filter cut off year for the chart (an integer; default = 2025)
+#' @param normalize_to_start_year flab indicating whether the values should be
+#'   normalized (boolean; default = TRUE)
 #'
 #' @export
 
-filter_data_for_trajectory_chart <- function(data, sector, technology,
-                                             region, scenario_source,
-                                             value_name, end_year = 2025,
+prepare_for_trajectory_chart <- function(data_preprocessed, sector_filter, technology_filter,
+                                             region_filter, scenario_source_filter,
+                                             value_name, end_year_filter = 2025,
                                              normalize_to_start_year = TRUE) {
-  data_filtered <- data %>%
-    filter(.data$sector == !!sector) %>%
-    filter(.data$technology == !!technology) %>%
-    filter(.data$region == !!region) %>%
-    filter(.data$scenario_source == !!scenario_source) %>%
-    filter(.data$year <= end_year) %>%
+  data_filtered <- data_preprocessed %>%
+    filter(.data$sector == !!sector_filter) %>%
+    filter(.data$technology == !!technology_filter) %>%
+    filter(.data$region == !!region_filter) %>%
+    filter(.data$scenario_source == !!scenario_source_filter) %>%
+    filter(.data$year <= end_year_filter) %>%
     select(.data$year, .data$metric_type, .data$metric, .data$technology,
       value = !!value_name
     )
@@ -62,38 +67,87 @@ filter_data_for_trajectory_chart <- function(data, sector, technology,
         year = .data$year.x, .data$metric_type,
         .data$metric, .data$value, technology = .data$technology.x
       )
+  } else {
+    data_filtered
   }
-
-  return(data_filtered)
 }
 
-#' Filters pre-processed data to be ready for plotting a techmix chart for a sector
+#' Prepares pre-processed data to be ready for plotting a techmix chart for a
+#' sector
 #'
-#' @param data pre-processed input data
-#' @param sector sector for which to filter the data (a character string)
-#' @param years years which we want to plot in the graph (an array of integer values)
-#' @param region region for which to filter the data (a character string)
-#' @param scenario_source scenario source for which to filter the data (a character string)
-#' @param scenario scenario to plot in the graph (a character string)
-#' @param value_name the name of the value to be plotted as a bar chart (a character string)
+#' @param data_preprocessed pre-processed input data
+#' @param sector_filter sector for which to filter the data (a character string)
+#' @param years_filter years which we want to plot in the graph (an array of integer
+#'   values)
+#' @param region_filter region for which to filter the data (a character string)
+#' @param scenario_source_filter scenario source for which to filter the data (a
+#'   character string)
+#' @param scenario_filter scenario to plot in the graph (a character string)
+#' @param value_name the name of the value to be plotted as a bar chart (a
+#'   character string)
 #'
 #' @export
 
-filter_data_for_techmix_chart <- function(data, sector, years,
-                                          region, scenario_source,
-                                          scenario, value_name) {
-  data_filtered <- data %>%
-    filter(.data$sector == !!sector) %>%
-    filter(.data$region == !!region) %>%
-    filter(.data$year %in% !!years) %>%
-    filter(.data$scenario_source == !!scenario_source) %>%
+prepare_for_techmix_chart <- function(data_preprocessed, sector_filter, years_filter,
+                                          region_filter, scenario_source_filter,
+                                          scenario_filter, value_name) {
+  data_filtered <- data_preprocessed %>%
+    filter(.data$sector == !!sector_filter) %>%
+    filter(.data$region == !!region_filter) %>%
+    filter(.data$year %in% !!years_filter) %>%
+    filter(.data$scenario_source == !!scenario_source_filter) %>%
     filter(.data$metric_type %in% c("portfolio", "benchmark") |
-      (.data$metric_type == "scenario" & .data$metric == scenario)) %>%
+      (.data$metric_type == "scenario" & .data$metric == scenario_filter)) %>%
     mutate(
       metric_type = paste0(.data$metric_type, "_", as.character(.data$year))
     ) %>%
     select(.data$technology, .data$metric_type, .data$metric,
       value = !!value_name
     )
-  return(data_filtered)
+}
+
+#' Aggregates and prepares PACTA analysis total_portfolio data to be an input for
+#' metareport security type bar chart
+#'
+#' @param data_total_portfolio dataframe in the shape of
+#'   ".._total_portfolio.rda" dataset from PACTA analysis output in
+#'   "30_Processed_Inputs" folder (dataframe)
+#' @param other_asset_types array of character strings that should be summed up
+#'   as "Other" asset type (array of character strings; default =
+#'   c("Funds","Others","Unclassifiable"))
+#'
+#' @description This function aggregates and prepares one of PACTA analysis
+#' result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
+#' form an input that can be used for plotting metareport security type coverage
+#' per investor type bar chart
+#'
+#' @export
+
+prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
+                                                           other_asset_types = c(
+                                                             "Funds", "Others",
+                                                             "Unclassifiable"
+                                                           )) {
+  data_aggregated_all <- data_total_portfolio %>%
+    select(.data$investor_name, .data$asset_type, .data$value_usd) %>%
+    group_by(.data$investor_name, .data$asset_type) %>%
+    summarise(total_value = sum(.data$value_usd, na.rm = T)) %>%
+    ungroup() %>%
+    group_by(.data$investor_name) %>%
+    mutate(total_peergroup = sum(.data$total_value, na.rm = T)) %>%
+    ungroup() %>%
+    mutate(share = .data$total_value / .data$total_peergroup) %>%
+    select(.data$investor_name, .data$asset_type, .data$share)
+
+  data_aggregated_in_analysis <- data_aggregated_all %>%
+    filter(!(.data$asset_type %in% other_asset_types))
+
+  data_aggregated_other <- data_aggregated_all %>%
+    filter(.data$asset_type %in% other_asset_types) %>%
+    group_by(.data$investor_name) %>%
+    summarise(share = sum(.data$share)) %>%
+    mutate(asset_type = "Others")
+
+  data_aggregated <- rbind(data_aggregated_in_analysis, data_aggregated_other) %>%
+    arrange(.data$investor_name)
 }
