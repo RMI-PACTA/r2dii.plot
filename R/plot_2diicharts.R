@@ -420,3 +420,24 @@ r2dii_palette_colours <- function() {
   )
   # styler: on
 }
+
+#' Get the 2DII sector colour palette
+#'
+#' @return tribble with sector labels and colour hex strings
+#' @export
+
+r2dii_sector_colours <- function() {
+  # styler: off
+  tribble(
+    ~label, ~colour_hex,
+    "automotive",   "#78C4D6",
+    "aviation",   "#00c082",
+    "cement",   "#c1b358",
+    "coal",   "#4e3b37",
+    "oil&gas",   "#181716",
+    "power",   "#a63603",
+    "shipping",   "#574099",
+    "steel",   "#a63d57"
+  )
+  # styler: on
+}
