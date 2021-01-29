@@ -375,12 +375,11 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 #' @export
 #'
 #' @examples
-#' TODO
+#' # TODO
 
 plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
-                                          plot_title = "Percentage of Equity and
-                                          Bonds Portfolios invested in PACTA
-                                          sectors") {
+                                          plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
+                                          ) {
 
   r2dii_colors <- r2dii_palette_colours()
 

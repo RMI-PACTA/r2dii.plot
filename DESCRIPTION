@@ -18,6 +18,7 @@ Depends:
 Imports: 
     dplyr,
     ggplot2,
+    ggpubr,
     r2dii.data,
     scales,
     magrittr
