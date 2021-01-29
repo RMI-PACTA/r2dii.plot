@@ -323,6 +323,7 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
                                                      "r2dii_colour_name" =
                                                        c("dark_blue", "green", "grey")
                                                    ), bars_labels_specs = NULL) {
+
   r2dii_colors <- r2dii_palette_colours()
 
   bars_asset_type_specs <- left_join(bars_asset_type_specs, r2dii_colors,

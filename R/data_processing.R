@@ -157,10 +157,10 @@ prepare_for_pacta_sectors_chart <- function(data_overview) {
   climate_relevant <- data_overview %>%
     filter(.data$financial_sector!="Other" & .data$valid_input==TRUE) %>%
     group_by(.data$investor_name, .data$portfolio_name, .data$asset_type) %>%
-    summarize(climate_sum=sum(.data$valid_value_usd), total=mean(.data$asset_value_usd)) %>%
+    summarise(climate_sum=sum(.data$valid_value_usd), total=mean(.data$asset_value_usd)) %>%
     ungroup() %>%
     group_by(.data$investor_name, .data$asset_type) %>%
-    summarize(climate_value=sum(.data$climate_sum), total_value=sum(.data$total)) %>%
+    summarise(climate_value=sum(.data$climate_sum), total_value=sum(.data$total)) %>%
     ungroup() %>%
     filter((.data$asset_type %in% c("Bonds", "Equity")) & investor_name!="Meta Investor") %>%
     mutate(share_climate_relevant=.data$climate_value/.data$total_value) %>%
