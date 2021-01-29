@@ -169,16 +169,16 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 
   data_sectors_mix <- data_overview %>%
     filter(.data$financial_sector!="Other" & .data$valid_input==TRUE & .data$asset_type %in% c("Equity","Bonds")) %>%
-    group_by(.data$investor_name) %>%
+    group_by(.data$investor_name,.data$asset_type) %>%
     mutate(total_climate_value_usd=sum(.data$valid_value_usd, na.rm=TRUE)) %>%
     ungroup() %>%
-    group_by(.data$investor_name, .data$financial_sector) %>%
+    group_by(.data$investor_name,.data$asset_type, .data$financial_sector) %>%
     summarise(
       technology_value=sum(.data$valid_value_usd, na.rm=TRUE),
       total_climate_value_usd=.data$total_climate_value_usd) %>%
     ungroup() %>%
     mutate(share=.data$technology_value/.data$total_climate_value_usd) %>%
     distinct() %>%
-    select(.data$investor_name, .data$financial_sector, .data$share)
+    select(.data$investor_name, .data$asset_type,sector = .data$financial_sector, .data$share)
 
 }
