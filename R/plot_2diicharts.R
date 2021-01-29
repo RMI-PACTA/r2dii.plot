@@ -293,17 +293,16 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
 
 #' Create a bar chart with overview of asset types per investor type
 #'
-#' @param data dataframe filetred for the chart. With columns: investor_name,
-#'   asset_type, share (dataframe)
+#' @param data dataframe with data processed for the chart. With columns:
+#' investor_name, asset_type, share (dataframe).
 #' @param bars_asset_type_specs (optional) dataframe with specifications for
 #'   each asset type, columns: asset_type, legend label, r2dii_colour_name
 #'   (dataframe; default = data.frame("asset_type" =
 #'   c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"),
-#'   "r2dii_colour_name" = c("dark_blue","green","grey")))
-#'   ,
-#' @param bars_labels_specs = (optional) dataframe with labels for investor
+#'   "r2dii_colour_name" = c("dark_blue","green","grey"))).
+#' @param bars_labels_specs (optional) dataframe with labels for investor
 #'   types, columns: investor_type, label. If no is specified, investor_type
-#'   from data is used as label. (dataframe; default = NULL)
+#'   from data is used as label. (dataframe; default = NULL).
 #'
 #' @description This function plots a horizontal stacked bar chart with
 #' composition of investors securities per investor type. No need to specify the
@@ -362,6 +361,22 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
     guides(fill = guide_legend(reverse = TRUE))
 }
 
+#' Create a small multiples bar chart with portfolio exposure to PACTA sectors
+#'
+#' @param data dataframe with data processed for the chart. With columns:
+#' investor_name, asset_type, share_climate_relevant (dataframe)
+#' @param bars_labels_specs (optional) dataframe with labels for investor
+#'   types, columns: investor_type, label. If no is specified, investor_type
+#'   from data is used as label. (dataframe; default = NULL)
+#' @param plot_title title of the plot (character string; default = "Percentage
+#' of Equity and Bonds Portfolios invested in PACTA sectors").
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' TODO
+
 plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
                                           plot_title = "Percentage of Equity and
                                           Bonds Portfolios invested in PACTA
@@ -391,7 +406,8 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
     subplot <- ggplot(
       data = data_subplot,
         aes(
-          x = factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
+          x = factor(.data$investor_name,
+                     levels = rev(bars_labels_specs$investor_name)),
           y = .data$share_climate_relevant,
           fill = .data$asset_type
         )
