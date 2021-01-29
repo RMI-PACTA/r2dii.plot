@@ -250,8 +250,10 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
+
 plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
                                df_tech_colours, df_bar_specs) {
+
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -359,6 +361,61 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
     theme(axis.ticks.y = element_blank()) +
     theme(legend.position = "bottom") +
     guides(fill = guide_legend(reverse = TRUE))
+}
+
+plot_metareport_pacta_sectors_mix <- function(data,
+                                              plot_title = "Investment per PACTA sector as percentage of total value invested in PACTA sectors",
+                                              show_legend = TRUE,
+                               df_sectors_order = data.frame(
+                                 "sector" = c("steel","cement","shipping",
+                                              "aviation","automotive","power",
+                                              "coal","oil&gas"),
+                                 "label" = c("Steel", "Cement","Shipping",
+                                             "Aviation", "Automotive","Power",
+                                             "Coal", "Oil & Gas")
+                               ),
+                               bars_labels_specs = NULL) {
+
+  if (is.null(bars_labels_specs)) {
+    bars_labels_specs <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  r2dii_sector_colours <- r2dii_sector_colours()
+
+  data_colours <- df_sectors_order %>%
+    left_join(r2dii_sector_colours,by = c("sector" = "label"))
+
+  p_secmix <- ggplot() +
+    xlab("") +
+    ylab("") +
+    labs(title = plot_title) +
+    geom_bar(data = data, aes(
+      fill = factor(tolower(.data$sector), levels = data_colours$sector),
+      x = factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
+      y = .data$share
+    ), position = "fill", stat = "identity", width = .5) +
+    scale_y_continuous(
+      labels = scales::percent_format(), expand = c(0, 0),
+      sec.axis = dup_axis()
+    ) +
+    scale_x_discrete(labels = rev(bars_labels_specs$label)) +
+    scale_fill_manual(labels = data_colours$label, values = data_colours$colour_hex) +
+    coord_flip() +
+    theme_2dii_ggplot() +
+    theme(axis.line.y = element_blank()) +
+    theme(axis.ticks.y = element_blank())
+
+  if (show_legend) {
+    p_secmix <- p_secmix +
+      theme(legend.position = "bottom") +
+      guides(fill = guide_legend(ncol = 3, byrow = TRUE))
+  } else {
+    p_techmix <- p_secmix +
+      theme(legend.position = "none")
+  }
 }
 
 #' Get the predefined technology colors for a sector
