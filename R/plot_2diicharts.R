@@ -361,6 +361,68 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
     guides(fill = guide_legend(reverse = TRUE))
 }
 
+plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL) {
+
+  r2dii_colors <- r2dii_palette_colours()
+
+  asset_types <- c("Equity","Bonds")
+  asset_types_colours <- c("dark_blue","green")
+
+  ylim_up <- max(data$share_climate_relevant)
+
+  if (is.null(bars_labels_specs)) {
+    bars_labels_specs <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  subplots <- list()
+
+  for (i in 1:2) {
+
+    asset_type_filter <- asset_types[i]
+    data_subplot <- data %>% filter(.data$asset_type == asset_type_filter)
+
+    subplot <- ggplot(
+      data = data_subplot,
+        aes(
+          x = factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
+          y = .data$share_climate_relevant,
+          fill = .data$asset_type
+        )
+      ) +
+      geom_bar(stat = "identity", width = 0.7) +
+      scale_fill_manual(values = r2dii_colors %>%
+            filter(.data$label == asset_types_colours[i]) %>%
+            pull(.data$colour_hex)) +
+      scale_x_discrete(labels = rev(bars_labels_specs$label)) +
+      scale_y_continuous(
+        labels = scales::percent_format(),
+        expand = c(0, 0),
+        limits = c(0,ylim_up)
+      ) +
+      ylab("") +
+      xlab("") +
+      labs(title = asset_type_filter) +
+      coord_flip() +
+      theme_2dii_ggplot() +
+      theme(axis.line.y = element_blank()) +
+      theme(axis.ticks.y = element_blank()) +
+      theme(legend.position = "none") %+replace%
+      theme(plot.margin = unit(c(0.1, 0.5, 0.1, 0.5), "cm")) %+replace%
+      theme(plot.title = element_text(
+        hjust = 0.5, vjust = 0.5, face = "plain",
+        size = 12,
+        margin = margin(2, 2, 4, 2)
+      ))
+
+    subplots[[asset_type_filter]] <- subplot
+  }
+
+  plot <- ggpubr::ggarrange(subplots[["Equity"]],subplots[["Bonds"]],nrow=2,ncol=1)
+}
+
 #' Get the predefined technology colors for a sector
 #'
 #' @param sector sector for which we want to retrieve colors (a character string)
