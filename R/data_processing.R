@@ -151,3 +151,34 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
   data_aggregated <- rbind(data_aggregated_in_analysis, data_aggregated_other) %>%
     arrange(.data$investor_name)
 }
+
+#' Aggregates and prepares PACTA analysis overview data to be an input for
+#' meta-report PACTA sectors mix chart
+#'
+#' @param data_overview dataframe in the shape of
+ #'   ".._overview_portfolio.rda" data set from PACTA analysis output in
+ #'   "30_Processed_Inputs" folder (dataframe)
+#'
+#' @return dataframe prepared for the plot
+#' @export
+#'
+#' @examples
+#' #TODO
+
+prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
+
+  data_sectors_mix <- data_overview %>%
+    filter(.data$financial_sector!="Other" & .data$valid_input==TRUE & .data$asset_type %in% c("Equity","Bonds")) %>%
+    group_by(.data$investor_name) %>%
+    mutate(total_climate_value_usd=sum(.data$valid_value_usd, na.rm=TRUE)) %>%
+    ungroup() %>%
+    group_by(.data$investor_name, .data$financial_sector) %>%
+    summarise(
+      technology_value=sum(.data$valid_value_usd, na.rm=TRUE),
+      total_climate_value_usd=.data$total_climate_value_usd) %>%
+    ungroup() %>%
+    mutate(share=.data$technology_value/.data$total_climate_value_usd) %>%
+    distinct() %>%
+    select(.data$investor_name, .data$financial_sector, .data$share)
+
+}
