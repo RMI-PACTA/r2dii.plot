@@ -361,7 +361,10 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
     guides(fill = guide_legend(reverse = TRUE))
 }
 
-plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL) {
+plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
+                                          plot_title = "Percentage of Equity and
+                                          Bonds Portfolios invested in PACTA
+                                          sectors") {
 
   r2dii_colors <- r2dii_palette_colours()
 
@@ -413,14 +416,16 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL) {
       theme(plot.margin = unit(c(0.1, 0.5, 0.1, 0.5), "cm")) %+replace%
       theme(plot.title = element_text(
         hjust = 0.5, vjust = 0.5, face = "plain",
-        size = 12,
-        margin = margin(2, 2, 4, 2)
+        size = 11,
+        margin = margin(4, 2, 4, 2)
       ))
 
     subplots[[asset_type_filter]] <- subplot
   }
 
-  plot <- ggpubr::ggarrange(subplots[["Equity"]],subplots[["Bonds"]],nrow=2,ncol=1)
+  plot <- ggarrange(subplots[["Equity"]],subplots[["Bonds"]],nrow=2,ncol=1)
+
+  plot <- annotate_figure(plot,top = text_grob(plot_title, face = "bold", size = 14))
 }
 
 #' Get the predefined technology colors for a sector
