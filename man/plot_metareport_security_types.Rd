@@ -23,7 +23,7 @@ c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"),
 "r2dii_colour_name" = c("dark_blue","green","grey")))
 ,}
 
-\item{bars_labels_specs}{= (optional) dataframe with labels for investor
+\item{bars_labels_specs}{(optional) dataframe with labels for investor
 types, columns: investor_type, label. If no is specified, investor_type
 from data is used as label. (dataframe; default = NULL)}
 }

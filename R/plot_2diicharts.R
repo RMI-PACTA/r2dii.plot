@@ -301,7 +301,7 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
 #'   c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"),
 #'   "r2dii_colour_name" = c("dark_blue","green","grey")))
 #'   ,
-#' @param bars_labels_specs = (optional) dataframe with labels for investor
+#' @param bars_labels_specs (optional) dataframe with labels for investor
 #'   types, columns: investor_type, label. If no is specified, investor_type
 #'   from data is used as label. (dataframe; default = NULL)
 #'
@@ -362,8 +362,31 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
     guides(fill = guide_legend(reverse = TRUE))
 }
 
+#' Create a small multiples stacked bar chart with percentage investment in
+#' PACTA sectors
+#'
+#' @param data dataframe with data processed for the chart. With columns:
+#'   investor_name, asset_type, sector, share (dataframe)
+#' @param plot_title title of the plot (character string; default = "Investment
+#'   per sector as percentage of total value invested in PACTA sectors").
+#' @param df_sectors_order dataframe with ordered sector names and their labels
+#'   (dataframe; default = data.frame("sector" = c("steel", "cement",
+#'   "shipping","aviation", "automotive", "power","coal", "oil&gas"),"label" =
+#'   c( "Steel", "Cement", "Shipping","Aviation", "Automotive", "Power","Coal",
+#'   "Oil & Gas")))
+#' @param bars_labels_specs (optional) dataframe with labels for investor
+#'   types, columns: investor_type, label. If no is specified, investor_type
+#'   from data is used as label. (dataframe; default = NULL)
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' #TODO
+
 plot_metareport_pacta_sectors_mix <- function(data,
-                                              plot_title = "Investment per sector as percentage of total value invested in PACTA sectors",
+                                              plot_title =
+                                                "Investment per sector as percentage of total value invested in PACTA sectors",
                                               df_sectors_order = data.frame(
                                                 "sector" = c(
                                                   "steel", "cement", "shipping",
@@ -403,14 +426,16 @@ plot_metareport_pacta_sectors_mix <- function(data,
       labs(title = asset_type_filter) +
       geom_bar(data = data_subplot, aes(
         fill = factor(tolower(.data$sector), levels = data_colours$sector),
-        x = factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
+        x = factor(.data$investor_name,
+                   levels = rev(bars_labels_specs$investor_name)),
         y = .data$share
       ), position = "fill", stat = "identity", width = .7) +
       scale_y_continuous(
         labels = scales::percent_format(), expand = c(0, 0)
       ) +
       scale_x_discrete(labels = rev(bars_labels_specs$label)) +
-      scale_fill_manual(labels = data_colours$label, values = data_colours$colour_hex) +
+      scale_fill_manual(labels = data_colours$label,
+                        values = data_colours$colour_hex) +
       coord_flip() +
       theme_2dii_ggplot() +
       theme(axis.line.y = element_blank()) +

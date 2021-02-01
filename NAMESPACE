@@ -3,6 +3,7 @@
 export("%>%")
 export(get_example_data)
 export(get_r2dii_technology_colours)
+export(plot_metareport_pacta_sectors_mix)
 export(plot_metareport_security_types)
 export(plot_techmix)
 export(plot_trajectory)
