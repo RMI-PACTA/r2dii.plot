@@ -44,9 +44,9 @@ process_input_data <- function(data) {
 #' @export
 
 prepare_for_trajectory_chart <- function(data_preprocessed, sector_filter, technology_filter,
-                                             region_filter, scenario_source_filter,
-                                             value_name, end_year_filter = 2025,
-                                             normalize_to_start_year = TRUE) {
+                                         region_filter, scenario_source_filter,
+                                         value_name, end_year_filter = 2025,
+                                         normalize_to_start_year = TRUE) {
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$technology == !!technology_filter) %>%
@@ -89,8 +89,8 @@ prepare_for_trajectory_chart <- function(data_preprocessed, sector_filter, techn
 #' @export
 
 prepare_for_techmix_chart <- function(data_preprocessed, sector_filter, years_filter,
-                                          region_filter, scenario_source_filter,
-                                          scenario_filter, value_name) {
+                                      region_filter, scenario_source_filter,
+                                      scenario_filter, value_name) {
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$region == !!region_filter) %>%
@@ -124,10 +124,10 @@ prepare_for_techmix_chart <- function(data_preprocessed, sector_filter, years_fi
 #' @export
 
 prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
-                                                           other_asset_types = c(
-                                                             "Funds", "Others",
-                                                             "Unclassifiable"
-                                                           )) {
+                                                       other_asset_types = c(
+                                                         "Funds", "Others",
+                                                         "Unclassifiable"
+                                                       )) {
   data_aggregated_all <- data_total_portfolio %>%
     select(.data$investor_name, .data$asset_type, .data$value_usd) %>%
     group_by(.data$investor_name, .data$asset_type) %>%
@@ -156,29 +156,27 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
 #' meta-report PACTA sectors mix chart
 #'
 #' @param data_overview dataframe in the shape of
- #'   ".._overview_portfolio.rda" data set from PACTA analysis output in
- #'   "30_Processed_Inputs" folder (dataframe)
+#'   ".._overview_portfolio.rda" data set from PACTA analysis output in
+#'   "30_Processed_Inputs" folder (dataframe)
 #'
 #' @return dataframe prepared for the plot
 #' @export
 #'
 #' @examples
-#' #TODO
-
+#' # TODO
 prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
-
   data_sectors_mix <- data_overview %>%
-    filter(.data$financial_sector!="Other" & .data$valid_input==TRUE & .data$asset_type %in% c("Equity","Bonds")) %>%
-    group_by(.data$investor_name,.data$asset_type) %>%
-    mutate(total_climate_value_usd=sum(.data$valid_value_usd, na.rm=TRUE)) %>%
+    filter(.data$financial_sector != "Other" & .data$valid_input == TRUE & .data$asset_type %in% c("Equity", "Bonds")) %>%
+    group_by(.data$investor_name, .data$asset_type) %>%
+    mutate(total_climate_value_usd = sum(.data$valid_value_usd, na.rm = TRUE)) %>%
     ungroup() %>%
-    group_by(.data$investor_name,.data$asset_type, .data$financial_sector) %>%
+    group_by(.data$investor_name, .data$asset_type, .data$financial_sector) %>%
     summarise(
-      technology_value=sum(.data$valid_value_usd, na.rm=TRUE),
-      total_climate_value_usd=.data$total_climate_value_usd) %>%
+      technology_value = sum(.data$valid_value_usd, na.rm = TRUE),
+      total_climate_value_usd = .data$total_climate_value_usd
+    ) %>%
     ungroup() %>%
-    mutate(share=.data$technology_value/.data$total_climate_value_usd) %>%
+    mutate(share = .data$technology_value / .data$total_climate_value_usd) %>%
     distinct() %>%
-    select(.data$investor_name, .data$asset_type,sector = .data$financial_sector, .data$share)
-
+    select(.data$investor_name, .data$asset_type, sector = .data$financial_sector, .data$share)
 }
