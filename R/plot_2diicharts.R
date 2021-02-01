@@ -67,9 +67,9 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
 #' @export
 
 plot_trajectory <- function(data, plot_title = "", x_title = "",
-                                  y_title = "", annotate_data = FALSE,
-                                  scenario_specs_good_to_bad, main_line_metric,
-                                  additional_line_metrics = data.frame()) {
+                            y_title = "", annotate_data = FALSE,
+                            scenario_specs_good_to_bad, main_line_metric,
+                            additional_line_metrics = data.frame()) {
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -119,7 +119,8 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
       ))
   } else if (tech_green_or_brown == "green") {
     scenario_specs <- scenario_specs_good_to_bad[
-      nrow(scenario_specs_good_to_bad):1, ]
+      nrow(scenario_specs_good_to_bad):1,
+    ]
 
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
@@ -250,10 +251,8 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
-
 plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
-                               df_tech_colours, df_bar_specs) {
-
+                         df_tech_colours, df_bar_specs) {
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -290,7 +289,6 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
     p_techmix <- p_techmix +
       theme(legend.position = "none")
   }
-
 }
 
 #' Create a bar chart with overview of asset types per investor type
@@ -317,18 +315,19 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
 
 
 plot_metareport_security_types <- function(data, bars_asset_type_specs =
-                                                   data.frame(
-                                                     "asset_type" =
-                                                       c("Equity", "Bonds", "Others"),
-                                                     "label" =
-                                                       c("Equity", "Bonds", "Others"),
-                                                     "r2dii_colour_name" =
-                                                       c("dark_blue", "green", "grey")
-                                                   ), bars_labels_specs = NULL) {
+                                             data.frame(
+                                               "asset_type" =
+                                                 c("Equity", "Bonds", "Others"),
+                                               "label" =
+                                                 c("Equity", "Bonds", "Others"),
+                                               "r2dii_colour_name" =
+                                                 c("dark_blue", "green", "grey")
+                                             ), bars_labels_specs = NULL) {
   r2dii_colors <- r2dii_palette_colours()
 
   bars_asset_type_specs <- left_join(bars_asset_type_specs, r2dii_colors,
-                                     by = c("r2dii_colour_name" = "label"))
+    by = c("r2dii_colour_name" = "label")
+  )
 
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
@@ -364,18 +363,20 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 }
 
 plot_metareport_pacta_sectors_mix <- function(data,
-                                              plot_title = "Investment per PACTA sector as percentage of total value invested in PACTA sectors",
-                                              show_legend = TRUE,
-                               df_sectors_order = data.frame(
-                                 "sector" = c("steel","cement","shipping",
-                                              "aviation","automotive","power",
-                                              "coal","oil&gas"),
-                                 "label" = c("Steel", "Cement","Shipping",
-                                             "Aviation", "Automotive","Power",
-                                             "Coal", "Oil & Gas")
-                               ),
-                               bars_labels_specs = NULL) {
-
+                                              plot_title = "Investment per sector as percentage of total value invested in PACTA sectors",
+                                              df_sectors_order = data.frame(
+                                                "sector" = c(
+                                                  "steel", "cement", "shipping",
+                                                  "aviation", "automotive", "power",
+                                                  "coal", "oil&gas"
+                                                ),
+                                                "label" = c(
+                                                  "Steel", "Cement", "Shipping",
+                                                  "Aviation", "Automotive", "Power",
+                                                  "Coal", "Oil & Gas"
+                                                )
+                                              ),
+                                              bars_labels_specs = NULL) {
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -386,36 +387,59 @@ plot_metareport_pacta_sectors_mix <- function(data,
   r2dii_sector_colours <- r2dii_sector_colours()
 
   data_colours <- df_sectors_order %>%
-    left_join(r2dii_sector_colours,by = c("sector" = "label"))
+    left_join(r2dii_sector_colours, by = c("sector" = "label"))
 
-  p_secmix <- ggplot() +
-    xlab("") +
-    ylab("") +
-    labs(title = plot_title) +
-    geom_bar(data = data, aes(
-      fill = factor(tolower(.data$sector), levels = data_colours$sector),
-      x = factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
-      y = .data$share
-    ), position = "fill", stat = "identity", width = .5) +
-    scale_y_continuous(
-      labels = scales::percent_format(), expand = c(0, 0),
-      sec.axis = dup_axis()
-    ) +
-    scale_x_discrete(labels = rev(bars_labels_specs$label)) +
-    scale_fill_manual(labels = data_colours$label, values = data_colours$colour_hex) +
-    coord_flip() +
-    theme_2dii_ggplot() +
-    theme(axis.line.y = element_blank()) +
-    theme(axis.ticks.y = element_blank())
+  asset_types <- c("Equity", "Bonds")
 
-  if (show_legend) {
-    p_secmix <- p_secmix +
-      theme(legend.position = "bottom") +
-      guides(fill = guide_legend(ncol = 3, byrow = TRUE))
-  } else {
-    p_techmix <- p_secmix +
-      theme(legend.position = "none")
+  subplots <- list()
+
+  for (i in 1:2) {
+    asset_type_filter <- asset_types[i]
+    data_subplot <- data %>% filter(.data$asset_type == asset_type_filter)
+
+    subplot <- ggplot() +
+      xlab("") +
+      ylab("") +
+      labs(title = asset_type_filter) +
+      geom_bar(data = data_subplot, aes(
+        fill = factor(tolower(.data$sector), levels = data_colours$sector),
+        x = factor(.data$investor_name, levels = rev(bars_labels_specs$investor_name)),
+        y = .data$share
+      ), position = "fill", stat = "identity", width = .7) +
+      scale_y_continuous(
+        labels = scales::percent_format(), expand = c(0, 0)
+      ) +
+      scale_x_discrete(labels = rev(bars_labels_specs$label)) +
+      scale_fill_manual(labels = data_colours$label, values = data_colours$colour_hex) +
+      coord_flip() +
+      theme_2dii_ggplot() +
+      theme(axis.line.y = element_blank()) +
+      theme(axis.ticks.y = element_blank()) +
+      theme(legend.position = "none") %+replace%
+      theme(plot.margin = unit(c(0.1, 0.5, 0.1, 0.5), "cm")) %+replace%
+      theme(plot.title = element_text(
+        hjust = 0.5, vjust = 0.5, face = "plain",
+        size = 11,
+        margin = margin(4, 2, 4, 2)
+      ))
+
+    subplots[[asset_type_filter]] <- subplot
   }
+
+  legend <- get_legend(subplots[["Equity"]] +
+    theme(legend.position = "bottom") +
+    guides(fill = guide_legend(
+      ncol = 4, byrow = TRUE,
+      reverse = TRUE
+    )))
+  plot <- ggarrange(subplots[["Equity"]], subplots[["Bonds"]],
+    nrow = 2, ncol = 1,
+    legend.grob = legend, legend = "bottom"
+  )
+  plot <- annotate_figure(plot, top = text_grob(plot_title,
+    face = "bold",
+    size = 14
+  ))
 }
 
 #' Get the predefined technology colors for a sector
