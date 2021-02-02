@@ -452,8 +452,9 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
 #'
 #' @param data dataframe with data processed for the chart. With columns:
 #'   investor_name, asset_type, sector, share (dataframe)
-#' @param plot_title title of the plot (character string; default = "Investment
-#'   per sector as percentage of total value invested in PACTA sectors").
+#' @param plot_title (optional) title of the plot; if no title is specified,
+#'   the plot title is set in the code to a predetermined character string
+#'   (character string; default = NULL).
 #' @param df_sectors_order dataframe with ordered sector names and their labels
 #'   (dataframe; default = data.frame("sector" = c("steel", "cement",
 #'   "shipping","aviation", "automotive", "power","coal", "oil&gas"),"label" =
@@ -469,8 +470,7 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
 #' @examples
 #' # TODO
 plot_metareport_pacta_sectors_mix <- function(data,
-                                              plot_title =
-                                                "Investment per sector as percentage of total value invested in PACTA sectors",
+                                              plot_title = NULL,
                                               df_sectors_order = data.frame(
                                                 "sector" = c(
                                                   "steel", "cement", "shipping",
@@ -489,6 +489,11 @@ plot_metareport_pacta_sectors_mix <- function(data,
       "investor_name" = unique(data$investor_name),
       "label" = unique(data$investor_name)
     )
+  }
+
+  if (is.null(plot_title)) {
+    plot_title =
+      "Investment per sector as percentage of total value invested in PACTA sectors"
   }
 
   r2dii_sector_colours <- r2dii_sector_colours()
