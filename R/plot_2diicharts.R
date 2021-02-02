@@ -603,17 +603,17 @@ get_r2dii_technology_colours <- function(sector) {
 
 r2dii_palette_colours <- function() {
   # styler: off
-  tribble(
-    ~label, ~colour_hex,
+  tibble::tribble(
+         ~label, ~colour_hex,
     "dark_blue",   "#1b324f",
-    "green",   "#00c082",
-    "orange",   "#ff9623",
-    "dark_purple",   "#574099",
-    "yellow",   "#f2e06e",
+        "green",   "#00c082",
+       "orange",   "#ff9623",
+  "dark_purple",   "#574099",
+       "yellow",   "#f2e06e",
     "soft_blue",   "#78c4d6",
-    "ruby_red",   "#a63d57",
-    "grey",   "#d0d7e1",
-    "moss_green",   "#4a5e54"
+     "ruby_red",   "#a63d57",
+         "grey",   "#d0d7e1",
+   "moss_green",   "#4a5e54"
   )
   # styler: on
 }
@@ -625,16 +625,16 @@ r2dii_palette_colours <- function() {
 
 r2dii_sector_colours <- function() {
   # styler: off
-  tribble(
-    ~label, ~colour_hex,
-    "automotive",   "#78C4D6",
+  tibble::tribble(
+        ~label, ~colour_hex,
+  "automotive",   "#78C4D6",
     "aviation",   "#00c082",
-    "cement",   "#c1b358",
-    "coal",   "#4e3b37",
-    "oil&gas",   "#181716",
-    "power",   "#a63603",
+      "cement",   "#c1b358",
+        "coal",   "#4e3b37",
+     "oil&gas",   "#181716",
+       "power",   "#a63603",
     "shipping",   "#574099",
-    "steel",   "#a63d57"
+       "steel",   "#a63d57"
   )
   # styler: on
 }
