@@ -67,9 +67,9 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
 #' @export
 
 plot_trajectory <- function(data, plot_title = "", x_title = "",
-                                  y_title = "", annotate_data = FALSE,
-                                  scenario_specs_good_to_bad, main_line_metric,
-                                  additional_line_metrics = data.frame()) {
+                            y_title = "", annotate_data = FALSE,
+                            scenario_specs_good_to_bad, main_line_metric,
+                            additional_line_metrics = data.frame()) {
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -119,7 +119,8 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
       ))
   } else if (tech_green_or_brown == "green") {
     scenario_specs <- scenario_specs_good_to_bad[
-      nrow(scenario_specs_good_to_bad):1, ]
+      nrow(scenario_specs_good_to_bad):1,
+    ]
 
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
@@ -251,7 +252,7 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
 plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
-                               df_tech_colours, df_bar_specs) {
+                         df_tech_colours, df_bar_specs) {
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -288,7 +289,6 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
     p_techmix <- p_techmix +
       theme(legend.position = "none")
   }
-
 }
 
 #' Create a bar chart with overview of asset types per investor type
@@ -314,19 +314,19 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
 
 
 plot_metareport_security_types <- function(data, bars_asset_type_specs =
-                                                   data.frame(
-                                                     "asset_type" =
-                                                       c("Equity", "Bonds", "Others"),
-                                                     "label" =
-                                                       c("Equity", "Bonds", "Others"),
-                                                     "r2dii_colour_name" =
-                                                       c("dark_blue", "green", "grey")
-                                                   ), bars_labels_specs = NULL) {
-
+                                             data.frame(
+                                               "asset_type" =
+                                                 c("Equity", "Bonds", "Others"),
+                                               "label" =
+                                                 c("Equity", "Bonds", "Others"),
+                                               "r2dii_colour_name" =
+                                                 c("dark_blue", "green", "grey")
+                                             ), bars_labels_specs = NULL) {
   r2dii_colors <- r2dii_palette_colours()
 
   bars_asset_type_specs <- left_join(bars_asset_type_specs, r2dii_colors,
-                                     by = c("r2dii_colour_name" = "label"))
+    by = c("r2dii_colour_name" = "label")
+  )
 
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
@@ -368,23 +368,21 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 #' @param bars_labels_specs (optional) dataframe with labels for investor
 #'   types, columns: investor_type, label. If no is specified, investor_type
 #'   from data is used as label. (dataframe; default = NULL)
-#' @param plot_title title of the plot (character string; default = "Percentage
-#' of Equity and Bonds Portfolios invested in PACTA sectors").
+#' @param plot_title (optional) title of the plot; if no title is specified,
+#'   the plot title is set in the code to a predetermined character string
+#'   (character string; default = NULL).
 #'
 #' @return an object of class "ggplot"
 #' @export
 #'
 #' @examples
 #' # TODO
-
 plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
-                                          plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
-                                          ) {
-
+                                          plot_title = NULL) {
   r2dii_colors <- r2dii_palette_colours()
 
-  asset_types <- c("Equity","Bonds")
-  asset_types_colours <- c("dark_blue","green")
+  asset_types <- c("Equity", "Bonds")
+  asset_types_colours <- c("dark_blue", "green")
 
   ylim_up <- max(data$share_climate_relevant)
 
@@ -395,31 +393,36 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
     )
   }
 
+  if (is.null(plot_title)) {
+    plot_title =
+      "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
+  }
+
   subplots <- list()
 
   for (i in 1:2) {
-
     asset_type_filter <- asset_types[i]
     data_subplot <- data %>% filter(.data$asset_type == asset_type_filter)
 
     subplot <- ggplot(
       data = data_subplot,
-        aes(
-          x = factor(.data$investor_name,
-                     levels = rev(bars_labels_specs$investor_name)),
-          y = .data$share_climate_relevant,
-          fill = .data$asset_type
-        )
-      ) +
+      aes(
+        x = factor(.data$investor_name,
+          levels = rev(bars_labels_specs$investor_name)
+        ),
+        y = .data$share_climate_relevant,
+        fill = .data$asset_type
+      )
+    ) +
       geom_bar(stat = "identity", width = 0.7) +
       scale_fill_manual(values = r2dii_colors %>%
-            filter(.data$label == asset_types_colours[i]) %>%
-            pull(.data$colour_hex)) +
+        filter(.data$label == asset_types_colours[i]) %>%
+        pull(.data$colour_hex)) +
       scale_x_discrete(labels = rev(bars_labels_specs$label)) +
       scale_y_continuous(
         labels = scales::percent_format(),
         expand = c(0, 0),
-        limits = c(0,ylim_up)
+        limits = c(0, ylim_up)
       ) +
       ylab("") +
       xlab("") +
@@ -439,9 +442,120 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
     subplots[[asset_type_filter]] <- subplot
   }
 
-  plot <- ggarrange(subplots[["Equity"]],subplots[["Bonds"]],nrow=2,ncol=1)
+  plot <- ggarrange(subplots[["Equity"]], subplots[["Bonds"]], nrow = 2, ncol = 1)
 
-  plot <- annotate_figure(plot,top = text_grob(plot_title, face = "bold", size = 14))
+  plot <- annotate_figure(plot, top = text_grob(plot_title, face = "bold", size = 14))
+}
+
+#' Create a small multiples stacked bar chart with percentage investment in
+#' PACTA sectors
+#'
+#' @param data dataframe with data processed for the chart. With columns:
+#'   investor_name, asset_type, sector, share (dataframe)
+#' @param plot_title (optional) title of the plot; if no title is specified,
+#'   the plot title is set in the code to a predetermined character string
+#'   (character string; default = NULL).
+#' @param df_sectors_order dataframe with ordered sector names and their labels
+#'   (dataframe; default = data.frame("sector" = c("steel", "cement",
+#'   "shipping","aviation", "automotive", "power","coal", "oil&gas"),"label" =
+#'   c( "Steel", "Cement", "Shipping","Aviation", "Automotive", "Power","Coal",
+#'   "Oil & Gas")))
+#' @param bars_labels_specs (optional) dataframe with labels for investor
+#'   types, columns: investor_type, label. If no is specified, investor_type
+#'   from data is used as label. (dataframe; default = NULL)
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' # TODO
+plot_metareport_pacta_sectors_mix <- function(data,
+                                              plot_title = NULL,
+                                              df_sectors_order = data.frame(
+                                                "sector" = c(
+                                                  "steel", "cement", "shipping",
+                                                  "aviation", "automotive", "power",
+                                                  "coal", "oil&gas"
+                                                ),
+                                                "label" = c(
+                                                  "Steel", "Cement", "Shipping",
+                                                  "Aviation", "Automotive", "Power",
+                                                  "Coal", "Oil & Gas"
+                                                )
+                                              ),
+                                              bars_labels_specs = NULL) {
+  if (is.null(bars_labels_specs)) {
+    bars_labels_specs <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  if (is.null(plot_title)) {
+    plot_title =
+      "Investment per sector as percentage of total value invested in PACTA sectors"
+  }
+
+  r2dii_sector_colours <- r2dii_sector_colours()
+
+  data_colours <- df_sectors_order %>%
+    left_join(r2dii_sector_colours, by = c("sector" = "label"))
+
+  asset_types <- c("Equity", "Bonds")
+
+  subplots <- list()
+
+  for (i in 1:2) {
+    asset_type_filter <- asset_types[i]
+    data_subplot <- data %>% filter(.data$asset_type == asset_type_filter)
+
+    subplot <- ggplot() +
+      xlab("") +
+      ylab("") +
+      labs(title = asset_type_filter) +
+      geom_bar(data = data_subplot, aes(
+        fill = factor(tolower(.data$sector), levels = data_colours$sector),
+        x = factor(.data$investor_name,
+          levels = rev(bars_labels_specs$investor_name)
+        ),
+        y = .data$share
+      ), position = "fill", stat = "identity", width = .7) +
+      scale_y_continuous(
+        labels = scales::percent_format(), expand = c(0, 0)
+      ) +
+      scale_x_discrete(labels = rev(bars_labels_specs$label)) +
+      scale_fill_manual(
+        labels = data_colours$label,
+        values = data_colours$colour_hex
+      ) +
+      coord_flip() +
+      theme_2dii_ggplot() +
+      theme(axis.line.y = element_blank()) +
+      theme(axis.ticks.y = element_blank()) +
+      theme(legend.position = "none") %+replace%
+      theme(plot.margin = unit(c(0.1, 0.5, 0.1, 0.5), "cm")) %+replace%
+      theme(plot.title = element_text(
+        hjust = 0.5, vjust = 0.5, face = "plain",
+        size = 11,
+        margin = margin(4, 2, 4, 2)
+      ))
+
+    subplots[[asset_type_filter]] <- subplot
+  }
+  legend <- get_legend(subplots[["Equity"]] +
+    theme(legend.position = "bottom") +
+    guides(fill = guide_legend(
+      ncol = 4, byrow = TRUE,
+      reverse = TRUE
+    )))
+  plot <- ggarrange(subplots[["Equity"]], subplots[["Bonds"]],
+    nrow = 2, ncol = 1,
+    legend.grob = legend, legend = "bottom"
+  )
+  plot <- annotate_figure(plot, top = text_grob(plot_title,
+    face = "bold",
+    size = 14
+  ))
 }
 
 #' Get the predefined technology colors for a sector
@@ -490,16 +604,37 @@ get_r2dii_technology_colours <- function(sector) {
 r2dii_palette_colours <- function() {
   # styler: off
   tribble(
-    ~label, ~colour_hex,
+         ~label, ~colour_hex,
     "dark_blue",   "#1b324f",
-    "green",   "#00c082",
-    "orange",   "#ff9623",
-    "dark_purple",   "#574099",
-    "yellow",   "#f2e06e",
+        "green",   "#00c082",
+       "orange",   "#ff9623",
+  "dark_purple",   "#574099",
+       "yellow",   "#f2e06e",
     "soft_blue",   "#78c4d6",
-    "ruby_red",   "#a63d57",
-    "grey",   "#d0d7e1",
-    "moss_green",   "#4a5e54"
+     "ruby_red",   "#a63d57",
+         "grey",   "#d0d7e1",
+   "moss_green",   "#4a5e54"
+  )
+  # styler: on
+}
+
+#' Get the 2DII sector colour palette
+#'
+#' @return tribble with sector labels and colour hex strings
+#' @export
+
+r2dii_sector_colours <- function() {
+  # styler: off
+  tribble(
+        ~label, ~colour_hex,
+  "automotive",   "#78C4D6",
+    "aviation",   "#00c082",
+      "cement",   "#c1b358",
+        "coal",   "#4e3b37",
+     "oil&gas",   "#181716",
+       "power",   "#a63603",
+    "shipping",   "#574099",
+       "steel",   "#a63d57"
   )
   # styler: on
 }
