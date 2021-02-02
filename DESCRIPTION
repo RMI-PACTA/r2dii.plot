@@ -14,10 +14,11 @@ Description: Allows the user to create standardized 2DII
     functions.
 License: MIT + file LICENSE
 Depends: 
-    R (>= 3.4)
+    R (>= 3.6)
 Imports: 
     dplyr,
     ggplot2,
+    ggpubr,
     r2dii.data,
     scales,
     magrittr

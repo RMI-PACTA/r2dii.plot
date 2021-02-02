@@ -293,17 +293,16 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
 
 #' Create a bar chart with overview of asset types per investor type
 #'
-#' @param data dataframe filetred for the chart. With columns: investor_name,
-#'   asset_type, share (dataframe)
+#' @param data dataframe with data processed for the chart. With columns:
+#' investor_name, asset_type, share (dataframe).
 #' @param bars_asset_type_specs (optional) dataframe with specifications for
 #'   each asset type, columns: asset_type, legend label, r2dii_colour_name
 #'   (dataframe; default = data.frame("asset_type" =
 #'   c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"),
-#'   "r2dii_colour_name" = c("dark_blue","green","grey")))
-#'   ,
-#' @param bars_labels_specs = (optional) dataframe with labels for investor
+#'   "r2dii_colour_name" = c("dark_blue","green","grey"))).
+#' @param bars_labels_specs (optional) dataframe with labels for investor
 #'   types, columns: investor_type, label. If no is specified, investor_type
-#'   from data is used as label. (dataframe; default = NULL)
+#'   from data is used as label. (dataframe; default = NULL).
 #'
 #' @description This function plots a horizontal stacked bar chart with
 #' composition of investors securities per investor type. No need to specify the
@@ -323,6 +322,7 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
                                                      "r2dii_colour_name" =
                                                        c("dark_blue", "green", "grey")
                                                    ), bars_labels_specs = NULL) {
+
   r2dii_colors <- r2dii_palette_colours()
 
   bars_asset_type_specs <- left_join(bars_asset_type_specs, r2dii_colors,
@@ -359,6 +359,89 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
     theme(axis.ticks.y = element_blank()) +
     theme(legend.position = "bottom") +
     guides(fill = guide_legend(reverse = TRUE))
+}
+
+#' Create a small multiples bar chart with portfolio exposure to PACTA sectors
+#'
+#' @param data dataframe with data processed for the chart. With columns:
+#' investor_name, asset_type, share_climate_relevant (dataframe)
+#' @param bars_labels_specs (optional) dataframe with labels for investor
+#'   types, columns: investor_type, label. If no is specified, investor_type
+#'   from data is used as label. (dataframe; default = NULL)
+#' @param plot_title title of the plot (character string; default = "Percentage
+#' of Equity and Bonds Portfolios invested in PACTA sectors").
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' # TODO
+
+plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
+                                          plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
+                                          ) {
+
+  r2dii_colors <- r2dii_palette_colours()
+
+  asset_types <- c("Equity","Bonds")
+  asset_types_colours <- c("dark_blue","green")
+
+  ylim_up <- max(data$share_climate_relevant)
+
+  if (is.null(bars_labels_specs)) {
+    bars_labels_specs <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  subplots <- list()
+
+  for (i in 1:2) {
+
+    asset_type_filter <- asset_types[i]
+    data_subplot <- data %>% filter(.data$asset_type == asset_type_filter)
+
+    subplot <- ggplot(
+      data = data_subplot,
+        aes(
+          x = factor(.data$investor_name,
+                     levels = rev(bars_labels_specs$investor_name)),
+          y = .data$share_climate_relevant,
+          fill = .data$asset_type
+        )
+      ) +
+      geom_bar(stat = "identity", width = 0.7) +
+      scale_fill_manual(values = r2dii_colors %>%
+            filter(.data$label == asset_types_colours[i]) %>%
+            pull(.data$colour_hex)) +
+      scale_x_discrete(labels = rev(bars_labels_specs$label)) +
+      scale_y_continuous(
+        labels = scales::percent_format(),
+        expand = c(0, 0),
+        limits = c(0,ylim_up)
+      ) +
+      ylab("") +
+      xlab("") +
+      labs(title = asset_type_filter) +
+      coord_flip() +
+      theme_2dii_ggplot() +
+      theme(axis.line.y = element_blank()) +
+      theme(axis.ticks.y = element_blank()) +
+      theme(legend.position = "none") %+replace%
+      theme(plot.margin = unit(c(0.1, 0.5, 0.1, 0.5), "cm")) %+replace%
+      theme(plot.title = element_text(
+        hjust = 0.5, vjust = 0.5, face = "plain",
+        size = 11,
+        margin = margin(4, 2, 4, 2)
+      ))
+
+    subplots[[asset_type_filter]] <- subplot
+  }
+
+  plot <- ggarrange(subplots[["Equity"]],subplots[["Bonds"]],nrow=2,ncol=1)
+
+  plot <- annotate_figure(plot,top = text_grob(plot_title, face = "bold", size = 14))
 }
 
 #' Get the predefined technology colors for a sector
