@@ -368,8 +368,9 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 #' @param bars_labels_specs (optional) dataframe with labels for investor
 #'   types, columns: investor_type, label. If no is specified, investor_type
 #'   from data is used as label. (dataframe; default = NULL)
-#' @param plot_title title of the plot (character string; default = "Percentage
-#' of Equity and Bonds Portfolios invested in PACTA sectors").
+#' @param plot_title (optional) title of the plot; if no title is specified,
+#'   the plot title is set in the code to a predetermined character string
+#'   (character string; default = NULL).
 #'
 #' @return an object of class "ggplot"
 #' @export
@@ -377,7 +378,7 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 #' @examples
 #' # TODO
 plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
-                                          plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors") {
+                                          plot_title = NULL) {
   r2dii_colors <- r2dii_palette_colours()
 
   asset_types <- c("Equity", "Bonds")
@@ -390,6 +391,11 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
       "investor_name" = unique(data$investor_name),
       "label" = unique(data$investor_name)
     )
+  }
+
+  if (is.null(plot_title)) {
+    plot_title =
+      "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
   }
 
   subplots <- list()
