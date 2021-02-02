@@ -322,7 +322,6 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
                                                "r2dii_colour_name" =
                                                  c("dark_blue", "green", "grey")
                                              ), bars_labels_specs = NULL) {
-
   r2dii_colors <- r2dii_palette_colours()
 
   bars_asset_type_specs <- left_join(bars_asset_type_specs, r2dii_colors,
@@ -376,16 +375,13 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 #' @export
 #'
 #' @examples
-#' #TODO
-
+#' # TODO
 plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
-                                          plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
-                                          ) {
-
+                                          plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors") {
   r2dii_colors <- r2dii_palette_colours()
 
-  asset_types <- c("Equity","Bonds")
-  asset_types_colours <- c("dark_blue","green")
+  asset_types <- c("Equity", "Bonds")
+  asset_types_colours <- c("dark_blue", "green")
 
   ylim_up <- max(data$share_climate_relevant)
 
@@ -396,31 +392,31 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
     )
   }
 
-   subplots <- list()
+  subplots <- list()
 
   for (i in 1:2) {
-
     asset_type_filter <- asset_types[i]
     data_subplot <- data %>% filter(.data$asset_type == asset_type_filter)
 
     subplot <- ggplot(
       data = data_subplot,
-        aes(
-          x = factor(.data$investor_name,
-                     levels = rev(bars_labels_specs$investor_name)),
-          y = .data$share_climate_relevant,
-          fill = .data$asset_type
-        )
-      ) +
+      aes(
+        x = factor(.data$investor_name,
+          levels = rev(bars_labels_specs$investor_name)
+        ),
+        y = .data$share_climate_relevant,
+        fill = .data$asset_type
+      )
+    ) +
       geom_bar(stat = "identity", width = 0.7) +
       scale_fill_manual(values = r2dii_colors %>%
-            filter(.data$label == asset_types_colours[i]) %>%
-            pull(.data$colour_hex)) +
+        filter(.data$label == asset_types_colours[i]) %>%
+        pull(.data$colour_hex)) +
       scale_x_discrete(labels = rev(bars_labels_specs$label)) +
       scale_y_continuous(
         labels = scales::percent_format(),
         expand = c(0, 0),
-        limits = c(0,ylim_up)
+        limits = c(0, ylim_up)
       ) +
       ylab("") +
       xlab("") +
@@ -440,9 +436,9 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
     subplots[[asset_type_filter]] <- subplot
   }
 
-    plot <- ggarrange(subplots[["Equity"]],subplots[["Bonds"]],nrow=2,ncol=1)
+  plot <- ggarrange(subplots[["Equity"]], subplots[["Bonds"]], nrow = 2, ncol = 1)
 
-  plot <- annotate_figure(plot,top = text_grob(plot_title, face = "bold", size = 14))
+  plot <- annotate_figure(plot, top = text_grob(plot_title, face = "bold", size = 14))
 }
 
 #' Create a small multiples stacked bar chart with percentage investment in
@@ -465,8 +461,7 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
 #' @export
 #'
 #' @examples
-#' #TODO
-
+#' # TODO
 plot_metareport_pacta_sectors_mix <- function(data,
                                               plot_title =
                                                 "Investment per sector as percentage of total value invested in PACTA sectors",
@@ -483,7 +478,6 @@ plot_metareport_pacta_sectors_mix <- function(data,
                                                 )
                                               ),
                                               bars_labels_specs = NULL) {
-
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -511,15 +505,18 @@ plot_metareport_pacta_sectors_mix <- function(data,
       geom_bar(data = data_subplot, aes(
         fill = factor(tolower(.data$sector), levels = data_colours$sector),
         x = factor(.data$investor_name,
-                   levels = rev(bars_labels_specs$investor_name)),
+          levels = rev(bars_labels_specs$investor_name)
+        ),
         y = .data$share
       ), position = "fill", stat = "identity", width = .7) +
       scale_y_continuous(
         labels = scales::percent_format(), expand = c(0, 0)
       ) +
       scale_x_discrete(labels = rev(bars_labels_specs$label)) +
-      scale_fill_manual(labels = data_colours$label,
-                        values = data_colours$colour_hex) +
+      scale_fill_manual(
+        labels = data_colours$label,
+        values = data_colours$colour_hex
+      ) +
       coord_flip() +
       theme_2dii_ggplot() +
       theme(axis.line.y = element_blank()) +

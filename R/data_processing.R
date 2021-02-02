@@ -163,27 +163,24 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
 #' @export
 #'
 #' @examples
-
+#'
 #' # TODO
 prepare_for_pacta_sectors_chart <- function(data_overview) {
-
   climate_relevant <- data_overview %>%
-    filter(.data$financial_sector!="Other" & .data$valid_input==TRUE) %>%
+    filter(.data$financial_sector != "Other" & .data$valid_input == TRUE) %>%
     group_by(.data$investor_name, .data$portfolio_name, .data$asset_type) %>%
-    summarise(climate_sum=sum(.data$valid_value_usd), total=mean(.data$asset_value_usd)) %>%
+    summarise(climate_sum = sum(.data$valid_value_usd), total = mean(.data$asset_value_usd)) %>%
     ungroup() %>%
     group_by(.data$investor_name, .data$asset_type) %>%
-    summarise(climate_value=sum(.data$climate_sum), total_value=sum(.data$total)) %>%
+    summarise(climate_value = sum(.data$climate_sum), total_value = sum(.data$total)) %>%
     ungroup() %>%
-    filter((.data$asset_type %in% c("Bonds", "Equity")) & .data$investor_name!="Meta Investor") %>%
-    mutate(share_climate_relevant=.data$climate_value/.data$total_value) %>%
+    filter((.data$asset_type %in% c("Bonds", "Equity")) & .data$investor_name != "Meta Investor") %>%
+    mutate(share_climate_relevant = .data$climate_value / .data$total_value) %>%
     select(.data$investor_name, .data$asset_type, .data$share_climate_relevant)
-
 }
 
 
-#' Aggregates and prepares PACTA analysis overview data to be an input for
-#' meta-report PACTA sectors mix chart
+#' Prepares PACTA analysis overview data for meta-report PACTA sectors mix chart
 #'
 #' @param data_overview dataframe in the shape of
 #'   ".._overview_portfolio.rda" data set from PACTA analysis output in
@@ -194,10 +191,11 @@ prepare_for_pacta_sectors_chart <- function(data_overview) {
 #'
 #' @examples
 #' # TODO
-
 prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
   data_sectors_mix <- data_overview %>%
-    filter(.data$financial_sector != "Other" & .data$valid_input == TRUE & .data$asset_type %in% c("Equity", "Bonds")) %>%
+    filter(.data$financial_sector != "Other" &
+             .data$valid_input == TRUE &
+             .data$asset_type %in% c("Equity", "Bonds")) %>%
     group_by(.data$investor_name, .data$asset_type) %>%
     mutate(total_climate_value_usd = sum(.data$valid_value_usd, na.rm = TRUE)) %>%
     ungroup() %>%
@@ -209,5 +207,6 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
     ungroup() %>%
     mutate(share = .data$technology_value / .data$total_climate_value_usd) %>%
     distinct() %>%
-    select(.data$investor_name, .data$asset_type, sector = .data$financial_sector, .data$share)
+    select(.data$investor_name, .data$asset_type,
+           sector = .data$financial_sector, .data$share)
 }
