@@ -41,7 +41,7 @@ You can install the development version of r2dii.ggplot from
 devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 ```
 
-## Example
+## Examples using example data
 
 This is a basic example usage of `plot_trajectory_chart()`:
 
@@ -101,4 +101,41 @@ plot_techmix_power <- plot_techmix(data_techmix_power, "Technology mix for the P
   show_legend = TRUE, tech_colors_power, bars_labels_specs
 )
 plot_techmix_power
+```
+
+## Metareport code examples
+
+This is a basic example usage of `plot_metareport_security_types()` given that you have the `total_portfolio.rda` data set from PACTA analysis results loaded in your environment:
+
+```
+data_security_type <- prepare_for_metareport_security_type_chart(data_total_portfolio)
+
+bars_labels_specs <- data.frame(
+  "investor_name" = c("pensionfund", "Meta Investor", "insurance", "bank", "assetmanager"),
+  "label" = c("Pension Funds", "Meta Investor", "Insurance", "Banks", "Asset Managers")
+)
+
+bars_asset_type_specs <- data.frame(
+  "asset_type" = c("Equity", "Bonds", "Others"),
+  "label" = c("Equity", "Bonds", "Others"),
+  "r2dii_colour_name" = c("dark_blue", "moss_green", "grey")
+)
+
+p <- plot_metareport_security_types(data_security_type, bars_asset_type_specs, bars_labels_specs)
+p
+```
+
+This is a basic example usage of `plot_metareport_pacta_sectors()` given that you have the `overview_portfolio.rda` data set from PACTA analysis results loaded in your environment:
+
+```
+data_climate_relevant <- prepare_for_pacta_sectors_chart(data_overview)
+
+bars_labels_climate_rel <- data.frame(
+  "investor_name" = c("pensionfund","insurance", "bank", "assetmanager"),
+  "label" = c("Pension Funds", "Insurance", "Banks", "Asset Managers")
+)
+
+plot <- plot_metareport_pacta_sectors(data = data_climate_relevant, bars_labels_specs = bars_labels_climate_rel,
+                                          plot_title = "Percentage of Asset type Portfolios invested in PACTA sectors")
+plot
 ```
