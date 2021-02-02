@@ -7,8 +7,7 @@ PACTA sectors}
 \usage{
 plot_metareport_pacta_sectors_mix(
   data,
- 
-    plot_title = "Investment per sector as percentage of total value invested in PACTA sectors",
+  plot_title = NULL,
   df_sectors_order = data.frame(sector = c("steel", "cement", "shipping", "aviation",
     "automotive", "power", "coal", "oil&gas"), label = c("Steel", "Cement", "Shipping",
     "Aviation", "Automotive", "Power", "Coal", "Oil & Gas")),
@@ -19,8 +18,9 @@ plot_metareport_pacta_sectors_mix(
 \item{data}{dataframe with data processed for the chart. With columns:
 investor_name, asset_type, sector, share (dataframe)}
 
-\item{plot_title}{title of the plot (character string; default = "Investment
-per sector as percentage of total value invested in PACTA sectors").}
+\item{plot_title}{(optional) title of the plot; if no title is specified,
+the plot title is set in the code to a predetermined character string
+(character string; default = NULL).}
 
 \item{df_sectors_order}{dataframe with ordered sector names and their labels
 (dataframe; default = data.frame("sector" = c("steel", "cement",
@@ -40,5 +40,5 @@ Create a small multiples stacked bar chart with percentage investment in
 PACTA sectors
 }
 \examples{
-#TODO
+# TODO
 }

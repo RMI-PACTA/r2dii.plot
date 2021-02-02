@@ -2,8 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_metareport_pacta_sectors_mix_chart}
 \alias{prepare_for_metareport_pacta_sectors_mix_chart}
-\title{Aggregates and prepares PACTA analysis overview data to be an input for
-meta-report PACTA sectors mix chart}
+\title{Prepares PACTA analysis overview data for meta-report PACTA sectors mix chart}
 \usage{
 prepare_for_metareport_pacta_sectors_mix_chart(data_overview)
 }
@@ -16,8 +15,7 @@ prepare_for_metareport_pacta_sectors_mix_chart(data_overview)
 dataframe prepared for the plot
 }
 \description{
-Aggregates and prepares PACTA analysis overview data to be an input for
-meta-report PACTA sectors mix chart
+Prepares PACTA analysis overview data for meta-report PACTA sectors mix chart
 }
 \examples{
 # TODO

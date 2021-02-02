@@ -7,7 +7,7 @@
 plot_metareport_pacta_sectors(
   data,
   bars_labels_specs = NULL,
-  plot_title = "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
+  plot_title = NULL
 )
 }
 \arguments{
@@ -18,8 +18,9 @@ investor_name, asset_type, share_climate_relevant (dataframe)}
 types, columns: investor_type, label. If no is specified, investor_type
 from data is used as label. (dataframe; default = NULL)}
 
-\item{plot_title}{title of the plot (character string; default = "Percentage
-of Equity and Bonds Portfolios invested in PACTA sectors").}
+\item{plot_title}{(optional) title of the plot; if no title is specified,
+the plot title is set in the code to a predetermined character string
+(character string; default = NULL).}
 }
 \value{
 an object of class "ggplot"
@@ -28,5 +29,5 @@ an object of class "ggplot"
 Create a small multiples bar chart with portfolio exposure to PACTA sectors
 }
 \examples{
-#TODO
+# TODO
 }

@@ -603,7 +603,7 @@ get_r2dii_technology_colours <- function(sector) {
 
 r2dii_palette_colours <- function() {
   # styler: off
-  tibble::tribble(
+  tribble(
          ~label, ~colour_hex,
     "dark_blue",   "#1b324f",
         "green",   "#00c082",
@@ -625,7 +625,7 @@ r2dii_palette_colours <- function() {
 
 r2dii_sector_colours <- function() {
   # styler: off
-  tibble::tribble(
+  tribble(
         ~label, ~colour_hex,
   "automotive",   "#78C4D6",
     "aviation",   "#00c082",

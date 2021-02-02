@@ -20,5 +20,6 @@ Aggregates and prepares PACTA analysis overview data to be an input for
 metareport PACTA sectors in portfolio bar chart
 }
 \examples{
+
 # TODO
 }
