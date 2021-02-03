@@ -451,7 +451,7 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
 #' PACTA sectors
 #'
 #' @param data dataframe with data processed for the chart. With columns:
-#'   investor_name, asset_type, sector, share (dataframe)
+#'   investor_name, asset_type, sector, share (dataframe).
 #' @param plot_title (optional) title of the plot; if no title is specified,
 #'   the plot title is set in the code to a predetermined character string
 #'   (character string; default = NULL).
@@ -559,7 +559,27 @@ plot_metareport_pacta_sectors_mix <- function(data,
   ))
 }
 
-plot_metareport_distribution <- function(data, plot_title, x_title = "",
+#' Create a metareport distribution chart
+#'
+#' @param data dataframe with data processed for the chart. With columns:
+#'   investor_name, portfolio_name, value (dataframe)
+#' @param plot_title (optional) title of the plot; (character string;
+#' default = "").
+#' @param x_title (optional) x axis title ; (character string;
+#' default = "").
+#' @param y_title (optional) y axis title ; (character string;
+#' default = "").
+#' @param investor_labels (optional) dataframe with order and labels for investor
+#'   types, columns: investor_type, label. Can be used for preserving colour order
+#'   between different plots (using the same df will preserve the order).
+#'   If no is specified, investor_type from data is used as label. (dataframe; default = NULL)
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' #TODO
+plot_metareport_distribution <- function(data, plot_title = "", x_title = "",
                                          y_title = "",
                                          investor_labels = NULL) {
 
@@ -592,7 +612,6 @@ plot_metareport_distribution <- function(data, plot_title, x_title = "",
     theme(axis.text.x=element_blank(),
           axis.ticks.x=element_blank()) +
     theme(legend.position = "bottom")
-  p
 }
 
 #' Get the predefined technology colors for a sector

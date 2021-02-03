@@ -213,6 +213,24 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 
 }
 
+#' Prepared results data per asset type for distribution chart plot
+#'
+#' @param data_asset_type dataframe in the shape of
+#'   "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
+#'   "30_Results" folder (dataframe)
+#' @param sector_filter sector to be used for filtering (a character string)
+#' @param technologies_filter technologies to be used for filtering (a vector
+#' of charater strings)
+#' @param year_filter year to be used for filtering (integer)
+#' @param value_to_plot variable to be used as value for plotting (a character
+#' string)
+#'
+#' @return dataframe with columns investor_name, portfolio_name, value
+#' @export
+#'
+#' @examples
+#' # TODO
+
 prepare_for_metareport_distribution_chart <- function(data_asset_type,
                                                       sector_filter,
                                                       technologies_filter,

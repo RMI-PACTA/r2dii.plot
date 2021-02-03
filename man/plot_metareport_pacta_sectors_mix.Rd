@@ -16,7 +16,7 @@ plot_metareport_pacta_sectors_mix(
 }
 \arguments{
 \item{data}{dataframe with data processed for the chart. With columns:
-investor_name, asset_type, sector, share (dataframe)}
+investor_name, asset_type, sector, share (dataframe).}
 
 \item{plot_title}{(optional) title of the plot; if no title is specified,
 the plot title is set in the code to a predetermined character string
