@@ -131,3 +131,39 @@ results loaded in your environment:
     plot <- plot_metareport_pacta_sectors(data = data_climate_relevant, bars_labels_specs = bars_labels_climate_rel,
                                               plot_title = "Percentage of Asset type Portfolios invested in PACTA sectors")
     plot
+
+These are basic examples of using `plot_metareport_distribution()` given
+that you have the `Equity_results_portfolio.rda` or
+`Bonds_results_portfolio.rda` data set from PACTA analysis results
+loaded in your environment:
+
+    investor_labels <- data.frame(
+      "investor_name" = c("assetmanager","bank","insurance","pensionfund"),
+      "label" = c("Asset Managers","Banks","Insurance","Pension funds")
+    )
+
+    data_distr_br_port <- prepare_for_metareport_distribution_chart(data_equity,
+                                                          sectors_filter = "Power",
+                                                          technologies_filter = c("CoalCap","OilCap","GasCap"),
+                                                          year_filter = 2020,
+                                                          value_to_plot =
+                                                            "plan_carsten")
+
+    p_br <- plot_metareport_distribution(data_distr_br_port, plot_title = "Percentage of a portfolio invested in brown technologies in the Power sector - Listed Equity",
+                                      x_title = "Participants",
+                                      y_title = "",
+                                      investor_labels = investor_labels)
+    p_br
+
+    data_distr_gr_prod <- prepare_for_metareport_distribution_chart(data_equity,
+                                                          sectors_filter = "Power",
+                                                          technologies_filter = c("RenewablesCap", "HydroCap"),
+                                                          year_filter = 2020,
+                                                          value_to_plot =
+                                                            "plan_tech_share")
+
+    p_gr <- plot_metareport_distribution(data_distr_gr_prod, plot_title = "Percentage share of a low carbon power production - Listed Equity",
+                                      x_title = "Participants",
+                                      y_title = "",
+                                      investor_labels = investor_labels)
+    p_gr
