@@ -259,7 +259,7 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
            ) %>%
     select(.data$investor_name, .data$portfolio_name, value = !!value_to_plot) %>%
     group_by(.data$investor_name, .data$portfolio_name) %>%
-    summarize(value = sum(.data$value, na.rm=TRUE)) %>%
+    summarise(value = sum(.data$value, na.rm=TRUE)) %>%
     ungroup() %>%
     right_join(unique_investor_names) %>%
     mutate(value =
