@@ -192,6 +192,7 @@ prepare_for_pacta_sectors_chart <- function(data_overview) {
 #' @examples
 #' # TODO
 prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
+
   data_sectors_mix <- data_overview %>%
     filter(.data$financial_sector != "Other" &
              .data$valid_input == TRUE &
@@ -209,4 +210,42 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
     distinct() %>%
     select(.data$investor_name, .data$asset_type,
            sector = .data$financial_sector, .data$share)
+
+}
+
+prepare_for_metareport_distribution_chart <- function(data_asset_type,
+                                                      sector_filter,
+                                                      technologies_filter,
+                                                      year_filter,
+                                                      value_to_plot =
+                                                        "plan_carsten") {
+
+  unique_investor_names <- data_asset_type %>%
+    filter(.data$investor_name!="Meta Investor") %>%
+    select(.data$investor_name,.data$portfolio_name) %>%
+    distinct()
+
+  data_distribution <- data_asset_type %>%
+    filter(.data$ald_sector == sector_filter,
+           .data$technology %in% technologies_filter,
+           .data$scenario == data_asset_type$scenario[1], # this choice is only
+                                                          # made to extract a
+                                                          # distinct set of data
+           .data$year == year_filter,
+           .data$allocation=="portfolio_weight",
+           .data$investor_name!="Meta Investor",
+           .data$scenario_geography ==
+             data_asset_type$scenario_geography[1] # this choice is only made to
+                                                   # extract a distinct set of
+                                                   # data
+           ) %>%
+    select(.data$investor_name, .data$portfolio_name, value = !!value_to_plot) %>%
+    group_by(.data$investor_name, .data$portfolio_name) %>%
+    summarize(value = sum(.data$value, na.rm=TRUE)) %>%
+    ungroup() %>%
+    right_join(unique_investor_names) %>%
+    mutate(value =
+             if_else(is.na(.data$value),0.001,.data$value)) %>%
+    arrange(desc(.data$value))
+
 }

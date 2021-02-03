@@ -484,6 +484,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
                                                 )
                                               ),
                                               bars_labels_specs = NULL) {
+
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -558,6 +559,42 @@ plot_metareport_pacta_sectors_mix <- function(data,
   ))
 }
 
+plot_metareport_distribution <- function(data, plot_title, x_title = "",
+                                         y_title = "",
+                                         investor_labels = NULL) {
+
+  if (is.null(investor_labels)) {
+    investor_labels <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  r2dii_colours <- r2dii_palette_colours()
+
+  p <- ggplot(data,
+              aes(
+                x = factor(.data$portfolio_name, levels = .data$portfolio_name),
+                y = .data$value,
+                fill = factor(.data$investor_name,
+                levels = investor_labels$investor_name))) +
+    geom_bar(stat="identity", width = 0.94) +
+    xlab(x_title) +
+    ylab(y_title) +
+    labs(title = plot_title) +
+    scale_y_continuous(
+      labels = scales::percent_format(),
+      expand = c(0, 0)) +
+    scale_fill_manual(
+      values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
+      labels = investor_labels$label) +
+    theme_2dii_ggplot() +
+    theme(axis.text.x=element_blank(),
+          axis.ticks.x=element_blank()) +
+    theme(legend.position = "bottom")
+  p
+}
+
 #' Get the predefined technology colors for a sector
 #'
 #' @param sector sector for which we want to retrieve colors (a character string)
@@ -608,11 +645,11 @@ r2dii_palette_colours <- function() {
     "dark_blue",   "#1b324f",
         "green",   "#00c082",
        "orange",   "#ff9623",
+         "grey",   "#d0d7e1",
   "dark_purple",   "#574099",
        "yellow",   "#f2e06e",
     "soft_blue",   "#78c4d6",
      "ruby_red",   "#a63d57",
-         "grey",   "#d0d7e1",
    "moss_green",   "#4a5e54"
   )
   # styler: on
