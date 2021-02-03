@@ -218,9 +218,10 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 #' @param data_asset_type dataframe in the shape of
 #'   "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
 #'   "30_Results" folder (dataframe)
-#' @param sector_filter sector to be used for filtering (a character string)
-#' @param technologies_filter technologies to be used for filtering (a vector
-#' of charater strings)
+#' @param sectors_filter sector to be used for filtering (a character string
+#' or a vector of charater strings)
+#' @param technologies_filter technologies to be used for filtering (a character
+#'  string or a vector of charater strings)
 #' @param year_filter year to be used for filtering (integer)
 #' @param value_to_plot variable to be used as value for plotting (a character
 #' string)
@@ -232,7 +233,7 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 #' # TODO
 
 prepare_for_metareport_distribution_chart <- function(data_asset_type,
-                                                      sector_filter,
+                                                      sectors_filter,
                                                       technologies_filter,
                                                       year_filter,
                                                       value_to_plot =
@@ -244,7 +245,7 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
     distinct()
 
   data_distribution <- data_asset_type %>%
-    filter(.data$ald_sector == sector_filter,
+    filter(.data$ald_sector %in% sectors_filter,
            .data$technology %in% technologies_filter,
            .data$scenario == data_asset_type$scenario[1], # this choice is only
                                                           # made to extract a

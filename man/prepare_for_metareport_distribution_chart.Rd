@@ -6,7 +6,7 @@
 \usage{
 prepare_for_metareport_distribution_chart(
   data_asset_type,
-  sector_filter,
+  sectors_filter,
   technologies_filter,
   year_filter,
   value_to_plot = "plan_carsten"
@@ -17,10 +17,11 @@ prepare_for_metareport_distribution_chart(
 "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
 "30_Results" folder (dataframe)}
 
-\item{sector_filter}{sector to be used for filtering (a character string)}
+\item{sectors_filter}{sector to be used for filtering (a character string
+or a vector of charater strings)}
 
-\item{technologies_filter}{technologies to be used for filtering (a vector
-of charater strings)}
+\item{technologies_filter}{technologies to be used for filtering (a character
+string or a vector of charater strings)}
 
 \item{year_filter}{year to be used for filtering (integer)}
 
