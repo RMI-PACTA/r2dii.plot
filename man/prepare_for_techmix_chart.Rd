@@ -2,8 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_techmix_chart}
 \alias{prepare_for_techmix_chart}
-\title{Prepares pre-processed data to be ready for plotting a techmix chart for a
-sector}
+\title{Prepares pre-processed data for plotting a tech-mix chart}
 \usage{
 prepare_for_techmix_chart(
   data_preprocessed,
@@ -16,24 +15,22 @@ prepare_for_techmix_chart(
 )
 }
 \arguments{
-\item{data_preprocessed}{pre-processed input data}
+\item{data_preprocessed}{Pre-processed input data.}
 
-\item{sector_filter}{sector for which to filter the data (a character string)}
+\item{sector_filter}{Sector for which to filter the data (character string).}
 
-\item{years_filter}{years which we want to plot in the graph (an array of integer
-values)}
+\item{years_filter}{Years to plot in the graph (array of integer values).}
 
-\item{region_filter}{region for which to filter the data (a character string)}
+\item{region_filter}{Region for which to filter the data (character string).}
 
-\item{scenario_source_filter}{scenario source for which to filter the data (a
-character string)}
+\item{scenario_source_filter}{Scenario source for which to filter the data
+(character string).}
 
-\item{scenario_filter}{scenario to plot in the graph (a character string)}
+\item{scenario_filter}{Scenario to plot in the graph (character string).}
 
-\item{value_name}{the name of the value to be plotted as a bar chart (a
-character string)}
+\item{value_name}{The name of the value to be plotted as a bar chart
+(character string).}
 }
 \description{
-Prepares pre-processed data to be ready for plotting a techmix chart for a
-sector
+Prepares pre-processed data for plotting a tech-mix chart
 }

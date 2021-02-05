@@ -2,8 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_trajectory_chart}
 \alias{prepare_for_trajectory_chart}
-\title{Prepares pre-processed data to be ready for plotting a trajectory chart for a
-technology}
+\title{Prepares pre-processed data for plotting a trajectory chart}
 \usage{
 prepare_for_trajectory_chart(
   data_preprocessed,
@@ -17,27 +16,26 @@ prepare_for_trajectory_chart(
 )
 }
 \arguments{
-\item{data_preprocessed}{pre-processed input data}
+\item{data_preprocessed}{Pre-processed input data.}
 
-\item{sector_filter}{sector for which to filter the data (a character string)}
+\item{sector_filter}{Sector for which to filter the data (character string).}
 
-\item{technology_filter}{technology for which to filter the data (a character
-string)}
+\item{technology_filter}{Technology for which to filter the data (character
+string).}
 
-\item{region_filter}{region for which to filter the data (a character string)}
+\item{region_filter}{Region for which to filter the data (character string).}
 
-\item{scenario_source_filter}{scenario source for which to filter the data (a
-character string)}
+\item{scenario_source_filter}{Scenario source for which to filter the data
+(character string).}
 
-\item{value_name}{the name of the value to be plotted in the trajectory chart
-(a character string)}
+\item{value_name}{The name of the value to be plotted in the trajectory chart
+(character string).}
 
-\item{end_year_filter}{cut off year for the chart (an integer; default = 2025)}
+\item{end_year_filter}{Cut-off year for the chart (an integer).}
 
-\item{normalize_to_start_year}{flab indicating whether the values should be
-normalized (boolean; default = TRUE)}
+\item{normalize_to_start_year}{Flag indicating whether the values should be
+normalized (boolean).}
 }
 \description{
-Prepares pre-processed data to be ready for plotting a trajectory chart for a
-technology
+Prepares pre-processed data for plotting a trajectory chart
 }

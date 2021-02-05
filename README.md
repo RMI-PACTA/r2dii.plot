@@ -53,7 +53,8 @@ scenario_specs <- data.frame(
 )
 
 main_line_metric <- data.frame(metric = "projected", label = "Portfolio")
-additional_line_metrics <- data.frame(metric = "corporate_economy", label = "Corporate Economy")
+additional_line_metrics <- data.frame(metric = "corporate_economy", 
+                                      label = "Corporate Economy")
 
 plot <- plot_trajectory(data_trajectory,
   plot_title = "Production trajectory of Oil Capacity technology \n in the Power sector",
@@ -83,12 +84,17 @@ data_techmix_power <- prepare_for_techmix_chart(example_data,
 
 tech_colors_power <- get_r2dii_technology_colours("power")
 bars_labels_specs <- data.frame(
-  "metric_type" = c("portfolio_2020", "benchmark_2020", "portfolio_2025", "benchmark_2025", "scenario_2025"),
-  "label" = c("Portfolio 2020", "Benchmark 2020", "Portfolio 2025", "Benchmark 2025", "Target SDS 2025")
+  "metric_type" = c("portfolio_2020", "benchmark_2020", "portfolio_2025", 
+                    "benchmark_2025", "scenario_2025"),
+  "label" = c("Portfolio 2020", "Benchmark 2020", "Portfolio 2025", 
+              "Benchmark 2025", "Target SDS 2025")
 )
 
-plot_techmix_power <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
-  show_legend = TRUE, tech_colors_power, bars_labels_specs
+plot_techmix_power <- plot_techmix(data_techmix_power, 
+                                    plot_title = "Technology mix for the Power sector",
+                                    show_legend = TRUE, 
+                                    tech_colors_power, 
+                                    bars_labels_specs
 )
 plot_techmix_power
 ```
@@ -104,8 +110,10 @@ analysis results loaded in your environment:
     data_security_type <- prepare_for_metareport_security_type_chart(data_total_portfolio)
 
     bars_labels_specs <- data.frame(
-      "investor_name" = c("pensionfund", "Meta Investor", "insurance", "bank", "assetmanager"),
-      "label" = c("Pension Funds", "Meta Investor", "Insurance", "Banks", "Asset Managers")
+      "investor_name" = c("pensionfund", "Meta Investor", "insurance", 
+      "bank", "assetmanager"),
+      "label" = c("Pension Funds", "Meta Investor", "Insurance", 
+      "Banks", "Asset Managers")
     )
 
     bars_asset_type_specs <- data.frame(
@@ -114,7 +122,9 @@ analysis results loaded in your environment:
       "r2dii_colour_name" = c("dark_blue", "moss_green", "grey")
     )
 
-    p <- plot_metareport_security_types(data_security_type, bars_asset_type_specs, bars_labels_specs)
+    p <- plot_metareport_security_types(data_security_type, 
+                                        bars_asset_type_specs, 
+                                        bars_labels_specs)
     p
 
 This is a basic example usage of `plot_metareport_pacta_sectors()` given
@@ -128,6 +138,43 @@ results loaded in your environment:
       "label" = c("Pension Funds", "Insurance", "Banks", "Asset Managers")
     )
 
-    plot <- plot_metareport_pacta_sectors(data = data_climate_relevant, bars_labels_specs = bars_labels_climate_rel,
-                                              plot_title = "Percentage of Asset type Portfolios invested in PACTA sectors")
+    plot <- plot_metareport_pacta_sectors(data = data_climate_relevant, 
+                                          bars_labels_specs = bars_labels_climate_rel,
+                                          plot_title = "Percentage of Asset type Portfolios invested in PACTA sectors")
     plot
+
+These are basic examples of using `plot_metareport_distribution()` given
+that you have the `Equity_results_portfolio.rda` or
+`Bonds_results_portfolio.rda` data set from PACTA analysis results
+loaded in your environment:
+
+    investor_labels <- data.frame(
+      "investor_name" = c("assetmanager","bank","insurance","pensionfund"),
+      "label" = c("Asset Managers","Banks","Insurance","Pension funds")
+    )
+
+    data_distr_br_port <- prepare_for_metareport_distribution_chart(data_equity,
+                                                          sectors_filter = "Power",
+                                                          technologies_filter = c("CoalCap","OilCap","GasCap"),
+                                                          year_filter = 2020,
+                                                          value_to_plot = "plan_carsten")
+
+    p_br <- plot_metareport_distribution(data_distr_br_port, 
+                                      plot_title = "Percentage of a portfolio invested in brown technologies in the Power sector - Listed Equity",
+                                      x_title = "Participants",
+                                      y_title = "",
+                                      investor_labels = investor_labels)
+    p_br
+
+    data_distr_gr_prod <- prepare_for_metareport_distribution_chart(data_equity,
+                                                          sectors_filter = "Power",
+                                                          technologies_filter = c("RenewablesCap", "HydroCap"),
+                                                          year_filter = 2020,
+                                                          value_to_plot = "plan_tech_share")
+
+    p_gr <- plot_metareport_distribution(data_distr_gr_prod, 
+                                      plot_title = "Percentage share of a low carbon power production - Listed Equity",
+                                      x_title = "Participants",
+                                      y_title = "",
+                                      investor_labels = investor_labels)
+    p_gr

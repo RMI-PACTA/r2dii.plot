@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{process_input_data}
 \alias{process_input_data}
-\title{Performs initial processing on raw input data in banks' format}
+\title{Performs the initial processing on raw input data in banks' format}
 \usage{
 process_input_data(data)
 }
@@ -13,9 +13,10 @@ process_input_data(data)
 A dataframe with additional column: metric type and modified metric
 }
 \description{
-The data is processed so that it can be used later in data filtering
-functions for charts. 'metric_type' variable is added which depends on
-'metric' and the 'metric' values themselves are edited for plotting purposes.
+This function processes the data in banks' format so that it can
+be used later in data filtering functions for charts. 'metric_type' variable
+is added which depends on 'metric' and the 'metric' values themselves are
+edited for plotting purposes.
 }
 \examples{
 # TODO

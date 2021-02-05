@@ -1,12 +1,12 @@
 #' Returns a custom 2dii ggplot theme
 #'
-#' @param font_family optional argument specifying the font that should be used
-#'   in a graph (character string taking the same values as standard ggplot font
-#'   families; default = "Helvetica")
+#' @param font_family argument specifying the font that should be used in a
+#'   graph (character string taking the same values as standard ggplot font
+#'   families).
 #'
 #' @description Returns a ggplot theme which can be applied to all graphs to
-#' appear according to 2DII plotting aesthetics, like removed gridlines, grey
-#' axis lines etc.
+#'   appear according to 2DII plotting aesthetics, like removed gridlines, grey
+#'   axis lines etc.
 #'
 #' @export
 
@@ -44,32 +44,36 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
 
 #' Create a trajectory alignment chart in a ggplot object
 #'
-#' @param data filtered input data (dataframe with columns: year, metric_type,
-#'   metric and value)
-#' @param plot_title title of the plot (character string; default = "")
-#' @param x_title title of the x-axis (character string; default = "")
-#' @param y_title title of the y-axis (character string; default = "")
-#' @param annotate_data flag indicating whether the data should be annotated
-#'   (boolean; default = FALSE)
-#' @param scenario_specs_good_to_bad dataframe containing scenario
+#' @param data Filtered input data (dataframe with columns: year, metric_type,
+#'   metric and value).
+#' @param plot_title Title of the plot (character string).
+#' @param x_title,y_title Title of the x- and y-axis (character string).
+#' @param annotate_data Flag indicating whether the data should be annotated
+#'   (boolean).
+#' @param scenario_specs_good_to_bad Dataframe containing scenario
 #'   specifications like color or label, ordered from the most to least
-#'   sustainable (dataframe with columns: scenario, label, color)
-#' @param main_line_metric dataframe containing information about metric that
-#'   should be plotted as the main line (dataframe with columns: metric, label)
-#' @param additional_line_metrics dataframe containing information about
+#'   sustainable (dataframe with columns: scenario, label, color).
+#' @param main_line_metric Dataframe containing information about metric that
+#'   should be plotted as the main line (dataframe with columns: metric, label).
+#' @param additional_line_metrics Dataframe containing information about
 #'   additional metrics that should be plotted as lines (dataframe with columns:
-#'   metric, label; default = data.frame())
+#'   metric, label).
 #'
 #' @description The function returns a ggplot object containing a stacked bar
-#' chart showing a technology mix for different categories (portfolio, scenario,
-#' benchmark, etc.)
+#'   chart showing a technology mix for different categories (portfolio,
+#'   scenario, benchmark, etc.).
 #'
 #' @export
 
-plot_trajectory <- function(data, plot_title = "", x_title = "",
-                            y_title = "", annotate_data = FALSE,
-                            scenario_specs_good_to_bad, main_line_metric,
+plot_trajectory <- function(data,
+                            plot_title = "",
+                            x_title = "",
+                            y_title = "",
+                            annotate_data = FALSE,
+                            scenario_specs_good_to_bad,
+                            main_line_metric,
                             additional_line_metrics = data.frame()) {
+
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -233,26 +237,29 @@ plot_trajectory <- function(data, plot_title = "", x_title = "",
 
 #' Create a techmix chart in a ggplot object
 #'
-#' @param data filtered input data (dataframe with columns: technology,
+#' @param data Filtered input data (dataframe with columns: technology,
 #'   metric_type, metric and value).
-#' @param plot_title title of the plot (character string; default = "").
-#' @param show_legend flag indicating whether legend should be shown (boolean;
-#'   default = TRUE).
-#' @param df_tech_colours dataframe containing colors per technology (dataframe
+#' @param plot_title Title of the plot (character string).
+#' @param show_legend Flag indicating whether legend should be shown (boolean).
+#' @param df_tech_colours Dataframe containing colors per technology (dataframe
 #'   with columns: technology, label, color).
-#' @param df_bar_specs dataframe containing order of bars and their labels
+#' @param df_bar_specs Dataframe containing order of bars and their labels
 #'   (dataframe with columns: metric_type, label).
 #'
-#' @description
-#' The function returns a ggplot object containing a stacked bar chart showing a
-#' technology mix for different categories (portfolio, scenario, benchmark,
-#' etc.).
+#' @description The function returns a ggplot object containing a stacked bar
+#' chart showing a technology mix for different categories (portfolio, scenario,
+#' benchmark, etc.).
 #'
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
-plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
-                         df_tech_colours, df_bar_specs) {
+
+plot_techmix <- function(data,
+                         plot_title = "",
+                         show_legend = TRUE,
+                         df_tech_colours,
+                         df_bar_specs) {
+
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -293,27 +300,24 @@ plot_techmix <- function(data, plot_title = "", show_legend = TRUE,
 
 #' Create a bar chart with overview of asset types per investor type
 #'
-#' @param data dataframe with data processed for the chart. With columns:
-#' investor_name, asset_type, share (dataframe).
-#' @param bars_asset_type_specs (optional) dataframe with specifications for
-#'   each asset type, columns: asset_type, legend label, r2dii_colour_name
-#'   (dataframe; default = data.frame("asset_type" =
-#'   c("Equity","Bonds","Others"), "label" = c("Equity","Bonds","Others"),
-#'   "r2dii_colour_name" = c("dark_blue","green","grey"))).
-#' @param bars_labels_specs (optional) dataframe with labels for investor
-#'   types, columns: investor_type, label. If no is specified, investor_type
-#'   from data is used as label. (dataframe; default = NULL).
+#' @param data Dataframe with data processed for the chart. With columns:
+#'   investor_name, asset_type, share (dataframe).
+#' @param bars_asset_type_specs Dataframe with specifications for each asset
+#'   type, columns: asset_type, legend label, r2dii_colour_name (dataframe).
+#' @param bars_labels_specs Dataframe with labels for investor types, columns:
+#'   investor_type, label. If no is specified, investor_type from data is used
+#'   as label. (dataframe).
 #'
 #' @description This function plots a horizontal stacked bar chart with
-#' composition of investors securities per investor type. No need to specify the
-#' colours if the security types in your dataset are only: Equity, Bonds and
-#' Others. Otherwise full specification needs to be passed to the function, for
-#' all security types.
+#'   composition of investors securities per investor type. No need to specify
+#'   the colours if the security types in your dataset are only: Equity, Bonds
+#'   and Others. Otherwise full specification needs to be passed to the
+#'   function, for all security types.
 #'
 #' @export
 
-
-plot_metareport_security_types <- function(data, bars_asset_type_specs =
+plot_metareport_security_types <- function(data,
+                                           bars_asset_type_specs =
                                              data.frame(
                                                "asset_type" =
                                                  c("Equity", "Bonds", "Others"),
@@ -321,7 +325,8 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
                                                  c("Equity", "Bonds", "Others"),
                                                "r2dii_colour_name" =
                                                  c("dark_blue", "green", "grey")
-                                             ), bars_labels_specs = NULL) {
+                                             ),
+                                           bars_labels_specs = NULL) {
   r2dii_colors <- r2dii_palette_colours()
 
   bars_asset_type_specs <- left_join(bars_asset_type_specs, r2dii_colors,
@@ -363,21 +368,21 @@ plot_metareport_security_types <- function(data, bars_asset_type_specs =
 
 #' Create a small multiples bar chart with portfolio exposure to PACTA sectors
 #'
-#' @param data dataframe with data processed for the chart. With columns:
-#' investor_name, asset_type, share_climate_relevant (dataframe)
-#' @param bars_labels_specs (optional) dataframe with labels for investor
-#'   types, columns: investor_type, label. If no is specified, investor_type
-#'   from data is used as label. (dataframe; default = NULL)
-#' @param plot_title (optional) title of the plot; if no title is specified,
-#'   the plot title is set in the code to a predetermined character string
-#'   (character string; default = NULL).
+#' @param data Dataframe with data processed for the chart. With columns:
+#'   investor_name, asset_type, share_climate_relevant (dataframe).
+#' @param bars_labels_specs Dataframe with labels for investor types, columns:
+#'   investor_type, label. If no is specified, investor_type from data is used
+#'   as label. (dataframe).
+#' @param plot_title Title of the plot; if no title is specified, the plot title
+#'   is set in the code to a predetermined character string (character string).
 #'
 #' @return an object of class "ggplot"
 #' @export
 #'
 #' @examples
 #' # TODO
-plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
+plot_metareport_pacta_sectors <- function(data,
+                                          bars_labels_specs = NULL,
                                           plot_title = NULL) {
   r2dii_colors <- r2dii_palette_colours()
 
@@ -450,19 +455,15 @@ plot_metareport_pacta_sectors <- function(data, bars_labels_specs = NULL,
 #' Create a small multiples stacked bar chart with percentage investment in
 #' PACTA sectors
 #'
-#' @param data dataframe with data processed for the chart. With columns:
-#'   investor_name, asset_type, sector, share (dataframe)
-#' @param plot_title (optional) title of the plot; if no title is specified,
-#'   the plot title is set in the code to a predetermined character string
-#'   (character string; default = NULL).
-#' @param df_sectors_order dataframe with ordered sector names and their labels
-#'   (dataframe; default = data.frame("sector" = c("steel", "cement",
-#'   "shipping","aviation", "automotive", "power","coal", "oil&gas"),"label" =
-#'   c( "Steel", "Cement", "Shipping","Aviation", "Automotive", "Power","Coal",
-#'   "Oil & Gas")))
-#' @param bars_labels_specs (optional) dataframe with labels for investor
-#'   types, columns: investor_type, label. If no is specified, investor_type
-#'   from data is used as label. (dataframe; default = NULL)
+#' @param data Dataframe with data processed for the chart. With columns:
+#'   investor_name, asset_type, sector, share (dataframe).
+#' @param plot_title Title of the plot; if no title is specified, the plot title
+#'   is set in the code to a predetermined character string (character string).
+#' @param df_sectors_order Dataframe with ordered sector names and their labels
+#'   (dataframe).
+#' @param bars_labels_specs Dataframe with labels for investor types, columns:
+#'   investor_type, label. If no is specified, investor_type from data is used
+#'   as label. (dataframe).
 #'
 #' @return an object of class "ggplot"
 #' @export
@@ -484,6 +485,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
                                                 )
                                               ),
                                               bars_labels_specs = NULL) {
+
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -558,9 +560,62 @@ plot_metareport_pacta_sectors_mix <- function(data,
   ))
 }
 
+#' Create a metareport distribution chart
+#'
+#' @param data Dataframe with data processed for the chart. With columns:
+#'   investor_name, portfolio_name, value (dataframe).
+#' @param plot_title Title of the plot; (character string).
+#' @param x_title,y_title x- and y-axis title (character string).
+#' @param investor_labels Dataframe with order and labels for investor types,
+#'   columns: investor_type, label. Can be used for preserving colour order
+#'   between different plots (using the same df will preserve the order). If no
+#'   is specified, investor_type from data is used as label. (dataframe).
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' #TODO
+plot_metareport_distribution <- function(data,
+                                         plot_title = "",
+                                         x_title = "",
+                                         y_title = "",
+                                         investor_labels = NULL) {
+
+  if (is.null(investor_labels)) {
+    investor_labels <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  r2dii_colours <- r2dii_palette_colours()
+
+  p <- ggplot(data,
+              aes(
+                x = factor(.data$portfolio_name, levels = .data$portfolio_name),
+                y = .data$value,
+                fill = factor(.data$investor_name,
+                levels = investor_labels$investor_name))) +
+    geom_bar(stat="identity", width = 0.94) +
+    xlab(x_title) +
+    ylab(y_title) +
+    labs(title = plot_title) +
+    scale_y_continuous(
+      labels = scales::percent_format(),
+      expand = c(0, 0)) +
+    scale_fill_manual(
+      values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
+      labels = investor_labels$label) +
+    theme_2dii_ggplot() +
+    theme(axis.text.x=element_blank(),
+          axis.ticks.x=element_blank()) +
+    theme(legend.position = "bottom")
+}
+
 #' Get the predefined technology colors for a sector
 #'
-#' @param sector sector for which we want to retrieve colors (a character string)
+#' @param sector Sector for which we want to retrieve colors (character string).
 #'
 #' @export
 
@@ -608,11 +663,11 @@ r2dii_palette_colours <- function() {
     "dark_blue",   "#1b324f",
         "green",   "#00c082",
        "orange",   "#ff9623",
+         "grey",   "#d0d7e1",
   "dark_purple",   "#574099",
        "yellow",   "#f2e06e",
     "soft_blue",   "#78c4d6",
      "ruby_red",   "#a63d57",
-         "grey",   "#d0d7e1",
    "moss_green",   "#4a5e54"
   )
   # styler: on
@@ -620,7 +675,7 @@ r2dii_palette_colours <- function() {
 
 #' Get the 2DII sector colour palette
 #'
-#' @return tribble with sector labels and colour hex strings
+#' @return tribble with sector labels and colour hex strings.
 #' @export
 
 r2dii_sector_colours <- function() {

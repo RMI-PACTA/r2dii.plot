@@ -15,22 +15,18 @@ plot_metareport_pacta_sectors_mix(
 )
 }
 \arguments{
-\item{data}{dataframe with data processed for the chart. With columns:
-investor_name, asset_type, sector, share (dataframe)}
+\item{data}{Dataframe with data processed for the chart. With columns:
+investor_name, asset_type, sector, share (dataframe).}
 
-\item{plot_title}{(optional) title of the plot; if no title is specified,
-the plot title is set in the code to a predetermined character string
-(character string; default = NULL).}
+\item{plot_title}{Title of the plot; if no title is specified, the plot title
+is set in the code to a predetermined character string (character string).}
 
-\item{df_sectors_order}{dataframe with ordered sector names and their labels
-(dataframe; default = data.frame("sector" = c("steel", "cement",
-"shipping","aviation", "automotive", "power","coal", "oil&gas"),"label" =
-c( "Steel", "Cement", "Shipping","Aviation", "Automotive", "Power","Coal",
-"Oil & Gas")))}
+\item{df_sectors_order}{Dataframe with ordered sector names and their labels
+(dataframe).}
 
-\item{bars_labels_specs}{(optional) dataframe with labels for investor
-types, columns: investor_type, label. If no is specified, investor_type
-from data is used as label. (dataframe; default = NULL)}
+\item{bars_labels_specs}{Dataframe with labels for investor types, columns:
+investor_type, label. If no is specified, investor_type from data is used
+as label. (dataframe).}
 }
 \value{
 an object of class "ggplot"
