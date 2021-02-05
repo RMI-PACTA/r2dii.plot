@@ -2,8 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_metareport_security_type_chart}
 \alias{prepare_for_metareport_security_type_chart}
-\title{Aggregates and prepares PACTA analysis total_portfolio data to be an input for
-metareport security type bar chart}
+\title{Prepares PACTA total_portfolio data for meta-report security type bar chart}
 \usage{
 prepare_for_metareport_security_type_chart(
   data_total_portfolio,
@@ -11,17 +10,16 @@ prepare_for_metareport_security_type_chart(
 )
 }
 \arguments{
-\item{data_total_portfolio}{dataframe in the shape of
+\item{data_total_portfolio}{Dataframe in the shape of
 ".._total_portfolio.rda" dataset from PACTA analysis output in
-"30_Processed_Inputs" folder (dataframe)}
+"30_Processed_Inputs" folder (dataframe).}
 
-\item{other_asset_types}{array of character strings that should be summed up
-as "Other" asset type (array of character strings; default =
-c("Funds","Others","Unclassifiable"))}
+\item{other_asset_types}{Array of character strings that should be summed up
+as "Other" asset type (array of character strings).}
 }
 \description{
 This function aggregates and prepares one of PACTA analysis
 result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
-form an input that can be used for plotting metareport security type coverage
-per investor type bar chart
+form an input that can be used for plotting meta-report security type
+coverage per investor type bar chart
 }

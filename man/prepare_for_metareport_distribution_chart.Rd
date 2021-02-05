@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_metareport_distribution_chart}
 \alias{prepare_for_metareport_distribution_chart}
-\title{Prepared results data per asset type for distribution chart plot}
+\title{Prepares results data per asset type for distribution chart plot}
 \usage{
 prepare_for_metareport_distribution_chart(
   data_asset_type,
@@ -13,26 +13,26 @@ prepare_for_metareport_distribution_chart(
 )
 }
 \arguments{
-\item{data_asset_type}{dataframe in the shape of
+\item{data_asset_type}{Dataframe in the shape of
 "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
-"30_Results" folder (dataframe)}
+"30_Results" folder (dataframe).}
 
-\item{sectors_filter}{sector to be used for filtering (a character string
-or a vector of charater strings)}
+\item{sectors_filter}{Sector to be used for filtering (character string or a
+vector of character strings).}
 
-\item{technologies_filter}{technologies to be used for filtering (a character
-string or a vector of charater strings)}
+\item{technologies_filter}{Technologies to be used for filtering (character
+string or a vector of character strings).}
 
-\item{year_filter}{year to be used for filtering (integer)}
+\item{year_filter}{Year to be used for filtering (integer).}
 
-\item{value_to_plot}{variable to be used as value for plotting (a character
-string)}
+\item{value_to_plot}{Variable to be used as value for plotting (character
+string).}
 }
 \value{
 dataframe with columns investor_name, portfolio_name, value
 }
 \description{
-Prepared results data per asset type for distribution chart plot
+Prepares results data per asset type for distribution chart plot
 }
 \examples{
 # TODO

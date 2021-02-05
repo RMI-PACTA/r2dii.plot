@@ -7,7 +7,7 @@
 get_r2dii_technology_colours(sector)
 }
 \arguments{
-\item{sector}{sector for which we want to retrieve colors (a character string)}
+\item{sector}{Sector for which we want to retrieve colors (character string).}
 }
 \description{
 Get the predefined technology colors for a sector

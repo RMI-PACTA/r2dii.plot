@@ -13,22 +13,17 @@ plot_metareport_distribution(
 )
 }
 \arguments{
-\item{data}{dataframe with data processed for the chart. With columns:
-investor_name, portfolio_name, value (dataframe)}
+\item{data}{Dataframe with data processed for the chart. With columns:
+investor_name, portfolio_name, value (dataframe).}
 
-\item{plot_title}{(optional) title of the plot; (character string;
-default = "").}
+\item{plot_title}{Title of the plot; (character string).}
 
-\item{x_title}{(optional) x axis title ; (character string;
-default = "").}
+\item{x_title, y_title}{x- and y-axis title (character string).}
 
-\item{y_title}{(optional) y axis title ; (character string;
-default = "").}
-
-\item{investor_labels}{(optional) dataframe with order and labels for investor
-types, columns: investor_type, label. Can be used for preserving colour order
-between different plots (using the same df will preserve the order).
-If no is specified, investor_type from data is used as label. (dataframe; default = NULL)}
+\item{investor_labels}{Dataframe with order and labels for investor types,
+columns: investor_type, label. Can be used for preserving colour order
+between different plots (using the same df will preserve the order). If no
+is specified, investor_type from data is used as label. (dataframe).}
 }
 \value{
 an object of class "ggplot"

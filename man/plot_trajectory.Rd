@@ -16,31 +16,29 @@ plot_trajectory(
 )
 }
 \arguments{
-\item{data}{filtered input data (dataframe with columns: year, metric_type,
-metric and value)}
+\item{data}{Filtered input data (dataframe with columns: year, metric_type,
+metric and value).}
 
-\item{plot_title}{title of the plot (character string; default = "")}
+\item{plot_title}{Title of the plot (character string).}
 
-\item{x_title}{title of the x-axis (character string; default = "")}
+\item{x_title, y_title}{Title of the x- and y-axis (character string).}
 
-\item{y_title}{title of the y-axis (character string; default = "")}
+\item{annotate_data}{Flag indicating whether the data should be annotated
+(boolean).}
 
-\item{annotate_data}{flag indicating whether the data should be annotated
-(boolean; default = FALSE)}
-
-\item{scenario_specs_good_to_bad}{dataframe containing scenario
+\item{scenario_specs_good_to_bad}{Dataframe containing scenario
 specifications like color or label, ordered from the most to least
-sustainable (dataframe with columns: scenario, label, color)}
+sustainable (dataframe with columns: scenario, label, color).}
 
-\item{main_line_metric}{dataframe containing information about metric that
-should be plotted as the main line (dataframe with columns: metric, label)}
+\item{main_line_metric}{Dataframe containing information about metric that
+should be plotted as the main line (dataframe with columns: metric, label).}
 
-\item{additional_line_metrics}{dataframe containing information about
+\item{additional_line_metrics}{Dataframe containing information about
 additional metrics that should be plotted as lines (dataframe with columns:
-metric, label; default = data.frame())}
+metric, label).}
 }
 \description{
 The function returns a ggplot object containing a stacked bar
-chart showing a technology mix for different categories (portfolio, scenario,
-benchmark, etc.)
+chart showing a technology mix for different categories (portfolio,
+scenario, benchmark, etc.).
 }

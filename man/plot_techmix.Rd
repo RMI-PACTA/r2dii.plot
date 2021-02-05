@@ -13,24 +13,23 @@ plot_techmix(
 )
 }
 \arguments{
-\item{data}{filtered input data (dataframe with columns: technology,
+\item{data}{Filtered input data (dataframe with columns: technology,
 metric_type, metric and value).}
 
-\item{plot_title}{title of the plot (character string; default = "").}
+\item{plot_title}{Title of the plot (character string).}
 
-\item{show_legend}{flag indicating whether legend should be shown (boolean;
-default = TRUE).}
+\item{show_legend}{Flag indicating whether legend should be shown (boolean).}
 
-\item{df_tech_colours}{dataframe containing colors per technology (dataframe
+\item{df_tech_colours}{Dataframe containing colors per technology (dataframe
 with columns: technology, label, color).}
 
-\item{df_bar_specs}{dataframe containing order of bars and their labels
+\item{df_bar_specs}{Dataframe containing order of bars and their labels
 (dataframe with columns: metric_type, label).}
 }
 \description{
-The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.).
+The function returns a ggplot object containing a stacked bar
+chart showing a technology mix for different categories (portfolio, scenario,
+benchmark, etc.).
 }
 \examples{
 # TODO create an example or copy-paste an existing one from README or a test.

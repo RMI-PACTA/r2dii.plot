@@ -1,10 +1,11 @@
-#' Performs initial processing on raw input data in banks' format
-#'
-#' The data is processed so that it can be used later in data filtering
-#' functions for charts. 'metric_type' variable is added which depends on
-#' 'metric' and the 'metric' values themselves are edited for plotting purposes.
+#' Performs the initial processing on raw input data in banks' format
 #'
 #' @param data Raw input data in the format of banks' output.
+#'
+#' @description This function processes the data in banks' format so that it can
+#' be used later in data filtering functions for charts. 'metric_type' variable
+#' is added which depends on 'metric' and the 'metric' values themselves are
+#' edited for plotting purposes.
 #'
 #' @return A dataframe with additional column: metric type and modified metric
 #' @export
@@ -25,28 +26,32 @@ process_input_data <- function(data) {
     ))
 }
 
-#' Prepares pre-processed data to be ready for plotting a trajectory chart for a
-#' technology
+#' Prepares pre-processed data for plotting a trajectory chart
 #'
-#' @param data_preprocessed pre-processed input data
-#' @param sector_filter sector for which to filter the data (a character string)
-#' @param technology_filter technology for which to filter the data (a character
-#'   string)
-#' @param region_filter region for which to filter the data (a character string)
-#' @param scenario_source_filter scenario source for which to filter the data (a
-#'   character string)
-#' @param value_name the name of the value to be plotted in the trajectory chart
-#'   (a character string)
-#' @param end_year_filter cut off year for the chart (an integer; default = 2025)
-#' @param normalize_to_start_year flab indicating whether the values should be
-#'   normalized (boolean; default = TRUE)
+#' @param data_preprocessed Pre-processed input data.
+#' @param sector_filter Sector for which to filter the data (character string).
+#' @param technology_filter Technology for which to filter the data (character
+#'   string).
+#' @param region_filter Region for which to filter the data (character string).
+#' @param scenario_source_filter Scenario source for which to filter the data
+#'   (character string).
+#' @param value_name The name of the value to be plotted in the trajectory chart
+#'   (character string).
+#' @param end_year_filter Cut-off year for the chart (an integer).
+#' @param normalize_to_start_year Flag indicating whether the values should be
+#'   normalized (boolean).
 #'
 #' @export
 
-prepare_for_trajectory_chart <- function(data_preprocessed, sector_filter, technology_filter,
-                                         region_filter, scenario_source_filter,
-                                         value_name, end_year_filter = 2025,
+prepare_for_trajectory_chart <- function(data_preprocessed,
+                                         sector_filter,
+                                         technology_filter,
+                                         region_filter,
+                                         scenario_source_filter,
+                                         value_name,
+                                         end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
+
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$technology == !!technology_filter) %>%
@@ -72,25 +77,28 @@ prepare_for_trajectory_chart <- function(data_preprocessed, sector_filter, techn
   }
 }
 
-#' Prepares pre-processed data to be ready for plotting a techmix chart for a
-#' sector
+#' Prepares pre-processed data for plotting a tech-mix chart
 #'
-#' @param data_preprocessed pre-processed input data
-#' @param sector_filter sector for which to filter the data (a character string)
-#' @param years_filter years which we want to plot in the graph (an array of integer
-#'   values)
-#' @param region_filter region for which to filter the data (a character string)
-#' @param scenario_source_filter scenario source for which to filter the data (a
-#'   character string)
-#' @param scenario_filter scenario to plot in the graph (a character string)
-#' @param value_name the name of the value to be plotted as a bar chart (a
-#'   character string)
+#' @param data_preprocessed Pre-processed input data.
+#' @param sector_filter Sector for which to filter the data (character string).
+#' @param years_filter Years to plot in the graph (array of integer values).
+#' @param region_filter Region for which to filter the data (character string).
+#' @param scenario_source_filter Scenario source for which to filter the data
+#'   (character string).
+#' @param scenario_filter Scenario to plot in the graph (character string).
+#' @param value_name The name of the value to be plotted as a bar chart
+#'   (character string).
 #'
 #' @export
 
-prepare_for_techmix_chart <- function(data_preprocessed, sector_filter, years_filter,
-                                      region_filter, scenario_source_filter,
-                                      scenario_filter, value_name) {
+prepare_for_techmix_chart <- function(data_preprocessed,
+                                      sector_filter,
+                                      years_filter,
+                                      region_filter,
+                                      scenario_source_filter,
+                                      scenario_filter,
+                                      value_name) {
+
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$region == !!region_filter) %>%
@@ -106,20 +114,18 @@ prepare_for_techmix_chart <- function(data_preprocessed, sector_filter, years_fi
     )
 }
 
-#' Aggregates and prepares PACTA analysis total_portfolio data to be an input for
-#' metareport security type bar chart
+#' Prepares PACTA total_portfolio data for meta-report security type bar chart
 #'
-#' @param data_total_portfolio dataframe in the shape of
+#' @param data_total_portfolio Dataframe in the shape of
 #'   ".._total_portfolio.rda" dataset from PACTA analysis output in
-#'   "30_Processed_Inputs" folder (dataframe)
-#' @param other_asset_types array of character strings that should be summed up
-#'   as "Other" asset type (array of character strings; default =
-#'   c("Funds","Others","Unclassifiable"))
+#'   "30_Processed_Inputs" folder (dataframe).
+#' @param other_asset_types Array of character strings that should be summed up
+#'   as "Other" asset type (array of character strings).
 #'
 #' @description This function aggregates and prepares one of PACTA analysis
-#' result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
-#' form an input that can be used for plotting metareport security type coverage
-#' per investor type bar chart
+#'   result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
+#'   form an input that can be used for plotting meta-report security type
+#'   coverage per investor type bar chart
 #'
 #' @export
 
@@ -152,12 +158,11 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
     arrange(.data$investor_name)
 }
 
-#' Aggregates and prepares PACTA analysis overview data to be an input for
-#' metareport PACTA sectors in portfolio bar chart
+#' Prepares PACTA overview data for meta-report PACTA sectors bar chart
 #'
-#' @param data_overview dataframe in the shape of
-#'   ".._overview_portfolio.rda" dataset from PACTA analysis output in
-#'   "30_Processed_Inputs" folder (dataframe)
+#' @param data_overview Dataframe in the shape of ".._overview_portfolio.rda"
+#'   dataset from PACTA analysis output in "30_Processed_Inputs" folder
+#'   (dataframe).
 #'
 #' @return dataframe prepared for the plot
 #' @export
@@ -165,32 +170,38 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
 #' @examples
 #'
 #' # TODO
+
 prepare_for_pacta_sectors_chart <- function(data_overview) {
+
   climate_relevant <- data_overview %>%
     filter(.data$financial_sector != "Other" & .data$valid_input == TRUE) %>%
     group_by(.data$investor_name, .data$portfolio_name, .data$asset_type) %>%
-    summarise(climate_sum = sum(.data$valid_value_usd), total = mean(.data$asset_value_usd)) %>%
+    summarise(climate_sum = sum(.data$valid_value_usd),
+              total = mean(.data$asset_value_usd)) %>%
     ungroup() %>%
     group_by(.data$investor_name, .data$asset_type) %>%
-    summarise(climate_value = sum(.data$climate_sum), total_value = sum(.data$total)) %>%
+    summarise(climate_value = sum(.data$climate_sum),
+              total_value = sum(.data$total)) %>%
     ungroup() %>%
-    filter((.data$asset_type %in% c("Bonds", "Equity")) & .data$investor_name != "Meta Investor") %>%
+    filter((.data$asset_type %in% c("Bonds", "Equity")) &
+             .data$investor_name != "Meta Investor") %>%
     mutate(share_climate_relevant = .data$climate_value / .data$total_value) %>%
     select(.data$investor_name, .data$asset_type, .data$share_climate_relevant)
 }
 
 
-#' Prepares PACTA analysis overview data for meta-report PACTA sectors mix chart
+#' Prepares PACTA overview data for meta-report PACTA sectors mix chart
 #'
-#' @param data_overview dataframe in the shape of
-#'   ".._overview_portfolio.rda" data set from PACTA analysis output in
-#'   #'   "30_Processed_Inputs" folder (dataframe)
+#' @param data_overview Dataframe in the shape of ".._overview_portfolio.rda"
+#'   data set from PACTA analysis output in "30_Processed_Inputs" folder
+#'   (dataframe).
 #'
 #' @return dataframe prepared for the plot
 #' @export
 #'
 #' @examples
 #' # TODO
+
 prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 
   data_sectors_mix <- data_overview %>%
@@ -213,18 +224,18 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 
 }
 
-#' Prepared results data per asset type for distribution chart plot
+#' Prepares results data per asset type for distribution chart plot
 #'
-#' @param data_asset_type dataframe in the shape of
+#' @param data_asset_type Dataframe in the shape of
 #'   "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
-#'   "30_Results" folder (dataframe)
-#' @param sectors_filter sector to be used for filtering (a character string
-#' or a vector of charater strings)
-#' @param technologies_filter technologies to be used for filtering (a character
-#'  string or a vector of charater strings)
-#' @param year_filter year to be used for filtering (integer)
-#' @param value_to_plot variable to be used as value for plotting (a character
-#' string)
+#'   "30_Results" folder (dataframe).
+#' @param sectors_filter Sector to be used for filtering (character string or a
+#'   vector of character strings).
+#' @param technologies_filter Technologies to be used for filtering (character
+#'   string or a vector of character strings).
+#' @param year_filter Year to be used for filtering (integer).
+#' @param value_to_plot Variable to be used as value for plotting (character
+#'   string).
 #'
 #' @return dataframe with columns investor_name, portfolio_name, value
 #' @export
@@ -247,16 +258,12 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
   data_distribution <- data_asset_type %>%
     filter(.data$ald_sector %in% sectors_filter,
            .data$technology %in% technologies_filter,
-           .data$scenario == data_asset_type$scenario[1], # this choice is only
-                                                          # made to extract a
-                                                          # distinct set of data
+           .data$scenario == data_asset_type$scenario[1], # this choice is only made to extract a distinct set of data
            .data$year == year_filter,
            .data$allocation=="portfolio_weight",
            .data$investor_name!="Meta Investor",
            .data$scenario_geography ==
-             data_asset_type$scenario_geography[1] # this choice is only made to
-                                                   # extract a distinct set of
-                                                   # data
+             data_asset_type$scenario_geography[1] # this choice is only made to extract a distinct set of data
            ) %>%
     select(.data$investor_name, .data$portfolio_name, value = !!value_to_plot) %>%
     group_by(.data$investor_name, .data$portfolio_name) %>%
