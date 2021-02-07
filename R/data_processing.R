@@ -275,3 +275,52 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
     arrange(desc(.data$value))
 
 }
+
+prepare_for_metareport_bubble_chart <- function(data_asset_type,
+                                                asset_type,
+                                                start_year,
+                                                technologies_filter,
+                                                scenario_filter,
+                                                scenario_geography_filter) {
+
+  if(asset_type == "Equity"){
+    allocation_choice <- "ownership_weight"
+  } else {
+    allocation_choice <- "portfolio_weight"
+  }
+
+  end_year <- start_year + 5
+
+  data_bubble <- data_asset_type %>%
+    filter(.data$technology %in% technologies_filter,
+           .data$scenario == scenario_filter,
+           .data$year == start_year | .data$year == end_year,
+           .data$scenario_geography == scenario_geography_filter,
+           .data$allocation == allocation_choice,
+           .data$investor_name != "Meta Investor") %>%
+    select(.data$investor_name,
+           .data$portfolio_name,
+           .data$year,
+           .data$plan_tech_share,
+           .data$plan_alloc_wt_tech_prod,
+           .data$scen_alloc_wt_tech_prod) %>%
+    group_by(.data$investor_name, .data$portfolio_name) %>%
+    arrange(.data$investor_name, .data$portfolio_name, .data$year,
+            by_group = TRUE) %>%
+    mutate(
+      difference_port =
+        lead(.data$plan_alloc_wt_tech_prod) - .data$plan_alloc_wt_tech_prod,
+      difference_scen =
+        lead(.data$scen_alloc_wt_tech_prod) - .data$scen_alloc_wt_tech_prod
+      ) %>%
+    ungroup() %>%
+    filter(.data$year == start_year) %>%
+    mutate(share_build_out = .data$difference_port/.data$difference_scen) %>%
+    mutate(share_build_out = if_else(.data$share_build_out > 1.0,
+                                     1.0,
+                                     .data$share_build_out)) %>%
+    select(.data$investor_name,
+           .data$portfolio_name,
+           .data$plan_tech_share,
+           .data$share_build_out)
+}
