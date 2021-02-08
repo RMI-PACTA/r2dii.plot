@@ -616,8 +616,7 @@ plot_metareport_distribution <- function(data,
 #' Create a meta-report bubble chart
 #'
 #' @param data Dataframe with data processed for the chart. With columns:
-#'   investor_name, portfolio_name, plan_tech_share, share_build_out
-#'   (dataframe).
+#'   investor_name, portfolio_name, value_x, value_y (dataframe).
 #' @param plot_title Title of the plot; (character string).
 #' @param x_title,y_title x- and y-axis title (character string).
 #' @param investor_labels Dataframe with order and labels for investor types,
@@ -654,15 +653,15 @@ plot_metareport_bubble <- function(data,
     r2dii_colours <- r2dii_palette_colours()
 
     p <- ggplot(data,
-            aes(x = .data$plan_tech_share,
-                y = .data$share_build_out,
+            aes(x = .data$value_x,
+                y = .data$value_y,
                 colour = factor(.data$investor_name,
                 levels = investor_labels$investor_name))
             )
   } else {
     p <- ggplot(data,
-            aes(x = .data$plan_tech_share,
-                y = .data$share_build_out)
+            aes(x = .data$value_x,
+                y = .data$value_y)
             )
   }
 

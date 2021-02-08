@@ -34,7 +34,7 @@ calculations (character string)}
 }
 \value{
 dataframe with columns investor_name, portfolio_name,
-plan_tech_share, share_build_out
+value_x, value_y
 }
 \description{
 This function aggregates and prepares one of PACTA analysis

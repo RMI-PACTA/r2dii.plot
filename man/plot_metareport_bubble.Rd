@@ -16,8 +16,7 @@ plot_metareport_bubble(
 }
 \arguments{
 \item{data}{Dataframe with data processed for the chart. With columns:
-investor_name, portfolio_name, plan_tech_share, share_build_out
-(dataframe).}
+investor_name, portfolio_name, value_x, value_y (dataframe).}
 
 \item{plot_title}{Title of the plot; (character string).}
 
@@ -39,4 +38,7 @@ an object of class "ggplot"
 }
 \description{
 Create a meta-report bubble chart
+}
+\examples{
+#TODO
 }

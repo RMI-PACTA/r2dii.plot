@@ -298,7 +298,7 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
 #'   by a scenario against the current technology share.
 #'
 #' @return dataframe with columns investor_name, portfolio_name,
-#'   plan_tech_share, share_build_out
+#'   value_x, value_y
 #' @export
 #'
 #' @examples
@@ -349,6 +349,6 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
                                      .data$share_build_out)) %>%
     select(.data$investor_name,
            .data$portfolio_name,
-           .data$plan_tech_share,
-           .data$share_build_out)
+           value_x = .data$plan_tech_share,
+           value_y = .data$share_build_out)
 }
