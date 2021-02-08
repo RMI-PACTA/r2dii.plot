@@ -23,7 +23,7 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
       plot.title = element_text(
         hjust = 0.5, vjust = 0.5, face = "bold",
         family = font_family, size = 14,
-        margin = margin(25, 2, 8, 2)
+        margin = margin(20, 2, 12, 2)
       ),
       axis.text = element_text(
         family = font_family, size = font_size_ticks,
@@ -611,6 +611,73 @@ plot_metareport_distribution <- function(data,
     theme(axis.text.x=element_blank(),
           axis.ticks.x=element_blank()) +
     theme(legend.position = "bottom")
+}
+
+plot_metareport_bubble <- function(data,
+                                   plot_title = NULL,
+                                   x_title = "",
+                                   y_title = "",
+                                   investor_labels = NULL,
+                                   colour_investors = TRUE,
+                                   show_legend_when_coloured = TRUE) {
+
+  if (is.null(investor_labels)) {
+    investor_labels <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  if (colour_investors) {
+    r2dii_colours <- r2dii_palette_colours()
+
+    p <- ggplot(data,
+            aes(x = plan_tech_share,
+                y = share_build_out,
+                colour = factor(.data$investor_name,
+                levels = investor_labels$investor_name))
+            )
+  } else {
+    p <- ggplot(data,
+            aes(x = plan_tech_share,
+                y = share_build_out)
+            )
+  }
+
+  p <- p +
+    geom_point(size=3, alpha = 0.6) +
+    xlab(x_title) +
+    ylab(y_title) +
+    labs(title = plot_title) +
+    scale_x_continuous(
+      limits = c(0, 1),
+      labels = scales::percent_format(),
+      expand = expansion(mult = c(0, 0.05))) +
+    scale_y_continuous(
+      limits = c(0, 1),
+      labels = scales::percent_format(),
+      expand = expansion(mult = c(0, 0.05))) +
+    theme_2dii_ggplot() +
+    theme(legend.position = "none") +
+    theme(
+      panel.grid.major = element_line(colour = "grey92", linetype="dashed"),
+      panel.grid.minor.x = element_line(colour="grey92", linetype="dashed"),
+      panel.grid.minor.y = element_line(colour="grey92", linetype="dashed")
+    )
+
+  if (colour_investors) {
+    p <- p +
+      scale_colour_manual(
+        values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
+        labels = investor_labels$label)
+
+    if (show_legend_when_coloured) {
+      p <- p +
+        theme(legend.position = "bottom")
+    }
+  }
+
+  p
 }
 
 #' Get the predefined technology colors for a sector
