@@ -712,6 +712,32 @@ plot_metareport_bubble <- function(data,
   p
 }
 
+plot_metareport_map <- function(data, plot_title = NULL,legend_title = NULL) {
+
+  p <- ggplot(data,
+              aes(x = long,
+                  y = lat,
+                  group = group,
+                  fill = value)) +
+    scale_fill_gradientn("", colours = RColorBrewer::brewer.pal(9,"YlOrBr"))+
+    geom_polygon() +
+    coord_cartesian(ylim = c(-50, 90)) +
+    ggtitle(plot_title) +
+    theme_2dii_ggplot() +
+    theme(axis.line = element_blank(),
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      axis.ticks = element_blank()) +
+    theme(legend.position = "bottom") %+replace%
+    theme(legend.title = element_text()) +
+    guides(fill = guide_colourbar(
+      title = legend_title,
+      title.position = "right",
+      barwidth = unit(0.2,"npc"))
+      )
+
+  }
+
 #' Get the predefined technology colors for a sector
 #'
 #' @param sector Sector for which we want to retrieve colors (character string).
