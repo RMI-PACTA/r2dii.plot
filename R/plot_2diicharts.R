@@ -560,7 +560,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
   ))
 }
 
-#' Create a metareport distribution chart
+#' Create a meta-report distribution chart
 #'
 #' @param data Dataframe with data processed for the chart. With columns:
 #'   investor_name, portfolio_name, value (dataframe).
@@ -613,6 +613,28 @@ plot_metareport_distribution <- function(data,
     theme(legend.position = "bottom")
 }
 
+#' Create a meta-report bubble chart
+#'
+#' @param data Dataframe with data processed for the chart. With columns:
+#'   investor_name, portfolio_name, plan_tech_share, share_build_out
+#'   (dataframe).
+#' @param plot_title Title of the plot; (character string).
+#' @param x_title,y_title x- and y-axis title (character string).
+#' @param investor_labels Dataframe with order and labels for investor types,
+#'   columns: investor_type, label. Can be used for preserving colour order
+#'   between different plots (using the same df will preserve the order). If no
+#'   is specified, investor_type from data is used as label. (dataframe).
+#' @param colour_investors flag indicating if points should be coloured
+#'   (boolean).
+#' @param show_legend_when_coloured flag indicating if legend should be showed
+#'   if points are coloured (boolean).
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' #TODO
+
 plot_metareport_bubble <- function(data,
                                    plot_title = NULL,
                                    x_title = "",
@@ -632,15 +654,15 @@ plot_metareport_bubble <- function(data,
     r2dii_colours <- r2dii_palette_colours()
 
     p <- ggplot(data,
-            aes(x = plan_tech_share,
-                y = share_build_out,
+            aes(x = .data$plan_tech_share,
+                y = .data$share_build_out,
                 colour = factor(.data$investor_name,
                 levels = investor_labels$investor_name))
             )
   } else {
     p <- ggplot(data,
-            aes(x = plan_tech_share,
-                y = share_build_out)
+            aes(x = .data$plan_tech_share,
+                y = .data$share_build_out)
             )
   }
 

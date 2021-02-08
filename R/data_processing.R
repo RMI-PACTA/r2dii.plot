@@ -276,6 +276,34 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
 
 }
 
+#' Prepares results data per asset type for bubble chart plot
+#'
+#' @param data_asset_type Dataframe in the shape of
+#'   "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
+#'   "40_Results" folder (dataframe).
+#' @param asset_type Asset type of the data (character string).
+#' @param start_year Year to be used as a start year in difference calculations
+#'   (integer).
+#' @param technologies_filter Technologies to be used for filtering (character
+#'   string or a vector of character strings).
+#' @param scenario_filter Scenario to be used in the calculations (character
+#'   string).
+#' @param scenario_geography_filter Scenario geography to be used in the
+#'   calculations (character string)
+#'
+#' @description This function aggregates and prepares one of PACTA analysis
+#'   result file "Bonds/Equity_results_portfolio.rda" from "40_Results" folder
+#'   to form an input that can be used for plotting meta-report bubble chart
+#'   showing a planned technology build-out as percentage of build-out required
+#'   by a scenario against the current technology share.
+#'
+#' @return dataframe with columns investor_name, portfolio_name,
+#'   plan_tech_share, share_build_out
+#' @export
+#'
+#' @examples
+#' #TODO
+
 prepare_for_metareport_bubble_chart <- function(data_asset_type,
                                                 asset_type,
                                                 start_year,
