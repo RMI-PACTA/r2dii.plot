@@ -275,3 +275,41 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
     arrange(desc(.data$value))
 
 }
+
+prepare_for_map_chart <- function(data_map_asset_type,
+                                  asset_type,
+                                  technology_filter,
+                                  year_filter,
+                                  allocation_method = NULL) {
+
+  if (is.null(allocation_method)) {
+    if (asset_type == "Equity") {
+      allocation_method = "ownership_weight"
+    } else {
+      allocation_method = "portfolio_weight"
+    }
+  }
+
+  data_map <- data_map_asset_type %>%
+    filter(.data$technology == technology_filter,
+    .data$allocation == allocation_method,
+    .data$year == year_filter,
+    .data$equity_market == "Global") %>%
+    group_by(.data$ald_location) %>%
+    summarise(value = sum(.data$plan_alloc_wt_tech_prod, na.rm=TRUE)) %>%
+    ungroup() %>%
+    na.omit() %>%
+    mutate(country = maps::iso.expand(.data$ald_location, regex=TRUE)) %>%
+    mutate(country = case_when(
+      .data$country == "(^France)|(^Clipperton Island)" ~ "France",
+      .data$country == "(^China(?!:Hong Kong|:Macao))|(^Paracel Islands)" ~ "China",
+      .data$country == "Norway(?!:Bouvet|:Svalbard|:Jan Mayen)" ~ "Norway",
+      .data$country == "UK(?!r)" ~ "UK",
+      .data$country == "(^Spain)|(^Canary Islands)" ~ "Spain",
+      .data$country == "(^Trinidad)|(^Tobago)" ~ "Trinidad", # assign to Trinidad because it is bigger
+      TRUE ~ .data$country
+    ))
+
+  joined_map <- left_join(ggplot2::map_data("world"), data_map, by = c("region" = "country"))
+
+}
