@@ -334,7 +334,7 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
            .data$scen_alloc_wt_tech_prod) %>%
     group_by(.data$investor_name, .data$portfolio_name) %>%
     arrange(.data$investor_name, .data$portfolio_name, .data$year,
-            by_group = TRUE) %>%
+            .by_group = TRUE) %>%
     mutate(
       difference_port =
         lead(.data$plan_alloc_wt_tech_prod) - .data$plan_alloc_wt_tech_prod,
