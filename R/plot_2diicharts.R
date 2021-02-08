@@ -23,7 +23,7 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
       plot.title = element_text(
         hjust = 0.5, vjust = 0.5, face = "bold",
         family = font_family, size = 14,
-        margin = margin(25, 2, 8, 2)
+        margin = margin(20, 2, 12, 2)
       ),
       axis.text = element_text(
         family = font_family, size = font_size_ticks,
@@ -73,7 +73,6 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = data.frame()) {
-
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -253,13 +252,11 @@ plot_trajectory <- function(data,
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
-
 plot_techmix <- function(data,
                          plot_title = "",
                          show_legend = TRUE,
                          df_tech_colours,
                          df_bar_specs) {
-
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -399,7 +396,7 @@ plot_metareport_pacta_sectors <- function(data,
   }
 
   if (is.null(plot_title)) {
-    plot_title =
+    plot_title <-
       "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
   }
 
@@ -485,7 +482,6 @@ plot_metareport_pacta_sectors_mix <- function(data,
                                                 )
                                               ),
                                               bars_labels_specs = NULL) {
-
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -494,7 +490,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
   }
 
   if (is.null(plot_title)) {
-    plot_title =
+    plot_title <-
       "Investment per sector as percentage of total value invested in PACTA sectors"
   }
 
@@ -560,7 +556,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
   ))
 }
 
-#' Create a metareport distribution chart
+#' Create a meta-report distribution chart
 #'
 #' @param data Dataframe with data processed for the chart. With columns:
 #'   investor_name, portfolio_name, value (dataframe).
@@ -575,13 +571,12 @@ plot_metareport_pacta_sectors_mix <- function(data,
 #' @export
 #'
 #' @examples
-#' #TODO
+#' # TODO
 plot_metareport_distribution <- function(data,
                                          plot_title = "",
                                          x_title = "",
                                          y_title = "",
                                          investor_labels = NULL) {
-
   if (is.null(investor_labels)) {
     investor_labels <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -591,26 +586,130 @@ plot_metareport_distribution <- function(data,
 
   r2dii_colours <- r2dii_palette_colours()
 
-  p <- ggplot(data,
-              aes(
-                x = factor(.data$portfolio_name, levels = .data$portfolio_name),
-                y = .data$value,
-                fill = factor(.data$investor_name,
-                levels = investor_labels$investor_name))) +
-    geom_bar(stat="identity", width = 0.94) +
+  p <- ggplot(
+    data,
+    aes(
+      x = factor(.data$portfolio_name, levels = .data$portfolio_name),
+      y = .data$value,
+      fill = factor(.data$investor_name,
+        levels = investor_labels$investor_name
+      )
+    )
+  ) +
+    geom_bar(stat = "identity", width = 0.94) +
     xlab(x_title) +
     ylab(y_title) +
     labs(title = plot_title) +
     scale_y_continuous(
       labels = scales::percent_format(),
-      expand = c(0, 0)) +
+      expand = c(0, 0)
+    ) +
     scale_fill_manual(
       values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
-      labels = investor_labels$label) +
+      labels = investor_labels$label
+    ) +
     theme_2dii_ggplot() +
-    theme(axis.text.x=element_blank(),
-          axis.ticks.x=element_blank()) +
+    theme(
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank()
+    ) +
     theme(legend.position = "bottom")
+}
+
+#' Create a meta-report bubble chart
+#'
+#' @param data Dataframe with data processed for the chart. With columns:
+#'   investor_name, portfolio_name, value_x, value_y (dataframe).
+#' @param plot_title Title of the plot; (character string).
+#' @param x_title,y_title x- and y-axis title (character string).
+#' @param investor_labels Dataframe with order and labels for investor types,
+#'   columns: investor_type, label. Can be used for preserving colour order
+#'   between different plots (using the same df will preserve the order). If no
+#'   is specified, investor_type from data is used as label. (dataframe).
+#' @param colour_investors flag indicating if points should be coloured
+#'   (boolean).
+#' @param show_legend_when_coloured flag indicating if legend should be showed
+#'   if points are coloured (boolean).
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
+#' # TODO
+plot_metareport_bubble <- function(data,
+                                   plot_title = NULL,
+                                   x_title = "",
+                                   y_title = "",
+                                   investor_labels = NULL,
+                                   colour_investors = TRUE,
+                                   show_legend_when_coloured = TRUE) {
+  if (is.null(investor_labels)) {
+    investor_labels <- data.frame(
+      "investor_name" = unique(data$investor_name),
+      "label" = unique(data$investor_name)
+    )
+  }
+
+  if (colour_investors) {
+    r2dii_colours <- r2dii_palette_colours()
+
+    p <- ggplot(
+      data,
+      aes(
+        x = .data$value_x,
+        y = .data$value_y,
+        colour = factor(.data$investor_name,
+          levels = investor_labels$investor_name
+        )
+      )
+    )
+  } else {
+    p <- ggplot(
+      data,
+      aes(
+        x = .data$value_x,
+        y = .data$value_y
+      )
+    )
+  }
+
+  p <- p +
+    geom_point(size = 3, alpha = 0.6) +
+    xlab(x_title) +
+    ylab(y_title) +
+    labs(title = plot_title) +
+    scale_x_continuous(
+      limits = c(0, 1),
+      labels = scales::percent_format(),
+      expand = expansion(mult = c(0, 0.05))
+    ) +
+    scale_y_continuous(
+      limits = c(0, 1),
+      labels = scales::percent_format(),
+      expand = expansion(mult = c(0, 0.05))
+    ) +
+    theme_2dii_ggplot() +
+    theme(legend.position = "none") +
+    theme(
+      panel.grid.major = element_line(colour = "grey92", linetype = "dashed"),
+      panel.grid.minor.x = element_line(colour = "grey92", linetype = "dashed"),
+      panel.grid.minor.y = element_line(colour = "grey92", linetype = "dashed")
+    )
+
+  if (colour_investors) {
+    p <- p +
+      scale_colour_manual(
+        values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
+        labels = investor_labels$label
+      )
+
+    if (show_legend_when_coloured) {
+      p <- p +
+        theme(legend.position = "bottom")
+    }
+  }
+
+  p
 }
 
 #' Get the predefined technology colors for a sector

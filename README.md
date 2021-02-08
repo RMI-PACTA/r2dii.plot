@@ -53,8 +53,10 @@ scenario_specs <- data.frame(
 )
 
 main_line_metric <- data.frame(metric = "projected", label = "Portfolio")
-additional_line_metrics <- data.frame(metric = "corporate_economy", 
-                                      label = "Corporate Economy")
+additional_line_metrics <- data.frame(
+  metric = "corporate_economy",
+  label = "Corporate Economy"
+)
 
 plot <- plot_trajectory(data_trajectory,
   plot_title = "Production trajectory of Oil Capacity technology \n in the Power sector",
@@ -84,17 +86,21 @@ data_techmix_power <- prepare_for_techmix_chart(example_data,
 
 tech_colors_power <- get_r2dii_technology_colours("power")
 bars_labels_specs <- data.frame(
-  "metric_type" = c("portfolio_2020", "benchmark_2020", "portfolio_2025", 
-                    "benchmark_2025", "scenario_2025"),
-  "label" = c("Portfolio 2020", "Benchmark 2020", "Portfolio 2025", 
-              "Benchmark 2025", "Target SDS 2025")
+  "metric_type" = c(
+    "portfolio_2020", "benchmark_2020", "portfolio_2025",
+    "benchmark_2025", "scenario_2025"
+  ),
+  "label" = c(
+    "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
+    "Benchmark 2025", "Target SDS 2025"
+  )
 )
 
-plot_techmix_power <- plot_techmix(data_techmix_power, 
-                                    plot_title = "Technology mix for the Power sector",
-                                    show_legend = TRUE, 
-                                    tech_colors_power, 
-                                    bars_labels_specs
+plot_techmix_power <- plot_techmix(data_techmix_power,
+  plot_title = "Technology mix for the Power sector",
+  show_legend = TRUE,
+  tech_colors_power,
+  bars_labels_specs
 )
 plot_techmix_power
 ```
@@ -178,3 +184,29 @@ loaded in your environment:
                                       y_title = "",
                                       investor_labels = investor_labels)
     p_gr
+
+These are basic examples of using `plot_metareport_bubble()` given that
+you have the `Equity_results_portfolio.rda` or
+`Bonds_results_portfolio.rda` data set from PACTA analysis results
+loaded in your environment:
+
+    data_bubble <- prepare_for_metareport_bubble_chart(data_equity,
+                                                    asset_type = "Equity",
+                                                    start_year = 2020,
+                                                    technologies_filter = c("RenewablesCap"),
+                                                    scenario_filter = "WEO2019_SDS",
+                                                    scenario_geography_filter = "GlobalAggregate")
+
+    investor_labels <- data.frame(
+      "investor_name" = c("assetmanager","bank","insurance","pensionfund"),
+      "label" = c("Asset Managers","Banks","Insurance","Pension funds")
+    )
+
+    p <- plot_metareport_bubble(data_bubble,
+                                plot_title = "Listed Equity",
+                                x_title = "Current share of renewable energy capacity",
+                                y_title = "Planned build-out as % of build-out required by SDS",
+                                investor_labels = investor_labels,
+                                colour_investors = TRUE
+                                )
+    p
