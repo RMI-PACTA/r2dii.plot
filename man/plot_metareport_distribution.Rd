@@ -32,5 +32,5 @@ an object of class "ggplot"
 Create a meta-report distribution chart
 }
 \examples{
-#TODO
+# TODO
 }

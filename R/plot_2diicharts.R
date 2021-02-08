@@ -73,7 +73,6 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = data.frame()) {
-
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -253,13 +252,11 @@ plot_trajectory <- function(data,
 #' @export
 #' @examples
 #' # TODO create an example or copy-paste an existing one from README or a test.
-
 plot_techmix <- function(data,
                          plot_title = "",
                          show_legend = TRUE,
                          df_tech_colours,
                          df_bar_specs) {
-
   data_colours <- df_tech_colours %>%
     filter(.data$technology %in% unique(!!data$technology))
 
@@ -399,7 +396,7 @@ plot_metareport_pacta_sectors <- function(data,
   }
 
   if (is.null(plot_title)) {
-    plot_title =
+    plot_title <-
       "Percentage of Equity and Bonds Portfolios invested in PACTA sectors"
   }
 
@@ -485,7 +482,6 @@ plot_metareport_pacta_sectors_mix <- function(data,
                                                 )
                                               ),
                                               bars_labels_specs = NULL) {
-
   if (is.null(bars_labels_specs)) {
     bars_labels_specs <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -494,7 +490,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
   }
 
   if (is.null(plot_title)) {
-    plot_title =
+    plot_title <-
       "Investment per sector as percentage of total value invested in PACTA sectors"
   }
 
@@ -575,13 +571,12 @@ plot_metareport_pacta_sectors_mix <- function(data,
 #' @export
 #'
 #' @examples
-#' #TODO
+#' # TODO
 plot_metareport_distribution <- function(data,
                                          plot_title = "",
                                          x_title = "",
                                          y_title = "",
                                          investor_labels = NULL) {
-
   if (is.null(investor_labels)) {
     investor_labels <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -591,25 +586,33 @@ plot_metareport_distribution <- function(data,
 
   r2dii_colours <- r2dii_palette_colours()
 
-  p <- ggplot(data,
-              aes(
-                x = factor(.data$portfolio_name, levels = .data$portfolio_name),
-                y = .data$value,
-                fill = factor(.data$investor_name,
-                levels = investor_labels$investor_name))) +
-    geom_bar(stat="identity", width = 0.94) +
+  p <- ggplot(
+    data,
+    aes(
+      x = factor(.data$portfolio_name, levels = .data$portfolio_name),
+      y = .data$value,
+      fill = factor(.data$investor_name,
+        levels = investor_labels$investor_name
+      )
+    )
+  ) +
+    geom_bar(stat = "identity", width = 0.94) +
     xlab(x_title) +
     ylab(y_title) +
     labs(title = plot_title) +
     scale_y_continuous(
       labels = scales::percent_format(),
-      expand = c(0, 0)) +
+      expand = c(0, 0)
+    ) +
     scale_fill_manual(
       values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
-      labels = investor_labels$label) +
+      labels = investor_labels$label
+    ) +
     theme_2dii_ggplot() +
-    theme(axis.text.x=element_blank(),
-          axis.ticks.x=element_blank()) +
+    theme(
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank()
+    ) +
     theme(legend.position = "bottom")
 }
 
@@ -632,8 +635,7 @@ plot_metareport_distribution <- function(data,
 #' @export
 #'
 #' @examples
-#' #TODO
-
+#' # TODO
 plot_metareport_bubble <- function(data,
                                    plot_title = NULL,
                                    x_title = "",
@@ -641,7 +643,6 @@ plot_metareport_bubble <- function(data,
                                    investor_labels = NULL,
                                    colour_investors = TRUE,
                                    show_legend_when_coloured = TRUE) {
-
   if (is.null(investor_labels)) {
     investor_labels <- data.frame(
       "investor_name" = unique(data$investor_name),
@@ -652,45 +653,55 @@ plot_metareport_bubble <- function(data,
   if (colour_investors) {
     r2dii_colours <- r2dii_palette_colours()
 
-    p <- ggplot(data,
-            aes(x = .data$value_x,
-                y = .data$value_y,
-                colour = factor(.data$investor_name,
-                levels = investor_labels$investor_name))
-            )
+    p <- ggplot(
+      data,
+      aes(
+        x = .data$value_x,
+        y = .data$value_y,
+        colour = factor(.data$investor_name,
+          levels = investor_labels$investor_name
+        )
+      )
+    )
   } else {
-    p <- ggplot(data,
-            aes(x = .data$value_x,
-                y = .data$value_y)
-            )
+    p <- ggplot(
+      data,
+      aes(
+        x = .data$value_x,
+        y = .data$value_y
+      )
+    )
   }
 
   p <- p +
-    geom_point(size=3, alpha = 0.6) +
+    geom_point(size = 3, alpha = 0.6) +
     xlab(x_title) +
     ylab(y_title) +
     labs(title = plot_title) +
     scale_x_continuous(
       limits = c(0, 1),
       labels = scales::percent_format(),
-      expand = expansion(mult = c(0, 0.05))) +
+      expand = expansion(mult = c(0, 0.05))
+    ) +
     scale_y_continuous(
       limits = c(0, 1),
       labels = scales::percent_format(),
-      expand = expansion(mult = c(0, 0.05))) +
+      expand = expansion(mult = c(0, 0.05))
+    ) +
     theme_2dii_ggplot() +
     theme(legend.position = "none") +
     theme(
-      panel.grid.major = element_line(colour = "grey92", linetype="dashed"),
-      panel.grid.minor.x = element_line(colour="grey92", linetype="dashed"),
-      panel.grid.minor.y = element_line(colour="grey92", linetype="dashed")
+      panel.grid.major = element_line(colour = "grey92", linetype = "dashed"),
+      panel.grid.minor.x = element_line(colour = "grey92", linetype = "dashed"),
+      panel.grid.minor.y = element_line(colour = "grey92", linetype = "dashed")
     )
 
   if (colour_investors) {
     p <- p +
       scale_colour_manual(
         values = r2dii_colours$colour_hex[c(1:length(investor_labels$label))],
-        labels = investor_labels$label)
+        labels = investor_labels$label
+      )
 
     if (show_legend_when_coloured) {
       p <- p +

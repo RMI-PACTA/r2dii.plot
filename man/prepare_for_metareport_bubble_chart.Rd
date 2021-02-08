@@ -44,5 +44,5 @@ showing a planned technology build-out as percentage of build-out required
 by a scenario against the current technology share.
 }
 \examples{
-#TODO
+# TODO
 }

@@ -51,7 +51,6 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
                                          value_name,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
-
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$technology == !!technology_filter) %>%
@@ -98,7 +97,6 @@ prepare_for_techmix_chart <- function(data_preprocessed,
                                       scenario_source_filter,
                                       scenario_filter,
                                       value_name) {
-
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$region == !!region_filter) %>%
@@ -170,21 +168,23 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
 #' @examples
 #'
 #' # TODO
-
 prepare_for_pacta_sectors_chart <- function(data_overview) {
-
   climate_relevant <- data_overview %>%
     filter(.data$financial_sector != "Other" & .data$valid_input == TRUE) %>%
     group_by(.data$investor_name, .data$portfolio_name, .data$asset_type) %>%
-    summarise(climate_sum = sum(.data$valid_value_usd),
-              total = mean(.data$asset_value_usd)) %>%
+    summarise(
+      climate_sum = sum(.data$valid_value_usd),
+      total = mean(.data$asset_value_usd)
+    ) %>%
     ungroup() %>%
     group_by(.data$investor_name, .data$asset_type) %>%
-    summarise(climate_value = sum(.data$climate_sum),
-              total_value = sum(.data$total)) %>%
+    summarise(
+      climate_value = sum(.data$climate_sum),
+      total_value = sum(.data$total)
+    ) %>%
     ungroup() %>%
     filter((.data$asset_type %in% c("Bonds", "Equity")) &
-             .data$investor_name != "Meta Investor") %>%
+      .data$investor_name != "Meta Investor") %>%
     mutate(share_climate_relevant = .data$climate_value / .data$total_value) %>%
     select(.data$investor_name, .data$asset_type, .data$share_climate_relevant)
 }
@@ -201,13 +201,11 @@ prepare_for_pacta_sectors_chart <- function(data_overview) {
 #'
 #' @examples
 #' # TODO
-
 prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
-
   data_sectors_mix <- data_overview %>%
     filter(.data$financial_sector != "Other" &
-             .data$valid_input == TRUE &
-             .data$asset_type %in% c("Equity", "Bonds")) %>%
+      .data$valid_input == TRUE &
+      .data$asset_type %in% c("Equity", "Bonds")) %>%
     group_by(.data$investor_name, .data$asset_type) %>%
     mutate(total_climate_value_usd = sum(.data$valid_value_usd, na.rm = TRUE)) %>%
     ungroup() %>%
@@ -220,8 +218,8 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
     mutate(share = .data$technology_value / .data$total_climate_value_usd) %>%
     distinct() %>%
     select(.data$investor_name, .data$asset_type,
-           sector = .data$financial_sector, .data$share)
-
+      sector = .data$financial_sector, .data$share
+    )
 }
 
 #' Prepares results data per asset type for distribution chart plot
@@ -242,38 +240,38 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 #'
 #' @examples
 #' # TODO
-
 prepare_for_metareport_distribution_chart <- function(data_asset_type,
                                                       sectors_filter,
                                                       technologies_filter,
                                                       year_filter,
                                                       value_to_plot =
                                                         "plan_carsten") {
-
   unique_investor_names <- data_asset_type %>%
-    filter(.data$investor_name!="Meta Investor") %>%
-    select(.data$investor_name,.data$portfolio_name) %>%
+    filter(.data$investor_name != "Meta Investor") %>%
+    select(.data$investor_name, .data$portfolio_name) %>%
     distinct()
 
   data_distribution <- data_asset_type %>%
-    filter(.data$ald_sector %in% sectors_filter,
-           .data$technology %in% technologies_filter,
-           .data$scenario == data_asset_type$scenario[1], # this choice is only made to extract a distinct set of data
-           .data$year == year_filter,
-           .data$allocation=="portfolio_weight",
-           .data$investor_name!="Meta Investor",
-           .data$scenario_geography ==
-             data_asset_type$scenario_geography[1] # this choice is only made to extract a distinct set of data
-           ) %>%
+    filter(
+      .data$ald_sector %in% sectors_filter,
+      .data$technology %in% technologies_filter,
+      .data$scenario == data_asset_type$scenario[1], # this choice is only made to extract a distinct set of data
+      .data$year == year_filter,
+      .data$allocation == "portfolio_weight",
+      .data$investor_name != "Meta Investor",
+      .data$scenario_geography ==
+        data_asset_type$scenario_geography[1] # this choice is only made to extract a distinct set of data
+    ) %>%
     select(.data$investor_name, .data$portfolio_name, value = !!value_to_plot) %>%
     group_by(.data$investor_name, .data$portfolio_name) %>%
-    summarise(value = sum(.data$value, na.rm=TRUE)) %>%
+    summarise(value = sum(.data$value, na.rm = TRUE)) %>%
     ungroup() %>%
     right_join(unique_investor_names) %>%
-    mutate(value =
-             if_else(is.na(.data$value),0.001,.data$value)) %>%
+    mutate(
+      value =
+        if_else(is.na(.data$value), 0.001, .data$value)
+    ) %>%
     arrange(desc(.data$value))
-
 }
 
 #' Prepares results data per asset type for bubble chart plot
@@ -302,16 +300,14 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
 #' @export
 #'
 #' @examples
-#' #TODO
-
+#' # TODO
 prepare_for_metareport_bubble_chart <- function(data_asset_type,
                                                 asset_type,
                                                 start_year,
                                                 technologies_filter,
                                                 scenario_filter,
                                                 scenario_geography_filter) {
-
-  if(asset_type == "Equity"){
+  if (asset_type == "Equity") {
     allocation_choice <- "ownership_weight"
   } else {
     allocation_choice <- "portfolio_weight"
@@ -320,35 +316,42 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
   end_year <- start_year + 5
 
   data_bubble <- data_asset_type %>%
-    filter(.data$technology %in% technologies_filter,
-           .data$scenario == scenario_filter,
-           .data$year == start_year | .data$year == end_year,
-           .data$scenario_geography == scenario_geography_filter,
-           .data$allocation == allocation_choice,
-           .data$investor_name != "Meta Investor") %>%
-    select(.data$investor_name,
-           .data$portfolio_name,
-           .data$year,
-           .data$plan_tech_share,
-           .data$plan_alloc_wt_tech_prod,
-           .data$scen_alloc_wt_tech_prod) %>%
+    filter(
+      .data$technology %in% technologies_filter,
+      .data$scenario == scenario_filter,
+      .data$year == start_year | .data$year == end_year,
+      .data$scenario_geography == scenario_geography_filter,
+      .data$allocation == allocation_choice,
+      .data$investor_name != "Meta Investor"
+    ) %>%
+    select(
+      .data$investor_name,
+      .data$portfolio_name,
+      .data$year,
+      .data$plan_tech_share,
+      .data$plan_alloc_wt_tech_prod,
+      .data$scen_alloc_wt_tech_prod
+    ) %>%
     group_by(.data$investor_name, .data$portfolio_name) %>%
     arrange(.data$investor_name, .data$portfolio_name, .data$year,
-            .by_group = TRUE) %>%
+      .by_group = TRUE
+    ) %>%
     mutate(
       difference_port =
         lead(.data$plan_alloc_wt_tech_prod) - .data$plan_alloc_wt_tech_prod,
       difference_scen =
         lead(.data$scen_alloc_wt_tech_prod) - .data$scen_alloc_wt_tech_prod
-      ) %>%
+    ) %>%
     ungroup() %>%
     filter(.data$year == start_year) %>%
-    mutate(share_build_out = .data$difference_port/.data$difference_scen) %>%
+    mutate(share_build_out = .data$difference_port / .data$difference_scen) %>%
     mutate(share_build_out = if_else(.data$share_build_out > 1.0,
-                                     1.0,
-                                     .data$share_build_out)) %>%
+      1.0,
+      .data$share_build_out
+    )) %>%
     select(.data$investor_name,
-           .data$portfolio_name,
-           value_x = .data$plan_tech_share,
-           value_y = .data$share_build_out)
+      .data$portfolio_name,
+      value_x = .data$plan_tech_share,
+      value_y = .data$share_build_out
+    )
 }

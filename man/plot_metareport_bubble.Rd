@@ -40,5 +40,5 @@ an object of class "ggplot"
 Create a meta-report bubble chart
 }
 \examples{
-#TODO
+# TODO
 }
