@@ -360,6 +360,7 @@ prepare_for_map_chart <- function(data_map_asset_type,
                                   asset_type,
                                   technology_filter,
                                   year_filter,
+                                  value_divisor = 1,
                                   allocation_method = NULL) {
 
   if (is.null(allocation_method)) {
@@ -376,7 +377,8 @@ prepare_for_map_chart <- function(data_map_asset_type,
     .data$year == year_filter,
     .data$equity_market == "Global") %>%
     group_by(.data$ald_location) %>%
-    summarise(value = sum(.data$plan_alloc_wt_tech_prod, na.rm=TRUE)) %>%
+    summarise(value = sum(.data$plan_alloc_wt_tech_prod, na.rm=TRUE)/value_divisor,
+              unit = max(.data$ald_production_unit)) %>%
     ungroup() %>%
     na.omit() %>%
     mutate(country = maps::iso.expand(.data$ald_location, regex=TRUE)) %>%
@@ -388,7 +390,14 @@ prepare_for_map_chart <- function(data_map_asset_type,
       .data$country == "(^Spain)|(^Canary Islands)" ~ "Spain",
       .data$country == "(^Trinidad)|(^Tobago)" ~ "Trinidad", # assign to Trinidad because it is bigger
       TRUE ~ .data$country
-    ))
+    )) %>%
+    mutate(abbreviation_divisor = case_when(
+      !!value_divisor == 1 ~ "",
+      !!value_divisor == 10^3 ~ "k",
+      !!value_divisor == 10^6 ~ "M",
+      !!value_divisor == 10^9 ~ "B",
+      TRUE ~ as.character(value_divisor)
+     ))
 
   joined_map <- left_join(ggplot2::map_data("world"), data_map, by = c("region" = "country"))
 
