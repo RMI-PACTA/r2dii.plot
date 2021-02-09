@@ -274,7 +274,7 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
     arrange(desc(.data$value))
 }
 
-#' Prepares results data per asset type for bubble chart plot
+#' Prepares results data per asset type for bubble chart
 #'
 #' @param data_asset_type Dataframe in the shape of
 #'   "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
@@ -356,6 +356,27 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
     )
 }
 
+#' Prepares results data per asset type for map plot
+#'
+#' @param data_map_asset_type Dataframe in the shape of
+#'   "Equity/Bonds_results_map.rda" dataset from PACTA analysis output in
+#'   "40_Results" folder (dataframe).
+#' @param asset_type Asset type of the data used to specify default allocation
+#'   method (character string).
+#' @param technology_filter Technology to be used for filtering (character
+#'   string).
+#' @param year_filter Year to be used for filtering (integer).
+#' @param value_divisor Number by which to divide the values to be plotted
+#'   (integer).
+#' @param allocation_method Allocation method used to calculate the production
+#'   values. If none is specified "portfolio_weight" is used for Bonds and
+#'   "ownership_weight" is used for Equity.
+#'
+#' @return Dataframe with columns (only important columns are listed): long,
+#'   lat, group, value, unit, abbreviation_divisor
+#' @export
+#'
+#' @examples
 prepare_for_map_chart <- function(data_map_asset_type,
                                   asset_type,
                                   technology_filter,

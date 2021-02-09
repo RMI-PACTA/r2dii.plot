@@ -712,6 +712,20 @@ plot_metareport_bubble <- function(data,
   p
 }
 
+#' Create a meta-report map chart
+#'
+#' @param data Dataframe with data processed for the chart. With columns: long,
+#'   lat, group, value (dataframe).
+#' @param plot_title Title of the plot; (character string).
+#' @param legend_title Title of the legend describing value units; (character
+#'   string).
+#' @param sector Sector to be used for the map colouring. If none is specified,
+#'   default dark blue palette is used (character string)
+#'
+#' @return an object of class "ggplot"
+#' @export
+#'
+#' @examples
 plot_metareport_map <- function(data,
                                 plot_title = NULL,
                                 legend_title = NULL,
