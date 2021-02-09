@@ -722,28 +722,28 @@ plot_metareport_map <- function(data,
     colours <- r2dii_palette_colours()
 
     dark_colour <- colours %>%
-      filter (label == "dark_blue") %>%
-      pull(colour_hex)
+      filter(.data$label == "dark_blue") %>%
+      pull(.data$colour_hex)
 
   } else {
     sec_colours <- r2dii_sector_colours()
 
     dark_colour <- sec_colours %>%
-      filter (label == tolower(sector)) %>%
-      pull(colour_hex)
+      filter(.data$label == tolower(!!sector)) %>%
+      pull(.data$colour_hex)
   }
 
-  colour_func <- colorRampPalette(c("white",dark_colour))
+  colour_function <- colorRampPalette(c("white",dark_colour))
 
   data <- data %>%
-    tidyr::replace_na(list(value = 0))
+    replace_na(list(value = 0))
 
   p <- ggplot(data,
-              aes(x = long,
-                  y = lat,
-                  group = group,
-                  fill = value)) +
-    scale_fill_gradientn("", colours = colour_func(9)) +
+              aes(x = .data$long,
+                  y = .data$lat,
+                  group = .data$group,
+                  fill = .data$value)) +
+    scale_fill_gradientn("", colours = colour_function(9)) +
     geom_polygon() +
     coord_cartesian(ylim = c(-55, 85)) +
     ggtitle(plot_title) +

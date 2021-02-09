@@ -381,7 +381,7 @@ prepare_for_map_chart <- function(data_map_asset_type,
               unit = max(.data$ald_production_unit)) %>%
     ungroup() %>%
     na.omit() %>%
-    mutate(country = maps::iso.expand(.data$ald_location, regex=TRUE)) %>%
+    mutate(country = iso.expand(.data$ald_location, regex=TRUE)) %>%
     mutate(country = case_when(
       .data$country == "(^France)|(^Clipperton Island)" ~ "France",
       .data$country == "(^China(?!:Hong Kong|:Macao))|(^Paracel Islands)" ~ "China",
@@ -399,6 +399,6 @@ prepare_for_map_chart <- function(data_map_asset_type,
       TRUE ~ as.character(value_divisor)
      ))
 
-  joined_map <- left_join(ggplot2::map_data("world"), data_map, by = c("region" = "country"))
+  joined_map <- left_join(map_data("world"), data_map, by = c("region" = "country"))
 
 }
