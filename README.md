@@ -210,3 +210,31 @@ loaded in your environment:
                                 colour_investors = TRUE
                                 )
     p
+
+These is a basic example of using `plot_metareport_map()` given that you
+have the `Equity_results_map.rda` or `Bonds_results_map.rda` data set
+from PACTA analysis results loaded in your environment:
+
+    data_map_eq_chart <- prepare_for_map_chart(data_map_eq,
+                                      asset_type = "Equity",
+                                      technology_filter = "Oil",
+                                      year_filter = 2020,
+                                      value_divisor = 10^6)
+
+    legend_unit <- data_map_eq_chart %>%
+      filter(!is.na(unit)) %>%
+      pull(unit) %>%
+      unique()
+
+    legend_divisor <- data_map_eq_chart %>%
+      filter(!is.na(abbreviation_divisor)) %>%
+      pull(abbreviation_divisor) %>%
+      unique()
+
+    legend_title <- paste(legend_divisor, legend_unit, sep = " ")
+
+    p <- plot_metareport_map(data,
+                             plot_title = "Geographical distribution of physical assets - Oil Production, Equity",
+                             legend_title = legend_title,
+                             sector = "Oil&Gas")
+    p
