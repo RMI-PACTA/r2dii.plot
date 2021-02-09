@@ -383,26 +383,29 @@ prepare_for_map_chart <- function(data_map_asset_type,
                                   year_filter,
                                   value_divisor = 1,
                                   allocation_method = NULL) {
-
   if (is.null(allocation_method)) {
     if (asset_type == "Equity") {
-      allocation_method = "ownership_weight"
+      allocation_method <- "ownership_weight"
     } else {
-      allocation_method = "portfolio_weight"
+      allocation_method <- "portfolio_weight"
     }
   }
 
   data_map <- data_map_asset_type %>%
-    filter(.data$technology == technology_filter,
-    .data$allocation == allocation_method,
-    .data$year == year_filter,
-    .data$equity_market == "Global") %>%
+    filter(
+      .data$technology == technology_filter,
+      .data$allocation == allocation_method,
+      .data$year == year_filter,
+      .data$equity_market == "Global"
+    ) %>%
     group_by(.data$ald_location) %>%
-    summarise(value = sum(.data$plan_alloc_wt_tech_prod, na.rm=TRUE)/value_divisor,
-              unit = max(.data$ald_production_unit)) %>%
+    summarise(
+      value = sum(.data$plan_alloc_wt_tech_prod, na.rm = TRUE) / value_divisor,
+      unit = max(.data$ald_production_unit)
+    ) %>%
     ungroup() %>%
     na.omit() %>%
-    mutate(country = iso.expand(.data$ald_location, regex=TRUE)) %>%
+    mutate(country = iso.expand(.data$ald_location, regex = TRUE)) %>%
     mutate(country = case_when(
       .data$country == "(^France)|(^Clipperton Island)" ~ "France",
       .data$country == "(^China(?!:Hong Kong|:Macao))|(^Paracel Islands)" ~ "China",
@@ -418,8 +421,7 @@ prepare_for_map_chart <- function(data_map_asset_type,
       !!value_divisor == 10^6 ~ "M",
       !!value_divisor == 10^9 ~ "B",
       TRUE ~ as.character(value_divisor)
-     ))
+    ))
 
   joined_map <- left_join(map_data("world"), data_map, by = c("region" = "country"))
-
 }

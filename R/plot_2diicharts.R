@@ -730,15 +730,12 @@ plot_metareport_map <- function(data,
                                 plot_title = NULL,
                                 legend_title = NULL,
                                 sector = NULL) {
-
   if (is.null(sector)) {
-
     colours <- r2dii_palette_colours()
 
     dark_colour <- colours %>%
       filter(.data$label == "dark_blue") %>%
       pull(.data$colour_hex)
-
   } else {
     sec_colours <- r2dii_sector_colours()
 
@@ -747,34 +744,40 @@ plot_metareport_map <- function(data,
       pull(.data$colour_hex)
   }
 
-  colour_function <- colorRampPalette(c("white",dark_colour))
+  colour_function <- colorRampPalette(c("white", dark_colour))
 
   data <- data %>%
     replace_na(list(value = 0))
 
-  p <- ggplot(data,
-              aes(x = .data$long,
-                  y = .data$lat,
-                  group = .data$group,
-                  fill = .data$value)) +
+  p <- ggplot(
+    data,
+    aes(
+      x = .data$long,
+      y = .data$lat,
+      group = .data$group,
+      fill = .data$value
+    )
+  ) +
     scale_fill_gradientn("", colours = colour_function(9)) +
     geom_polygon() +
     coord_cartesian(ylim = c(-55, 85)) +
     ggtitle(plot_title) +
     theme_2dii_ggplot() +
-    theme(axis.line = element_blank(),
+    theme(
+      axis.line = element_blank(),
       axis.text = element_blank(),
       axis.title = element_blank(),
-      axis.ticks = element_blank()) +
+      axis.ticks = element_blank()
+    ) +
     theme(legend.position = "bottom") %+replace%
     theme(legend.title = element_text()) +
     theme(panel.background = element_rect(fill = "aliceblue")) +
     guides(fill = guide_colourbar(
       title = legend_title,
       title.position = "right",
-      barwidth = unit(0.2,"npc"))
-      )
-  }
+      barwidth = unit(0.2, "npc")
+    ))
+}
 
 #' Get the predefined technology colors for a sector
 #'
