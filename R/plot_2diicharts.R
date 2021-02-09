@@ -735,6 +735,9 @@ plot_metareport_map <- function(data,
 
   colour_func <- colorRampPalette(c("white",dark_colour))
 
+  data <- data %>%
+    tidyr::replace_na(list(value = 0))
+
   p <- ggplot(data,
               aes(x = long,
                   y = lat,
