@@ -19,8 +19,6 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/r2dii.ggplot)](https://CRAN.R-project.org/package=r2dii.ggplot)
 [![Codecov test
 coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions)

@@ -1,15 +1,26 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # r2dii.ggplot <a href='https://github.com/2DegreesInvesting/r2dii.ggplot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html) [![CRAN status](https://www.r-pkg.org/badges/version/r2dii.ggplot)](https://CRAN.R-project.org/package=r2dii.ggplot) [![Codecov test coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot?branch=master) [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions) <!-- badges: end -->
 
-The goal of r2dii.ggplot is to provide users with plotting and data processing functions that will allow the users to create standard 2DII plots using `PACTA_analysis` or banks' output data as input. The plots are in the form of ggplot objects.
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Codecov test
+coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot?branch=master)
+[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions)
+<!-- badges: end -->
+
+The goal of r2dii.ggplot is to provide users with plotting and data
+processing functions that will allow the users to create standard 2DII
+plots using `PACTA_analysis` or banks’ output data as input. The plots
+are in the form of ggplot objects.
 
 ## Installation
 
-You can install the development version of r2dii.ggplot from [GitHub](https://github.com/2DegreesInvesting/r2dii.ggplot) with:
+You can install the development version of r2dii.ggplot from
+[GitHub](https://github.com/2DegreesInvesting/r2dii.ggplot) with:
 
 ``` r
 # install.packages("devtools")
@@ -32,6 +43,8 @@ data_trajectory <- prepare_for_trajectory_chart(
   value_name = "production", end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
+#> Warning in prepare_for_trajectory_chart(data = example_data, sector_filter =
+#> "power", : partial argument match of 'data' to 'data_preprocessed'
 
 scenario_specs <- data.frame(
   scenario = c("sds", "sps", "cps", "worse"),
@@ -96,7 +109,9 @@ plot_techmix_power
 
 ## Metareport code examples
 
-This is a basic example usage of `plot_metareport_security_types()` given that you have the `total_portfolio.rda` data set from PACTA analysis results loaded in your environment:
+This is a basic example usage of `plot_metareport_security_types()`
+given that you have the `total_portfolio.rda` data set from PACTA
+analysis results loaded in your environment:
 
     data_security_type <- prepare_for_metareport_security_type_chart(data_total_portfolio)
 
@@ -118,7 +133,9 @@ This is a basic example usage of `plot_metareport_security_types()` given that y
                                         bars_labels_specs)
     p
 
-This is a basic example usage of `plot_metareport_pacta_sectors()` given that you have the `overview_portfolio.rda` data set from PACTA analysis results loaded in your environment:
+This is a basic example usage of `plot_metareport_pacta_sectors()` given
+that you have the `overview_portfolio.rda` data set from PACTA analysis
+results loaded in your environment:
 
     data_climate_relevant <- prepare_for_pacta_sectors_chart(data_overview)
 
@@ -132,7 +149,10 @@ This is a basic example usage of `plot_metareport_pacta_sectors()` given that yo
                                           plot_title = "Percentage of Asset type Portfolios invested in PACTA sectors")
     plot
 
-These are basic examples of using `plot_metareport_distribution()` given that you have the `Equity_results_portfolio.rda` or `Bonds_results_portfolio.rda` data set from PACTA analysis results loaded in your environment:
+These are basic examples of using `plot_metareport_distribution()` given
+that you have the `Equity_results_portfolio.rda` or
+`Bonds_results_portfolio.rda` data set from PACTA analysis results
+loaded in your environment:
 
     investor_labels <- data.frame(
       "investor_name" = c("assetmanager","bank","insurance","pensionfund"),
@@ -165,7 +185,10 @@ These are basic examples of using `plot_metareport_distribution()` given that yo
                                       investor_labels = investor_labels)
     p_gr
 
-These are basic examples of using `plot_metareport_bubble()` given that you have the `Equity_results_portfolio.rda` or `Bonds_results_portfolio.rda` data set from PACTA analysis results loaded in your environment:
+These are basic examples of using `plot_metareport_bubble()` given that
+you have the `Equity_results_portfolio.rda` or
+`Bonds_results_portfolio.rda` data set from PACTA analysis results
+loaded in your environment:
 
     data_bubble <- prepare_for_metareport_bubble_chart(data_equity,
                                                     asset_type = "Equity",
