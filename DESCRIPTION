@@ -1,13 +1,12 @@
 Package: r2dii.ggplot
-Title: Create Standard Static 2DII Plots
+Title: Create Standard Static '2dii' Plots
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Monika",
            family = "Furdyna",
            role = c("aut", "cre"),
-           email = "monika.furdyna@gmail.com",
-           comment = c(ORCID = "FIXME"))
-Description: Allows the user to create standardized 2DII
+           email = "monika.furdyna@gmail.com")
+Description: Allows the user to create standardized '2dii'
     graphs, like trajectory charts or technology mix charts, and outputs
     them as 'ggplot' objects. It also contains data processing functions
     that prepare the standard bank's data to be an input for the plotting
@@ -19,9 +18,9 @@ Imports:
     dplyr,
     ggplot2,
     ggpubr,
+    magrittr,
     r2dii.data,
-    scales,
-    magrittr
+    scales
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
