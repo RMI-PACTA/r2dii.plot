@@ -2,10 +2,10 @@ Package: r2dii.ggplot
 Title: Create Standard Static 2DII Plots
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Monika",
+    person(given = "FIXME",
            family = "Furdyna",
            role = c("aut", "cre"),
-           email = "monika.furdyna@gmail.com",
+           email = "maurolepore@gmail.com",
            comment = c(ORCID = "FIXME"))
 Description: Allows the user to create standardized 2DII
     graphs, like trajectory charts or technology mix charts, and outputs
