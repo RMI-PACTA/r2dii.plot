@@ -24,7 +24,7 @@ string).}
 default dark blue palette is used (character string)}
 }
 \value{
-an object of class "ggplot"
+An object of class "ggplot".
 }
 \description{
 Create a meta-report map chart

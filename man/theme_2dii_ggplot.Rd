@@ -12,7 +12,6 @@ graph (character string taking the same values as standard ggplot font
 families).}
 }
 \description{
-Returns a ggplot theme which can be applied to all graphs to
-appear according to 2DII plotting aesthetics, like removed gridlines, grey
-axis lines etc.
+Returns a ggplot theme which can be applied to all graphs to appear according
+to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
 }

@@ -35,7 +35,7 @@ values. If none is specified "portfolio_weight" is used for Bonds and
 }
 \value{
 Dataframe with columns (only important columns are listed): long,
-lat, group, value, unit, abbreviation_divisor
+lat, group, value, unit, abbreviation_divisor.
 }
 \description{
 Prepares results data per asset type for map plot

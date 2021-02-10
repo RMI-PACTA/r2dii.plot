@@ -1,12 +1,11 @@
 #' Returns a custom 2dii ggplot theme
 #'
+#' Returns a ggplot theme which can be applied to all graphs to appear according
+#' to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
+#'
 #' @param font_family argument specifying the font that should be used in a
 #'   graph (character string taking the same values as standard ggplot font
 #'   families).
-#'
-#' @description Returns a ggplot theme which can be applied to all graphs to
-#'   appear according to 2DII plotting aesthetics, like removed gridlines, grey
-#'   axis lines etc.
 #'
 #' @export
 
@@ -44,6 +43,10 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
 
 #' Create a trajectory alignment chart in a ggplot object
 #'
+#' The function returns a ggplot object containing a stacked bar chart showing a
+#' technology mix for different categories (portfolio, scenario, benchmark,
+#' etc.).
+#'
 #' @param data Filtered input data (dataframe with columns: year, metric_type,
 #'   metric and value).
 #' @param plot_title Title of the plot (character string).
@@ -58,10 +61,6 @@ theme_2dii_ggplot <- function(font_family = "Helvetica") {
 #' @param additional_line_metrics Dataframe containing information about
 #'   additional metrics that should be plotted as lines (dataframe with columns:
 #'   metric, label).
-#'
-#' @description The function returns a ggplot object containing a stacked bar
-#'   chart showing a technology mix for different categories (portfolio,
-#'   scenario, benchmark, etc.).
 #'
 #' @export
 
@@ -236,6 +235,10 @@ plot_trajectory <- function(data,
 
 #' Create a techmix chart in a ggplot object
 #'
+#' The function returns a ggplot object containing a stacked bar chart showing a
+#' technology mix for different categories (portfolio, scenario, benchmark,
+#' etc.).
+#'
 #' @param data Filtered input data (dataframe with columns: technology,
 #'   metric_type, metric and value).
 #' @param plot_title Title of the plot (character string).
@@ -244,10 +247,6 @@ plot_trajectory <- function(data,
 #'   with columns: technology, label, color).
 #' @param df_bar_specs Dataframe containing order of bars and their labels
 #'   (dataframe with columns: metric_type, label).
-#'
-#' @description The function returns a ggplot object containing a stacked bar
-#' chart showing a technology mix for different categories (portfolio, scenario,
-#' benchmark, etc.).
 #'
 #' @export
 #' @examples
@@ -297,6 +296,12 @@ plot_techmix <- function(data,
 
 #' Create a bar chart with overview of asset types per investor type
 #'
+#' This function plots a horizontal stacked bar chart with composition of
+#' investors securities per investor type. No need to specify the colours if the
+#' security types in your dataset are only: Equity, Bonds and Others. Otherwise
+#' full specification needs to be passed to the function, for all security
+#' types.
+#'
 #' @param data Dataframe with data processed for the chart. With columns:
 #'   investor_name, asset_type, share (dataframe).
 #' @param bars_asset_type_specs Dataframe with specifications for each asset
@@ -304,12 +309,6 @@ plot_techmix <- function(data,
 #' @param bars_labels_specs Dataframe with labels for investor types, columns:
 #'   investor_type, label. If no is specified, investor_type from data is used
 #'   as label. (dataframe).
-#'
-#' @description This function plots a horizontal stacked bar chart with
-#'   composition of investors securities per investor type. No need to specify
-#'   the colours if the security types in your dataset are only: Equity, Bonds
-#'   and Others. Otherwise full specification needs to be passed to the
-#'   function, for all security types.
 #'
 #' @export
 
@@ -373,7 +372,7 @@ plot_metareport_security_types <- function(data,
 #' @param plot_title Title of the plot; if no title is specified, the plot title
 #'   is set in the code to a predetermined character string (character string).
 #'
-#' @return an object of class "ggplot"
+#' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples
@@ -462,7 +461,7 @@ plot_metareport_pacta_sectors <- function(data,
 #'   investor_type, label. If no is specified, investor_type from data is used
 #'   as label. (dataframe).
 #'
-#' @return an object of class "ggplot"
+#' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples
@@ -567,7 +566,7 @@ plot_metareport_pacta_sectors_mix <- function(data,
 #'   between different plots (using the same df will preserve the order). If no
 #'   is specified, investor_type from data is used as label. (dataframe).
 #'
-#' @return an object of class "ggplot"
+#' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples
@@ -631,7 +630,7 @@ plot_metareport_distribution <- function(data,
 #' @param show_legend_when_coloured flag indicating if legend should be showed
 #'   if points are coloured (boolean).
 #'
-#' @return an object of class "ggplot"
+#' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples
@@ -722,7 +721,7 @@ plot_metareport_bubble <- function(data,
 #' @param sector Sector to be used for the map colouring. If none is specified,
 #'   default dark blue palette is used (character string)
 #'
-#' @return an object of class "ggplot"
+#' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples
@@ -841,7 +840,7 @@ r2dii_palette_colours <- function() {
 
 #' Get the 2DII sector colour palette
 #'
-#' @return tribble with sector labels and colour hex strings.
+#' @return Tribble with sector labels and colour hex strings.
 #' @export
 
 r2dii_sector_colours <- function() {
