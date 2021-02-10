@@ -5,8 +5,7 @@ Authors@R:
     person(given = "FIXME",
            family = "Furdyna",
            role = c("aut", "cre"),
-           email = "maurolepore@gmail.com",
-           comment = c(ORCID = "FIXME"))
+           email = "maurolepore@gmail.com")
 Description: Allows the user to create standardized 2DII
     graphs, like trajectory charts or technology mix charts, and outputs
     them as 'ggplot' objects. It also contains data processing functions
