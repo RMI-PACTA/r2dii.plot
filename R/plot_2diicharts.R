@@ -292,6 +292,8 @@ plot_techmix <- function(data,
     p_techmix <- p_techmix +
       theme(legend.position = "none")
   }
+
+  p_techmix
 }
 
 #' Create a bar chart with overview of asset types per investor type
@@ -360,6 +362,8 @@ plot_metareport_security_types <- function(data,
     theme(axis.ticks.y = element_blank()) +
     theme(legend.position = "bottom") +
     guides(fill = guide_legend(reverse = TRUE))
+
+  p_bar
 }
 
 #' Create a small multiples bar chart with portfolio exposure to PACTA sectors
@@ -446,6 +450,8 @@ plot_metareport_pacta_sectors <- function(data,
   plot <- ggarrange(subplots[["Equity"]], subplots[["Bonds"]], nrow = 2, ncol = 1)
 
   plot <- annotate_figure(plot, top = text_grob(plot_title, face = "bold", size = 14))
+
+  plot
 }
 
 #' Create a small multiples stacked bar chart with percentage investment in
@@ -553,6 +559,8 @@ plot_metareport_pacta_sectors_mix <- function(data,
     face = "bold",
     size = 14
   ))
+
+  plot
 }
 
 #' Create a meta-report distribution chart
@@ -613,6 +621,8 @@ plot_metareport_distribution <- function(data,
       axis.ticks.x = element_blank()
     ) +
     theme(legend.position = "bottom")
+
+  p
 }
 
 #' Create a meta-report bubble chart
@@ -776,6 +786,8 @@ plot_metareport_map <- function(data,
       title.position = "right",
       barwidth = unit(0.2, "npc")
     ))
+
+  p
 }
 
 #' Get the predefined technology colors for a sector
@@ -815,6 +827,8 @@ get_r2dii_technology_colours <- function(sector) {
   colours <- all_colours %>%
     filter(.data$sector == !!sector) %>%
     select(.data$technology, .data$label, colour = .data$colour_hex)
+
+  colours
 }
 
 #' Get the 2DII colour palette
