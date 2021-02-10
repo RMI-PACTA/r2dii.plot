@@ -405,16 +405,9 @@ prepare_for_map_chart <- function(data_map_asset_type,
     ) %>%
     ungroup() %>%
     na.omit() %>%
-    mutate(country = iso.expand(.data$ald_location, regex = TRUE)) %>%
-    mutate(country = case_when(
-      .data$country == "(^France)|(^Clipperton Island)" ~ "France",
-      .data$country == "(^China(?!:Hong Kong|:Macao))|(^Paracel Islands)" ~ "China",
-      .data$country == "Norway(?!:Bouvet|:Svalbard|:Jan Mayen)" ~ "Norway",
-      .data$country == "UK(?!r)" ~ "UK",
-      .data$country == "(^Spain)|(^Canary Islands)" ~ "Spain",
-      .data$country == "(^Trinidad)|(^Tobago)" ~ "Trinidad", # assign to Trinidad because it is bigger
-      TRUE ~ .data$country
-    )) %>%
+    mutate(country = countrycode(.data$ald_location,
+                                 origin = "iso2c",
+                                 destination = "country.name")) %>%
     mutate(abbreviation_divisor = case_when(
       !!value_divisor == 1 ~ "",
       !!value_divisor == 10^3 ~ "k",
@@ -424,4 +417,6 @@ prepare_for_map_chart <- function(data_map_asset_type,
     ))
 
   joined_map <- left_join(map_data("world"), data_map, by = c("region" = "country"))
+
+  joined_map
 }

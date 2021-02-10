@@ -4,7 +4,7 @@
 #' @importFrom dplyr desc lead
 #' @importFrom ggpubr ggarrange annotate_figure text_grob
 #' @importFrom ggpubr get_legend
-#' @importFrom maps iso.expand
+#' @importFrom countrycode countrycode
 #' @importFrom tidyr replace_na
 #' @importFrom stats na.omit
 #' @importFrom grDevices colorRampPalette

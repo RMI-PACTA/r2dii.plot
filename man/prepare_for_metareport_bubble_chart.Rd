@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_metareport_bubble_chart}
 \alias{prepare_for_metareport_bubble_chart}
-\title{Prepares results data per asset type for bubble chart plot}
+\title{Prepares results data per asset type for bubble chart}
 \usage{
 prepare_for_metareport_bubble_chart(
   data_asset_type,
