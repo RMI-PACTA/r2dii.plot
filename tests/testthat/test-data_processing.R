@@ -25,7 +25,7 @@ test_that("depends on input column `metric`", {
 
   # FIXME: The error message could be more graceful
   message <- "nms %in% .* are not all TRUE"
-  expect_error(process_input_data(bad))
+  expect_error(process_input_data(bad), message)
 })
 
 test_that("modifies `metric`", {
@@ -33,3 +33,10 @@ test_that("modifies `metric`", {
   after <- process_input_data(before)
   expect_false(identical(before$metric, after$metric))
 })
+
+# test_that("handles values of `metric`", {
+#   bad <- get_example_data()[1, ]
+#
+#   after <- process_input_data(before)
+#   expect_false(identical(before$metric, after$metric))
+# })
