@@ -4,15 +4,15 @@ test_that("outputs a data.frame", {
 
 test_that("has the expected type of columns", {
   expected <- c(
-      metric = "character",
-      production = "double",
-      region = "character",
-      scenario_source = "character",
-      sector = "character",
-      technology = "character",
-      technology_share = "double",
-      year = "integer"
-    )
+    metric = "character",
+    production = "double",
+    region = "character",
+    scenario_source = "character",
+    sector = "character",
+    technology = "character",
+    technology_share = "double",
+    year = "integer"
+  )
 
   data <- get_example_data()
   sorted <- data[sort(names(data))]
