@@ -21,6 +21,10 @@ test_that("has the expected type of columns", {
   expect_equal(actual, expected)
 })
 
+test_that("outputs the expected snapshot", {
+  expect_snapshot(get_example_data())
+})
+
 test_that("outputs like r2dii.analysis::target_market_share()", {
   # Such a strong dependency on upstream packages makes this test fragile
   skip_on_cran()
