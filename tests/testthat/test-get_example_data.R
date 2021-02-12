@@ -26,11 +26,13 @@ test_that("outputs the expected snapshot", {
 })
 
 test_that("outputs like r2dii.analysis::target_market_share()", {
+  # This integration (not unit) test checks if this function keeps its promise.
+  # It may overlap with other unit tests, but here we focus on dependencies
+
   # Such a strong dependency on upstream packages makes this test fragile
   skip_on_cran()
 
-  # This integration (not unit) test checks if this function keeps its promise
-  # The call to namespace:: is intentional
+  # The style `namespace::fun()` highlights this is an integration test
   lbk <- r2dii.data::loanbook_demo[1:10, ]
   ald <- r2dii.data::ald_demo[795:800, ]
   matched <- r2dii.match::prioritize(r2dii.match::match_name(lbk, ald))
