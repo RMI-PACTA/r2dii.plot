@@ -1847,6 +1847,6 @@ get_example_data <- function() {
     )), skip = 1L
   ), class = "col_spec"))
 
-
+  data$year <- as.integer(data$year)
   return(data)
 }
