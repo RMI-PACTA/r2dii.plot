@@ -37,16 +37,15 @@ test_that("outputs like r2dii.analysis::target_market_share()", {
   ald <- r2dii.data::ald_demo[795:800, ]
   matched <- r2dii.match::prioritize(r2dii.match::match_name(lbk, ald))
 
+  sort_df <- function(data) data[sort(names(data))]
+
   scenario <- r2dii.data::scenario_demo_2020
   region <- r2dii.data::region_isos_demo
-  banks <- r2dii.analysis::target_market_share(matched, ald, scenario, region)
+  exp_df <- r2dii.analysis::target_market_share(matched, ald, scenario, region)
+  expected <- vapply(sort_df(exp_df), typeof, character(1))
 
-  sort_df <- function(data) {
-    data[sort(names(data))]
-  }
-  data <- get_example_data()
-  actual <- vapply(sort_df(data), typeof, character(1))
-  expected <- vapply(sort_df(banks), typeof, character(1))
+  act_df <- get_example_data()
+  actual <- vapply(sort_df(act_df), typeof, character(1))
 
   expect_equal(actual, expected)
 })
