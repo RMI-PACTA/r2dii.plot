@@ -11,7 +11,8 @@
 #' @export
 #'
 #' @examples
-#' # TODO
+#' data <- get_example_data()
+#' process_input_data(data)
 process_input_data <- function(data) {
   data <- data %>%
     mutate(metric_type = case_when(
