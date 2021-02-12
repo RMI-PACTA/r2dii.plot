@@ -34,9 +34,11 @@ test_that("modifies `metric`", {
   expect_false(identical(before$metric, after$metric))
 })
 
-# test_that("handles values of `metric`", {
-#   bad <- get_example_data()[1, ]
-#
-#   after <- process_input_data(before)
-#   expect_false(identical(before$metric, after$metric))
-# })
+test_that("handles values of `metric`", {
+  bad <- fake_data()
+  bad$metric <- "bad metric"
+
+  # FIXME: If metric has none of the expected values, Should we throw an error?
+  no_error <- NA
+  expect_error(process_input_data(bad), no_error)
+})
