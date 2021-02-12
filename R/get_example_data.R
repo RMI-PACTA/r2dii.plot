@@ -10,6 +10,7 @@
 #' @examples
 #' get_example_data()
 get_example_data <- function() {
+  # TODO: Simplify; maybe via data.frame(), rep(), paste(), rnorm(), etc.
   data <- structure(list(
     sector = c(
       "automotive", "automotive", "automotive",
