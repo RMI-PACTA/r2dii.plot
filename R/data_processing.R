@@ -7,7 +7,7 @@
 #' is added which depends on 'metric' and the 'metric' values themselves are
 #' edited for plotting purposes.
 #'
-#' @return A dataframe with additional column: metric type and modified metric
+#' @return A dataframe with additional column: metric type and modified metric.
 #' @export
 #'
 #' @examples
