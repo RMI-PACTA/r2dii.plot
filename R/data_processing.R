@@ -25,6 +25,9 @@ process_input_data <- function(data) {
       sub(".*_", "", .data$metric),
       .data$metric
     ))
+
+  # FIXME: Here we likely need to return `data`
+  # data
 }
 
 #' Prepares pre-processed data for plotting a trajectory chart
