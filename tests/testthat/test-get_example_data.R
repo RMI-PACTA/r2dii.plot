@@ -32,12 +32,12 @@ test_that("outputs like r2dii.analysis::target_market_share()", {
   # Such a strong dependency on upstream packages makes this test fragile
   skip_on_cran()
 
+  sort_df <- function(data) data[sort(names(data))]
+
   # The style `namespace::fun()` highlights this is an integration test
   lbk <- r2dii.data::loanbook_demo[1:10, ]
   ald <- r2dii.data::ald_demo[795:800, ]
   matched <- r2dii.match::prioritize(r2dii.match::match_name(lbk, ald))
-
-  sort_df <- function(data) data[sort(names(data))]
 
   scenario <- r2dii.data::scenario_demo_2020
   region <- r2dii.data::region_isos_demo
