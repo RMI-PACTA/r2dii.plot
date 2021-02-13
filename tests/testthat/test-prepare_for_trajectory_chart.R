@@ -178,3 +178,24 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
     "not.*logical"
   )
 })
+
+# FIXME: The error message could be more gracefull, maybe with this or similar:
+# https://2degreesinvesting.github.io/r2dii.utils/reference/check_crucial_names.html#examples
+# TODO: Do this with all crucial names that the funciton expects in the input
+test_that("with input missing crucial columns errors ungracefully", {
+  bad <- process_input_data(get_example_data())
+  bad$sector <- NULL
+  ungraceful_message <- "Problem with.*filter"
+
+  expect_error(
+    prepare_for_trajectory_chart(
+      bad,
+      sector_filter = "power",
+      technology_filter = "oilcap",
+      region_filter = "global",
+      scenario_source_filter = "demo_2020",
+      value_name = "production"
+    ),
+    ungraceful_message
+  )
+})
