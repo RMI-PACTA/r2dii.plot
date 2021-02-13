@@ -10,6 +10,7 @@
 #' @examples
 #' get_example_data()
 get_example_data <- function() {
+  # TODO: Simplify; maybe via data.frame(), rep(), paste(), rnorm(), etc.
   data <- structure(list(
     sector = c(
       "automotive", "automotive", "automotive",
@@ -1846,6 +1847,6 @@ get_example_data <- function() {
     )), skip = 1L
   ), class = "col_spec"))
 
-
+  data$year <- as.integer(data$year)
   return(data)
 }
