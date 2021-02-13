@@ -7,7 +7,8 @@ fake_data <-function() {
     scenario_source = "demo_2020",
     metric = "projected",
     production = 1,
-    technology_share = 0.2
+    technology_share = 0.2,
+    stringsAsFactors = FALSE
   )
 }
 
