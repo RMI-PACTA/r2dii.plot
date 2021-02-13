@@ -13,8 +13,8 @@
 #' @param normalize_to_start_year Flag indicating whether the values should be
 #'   normalized (boolean).
 #'
-#' @return FIXME: A data frame -- invisibly by default and visibly if
-#' `normalize_to_start_year = FALSE`
+#' @return FIXME: A data frame (invisibly by default and visibly if
+#' `normalize_to_start_year = FALSE`).
 #'
 #' @export
 #'
