@@ -1,4 +1,4 @@
-fake_data <-function() {
+fake_data <- function() {
   data.frame(
     sector = "automotive",
     technology = "electric",
@@ -11,4 +11,3 @@ fake_data <-function() {
     stringsAsFactors = FALSE
   )
 }
-
