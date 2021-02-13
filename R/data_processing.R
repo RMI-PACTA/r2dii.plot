@@ -46,7 +46,19 @@ process_input_data <- function(data) {
 #'   normalized (boolean).
 #'
 #' @export
-
+#'
+#' @examples
+#' raw <- get_example_data()
+#' processed <- process_input_data(raw)
+#'
+#' prepare_for_trajectory_chart(
+#'   processed,
+#'   sector_filter = "power",
+#'   technology_filter = "oilcap",
+#'   region_filter = "global",
+#'   scenario_source_filter = "demo_2020",
+#'   value_name = "production"
+#' )
 prepare_for_trajectory_chart <- function(data_preprocessed,
                                          sector_filter,
                                          technology_filter,
