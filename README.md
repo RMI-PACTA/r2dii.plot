@@ -27,16 +27,28 @@ You can install the development version of r2dii.ggplot from
 devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 ```
 
-## Examples using example data
+[How to minimize installation
+errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
 
-This is a basic example usage of `plot_trajectory_chart()`:
+## Example
 
 ``` r
 library(r2dii.ggplot)
+```
 
+-   `get_example_data()` imports example data set for plotting.
+-   `process_input_data()` performs the initial processing on raw input
+    data in banks’ format.
+
+``` r
 example_data <- get_example_data()
 example_data <- process_input_data(example_data)
+```
 
+-   `plot_trajectory()` create a trajectory alignment chart in a ggplot
+    object.
+
+``` r
 data_trajectory <- prepare_for_trajectory_chart(
   data = example_data, sector_filter = "power", technology_filter = "oilcap",
   region_filter = "global", scenario_source_filter = "demo_2020",
@@ -69,15 +81,15 @@ plot <- plot_trajectory(data_trajectory,
 plot
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-These are basic example usages of `plot_techmix_chart()`, the second
-chart is created using custom user-specified colours:
+-   `prepare_for_techmix_chart()` prepares pre-processed data for
+    plotting a tech-mix chart.
+-   `get_r2dii_technology_colours()` get the predefined technology
+    colors for a sector.
+-   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
-example_data <- get_example_data()
-example_data <- process_input_data(example_data)
-
 data_techmix_power <- prepare_for_techmix_chart(example_data,
   sector_filter = "power",
   years_filter = c(2020, 2025), region_filter = "global",
@@ -106,7 +118,7 @@ plot_techmix_power <- plot_techmix(data_techmix_power,
 plot_techmix_power
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
 power_colors_custom <- data.frame(

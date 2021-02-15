@@ -12,6 +12,30 @@ knitr::opts_chunk$set(
   fig.align = "left",
   out.width = "100%"
 )
+
+#' Pull the title of a documented object
+#' This function helps keep README and help files in sync.
+#' @param name String. The name of a documented object.
+#' @return String.
+#' @examples 
+#' pull_title("plot_trajectory")
+pull_title <- function(name, db = enframe_documentation("r2dii.ggplot")) {
+  is_name <- db$name == name
+  out <- db$title[is_name]
+  tolower(out)
+}
+
+enframe_documentation <- function(package) {
+  db <- utils::hsearch_db(package, lib.loc = locate_package(package))[["Base"]]
+  names(db) <- tolower(names(db))
+  db
+}
+
+locate_package <- function(pkg) {
+  locate <- function(path) any(grepl(pkg, list.files(path)))
+  has_pkg <- unlist(lapply(.libPaths(), locate))
+  .libPaths()[has_pkg][[1]]
+}
 ```
 
 # r2dii.ggplot <a href='https://github.com/2DegreesInvesting/r2dii.ggplot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
@@ -34,21 +58,30 @@ ggplot objects.
 You can install the development version of r2dii.ggplot from
 [GitHub](https://github.com/2DegreesInvesting/r2dii.ggplot) with:
 
-``` r
+```r
 # install.packages("devtools")
 devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 ```
 
-## Examples using example data
+[How to minimize installation errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
 
-This is a basic example usage of `plot_trajectory_chart()`:
+## Example
 
 ```{r}
 library(r2dii.ggplot)
+```
 
+* `get_example_data()` `r pull_title("get_example_data")`.
+* `process_input_data()` `r pull_title("process_input_data")`.
+
+```{r}
 example_data <- get_example_data()
 example_data <- process_input_data(example_data)
+```
 
+* `plot_trajectory()` `r pull_title("plot_trajectory")`.
+
+```{r}
 data_trajectory <- prepare_for_trajectory_chart(
   data = example_data, sector_filter = "power", technology_filter = "oilcap",
   region_filter = "global", scenario_source_filter = "demo_2020",
@@ -79,12 +112,12 @@ plot <- plot_trajectory(data_trajectory,
 plot
 ```
 
-These are basic example usages of `plot_techmix_chart()`, the second chart is created using custom user-specified colours:
+
+* `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
+* `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
+* `plot_techmix()` `r pull_title("plot_techmix")`.
 
 ```{r}
-example_data <- get_example_data()
-example_data <- process_input_data(example_data)
-
 data_techmix_power <- prepare_for_techmix_chart(example_data,
   sector_filter = "power",
   years_filter = c(2020, 2025), region_filter = "global",
