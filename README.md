@@ -120,6 +120,21 @@ plot_techmix_power
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
+``` r
+power_colors_custom <- data.frame(
+  "technology" = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  "label" = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
+  "colour" = c("black", "brown", "grey", "red", "blue", "green4")
+)
+
+plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
+  show_legend = TRUE, power_colors_custom, bars_labels_specs
+)
+plot_techmix_custom_col
+```
+
+<img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
 ## Metareport code examples
 
 This is a basic example usage of `plot_metareport_security_types()`

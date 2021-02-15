@@ -112,6 +112,7 @@ plot <- plot_trajectory(data_trajectory,
 plot
 ```
 
+
 * `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
 * `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
 * `plot_techmix()` `r pull_title("plot_techmix")`.
@@ -143,6 +144,17 @@ plot_techmix_power <- plot_techmix(data_techmix_power,
   bars_labels_specs
 )
 plot_techmix_power
+
+power_colors_custom <- data.frame(
+  "technology" = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  "label" = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
+  "colour" = c("black", "brown", "grey", "red", "blue", "green4")
+)
+
+plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
+  show_legend = TRUE, power_colors_custom, bars_labels_specs
+)
+plot_techmix_custom_col
 ```
 
 ## Metareport code examples
