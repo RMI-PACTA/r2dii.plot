@@ -81,7 +81,7 @@ plot <- plot_trajectory(data_trajectory,
 plot
 ```
 
-This is are basic example usages of `plot_techmix_chart()`, the second chart is created using custom user-specified colours:
+These are basic example usages of `plot_techmix_chart()`, the second chart is created using custom user-specified colours:
 
 ```{r}
 example_data <- get_example_data()

@@ -71,7 +71,7 @@ plot
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-This is are basic example usages of `plot_techmix_chart()`, the second
+These are basic example usages of `plot_techmix_chart()`, the second
 chart is created using custom user-specified colours:
 
 ``` r
@@ -110,9 +110,9 @@ plot_techmix_power
 
 ``` r
 power_colors_custom <- data.frame(
-  "technology" = c("coalcap","oilcap","gascap","nuclearcap","hydrocap","renewablescap"),
-  "label" = c("Coal Capacity", "Oil Capacity","Gas Capacity", "Nuclear Capacity","Hydro Capacity","Renewables Capacity"),
-  "colour" = c("black","brown","grey","red","blue","green4")
+  "technology" = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  "label" = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
+  "colour" = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
 plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
