@@ -6,9 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/r2dii.ggplot)](https://CRAN.R-project.org/package=r2dii.ggplot)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test
 coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions)
@@ -45,6 +43,8 @@ data_trajectory <- prepare_for_trajectory_chart(
   value_name = "production", end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
+#> Warning in prepare_for_trajectory_chart(data = example_data, sector_filter =
+#> "power", : partial argument match of 'data' to 'data_preprocessed'
 
 scenario_specs <- data.frame(
   scenario = c("sds", "sps", "cps", "worse"),
