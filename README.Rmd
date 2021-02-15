@@ -79,7 +79,7 @@ plot <- plot_trajectory(data_trajectory,
 plot
 ```
 
-This is a basic example usage of `plot_techmix_chart()`:
+These are basic example usages of `plot_techmix_chart()`, the second chart is created using custom user-specified colours:
 
 ```{r}
 example_data <- get_example_data()
@@ -111,6 +111,17 @@ plot_techmix_power <- plot_techmix(data_techmix_power,
   bars_labels_specs
 )
 plot_techmix_power
+
+power_colors_custom <- data.frame(
+  "technology" = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  "label" = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
+  "colour" = c("black", "brown", "grey", "red", "blue", "green4")
+)
+
+plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
+  show_legend = TRUE, power_colors_custom, bars_labels_specs
+)
+plot_techmix_custom_col
 ```
 
 ## Metareport code examples
