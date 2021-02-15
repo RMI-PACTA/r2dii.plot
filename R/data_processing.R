@@ -382,12 +382,14 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
 #' @export
 #'
 #' @examples
+#' #TODO
 prepare_for_map_chart <- function(data_map_asset_type,
                                   asset_type,
                                   technology_filter,
                                   year_filter,
                                   value_divisor = 1,
                                   allocation_method = NULL) {
+
   if (is.null(allocation_method)) {
     if (asset_type == "Equity") {
       allocation_method <- "ownership_weight"
@@ -395,6 +397,9 @@ prepare_for_map_chart <- function(data_map_asset_type,
       allocation_method <- "portfolio_weight"
     }
   }
+
+  world_map <- map_data(map = "world") %>%
+    mutate(iso2c = iso.alpha(world_map$region, n = 2))
 
   data_map <- data_map_asset_type %>%
     filter(
@@ -410,9 +415,6 @@ prepare_for_map_chart <- function(data_map_asset_type,
     ) %>%
     ungroup() %>%
     na.omit() %>%
-    mutate(country = countrycode(.data$ald_location,
-                                 origin = "iso2c",
-                                 destination = "country.name")) %>%
     mutate(abbreviation_divisor = case_when(
       !!value_divisor == 1 ~ "",
       !!value_divisor == 10^3 ~ "k",
@@ -421,7 +423,7 @@ prepare_for_map_chart <- function(data_map_asset_type,
       TRUE ~ as.character(value_divisor)
     ))
 
-  joined_map <- left_join(map_data("world"), data_map, by = c("region" = "country"))
+  joined_map <- left_join(world_map, data_map, by = c("iso2c" = "ald_location"))
 
   joined_map
 }
