@@ -38,7 +38,7 @@ additional metrics that should be plotted as lines (dataframe with columns:
 metric, label).}
 }
 \description{
-The function returns a ggplot object containing a stacked bar
-chart showing a technology mix for different categories (portfolio,
-scenario, benchmark, etc.).
+The function returns a ggplot object containing a stacked bar chart showing a
+technology mix for different categories (portfolio, scenario, benchmark,
+etc.).
 }

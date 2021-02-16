@@ -29,7 +29,7 @@ string or a vector of character strings).}
 string).}
 }
 \value{
-dataframe with columns investor_name, portfolio_name, value
+Dataframe with columns investor_name, portfolio_name, value.
 }
 \description{
 Prepares results data per asset type for distribution chart plot

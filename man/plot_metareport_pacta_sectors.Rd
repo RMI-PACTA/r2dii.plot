@@ -22,7 +22,7 @@ as label. (dataframe).}
 is set in the code to a predetermined character string (character string).}
 }
 \value{
-an object of class "ggplot"
+An object of class "ggplot".
 }
 \description{
 Create a small multiples bar chart with portfolio exposure to PACTA sectors

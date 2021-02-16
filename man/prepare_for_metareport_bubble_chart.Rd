@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{prepare_for_metareport_bubble_chart}
 \alias{prepare_for_metareport_bubble_chart}
-\title{Prepares results data per asset type for bubble chart plot}
+\title{Prepares results data per asset type for bubble chart}
 \usage{
 prepare_for_metareport_bubble_chart(
   data_asset_type,
@@ -33,15 +33,15 @@ string).}
 calculations (character string)}
 }
 \value{
-dataframe with columns investor_name, portfolio_name,
-value_x, value_y
+Dataframe with columns investor_name, portfolio_name, value_x,
+value_y.
 }
 \description{
-This function aggregates and prepares one of PACTA analysis
-result file "Bonds/Equity_results_portfolio.rda" from "40_Results" folder
-to form an input that can be used for plotting meta-report bubble chart
-showing a planned technology build-out as percentage of build-out required
-by a scenario against the current technology share.
+This function aggregates and prepares one of PACTA analysis result file
+"Bonds/Equity_results_portfolio.rda" from "40_Results" folder to form an
+input that can be used for plotting meta-report bubble chart showing a
+planned technology build-out as percentage of build-out required by a
+scenario against the current technology share.
 }
 \examples{
 # TODO

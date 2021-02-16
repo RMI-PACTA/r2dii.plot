@@ -18,8 +18,8 @@ prepare_for_metareport_security_type_chart(
 as "Other" asset type (array of character strings).}
 }
 \description{
-This function aggregates and prepares one of PACTA analysis
-result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
-form an input that can be used for plotting meta-report security type
-coverage per investor type bar chart
+This function aggregates and prepares one of PACTA analysis result files
+".._total_portfolio.rda" from "30_Processed_Inputs" folder to form an input
+that can be used for plotting meta-report security type coverage per investor
+type bar chart.
 }

@@ -12,7 +12,7 @@ dataset from PACTA analysis output in "30_Processed_Inputs" folder
 (dataframe).}
 }
 \value{
-dataframe prepared for the plot
+Dataframe prepared for the plot.
 }
 \description{
 Prepares PACTA overview data for meta-report PACTA sectors bar chart
