@@ -13,10 +13,10 @@ process_input_data(data)
 A dataframe with additional column: metric type and modified metric.
 }
 \description{
-This function processes the data in banks' format so that it can
-be used later in data filtering functions for charts. 'metric_type' variable
-is added which depends on 'metric' and the 'metric' values themselves are
-edited for plotting purposes.
+This function processes the data in banks' format so that it can be used
+later in data filtering functions for charts. 'metric_type' variable is added
+which depends on 'metric' and the 'metric' values themselves are edited for
+plotting purposes.
 }
 \examples{
 data <- get_example_data()
