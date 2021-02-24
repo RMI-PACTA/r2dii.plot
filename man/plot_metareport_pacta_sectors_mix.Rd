@@ -29,7 +29,7 @@ investor_type, label. If no is specified, investor_type from data is used
 as label. (dataframe).}
 }
 \value{
-an object of class "ggplot"
+An object of class "ggplot".
 }
 \description{
 Create a small multiples stacked bar chart with percentage investment in

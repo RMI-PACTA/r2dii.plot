@@ -24,9 +24,9 @@ investor_type, label. If no is specified, investor_type from data is used
 as label. (dataframe).}
 }
 \description{
-This function plots a horizontal stacked bar chart with
-composition of investors securities per investor type. No need to specify
-the colours if the security types in your dataset are only: Equity, Bonds
-and Others. Otherwise full specification needs to be passed to the
-function, for all security types.
+This function plots a horizontal stacked bar chart with composition of
+investors securities per investor type. No need to specify the colours if the
+security types in your dataset are only: Equity, Bonds and Others. Otherwise
+full specification needs to be passed to the function, for all security
+types.
 }

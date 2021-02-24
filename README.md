@@ -27,16 +27,28 @@ You can install the development version of r2dii.ggplot from
 devtools::install_github("2DegreesInvesting/r2dii.ggplot")
 ```
 
-## Examples using example data
+[How to minimize installation
+errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
 
-This is a basic example usage of `plot_trajectory_chart()`:
+## Example
 
 ``` r
 library(r2dii.ggplot)
+```
 
+-   `get_example_data()` imports example data set for plotting.
+-   `process_input_data()` performs the initial processing on raw input
+    data in banks’ format.
+
+``` r
 example_data <- get_example_data()
 example_data <- process_input_data(example_data)
+```
 
+-   `plot_trajectory()` create a trajectory alignment chart in a ggplot
+    object.
+
+``` r
 data_trajectory <- prepare_for_trajectory_chart(
   example_data, 
   sector_filter = "power", 
@@ -71,14 +83,15 @@ plot <- plot_trajectory(data_trajectory,
 plot
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-This is a basic example usage of `plot_techmix_chart()`:
+-   `prepare_for_techmix_chart()` prepares pre-processed data for
+    plotting a tech-mix chart.
+-   `get_r2dii_technology_colours()` get the predefined technology
+    colors for a sector.
+-   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
-example_data <- get_example_data()
-example_data <- process_input_data(example_data)
-
 data_techmix_power <- prepare_for_techmix_chart(example_data,
   sector_filter = "power",
   years_filter = c(2020, 2025), region_filter = "global",
@@ -107,7 +120,22 @@ plot_techmix_power <- plot_techmix(data_techmix_power,
 plot_techmix_power
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+power_colors_custom <- data.frame(
+  "technology" = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  "label" = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
+  "colour" = c("black", "brown", "grey", "red", "blue", "green4")
+)
+
+plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
+  show_legend = TRUE, power_colors_custom, bars_labels_specs
+)
+plot_techmix_custom_col
+```
+
+<img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ## Metareport code examples
 
@@ -211,4 +239,32 @@ loaded in your environment:
                                 investor_labels = investor_labels,
                                 colour_investors = TRUE
                                 )
+    p
+
+These is a basic example of using `plot_metareport_map()` given that you
+have the `Equity_results_map.rda` or `Bonds_results_map.rda` data set
+from PACTA analysis results loaded in your environment:
+
+    data_map_eq_chart <- prepare_for_map_chart(data_map_eq,
+                                      asset_type = "Equity",
+                                      technology_filter = "Oil",
+                                      year_filter = 2020,
+                                      value_divisor = 10^6)
+
+    legend_unit <- data_map_eq_chart %>%
+      filter(!is.na(unit)) %>%
+      pull(unit) %>%
+      unique()
+
+    legend_divisor <- data_map_eq_chart %>%
+      filter(!is.na(abbreviation_divisor)) %>%
+      pull(abbreviation_divisor) %>%
+      unique()
+
+    legend_title <- paste(legend_divisor, legend_unit, sep = " ")
+
+    p <- plot_metareport_map(data,
+                             plot_title = "Geographical distribution of physical assets - Oil Production, Equity",
+                             legend_title = legend_title,
+                             sector = "Oil&Gas")
     p

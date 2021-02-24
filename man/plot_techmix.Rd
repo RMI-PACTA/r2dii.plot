@@ -27,9 +27,9 @@ with columns: technology, label, color).}
 (dataframe with columns: metric_type, label).}
 }
 \description{
-The function returns a ggplot object containing a stacked bar
-chart showing a technology mix for different categories (portfolio, scenario,
-benchmark, etc.).
+The function returns a ggplot object containing a stacked bar chart showing a
+technology mix for different categories (portfolio, scenario, benchmark,
+etc.).
 }
 \examples{
 # TODO create an example or copy-paste an existing one from README or a test.

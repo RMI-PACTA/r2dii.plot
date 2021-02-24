@@ -1,15 +1,15 @@
 #' Prepares PACTA total_portfolio data for meta-report security type bar chart
 #'
+#' This function aggregates and prepares one of PACTA analysis result files
+#' ".._total_portfolio.rda" from "30_Processed_Inputs" folder to form an input
+#' that can be used for plotting meta-report security type coverage per investor
+#' type bar chart.
+#'
 #' @param data_total_portfolio Dataframe in the shape of
 #'   ".._total_portfolio.rda" dataset from PACTA analysis output in
 #'   "30_Processed_Inputs" folder (dataframe).
 #' @param other_asset_types Array of character strings that should be summed up
 #'   as "Other" asset type (array of character strings).
-#'
-#' @description This function aggregates and prepares one of PACTA analysis
-#'   result files ".._total_portfolio.rda" from "30_Processed_Inputs" folder to
-#'   form an input that can be used for plotting meta-report security type
-#'   coverage per investor type bar chart
 #'
 #' @export
 
@@ -48,7 +48,7 @@ prepare_for_metareport_security_type_chart <- function(data_total_portfolio,
 #'   dataset from PACTA analysis output in "30_Processed_Inputs" folder
 #'   (dataframe).
 #'
-#' @return dataframe prepared for the plot
+#' @return Dataframe prepared for the plot.
 #' @export
 #'
 #' @examples
@@ -82,7 +82,7 @@ prepare_for_pacta_sectors_chart <- function(data_overview) {
 #'   data set from PACTA analysis output in "30_Processed_Inputs" folder
 #'   (dataframe).
 #'
-#' @return dataframe prepared for the plot
+#' @return Dataframe prepared for the plot.
 #' @export
 #'
 #' @examples
@@ -121,7 +121,7 @@ prepare_for_metareport_pacta_sectors_mix_chart <- function(data_overview) {
 #' @param value_to_plot Variable to be used as value for plotting (character
 #'   string).
 #'
-#' @return dataframe with columns investor_name, portfolio_name, value
+#' @return Dataframe with columns investor_name, portfolio_name, value.
 #' @export
 #'
 #' @examples
@@ -160,7 +160,13 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
     arrange(desc(.data$value))
 }
 
-#' Prepares results data per asset type for bubble chart plot
+#' Prepares results data per asset type for bubble chart
+#'
+#' This function aggregates and prepares one of PACTA analysis result file
+#' "Bonds/Equity_results_portfolio.rda" from "40_Results" folder to form an
+#' input that can be used for plotting meta-report bubble chart showing a
+#' planned technology build-out as percentage of build-out required by a
+#' scenario against the current technology share.
 #'
 #' @param data_asset_type Dataframe in the shape of
 #'   "Equity/Bonds_results_portfolio.rda" dataset from PACTA analysis output in
@@ -175,14 +181,8 @@ prepare_for_metareport_distribution_chart <- function(data_asset_type,
 #' @param scenario_geography_filter Scenario geography to be used in the
 #'   calculations (character string)
 #'
-#' @description This function aggregates and prepares one of PACTA analysis
-#'   result file "Bonds/Equity_results_portfolio.rda" from "40_Results" folder
-#'   to form an input that can be used for plotting meta-report bubble chart
-#'   showing a planned technology build-out as percentage of build-out required
-#'   by a scenario against the current technology share.
-#'
-#' @return dataframe with columns investor_name, portfolio_name,
-#'   value_x, value_y
+#' @return Dataframe with columns investor_name, portfolio_name, value_x,
+#'   value_y.
 #' @export
 #'
 #' @examples
@@ -240,4 +240,71 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
       value_x = .data$plan_tech_share,
       value_y = .data$share_build_out
     )
+}
+
+#' Prepares results data per asset type for map plot
+#'
+#' @param data_map_asset_type Dataframe in the shape of
+#'   "Equity/Bonds_results_map.rda" dataset from PACTA analysis output in
+#'   "40_Results" folder (dataframe).
+#' @param asset_type Asset type of the data used to specify default allocation
+#'   method (character string).
+#' @param technology_filter Technology to be used for filtering (character
+#'   string).
+#' @param year_filter Year to be used for filtering (integer).
+#' @param value_divisor Number by which to divide the values to be plotted
+#'   (integer).
+#' @param allocation_method Allocation method used to calculate the production
+#'   values. If none is specified "portfolio_weight" is used for Bonds and
+#'   "ownership_weight" is used for Equity.
+#'
+#' @return Dataframe with columns (only important columns are listed): long,
+#'   lat, group, value, unit, abbreviation_divisor.
+#' @export
+#'
+#' @examples
+#' #TODO
+prepare_for_map_chart <- function(data_map_asset_type,
+                                  asset_type,
+                                  technology_filter,
+                                  year_filter,
+                                  value_divisor = 1,
+                                  allocation_method = NULL) {
+
+  if (is.null(allocation_method)) {
+    if (asset_type == "Equity") {
+      allocation_method <- "ownership_weight"
+    } else {
+      allocation_method <- "portfolio_weight"
+    }
+  }
+
+  world_map <- map_data(map = "world") %>%
+    mutate(iso2c = iso.alpha(world_map$region, n = 2))
+
+  data_map <- data_map_asset_type %>%
+    filter(
+      .data$technology == technology_filter,
+      .data$allocation == allocation_method,
+      .data$year == year_filter,
+      .data$equity_market == "Global"
+    ) %>%
+    group_by(.data$ald_location) %>%
+    summarise(
+      value = sum(.data$plan_alloc_wt_tech_prod, na.rm = TRUE) / value_divisor,
+      unit = max(.data$ald_production_unit)
+    ) %>%
+    ungroup() %>%
+    na.omit() %>%
+    mutate(abbreviation_divisor = case_when(
+      !!value_divisor == 1 ~ "",
+      !!value_divisor == 10^3 ~ "k",
+      !!value_divisor == 10^6 ~ "M",
+      !!value_divisor == 10^9 ~ "B",
+      TRUE ~ as.character(value_divisor)
+    ))
+
+  joined_map <- left_join(world_map, data_map, by = c("iso2c" = "ald_location"))
+
+  joined_map
 }

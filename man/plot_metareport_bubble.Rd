@@ -34,7 +34,7 @@ is specified, investor_type from data is used as label. (dataframe).}
 if points are coloured (boolean).}
 }
 \value{
-an object of class "ggplot"
+An object of class "ggplot".
 }
 \description{
 Create a meta-report bubble chart
