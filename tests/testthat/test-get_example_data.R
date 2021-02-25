@@ -22,7 +22,8 @@ test_that("has the expected type of columns", {
 })
 
 test_that("outputs the expected snapshot", {
-  expect_snapshot(get_example_data())
+  some_example_data <- head(as.data.frame(get_example_data()))
+  expect_snapshot(some_example_data)
 })
 
 test_that("outputs like r2dii.analysis::target_market_share()", {
