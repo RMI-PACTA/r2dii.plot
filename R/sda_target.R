@@ -5,8 +5,8 @@
 #'
 #' @format A data frame with 208 rows and 4 variables:
 #' \describe{
-#'   \item{sector}{industry sector}
-#'   \item{year}{year for which emisisons are reported}
+#'   \item{sector}{industry sector (as defined in PACTA)}
+#'   \item{year}{year for which emissions are reported}
 #'   \item{emission_factor_metric}{metric type: 'projected' for the test
 #'   portfolio 'corporate_economy' for the benchmark, 'adjusted_scenario_demo'
 #'   for a scenario}
