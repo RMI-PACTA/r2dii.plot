@@ -1,0 +1,5 @@
+dataset,column,typeof,definition
+sda_target,sector,character,industry sector (as defined in PACTA)
+sda_target,year,double,year for which emissions are reported
+sda_target,emission_factor_metric,character,metric type: 'projected' for the test 'portfolio 'corporate_economy' for the benchmark 'adjusted_scenario_demo' for a scenario
+sda_target,emission_factor_value,double,emissions value; units differ depending on the sector
