@@ -1,0 +1,209 @@
+sector,year,emission_factor_metric,emission_factor_value
+automotive,2002,projected,0.22800255837915603
+automotive,2003,projected,0.2260830087597848
+automotive,2004,projected,0.22413464844270617
+automotive,2005,projected,0.22216160920809536
+automotive,2006,projected,0.22016724618803893
+automotive,2007,projected,0.2181543180717123
+automotive,2008,projected,0.21612511914183447
+automotive,2009,projected,0.21408157767269928
+automotive,2010,projected,0.21202533039770233
+automotive,2011,projected,0.2099577796670471
+automotive,2012,projected,0.20788013789607307
+automotive,2013,projected,0.20579346255608824
+automotive,2014,projected,0.20369868404297956
+automotive,2015,projected,0.20159662812554197
+automotive,2016,projected,0.19948803423129513
+automotive,2017,projected,0.19737357051183985
+automotive,2018,projected,0.19525384640271148
+automotive,2019,projected,0.19312942322766294
+automotive,2020,projected,0.19100082327641008
+automotive,2021,projected,0.18886853769581557
+automotive,2022,projected,0.1867330334687847
+automotive,2023,projected,0.18459475970689188
+automotive,2024,projected,0.18245415344782914
+automotive,2025,projected,0.18031164512432207
+automotive,2026,projected,0.17816766385526184
+aviation,2013,projected,65825190.38227016
+aviation,2014,projected,65700759.97765779
+aviation,2015,projected,65576329.5730454
+aviation,2016,projected,65451899.16843303
+aviation,2017,projected,65327468.76382065
+aviation,2018,projected,65203038.35920828
+aviation,2019,projected,65078607.9545959
+aviation,2020,projected,64954177.549983524
+aviation,2021,projected,64829747.14537115
+aviation,2022,projected,64705316.74075877
+aviation,2023,projected,64580886.33614639
+aviation,2024,projected,64456455.931534015
+aviation,2025,projected,64332025.526921645
+cement,2013,projected,0.6579505879612283
+cement,2014,projected,0.6588593563664017
+cement,2015,projected,0.659768124771575
+cement,2016,projected,0.6606768931767483
+cement,2017,projected,0.6615856615819217
+cement,2018,projected,0.662494429987095
+cement,2019,projected,0.6634031983922684
+cement,2020,projected,0.6643119667974416
+cement,2021,projected,0.665220735202615
+cement,2022,projected,0.6661295036077883
+cement,2023,projected,0.6670382720129617
+cement,2024,projected,0.667947040418135
+cement,2025,projected,0.6688558088233083
+oil and gas,2013,projected,2171261.8360171504
+oil and gas,2014,projected,2301052.473276326
+oil and gas,2015,projected,2517058.74202447
+oil and gas,2016,projected,2532153.32993692
+oil and gas,2017,projected,2552656.183500395
+oil and gas,2018,projected,2575040.794054909
+oil and gas,2019,projected,2597019.5927848243
+oil and gas,2020,projected,2619980.977084621
+oil and gas,2021,projected,2669048.332641866
+oil and gas,2022,projected,2700528.858012433
+oil and gas,2023,projected,2872972.2544914214
+oil and gas,2024,projected,2888048.6119626234
+oil and gas,2025,projected,2785814.7157712895
+shipping,2013,projected,33693415.68347664
+shipping,2014,projected,33991878.311805174
+shipping,2015,projected,34213813.19000197
+shipping,2016,projected,34385141.89009162
+shipping,2017,projected,34517476.81146563
+shipping,2018,projected,34617083.343773015
+shipping,2019,projected,34687795.289920785
+shipping,2020,projected,34732180.26060788
+shipping,2021,projected,34752079.44875785
+shipping,2022,projected,34748889.07770043
+shipping,2023,projected,34723725.20416838
+shipping,2024,projected,34677536.375451855
+shipping,2025,projected,34611203.01531303
+automotive,2002,corporate_economy,0.23581870657952306
+automotive,2003,corporate_economy,0.23703352953920767
+automotive,2004,corporate_economy,0.2382999138987349
+automotive,2005,corporate_economy,0.23961762701747644
+automotive,2006,corporate_economy,0.24098643765224184
+automotive,2007,corporate_economy,0.24240611594680156
+automotive,2008,corporate_economy,0.24387643342150372
+automotive,2009,corporate_economy,0.24539716296298472
+automotive,2010,corporate_economy,0.24696807881397131
+automotive,2011,corporate_economy,0.24858895656317448
+automotive,2012,corporate_economy,0.25025957313527314
+automotive,2013,corporate_economy,0.2519797067809871
+automotive,2014,corporate_economy,0.2537491370672389
+automotive,2015,corporate_economy,0.25556764486740285
+automotive,2016,corporate_economy,0.2574350123516402
+automotive,2017,corporate_economy,0.25935102297732066
+automotive,2018,corporate_economy,0.2613154614795283
+automotive,2019,corporate_economy,0.26332811386165145
+automotive,2020,corporate_economy,0.2653887673860559
+automotive,2021,corporate_economy,0.2674972105648394
+automotive,2022,corporate_economy,0.26965323315066897
+automotive,2023,corporate_economy,0.2718566261276971
+automotive,2024,corporate_economy,0.27410718170255916
+automotive,2025,corporate_economy,0.27640469329544837
+automotive,2026,corporate_economy,0.27874895553126955
+aviation,2013,corporate_economy,38564888.93871191
+aviation,2014,corporate_economy,38242645.55718066
+aviation,2015,corporate_economy,37957180.698849455
+aviation,2016,corporate_economy,37703925.68623342
+aviation,2017,corporate_economy,37479038.45777321
+aviation,2018,corporate_economy,37279264.6378711
+aviation,2019,corporate_economy,37101829.309184514
+aviation,2020,corporate_economy,36944351.85263163
+aviation,2021,corporate_economy,36804778.31577656
+aviation,2022,corporate_economy,36681327.24004604
+aviation,2023,corporate_economy,36572445.92236389
+aviation,2024,corporate_economy,36476774.8393549
+aviation,2025,corporate_economy,36393118.510521345
+cement,2013,corporate_economy,0.6614122217728928
+cement,2014,corporate_economy,0.6626451595288653
+cement,2015,corporate_economy,0.6638424935373206
+cement,2016,corporate_economy,0.6650041854614662
+cement,2017,corporate_economy,0.6661301969094504
+cement,2018,corporate_economy,0.6672204894342628
+cement,2019,corporate_economy,0.6682750245336365
+cement,2020,corporate_economy,0.6692937636499474
+cement,2021,corporate_economy,0.6702766681701156
+cement,2022,corporate_economy,0.6712236994255054
+cement,2023,corporate_economy,0.6721348186918255
+cement,2024,corporate_economy,0.6730099871890282
+cement,2025,corporate_economy,0.6738491660812097
+coal,2013,corporate_economy,16348.587564073943
+coal,2014,corporate_economy,16011.731173825117
+coal,2015,corporate_economy,15709.185159000184
+coal,2016,corporate_economy,15440.678607673626
+coal,2017,corporate_economy,15205.943452564183
+coal,2018,corporate_economy,15004.714433795749
+coal,2019,corporate_economy,14836.729062241731
+coal,2020,corporate_economy,14701.727583442238
+coal,2021,corporate_economy,14599.452942083679
+coal,2022,corporate_economy,14529.65074703058
+coal,2023,corporate_economy,14492.069236899626
+coal,2024,corporate_economy,14486.45924616612
+coal,2025,corporate_economy,14512.574171793322
+oil and gas,2013,corporate_economy,2553281.039135345
+oil and gas,2014,corporate_economy,2564506.454113541
+oil and gas,2015,corporate_economy,2587831.6619963734
+oil and gas,2016,corporate_economy,2593254.7454737793
+oil and gas,2017,corporate_economy,2600555.2360648694
+oil and gas,2018,corporate_economy,2615172.3434508783
+oil and gas,2019,corporate_economy,2632629.436199739
+oil and gas,2020,corporate_economy,2652983.9166384
+oil and gas,2021,corporate_economy,2652736.9875295744
+oil and gas,2022,corporate_economy,2712139.3335616933
+oil and gas,2023,corporate_economy,2737902.801384814
+oil and gas,2024,corporate_economy,2777880.9567500753
+oil and gas,2025,corporate_economy,2807495.0962928417
+shipping,2013,corporate_economy,37058205.44459247
+shipping,2014,corporate_economy,37361431.480037816
+shipping,2015,corporate_economy,37615227.83611877
+shipping,2016,corporate_economy,37820769.78299254
+shipping,2017,corporate_economy,37979195.62520335
+shipping,2018,corporate_economy,38091608.143686704
+shipping,2019,corporate_economy,38159075.97079419
+shipping,2020,corporate_economy,38182634.90194072
+shipping,2021,corporate_economy,38163289.14725605
+shipping,2022,corporate_economy,38102012.526418306
+shipping,2023,corporate_economy,37999749.60965577
+shipping,2024,corporate_economy,37857416.80772538
+shipping,2025,corporate_economy,37675903.41351038
+steel,2013,corporate_economy,0.26167337508801053
+steel,2014,corporate_economy,0.2634752197739274
+steel,2015,corporate_economy,0.26525798588107785
+steel,2016,corporate_economy,0.26702107321546986
+steel,2017,corporate_economy,0.2687638561409374
+steel,2018,corporate_economy,0.27048568221658664
+steel,2019,corporate_economy,0.27218587074572753
+steel,2020,corporate_economy,0.2738637112295099
+steel,2021,corporate_economy,0.2755184617178824
+steel,2022,corporate_economy,0.2771493470498295
+steel,2023,corporate_economy,0.278755556974117
+steel,2024,corporate_economy,0.28033624414097036
+steel,2025,corporate_economy,0.28189052195422587
+cement,2020,target_demo,0.6643119667974416
+cement,2021,target_demo,0.6356757542190057
+cement,2022,target_demo,0.6070395416405696
+cement,2023,target_demo,0.5784033290621337
+cement,2024,target_demo,0.5497671164836977
+cement,2025,target_demo,0.5211309039052616
+cement,2020,adjusted_scenario_demo,0.6614122217728928
+steel,2020,adjusted_scenario_demo,0.26167337508801053
+cement,2021,adjusted_scenario_demo,0.6047197456209306
+steel,2021,adjusted_scenario_demo,0.24858970633361
+cement,2022,adjusted_scenario_demo,0.5480272694689683
+steel,2022,adjusted_scenario_demo,0.2355060375792095
+cement,2023,adjusted_scenario_demo,0.49133479331700614
+steel,2023,adjusted_scenario_demo,0.22242236882480895
+cement,2024,adjusted_scenario_demo,0.43464231716504387
+steel,2024,adjusted_scenario_demo,0.20933870007040845
+cement,2025,adjusted_scenario_demo,0.37794984101308166
+steel,2025,adjusted_scenario_demo,0.1962550313160079
+cement,2030,adjusted_scenario_demo,0.3685010949877546
+steel,2030,adjusted_scenario_demo,0.18753258543612863
+cement,2035,adjusted_scenario_demo,0.35905234896242755
+steel,2035,adjusted_scenario_demo,0.1788101396870861
+cement,2040,adjusted_scenario_demo,0.23621865063317601
+steel,2040,adjusted_scenario_demo,0.06541834377200263
+cement,2045,adjusted_scenario_demo,0.18897492050654083
+steel,2045,adjusted_scenario_demo,0.032709171886001316
+cement,2050,adjusted_scenario_demo,0.09448746025327041
+steel,2050,adjusted_scenario_demo,0.026167337508801056
