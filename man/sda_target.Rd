@@ -5,19 +5,10 @@
 \alias{sda_target}
 \title{Time series of emission factors}
 \format{
-A data frame with 208 rows and 4 variables:
-\describe{
-\item{sector}{industry sector (as defined in PACTA)}
-\item{year}{year for which emissions are reported}
-\item{emission_factor_metric}{metric type: 'projected' for the test
-portfolio 'corporate_economy' for the benchmark, 'adjusted_scenario_demo'
-for a scenario}
-\item{emission_factor_value}{emissions value, a double, units differ
-depending on the sector}
-}
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 208 rows and 4 columns.
 }
 \source{
-\url{https://github.com/2DegreesInvesting/r2dii.ggplot/issues/55}
+\url{https://github.com/2DegreesInvesting/r2dii.ggplot/issues/55}.
 }
 \usage{
 sda_target
@@ -25,5 +16,19 @@ sda_target
 \description{
 An example data set containing emission factors for different metric types:
 projected, benchmark and scenarios and different sectors.
+}
+\details{
+Column definitions:
+\itemize{
+\item \code{sector}: Industry sector (as defined in PACTA).
+\item \code{year}: Year for which emissions are reported.
+\item \code{emission_factor_metric}: metric type: 'projected' for the test portfolio
+'corporate_economy' for the benchmark, 'adjusted_scenario_demo' for a scenario.
+\item \code{emission_factor_value}: emissions value, a double, units differ depending
+on the sector.
+}
+}
+\examples{
+sda_target
 }
 \keyword{datasets}
