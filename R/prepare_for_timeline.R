@@ -34,6 +34,8 @@ prepare_for_timeline <- function(sda_target_data,
                                  column_line_names = "emission_factor_metric",
                                  value_to_plot = "emission_factor_value") {
 
+  sector_filter <- match.arg(sector_filter)
+
   data_timeline <- sda_target_data %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$year >= year_start) %>%
