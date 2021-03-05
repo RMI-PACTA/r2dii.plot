@@ -22,9 +22,9 @@ columns specifying value to be be plotted as timelines and line names
 \item{sector_filter}{Sector to be used for filtering (character string or a
 vector of character strings).}
 
-\item{year_start}{Start year of the plot (interger).}
+\item{year_start}{Start year of the plot (double).}
 
-\item{year_end}{End year of the plot (interger).}
+\item{year_end}{End year of the plot (double).}
 
 \item{column_line_names}{Column specifying the names of lines to be plotted
 (character string).}

@@ -41,7 +41,7 @@ prepare_for_timeline <- function(sda_target_data,
     stop("'year_start' should be a number.")
   }
 
-  if (typeof(year_start) != "double") {
+  if (typeof(year_end) != "double") {
     stop("'year_end' should be a number.")
   }
 
