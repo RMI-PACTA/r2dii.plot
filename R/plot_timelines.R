@@ -39,6 +39,8 @@ plot_timelines <- function(data,
       "line_name" = unique(data$line_name),
       "label" = unique(data$line_name)
     )
+  } else if (typeof(lines_specs) != "list") {
+    stop("'line_specs' needs to be a dataframe with columns 'line_name', 'label' and (optional) 'r2dii_colour_name'.")
   }
 
   # input checks
@@ -54,6 +56,8 @@ plot_timelines <- function(data,
 
   if (!("r2dii_colour_name" %in% colnames(lines_specs))) {
     lines_specs$r2dii_colour_name <- r2dii_colours$label[1:nrow(lines_specs)]
+  } else if (!(all(lines_specs$r2dii_colour_name %in% r2dii_colours$label))) {
+    stop("Colour names specified in 'lines_specs' do not match those in r2dii_colours$label.")
   }
 
   lines_specs <- left_join(lines_specs, r2dii_colours,
