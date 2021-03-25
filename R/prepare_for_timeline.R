@@ -12,15 +12,16 @@
 #' @param value_to_plot Column name of the value to be plotted (character
 #'   string).
 #'
-#' @return Dataframe with columns: year, line_name, value.
+#' @return Dataframe with columns: year, line_name, value, extrapolated.
 #' @export
 #'
 #' @examples
 #' prepare_for_timeline(sda_target,
-#' sector_filter = "automotive",
+#' sector_filter = "cement",
 #' year_start = 2020,
-#' year_end = 2026,column_line_names = "emission_factor_metric",
-#' value_to_plot = "emission_factor_value")
+#' year_end = 2050,column_line_names = "emission_factor_metric",
+#' value_to_plot = "emission_factor_value",
+#' extrapolate_missing_values = TRUE)
 prepare_for_timeline <- function(sda_target_data,
                                  sector_filter = c("automotive",
                                                    "aviation",
@@ -32,7 +33,8 @@ prepare_for_timeline <- function(sda_target_data,
                                  year_start = 0,
                                  year_end = Inf,
                                  column_line_names = "emission_factor_metric",
-                                 value_to_plot = "emission_factor_value") {
+                                 value_to_plot = "emission_factor_value",
+                                 extrapolate_missing_values = FALSE) {
 
   # Check inputs
   sector_filter <- match.arg(sector_filter)
@@ -58,7 +60,26 @@ prepare_for_timeline <- function(sda_target_data,
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$year >= year_start) %>%
     filter(.data$year <= year_end) %>%
-    select(.data$year, line_name = !!column_line_names, value = !!value_to_plot)
+    select(.data$year, line_name = !!column_line_names, value = !!value_to_plot) %>%
+    mutate(extrapolated = FALSE)
+
+  if (extrapolate_missing_values) {
+    max_year_dataset = max(data_timeline$year, na.rm = TRUE)
+
+    data_to_extrapolate <- data_timeline %>%
+      group_by(line_name) %>%
+      arrange(desc(year)) %>%
+      dplyr::slice(1) %>%
+      filter(.data$year != max_year_dataset)
+
+    data_extrapolated <- data_to_extrapolate
+    data_extrapolated$year <- max_year_dataset
+
+    data_extrapolated <- rbind(data_to_extrapolate,data_extrapolated)
+    data_extrapolated$extrapolated <- TRUE
+
+    data_timeline <- rbind(data_timeline,data_extrapolated)
+  }
 
   data_timeline
 }
