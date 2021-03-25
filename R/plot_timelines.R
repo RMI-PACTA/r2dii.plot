@@ -71,7 +71,9 @@ plot_timelines <- function(data,
                    colour = factor(.data$line_name, levels = lines_specs$line_name))
                  ) +
     geom_line() +
-    coord_cartesian(expand = FALSE, clip = "off") +
+    scale_x_continuous(expand = expansion(mult = c(0,0.1))) +
+    scale_y_continuous(expand = expansion(mult = c(0,0.1))) +
+    expand_limits(y = 0) +
     labs(title = plot_title) +
     xlab(x_title) +
     ylab(y_title) +
