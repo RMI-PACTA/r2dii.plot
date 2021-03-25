@@ -83,3 +83,19 @@ test_that("with bad `value_to_plot` errors gracefully", {
     graceful_message
   )
 })
+
+test_that("with bad `extrapolate_missing_values` errors gracefully", {
+  bad <- "bad"
+  graceful_message <- "argument is not interpretable as logical"
+
+  expect_error(
+    prepare_for_timeline(sda_target,
+                          sector_filter = "automotive",
+                          year_start = 2020,
+                          year_end = 2026,
+                          column_line_names = "emission_factor_metric",
+                          value_to_plot = "emission_factor_value",
+                          extrapolate_missing_values = bad),
+    graceful_message
+  )
+})
