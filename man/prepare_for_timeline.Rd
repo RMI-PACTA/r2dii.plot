@@ -11,7 +11,8 @@ prepare_for_timeline(
   year_start = 0,
   year_end = Inf,
   column_line_names = "emission_factor_metric",
-  value_to_plot = "emission_factor_value"
+  value_to_plot = "emission_factor_value",
+  extrapolate_missing_values = FALSE
 )
 }
 \arguments{
@@ -31,17 +32,21 @@ vector of character strings).}
 
 \item{value_to_plot}{Column name of the value to be plotted (character
 string).}
+
+\item{extrapolate_missing_values}{Flag indicating if values should be
+extrapolated to match the furthest value in the data set.}
 }
 \value{
-Dataframe with columns: year, line_name, value.
+Dataframe with columns: year, line_name, value, extrapolated.
 }
 \description{
 Prepares sda_target-type data for timeline plot
 }
 \examples{
 prepare_for_timeline(sda_target,
-sector_filter = "automotive",
+sector_filter = "cement",
 year_start = 2020,
-year_end = 2026,column_line_names = "emission_factor_metric",
-value_to_plot = "emission_factor_value")
+year_end = 2050,column_line_names = "emission_factor_metric",
+value_to_plot = "emission_factor_value",
+extrapolate_missing_values = TRUE)
 }

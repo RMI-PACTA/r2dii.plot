@@ -95,7 +95,7 @@ plot_timelines <- function(data,
           linetype = .data$extrapolated
           )
         ) +
-      scale_linetype_manual(values = "dashed", labels = "Extrapolation") +
+      scale_linetype_manual(values = "dashed") +
       guides(linetype = FALSE)
   }
 

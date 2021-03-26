@@ -11,6 +11,8 @@
 #'   (character string).
 #' @param value_to_plot Column name of the value to be plotted (character
 #'   string).
+#' @param extrapolate_missing_values Flag indicating if values should be
+#'   extrapolated to match the furthest value in the data set.
 #'
 #' @return Dataframe with columns: year, line_name, value, extrapolated.
 #' @export
@@ -67,8 +69,8 @@ prepare_for_timeline <- function(sda_target_data,
     max_year_dataset = max(data_timeline$year, na.rm = TRUE)
 
     data_to_extrapolate <- data_timeline %>%
-      group_by(line_name) %>%
-      arrange(desc(year)) %>%
+      group_by(.data$line_name) %>%
+      arrange(desc(.data$year)) %>%
       dplyr::slice(1) %>%
       filter(.data$year != max_year_dataset)
 
