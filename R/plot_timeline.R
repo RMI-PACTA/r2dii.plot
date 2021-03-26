@@ -3,7 +3,8 @@
 #' @param data Pre-processed data for the chart, with columns: year, value,
 #'   line_name.
 #' @param lines_specs Dataframe containing order of lines, their labels and
-#'   (optionally) colour names from the r2dii_colours palette.
+#'   (optionally) colour names from the r2dii_colours palette (column
+#'   'r2dii_colour_name').
 #' @param plot_title Title of the plot.
 #' @param x_title,y_title x- and y-axis title.
 #'
@@ -36,22 +37,47 @@ plot_timeline <- function(data,
                            plot_title = NULL,
                            x_title = "Year",
                            y_title = "Value") {
+
   if (is.null(lines_specs)) {
     lines_specs <- data.frame(
       "line_name" = unique(data$line_name),
       "label" = unique(data$line_name)
     )
   } else if (typeof(lines_specs) != "list") {
-    stop("'line_specs' needs to be a dataframe with columns 'line_name', 'label' and (optional) 'r2dii_colour_name'.")
+    msg <- paste0("'line_specs' must be a dataframe.\n",
+                  paste0("* You've supplied a ", typeof(lines_specs), "."))
+    stop(msg)
   }
 
+
   # input checks
+  if (!all(c("line_name", "label") %in% names(lines_specs))) {
+    msg <- paste0(
+      "'line_specs' must have columns 'line_name' and 'label'.\n",
+      paste0("* Yours has columns: ", toString(names(lines_specs)), ".\n"),
+      "* Optionally you could add a column 'r2dii_colour_name'."
+    )
+    stop(msg)
+  }
+
   if (!identical(sort(unique(lines_specs$line_name)), sort(unique(data$line_name)))) {
-    stop("The line_name values specified in parameter 'lines_specs' do not match the data.")
+    msg <- paste0(
+      "Can't find `line_name` values from 'lines_specs' in the data.\n",
+      paste0("* Unique `line_name` values in 'data' are: ",
+             toString(sort(unique(data$line_name))),".\n"),
+      paste0("* Unique `line_name` values in 'lines_specs' are: ",
+             toString(sort(unique(lines_specs$line_name))))
+    )
+    stop(msg)
   }
 
   if (nrow(lines_specs) > 9) {
-    stop("The maximal number of lines on the plot is 9. Decrease the number of unique 'line_names' in the data to be able to plot.")
+    msg <- paste0(
+      "The number of lines on the plot must be lower than 10.\n",
+      paste0("* You've supplied 'lines_specs' with ", nrow(lines_specs)," rows.\n"),
+      paste0("* Split up your dataset to be able to plot.")
+    )
+    stop(msg)
   }
 
   r2dii_colours <- r2dii_palette_colours()
@@ -59,7 +85,17 @@ plot_timeline <- function(data,
   if (!("r2dii_colour_name" %in% colnames(lines_specs))) {
     lines_specs$r2dii_colour_name <- r2dii_colours$label[1:nrow(lines_specs)]
   } else if (!(all(lines_specs$r2dii_colour_name %in% r2dii_colours$label))) {
-    stop("Colour names specified in 'lines_specs' do not match those in r2dii_colours$label.")
+    msg <- paste0(
+      "Colour names specified in 'lines_specs' must match those in r2dii_colours$label.\n",
+      paste0("* The names in r2dii_colours are: ", toString(r2dii_colours$label), ".\n"),
+      paste0(
+        "* You've supplied: ",
+        lines_specs %>%
+          filter(! .data$r2dii_colour_name %in% r2dii_colours$label) %>%
+          pull(.data$r2dii_colour_name),
+        ".")
+    )
+    stop(msg)
   }
 
   lines_specs <- left_join(lines_specs, r2dii_colours,

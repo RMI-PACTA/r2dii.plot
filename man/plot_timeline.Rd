@@ -17,7 +17,8 @@ plot_timeline(
 line_name.}
 
 \item{lines_specs}{Dataframe containing order of lines, their labels and
-(optionally) colour names from the r2dii_colours palette.}
+(optionally) colour names from the r2dii_colours palette (column
+'r2dii_colour_name').}
 
 \item{plot_title}{Title of the plot.}
 
