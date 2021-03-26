@@ -25,13 +25,13 @@
 #'   "r2dii_colour_name" = c("dark_blue", "green", "grey", "orange")
 #' )
 #'
-#' plot_timelines(data_sda_cement,
+#' plot_timeline(data_sda_cement,
 #'   lines_specs = lines_specs,
 #'   plot_title = "Emission intensity trend for Cement.",
 #'   x_title = "Year",
 #'   y_title = "Tons of CO2 per ton"
 #' )
-plot_timelines <- function(data,
+plot_timeline <- function(data,
                            lines_specs = NULL,
                            plot_title = NULL,
                            x_title = "Year",

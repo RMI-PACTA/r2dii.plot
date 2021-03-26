@@ -162,7 +162,7 @@ plot_techmix_custom_col
 ```
 
 * `prepare_for_timeline()` `r pull_title("prepare_for_timeline")`.
-* `plot_timelines()` `r pull_title("plot_timelines")`.
+* `plot_timeline()` `r pull_title("plot_timeline")`.
 
 ```{r}
 data_sda_cement <- prepare_for_timeline(sda_target,
@@ -179,7 +179,7 @@ lines_specs <- data.frame(
   "r2dii_colour_name" = c("dark_blue", "green","grey","orange")
 )
 
-plot <- plot_timelines(data_sda_cement, lines_specs = lines_specs,
+plot <- plot_timeline(data_sda_cement, lines_specs = lines_specs,
                            plot_title = "Emission intensity trend for Cement.",
                            x_title = "Year",
                            y_title = "Tons of CO2 per ton")

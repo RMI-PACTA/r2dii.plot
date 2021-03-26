@@ -44,9 +44,10 @@ Prepares sda_target-type data for timeline plot
 }
 \examples{
 prepare_for_timeline(sda_target,
-sector_filter = "cement",
-year_start = 2020,
-year_end = 2050,column_line_names = "emission_factor_metric",
-value_to_plot = "emission_factor_value",
-extrapolate_missing_values = TRUE)
+  sector_filter = "cement",
+  year_start = 2020,
+  year_end = 2050, column_line_names = "emission_factor_metric",
+  value_to_plot = "emission_factor_value",
+  extrapolate_missing_values = TRUE
+)
 }

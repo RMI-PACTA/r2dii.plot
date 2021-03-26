@@ -7,7 +7,7 @@ test_that("prints output ggplot object without error", {
     value_to_plot = "emission_factor_value"
   )
 
-  plot <- plot_timelines(data_sda_cement)
+  plot <- plot_timeline(data_sda_cement)
   expect_error(print(plot), NA)
 })
 
@@ -23,7 +23,7 @@ test_that("with bad 'lines_specs' errors gracefully", {
   bad <- "bad"
   graceful_message <- "'line_specs' needs to be a dataframe with columns"
 
-  expect_error(plot_timelines(data_sda_cement, lines_specs = bad), graceful_message)
+  expect_error(plot_timeline(data_sda_cement, lines_specs = bad), graceful_message)
 })
 
 test_that("with unmatching entries in 'lines_specs' errors gracefully", {
@@ -41,7 +41,7 @@ test_that("with unmatching entries in 'lines_specs' errors gracefully", {
   )
   graceful_message <- "The line_name values specified in parameter 'lines_specs' do not match the data."
 
-  expect_error(plot_timelines(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
+  expect_error(plot_timeline(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
 })
 
 test_that("with bad colour names in 'lines_specs' errors gracefully", {
@@ -60,5 +60,5 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
   )
   graceful_message <- "Colour names specified in 'lines_specs' do not match"
 
-  expect_error(plot_timelines(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
+  expect_error(plot_timeline(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
 })
