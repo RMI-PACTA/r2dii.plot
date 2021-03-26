@@ -135,7 +135,36 @@ plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for 
 plot_techmix_custom_col
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+-   `prepare_for_timeline()` prepares sda\_target-type data for timeline
+    plot.
+-   `plot_timelines()` create a time line plot.
+
+``` r
+data_sda_cement <- prepare_for_timeline(sda_target,
+                                      sector_filter = "cement",
+                                      year_start = 2020,
+                                      year_end = 2050,
+                                      column_line_names = "emission_factor_metric",
+                                      value_to_plot = "emission_factor_value",
+                                      extrapolate_missing_values = TRUE)
+
+lines_specs <- data.frame(
+  "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
+  "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+  "r2dii_colour_name" = c("dark_blue", "green","grey","orange")
+)
+
+plot <- plot_timelines(data_sda_cement, lines_specs = lines_specs,
+                           plot_title = "Emission intensity trend for Cement.",
+                           x_title = "Year",
+                           y_title = "Tons of CO2 per ton")
+
+plot + ggplot2::labs(caption = "Dashed line is an extrapolation of the last value in the dataset.")
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ## Metareport code examples
 
