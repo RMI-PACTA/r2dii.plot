@@ -64,12 +64,14 @@ plot_timelines <- function(data,
     by = c("r2dii_colour_name" = "label")
   )
 
-  plot <- ggplot(data,
-                 aes(
-                   x = .data$year,
-                   y = .data$value,
-                   colour = factor(.data$line_name, levels = lines_specs$line_name))
-                 ) +
+  plot <- ggplot(
+    data = data %>% filter(.data$extrapolated == FALSE),
+      aes(
+        x = .data$year,
+        y = .data$value,
+        colour = factor(.data$line_name, levels = lines_specs$line_name)),
+        linetype = .data$extrapolated
+    ) +
     geom_line() +
     scale_x_continuous(expand = expansion(mult = c(0,0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0,0.1))) +
@@ -81,6 +83,21 @@ plot_timelines <- function(data,
       values = lines_specs$colour_hex,
       labels = lines_specs$label) +
     theme_2dii_ggplot()
+
+  if (any(data$extrapolated)) {
+    plot <- plot +
+      geom_line(
+        data = data %>% filter(.data$extrapolated == TRUE),
+        aes(
+          x = .data$year,
+          y = .data$value,
+          colour = factor(.data$line_name, levels = lines_specs$line_name),
+          linetype = .data$extrapolated
+          )
+        ) +
+      scale_linetype_manual(values = "dashed", labels = "Extrapolation") +
+      guides(linetype = FALSE)
+  }
 
   plot
  }
