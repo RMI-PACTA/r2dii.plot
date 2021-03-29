@@ -1,4 +1,4 @@
-# Creates a file from your code and return a path (?expect_snapshot_file).
+# Create a file from code and return a path (?expect_snapshot_file).
 save_png <- function(code, width = 400, height = 400) {
   path <- tempfile(fileext = ".png")
   png(path, width = width, height = height)
