@@ -45,19 +45,52 @@ prepare_for_timeline <- function(sda_target_data,
   sector_filter <- match.arg(sector_filter)
 
   if (typeof(year_start) != "double") {
-    stop("'year_start' should be a number.")
+    msg <- paste0(
+      "'year_start' must be a number.\n",
+      paste0("* You submitted a ", typeof(year_start), ".")
+    )
+    stop(msg)
   }
 
   if (typeof(year_end) != "double") {
-    stop("'year_end' should be a number.")
+    msg<- paste0(
+      "'year_end' must be a number.\n",
+      paste0("* You submitted a ", typeof(year_end), ".")
+    )
+    stop(msg)
   }
 
   if (!(column_line_names %in% names(sda_target_data))) {
-    stop(paste0("'", column_line_names, "' not found as a column in the input data. Please pass an existing column name to 'column_line_names'."))
+    msg <- paste0(
+      "'column_line_names' must be one of column names in the input data.\n",
+      paste0(
+        "The input data column names are: ",
+        toString(names(sda_target_data)),
+        ".\n"),
+      paste0("You submitted: ", column_line_names, ".")
+    )
+    stop(msg)
   }
 
   if (!(value_to_plot %in% names(sda_target_data))) {
-    stop(paste0("'", value_to_plot, "' not found as a column in the input data. Please pass an existing column name to 'value_to_plot'."))
+    msg <- paste0(
+      "'value_to_plot' must be one of column names in the input data.\n",
+      paste0(
+        "The input data column names are: ",
+        toString(names(sda_target_data)),
+        ".\n"
+        ),
+      paste0("You submitted: ", value_to_plot, ".")
+    )
+    stop(msg)
+  }
+
+  if (!is.logical(extrapolate_missing_values)) {
+    msg <- paste0(
+      "'extrapolate_missing_values' must be a logical value.\n",
+      paste0("* You submitted a ", typeof(extrapolate_missing_values), ".")
+    )
+    stop(msg)
   }
 
   # Create output data

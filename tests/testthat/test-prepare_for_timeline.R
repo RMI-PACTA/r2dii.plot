@@ -28,7 +28,7 @@ test_that("with bad `sector_filter` errors gracefully", {
 
 test_that("with bad `year_start` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'year_start' should be a number."
+  graceful_message <- "'year_start' must be a number."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -44,7 +44,7 @@ test_that("with bad `year_start` errors gracefully", {
 
 test_that("with bad `year_end` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'year_end' should be a number."
+  graceful_message <- "'year_end' must be a number."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -60,7 +60,7 @@ test_that("with bad `year_end` errors gracefully", {
 
 test_that("with bad `column_line_names` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "not found as a column in the input data. Please pass an"
+  graceful_message <- "'column_line_names' must be one of column names in the input data."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -76,7 +76,7 @@ test_that("with bad `column_line_names` errors gracefully", {
 
 test_that("with bad `value_to_plot` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "not found as a column in the input data. Please pass an"
+  graceful_message <- "'value_to_plot' must be one of column names in the input data."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -92,7 +92,7 @@ test_that("with bad `value_to_plot` errors gracefully", {
 
 test_that("with bad `extrapolate_missing_values` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "argument is not interpretable as logical"
+  graceful_message <- "'extrapolate_missing_values' must be a logical value."
 
   expect_error(
     prepare_for_timeline(sda_target,
