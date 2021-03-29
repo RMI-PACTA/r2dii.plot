@@ -7,7 +7,7 @@ save_png <- function(code, width = 400, height = 400) {
   path
 }
 
-test_that("prints the expexted .png", {
+test_that("prints the expected .png", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
