@@ -2,7 +2,7 @@ test_that("prints output ggplot object without error", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
-    year_end = 2026,
+    year_end = 2050,
     column_line_names = "emission_factor_metric",
     value_to_plot = "emission_factor_value"
   )
@@ -20,7 +20,7 @@ test_that("with bad 'lines_specs' errors gracefully", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
-    year_end = 2026,
+    year_end = 2050,
     column_line_names = "emission_factor_metric",
     value_to_plot = "emission_factor_value"
   )
@@ -35,7 +35,7 @@ test_that("with bad column names in 'lines_specs' errors gracefully", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
-    year_end = 2026,
+    year_end = 2050,
     column_line_names = "emission_factor_metric",
     value_to_plot = "emission_factor_value"
   )
@@ -53,7 +53,7 @@ test_that("with unmatching entries in 'lines_specs' errors gracefully", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
-    year_end = 2026,
+    year_end = 2050,
     column_line_names = "emission_factor_metric",
     value_to_plot = "emission_factor_value"
   )
@@ -71,7 +71,7 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
-    year_end = 2026,
+    year_end = 2050,
     column_line_names = "emission_factor_metric",
     value_to_plot = "emission_factor_value"
   )
