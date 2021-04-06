@@ -1,25 +1,3 @@
-# Create a file from code and return a path (?expect_snapshot_file).
-save_png <- function(code, width = 400, height = 400) {
-  path <- tempfile(fileext = ".png")
-  png(path, width = width, height = height)
-  on.exit(dev.off())
-  print(code)
-  path
-}
-
-test_that("prints the expected .png", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2026,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
-
-  path <- save_png(plot_timeline(data_sda_cement))
-  expect_snapshot_file(path, paste0("plot_timeline_sda_cement", ".png"))
-})
-
 test_that("prints output ggplot object without error", {
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
