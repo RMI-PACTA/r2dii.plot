@@ -199,3 +199,23 @@ test_that("with input missing crucial columns errors ungracefully", {
     ungraceful_message
   )
 })
+
+test_that("outputs data starting at the start of 'projected' or later", {
+  data <- process_input_data(get_example_data())
+
+  year_start_projected <- data %>%
+    filter(.data$metric == "projected") %>%
+    pull(.data$year) %>%
+    min()
+
+  out <- prepare_for_trajectory_chart(
+    data,
+    sector_filter = "power",
+    technology_filter = "oilcap",
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    value_name = "production"
+  )
+
+  expect_true(min(out$year) >= year_start_projected)
+})
