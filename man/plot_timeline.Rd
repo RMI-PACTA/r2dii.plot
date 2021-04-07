@@ -32,22 +32,25 @@ Create a time line plot
 }
 \examples{
 data_sda_cement <- prepare_for_timeline(sda_target,
-                                     sector_filter = "cement",
-                                     year_start = 2020,
-                                     year_end = 2050,
-                                     column_line_names = "emission_factor_metric",
-                                     value_to_plot = "emission_factor_value",
-                                     extrapolate_missing_values = TRUE)
-
-lines_specs <- data.frame(
- "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
- "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
- "r2dii_colour_name" = c("dark_blue", "green","grey","orange")
+  sector_filter = "cement",
+  year_start = 2020,
+  year_end = 2050,
+  column_line_names = "emission_factor_metric",
+  value_to_plot = "emission_factor_value",
+  extrapolate_missing_values = TRUE
 )
 
-plot <- plot_timeline(data_sda_cement, lines_specs = lines_specs,
-                          plot_title = "Emission intensity trend for Cement.",
-                          x_title = "Year",
-                          y_title = "Tons of CO2 per ton")
+lines_specs <- data.frame(
+  "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
+  "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+  "r2dii_colour_name" = c("dark_blue", "green", "grey", "orange")
+)
+
+plot <- plot_timeline(data_sda_cement,
+  lines_specs = lines_specs,
+  plot_title = "Emission intensity trend for Cement.",
+  x_title = "Year",
+  y_title = "Tons of CO2 per ton"
+)
 plot
 }

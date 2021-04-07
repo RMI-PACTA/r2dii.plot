@@ -39,10 +39,12 @@ plot_timeline <- function(data,
                           plot_title = NULL,
                           x_title = "Year",
                           y_title = "Value") {
+
   if (is.null(lines_specs)) {
     lines_specs <- data.frame(
-      "line_name" = unique(data$line_name),
-      "label" = unique(data$line_name)
+      line_name = unique(data$line_name),
+      label = unique(data$line_name),
+      stringsAsFactors = FALSE
     )
   } else if (typeof(lines_specs) != "list") {
     msg <- paste0(
