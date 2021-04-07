@@ -200,7 +200,7 @@ test_that("with input missing crucial columns errors ungracefully", {
   )
 })
 
-test_that("outputs data with year starting at earliest at the start of 'projected'", {
+test_that("outputs data starting at the start of 'projected' or later", {
   data <- process_input_data(get_example_data())
 
   year_start_projected <- data %>%
