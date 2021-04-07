@@ -203,9 +203,10 @@ test_that("with input missing crucial columns errors ungracefully", {
 test_that("outputs data with year starting at earliest at the start of 'projected'", {
   data <- process_input_data(get_example_data())
 
-  year_start_projected <- min(data %>%
-                    filter(.data$metric == 'projected') %>%
-                      pull(.data$year))
+  year_start_projected <- data %>%
+    filter(.data$metric == "projected") %>%
+    pull(.data$year) %>%
+    min()
 
   out <- prepare_for_trajectory_chart(
     data,

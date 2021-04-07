@@ -39,17 +39,18 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
 
-  year_start_projected <- min(data_preprocessed %>%
-                    filter(.data$metric == 'projected') %>%
-                      pull(.data$year))
+  year_start_projected <- data_preprocessed %>%
+    filter(.data$metric == "projected") %>%
+    pull(.data$year) %>%
+    min()
 
   data_filtered <- data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$technology == !!technology_filter) %>%
     filter(.data$region == !!region_filter) %>%
     filter(.data$scenario_source == !!scenario_source_filter) %>%
-    filter(.data$year >= year_start_projected) %>%
-    filter(.data$year <= end_year_filter) %>%
+    filter(.data$year >= !!year_start_projected) %>%
+    filter(.data$year <= !!end_year_filter) %>%
     select(.data$year, .data$metric_type, .data$metric, .data$technology,
       value = !!value_name
     )
