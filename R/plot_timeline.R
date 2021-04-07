@@ -13,38 +13,42 @@
 #'
 #' @examples
 #' data_sda_cement <- prepare_for_timeline(sda_target,
-#'                                      sector_filter = "cement",
-#'                                      year_start = 2020,
-#'                                      year_end = 2050,
-#'                                      column_line_names = "emission_factor_metric",
-#'                                      value_to_plot = "emission_factor_value",
-#'                                      extrapolate_missing_values = TRUE)
+#'   sector_filter = "cement",
+#'   year_start = 2020,
+#'   year_end = 2050,
+#'   column_line_names = "emission_factor_metric",
+#'   value_to_plot = "emission_factor_value",
+#'   extrapolate_missing_values = TRUE
+#' )
 #'
-#'lines_specs <- data.frame(
-#'  "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-#'  "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-#'  "r2dii_colour_name" = c("dark_blue", "green","grey","orange")
-#')
+#' lines_specs <- data.frame(
+#'   "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
+#'   "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+#'   "r2dii_colour_name" = c("dark_blue", "green", "grey", "orange")
+#' )
 #'
-#'plot <- plot_timeline(data_sda_cement, lines_specs = lines_specs,
-#'                           plot_title = "Emission intensity trend for Cement.",
-#'                           x_title = "Year",
-#'                           y_title = "Tons of CO2 per ton")
-#'plot
+#' plot <- plot_timeline(data_sda_cement,
+#'   lines_specs = lines_specs,
+#'   plot_title = "Emission intensity trend for Cement.",
+#'   x_title = "Year",
+#'   y_title = "Tons of CO2 per ton"
+#' )
+#' plot
 plot_timeline <- function(data,
-                           lines_specs = NULL,
-                           plot_title = NULL,
-                           x_title = "Year",
-                           y_title = "Value") {
-
+                          lines_specs = NULL,
+                          plot_title = NULL,
+                          x_title = "Year",
+                          y_title = "Value") {
   if (is.null(lines_specs)) {
     lines_specs <- data.frame(
       "line_name" = unique(data$line_name),
       "label" = unique(data$line_name)
     )
   } else if (typeof(lines_specs) != "list") {
-    msg <- paste0("'line_specs' must be a dataframe.\n",
-                  paste0("* You've supplied a ", typeof(lines_specs), "."))
+    msg <- paste0(
+      "'line_specs' must be a dataframe.\n",
+      paste0("* You've supplied a ", typeof(lines_specs), ".")
+    )
     stop(msg)
   }
 
@@ -62,10 +66,14 @@ plot_timeline <- function(data,
   if (!identical(sort(unique(lines_specs$line_name)), sort(unique(data$line_name)))) {
     msg <- paste0(
       "Can't find `line_name` values from 'lines_specs' in the data.\n",
-      paste0("* Unique `line_name` values in 'data' are: ",
-             toString(sort(unique(data$line_name))),".\n"),
-      paste0("* Unique `line_name` values in 'lines_specs' are: ",
-             toString(sort(unique(lines_specs$line_name))))
+      paste0(
+        "* Unique `line_name` values in 'data' are: ",
+        toString(sort(unique(data$line_name))), ".\n"
+      ),
+      paste0(
+        "* Unique `line_name` values in 'lines_specs' are: ",
+        toString(sort(unique(lines_specs$line_name)))
+      )
     )
     stop(msg)
   }
@@ -73,7 +81,7 @@ plot_timeline <- function(data,
   if (nrow(lines_specs) > 9) {
     msg <- paste0(
       "The number of lines on the plot must be lower than 10.\n",
-      paste0("* You've supplied 'lines_specs' with ", nrow(lines_specs)," rows.\n"),
+      paste0("* You've supplied 'lines_specs' with ", nrow(lines_specs), " rows.\n"),
       paste0("* Split up your dataset to be able to plot.")
     )
     stop(msg)
@@ -90,9 +98,10 @@ plot_timeline <- function(data,
       paste0(
         "* You've supplied: ",
         lines_specs %>%
-          filter(! .data$r2dii_colour_name %in% r2dii_colours$label) %>%
+          filter(!.data$r2dii_colour_name %in% r2dii_colours$label) %>%
           pull(.data$r2dii_colour_name),
-        ".")
+        "."
+      )
     )
     stop(msg)
   }

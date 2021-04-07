@@ -8,12 +8,15 @@ test_that("prints output ggplot object without error", {
   )
 
   plot <- plot_timeline(data_sda_cement)
-  expect_error({
-    path <- tempfile(fileext = ".pdf")
-    pdf(path)
-    print(plot)
-    dev.off()
-    }, NA)
+  expect_error(
+    {
+      path <- tempfile(fileext = ".pdf")
+      pdf(path)
+      print(plot)
+      dev.off()
+    },
+    NA
+  )
 })
 
 test_that("with bad 'lines_specs' errors gracefully", {

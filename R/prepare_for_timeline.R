@@ -53,7 +53,7 @@ prepare_for_timeline <- function(sda_target_data,
   }
 
   if (typeof(year_end) != "double") {
-    msg<- paste0(
+    msg <- paste0(
       "'year_end' must be a number.\n",
       paste0("* You submitted a ", typeof(year_end), ".")
     )
@@ -66,7 +66,8 @@ prepare_for_timeline <- function(sda_target_data,
       paste0(
         "The input data column names are: ",
         toString(names(sda_target_data)),
-        ".\n"),
+        ".\n"
+      ),
       paste0("You submitted: ", column_line_names, ".")
     )
     stop(msg)
@@ -79,7 +80,7 @@ prepare_for_timeline <- function(sda_target_data,
         "The input data column names are: ",
         toString(names(sda_target_data)),
         ".\n"
-        ),
+      ),
       paste0("You submitted: ", value_to_plot, ".")
     )
     stop(msg)
