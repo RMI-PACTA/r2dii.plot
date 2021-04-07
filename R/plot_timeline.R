@@ -22,9 +22,10 @@
 #' )
 #'
 #' lines_specs <- data.frame(
-#'   "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-#'   "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-#'   "r2dii_colour_name" = c("dark_blue", "green", "grey", "orange")
+#'   line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
+#'   label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+#'   r2dii_colour_name = c("dark_blue", "green", "grey", "orange"),
+#'   stringsAsFactors = FALSE
 #' )
 #'
 #' plot <- plot_timeline(data_sda_cement,
