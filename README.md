@@ -60,13 +60,13 @@ data_trajectory <- prepare_for_trajectory_chart(
   normalize_to_start_year = TRUE
 )
 
-scenario_specs <- data.frame(
+scenario_specs <- dplyr::tibble(
   scenario = c("sds", "sps", "cps", "worse"),
   color = c("#9CAB7C", "#FFFFCC", "#FDE291", "#E07B73"),
   label = c("SDS", "STEPS", "CPS", "worse")
 )
 
-main_line_metric <- data.frame(metric = "projected", label = "Portfolio")
+main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
 additional_line_metrics <- data.frame(
   metric = "corporate_economy",
   label = "Corporate Economy"
@@ -100,12 +100,12 @@ data_techmix_power <- prepare_for_techmix_chart(example_data,
 )
 
 tech_colors_power <- get_r2dii_technology_colours("power")
-bars_labels_specs <- data.frame(
-  "metric_type" = c(
+bars_labels_specs <- dplyr::tibble(
+  metric_type = c(
     "portfolio_2020", "benchmark_2020", "portfolio_2025",
     "benchmark_2025", "scenario_2025"
   ),
-  "label" = c(
+  label = c(
     "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
     "Benchmark 2025", "Target SDS 2025"
   )
@@ -123,10 +123,10 @@ plot_techmix_power
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-power_colors_custom <- data.frame(
-  "technology" = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
-  "label" = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
-  "colour" = c("black", "brown", "grey", "red", "blue", "green4")
+power_colors_custom <- dplyr::tibble(
+  technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
+  colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
 plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
@@ -139,7 +139,7 @@ plot_techmix_custom_col
 
 -   `prepare_for_timeline()` prepares sda\_target-type data for timeline
     plot.
--   `plot_timelines()` create a time line plot.
+-   `plot_timeline()` create a time line plot.
 
 ``` r
 data_sda_cement <- prepare_for_timeline(sda_target,
@@ -150,13 +150,13 @@ data_sda_cement <- prepare_for_timeline(sda_target,
                                       value_to_plot = "emission_factor_value",
                                       extrapolate_missing_values = TRUE)
 
-lines_specs <- data.frame(
-  "line_name" = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-  "label" = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-  "r2dii_colour_name" = c("dark_blue", "green","grey","orange")
+lines_specs <- dplyr::tibble(
+  line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
+  label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+  r2dii_colour_name = c("dark_blue", "green","grey","orange")
 )
 
-plot <- plot_timelines(data_sda_cement, lines_specs = lines_specs,
+plot <- plot_timeline(data_sda_cement, lines_specs = lines_specs,
                            plot_title = "Emission intensity trend for Cement.",
                            x_title = "Year",
                            y_title = "Tons of CO2 per ton")
@@ -174,17 +174,17 @@ analysis results loaded in your environment:
 
     data_security_type <- prepare_for_metareport_security_type_chart(data_total_portfolio)
 
-    bars_labels_specs <- data.frame(
-      "investor_name" = c("pensionfund", "Meta Investor", "insurance", 
+    bars_labels_specs <- dplyr::tibble(
+      investor_name = c("pensionfund", "Meta Investor", "insurance", 
       "bank", "assetmanager"),
-      "label" = c("Pension Funds", "Meta Investor", "Insurance", 
+      label = c("Pension Funds", "Meta Investor", "Insurance", 
       "Banks", "Asset Managers")
     )
 
-    bars_asset_type_specs <- data.frame(
-      "asset_type" = c("Equity", "Bonds", "Others"),
-      "label" = c("Equity", "Bonds", "Others"),
-      "r2dii_colour_name" = c("dark_blue", "moss_green", "grey")
+    bars_asset_type_specs <- dplyr::tibble(
+      asset_type = c("Equity", "Bonds", "Others"),
+      label = c("Equity", "Bonds", "Others"),
+      r2dii_colour_name = c("dark_blue", "moss_green", "grey")
     )
 
     p <- plot_metareport_security_types(data_security_type, 
@@ -198,9 +198,9 @@ results loaded in your environment:
 
     data_climate_relevant <- prepare_for_pacta_sectors_chart(data_overview)
 
-    bars_labels_climate_rel <- data.frame(
-      "investor_name" = c("pensionfund","insurance", "bank", "assetmanager"),
-      "label" = c("Pension Funds", "Insurance", "Banks", "Asset Managers")
+    bars_labels_climate_rel <- dplyr::tibble(
+      investor_name = c("pensionfund","insurance", "bank", "assetmanager"),
+      label = c("Pension Funds", "Insurance", "Banks", "Asset Managers")
     )
 
     plot <- plot_metareport_pacta_sectors(data = data_climate_relevant, 
@@ -213,9 +213,9 @@ that you have the `Equity_results_portfolio.rda` or
 `Bonds_results_portfolio.rda` data set from PACTA analysis results
 loaded in your environment:
 
-    investor_labels <- data.frame(
-      "investor_name" = c("assetmanager","bank","insurance","pensionfund"),
-      "label" = c("Asset Managers","Banks","Insurance","Pension funds")
+    investor_labels <- dplyr::tibble(
+      investor_name = c("assetmanager","bank","insurance","pensionfund"),
+      label = c("Asset Managers","Banks","Insurance","Pension funds")
     )
 
     data_distr_br_port <- prepare_for_metareport_distribution_chart(data_equity,
@@ -256,9 +256,9 @@ loaded in your environment:
                                                     scenario_filter = "WEO2019_SDS",
                                                     scenario_geography_filter = "GlobalAggregate")
 
-    investor_labels <- data.frame(
-      "investor_name" = c("assetmanager","bank","insurance","pensionfund"),
-      "label" = c("Asset Managers","Banks","Insurance","Pension funds")
+    investor_labels <- dplyr::tibble(
+      investor_name = c("assetmanager","bank","insurance","pensionfund"),
+      label = c("Asset Managers","Banks","Insurance","Pension funds")
     )
 
     p <- plot_metareport_bubble(data_bubble,
