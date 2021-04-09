@@ -104,7 +104,7 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
       * You've supplied a $s.",
       typeof(lines_specs)
       )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   if (!all(c("line_name", "label") %in% names(lines_specs))) {
@@ -114,7 +114,7 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
       * Optionally you could add a column 'r2dii_colour_name'.",
       toString(names(lines_specs))
     )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   lines_specs <- factor_to_character(lines_specs)
@@ -126,7 +126,7 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
         toString(sort(unique(data$line_name))),
         toString(sort(unique(lines_specs$line_name)))
     )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   if (nrow(lines_specs) > 9) {
@@ -136,7 +136,7 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
       * Split up your dataset to be able to plot.",
       nrow(lines_specs)
     )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   r2dii_colours <- r2dii_palette_colours()
@@ -153,7 +153,7 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
         filter(!.data$r2dii_colour_name %in% r2dii_colours$label) %>%
         pull(.data$r2dii_colour_name)
     )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   lines_specs <- left_join(lines_specs, r2dii_colours,

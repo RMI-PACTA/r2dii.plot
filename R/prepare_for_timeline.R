@@ -127,7 +127,7 @@ check_input_parameters <- function(data,
         toString(names(data)),
         value_to_plot
       )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 
   if (!is.logical(extrapolate_missing_values)) {
@@ -136,6 +136,6 @@ check_input_parameters <- function(data,
       * You submitted a %s.",
       typeof(extrapolate_missing_values)
     )
-    stop(msg)
+    stop(msg, call. = FALSE)
   }
 }
