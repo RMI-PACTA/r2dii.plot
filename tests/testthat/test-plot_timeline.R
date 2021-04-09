@@ -43,10 +43,9 @@ test_that("with bad column names in 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad_lines_specs <- data.frame(
+  bad_lines_specs <- dplyr::tibble(
     line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-    bad = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-    stringsAsFactors = FALSE
+    bad = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo")
   )
   graceful_message <- "'line_specs' must have columns 'line_name' and 'label'."
 
@@ -62,10 +61,9 @@ test_that("with unmatching entries in 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad_lines_specs <- data.frame(
+  bad_lines_specs <- dplyr::tibble(
     line_name = c("projected", "corporate_economy", "bad", "adjusted_scenario_demo"),
-    label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-    stringsAsFactors = FALSE
+    label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo")
   )
   graceful_message <- "Can't find `line_name` values from 'lines_specs' in the data."
 
@@ -81,11 +79,10 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad_lines_specs <- data.frame(
+  bad_lines_specs <- dplyr::tibble(
     line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
     label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-    r2dii_colour_name = c("dark_blue", "green", "bad", "orange"),
-    stringsAsFactors = FALSE
+    r2dii_colour_name = c("dark_blue", "green", "bad", "orange")
   )
   graceful_message <- "Colour names specified in 'lines_specs' must match "
 

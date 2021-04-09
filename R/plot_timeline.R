@@ -41,10 +41,9 @@ plot_timeline <- function(data,
                           y_title = "Value") {
 
   if (is.null(lines_specs)) {
-    lines_specs <- data.frame(
+    lines_specs <- dplyr::tibble(
       line_name = unique(data$line_name),
-      label = unique(data$line_name),
-      stringsAsFactors = FALSE
+      label = unique(data$line_name)
     )
   } else if (typeof(lines_specs) != "list") {
     msg <- paste0(
