@@ -106,26 +106,19 @@ prepare_for_timeline <- function(sda_target_data,
 
     data_to_extrapolate <- data_timeline %>%
       group_by(.data$line_name) %>%
-      # FIXME: This puts max year at the top ...
       arrange(desc(.data$year)) %>%
-      # ... then this selects the row where year is max year ...
       dplyr::slice(1) %>%
-      # ... and this removes the row you sliced above, leaving a 0-row dataframe
       filter(.data$year != max_year_dataset)
-    # This continues to be a 0-row dataframe
-    data_extrapolated <- data_to_extrapolate
-    # This continues to be a 0-row dataframe
-    data_extrapolated$year <- max_year_dataset
 
-    # This continues to be a 0-row dataframe
-    data_extrapolated <- rbind(data_to_extrapolate, data_extrapolated)
-    # This continues to be a 0-row dataframe
-    data_extrapolated$extrapolated <- TRUE
+    if (nrow(data_to_extrapolate) != 0) {
+      data_extrapolated <- data_to_extrapolate
+      data_extrapolated$year <- max_year_dataset
 
-    # And now you get a matrix -- not a dataframe.
-    data_timeline <- rbind(data_timeline, data_extrapolated)
-    # dplyr::bind_rows() returns a data frame, but you still need to solve the
-    # 0-row dataframe problem
+      data_extrapolated <- dplyr::bind_rows(data_to_extrapolate, data_extrapolated)
+      data_extrapolated$extrapolated <- TRUE
+
+      data_timeline <-dplyr::bind_rows(data_timeline, data_extrapolated)
+    }
   }
 
   data_timeline
