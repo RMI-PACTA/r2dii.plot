@@ -99,43 +99,42 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
       label = unique(data$line_name)
     )
   } else if (typeof(lines_specs) != "list") {
-    msg <- paste0(
-      "'line_specs' must be a dataframe.\n",
-      paste0("* You've supplied a ", typeof(lines_specs), ".")
-    )
+    msg <- sprintf(
+      "'line_specs' must be a dataframe.
+      * You've supplied a $s.",
+      typeof(lines_specs)
+      )
     stop(msg)
   }
 
   if (!all(c("line_name", "label") %in% names(lines_specs))) {
-    msg <- paste0(
-      "'line_specs' must have columns 'line_name' and 'label'.\n",
-      paste0("* Yours has columns: ", toString(names(lines_specs)), ".\n"),
-      "* Optionally you could add a column 'r2dii_colour_name'."
+    msg <- sprintf(
+      "'line_specs' must have columns 'line_name' and 'label'.
+      * Yours has columns: %s.
+      * Optionally you could add a column 'r2dii_colour_name'.",
+      toString(names(lines_specs))
     )
     stop(msg)
   }
 
   lines_specs <- factor_to_character(lines_specs)
   if (!identical(sort(unique(lines_specs$line_name)), sort(unique(data$line_name)))) {
-    msg <- paste0(
-      "Can't find `line_name` values from 'lines_specs' in the data.\n",
-      paste0(
-        "* Unique `line_name` values in 'data' are: ",
-        toString(sort(unique(data$line_name))), ".\n"
-      ),
-      paste0(
-        "* Unique `line_name` values in 'lines_specs' are: ",
+    msg <- sprintf(
+      "Can't find `line_name` values from 'lines_specs' in the data.
+      * Unique `line_name` values in 'data' are: %s.
+      * Unique `line_name` values in 'lines_specs' are: %s.",
+        toString(sort(unique(data$line_name))),
         toString(sort(unique(lines_specs$line_name)))
-      )
     )
     stop(msg)
   }
 
   if (nrow(lines_specs) > 9) {
-    msg <- paste0(
-      "The number of lines on the plot must be lower than 10.\n",
-      paste0("* You've supplied 'lines_specs' with ", nrow(lines_specs), " rows.\n"),
-      paste0("* Split up your dataset to be able to plot.")
+    msg <- sprintf(
+      "The number of lines on the plot must be lower than 10.
+      * You've supplied 'lines_specs' with %i rows.
+      * Split up your dataset to be able to plot.",
+      nrow(lines_specs)
     )
     stop(msg)
   }
@@ -145,16 +144,14 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
   if (!("r2dii_colour_name" %in% colnames(lines_specs))) {
     lines_specs$r2dii_colour_name <- r2dii_colours$label[1:nrow(lines_specs)]
   } else if (!(all(lines_specs$r2dii_colour_name %in% r2dii_colours$label))) {
-    msg <- paste0(
-      "Colour names specified in 'lines_specs' must match those in r2dii_colours$label.\n",
-      paste0("* The names in r2dii_colours are: ", toString(r2dii_colours$label), ".\n"),
-      paste0(
-        "* You've supplied: ",
-        lines_specs %>%
-          filter(!.data$r2dii_colour_name %in% r2dii_colours$label) %>%
-          pull(.data$r2dii_colour_name),
-        "."
-      )
+    msg <- sprintf(
+      "Colour names specified in 'lines_specs' must match r2dii_colours$label.
+      * The names in r2dii_colours are: %s.
+      * You've supplied: ",
+      toString(r2dii_colours$label),
+      lines_specs %>%
+        filter(!.data$r2dii_colour_name %in% r2dii_colours$label) %>%
+        pull(.data$r2dii_colour_name)
     )
     stop(msg)
   }

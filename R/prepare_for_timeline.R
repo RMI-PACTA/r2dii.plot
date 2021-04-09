@@ -43,12 +43,14 @@ prepare_for_timeline <- function(sda_target_data,
 
   # input checks
   sector_filter <- match.arg(sector_filter)
-  check_input_parameters(sda_target_data,
-                         year_start,
-                         year_end,
-                         column_line_names,
-                         value_to_plot,
-                         extrapolate_missing_values)
+  check_input_parameters(
+    sda_target_data,
+    year_start,
+    year_end,
+    column_line_names,
+    value_to_plot,
+    extrapolate_missing_values
+  )
 
   # Create output data
   data_timeline <- sda_target_data %>%
@@ -74,7 +76,7 @@ prepare_for_timeline <- function(sda_target_data,
       data_extrapolated <- dplyr::bind_rows(data_to_extrapolate, data_extrapolated)
       data_extrapolated$extrapolated <- TRUE
 
-      data_timeline <-dplyr::bind_rows(data_timeline, data_extrapolated)
+      data_timeline <- dplyr::bind_rows(data_timeline, data_extrapolated)
     }
   }
 
@@ -89,51 +91,50 @@ check_input_parameters <- function(data,
                                    extrapolate_missing_values) {
 
   if (typeof(year_start) != "double") {
-    msg <- paste0(
-      "'year_start' must be a number.\n",
-      paste0("* You submitted a ", typeof(year_start), ".")
-    )
-    stop(msg)
+    msg <- sprintf(
+        "'year_start' must be a number.
+        * You submitted a %s.",
+        typeof(year_start)
+      )
+    stop(msg, call. = FALSE)
   }
 
   if (typeof(year_end) != "double") {
-    msg <- paste0(
-      "'year_end' must be a number.\n",
-      paste0("* You submitted a ", typeof(year_end), ".")
-    )
-    stop(msg)
+    msg <- sprintf(
+        "'year_end' must be a number.
+        * You submitted a %s.",
+        typeof(year_end)
+      )
+    stop(msg, call. = FALSE)
   }
 
   if (!(column_line_names %in% names(data))) {
-    msg <- paste0(
-      "'column_line_names' must be one of column names in the input data.\n",
-      paste0(
-        "The input data column names are: ",
-        toString(names(data)),
-        ".\n"
-      ),
-      paste0("You submitted: ", column_line_names, ".")
-    )
-    stop(msg)
+    msg <- sprintf(
+      "'column_line_names' must be one of column names in the input data.
+      * The input data column names are: %s.
+      * You submitted: %s.",
+      toString(names(data)),
+      column_line_names
+      )
+    stop(msg, call. = FALSE)
   }
 
   if (!(value_to_plot %in% names(data))) {
-    msg <- paste0(
-      "'value_to_plot' must be one of column names in the input data.\n",
-      paste0(
-        "The input data column names are: ",
+    msg <- sprintf(
+      "'value_to_plot' must be one of column names in the input data.
+      * The input data column names are: %s.
+      * You submitted: %s.",
         toString(names(data)),
-        ".\n"
-      ),
-      paste0("You submitted: ", value_to_plot, ".")
-    )
+        value_to_plot
+      )
     stop(msg)
   }
 
   if (!is.logical(extrapolate_missing_values)) {
-    msg <- paste0(
-      "'extrapolate_missing_values' must be a logical value.\n",
-      paste0("* You submitted a ", typeof(extrapolate_missing_values), ".")
+    msg <- sprintf(
+      "'extrapolate_missing_values' must be a logical value.
+      * You submitted a %s.",
+      typeof(extrapolate_missing_values)
     )
     stop(msg)
   }
