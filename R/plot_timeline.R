@@ -40,14 +40,22 @@ plot_timeline <- function(data,
                           x_title = "Year",
                           y_title = "Value") {
 
-  lines_specs_full <- check_and_fix_lines_specs(data, lines_specs)
+  if (is.null(lines_specs)) {
+    lines_specs <- dplyr::tibble(
+      line_name = unique(data$line_name),
+      label = unique(data$line_name)
+    )
+  }
+
+  check_lines_specs(data, lines_specs)
+  lines_specs <- add_r2dii_colours(lines_specs)
 
   plot <- ggplot(
     data = data %>% filter(.data$extrapolated == FALSE),
     aes(
       x = .data$year,
       y = .data$value,
-      colour = factor(.data$line_name, levels = lines_specs_full$line_name)
+      colour = factor(.data$line_name, levels = lines_specs$line_name)
     ),
     linetype = .data$extrapolated
   ) +
@@ -59,8 +67,8 @@ plot_timeline <- function(data,
     xlab(x_title) +
     ylab(y_title) +
     scale_colour_manual(
-      values = lines_specs_full$colour_hex,
-      labels = lines_specs_full$label
+      values = lines_specs$colour_hex,
+      labels = lines_specs$label
     ) +
     theme_2dii_ggplot()
 
@@ -71,7 +79,7 @@ plot_timeline <- function(data,
         aes(
           x = .data$year,
           y = .data$value,
-          colour = factor(.data$line_name, levels = lines_specs_full$line_name),
+          colour = factor(.data$line_name, levels = lines_specs$line_name),
           linetype = .data$extrapolated
         )
       ) +
@@ -91,14 +99,9 @@ factor_to_character <- function(data) {
   data
 }
 
-check_and_fix_lines_specs <- function(data, lines_specs) {
+check_lines_specs <- function(data, lines_specs) {
 
-  if (is.null(lines_specs)) {
-    lines_specs <- dplyr::tibble(
-      line_name = unique(data$line_name),
-      label = unique(data$line_name)
-    )
-  } else if (typeof(lines_specs) != "list") {
+  if (typeof(lines_specs) != "list") {
     msg <- sprintf(
       "'line_specs' must be a dataframe.
       * You've supplied a $s.",
@@ -138,6 +141,9 @@ check_and_fix_lines_specs <- function(data, lines_specs) {
     )
     stop(msg, call. = FALSE)
   }
+}
+
+add_r2dii_colours <- function(lines_specs) {
 
   r2dii_colours <- r2dii_palette_colours()
 
