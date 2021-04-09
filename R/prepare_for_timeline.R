@@ -40,58 +40,15 @@ prepare_for_timeline <- function(sda_target_data,
                                  column_line_names = "emission_factor_metric",
                                  value_to_plot = "emission_factor_value",
                                  extrapolate_missing_values = FALSE) {
-  # Check inputs
+
+  # input checks
   sector_filter <- match.arg(sector_filter)
-
-  if (typeof(year_start) != "double") {
-    msg <- paste0(
-      "'year_start' must be a number.\n",
-      paste0("* You submitted a ", typeof(year_start), ".")
-    )
-    stop(msg)
-  }
-
-  if (typeof(year_end) != "double") {
-    msg <- paste0(
-      "'year_end' must be a number.\n",
-      paste0("* You submitted a ", typeof(year_end), ".")
-    )
-    stop(msg)
-  }
-
-  if (!(column_line_names %in% names(sda_target_data))) {
-    msg <- paste0(
-      "'column_line_names' must be one of column names in the input data.\n",
-      paste0(
-        "The input data column names are: ",
-        toString(names(sda_target_data)),
-        ".\n"
-      ),
-      paste0("You submitted: ", column_line_names, ".")
-    )
-    stop(msg)
-  }
-
-  if (!(value_to_plot %in% names(sda_target_data))) {
-    msg <- paste0(
-      "'value_to_plot' must be one of column names in the input data.\n",
-      paste0(
-        "The input data column names are: ",
-        toString(names(sda_target_data)),
-        ".\n"
-      ),
-      paste0("You submitted: ", value_to_plot, ".")
-    )
-    stop(msg)
-  }
-
-  if (!is.logical(extrapolate_missing_values)) {
-    msg <- paste0(
-      "'extrapolate_missing_values' must be a logical value.\n",
-      paste0("* You submitted a ", typeof(extrapolate_missing_values), ".")
-    )
-    stop(msg)
-  }
+  check_input_parameters(sda_target_data,
+                         year_start,
+                         year_end,
+                         column_line_names,
+                         value_to_plot,
+                         extrapolate_missing_values)
 
   # Create output data
   data_timeline <- sda_target_data %>%
@@ -122,4 +79,62 @@ prepare_for_timeline <- function(sda_target_data,
   }
 
   data_timeline
+}
+
+check_input_parameters <- function(data,
+                                   year_start,
+                                   year_end,
+                                   column_line_names,
+                                   value_to_plot,
+                                   extrapolate_missing_values) {
+
+  if (typeof(year_start) != "double") {
+    msg <- paste0(
+      "'year_start' must be a number.\n",
+      paste0("* You submitted a ", typeof(year_start), ".")
+    )
+    stop(msg)
+  }
+
+  if (typeof(year_end) != "double") {
+    msg <- paste0(
+      "'year_end' must be a number.\n",
+      paste0("* You submitted a ", typeof(year_end), ".")
+    )
+    stop(msg)
+  }
+
+  if (!(column_line_names %in% names(data))) {
+    msg <- paste0(
+      "'column_line_names' must be one of column names in the input data.\n",
+      paste0(
+        "The input data column names are: ",
+        toString(names(data)),
+        ".\n"
+      ),
+      paste0("You submitted: ", column_line_names, ".")
+    )
+    stop(msg)
+  }
+
+  if (!(value_to_plot %in% names(data))) {
+    msg <- paste0(
+      "'value_to_plot' must be one of column names in the input data.\n",
+      paste0(
+        "The input data column names are: ",
+        toString(names(data)),
+        ".\n"
+      ),
+      paste0("You submitted: ", value_to_plot, ".")
+    )
+    stop(msg)
+  }
+
+  if (!is.logical(extrapolate_missing_values)) {
+    msg <- paste0(
+      "'extrapolate_missing_values' must be a logical value.\n",
+      paste0("* You submitted a ", typeof(extrapolate_missing_values), ".")
+    )
+    stop(msg)
+  }
 }

@@ -40,6 +40,59 @@ plot_timeline <- function(data,
                           x_title = "Year",
                           y_title = "Value") {
 
+  lines_specs_full <- check_and_fix_lines_specs(data, lines_specs)
+
+  plot <- ggplot(
+    data = data %>% filter(.data$extrapolated == FALSE),
+    aes(
+      x = .data$year,
+      y = .data$value,
+      colour = factor(.data$line_name, levels = lines_specs_full$line_name)
+    ),
+    linetype = .data$extrapolated
+  ) +
+    geom_line() +
+    scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
+    scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+    expand_limits(y = 0) +
+    labs(title = plot_title) +
+    xlab(x_title) +
+    ylab(y_title) +
+    scale_colour_manual(
+      values = lines_specs_full$colour_hex,
+      labels = lines_specs_full$label
+    ) +
+    theme_2dii_ggplot()
+
+  if (any(data$extrapolated)) {
+    plot <- plot +
+      geom_line(
+        data = data %>% filter(.data$extrapolated == TRUE),
+        aes(
+          x = .data$year,
+          y = .data$value,
+          colour = factor(.data$line_name, levels = lines_specs_full$line_name),
+          linetype = .data$extrapolated
+        )
+      ) +
+      scale_linetype_manual(values = "dashed") +
+      guides(linetype = FALSE)
+  }
+
+  plot
+}
+
+factor_to_character <- function(data) {
+  has_factors <- any(unlist(lapply(data, is.factor)))
+  if (is.data.frame(data) && has_factors) {
+    data <- mutate(data, dplyr::across(where(is.factor), as.character))
+  }
+
+  data
+}
+
+check_and_fix_lines_specs <- function(data, lines_specs) {
+
   if (is.null(lines_specs)) {
     lines_specs <- dplyr::tibble(
       line_name = unique(data$line_name),
@@ -53,8 +106,6 @@ plot_timeline <- function(data,
     stop(msg)
   }
 
-
-  # input checks
   if (!all(c("line_name", "label") %in% names(lines_specs))) {
     msg <- paste0(
       "'line_specs' must have columns 'line_name' and 'label'.\n",
@@ -112,51 +163,5 @@ plot_timeline <- function(data,
     by = c("r2dii_colour_name" = "label")
   )
 
-  plot <- ggplot(
-    data = data %>% filter(.data$extrapolated == FALSE),
-    aes(
-      x = .data$year,
-      y = .data$value,
-      colour = factor(.data$line_name, levels = lines_specs$line_name)
-    ),
-    linetype = .data$extrapolated
-  ) +
-    geom_line() +
-    scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
-    scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
-    expand_limits(y = 0) +
-    labs(title = plot_title) +
-    xlab(x_title) +
-    ylab(y_title) +
-    scale_colour_manual(
-      values = lines_specs$colour_hex,
-      labels = lines_specs$label
-    ) +
-    theme_2dii_ggplot()
-
-  if (any(data$extrapolated)) {
-    plot <- plot +
-      geom_line(
-        data = data %>% filter(.data$extrapolated == TRUE),
-        aes(
-          x = .data$year,
-          y = .data$value,
-          colour = factor(.data$line_name, levels = lines_specs$line_name),
-          linetype = .data$extrapolated
-        )
-      ) +
-      scale_linetype_manual(values = "dashed") +
-      guides(linetype = FALSE)
-  }
-
-  plot
-}
-
-factor_to_character <- function(data) {
-  has_factors <- any(unlist(lapply(data, is.factor)))
-  if (is.data.frame(data) && has_factors) {
-    data <- mutate(data, dplyr::across(where(is.factor), as.character))
-  }
-
-  data
+  lines_specs
 }
