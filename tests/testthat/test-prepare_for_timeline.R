@@ -1,3 +1,17 @@
+test_that("w/ R 3.6 & extrapolate_missing_values = TRUE outputs a data.frame", {
+  out <- prepare_for_timeline(
+    sda_target,
+    sector_filter = "automotive",
+    year_start = 2020,
+    year_end = 2026,
+    column_line_names = "emission_factor_metric",
+    value_to_plot = "emission_factor_value",
+    extrapolate_missing_values = TRUE
+  )
+
+  expect_s3_class(out, "data.frame")
+})
+
 test_that("outputs a data.frame", {
   out <- prepare_for_timeline(sda_target,
     sector_filter = "automotive",

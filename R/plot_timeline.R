@@ -18,7 +18,7 @@
 #'   year_end = 2050,
 #'   column_line_names = "emission_factor_metric",
 #'   value_to_plot = "emission_factor_value",
-#'   extrapolate_missing_values = TRUE
+#'   extrapolate_missing_values = FALSE 
 #' )
 #'
 #' lines_specs <- data.frame(
@@ -66,6 +66,7 @@ plot_timeline <- function(data,
     stop(msg)
   }
 
+  lines_specs <- factor_to_character(lines_specs)
   if (!identical(sort(unique(lines_specs$line_name)), sort(unique(data$line_name)))) {
     msg <- paste0(
       "Can't find `line_name` values from 'lines_specs' in the data.\n",
@@ -151,4 +152,13 @@ plot_timeline <- function(data,
   }
 
   plot
+}
+
+factor_to_character <- function(data) {
+  has_factors <- any(unlist(lapply(data, is.factor)))
+  if (is.data.frame(data) && has_factors) {
+    data <- mutate(data, dplyr::across(where(is.factor), as.character))
+  }
+
+  data
 }
