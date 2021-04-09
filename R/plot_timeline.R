@@ -40,12 +40,10 @@ plot_timeline <- function(data,
                           x_title = "Year",
                           y_title = "Value") {
 
-  if (is.null(lines_specs)) {
-    lines_specs <- dplyr::tibble(
-      line_name = unique(data$line_name),
-      label = unique(data$line_name)
-    )
-  }
+  lines_specs <- lines_specs %||% dplyr::tibble(
+    line_name = unique(data$line_name),
+    label = unique(data$line_name)
+  )
 
   check_lines_specs(data, lines_specs)
   lines_specs <- add_r2dii_colours(lines_specs)

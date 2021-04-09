@@ -8,6 +8,7 @@
 #' @importFrom tidyr replace_na
 #' @importFrom stats na.omit
 #' @importFrom grDevices colorRampPalette
+#' @importFrom rlang %||%
 NULL
 
 utils::globalVariables("where")
