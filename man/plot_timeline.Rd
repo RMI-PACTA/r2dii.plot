@@ -37,7 +37,7 @@ data_sda_cement <- prepare_for_timeline(sda_target,
   year_end = 2050,
   column_line_names = "emission_factor_metric",
   value_to_plot = "emission_factor_value",
-  extrapolate_missing_values = TRUE
+  extrapolate_missing_values = FALSE 
 )
 
 lines_specs <- data.frame(

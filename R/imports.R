@@ -9,3 +9,5 @@
 #' @importFrom stats na.omit
 #' @importFrom grDevices colorRampPalette
 NULL
+
+utils::globalVariables("where")

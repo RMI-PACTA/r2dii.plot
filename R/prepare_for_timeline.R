@@ -40,7 +40,6 @@ prepare_for_timeline <- function(sda_target_data,
                                  column_line_names = "emission_factor_metric",
                                  value_to_plot = "emission_factor_value",
                                  extrapolate_missing_values = FALSE) {
-
   # Check inputs
   sector_filter <- match.arg(sector_filter)
 
@@ -107,17 +106,26 @@ prepare_for_timeline <- function(sda_target_data,
 
     data_to_extrapolate <- data_timeline %>%
       group_by(.data$line_name) %>%
+      # FIXME: This puts max year at the top ...
       arrange(desc(.data$year)) %>%
+      # ... then this selects the row where year is max year ...
       dplyr::slice(1) %>%
+      # ... and this removes the row you sliced above, leaving a 0-row dataframe
       filter(.data$year != max_year_dataset)
-
+    # This continues to be a 0-row dataframe
     data_extrapolated <- data_to_extrapolate
+    # This continues to be a 0-row dataframe
     data_extrapolated$year <- max_year_dataset
 
+    # This continues to be a 0-row dataframe
     data_extrapolated <- rbind(data_to_extrapolate, data_extrapolated)
+    # This continues to be a 0-row dataframe
     data_extrapolated$extrapolated <- TRUE
 
+    # And now you get a matrix -- not a dataframe.
     data_timeline <- rbind(data_timeline, data_extrapolated)
+    # dplyr::bind_rows() returns a data frame, but you still need to solve the
+    # 0-row dataframe problem
   }
 
   data_timeline
