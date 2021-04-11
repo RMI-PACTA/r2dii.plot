@@ -46,6 +46,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot.static/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot.static?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot.static/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot.static/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/r2dii.plot.static)](https://CRAN.R-project.org/package=r2dii.plot.static)
 <!-- badges: end -->
 
 The goal of r2dii.plot.static is to provide users with plotting and data processing 
