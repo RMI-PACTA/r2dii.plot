@@ -99,7 +99,7 @@ factor_to_character <- function(data) {
 
 check_lines_specs <- function(data, lines_specs) {
 
-  if (typeof(lines_specs) != "list") {
+  if (!is.data.frame(lines_specs)) {
     msg <- sprintf(
       "'line_specs' must be a dataframe.
       * You've supplied a $s.",
