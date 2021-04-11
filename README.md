@@ -135,7 +135,7 @@ plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for 
 plot_techmix_custom_col
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ## Metareport code examples
 
