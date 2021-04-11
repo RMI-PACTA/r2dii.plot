@@ -11,7 +11,7 @@
 #' * `emission_factor_value`: emissions value, a double, units differ depending
 #' on the sector.
 #'
-#' @source <https://github.com/2DegreesInvesting/r2dii.ggplot/issues/55>.
+#' @source <https://github.com/2DegreesInvesting/r2dii.plot.static/issues/55>.
 #' @examples
 #' sda_target
 "sda_target"
