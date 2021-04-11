@@ -138,4 +138,6 @@ check_input_parameters <- function(data,
     )
     stop(msg, call. = FALSE)
   }
+
+  invisible(data)
 }

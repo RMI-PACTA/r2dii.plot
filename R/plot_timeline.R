@@ -139,6 +139,8 @@ check_lines_specs <- function(data, lines_specs) {
     )
     stop(msg, call. = FALSE)
   }
+
+  invisible(data)
 }
 
 add_r2dii_colours <- function(lines_specs) {
