@@ -12,7 +12,7 @@ Description: Allows the user to create standardized '2dii'
     that prepare the standard PACTA data to be an input for the plotting
     functions.
 License: MIT + file LICENSE
-URL: https://github.com/2DegreesInvesting/r2dii.plot.static
+URL: https://2degreesinvesting.github.io/r2dii.plot.static, https://github.com/2DegreesInvesting/r2dii.plot.static
 BugReports: 
     https://github.com/2DegreesInvesting/r2dii.plot.static/issues
 Depends: 
@@ -38,5 +38,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Remotes:  
+Remotes: 
     const-ae/ggsignif
