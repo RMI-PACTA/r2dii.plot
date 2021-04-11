@@ -38,7 +38,6 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
                                          value_name,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
-
   year_start_projected <- data_preprocessed %>%
     filter(.data$metric == "projected") %>%
     pull(.data$year) %>%

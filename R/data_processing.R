@@ -263,14 +263,13 @@ prepare_for_metareport_bubble_chart <- function(data_asset_type,
 #' @export
 #'
 #' @examples
-#' #TODO
+#' # TODO
 prepare_for_map_chart <- function(data_map_asset_type,
                                   asset_type,
                                   technology_filter,
                                   year_filter,
                                   value_divisor = 1,
                                   allocation_method = NULL) {
-
   if (is.null(allocation_method)) {
     if (asset_type == "Equity") {
       allocation_method <- "ownership_weight"
