@@ -6,10 +6,10 @@ Authors@R:
            family = "Furdyna",
            role = c("aut", "cre"),
            email = "monika.furdyna@gmail.com")
-Description: Allows the user to create standardized '2dii'
-    graphs, like trajectory charts or technology mix charts, and outputs
-    them as 'ggplot' objects. It also contains data processing functions
-    that prepare the standard PACTA data to be an input for the plotting
+Description: Allows the user to create standardized '2dii' graphs, like
+    trajectory charts or technology mix charts, and outputs them as
+    'ggplot' objects. It also contains data processing functions that
+    prepare the standard PACTA data to be an input for the plotting
     functions.
 License: MIT + file LICENSE
 URL: https://github.com/2DegreesInvesting/r2dii.plot.static
@@ -21,22 +21,24 @@ Imports:
     dplyr,
     ggplot2,
     ggpubr,
+    grDevices,
     magrittr,
+    maps,
     r2dii.data,
     scales,
-    tidyr,
     stats,
-    grDevices,
-    maps
+    tidyr
 Suggests: 
+    ggsignif (>= 0.6.1),
     r2dii.analysis,
     r2dii.match,
     testthat (>= 3.0.0),
-    ggsignif (>= 0.6.1)
+    ggsignif (>= 0.6.1),
+    covr
+Remotes:
+    const-ae/ggsignif
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Remotes: 
-    const-ae/ggsignif

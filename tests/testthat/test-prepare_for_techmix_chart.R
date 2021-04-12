@@ -78,7 +78,7 @@ test_that("with bad `region_filter` returns a data.frame with no rows", {
     nrow(prepare_for_techmix_chart(
       data,
       sector_filter = "power",
-      years_filter = c(2020,2025),
+      years_filter = c(2020, 2025),
       region_filter = bad,
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
@@ -97,7 +97,7 @@ test_that("with bad `scenario_source_filter` returns a data.frame with no rows",
     nrow(prepare_for_techmix_chart(
       data,
       sector_filter = "power",
-      years_filter = c(2020,2025),
+      years_filter = c(2020, 2025),
       region_filter = "global",
       scenario_source_filter = bad,
       scenario_filter = "sds",
@@ -116,7 +116,7 @@ test_that("with bad `scenario_filter` returns a data.frame", {
     prepare_for_techmix_chart(
       data,
       sector_filter = "power",
-      years_filter = c(2020,2025),
+      years_filter = c(2020, 2025),
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = bad,
@@ -136,7 +136,7 @@ test_that("with bad `value_name` errors ungracefully", {
     prepare_for_techmix_chart(
       data,
       sector_filter = "power",
-      years_filter = c(2020,2025),
+      years_filter = c(2020, 2025),
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
