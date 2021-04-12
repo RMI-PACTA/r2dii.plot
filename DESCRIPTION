@@ -33,9 +33,10 @@ Suggests:
     r2dii.analysis,
     r2dii.match,
     testthat (>= 3.0.0),
-    const-ae/ggsignif,
     ggsignif (>= 0.6.1),
     covr
+Remotes:
+    const-ae/ggsignif
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
