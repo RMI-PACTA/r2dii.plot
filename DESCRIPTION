@@ -27,13 +27,13 @@ Imports:
     r2dii.data,
     scales,
     stats,
+    rlang,
     tidyr
 Suggests: 
     ggsignif (>= 0.6.1),
     r2dii.analysis,
     r2dii.match,
     testthat (>= 3.0.0),
-    ggsignif (>= 0.6.1),
     covr
 Remotes:
     const-ae/ggsignif

@@ -41,5 +41,5 @@ lat, group, value, unit, abbreviation_divisor.
 Prepares results data per asset type for map plot
 }
 \examples{
-#TODO
+# TODO
 }
