@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepares results data per asset type for map plot — prepare_for_map_chart • r2dii.plot.static</title>
+<title>Create a time line plot — plot_timeline • r2dii.plot.static</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Prepares results data per asset type for map plot — prepare_for_map_chart" />
-<meta property="og:description" content="Prepares results data per asset type for map plot" />
+<meta property="og:title" content="Create a time line plot — plot_timeline" />
+<meta property="og:description" content="Create a time line plot" />
 
 
 
@@ -117,68 +117,75 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepares results data per asset type for map plot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot.static/blob/master/R/data_processing.R'><code>R/data_processing.R</code></a></small>
-    <div class="hidden name"><code>prepare_for_map_chart.Rd</code></div>
+    <h1>Create a time line plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot.static/blob/master/R/plot_timeline.R'><code>R/plot_timeline.R</code></a></small>
+    <div class="hidden name"><code>plot_timeline.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prepares results data per asset type for map plot</p>
+    <p>Create a time line plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prepare_for_map_chart</span><span class='op'>(</span>
-  <span class='va'>data_map_asset_type</span>,
-  <span class='va'>asset_type</span>,
-  <span class='va'>technology_filter</span>,
-  <span class='va'>year_filter</span>,
-  value_divisor <span class='op'>=</span> <span class='fl'>1</span>,
-  allocation_method <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>plot_timeline</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  lines_specs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot_title <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x_title <span class='op'>=</span> <span class='st'>"Year"</span>,
+  y_title <span class='op'>=</span> <span class='st'>"Value"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_map_asset_type</th>
-      <td><p>Dataframe in the shape of
-"Equity/Bonds_results_map.rda" dataset from PACTA analysis output in
-"40_Results" folder (dataframe).</p></td>
+      <th>data</th>
+      <td><p>Pre-processed data for the chart, with columns: year, value,
+line_name.</p></td>
     </tr>
     <tr>
-      <th>asset_type</th>
-      <td><p>Asset type of the data used to specify default allocation
-method (character string).</p></td>
+      <th>lines_specs</th>
+      <td><p>Dataframe containing order of lines, their labels and
+(optionally) colour names from the r2dii_colours palette (column
+'r2dii_colour_name').</p></td>
     </tr>
     <tr>
-      <th>technology_filter</th>
-      <td><p>Technology to be used for filtering (character
-string).</p></td>
+      <th>plot_title</th>
+      <td><p>Title of the plot.</p></td>
     </tr>
     <tr>
-      <th>year_filter</th>
-      <td><p>Year to be used for filtering (integer).</p></td>
-    </tr>
-    <tr>
-      <th>value_divisor</th>
-      <td><p>Number by which to divide the values to be plotted
-(integer).</p></td>
-    </tr>
-    <tr>
-      <th>allocation_method</th>
-      <td><p>Allocation method used to calculate the production
-values. If none is specified "portfolio_weight" is used for Bonds and
-"ownership_weight" is used for Equity.</p></td>
+      <th>x_title, y_title</th>
+      <td><p>x- and y-axis title.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Dataframe with columns (only important columns are listed): long,
-lat, group, value, unit, abbreviation_divisor.</p>
+    <p>An object of class "ggplot".</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># TODO</span>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>data_sda_cement</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span>,
+  sector_filter <span class='op'>=</span> <span class='st'>"cement"</span>,
+  year_start <span class='op'>=</span> <span class='fl'>2020</span>,
+  year_end <span class='op'>=</span> <span class='fl'>2050</span>,
+  column_line_names <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>,
+  value_to_plot <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
+  extrapolate_missing_values <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='va'>lines_specs</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  line_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"projected"</span>, <span class='st'>"corporate_economy"</span>, <span class='st'>"target_demo"</span>, <span class='st'>"adjusted_scenario_demo"</span><span class='op'>)</span>,
+  label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Projected"</span>, <span class='st'>"Corporate Economy"</span>, <span class='st'>"Target Demo"</span>, <span class='st'>"Adjusted Scenario Demo"</span><span class='op'>)</span>,
+  r2dii_colour_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dark_blue"</span>, <span class='st'>"green"</span>, <span class='st'>"grey"</span>, <span class='st'>"orange"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>data_sda_cement</span>,
+  lines_specs <span class='op'>=</span> <span class='va'>lines_specs</span>,
+  plot_title <span class='op'>=</span> <span class='st'>"Emission intensity trend for Cement."</span>,
+  x_title <span class='op'>=</span> <span class='st'>"Year"</span>,
+  y_title <span class='op'>=</span> <span class='st'>"Tons of CO2 per ton"</span>
+<span class='op'>)</span>
+<span class='va'>plot</span>
+</div><div class='img'><img src='plot_timeline-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
