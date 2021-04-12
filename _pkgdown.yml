@@ -1,0 +1,34 @@
+destination: docs
+
+template:
+  params:
+    bootswatch: flatly
+
+url: https://github.com/2DegreesInvesting/r2dii.plot.static/
+
+authors:
+  Monika Furdyna:
+    href: https://github.com/MonikaFu/
+  2 Degrees Investing Initiative:
+    href: https://2degrees-investing.org/
+
+home:
+  links:
+  - text: Learn more
+    href: https://2degrees-investing.org/
+
+
+
+navbar:
+
+  type: default
+
+  right:
+    - icon: fa-gavel
+      href: https://github.com/MonikaFu
+
+    - icon: fa-github
+      href: https://github.com/2DegreesInvesting/r2dii.plot.static
+      
+    - text: r2dii
+      href: https://2degreesinvesting.github.io/r2dii/index.html

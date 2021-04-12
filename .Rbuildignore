@@ -1,4 +1,4 @@
-^r2dii\.ggplot\.Rproj$
+^r2dii\.plot\.static\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^charts/.*$
@@ -11,3 +11,4 @@
 ^pkgdown$
 ^cran-comments\.md$
 ^data-raw/.*$
+^codecov\.yml$

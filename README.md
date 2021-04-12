@@ -1,30 +1,32 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# r2dii.ggplot <a href='https://github.com/2DegreesInvesting/r2dii.ggplot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
+# r2dii.plot.static <a href='https://github.com/2DegreesInvesting/r2dii.plot.static'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
 
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test
-coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.ggplot?branch=master)
-[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.ggplot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.ggplot/actions)
+coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot.static/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot.static?branch=master)
+[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot.static/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot.static/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/r2dii.plot.static)](https://CRAN.R-project.org/package=r2dii.plot.static)
 <!-- badges: end -->
 
-The goal of r2dii.ggplot is to provide users with plotting and data
+The goal of r2dii.plot.static is to provide users with plotting and data
 processing functions that will allow the users to create standard 2DII
 plots using `PACTA_analysis` or banks’ output data as input. The plots
 are in the form of ggplot objects.
 
 ## Installation
 
-You can install the development version of r2dii.ggplot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.ggplot) with:
+You can install the development version of r2dii.plot.static from
+[GitHub](https://github.com/2DegreesInvesting/r2dii.plot.static) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("2DegreesInvesting/r2dii.ggplot")
+devtools::install_github("2DegreesInvesting/r2dii.plot.static")
 ```
 
 [How to minimize installation
@@ -33,7 +35,7 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 ## Example
 
 ``` r
-library(r2dii.ggplot)
+library(r2dii.plot.static)
 ```
 
 -   `get_example_data()` imports example data set for plotting.
