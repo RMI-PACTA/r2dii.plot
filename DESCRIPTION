@@ -20,7 +20,6 @@ Depends:
 Imports: 
     dplyr,
     ggplot2,
-    grDevices,
     magrittr,
     maps,
     r2dii.data,

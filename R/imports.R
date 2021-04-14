@@ -5,7 +5,6 @@
 #' @importFrom maps iso.alpha
 #' @importFrom tidyr replace_na
 #' @importFrom stats na.omit
-#' @importFrom grDevices colorRampPalette
 #' @importFrom rlang %||%
 NULL
 
