@@ -67,10 +67,11 @@ jobs:
       - name: Install additional system dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo chmod 777 /var/lib/dpkg/lock-frontend
+          sudo chmod 777 /var/lib/dpkg/lock
           sudo apt-get update && apt-get -y install libnlopt-dev
       - name: Install dependencies
         run: |
+          install.packages("nloptr")
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("rcmdcheck")
         shell: Rscript {0}
