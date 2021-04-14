@@ -67,7 +67,7 @@ jobs:
       - name: Install additional system dependencies
         if: runner.os == 'Linux'
         run: |
-          apt-get update && apt-get -y install libnlopt-dev
+          sudo apt-get update && apt-get -y install libnlopt-dev
       - name: Install dependencies
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
