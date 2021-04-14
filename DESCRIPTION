@@ -22,8 +22,7 @@ Imports:
     ggplot2,
     magrittr,
     r2dii.data,
-    scales,
-    tidyr
+    scales
 Suggests: 
     ggsignif (>= 0.6.1),
     r2dii.analysis,
