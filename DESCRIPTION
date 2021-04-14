@@ -21,7 +21,6 @@ Imports:
     dplyr,
     ggplot2,
     magrittr,
-    maps,
     r2dii.data,
     scales,
     stats,
