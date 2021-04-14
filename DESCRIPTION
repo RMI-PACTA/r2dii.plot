@@ -24,13 +24,10 @@ Imports:
     r2dii.data,
     scales
 Suggests: 
-    ggsignif (>= 0.6.1),
     r2dii.analysis,
     r2dii.match,
     testthat (>= 3.0.0),
     covr
-Remotes:
-    const-ae/ggsignif
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
