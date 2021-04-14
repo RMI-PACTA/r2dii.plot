@@ -23,7 +23,6 @@ Imports:
     magrittr,
     r2dii.data,
     scales,
-    rlang,
     tidyr
 Suggests: 
     ggsignif (>= 0.6.1),
