@@ -67,8 +67,7 @@ jobs:
       - name: Install additional system dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo chmod 777 /var/lib/dpkg/lock
-          sudo chmod 777 /var/lib/dpkg/lock-frontend
+          sudo chmod 777 /var -R
           sudo apt-get update && apt-get -y install libnlopt-dev
       - name: Install dependencies
         run: |
