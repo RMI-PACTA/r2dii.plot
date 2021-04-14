@@ -23,7 +23,6 @@ Imports:
     magrittr,
     r2dii.data,
     scales,
-    stats,
     rlang,
     tidyr
 Suggests: 
