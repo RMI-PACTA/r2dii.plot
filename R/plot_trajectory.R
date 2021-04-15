@@ -51,7 +51,7 @@ plot_trajectory <- function(data,
   value_span <- upper_area_border - lower_area_border
 
   start_value_portfolio <- data %>%
-    filter(.data$year == min(data$year)) %>%
+    filter(.data$year == min(.data$year)) %>%
     filter(.data$metric_type == "portfolio") %>%
     pull(.data$value)
 
@@ -60,7 +60,9 @@ plot_trajectory <- function(data,
   perc_distance_lower_border <-
     (start_value_portfolio - lower_area_border) / value_span
 
-  if (abs(perc_distance_upper_border - perc_distance_lower_border) > 0.1) {
+  max_difference_distance <- 0.1
+
+  if (abs(perc_distance_upper_border - perc_distance_lower_border) > max_difference_distance) {
     if (perc_distance_upper_border > perc_distance_lower_border) {
       lower_area_border <-
         start_value_portfolio - perc_distance_upper_border * value_span
