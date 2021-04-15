@@ -2,7 +2,6 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^charts/.*$
-^colors/.*$
 ^example_script\.R$
 ^README\.Rmd$
 ^\.github$
