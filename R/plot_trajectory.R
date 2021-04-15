@@ -29,6 +29,7 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = data.frame()) {
+
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -45,9 +46,30 @@ plot_trajectory <- function(data,
       theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
   }
 
+  # adjusting the area border to center the starting point of the lines
   lower_area_border <- min(data$value)
   upper_area_border <- max(data$value)
-  last_year <- max(data$year)
+  value_span <- upper_area_border - lower_area_border
+
+  start_value_portfolio <- data %>%
+    filter(.data$year == min(data$year)) %>%
+    filter(.data$metric_type == "portfolio") %>%
+    pull(.data$value)
+
+  perc_distance_upper_border <-
+    (upper_area_border - start_value_portfolio)/value_span
+  perc_distance_lower_border <-
+    (start_value_portfolio - lower_area_border)/value_span
+
+  if (abs(perc_distance_upper_border - perc_distance_lower_border) > 0.1) {
+    if (perc_distance_upper_border > perc_distance_lower_border) {
+        lower_area_border =
+          start_value_portfolio - perc_distance_upper_border * value_span
+    } else {
+      upper_area_border =
+          perc_distance_lower_border * value_span + start_value_portfolio
+    }
+  }
 
   year <- unique(data$year)
   data_worse_than_scenarios <- data.frame(year)
@@ -129,6 +151,8 @@ plot_trajectory <- function(data,
     }
 
     if (annotate_data) {
+      last_year <- max(data$year)
+
       p_trajectory <- p_trajectory +
         annotate("segment",
           x = last_year, xend = last_year + 0.75,
