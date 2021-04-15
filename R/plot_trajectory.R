@@ -29,7 +29,6 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = data.frame()) {
-
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -57,17 +56,17 @@ plot_trajectory <- function(data,
     pull(.data$value)
 
   perc_distance_upper_border <-
-    (upper_area_border - start_value_portfolio)/value_span
+    (upper_area_border - start_value_portfolio) / value_span
   perc_distance_lower_border <-
-    (start_value_portfolio - lower_area_border)/value_span
+    (start_value_portfolio - lower_area_border) / value_span
 
   if (abs(perc_distance_upper_border - perc_distance_lower_border) > 0.1) {
     if (perc_distance_upper_border > perc_distance_lower_border) {
-        lower_area_border =
-          start_value_portfolio - perc_distance_upper_border * value_span
+      lower_area_border <-
+        start_value_portfolio - perc_distance_upper_border * value_span
     } else {
-      upper_area_border =
-          perc_distance_lower_border * value_span + start_value_portfolio
+      upper_area_border <-
+        perc_distance_lower_border * value_span + start_value_portfolio
     }
   }
 

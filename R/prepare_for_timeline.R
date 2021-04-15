@@ -89,22 +89,21 @@ check_input_parameters <- function(data,
                                    column_line_names,
                                    value_to_plot,
                                    extrapolate_missing_values) {
-
   if (typeof(year_start) != "double") {
     msg <- sprintf(
-        "'year_start' must be a number.
+      "'year_start' must be a number.
         * You submitted a %s.",
-        typeof(year_start)
-      )
+      typeof(year_start)
+    )
     stop(msg, call. = FALSE)
   }
 
   if (typeof(year_end) != "double") {
     msg <- sprintf(
-        "'year_end' must be a number.
+      "'year_end' must be a number.
         * You submitted a %s.",
-        typeof(year_end)
-      )
+      typeof(year_end)
+    )
     stop(msg, call. = FALSE)
   }
 
@@ -115,7 +114,7 @@ check_input_parameters <- function(data,
       * You submitted: %s.",
       toString(names(data)),
       column_line_names
-      )
+    )
     stop(msg, call. = FALSE)
   }
 
@@ -124,9 +123,9 @@ check_input_parameters <- function(data,
       "'value_to_plot' must be one of column names in the input data.
       * The input data column names are: %s.
       * You submitted: %s.",
-        toString(names(data)),
-        value_to_plot
-      )
+      toString(names(data)),
+      value_to_plot
+    )
     stop(msg, call. = FALSE)
   }
 
