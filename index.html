@@ -117,7 +117,7 @@
 <code class="sourceCode R"><span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_trajectory_chart.html">prepare_for_trajectory_chart</a></span><span class="op">(</span>
   <span class="va">example_data</span>, 
   sector_filter <span class="op">=</span> <span class="st">"power"</span>, 
-  technology_filter <span class="op">=</span> <span class="st">"oilcap"</span>,
+  technology_filter <span class="op">=</span> <span class="st">"renewablescap"</span>,
   region_filter <span class="op">=</span> <span class="st">"global"</span>, 
   scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
   value_name <span class="op">=</span> <span class="st">"production"</span>, 
@@ -138,7 +138,7 @@
 <span class="op">)</span>
 
 <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data_trajectory</span>,
-  plot_title <span class="op">=</span> <span class="st">"Production trajectory of Oil Capacity technology \n in the Power sector"</span>,
+  plot_title <span class="op">=</span> <span class="st">"Production trajectory of Renewables Capacity technology \n in the Power sector"</span>,
   x_title <span class="op">=</span> <span class="st">"Year"</span>, y_title <span class="op">=</span> <span class="st">"Production rate (normalized to 2020)"</span>,
   annotate_data <span class="op">=</span> <span class="cn">FALSE</span>,
   scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
