@@ -39,7 +39,6 @@ plot_timeline <- function(data,
                           plot_title = NULL,
                           x_title = "Year",
                           y_title = "Value") {
-
   lines_specs <- lines_specs %||% dplyr::tibble(
     line_name = unique(data$line_name),
     label = unique(data$line_name)
@@ -98,13 +97,12 @@ factor_to_character <- function(data) {
 }
 
 check_lines_specs <- function(data, lines_specs) {
-
   if (!is.data.frame(lines_specs)) {
     msg <- sprintf(
       "'line_specs' must be a dataframe.
       * You've supplied a $s.",
       typeof(lines_specs)
-      )
+    )
     stop(msg, call. = FALSE)
   }
 
@@ -124,8 +122,8 @@ check_lines_specs <- function(data, lines_specs) {
       "Can't find `line_name` values from 'lines_specs' in the data.
       * Unique `line_name` values in 'data' are: %s.
       * Unique `line_name` values in 'lines_specs' are: %s.",
-        toString(sort(unique(data$line_name))),
-        toString(sort(unique(lines_specs$line_name)))
+      toString(sort(unique(data$line_name))),
+      toString(sort(unique(lines_specs$line_name)))
     )
     stop(msg, call. = FALSE)
   }
@@ -144,7 +142,6 @@ check_lines_specs <- function(data, lines_specs) {
 }
 
 add_r2dii_colours <- function(lines_specs) {
-
   r2dii_colours <- r2dii_palette_colours()
 
   if (!("r2dii_colour_name" %in% colnames(lines_specs))) {
