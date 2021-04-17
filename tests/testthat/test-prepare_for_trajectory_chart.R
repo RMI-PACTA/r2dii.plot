@@ -180,7 +180,7 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
 })
 
 # FIXME: The error message could be more graceful, maybe with this or similar:
-# https://2degreesinvesting.github.io/r2dii.utils/reference/check_crucial_names.html#examples
+# r2dii.utils::check_crucial_names()
 # TODO: Do this with all crucial names that the function expects in the input
 test_that("with input missing crucial columns errors ungracefully", {
   bad <- process_input_data(get_example_data())

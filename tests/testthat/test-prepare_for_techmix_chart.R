@@ -89,22 +89,20 @@ test_that("with bad `region_filter` returns a data.frame with no rows", {
 })
 
 # FIXME: We should throw a graceful warning.
-test_that("with bad `scenario_source_filter` returns a data.frame with no rows", {
+test_that("with bad `scenario_source_filter` returns a 0-rows data.frame", {
   data <- process_input_data(get_example_data())
-  bad <- "bad"
 
-  expect_equal(
-    nrow(prepare_for_techmix_chart(
-      data,
-      sector_filter = "power",
-      years_filter = c(2020, 2025),
-      region_filter = "global",
-      scenario_source_filter = bad,
-      scenario_filter = "sds",
-      value_name = "technology_share"
-    )),
-    0L
+  out <- prepare_for_techmix_chart(
+    data,
+    scenario_source_filter = "bad",
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_filter = "sds",
+    value_name = "technology_share"
   )
+
+  expect_equal(nrow(out), 0L)
 })
 
 # FIXME: We should throw a graceful warning.

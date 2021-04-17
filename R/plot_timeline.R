@@ -22,8 +22,10 @@
 #' )
 #'
 #' lines_specs <- dplyr::tibble(
-#'   line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-#'   label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+#'   label = c(
+#'     "Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"
+#'   ),
+#'   line_name = gsub(" ", "_", tolower(label)),
 #'   r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
 #' )
 #'
@@ -117,7 +119,11 @@ check_lines_specs <- function(data, lines_specs) {
   }
 
   lines_specs <- factor_to_character(lines_specs)
-  if (!identical(sort(unique(lines_specs$line_name)), sort(unique(data$line_name)))) {
+  malformed_line_name <- !identical(
+    sort(unique(lines_specs$line_name)),
+    sort(unique(data$line_name))
+  )
+  if (malformed_line_name) {
     msg <- sprintf(
       "Can't find `line_name` values from 'lines_specs' in the data.
       * Unique `line_name` values in 'data' are: %s.
@@ -145,7 +151,8 @@ add_r2dii_colours <- function(lines_specs) {
   r2dii_colours <- r2dii_palette_colours()
 
   if (!("r2dii_colour_name" %in% colnames(lines_specs))) {
-    lines_specs$r2dii_colour_name <- r2dii_colours$label[1:nrow(lines_specs)]
+    n <- seq_len(nrow(lines_specs))
+    lines_specs$r2dii_colour_name <- r2dii_colours$label[n]
   } else if (!(all(lines_specs$r2dii_colour_name %in% r2dii_colours$label))) {
     msg <- sprintf(
       "Colour names specified in 'lines_specs' must match r2dii_colours$label.

@@ -26,7 +26,9 @@ plot_trajectory <- function(data,
                             x_title = "",
                             y_title = "",
                             annotate_data = FALSE,
+                            # FIXME: obligatory arguments come before optional
                             scenario_specs_good_to_bad,
+                            # FIXME: obligatory arguments come before optional
                             main_line_metric,
                             additional_line_metrics = data.frame()) {
   p_trajectory <- ggplot() +
@@ -60,9 +62,9 @@ plot_trajectory <- function(data,
   perc_distance_lower_border <-
     (start_value_portfolio - lower_area_border) / value_span
 
-  max_difference_distance <- 0.1
-
-  if (abs(perc_distance_upper_border - perc_distance_lower_border) > max_difference_distance) {
+  max_delta_distance <- 0.1
+  delta_distance <- abs(perc_distance_upper_border - perc_distance_lower_border)
+  if (delta_distance > max_delta_distance) {
     if (perc_distance_upper_border > perc_distance_lower_border) {
       lower_area_border <-
         start_value_portfolio - perc_distance_upper_border * value_span
@@ -100,9 +102,7 @@ plot_trajectory <- function(data,
         default = lower_area_border
       ))
   } else if (tech_green_or_brown == "green") {
-    scenario_specs <- scenario_specs_good_to_bad[
-      nrow(scenario_specs_good_to_bad):1,
-    ]
+    scenario_specs <- reverse_rows(scenario_specs_good_to_bad)
 
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
@@ -122,7 +122,7 @@ plot_trajectory <- function(data,
       ))
   }
 
-  for (i in 1:length(scenario_specs$scenario)) {
+  for (i in seq_along(scenario_specs$scenario)) {
     scen <- scenario_specs$scenario[i]
     color <- scenario_specs$color[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
@@ -189,8 +189,7 @@ plot_trajectory <- function(data,
   if (length(additional_line_metrics) >= 1) {
     linetypes_supporting <- c("dashed", "solid", "solid", "twodash")
     colors_supporting <- c("black", "gray", "grey46", "black")
-
-    for (i in 1:length(additional_line_metrics$metric)) {
+    for (i in seq_along(additional_line_metrics$metric)) {
       metric_line <- additional_line_metrics$metric[i]
       linetype_metric <- linetypes_supporting[i]
       color_metric <- colors_supporting[i]
@@ -213,4 +212,8 @@ plot_trajectory <- function(data,
     }
   }
   p_trajectory
+}
+
+reverse_rows <- function(x) {
+  x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
 }

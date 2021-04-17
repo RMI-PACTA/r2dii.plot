@@ -28,10 +28,10 @@ test_that("with bad 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad <- "bad"
-  graceful_message <- "'line_specs' must be a dataframe."
-
-  expect_error(plot_timeline(data_sda_cement, lines_specs = bad), graceful_message)
+  expect_error(
+    plot_timeline(data_sda_cement, lines_specs = "bad"),
+    "'line_specs' must be a dataframe."
+  )
 })
 
 test_that("with bad column names in 'lines_specs' errors gracefully", {
@@ -43,13 +43,12 @@ test_that("with bad column names in 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad_lines_specs <- dplyr::tibble(
-    line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-    bad = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo")
-  )
-  graceful_message <- "'line_specs' must have columns 'line_name' and 'label'."
+  bad_lines_specs <- dplyr::rename(lines_specs(), bad = label)
 
-  expect_error(plot_timeline(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
+  expect_error(
+    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs),
+    "'line_specs' must have columns 'line_name' and 'label'."
+  )
 })
 
 test_that("with unmatching entries in 'lines_specs' errors gracefully", {
@@ -61,13 +60,13 @@ test_that("with unmatching entries in 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad_lines_specs <- dplyr::tibble(
-    line_name = c("projected", "corporate_economy", "bad", "adjusted_scenario_demo"),
-    label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo")
-  )
-  graceful_message <- "Can't find `line_name` values from 'lines_specs' in the data."
+  bad_lines_specs <- lines_specs()
+  bad_lines_specs$line_name[1] <- "bad"
 
-  expect_error(plot_timeline(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
+  expect_error(
+    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs),
+    "Can't find `line_name` values from 'lines_specs' in the data."
+  )
 })
 
 test_that("with bad colour names in 'lines_specs' errors gracefully", {
@@ -79,12 +78,66 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
     value_to_plot = "emission_factor_value"
   )
 
-  bad_lines_specs <- dplyr::tibble(
-    line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-    label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+  bad_lines_specs <- lines_specs(
     r2dii_colour_name = c("dark_blue", "green", "bad", "orange")
   )
-  graceful_message <- "Colour names specified in 'lines_specs' must match "
 
-  expect_error(plot_timeline(data_sda_cement, lines_specs = bad_lines_specs), graceful_message)
+  expect_error(
+    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs),
+    "Colour names specified in 'lines_specs' must match "
+  )
+})
+
+test_that("works with extrapolated data", {
+  extrapolated <- prepare_for_timeline(sda_target,
+    sector_filter = "cement",
+    year_start = 2020,
+    year_end = 2050,
+    column_line_names = "emission_factor_metric",
+    value_to_plot = "emission_factor_value",
+    extrapolate_missing_values = TRUE
+  )
+  lines_specs <- lines_specs(
+    r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
+  )
+
+  out <- unclass(plot_timeline(extrapolated, lines_specs = lines_specs))
+  out$plot_env <- NULL
+  expect_snapshot(out)
+})
+
+test_that("with malformed lines_specs errors gracefully", {
+  data_sda_cement <- prepare_for_timeline(sda_target,
+    sector_filter = "cement",
+    year_start = 2020,
+    year_end = 2050,
+    column_line_names = "emission_factor_metric",
+    value_to_plot = "emission_factor_value"
+  )
+
+  too_many_rows <- Reduce(
+    dplyr::bind_rows,
+    list(
+      lines_specs(),
+      lines_specs(),
+      lines_specs()
+    )
+  )
+  expect_error(
+    plot_timeline(data_sda_cement, lines_specs = too_many_rows),
+    "lines.*must be.*lower"
+  )
+})
+
+test_that("handles lines_specs with factors", {
+  data_sda_cement <- prepare_for_timeline(sda_target,
+    sector_filter = "cement",
+    year_start = 2020,
+    year_end = 2050,
+    column_line_names = "emission_factor_metric",
+    value_to_plot = "emission_factor_value"
+  )
+
+  specs <- dplyr::mutate(lines_specs(), label = as.factor(label))
+  expect_error(plot_timeline(data_sda_cement, lines_specs = specs), NA)
 })

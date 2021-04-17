@@ -44,7 +44,9 @@ plot_techmix <- function(data,
       sec.axis = dup_axis()
     ) +
     scale_x_discrete(labels = rev(df_bar_specs$label)) +
-    scale_fill_manual(labels = data_colours$label, values = data_colours$colour) +
+    scale_fill_manual(
+      labels = data_colours$label, values = data_colours$colour
+    ) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank())

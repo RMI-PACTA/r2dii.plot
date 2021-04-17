@@ -26,7 +26,7 @@ test_that("outputs a data.frame", {
 
 test_that("with bad `sector_filter` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'arg' should be one of "
+  msg <- "'arg' should be one of "
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -36,13 +36,13 @@ test_that("with bad `sector_filter` errors gracefully", {
       column_line_names = "emission_factor_metric",
       value_to_plot = "emission_factor_value"
     ),
-    graceful_message
+    msg
   )
 })
 
 test_that("with bad `year_start` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'year_start' must be a number."
+  msg <- "'year_start' must be a number."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -52,13 +52,13 @@ test_that("with bad `year_start` errors gracefully", {
       column_line_names = "emission_factor_metric",
       value_to_plot = "emission_factor_value"
     ),
-    graceful_message
+    msg
   )
 })
 
 test_that("with bad `year_end` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'year_end' must be a number."
+  msg <- "'year_end' must be a number."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -68,29 +68,30 @@ test_that("with bad `year_end` errors gracefully", {
       column_line_names = "emission_factor_metric",
       value_to_plot = "emission_factor_value"
     ),
-    graceful_message
+    msg
   )
 })
 
 test_that("with bad `column_line_names` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'column_line_names' must be one of column names in the input data."
+  msg <- "'column_line_names' must be one of column names in the input data."
 
   expect_error(
-    prepare_for_timeline(sda_target,
+    prepare_for_timeline(
+      sda_target,
+      column_line_names = "bad",
       sector_filter = "automotive",
       year_start = 2020,
       year_end = 2026,
-      column_line_names = bad,
       value_to_plot = "emission_factor_value"
     ),
-    graceful_message
+    msg
   )
 })
 
 test_that("with bad `value_to_plot` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'value_to_plot' must be one of column names in the input data."
+  msg <- "'value_to_plot' must be one of column names in the input data."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -100,13 +101,13 @@ test_that("with bad `value_to_plot` errors gracefully", {
       column_line_names = "emission_factor_metric",
       value_to_plot = bad
     ),
-    graceful_message
+    msg
   )
 })
 
 test_that("with bad `extrapolate_missing_values` errors gracefully", {
   bad <- "bad"
-  graceful_message <- "'extrapolate_missing_values' must be a logical value."
+  msg <- "'extrapolate_missing_values' must be a logical value."
 
   expect_error(
     prepare_for_timeline(sda_target,
@@ -117,6 +118,6 @@ test_that("with bad `extrapolate_missing_values` errors gracefully", {
       value_to_plot = "emission_factor_value",
       extrapolate_missing_values = bad
     ),
-    graceful_message
+    msg
   )
 })
