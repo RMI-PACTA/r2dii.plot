@@ -1,5 +1,5 @@
 test_that("with the simplest call outputs the expected plot object", {
-  skip_if_not_local()
+  skip_if_r_version_is_older_than(4)
 
   data <- prepare_for_techmix_chart(
     process_input_data(get_example_data()),
@@ -35,7 +35,7 @@ test_that("with the simplest call outputs the expected plot object", {
 })
 
 test_that("with show_legend = FALSE outputs the expected plot object", {
-  skip_if_not_local()
+  skip_if_r_version_is_older_than(4)
 
   data <- prepare_for_techmix_chart(
     process_input_data(get_example_data()),
