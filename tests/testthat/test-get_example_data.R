@@ -22,7 +22,7 @@ test_that("has the expected type of columns", {
 })
 
 test_that("outputs the expected snapshot", {
-  skip_if_r_version_is_older_than(4)
+  skip_if(r_version_is_older_than(4))
 
   some_example_data <- head(as.data.frame(get_example_data()))
   expect_snapshot(some_example_data)

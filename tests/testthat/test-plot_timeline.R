@@ -35,7 +35,7 @@ test_that("with bad 'lines_specs' errors gracefully", {
 })
 
 test_that("with bad column names in 'lines_specs' errors gracefully", {
-  skip_if_r_version_is_older_than(4)
+  skip_if(r_version_is_older_than(4))
 
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
@@ -91,7 +91,7 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
 })
 
 test_that("works with extrapolated data", {
-  skip_if_r_version_is_older_than(4)
+  skip_if(r_version_is_older_than(4))
 
   extrapolated <- prepare_for_timeline(sda_target,
     sector_filter = "cement",

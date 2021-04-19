@@ -25,6 +25,6 @@ lines_specs <- function(...) {
   )
 }
 
-skip_if_r_version_is_older_than <- function(major) {
+r_version_is_older_than <- function(major) {
   as.integer(R.version$major) < major
 }
