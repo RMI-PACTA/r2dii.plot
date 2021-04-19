@@ -19,7 +19,14 @@ test_that("with the simplest call outputs the expected plot object", {
       "Benchmark 2025",
       "Target SDS 2025"
     ),
-    metric_type = gsub(" ", "_", tolower(label))
+    # Not DRYing (see r2dii.plot.static/pull/91#discussion_r615990701)
+    metric_type = c(
+      "portfolio_2020",
+      "benchmark_2020",
+      "portfolio_2025",
+      "benchmark_2025",
+      "target_sds_2025"
+    )
   )
 
   out <- plot_techmix(
