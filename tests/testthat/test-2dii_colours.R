@@ -1,4 +1,4 @@
-test_that("outputs the expected date", {
+test_that("have not changed", {
   skip_if(r_version_is_older_than(4))
 
   expect_snapshot(get_r2dii_technology_colours("power"))
