@@ -36,6 +36,8 @@ test_that("works with custom `additional_line_metrics` and brown technology", {
 })
 
 test_that("works with `annotate_data`", {
+  skip_if(r_version_is_older_than(4))
+
   data <- prepare_for_trajectory_chart(
     process_input_data(get_example_data()),
     sector_filter = "power",
