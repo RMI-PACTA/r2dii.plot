@@ -90,7 +90,7 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
   )
 })
 
-test_that("works with extrapolated data", {
+test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   extrapolated <- prepare_for_timeline(sda_target,

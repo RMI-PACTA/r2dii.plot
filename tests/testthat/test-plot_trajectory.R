@@ -1,4 +1,4 @@
-test_that("works with custom `additional_line_metrics` and brown technology", {
+test_that("with `additional_line_metrics` outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- prepare_for_trajectory_chart(
@@ -35,7 +35,7 @@ test_that("works with custom `additional_line_metrics` and brown technology", {
   expect_snapshot(out)
 })
 
-test_that("works with `annotate_data`", {
+test_that("with `annotate_data` outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- prepare_for_trajectory_chart(

@@ -1,4 +1,4 @@
-test_that("with the simplest call outputs the expected plot object", {
+test_that("with the simplest call outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- prepare_for_techmix_chart(
@@ -41,7 +41,7 @@ test_that("with the simplest call outputs the expected plot object", {
   expect_snapshot(out)
 })
 
-test_that("with show_legend = FALSE outputs the expected plot object", {
+test_that("with `show_legend = FALSE` outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- prepare_for_techmix_chart(
