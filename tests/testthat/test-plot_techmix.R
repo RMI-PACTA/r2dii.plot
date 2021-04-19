@@ -1,4 +1,6 @@
 test_that("with the simplest call outputs the expected plot object", {
+  skip_if_not_local()
+
   data <- prepare_for_techmix_chart(
     process_input_data(get_example_data()),
     sector_filter = "power",
@@ -33,6 +35,8 @@ test_that("with the simplest call outputs the expected plot object", {
 })
 
 test_that("with show_legend = FALSE outputs the expected plot object", {
+  skip_if_not_local()
+
   data <- prepare_for_techmix_chart(
     process_input_data(get_example_data()),
     sector_filter = "power",

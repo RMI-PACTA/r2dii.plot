@@ -22,6 +22,8 @@ test_that("has the expected type of columns", {
 })
 
 test_that("outputs the expected snapshot", {
+  skip_if_not_local()
+
   some_example_data <- head(as.data.frame(get_example_data()))
   expect_snapshot(some_example_data)
 })

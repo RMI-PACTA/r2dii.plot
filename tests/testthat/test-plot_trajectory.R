@@ -1,4 +1,6 @@
 test_that("works with custom `additional_line_metrics` and brown technology", {
+  skip_if_not_local()
+
   data <- prepare_for_trajectory_chart(
     process_input_data(get_example_data()),
     sector_filter = "power",

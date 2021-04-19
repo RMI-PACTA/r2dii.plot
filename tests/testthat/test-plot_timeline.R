@@ -35,6 +35,8 @@ test_that("with bad 'lines_specs' errors gracefully", {
 })
 
 test_that("with bad column names in 'lines_specs' errors gracefully", {
+  skip_if_not_local()
+
   data_sda_cement <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
@@ -89,6 +91,8 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
 })
 
 test_that("works with extrapolated data", {
+  skip_if_not_local()
+
   extrapolated <- prepare_for_timeline(sda_target,
     sector_filter = "cement",
     year_start = 2020,
