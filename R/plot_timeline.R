@@ -22,8 +22,18 @@
 #' )
 #'
 #' lines_specs <- dplyr::tibble(
-#'   line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-#'   label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
+#'   line_name = c(
+#'     "projected",
+#'     "corporate_economy",
+#'     "target_demo",
+#'     "adjusted_scenario_demo"
+#'   ),
+#'   label = c(
+#'     "Projected",
+#'     "Corporate Economy",
+#'     "Target Demo",
+#'     "Adjusted Scenario Demo"
+#'   ),
 #'   r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
 #' )
 #'

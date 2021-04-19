@@ -14,13 +14,18 @@ fake_data <- function() {
 
 lines_specs <- function(...) {
   dplyr::tibble(
+    line_name = c(
+      "projected",
+      "corporate_economy",
+      "target_demo",
+      "adjusted_scenario_demo"
+    ),
     label = c(
       "Projected",
       "Corporate Economy",
       "Target Demo",
       "Adjusted Scenario Demo"
     ),
-    line_name = gsub(" ", "_", tolower(label)),
     ...
   )
 }
