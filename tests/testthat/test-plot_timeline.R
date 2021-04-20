@@ -143,5 +143,5 @@ test_that("handles lines_specs with factors", {
   )
 
   specs <- dplyr::mutate(lines_specs(), label = as.factor(label))
-  expect_error(plot_timeline(data_sda_cement, lines_specs = specs), NA)
+  expect_no_error(plot_timeline(data_sda_cement, lines_specs = specs))
 })
