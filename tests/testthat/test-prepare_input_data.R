@@ -35,10 +35,8 @@ test_that("modifies `metric`", {
 })
 
 test_that("handles values of `metric`", {
-  bad <- fake_data()
-  bad$metric <- "bad metric"
+  bad <- fake_data(metric = "bad metric")
 
   # FIXME: If metric has none of the expected values, Should we throw an error?
-  no_error <- NA
-  expect_error(process_input_data(bad), no_error)
+  expect_error(process_input_data(bad), NA)
 })
