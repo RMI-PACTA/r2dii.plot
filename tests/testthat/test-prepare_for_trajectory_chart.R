@@ -63,22 +63,21 @@ test_that("with bad `sector_filter` warns gracefully", {
   )
 })
 
-# FIXME: We could throw a more graceful warning.
+# FIXME: Should this become an error
 test_that("with bad `technology_filter` warns ungracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  ungraceful_message <- "no non-missing arguments to min"
-
-  expect_warning(
-    prepare_for_trajectory_chart(
-      data,
-      sector_filter = "power",
-      technology_filter = bad,
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      value_name = "production"
-    ),
-    ungraceful_message
+  # Catch irrelevant bubling warnings
+  suppressWarnings(
+    expect_warning(
+      prepare_for_trajectory_chart(
+        process_input_data(get_example_data()),
+        sector_filter = "power",
+        technology_filter = "bad",
+        region_filter = "global",
+        scenario_source_filter = "demo_2020",
+        value_name = "production"
+      ),
+      "technology_filter.*bad"
+    )
   )
 })
 

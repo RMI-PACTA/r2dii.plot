@@ -41,6 +41,10 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
     warning("Unknown `sector_filter`: '", sector_filter, "'.", call. = FALSE)
   }
 
+  if (!technology_filter %in% data_preprocessed$technology) {
+    warning("Unknown `technology_filter`: '", technology_filter, "'.", call. = FALSE)
+  }
+
   year_start_projected <- data_preprocessed %>%
     filter(.data$metric == "projected") %>%
     pull(.data$year) %>%
