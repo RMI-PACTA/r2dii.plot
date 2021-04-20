@@ -45,22 +45,21 @@ test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
   )
 })
 
-# FIXME: We could throw a more graceful warning.
-test_that("with bad `sector_filter` warns ungracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  ungraceful_message <- "no non-missing arguments to min"
-
-  expect_warning(
-    prepare_for_trajectory_chart(
-      data,
-      sector_filter = bad,
-      technology_filter = "oilcap",
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      value_name = "production"
-    ),
-    ungraceful_message
+# FIXME: Should this become an error?
+test_that("with bad `sector_filter` warns gracefully", {
+  # Catch bubbling wranings from lower-levels.
+  suppressWarnings(
+    expect_warning(
+      prepare_for_trajectory_chart(
+        process_input_data(get_example_data()),
+        sector_filter = "bad",
+        technology_filter = "oilcap",
+        region_filter = "global",
+        scenario_source_filter = "demo_2020",
+        value_name = "production"
+      ),
+      "sector_filter.*bad"
+    )
   )
 })
 
@@ -182,20 +181,21 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
 # r2dii.utils::check_crucial_names()
 # TODO: Do this with all crucial names that the function expects in the input
 test_that("with input missing crucial columns errors ungracefully", {
-  bad <- process_input_data(get_example_data())
-  bad$sector <- NULL
-  ungraceful_message <- "Problem with.*filter"
+  bad <- select(process_input_data(get_example_data()), -sector)
 
   expect_error(
-    prepare_for_trajectory_chart(
-      bad,
-      sector_filter = "power",
-      technology_filter = "oilcap",
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      value_name = "production"
+    # Catch irrelevant, bubbling warnings
+    suppressWarnings(
+      prepare_for_trajectory_chart(
+        bad,
+        sector_filter = "power",
+        technology_filter = "oilcap",
+        region_filter = "global",
+        scenario_source_filter = "demo_2020",
+        value_name = "production"
+      )
     ),
-    ungraceful_message
+    "Problem with.*filter"
   )
 })
 
