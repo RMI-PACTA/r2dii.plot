@@ -64,8 +64,7 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
         year = .data$year.x, .data$metric_type,
         .data$metric, .data$value, technology = .data$technology.x
       )
-    # FIXME: Likely the output should be visible
-    # data_filtered
+    data_filtered
   } else {
     data_filtered
   }
