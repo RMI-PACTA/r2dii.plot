@@ -13,8 +13,7 @@
 #' @param normalize_to_start_year Flag indicating whether the values should be
 #'   normalized (boolean).
 #'
-#' @return FIXME: A data frame (invisibly by default and visibly if
-#' `normalize_to_start_year = FALSE`).
+#' @return A data frame.
 #'
 #' @export
 #'
@@ -64,8 +63,7 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
         year = .data$year.x, .data$metric_type,
         .data$metric, .data$value, technology = .data$technology.x
       )
-    data_filtered
-  } else {
-    data_filtered
   }
+
+  data_filtered
 }
