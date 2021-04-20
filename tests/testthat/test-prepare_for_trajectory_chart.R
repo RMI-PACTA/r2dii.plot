@@ -58,7 +58,7 @@ test_that("with bad `sector_filter` warns gracefully", {
         scenario_source_filter = "demo_2020",
         value_name = "production"
       ),
-      "sector_filter.*bad"
+      "bad.*matches.*no"
     )
   )
 })
@@ -76,7 +76,7 @@ test_that("with bad `technology_filter` warns ungracefully", {
         scenario_source_filter = "demo_2020",
         value_name = "production"
       ),
-      "technology_filter.*bad"
+      "bad.*matches.*no"
     )
   )
 })
