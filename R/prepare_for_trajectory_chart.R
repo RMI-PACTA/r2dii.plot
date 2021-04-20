@@ -37,19 +37,8 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
                                          value_name,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
-  warn_unknown_value <- function(x, y) {
-    label <- as.character(substitute(x))
-    value <- as.character(eval(substitute(x)))
-    if (!label %in% data_preprocessed[[y]]) {
-      msg <- sprintf("Unknown `%s`: '%s'", label, value)
-      warning(msg, call. = FALSE)
-    }
-
-    invisible(x)
-  }
   warn_unknown_value(sector_filter, "sector")
   warn_unknown_value(technology_filter, "technology")
-
 
   year_start_projected <- data_preprocessed %>%
     filter(.data$metric == "projected") %>%
@@ -81,4 +70,16 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
   }
 
   data_filtered
+}
+
+warn_unknown_value <- function(x, y) {
+  label <- as.character(substitute(x))
+  value <- as.character(eval(substitute(x)))
+
+  if (!label %in% data_preprocessed[[y]]) {
+    msg <- sprintf("Unknown `%s`: '%s'", label, value)
+    warning(msg, call. = FALSE)
+  }
+
+  invisible(x)
 }
