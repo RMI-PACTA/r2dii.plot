@@ -63,9 +63,8 @@ test_that("with bad `sector_filter` warns gracefully", {
   )
 })
 
-# FIXME: Should this become an error
-test_that("with bad `technology_filter` warns ungracefully", {
-  # Catch irrelevant bubling warnings
+# FIXME: Should this become an error?
+test_that("with bad `technology_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       prepare_for_trajectory_chart(
@@ -81,60 +80,53 @@ test_that("with bad `technology_filter` warns ungracefully", {
   )
 })
 
-# FIXME: We could throw a more graceful warning.
-test_that("with bad `region_filter` warns ungracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  ungraceful_message <- "no non-missing arguments to min"
-
-  expect_warning(
-    prepare_for_trajectory_chart(
-      data,
-      sector_filter = "power",
-      technology_filter = "oilcap",
-      region_filter = bad,
-      scenario_source_filter = "demo_2020",
-      value_name = "production"
-    ),
-    ungraceful_message
+# FIXME: Should this become an error?
+test_that("with bad `region_filter` warns gracefully", {
+  suppressWarnings(
+    expect_warning(
+      prepare_for_trajectory_chart(
+        process_input_data(get_example_data()),
+        sector_filter = "power",
+        technology_filter = "oilcap",
+        region_filter = "bad",
+        scenario_source_filter = "demo_2020",
+        value_name = "production"
+      ),
+      "bad.*matches.*no"
+    )
   )
 })
 
-# FIXME: We could throw a more graceful warning.
-test_that("with bad `scenario_source_filter` warns ungracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  ungraceful_message <- "no non-missing arguments to min"
-
-  expect_warning(
-    prepare_for_trajectory_chart(
-      data,
-      sector_filter = "power",
-      technology_filter = "oilcap",
-      region_filter = "global",
-      scenario_source_filter = bad,
-      value_name = "production"
-    ),
-    ungraceful_message
+# FIXME: Should this become an error?
+test_that("with bad `scenario_source_filter` warns gracefully", {
+  suppressWarnings(
+    expect_warning(
+      prepare_for_trajectory_chart(
+        process_input_data(get_example_data()),
+        sector_filter = "power",
+        technology_filter = "oilcap",
+        region_filter = "global",
+        scenario_source_filter = "bad",
+        value_name = "production"
+      ),
+      "bad.*matches.*no"
+    )
   )
 })
 
-# FIXME: We could throw a more graceful error.
-test_that("with bad `value_name` errors ungracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  ungraceful_message <- "Can't subset columns that don't exist"
-
-  expect_error(
-    prepare_for_trajectory_chart(
-      data,
-      sector_filter = "power",
-      technology_filter = "oilcap",
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      value_name = bad
-    ),
-    ungraceful_message
+test_that("with bad `value_name` errors gracefully", {
+  suppressWarnings(
+   expect_error(
+      prepare_for_trajectory_chart(
+        process_input_data(get_example_data()),
+        sector_filter = "power",
+        technology_filter = "oilcap",
+        region_filter = "global",
+        scenario_source_filter = "demo_2020",
+        value_name = "bad"
+      ),
+      "bad.*doesn't exist"
+    )
   )
 })
 
