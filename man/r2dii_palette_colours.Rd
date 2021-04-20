@@ -9,3 +9,6 @@ r2dii_palette_colours()
 \description{
 Get the 2DII colour palette
 }
+\examples{
+r2dii_palette_colours()
+}

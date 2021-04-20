@@ -1,10 +1,10 @@
-
 #' Get the predefined technology colors for a sector
 #'
 #' @param sector Sector for which we want to retrieve colors (character string).
 #'
 #' @export
-
+#' @examples
+#' get_r2dii_technology_colours("power")
 get_r2dii_technology_colours <- function(sector) {
   # styler: off
   all_colours <- tribble(
@@ -31,7 +31,10 @@ get_r2dii_technology_colours <- function(sector) {
   # styler: on
 
   all_colours <- all_colours %>%
-    mutate(sector = tolower(.data$sector), technology = tolower(.data$technology))
+    mutate(
+      sector = tolower(.data$sector),
+      technology = tolower(.data$technology)
+    )
 
   colours <- all_colours %>%
     filter(.data$sector == !!sector) %>%
@@ -43,7 +46,8 @@ get_r2dii_technology_colours <- function(sector) {
 #' Get the 2DII colour palette
 #'
 #' @export
-
+#' @examples
+#' r2dii_palette_colours()
 r2dii_palette_colours <- function() {
   # styler: off
   tribble(
@@ -65,7 +69,8 @@ r2dii_palette_colours <- function() {
 #'
 #' @return Tribble with sector labels and colour hex strings.
 #' @export
-
+#' @examples
+#' r2dii_sector_colours()
 r2dii_sector_colours <- function() {
   # styler: off
   tribble(

@@ -12,3 +12,6 @@ Tribble with sector labels and colour hex strings.
 \description{
 Get the 2DII sector colour palette
 }
+\examples{
+r2dii_sector_colours()
+}

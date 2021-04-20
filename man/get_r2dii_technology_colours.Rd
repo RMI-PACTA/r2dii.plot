@@ -12,3 +12,6 @@ get_r2dii_technology_colours(sector)
 \description{
 Get the predefined technology colors for a sector
 }
+\examples{
+get_r2dii_technology_colours("power")
+}

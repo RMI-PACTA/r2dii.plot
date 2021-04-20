@@ -57,7 +57,11 @@ prepare_for_timeline <- function(sda_target_data,
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$year >= year_start) %>%
     filter(.data$year <= year_end) %>%
-    select(.data$year, line_name = !!column_line_names, value = !!value_to_plot) %>%
+    select(
+      .data$year,
+      line_name = !!column_line_names,
+      value = !!value_to_plot
+    ) %>%
     mutate(extrapolated = FALSE)
 
   if (extrapolate_missing_values) {
@@ -73,7 +77,10 @@ prepare_for_timeline <- function(sda_target_data,
       data_extrapolated <- data_to_extrapolate
       data_extrapolated$year <- max_year_dataset
 
-      data_extrapolated <- dplyr::bind_rows(data_to_extrapolate, data_extrapolated)
+      data_extrapolated <- dplyr::bind_rows(
+        data_to_extrapolate,
+        data_extrapolated
+      )
       data_extrapolated$extrapolated <- TRUE
 
       data_timeline <- dplyr::bind_rows(data_timeline, data_extrapolated)

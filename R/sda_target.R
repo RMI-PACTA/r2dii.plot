@@ -7,7 +7,8 @@
 #' * `sector`: Industry sector (as defined in PACTA).
 #' * `year`: Year for which emissions are reported.
 #' * `emission_factor_metric`: metric type: 'projected' for the test portfolio
-#' 'corporate_economy' for the benchmark, 'adjusted_scenario_demo' for a scenario.
+#' 'corporate_economy' for the benchmark, 'adjusted_scenario_demo' for a
+#' scenario.
 #' * `emission_factor_value`: emissions value, a double, units differ depending
 #' on the sector.
 #'
