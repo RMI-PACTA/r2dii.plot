@@ -43,6 +43,7 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
     min()
 
   data_filtered <- data_preprocessed %>%
+    # FIXME: `!!` is unnecessary
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$technology == !!technology_filter) %>%
     filter(.data$region == !!region_filter) %>%
