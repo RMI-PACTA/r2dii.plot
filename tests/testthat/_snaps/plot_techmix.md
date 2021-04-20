@@ -1,4 +1,4 @@
-# with the simplest call outputs the expected plot object
+# with the simplest call outputs the expected snapshot
 
     Code
       out
@@ -583,7 +583,7 @@
       
       
 
-# with show_legend = FALSE outputs the expected plot object
+# with `show_legend = FALSE` outputs the expected snapshot
 
     Code
       out

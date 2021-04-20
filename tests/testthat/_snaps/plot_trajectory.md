@@ -1,4 +1,4 @@
-# works with custom `additional_line_metrics` and brown technology
+# with `additional_line_metrics` outputs the expected snapshot
 
     Code
       out
@@ -558,7 +558,7 @@
       
       
 
-# works with `annotate_data`
+# with `annotate_data` outputs the expected snapshot
 
     Code
       out
