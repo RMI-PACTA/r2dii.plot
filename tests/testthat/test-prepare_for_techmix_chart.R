@@ -14,11 +14,10 @@ test_that("outputs a data.frame", {
   expect_s3_class(out, "data.frame")
 })
 
-# FIXME: This is a mistake
-test_that("by default outputs invisibly", {
+test_that("returns visibly", {
   data <- process_input_data(get_example_data())
 
-  expect_invisible(
+  expect_visible(
     prepare_for_techmix_chart(
       data,
       sector_filter = "power",

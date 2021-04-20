@@ -13,7 +13,7 @@ test_that("outputs a data.frame", {
   expect_s3_class(out, "data.frame")
 })
 
-test_that("by default outputs invisibly", {
+test_that("returns visibly", {
   data <- process_input_data(get_example_data())
 
   expect_visible(

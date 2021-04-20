@@ -31,4 +31,6 @@ prepare_for_techmix_chart <- function(data_preprocessed,
     select(.data$technology, .data$metric_type, .data$metric,
       value = !!value_name
     )
+
+  data_filtered
 }
