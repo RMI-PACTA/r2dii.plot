@@ -3,9 +3,9 @@ test_that("inputs a data frame structured as get_example_data()", {
   expect_error(process_input_data(fake_data()), no_error)
 })
 
-test_that("outputs a data.frame, invisibly", {
+test_that("outputs a visible data frame", {
   expect_s3_class(process_input_data(fake_data()), "data.frame")
-  expect_invisible(process_input_data(fake_data()))
+  expect_visible(process_input_data(fake_data()))
 })
 
 test_that("adds a column `metric_type`", {

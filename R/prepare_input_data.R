@@ -14,7 +14,7 @@
 #' data <- get_example_data()
 #' process_input_data(data)
 process_input_data <- function(data) {
-  data <- data %>%
+  data %>%
     mutate(metric_type = case_when(
       .data$metric == "projected" ~ "portfolio",
       grepl("target", .data$metric) ~ "scenario",
@@ -25,7 +25,4 @@ process_input_data <- function(data) {
       sub(".*_", "", .data$metric),
       .data$metric
     ))
-
-  # FIXME: Here we likely need to return `data`
-  # data
 }
