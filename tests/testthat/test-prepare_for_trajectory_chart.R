@@ -116,7 +116,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
 
 test_that("with bad `value_name` errors gracefully", {
   suppressWarnings(
-   expect_error(
+    expect_error(
       prepare_for_trajectory_chart(
         process_input_data(get_example_data()),
         sector_filter = "power",
