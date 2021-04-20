@@ -16,12 +16,8 @@ test_that("adds a column `metric_type`", {
   expect_true(hasName(after, "metric_type"))
 })
 
-# FIXME: The helpfile shoud likely not expose implementation details. That will
-# too easily become obsolete when the implementation changes. Instead you may
-# better "document" this expectation with an informative error message.
 test_that("depends on input column `metric`", {
-  bad <- fake_data()
-  bad$metric <- NULL
+  bad <- select(fake_data(), -metric)
 
   # FIXME: The error message could be more graceful
   message <- "nms %in% .* are not all TRUE"
