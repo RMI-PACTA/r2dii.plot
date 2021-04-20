@@ -41,8 +41,14 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
     warning("Unknown `sector_filter`: '", sector_filter, "'.", call. = FALSE)
   }
 
+  format_unknown_value <- function(x) {
+    label <- as.character(substitute(x))
+    value <- as.character(eval(substitute(x)))
+    sprintf("Unknown `%s`: '%s'", label, value)
+  }
+
   if (!technology_filter %in% data_preprocessed$technology) {
-    msg <- sprintf("Unknown `technology_filter`: '%s'.", technology_filter)
+    msg <- format_unknown_value(technology_filter)
     warning(msg, call. = FALSE)
   }
 
