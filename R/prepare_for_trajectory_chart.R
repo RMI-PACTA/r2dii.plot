@@ -42,7 +42,8 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
   }
 
   if (!technology_filter %in% data_preprocessed$technology) {
-    warning("Unknown `technology_filter`: '", technology_filter, "'.", call. = FALSE)
+    msg <- sprintf("Unknown `technology_filter`: '%s'.", technology_filter)
+    warning(msg, call. = FALSE)
   }
 
   year_start_projected <- data_preprocessed %>%
