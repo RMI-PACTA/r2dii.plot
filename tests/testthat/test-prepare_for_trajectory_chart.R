@@ -136,7 +136,7 @@ test_that("with bad `end_year_filter` throws no error", {
   bad <- "bad"
   no_error <- NA
 
-  expect_error(
+  expect_no_error(
     prepare_for_trajectory_chart(
       data,
       sector_filter = "power",
@@ -145,8 +145,7 @@ test_that("with bad `end_year_filter` throws no error", {
       scenario_source_filter = "demo_2020",
       value_name = "production",
       end_year_filter = bad
-    ),
-    no_error
+    )
   )
 })
 
