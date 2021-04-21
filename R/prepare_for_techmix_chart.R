@@ -21,7 +21,7 @@ prepare_for_techmix_chart <- function(data_preprocessed,
   data_preprocessed %>%
     filter(.data$sector == .env$sector_filter) %>%
     filter(.data$region == .env$region_filter) %>%
-    filter(.data$year %in% !!years_filter) %>%
+    filter(.data$year %in% .env$years_filter) %>%
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(.data$metric_type %in% c("portfolio", "benchmark") |
       (.data$metric_type == "scenario" & .data$metric == scenario_filter)) %>%
