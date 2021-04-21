@@ -71,7 +71,7 @@ r2dii_palette_colours <- function() {
 #' @export
 #' @examples
 #' r2dii_sector_colours()
-r2dii_sector_colours <- function() {
+r2dii_sector_colours <- function() { # nocov start
   # styler: off
   tribble(
         ~label, ~colour_hex,
@@ -85,4 +85,4 @@ r2dii_sector_colours <- function() {
        "steel",   "#a63d57"
   )
   # styler: on
-}
+}  # nocov end
