@@ -15,10 +15,9 @@ test_that("adds a column `metric_type`", {
   expect_true(hasName(after, "metric_type"))
 })
 
-# FIXME: The error message could be more graceful
 test_that("depends on input column `metric`", {
   expect_error(
-    regexp = "nms %in% .* are not all TRUE",
+    class = "missing_names",
     process_input_data(bad <- select(fake_data(), -metric))
   )
 })

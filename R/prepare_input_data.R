@@ -13,6 +13,8 @@
 #' data <- get_example_data()
 #' process_input_data(data)
 process_input_data <- function(data) {
+  check_crucial_names(data, "metric")
+
   data %>%
     mutate(
       metric_type = case_when(

@@ -111,6 +111,7 @@ test_that("assigns the value in `value_name` to a new column `value`", {
     scenario_filter = "sds",
     value_name = "blah"
   )
+
   expect_true(rlang::has_name(out, "value"))
   expect_equal(unique(out$value), "blah")
 })
