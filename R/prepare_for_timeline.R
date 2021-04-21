@@ -59,8 +59,8 @@ prepare_for_timeline <- function(sda_target_data,
     filter(.data$year <= year_end) %>%
     select(
       .data$year,
-      line_name = !!column_line_names,
-      value = !!value_to_plot
+      line_name = .data[[column_line_names]],
+      value = .data[[value_to_plot]]
     ) %>%
     mutate(extrapolated = FALSE)
 
