@@ -101,7 +101,10 @@ test_that("with bad `scenario_filter` returns a data.frame", {
   expect_s3_class(out, "data.frame")
 })
 
-test_that("assigns the value in `value_name` to a new column `value`", {
+# FIXME: Is this what `value_name` means? What are valid options other than
+# "production"? That information is not documented in the description of the
+# argument `value_name` not via examples or README.
+test_that("adds the column `value` from the column named in `value_name`", {
   out <- prepare_for_techmix_chart(
     process_input_data(get_example_data()),
     sector_filter = "power",
@@ -109,9 +112,9 @@ test_that("assigns the value in `value_name` to a new column `value`", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_name = "blah"
+    value_name = "production"
   )
 
   expect_true(rlang::has_name(out, "value"))
-  expect_equal(unique(out$value), "blah")
+  expect_type(out$value, "double")
 })

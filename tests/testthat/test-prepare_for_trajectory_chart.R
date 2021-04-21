@@ -127,7 +127,7 @@ test_that("adds the column `value` from the column named in `value_name`", {
   )
 
   expect_true(rlang::has_name(out, "value"))
-  expect_true(rlang::has_name(out, "value"))
+  expect_type(out$value, "double")
 })
 
 # FIXME: Do we need an error or warning?

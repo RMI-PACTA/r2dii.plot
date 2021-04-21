@@ -23,11 +23,13 @@ prepare_for_techmix_chart <- function(data_preprocessed,
     filter(.data$region == .env$region_filter) %>%
     filter(.data$year %in% .env$years_filter) %>%
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
-    filter(.data$metric_type %in% c("portfolio", "benchmark") |
-      (.data$metric_type == "scenario" & .data$metric == scenario_filter)) %>%
-    mutate(
-      metric_type = paste0(.data$metric_type, "_", as.character(.data$year))
+    filter(
+      .data$metric_type %in% c("portfolio", "benchmark") |
+        (.data$metric_type == "scenario" & .data$metric == scenario_filter)
     ) %>%
-    select(.data$technology, .data$metric_type, .data$metric) %>%
-    mutate(value = value_name)
+    mutate(
+      metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
+      value = .data[[value_name]]
+    ) %>%
+    select(.data$technology, .data$metric_type, .data$metric, .data$value)
 }
