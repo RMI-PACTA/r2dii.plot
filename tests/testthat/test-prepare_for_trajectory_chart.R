@@ -47,9 +47,9 @@ test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
 
 # FIXME: Should this become an error?
 test_that("with bad `sector_filter` warns gracefully", {
-  # Catch bubbling wranings from lower-levels.
   suppressWarnings(
     expect_warning(
+      regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
         process_input_data(get_example_data()),
         sector_filter = "bad",
@@ -57,8 +57,7 @@ test_that("with bad `sector_filter` warns gracefully", {
         region_filter = "global",
         scenario_source_filter = "demo_2020",
         value_name = "production"
-      ),
-      "bad.*matches.*no"
+      )
     )
   )
 })
@@ -67,6 +66,7 @@ test_that("with bad `sector_filter` warns gracefully", {
 test_that("with bad `technology_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
+      regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
         process_input_data(get_example_data()),
         sector_filter = "power",
@@ -74,8 +74,7 @@ test_that("with bad `technology_filter` warns gracefully", {
         region_filter = "global",
         scenario_source_filter = "demo_2020",
         value_name = "production"
-      ),
-      "bad.*matches.*no"
+      )
     )
   )
 })
@@ -84,6 +83,7 @@ test_that("with bad `technology_filter` warns gracefully", {
 test_that("with bad `region_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
+      regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
         process_input_data(get_example_data()),
         sector_filter = "power",
@@ -91,8 +91,7 @@ test_that("with bad `region_filter` warns gracefully", {
         region_filter = "bad",
         scenario_source_filter = "demo_2020",
         value_name = "production"
-      ),
-      "bad.*matches.*no"
+      )
     )
   )
 })
@@ -101,6 +100,7 @@ test_that("with bad `region_filter` warns gracefully", {
 test_that("with bad `scenario_source_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
+      regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
         process_input_data(get_example_data()),
         sector_filter = "power",
@@ -108,8 +108,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
         region_filter = "global",
         scenario_source_filter = "bad",
         value_name = "production"
-      ),
-      "bad.*matches.*no"
+      )
     )
   )
 })
