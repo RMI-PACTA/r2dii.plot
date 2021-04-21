@@ -101,18 +101,16 @@ test_that("with bad `scenario_filter` returns a data.frame", {
   expect_s3_class(out, "data.frame")
 })
 
-# FIXME: Reuse check_crucial_names()
-test_that("with bad `value_name` errors ungracefully", {
-  expect_error(
-    regexp = "Can't subset columns that don't exist",
-    prepare_for_techmix_chart(
-      process_input_data(get_example_data()),
-      sector_filter = "power",
-      years_filter = c(2020, 2025),
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      scenario_filter = "sds",
-      value_name = "bad"
-    )
+test_that("assigns the value in `value_name` to a new column `value`", {
+  out <- prepare_for_techmix_chart(
+    process_input_data(get_example_data()),
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_name = "blah"
   )
+  expect_true(rlang::has_name(out, "value"))
+  expect_equal(unique(out$value), "blah")
 })

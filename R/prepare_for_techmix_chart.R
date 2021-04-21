@@ -18,7 +18,7 @@ prepare_for_techmix_chart <- function(data_preprocessed,
                                       scenario_source_filter,
                                       scenario_filter,
                                       value_name) {
-  data_filtered <- data_preprocessed %>%
+  data_preprocessed %>%
     filter(.data$sector == !!sector_filter) %>%
     filter(.data$region == !!region_filter) %>%
     filter(.data$year %in% !!years_filter) %>%
@@ -28,9 +28,6 @@ prepare_for_techmix_chart <- function(data_preprocessed,
     mutate(
       metric_type = paste0(.data$metric_type, "_", as.character(.data$year))
     ) %>%
-    select(.data$technology, .data$metric_type, .data$metric,
-      value = !!value_name
-    )
-
-  data_filtered
+    select(.data$technology, .data$metric_type, .data$metric) %>%
+    mutate(value = value_name)
 }
