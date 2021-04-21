@@ -78,18 +78,16 @@ test_that("with bad `column_line_names` errors gracefully", {
 })
 
 test_that("with bad `value_to_plot` errors gracefully", {
-  bad <- "bad"
-  msg <- "'value_to_plot' must be one of column names in the input data."
-
   expect_error(
-    prepare_for_timeline(sda_target,
+    regexp = "'value_to_plot' must be one of column names in the input data.",
+    prepare_for_timeline(
+      sda_target,
       sector_filter = "automotive",
       year_start = 2020,
       year_end = 2026,
       column_line_names = "emission_factor_metric",
-      value_to_plot = bad
-    ),
-    msg
+      value_to_plot = "bad"
+    )
   )
 })
 

@@ -31,5 +31,7 @@ test_that("modifies `metric`", {
 
 test_that("handles values of `metric`", {
   # FIXME: If metric has none of the expected values, Should we throw an error?
-  expect_no_error(process_input_data(bad <- fake_data(metric = "bad metric")))
+  expect_no_error(
+    process_input_data(bad <- fake_data(metric = "bad metric"))
+  )
 })
