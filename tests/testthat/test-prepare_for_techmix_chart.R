@@ -32,67 +32,50 @@ test_that("returns visibly", {
 
 # FIXME: We should throw a graceful warning.
 test_that("with bad `sector_filter` returns a data.frame with no rows", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-
-  expect_equal(
-    nrow(prepare_for_techmix_chart(
-      data,
-      sector_filter = bad,
-      years_filter = c(2020, 2025),
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      scenario_filter = "sds",
-      value_name = "technology_share"
-    )),
-    0L
+  out <- prepare_for_techmix_chart(
+    process_input_data(get_example_data()),
+    sector_filter = "bad",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_name = "technology_share"
   )
+  expect_equal(nrow(out), 0L)
 })
 
 # FIXME: We should throw a graceful warning.
 test_that("with bad `years_filter` returns a data.frame with no rows", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-
-  expect_equal(
-    nrow(prepare_for_techmix_chart(
-      data,
-      sector_filter = "power",
-      years_filter = bad,
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      scenario_filter = "sds",
-      value_name = "technology_share"
-    )),
-    0L
+  out <- prepare_for_techmix_chart(
+    process_input_data(get_example_data()),
+    sector_filter = "power",
+    years_filter = "bad",
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_name = "technology_share"
   )
+  expect_equal(nrow(out), 0L)
 })
 
 # FIXME: We should throw a graceful warning.
 test_that("with bad `region_filter` returns a data.frame with no rows", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-
-  expect_equal(
-    nrow(prepare_for_techmix_chart(
-      data,
-      sector_filter = "power",
-      years_filter = c(2020, 2025),
-      region_filter = bad,
-      scenario_source_filter = "demo_2020",
-      scenario_filter = "sds",
-      value_name = "technology_share"
-    )),
-    0L
+  out <- prepare_for_techmix_chart(
+    process_input_data(get_example_data()),
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "bad",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_name = "technology_share"
   )
+  expect_equal(nrow(out), 0L)
 })
 
 # FIXME: We should throw a graceful warning.
 test_that("with bad `scenario_source_filter` returns a 0-rows data.frame", {
-  data <- process_input_data(get_example_data())
-
   out <- prepare_for_techmix_chart(
-    data,
+    process_input_data(get_example_data()),
     scenario_source_filter = "bad",
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -106,24 +89,19 @@ test_that("with bad `scenario_source_filter` returns a 0-rows data.frame", {
 
 # FIXME: We should throw a graceful warning.
 test_that("with bad `scenario_filter` returns a data.frame", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-
-  expect_s3_class(
-    prepare_for_techmix_chart(
-      data,
-      sector_filter = "power",
-      years_filter = c(2020, 2025),
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      scenario_filter = bad,
-      value_name = "technology_share"
-    ),
-    "data.frame"
+  out <- prepare_for_techmix_chart(
+    process_input_data(get_example_data()),
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "bad",
+    value_name = "technology_share"
   )
+  expect_s3_class(out, "data.frame")
 })
 
-# FIXME: We could throw a more graceful error.
+# FIXME: Reuse check_crucial_names()
 test_that("with bad `value_name` errors ungracefully", {
   expect_error(
     regexp = "Can't subset columns that don't exist",
