@@ -37,7 +37,7 @@ get_r2dii_technology_colours <- function(sector) {
     )
 
   colours <- all_colours %>%
-    filter(.data$sector == !!sector) %>%
+    filter(.data$sector == .env$sector) %>%
     select(.data$technology, .data$label, colour = .data$colour_hex)
 
   colours

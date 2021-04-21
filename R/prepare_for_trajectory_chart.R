@@ -49,13 +49,12 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
     min()
 
   data_filtered <- data_preprocessed %>%
-    # FIXME: `!!` is unnecessary
-    filter(.data$sector == !!sector_filter) %>%
-    filter(.data$technology == !!technology_filter) %>%
-    filter(.data$region == !!region_filter) %>%
-    filter(.data$scenario_source == !!scenario_source_filter) %>%
-    filter(.data$year >= !!year_start_projected) %>%
-    filter(.data$year <= !!end_year_filter) %>%
+    filter(.data$sector == .env$sector_filter) %>%
+    filter(.data$technology == .env$technology_filter) %>%
+    filter(.data$region == .env$region_filter) %>%
+    filter(.data$scenario_source == .env$scenario_source_filter) %>%
+    filter(.data$year >= .env$year_start_projected) %>%
+    filter(.data$year <= .env$end_year_filter) %>%
     mutate(value = .data[[value_name]]) %>%
     select(
       .data$year,

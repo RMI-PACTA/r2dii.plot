@@ -54,7 +54,7 @@ prepare_for_timeline <- function(sda_target_data,
 
   # Create output data
   data_timeline <- sda_target_data %>%
-    filter(.data$sector == !!sector_filter) %>%
+    filter(.data$sector == .env$sector_filter) %>%
     filter(.data$year >= year_start) %>%
     filter(.data$year <= year_end) %>%
     select(
