@@ -56,8 +56,13 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
     filter(.data$scenario_source == !!scenario_source_filter) %>%
     filter(.data$year >= !!year_start_projected) %>%
     filter(.data$year <= !!end_year_filter) %>%
-    select(.data$year, .data$metric_type, .data$metric, .data$technology,
-      value = !!value_name
+    mutate(value = .data[[value_name]]) %>%
+    select(
+      .data$year,
+      .data$metric_type,
+      .data$metric,
+      .data$technology,
+      .data$value
     )
 
   if (normalize_to_start_year) {

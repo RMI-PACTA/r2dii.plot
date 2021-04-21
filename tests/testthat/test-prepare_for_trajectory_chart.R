@@ -113,20 +113,21 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
   )
 })
 
-test_that("with bad `value_name` errors gracefully", {
-  suppressWarnings(
-    expect_error(
-      regexp = "bad.*doesn't exist",
-      prepare_for_trajectory_chart(
-        process_input_data(get_example_data()),
-        sector_filter = "power",
-        technology_filter = "oilcap",
-        region_filter = "global",
-        scenario_source_filter = "demo_2020",
-        value_name = "bad"
-      )
-    )
+# FIXME: Is this what `value_name` means? What are valid options other than
+# "production"? That information is not documented in the description of the
+# argument `value_name` not via examples or README.
+test_that("adds the column `value` from the column named in `value_name`", {
+  out <- prepare_for_trajectory_chart(
+    process_input_data(get_example_data()),
+    sector_filter = "power",
+    technology_filter = "oilcap",
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    value_name = "production"
   )
+
+  expect_true(rlang::has_name(out, "value"))
+  expect_true(rlang::has_name(out, "value"))
 })
 
 # FIXME: Do we need an error or warning?
