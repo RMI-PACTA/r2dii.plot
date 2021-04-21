@@ -159,11 +159,10 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
   )
 })
 
-# FIXME: Reimplement r2dii.utils::check_crucial_names()
-test_that("with input missing crucial columns errors ungracefully", {
+test_that("with missing crucial columns errors gracefully", {
   suppressWarnings(
     expect_error(
-      regexp = "Problem with.*filter",
+      class = "missing_names",
       prepare_for_trajectory_chart(
         bad <- select(process_input_data(get_example_data()), -sector),
         sector_filter = "power",

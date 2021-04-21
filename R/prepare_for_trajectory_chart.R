@@ -41,6 +41,7 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
   warn_bad_value(technology_filter, data_preprocessed$technology)
   warn_bad_value(region_filter, data_preprocessed$region)
   warn_bad_value(scenario_source_filter, data_preprocessed$scenario_source)
+  check_crucial_names(data_preprocessed, "sector")
 
   year_start_projected <- data_preprocessed %>%
     filter(.data$metric == "projected") %>%
