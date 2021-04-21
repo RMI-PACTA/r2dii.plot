@@ -130,38 +130,31 @@ test_that("with bad `value_name` errors gracefully", {
   )
 })
 
-# FIXME: This may need an error or warning
+# FIXME: Do we need an error or warning?
 test_that("with bad `end_year_filter` throws no error", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  no_error <- NA
-
   expect_no_error(
     prepare_for_trajectory_chart(
-      data,
+      process_input_data(get_example_data()),
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       value_name = "production",
-      end_year_filter = bad
+      end_year_filter = "bad"
     )
   )
 })
 
 test_that("with bad `normalize_to_start_year` errors gracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-
   expect_error(
     prepare_for_trajectory_chart(
-      data,
+      process_input_data(get_example_data()),
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       value_name = "production",
-      normalize_to_start_year = bad
+      normalize_to_start_year = "bad"
     ),
     "not.*logical"
   )
