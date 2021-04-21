@@ -29,8 +29,8 @@ test_that("with bad 'lines_specs' errors gracefully", {
   )
 
   expect_error(
-    plot_timeline(data_sda_cement, lines_specs = "bad"),
-    "'line_specs' must be a dataframe."
+    regexp = "'line_specs' must be a dataframe.",
+    plot_timeline(data_sda_cement, lines_specs = "bad")
   )
 })
 
@@ -48,8 +48,8 @@ test_that("with bad column names in 'lines_specs' errors gracefully", {
   bad_lines_specs <- dplyr::rename(lines_specs(), bad = label)
 
   expect_error(
-    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs),
-    "'line_specs' must have columns 'line_name' and 'label'."
+    regexp = "'line_specs' must have columns 'line_name' and 'label'.",
+    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs)
   )
 })
 
@@ -66,8 +66,8 @@ test_that("with unmatching entries in 'lines_specs' errors gracefully", {
   bad_lines_specs$line_name[1] <- "bad"
 
   expect_error(
-    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs),
-    "Can't find `line_name` values from 'lines_specs' in the data."
+    regexp = "Can't find `line_name` values from 'lines_specs' in the data.",
+    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs)
   )
 })
 
@@ -85,8 +85,8 @@ test_that("with bad colour names in 'lines_specs' errors gracefully", {
   )
 
   expect_error(
-    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs),
-    "Colour names specified in 'lines_specs' must match "
+    regexp = "Colour names specified in 'lines_specs' must match ",
+    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs)
   )
 })
 
@@ -128,8 +128,8 @@ test_that("with malformed lines_specs errors gracefully", {
     )
   )
   expect_error(
-    plot_timeline(data_sda_cement, lines_specs = too_many_rows),
-    "lines.*must be.*lower"
+    regexp = "lines.*must be.*lower",
+    plot_timeline(data_sda_cement, lines_specs = too_many_rows)
   )
 })
 

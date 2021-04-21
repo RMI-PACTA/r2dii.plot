@@ -125,20 +125,16 @@ test_that("with bad `scenario_filter` returns a data.frame", {
 
 # FIXME: We could throw a more graceful error.
 test_that("with bad `value_name` errors ungracefully", {
-  data <- process_input_data(get_example_data())
-  bad <- "bad"
-  ungraceful_message <- "Can't subset columns that don't exist"
-
   expect_error(
+    regexp = "Can't subset columns that don't exist",
     prepare_for_techmix_chart(
-      data,
+      process_input_data(get_example_data()),
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
-      value_name = bad
-    ),
-    ungraceful_message
+      value_name = "bad"
+    )
   )
 })

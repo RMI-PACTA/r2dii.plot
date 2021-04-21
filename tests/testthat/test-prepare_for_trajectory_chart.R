@@ -117,6 +117,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
 test_that("with bad `value_name` errors gracefully", {
   suppressWarnings(
     expect_error(
+      regexp = "bad.*doesn't exist",
       prepare_for_trajectory_chart(
         process_input_data(get_example_data()),
         sector_filter = "power",
@@ -124,8 +125,7 @@ test_that("with bad `value_name` errors gracefully", {
         region_filter = "global",
         scenario_source_filter = "demo_2020",
         value_name = "bad"
-      ),
-      "bad.*doesn't exist"
+      )
     )
   )
 })
@@ -147,6 +147,7 @@ test_that("with bad `end_year_filter` throws no error", {
 
 test_that("with bad `normalize_to_start_year` errors gracefully", {
   expect_error(
+    regexp = "not.*logical",
     prepare_for_trajectory_chart(
       process_input_data(get_example_data()),
       sector_filter = "power",
@@ -155,30 +156,24 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
       scenario_source_filter = "demo_2020",
       value_name = "production",
       normalize_to_start_year = "bad"
-    ),
-    "not.*logical"
+    )
   )
 })
 
-# FIXME: The error message could be more graceful, maybe with this or similar:
-# r2dii.utils::check_crucial_names()
-# TODO: Do this with all crucial names that the function expects in the input
+# FIXME: Reimplement r2dii.utils::check_crucial_names()
 test_that("with input missing crucial columns errors ungracefully", {
-  bad <- select(process_input_data(get_example_data()), -sector)
-
-  expect_error(
-    # Catch irrelevant, bubbling warnings
-    suppressWarnings(
+  suppressWarnings(
+    expect_error(
+      regexp = "Problem with.*filter",
       prepare_for_trajectory_chart(
-        bad,
+        bad <- select(process_input_data(get_example_data()), -sector),
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "global",
         scenario_source_filter = "demo_2020",
         value_name = "production"
       )
-    ),
-    "Problem with.*filter"
+    )
   )
 })
 
