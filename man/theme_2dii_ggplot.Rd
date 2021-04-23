@@ -15,3 +15,10 @@ families).}
 Returns a ggplot theme which can be applied to all graphs to appear according
 to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
 }
+\examples{
+class(theme_2dii_ggplot())
+
+ggplot(mtcars) +
+  geom_histogram(aes(mpg)) +
+  theme_2dii_ggplot()
+}
