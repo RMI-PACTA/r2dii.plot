@@ -9,6 +9,8 @@
 #'
 #' @export
 #' @examples
+#' library(ggplot2)
+#'
 #' class(theme_2dii_ggplot())
 #'
 #' ggplot(mtcars) +
