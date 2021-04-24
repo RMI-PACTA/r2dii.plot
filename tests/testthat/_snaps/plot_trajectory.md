@@ -539,7 +539,7 @@
       
       $labels
       $labels$title
-      [1] ""
+      NULL
       
       $labels$y
       [1] ""
@@ -1159,7 +1159,7 @@
       
       $labels
       $labels$title
-      [1] ""
+      NULL
       
       $labels$y
       [1] ""

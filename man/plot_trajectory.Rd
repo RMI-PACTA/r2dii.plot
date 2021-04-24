@@ -6,7 +6,7 @@
 \usage{
 plot_trajectory(
   data,
-  plot_title = "",
+  plot_title = NULL,
   x_title = "",
   y_title = "",
   annotate_data = FALSE,
