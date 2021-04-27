@@ -1,4 +1,4 @@
-# works with extrapolated data
+# outputs the expected snapshot
 
     Code
       out
