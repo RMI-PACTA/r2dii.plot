@@ -85,4 +85,4 @@ r2dii_sector_colours <- function() { # nocov start
        "steel",   "#a63d57"
   )
   # styler: on
-}  # nocov end
+} # nocov end
