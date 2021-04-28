@@ -31,6 +31,15 @@ An object of class "ggplot".
 Create a time line plot
 }
 \examples{
+# You may prepare and plot an sda_target-like dataset using defaults
+example_data <- prepare_for_timeline(sda_target)
+
+# FIXME: print() should be unnecessary if plot_timeline() retunrs visibly
+print(
+  plot_timeline(example_data)
+)
+
+# Or use custom values passed to a number of arguments
 data_sda_cement <- prepare_for_timeline(sda_target,
   sector_filter = "cement",
   year_start = 2020,
