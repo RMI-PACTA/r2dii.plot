@@ -54,5 +54,8 @@ test_that("outputs like r2dii.analysis::target_market_share()", {
 })
 
 test_that("errors gracefully", {
-  expect_error(get_example_data("bad"), "unused argument")
+  expect_error(
+    regexp = "unused argument",
+    get_example_data("bad")
+  )
 })

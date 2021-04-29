@@ -54,8 +54,7 @@ plot_techmix <- function(data,
                          show_legend = TRUE,
                          df_tech_colours,
                          df_bar_specs) {
-  data_colours <- df_tech_colours %>%
-    filter(.data$technology %in% unique(!!data$technology))
+  data_colours <- dplyr::semi_join(df_tech_colours, data, by = "technology")
 
   data <- data %>%
     filter(.data$metric_type %in% df_bar_specs$metric_type)

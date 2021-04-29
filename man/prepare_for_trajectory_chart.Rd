@@ -37,8 +37,7 @@ string).}
 normalized (boolean).}
 }
 \value{
-FIXME: A data frame (invisibly by default and visibly if
-\code{normalize_to_start_year = FALSE}).
+A data frame.
 }
 \description{
 Prepares pre-processed data for plotting a trajectory chart
