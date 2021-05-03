@@ -114,9 +114,11 @@ plot_trajectory <- function(data,
       ))
   }
 
+  colors_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
+
   for (i in seq_along(scenario_specs$scenario)) {
     scen <- scenario_specs$scenario[i]
-    color <- scenario_specs$color[i]
+    color <- colors_scenarios[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
     p_trajectory <- p_trajectory +
       geom_ribbon(
@@ -124,7 +126,7 @@ plot_trajectory <- function(data,
           ymin = .data$value_low,
           ymax = .data$value, x = year, group = 1
         ),
-        fill = color, alpha = 0.75
+        fill = color#, alpha = 0.75
       )
 
     if (scen != "worse") {
@@ -169,6 +171,62 @@ plot_trajectory <- function(data,
       )
     ) +
     scale_linetype_manual(
+      values = linetypes_ordered[1:n_lines]) +
+    scale_color_manual(
+      values = linecolors_ordered[1:n_lines]
+    ) +
+    theme(legend.position = NULL)
+
+  p_trajectory <- add_legend(p_trajectory,
+                             data_scenarios,
+                             scenario_specs,
+                            data_metrics,
+                              linetypes_ordered,
+                              linecolors_ordered,
+                              line_labels)
+
+  p_trajectory
+}
+
+reverse_rows <- function(x) {
+  x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
+}
+
+get_adjusted_colours <- function(data_scenarios,
+                                 scenario_specs) {
+  p_colors <- help_plot_area_colors(data_scenarios,
+                                 scenario_specs)
+
+  g <- ggplot_build(p_colors)
+  colors <- unique(g$plot$scales$scales[[1]]$palette.cache)
+
+  colors
+}
+
+add_legend <- function(plot,
+                        data_scenarios,
+                        scenario_specs,
+                        data_metrics,
+                        linetypes_ordered,
+                        linecolors_ordered,
+                        line_labels) {
+
+
+  p_legend <- help_plot_area_colors(data_scenarios,
+                                 scenario_specs)
+
+  n_lines <- length(line_labels)
+  p_legend <- p_legend +
+    geom_line(
+      data = data_metrics,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        linetype = .data$metric,
+        color = .data$metric
+      )
+    ) +
+    scale_linetype_manual(
       values = linetypes_ordered[1:n_lines],
       labels = line_labels) +
     scale_color_manual(
@@ -176,9 +234,43 @@ plot_trajectory <- function(data,
       labels = line_labels
     )
 
-  p_trajectory
+  legend <- ggpubr::get_legend(p_legend)
+
+  plot <- ggpubr::ggarrange(
+    plot,
+    legend.grob = legend,
+    legend = "right")
+
+  plot
 }
 
-reverse_rows <- function(x) {
-  x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
+help_plot_area_colors <- function(data_scenarios,
+                        scenario_specs) {
+
+  lower_area_border <- min(data_scenarios$value)
+  upper_area_border <- max(data_scenarios$value)
+  num_scen <- nrow(scenario_specs)
+  value_span <- upper_area_border - lower_area_border
+
+  p_legend <- ggplot() +
+    theme_2dii_ggplot() +
+    geom_point(
+      data = data_scenarios,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        fill = .data$value
+      )
+    ) +
+    scale_fill_stepsn(
+      colours = scenario_specs$color,
+      guide = "coloursteps",
+      breaks = seq(
+        from = lower_area_border + value_span/num_scen,
+        to = upper_area_border - value_span/num_scen,
+        by = value_span/num_scen),
+      labels = scenario_specs$label[scenario_specs$scenario != "worse"]
+      )
+
+  p_legend
 }
