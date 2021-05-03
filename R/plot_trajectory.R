@@ -144,30 +144,38 @@ plot_trajectory <- function(data,
     }
   }
 
-  data_mainline <- data %>% filter(.data$metric == main_line_metric$metric)
-  p_trajectory <- p_trajectory +
-    geom_line(
-      data = data_mainline,
-      aes(x = year, y = .data$value),
-      linetype = "solid"
-    )
+  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
+  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
 
   if (length(additional_line_metrics) >= 1) {
-    linetypes_supporting <- c("dashed", "solid", "solid", "twodash")
-    colors_supporting <- c("black", "gray", "grey46", "black")
-    for (i in seq_along(additional_line_metrics$metric)) {
-      metric_line <- additional_line_metrics$metric[i]
-      linetype_metric <- linetypes_supporting[i]
-      color_metric <- colors_supporting[i]
-      label_metric <- additional_line_metrics$label[i]
-      data_metric <- data %>% filter(.data$metric == metric_line)
-      p_trajectory <- p_trajectory +
-        geom_line(
-          data = data_metric, aes(x = year, y = .data$value),
-          linetype = linetype_metric, color = color_metric
-        )
-    }
+    line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
+    line_labels <- c(main_line_metric$label, additional_line_metrics$label)
+  } else {
+    line_metrics <- c(main_line_metric$metric)
+    line_labels <- c(main_line_metric$label)
   }
+
+  data_metrics <- data %>% filter(.data$metric %in% line_metrics)
+  n_lines <- length(line_metrics)
+
+  p_trajectory <- p_trajectory +
+    geom_line(
+      data = data_metrics,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        linetype = .data$metric,
+        color = .data$metric
+      )
+    ) +
+    scale_linetype_manual(
+      values = linetypes_ordered[1:n_lines],
+      labels = line_labels) +
+    scale_color_manual(
+      values = linecolors_ordered[1:n_lines],
+      labels = line_labels
+    )
+
   p_trajectory
 }
 
