@@ -1,5 +1,8 @@
 test_that("with `additional_line_metrics` outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
+  skip_on_ci()
+  skip_on_os("windows")
+  skip_on_os("mac")
 
   data <- prepare_for_trajectory_chart(
     process_input_data(get_example_data()),
