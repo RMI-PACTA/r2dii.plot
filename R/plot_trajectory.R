@@ -51,7 +51,7 @@ plot_trajectory <- function(data,
                             plot_title = "",
                             x_title = "",
                             y_title = "",
-                            additional_line_metrics = data.frame()) {
+                            additional_line_metrics = NULL) {
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -173,7 +173,7 @@ plot_trajectory <- function(data,
   linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
   linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
 
-  if (length(additional_line_metrics) >= 1) {
+  if (!is.null(additional_line_metrics)) {
     line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
     line_labels <- c(main_line_metric$label, additional_line_metrics$label)
   } else {

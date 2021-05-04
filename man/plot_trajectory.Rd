@@ -6,21 +6,17 @@
 \usage{
 plot_trajectory(
   data,
+  scenario_specs_good_to_bad,
+  main_line_metric,
   plot_title = "",
   x_title = "",
   y_title = "",
-  scenario_specs_good_to_bad,
-  main_line_metric,
-  additional_line_metrics = data.frame()
+  additional_line_metrics = NULL
 )
 }
 \arguments{
 \item{data}{Filtered input data (dataframe with columns: year, metric_type,
 metric and value).}
-
-\item{plot_title}{Title of the plot (character string).}
-
-\item{x_title, y_title}{Title of the x- and y-axis (character string).}
 
 \item{scenario_specs_good_to_bad}{Dataframe containing scenario
 specifications like color or label, ordered from the most to least
@@ -28,6 +24,10 @@ sustainable (dataframe with columns: scenario, label, color).}
 
 \item{main_line_metric}{Dataframe containing information about metric that
 should be plotted as the main line (dataframe with columns: metric, label).}
+
+\item{plot_title}{Title of the plot (character string).}
+
+\item{x_title, y_title}{Title of the x- and y-axis (character string).}
 
 \item{additional_line_metrics}{Dataframe containing information about
 additional metrics that should be plotted as lines (dataframe with columns:
