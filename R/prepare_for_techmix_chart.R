@@ -43,5 +43,7 @@ prepare_for_techmix_chart <- function(data_preprocessed,
       metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
       value = .data[[value_name]]
     ) %>%
-    select(.data$technology, .data$metric_type, .data$metric, .data$value)
+    select(
+      .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value
+    )
 }
