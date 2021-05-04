@@ -5,7 +5,7 @@
 \title{Prepares pre-processed data for plotting a tech-mix chart}
 \usage{
 prepare_for_techmix_chart(
-  data_preprocessed,
+  data,
   sector_filter,
   years_filter,
   region_filter,
@@ -15,7 +15,7 @@ prepare_for_techmix_chart(
 )
 }
 \arguments{
-\item{data_preprocessed}{Pre-processed input data.}
+\item{data}{Pre-processed input data.}
 
 \item{sector_filter}{Sector for which to filter the data (character string).}
 
@@ -35,7 +35,6 @@ prepare_for_techmix_chart(
 Prepares pre-processed data for plotting a tech-mix chart
 }
 \examples{
-# FIXME: Returns invisibly
 out <- prepare_for_techmix_chart(
   process_input_data(get_example_data()),
   sector_filter = "power",
@@ -45,5 +44,4 @@ out <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_name = "technology_share"
 )
-out
 }

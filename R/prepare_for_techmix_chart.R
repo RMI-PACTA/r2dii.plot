@@ -1,6 +1,6 @@
 #' Prepares pre-processed data for plotting a tech-mix chart
 #'
-#' @param data_preprocessed Pre-processed input data.
+#' @param data Pre-processed input data.
 #' @param sector_filter Sector for which to filter the data (character string).
 #' @param years_filter Years to plot in the graph (array of integer values).
 #' @param region_filter Region for which to filter the data (character string).
@@ -12,7 +12,6 @@
 #'
 #' @export
 #' @examples
-#' # FIXME: Returns invisibly
 #' out <- prepare_for_techmix_chart(
 #'   process_input_data(get_example_data()),
 #'   sector_filter = "power",
@@ -22,15 +21,14 @@
 #'   scenario_filter = "sds",
 #'   value_name = "technology_share"
 #' )
-#' out
-prepare_for_techmix_chart <- function(data_preprocessed,
+prepare_for_techmix_chart <- function(data,
                                       sector_filter,
                                       years_filter,
                                       region_filter,
                                       scenario_source_filter,
                                       scenario_filter,
                                       value_name) {
-  data_preprocessed %>%
+  data_out <- data %>%
     filter(.data$sector == .env$sector_filter) %>%
     filter(.data$region == .env$region_filter) %>%
     filter(.data$year %in% .env$years_filter) %>%
@@ -46,4 +44,6 @@ prepare_for_techmix_chart <- function(data_preprocessed,
     select(
       .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value
     )
+
+  data_out
 }
