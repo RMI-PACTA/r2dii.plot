@@ -3,6 +3,7 @@
 #' @importFrom dplyr select tribble summarise ungroup pull distinct right_join
 #' @importFrom dplyr desc lead tibble lag
 #' @importFrom ggpubr get_legend ggarrange
+#' @importFrom rlang .env
 NULL
 
 utils::globalVariables("where")

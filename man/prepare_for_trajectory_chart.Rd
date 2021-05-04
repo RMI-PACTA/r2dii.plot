@@ -37,8 +37,7 @@ string).}
 normalized (boolean).}
 }
 \value{
-FIXME: A data frame (invisibly by default and visibly if
-\code{normalize_to_start_year = FALSE}).
+A data frame.
 }
 \description{
 Prepares pre-processed data for plotting a trajectory chart
@@ -46,8 +45,8 @@ Prepares pre-processed data for plotting a trajectory chart
 \examples{
 raw <- get_example_data()
 processed <- process_input_data(raw)
-
-prepare_for_trajectory_chart(
+# FIXME: Returns invisibly
+out <- prepare_for_trajectory_chart(
   processed,
   sector_filter = "power",
   technology_filter = "oilcap",
@@ -55,4 +54,6 @@ prepare_for_trajectory_chart(
   scenario_source_filter = "demo_2020",
   value_name = "production"
 )
+
+out
 }

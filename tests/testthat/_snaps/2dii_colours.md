@@ -1,4 +1,4 @@
-# outputs the expected date
+# outputs the expected snapshot
 
     Code
       get_r2dii_technology_colours("power")

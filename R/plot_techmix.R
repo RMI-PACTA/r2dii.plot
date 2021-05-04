@@ -15,14 +15,46 @@
 #'
 #' @export
 #' @examples
-#' # TODO create an example or copy-paste an existing one from README or a test.
+#' data <- prepare_for_techmix_chart(
+#'   process_input_data(get_example_data()),
+#'   sector_filter = "power",
+#'   years_filter = c(2020, 2025),
+#'   region_filter = "global",
+#'   scenario_source_filter = "demo_2020",
+#'   scenario_filter = "sds",
+#'   value_name = "technology_share"
+#' )
+#' power_colours <- get_r2dii_technology_colours("power")
+#' bar_specs <- dplyr::tibble(
+#'   metric_type = c(
+#'     "portfolio_2020",
+#'     "benchmark_2020",
+#'     "portfolio_2025",
+#'     "benchmark_2025",
+#'     "scenario_2025"
+#'   ),
+#'   label = c(
+#'     "Portfolio 2020",
+#'     "Benchmark 2020",
+#'     "Portfolio 2025",
+#'     "Benchmark 2025",
+#'     "Target SDS 2025"
+#'   )
+#' )
+#'
+#' print(
+#'   plot_techmix(
+#'     data,
+#'     df_tech_colours = power_colours,
+#'     df_bar_specs = bar_specs
+#'   )
+#' )
 plot_techmix <- function(data,
                          plot_title = "",
                          show_legend = TRUE,
                          df_tech_colours,
                          df_bar_specs) {
-  data_colours <- df_tech_colours %>%
-    filter(.data$technology %in% unique(!!data$technology))
+  data_colours <- dplyr::semi_join(df_tech_colours, data, by = "technology")
 
   data <- data %>%
     filter(.data$metric_type %in% df_bar_specs$metric_type)

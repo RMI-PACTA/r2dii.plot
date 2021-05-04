@@ -11,6 +11,18 @@
 #'   (character string).
 #'
 #' @export
+#' @examples
+#' # FIXME: Returns invisibly
+#' out <- prepare_for_techmix_chart(
+#'   process_input_data(get_example_data()),
+#'   sector_filter = "power",
+#'   years_filter = c(2020, 2025),
+#'   region_filter = "global",
+#'   scenario_source_filter = "demo_2020",
+#'   scenario_filter = "sds",
+#'   value_name = "technology_share"
+#' )
+#' out
 prepare_for_techmix_chart <- function(data_preprocessed,
                                       sector_filter,
                                       years_filter,
@@ -18,17 +30,18 @@ prepare_for_techmix_chart <- function(data_preprocessed,
                                       scenario_source_filter,
                                       scenario_filter,
                                       value_name) {
-  data_filtered <- data_preprocessed %>%
-    filter(.data$sector == !!sector_filter) %>%
-    filter(.data$region == !!region_filter) %>%
-    filter(.data$year %in% !!years_filter) %>%
-    filter(.data$scenario_source == !!scenario_source_filter) %>%
-    filter(.data$metric_type %in% c("portfolio", "benchmark") |
-      (.data$metric_type == "scenario" & .data$metric == scenario_filter)) %>%
-    mutate(
-      metric_type = paste0(.data$metric_type, "_", as.character(.data$year))
+  data_preprocessed %>%
+    filter(.data$sector == .env$sector_filter) %>%
+    filter(.data$region == .env$region_filter) %>%
+    filter(.data$year %in% .env$years_filter) %>%
+    filter(.data$scenario_source == .env$scenario_source_filter) %>%
+    filter(
+      .data$metric_type %in% c("portfolio", "benchmark") |
+        (.data$metric_type == "scenario" & .data$metric == scenario_filter)
     ) %>%
-    select(.data$technology, .data$metric_type, .data$metric,
-      value = !!value_name
-    )
+    mutate(
+      metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
+      value = .data[[value_name]]
+    ) %>%
+    select(.data$technology, .data$metric_type, .data$metric, .data$value)
 }

@@ -21,6 +21,7 @@ Imports:
     ggplot2,
     magrittr,
     r2dii.data,
+    rlang,
     scales,
     ggpubr
 Suggests: 

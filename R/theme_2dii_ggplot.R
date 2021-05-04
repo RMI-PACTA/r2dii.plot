@@ -8,7 +8,14 @@
 #'   families).
 #'
 #' @export
-
+#' @examples
+#' library(ggplot2)
+#'
+#' class(theme_2dii_ggplot())
+#'
+#' ggplot(mtcars) +
+#'   geom_histogram(aes(mpg)) +
+#'   theme_2dii_ggplot()
 theme_2dii_ggplot <- function(font_family = "Helvetica") {
   font_size_ticks <- 10
   font_size_axis_titles <- 12

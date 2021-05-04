@@ -1,11 +1,10 @@
 test_that("inputs a data frame structured as get_example_data()", {
-  no_error <- NA
-  expect_error(process_input_data(fake_data()), no_error)
+  expect_no_error(process_input_data(fake_data()))
 })
 
-test_that("outputs a data.frame, invisibly", {
+test_that("outputs a visible data frame", {
   expect_s3_class(process_input_data(fake_data()), "data.frame")
-  expect_invisible(process_input_data(fake_data()))
+  expect_visible(process_input_data(fake_data()))
 })
 
 test_that("adds a column `metric_type`", {
@@ -16,16 +15,12 @@ test_that("adds a column `metric_type`", {
   expect_true(hasName(after, "metric_type"))
 })
 
-# FIXME: The helpfile shoud likely not expose implementation details. That will
-# too easily become obsolete when the implementation changes. Instead you may
-# better "document" this expectation with an informative error message.
 test_that("depends on input column `metric`", {
-  bad <- fake_data()
-  bad$metric <- NULL
-
-  # FIXME: The error message could be more graceful
-  message <- "nms %in% .* are not all TRUE"
-  expect_error(process_input_data(bad), message)
+  missing_metric <- select(fake_data(), -metric)
+  expect_error(
+    class = "missing_names",
+    process_input_data(missing_metric)
+  )
 })
 
 test_that("modifies `metric`", {
@@ -35,10 +30,8 @@ test_that("modifies `metric`", {
 })
 
 test_that("handles values of `metric`", {
-  bad <- fake_data()
-  bad$metric <- "bad metric"
-
   # FIXME: If metric has none of the expected values, Should we throw an error?
-  no_error <- NA
-  expect_error(process_input_data(bad), no_error)
+  expect_no_error(
+    process_input_data(bad <- fake_data(metric = "bad metric"))
+  )
 })

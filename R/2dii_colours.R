@@ -37,7 +37,7 @@ get_r2dii_technology_colours <- function(sector) {
     )
 
   colours <- all_colours %>%
-    filter(.data$sector == !!sector) %>%
+    filter(.data$sector == .env$sector) %>%
     select(.data$technology, .data$label, colour = .data$colour_hex)
 
   colours
@@ -85,4 +85,4 @@ r2dii_sector_colours <- function() { # nocov start
        "steel",   "#a63d57"
   )
   # styler: on
-}  # nocov end
+} # nocov end

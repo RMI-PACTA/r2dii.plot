@@ -54,15 +54,21 @@ prepare_for_timeline <- function(sda_target_data,
 
   # Create output data
   data_timeline <- sda_target_data %>%
-    filter(.data$sector == !!sector_filter) %>%
+    filter(.data$sector == .env$sector_filter) %>%
     filter(.data$year >= year_start) %>%
     filter(.data$year <= year_end) %>%
+    mutate(
+      line_name = .data[[column_line_names]],
+      value = .data[[value_to_plot]],
+      extrapolated = FALSE
+    ) %>%
     select(
       .data$year,
-      line_name = !!column_line_names,
-      value = !!value_to_plot
-    ) %>%
-    mutate(extrapolated = FALSE)
+      .data$line_name,
+      .data$value,
+      .data$extrapolated
+    )
+
 
   if (extrapolate_missing_values) {
     max_year_dataset <- max(data_timeline$year, na.rm = TRUE)

@@ -13,16 +13,15 @@
 #' @param normalize_to_start_year Flag indicating whether the values should be
 #'   normalized (boolean).
 #'
-#' @return FIXME: A data frame (invisibly by default and visibly if
-#' `normalize_to_start_year = FALSE`).
+#' @return A data frame.
 #'
 #' @export
 #'
 #' @examples
 #' raw <- get_example_data()
 #' processed <- process_input_data(raw)
-#'
-#' prepare_for_trajectory_chart(
+#' # FIXME: Returns invisibly
+#' out <- prepare_for_trajectory_chart(
 #'   processed,
 #'   sector_filter = "power",
 #'   technology_filter = "oilcap",
@@ -30,6 +29,8 @@
 #'   scenario_source_filter = "demo_2020",
 #'   value_name = "production"
 #' )
+#'
+#' out
 prepare_for_trajectory_chart <- function(data_preprocessed,
                                          sector_filter,
                                          technology_filter,
@@ -38,20 +39,31 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
                                          value_name,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
+  warn_bad_value(sector_filter, data_preprocessed$sector)
+  warn_bad_value(technology_filter, data_preprocessed$technology)
+  warn_bad_value(region_filter, data_preprocessed$region)
+  warn_bad_value(scenario_source_filter, data_preprocessed$scenario_source)
+  check_crucial_names(data_preprocessed, "sector")
+
   year_start_projected <- data_preprocessed %>%
     filter(.data$metric == "projected") %>%
     pull(.data$year) %>%
     min()
 
   data_filtered <- data_preprocessed %>%
-    filter(.data$sector == !!sector_filter) %>%
-    filter(.data$technology == !!technology_filter) %>%
-    filter(.data$region == !!region_filter) %>%
-    filter(.data$scenario_source == !!scenario_source_filter) %>%
-    filter(.data$year >= !!year_start_projected) %>%
-    filter(.data$year <= !!end_year_filter) %>%
-    select(.data$year, .data$metric_type, .data$metric, .data$technology,
-      value = !!value_name
+    filter(.data$sector == .env$sector_filter) %>%
+    filter(.data$technology == .env$technology_filter) %>%
+    filter(.data$region == .env$region_filter) %>%
+    filter(.data$scenario_source == .env$scenario_source_filter) %>%
+    filter(.data$year >= .env$year_start_projected) %>%
+    filter(.data$year <= .env$end_year_filter) %>%
+    mutate(value = .data[[value_name]]) %>%
+    select(
+      .data$year,
+      .data$metric_type,
+      .data$metric,
+      .data$technology,
+      .data$value
     )
 
   if (normalize_to_start_year) {
@@ -64,9 +76,14 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
         year = .data$year.x, .data$metric_type,
         .data$metric, .data$value, technology = .data$technology.x
       )
-    # FIXME: Likely the output should be visible
-    # data_filtered
-  } else {
-    data_filtered
   }
+
+  data_filtered
+}
+
+warn_bad_value <- function(x, y) {
+  if (!x %in% y) {
+    warning("`", x, "` matches no data value.", call. = FALSE)
+  }
+  invisible(x)
 }
