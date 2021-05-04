@@ -22,7 +22,8 @@ Imports:
     magrittr,
     r2dii.data,
     rlang,
-    scales
+    scales,
+    ggpubr
 Suggests: 
     covr,
     r2dii.analysis,

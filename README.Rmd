@@ -108,7 +108,6 @@ additional_line_metrics <- data.frame(
 plot <- plot_trajectory(data_trajectory,
   plot_title = "Production trajectory of Renewables Capacity technology \n in the Power sector",
   x_title = "Year", y_title = "Production rate (normalized to 2020)",
-  annotate_data = FALSE,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric, additional_line_metrics
 )

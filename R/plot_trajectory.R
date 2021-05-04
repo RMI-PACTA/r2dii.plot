@@ -8,8 +8,6 @@
 #'   metric and value).
 #' @param plot_title Title of the plot (character string).
 #' @param x_title,y_title Title of the x- and y-axis (character string).
-#' @param annotate_data Flag indicating whether the data should be annotated
-#'   (boolean).
 #' @param scenario_specs_good_to_bad Dataframe containing scenario
 #'   specifications like color or label, ordered from the most to least
 #'   sustainable (dataframe with columns: scenario, label, color).
@@ -51,7 +49,6 @@ plot_trajectory <- function(data,
                             plot_title = "",
                             x_title = "",
                             y_title = "",
-                            annotate_data = FALSE,
                             # FIXME: obligatory arguments come before optional
                             scenario_specs_good_to_bad,
                             # FIXME: obligatory arguments come before optional
@@ -63,15 +60,8 @@ plot_trajectory <- function(data,
     theme(axis.line = element_blank()) +
     xlab(x_title) +
     ylab(y_title) +
-    labs(title = plot_title)
-
-  if (annotate_data) {
-    p_trajectory <- p_trajectory +
-      theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
-  } else {
-    p_trajectory <- p_trajectory +
-      theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
-  }
+    labs(title = plot_title) +
+    theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
 
   # adjusting the area border to center the starting point of the lines
   lower_area_border <- min(data$value)
@@ -94,9 +84,11 @@ plot_trajectory <- function(data,
     if (perc_distance_upper_border > perc_distance_lower_border) {
       lower_area_border <-
         start_value_portfolio - perc_distance_upper_border * value_span
+      value_span <- upper_area_border - lower_area_border
     } else {
       upper_area_border <-
         perc_distance_lower_border * value_span + start_value_portfolio
+      value_span <- upper_area_border - lower_area_border
     }
   }
 
@@ -123,7 +115,7 @@ plot_trajectory <- function(data,
       arrange(.data$year, factor(.data$metric,
         levels = scenario_specs$scenario
       )) %>%
-      mutate(value_low = dplyr::lag(.data$value,
+      mutate(value_low = lag(.data$value,
         n = 1,
         default = lower_area_border
       ))
@@ -142,15 +134,17 @@ plot_trajectory <- function(data,
       arrange(.data$year, factor(.data$metric,
         levels = scenario_specs$scenario
       )) %>%
-      mutate(value = dplyr::lead(.data$value_low,
+      mutate(value = lead(.data$value_low,
         n = 1,
         default = upper_area_border
       ))
   }
 
+  colors_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
+
   for (i in seq_along(scenario_specs$scenario)) {
     scen <- scenario_specs$scenario[i]
-    color <- scenario_specs$color[i]
+    color <- colors_scenarios[i]
     data_scen <- data_scenarios %>% filter(.data$metric == scen)
     p_trajectory <- p_trajectory +
       geom_ribbon(
@@ -158,7 +152,7 @@ plot_trajectory <- function(data,
           ymin = .data$value_low,
           ymax = .data$value, x = year, group = 1
         ),
-        fill = color, alpha = 0.75
+        fill = color
       )
 
     if (scen != "worse") {
@@ -176,70 +170,137 @@ plot_trajectory <- function(data,
           )
       }
     }
-
-    if (annotate_data) {
-      last_year <- max(data$year)
-
-      p_trajectory <- p_trajectory +
-        annotate("segment",
-          x = last_year, xend = last_year + 0.75,
-          y = data_scen[data_scen$year == last_year, ]$value,
-          yend = data_scen[data_scen$year == last_year, ]$value,
-          colour = color
-        ) +
-        annotate("text",
-          x = (last_year + 0.85),
-          (y <- data_scen[data_scen$year == last_year, ]$value),
-          label = scenario_specs$label[i], hjust = 0, size = 3
-        )
-    }
   }
 
-  data_mainline <- data %>% filter(.data$metric == main_line_metric$metric)
-  p_trajectory <- p_trajectory +
-    geom_line(
-      data = data_mainline, aes(x = year, y = .data$value),
-      linetype = "solid"
-    )
-
-  if (annotate_data) {
-    p_trajectory <- p_trajectory +
-      annotate("text",
-        x = (last_year + 0.1), (
-          y <- data_mainline[data_mainline$year == last_year, ]$value
-        ),
-        label = main_line_metric$label, hjust = 0, size = 3
-      )
-  }
+  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
+  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
 
   if (length(additional_line_metrics) >= 1) {
-    linetypes_supporting <- c("dashed", "solid", "solid", "twodash")
-    colors_supporting <- c("black", "gray", "grey46", "black")
-    for (i in seq_along(additional_line_metrics$metric)) {
-      metric_line <- additional_line_metrics$metric[i]
-      linetype_metric <- linetypes_supporting[i]
-      color_metric <- colors_supporting[i]
-      label_metric <- additional_line_metrics$label[i]
-      data_metric <- data %>% filter(.data$metric == metric_line)
-      p_trajectory <- p_trajectory +
-        geom_line(
-          data = data_metric, aes(x = year, y = .data$value),
-          linetype = linetype_metric, color = color_metric
-        )
-
-      if (annotate_data) {
-        p_trajectory <- p_trajectory +
-          annotate("text",
-            x = (last_year + 0.1), (
-              y <- data_metric[data_metric$year == last_year, ]$value),
-            label = label_metric, hjust = 0, size = 3
-          )
-      }
-    }
+    line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
+    line_labels <- c(main_line_metric$label, additional_line_metrics$label)
+  } else {
+    line_metrics <- c(main_line_metric$metric)
+    line_labels <- c(main_line_metric$label)
   }
+
+  data_metrics <- data %>% filter(.data$metric %in% line_metrics)
+  n_lines <- length(line_metrics)
+
+  p_trajectory <- p_trajectory +
+    geom_line(
+      data = data_metrics,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        linetype = .data$metric,
+        color = .data$metric
+      )
+    ) +
+    scale_linetype_manual(
+      values = linetypes_ordered[1:n_lines]
+    ) +
+    scale_color_manual(
+      values = linecolors_ordered[1:n_lines]
+    ) +
+    theme(legend.position = NULL)
+
+  p_trajectory <- add_legend(
+    p_trajectory,
+    data_scenarios,
+    scenario_specs,
+    data_metrics,
+    linetypes_ordered,
+    linecolors_ordered,
+    line_labels
+  )
+
   p_trajectory
 }
 
 reverse_rows <- function(x) {
   x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
+}
+
+get_adjusted_colours <- function(data_scenarios,
+                                 scenario_specs) {
+  p_colors <- help_plot_area_colors(
+    data_scenarios,
+    scenario_specs
+  )
+
+  g <- ggplot_build(p_colors)
+  colors <- unique(g$plot$scales$scales[[1]]$palette.cache)
+
+  colors
+}
+
+add_legend <- function(plot,
+                       data_scenarios,
+                       scenario_specs,
+                       data_metrics,
+                       linetypes_ordered,
+                       linecolors_ordered,
+                       line_labels) {
+  p_legend <- help_plot_area_colors(data_scenarios, scenario_specs)
+
+  n_lines <- length(line_labels)
+  p_legend <- p_legend +
+    geom_line(
+      data = data_metrics,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        linetype = .data$metric,
+        color = .data$metric
+      )
+    ) +
+    scale_linetype_manual(
+      values = linetypes_ordered[1:n_lines],
+      labels = line_labels
+    ) +
+    scale_color_manual(
+      values = linecolors_ordered[1:n_lines],
+      labels = line_labels
+    )
+
+  legend <- get_legend(p_legend)
+
+  plot <- ggarrange(
+    plot,
+    legend.grob = legend,
+    legend = "right"
+  )
+
+  plot
+}
+
+help_plot_area_colors <- function(data_scenarios,
+                                  scenario_specs) {
+  lower_area_border <- min(data_scenarios$value)
+  upper_area_border <- max(data_scenarios$value)
+  num_scen <- nrow(scenario_specs)
+  value_span <- upper_area_border - lower_area_border
+
+  p_legend <- ggplot() +
+    theme_2dii_ggplot() +
+    geom_point(
+      data = data_scenarios,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        fill = .data$value
+      )
+    ) +
+    scale_fill_stepsn(
+      colours = scenario_specs$color,
+      guide = "coloursteps",
+      breaks = seq(
+        from = lower_area_border + value_span / num_scen,
+        to = upper_area_border - value_span / num_scen,
+        by = value_span / num_scen
+      ),
+      labels = scenario_specs$label[scenario_specs$scenario != "worse"]
+    )
+
+  p_legend
 }

@@ -9,7 +9,6 @@ plot_trajectory(
   plot_title = "",
   x_title = "",
   y_title = "",
-  annotate_data = FALSE,
   scenario_specs_good_to_bad,
   main_line_metric,
   additional_line_metrics = data.frame()
@@ -22,9 +21,6 @@ metric and value).}
 \item{plot_title}{Title of the plot (character string).}
 
 \item{x_title, y_title}{Title of the x- and y-axis (character string).}
-
-\item{annotate_data}{Flag indicating whether the data should be annotated
-(boolean).}
 
 \item{scenario_specs_good_to_bad}{Dataframe containing scenario
 specifications like color or label, ordered from the most to least
