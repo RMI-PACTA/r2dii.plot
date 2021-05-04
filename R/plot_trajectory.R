@@ -197,19 +197,22 @@ plot_trajectory <- function(data,
       )
     ) +
     scale_linetype_manual(
-      values = linetypes_ordered[1:n_lines]) +
+      values = linetypes_ordered[1:n_lines]
+    ) +
     scale_color_manual(
       values = linecolors_ordered[1:n_lines]
     ) +
     theme(legend.position = NULL)
 
-  p_trajectory <- add_legend(p_trajectory,
-                             data_scenarios,
-                             scenario_specs,
-                            data_metrics,
-                              linetypes_ordered,
-                              linecolors_ordered,
-                              line_labels)
+  p_trajectory <- add_legend(
+    p_trajectory,
+    data_scenarios,
+    scenario_specs,
+    data_metrics,
+    linetypes_ordered,
+    linecolors_ordered,
+    line_labels
+  )
 
   p_trajectory
 }
@@ -220,8 +223,10 @@ reverse_rows <- function(x) {
 
 get_adjusted_colours <- function(data_scenarios,
                                  scenario_specs) {
-  p_colors <- help_plot_area_colors(data_scenarios,
-                                 scenario_specs)
+  p_colors <- help_plot_area_colors(
+    data_scenarios,
+    scenario_specs
+  )
 
   g <- ggplot_build(p_colors)
   colors <- unique(g$plot$scales$scales[[1]]$palette.cache)
@@ -230,14 +235,12 @@ get_adjusted_colours <- function(data_scenarios,
 }
 
 add_legend <- function(plot,
-                        data_scenarios,
-                        scenario_specs,
-                        data_metrics,
-                        linetypes_ordered,
-                        linecolors_ordered,
-                        line_labels) {
-
-
+                       data_scenarios,
+                       scenario_specs,
+                       data_metrics,
+                       linetypes_ordered,
+                       linecolors_ordered,
+                       line_labels) {
   p_legend <- help_plot_area_colors(data_scenarios, scenario_specs)
 
   n_lines <- length(line_labels)
@@ -253,7 +256,8 @@ add_legend <- function(plot,
     ) +
     scale_linetype_manual(
       values = linetypes_ordered[1:n_lines],
-      labels = line_labels) +
+      labels = line_labels
+    ) +
     scale_color_manual(
       values = linecolors_ordered[1:n_lines],
       labels = line_labels
@@ -264,14 +268,14 @@ add_legend <- function(plot,
   plot <- ggarrange(
     plot,
     legend.grob = legend,
-    legend = "right")
+    legend = "right"
+  )
 
   plot
 }
 
 help_plot_area_colors <- function(data_scenarios,
-                        scenario_specs) {
-
+                                  scenario_specs) {
   lower_area_border <- min(data_scenarios$value)
   upper_area_border <- max(data_scenarios$value)
   num_scen <- nrow(scenario_specs)
@@ -291,11 +295,12 @@ help_plot_area_colors <- function(data_scenarios,
       colours = scenario_specs$color,
       guide = "coloursteps",
       breaks = seq(
-        from = lower_area_border + value_span/num_scen,
-        to = upper_area_border - value_span/num_scen,
-        by = value_span/num_scen),
+        from = lower_area_border + value_span / num_scen,
+        to = upper_area_border - value_span / num_scen,
+        by = value_span / num_scen
+      ),
       labels = scenario_specs$label[scenario_specs$scenario != "worse"]
-      )
+    )
 
   p_legend
 }
