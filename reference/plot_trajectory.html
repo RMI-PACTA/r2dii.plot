@@ -132,12 +132,12 @@ etc.).</p>
 
     <pre class="usage"><span class='fu'>plot_trajectory</span><span class='op'>(</span>
   <span class='va'>data</span>,
+  <span class='va'>scenario_specs_good_to_bad</span>,
+  <span class='va'>main_line_metric</span>,
   plot_title <span class='op'>=</span> <span class='st'>""</span>,
   x_title <span class='op'>=</span> <span class='st'>""</span>,
   y_title <span class='op'>=</span> <span class='st'>""</span>,
-  <span class='va'>scenario_specs_good_to_bad</span>,
-  <span class='va'>main_line_metric</span>,
-  additional_line_metrics <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='op'>)</span>
+  additional_line_metrics <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -149,14 +149,6 @@ etc.).</p>
 metric and value).</p></td>
     </tr>
     <tr>
-      <th>plot_title</th>
-      <td><p>Title of the plot (character string).</p></td>
-    </tr>
-    <tr>
-      <th>x_title, y_title</th>
-      <td><p>Title of the x- and y-axis (character string).</p></td>
-    </tr>
-    <tr>
       <th>scenario_specs_good_to_bad</th>
       <td><p>Dataframe containing scenario
 specifications like color or label, ordered from the most to least
@@ -166,6 +158,14 @@ sustainable (dataframe with columns: scenario, label, color).</p></td>
       <th>main_line_metric</th>
       <td><p>Dataframe containing information about metric that
 should be plotted as the main line (dataframe with columns: metric, label).</p></td>
+    </tr>
+    <tr>
+      <th>plot_title</th>
+      <td><p>Title of the plot (character string).</p></td>
+    </tr>
+    <tr>
+      <th>x_title, y_title</th>
+      <td><p>Title of the x- and y-axis (character string).</p></td>
     </tr>
     <tr>
       <th>additional_line_metrics</th>
