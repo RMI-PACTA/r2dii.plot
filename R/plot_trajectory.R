@@ -89,7 +89,7 @@ plot_trajectory <- function(data,
       arrange(.data$year, factor(.data$metric,
         levels = scenario_specs$scenario
       )) %>%
-      mutate(value_low = dplyr::lag(.data$value,
+      mutate(value_low = lag(.data$value,
         n = 1,
         default = lower_area_border
       ))
@@ -108,7 +108,7 @@ plot_trajectory <- function(data,
       arrange(.data$year, factor(.data$metric,
         levels = scenario_specs$scenario
       )) %>%
-      mutate(value = dplyr::lead(.data$value_low,
+      mutate(value = lead(.data$value_low,
         n = 1,
         default = upper_area_border
       ))
@@ -126,7 +126,7 @@ plot_trajectory <- function(data,
           ymin = .data$value_low,
           ymax = .data$value, x = year, group = 1
         ),
-        fill = color#, alpha = 0.75
+        fill = color
       )
 
     if (scen != "worse") {
@@ -212,8 +212,7 @@ add_legend <- function(plot,
                         line_labels) {
 
 
-  p_legend <- help_plot_area_colors(data_scenarios,
-                                 scenario_specs)
+  p_legend <- help_plot_area_colors(data_scenarios, scenario_specs)
 
   n_lines <- length(line_labels)
   p_legend <- p_legend +
@@ -234,9 +233,9 @@ add_legend <- function(plot,
       labels = line_labels
     )
 
-  legend <- ggpubr::get_legend(p_legend)
+  legend <- get_legend(p_legend)
 
-  plot <- ggpubr::ggarrange(
+  plot <- ggarrange(
     plot,
     legend.grob = legend,
     legend = "right")

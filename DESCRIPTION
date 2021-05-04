@@ -21,7 +21,8 @@ Imports:
     ggplot2,
     magrittr,
     r2dii.data,
-    scales
+    scales,
+    ggpubr
 Suggests: 
     covr,
     r2dii.analysis,
