@@ -46,13 +46,11 @@
 #'   main_line_metric = main_line_metric
 #' )
 plot_trajectory <- function(data,
+                            scenario_specs_good_to_bad,
+                            main_line_metric,
                             plot_title = "",
                             x_title = "",
                             y_title = "",
-                            # FIXME: obligatory arguments come before optional
-                            scenario_specs_good_to_bad,
-                            # FIXME: obligatory arguments come before optional
-                            main_line_metric,
                             additional_line_metrics = data.frame()) {
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
