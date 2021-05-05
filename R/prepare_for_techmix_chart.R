@@ -22,12 +22,30 @@
 #'   value_name = "technology_share"
 #' )
 prepare_for_techmix_chart <- function(data,
-                                      sector_filter,
-                                      years_filter,
-                                      region_filter,
-                                      scenario_source_filter,
-                                      scenario_filter,
-                                      value_name) {
+                                      sector_filter= c(
+                                         "automotive",
+                                         "aviation",
+                                         "cement",
+                                         "oil and gas",
+                                         "shipping",
+                                         "steel",
+                                         "power"
+                                       ),
+                                      years_filter = NULL,
+                                      region_filter = "global",
+                                      scenario_source_filter = NULL,
+                                      scenario_filter = NULL,
+                                      value_name = "technology_share") {
+
+  years_filter <- years_filter %||% c(min(data$year),max(data$year))
+  scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
+  scenario_filter <- scenario_filter %||%
+    data %>% filter(
+      .data$scenario_source == scenario_source_filter,
+      .data$metric_type == "scenario") %>%
+    slice_head(n = 1) %>%
+    pull(.data$metric)
+
   data_out <- data %>%
     filter(.data$sector == .env$sector_filter) %>%
     filter(.data$region == .env$region_filter) %>%
@@ -42,7 +60,8 @@ prepare_for_techmix_chart <- function(data,
       value = .data[[value_name]]
     ) %>%
     select(
-      .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value
+      .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value,
+      .data$scenario_source
     )
 
   data_out
