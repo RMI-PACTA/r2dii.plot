@@ -4,13 +4,7 @@
 \alias{plot_timeline}
 \title{Create a time line plot}
 \usage{
-plot_timeline(
-  data,
-  lines_specs = NULL,
-  plot_title = NULL,
-  x_title = "Year",
-  y_title = "Value"
-)
+plot_timeline(data, lines_specs = NULL)
 }
 \arguments{
 \item{data}{Pre-processed data for the chart, with columns: year, value,
@@ -19,10 +13,6 @@ line_name.}
 \item{lines_specs}{Dataframe containing order of lines, their labels and
 (optionally) colour names from the r2dii_colours palette (column
 'r2dii_colour_name').}
-
-\item{plot_title}{Title of the plot.}
-
-\item{x_title, y_title}{x- and y-axis title.}
 }
 \value{
 An object of class "ggplot".
@@ -31,23 +21,25 @@ An object of class "ggplot".
 Create a time line plot
 }
 \examples{
-# You may prepare and plot an sda_target-like dataset using defaults
-example_data <- prepare_for_timeline(sda_target)
+library(ggplot2)
 
-# FIXME: print() should be unnecessary if plot_timeline() retunrs visibly
-print(
-  plot_timeline(example_data)
-)
+data <- sda_target
+
+# You may prepare and plot an sda_target-like dataset using defaults
+data \%>\%
+  prepare_for_timeline() \%>\%
+  plot_timeline()
 
 # Or use custom values passed to a number of arguments
-data_sda_cement <- prepare_for_timeline(sda_target,
-  sector_filter = "cement",
-  year_start = 2020,
-  year_end = 2050,
-  column_line_names = "emission_factor_metric",
-  value_to_plot = "emission_factor_value",
-  extrapolate_missing_values = FALSE
-)
+cement_data <- data \%>\%
+  prepare_for_timeline(
+    sector_filter = "cement",
+    year_start = 2020,
+    year_end = 2050,
+    column_line_names = "emission_factor_metric",
+    value_to_plot = "emission_factor_value",
+    extrapolate_missing_values = FALSE
+  )
 
 lines_specs <- dplyr::tibble(
   line_name = c(
@@ -65,11 +57,9 @@ lines_specs <- dplyr::tibble(
   r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
 )
 
-plot <- plot_timeline(data_sda_cement,
-  lines_specs = lines_specs,
-  plot_title = "Emission intensity trend for Cement.",
-  x_title = "Year",
-  y_title = "Tons of CO2 per ton"
-)
-plot
+p <- plot_timeline(cement_data, lines_specs = lines_specs)
+p
+
+# Customize with ggplot2 as usual
+p + labs(title = "Emission intensity trend for Cement")
 }
