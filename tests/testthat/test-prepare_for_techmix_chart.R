@@ -1,5 +1,5 @@
 test_that("outputs a data.frame", {
-  data <- process_input_data(get_example_data())
+  data <- process_input_data(example_data)
 
   out <- prepare_for_techmix_chart(
     data,
@@ -15,7 +15,7 @@ test_that("outputs a data.frame", {
 })
 
 test_that("returns visibly", {
-  data <- process_input_data(get_example_data())
+  data <- process_input_data(example_data)
 
   expect_visible(
     prepare_for_techmix_chart(
@@ -33,7 +33,7 @@ test_that("returns visibly", {
 # FIXME: We should throw a graceful warning.
 test_that("with bad `sector_filter` returns a data.frame with no rows", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "bad",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -47,7 +47,7 @@ test_that("with bad `sector_filter` returns a data.frame with no rows", {
 # FIXME: We should throw a graceful warning.
 test_that("with bad `years_filter` returns a data.frame with no rows", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = "bad",
     region_filter = "global",
@@ -61,7 +61,7 @@ test_that("with bad `years_filter` returns a data.frame with no rows", {
 # FIXME: We should throw a graceful warning.
 test_that("with bad `region_filter` returns a data.frame with no rows", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "bad",
@@ -75,7 +75,7 @@ test_that("with bad `region_filter` returns a data.frame with no rows", {
 # FIXME: We should throw a graceful warning.
 test_that("with bad `scenario_source_filter` returns a 0-rows data.frame", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     scenario_source_filter = "bad",
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -90,7 +90,7 @@ test_that("with bad `scenario_source_filter` returns a 0-rows data.frame", {
 # FIXME: We should throw a graceful warning.
 test_that("with bad `scenario_filter` returns a data.frame", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -106,7 +106,7 @@ test_that("with bad `scenario_filter` returns a data.frame", {
 # argument `value_name` not via examples or README.
 test_that("adds the column `value` from the column named in `value_name`", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",

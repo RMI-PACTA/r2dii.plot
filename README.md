@@ -38,12 +38,12 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 library(r2dii.plot.static)
 ```
 
--   `get_example_data()` imports example data set for plotting.
+-   `example_data` imports example data set for plotting.
 -   `process_input_data()` performs the initial processing on raw input
     data in banks’ format.
 
 ``` r
-example_data <- get_example_data()
+example_data <- example_data
 example_data <- process_input_data(example_data)
 ```
 
@@ -77,10 +77,11 @@ additional_line_metrics <- data.frame(
 plot <- plot_trajectory(data_trajectory,
   plot_title = "Production trajectory of Renewables Capacity technology \n in the Power sector",
   x_title = "Year", y_title = "Production rate (normalized to 2020)",
-  annotate_data = FALSE,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric, additional_line_metrics
 )
+#> Warning: partial match of 'height' to 'heights'
+#> Warning: partial match of 'width' to 'widths'
 
 plot
 ```

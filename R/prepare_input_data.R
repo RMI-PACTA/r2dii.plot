@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' data <- get_example_data()
+#' data <- example_data
 #' process_input_data(data)
 process_input_data <- function(data) {
   check_crucial_names(data, "metric")
