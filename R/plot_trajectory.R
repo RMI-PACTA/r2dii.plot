@@ -52,14 +52,12 @@ plot_trajectory <- function(data,
                             x_title = "",
                             y_title = "",
                             additional_line_metrics = NULL) {
-  p_trajectory <- ggplot() +
-    theme_2dii_ggplot() +
-    coord_cartesian(expand = FALSE, clip = "off") +
-    theme(axis.line = element_blank()) +
+  p_trajectory <- ggplot()
+
+  p_trajectory <- p_trajectory +
     xlab(x_title) +
     ylab(y_title) +
-    labs(title = plot_title) +
-    theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
+    labs(title = plot_title)
 
   # adjusting the area border to center the starting point of the lines
   lower_area_border <- min(data$value)
@@ -169,10 +167,6 @@ plot_trajectory <- function(data,
       }
     }
   }
-
-  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
-  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
-
   if (!is.null(additional_line_metrics)) {
     line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
     line_labels <- c(main_line_metric$label, additional_line_metrics$label)
@@ -184,6 +178,9 @@ plot_trajectory <- function(data,
   data_metrics <- data %>% filter(.data$metric %in% line_metrics)
   n_lines <- length(line_metrics)
 
+  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
+  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
+
   p_trajectory <- p_trajectory +
     geom_line(
       data = data_metrics,
@@ -193,14 +190,17 @@ plot_trajectory <- function(data,
         linetype = .data$metric,
         color = .data$metric
       )
-    ) +
-    scale_linetype_manual(
-      values = linetypes_ordered[1:n_lines]
-    ) +
-    scale_color_manual(
-      values = linecolors_ordered[1:n_lines]
-    ) +
-    theme(legend.position = NULL)
+    )
+
+  p_trajectory <- p_trajectory +
+    coord_cartesian(expand = FALSE, clip = "off") +
+    scale_linetype_manual(values = linetypes_ordered[1:n_lines]) +
+    scale_color_manual(values = linecolors_ordered[1:n_lines])
+
+  p_trajectory <- p_trajectory +
+    theme_2dii_ggplot() +
+    # FIXME: Should we include this in theme_2dii_ggplot() for consistency?
+    theme_trajectory()
 
   p_trajectory <- add_legend(
     p_trajectory,
@@ -213,6 +213,12 @@ plot_trajectory <- function(data,
   )
 
   p_trajectory
+}
+
+theme_trajectory <- function() {
+  theme(axis.line = element_blank()) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
+  theme(legend.position = NULL)
 }
 
 reverse_rows <- function(x) {
