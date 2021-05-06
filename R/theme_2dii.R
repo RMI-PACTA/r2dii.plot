@@ -14,7 +14,7 @@
 #' class(theme_2dii())
 #'
 #' ggplot(mtcars) +
-#'   geom_histogram(aes(mpg)) +
+#'   geom_histogram(aes(mpg), bins = 10) +
 #'   theme_2dii()
 theme_2dii <- function(font_family = "Helvetica") {
   font_size_ticks <- 10
