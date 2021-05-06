@@ -6,7 +6,6 @@
 #'
 #' @param data Filtered input data (dataframe with columns: technology,
 #'   metric_type, metric and value).
-#' @param plot_title Title of the plot (character string).
 #' @param show_legend Flag indicating whether legend should be shown (boolean).
 #' @param df_tech_colours Dataframe containing colors per technology (dataframe
 #'   with columns: technology, label, color).
@@ -50,7 +49,6 @@
 #'   )
 #' )
 plot_techmix <- function(data,
-                         plot_title = "",
                          show_legend = TRUE,
                          df_tech_colours,
                          df_bar_specs) {
@@ -62,8 +60,7 @@ plot_techmix <- function(data,
   p_techmix <- ggplot() +
     theme_2dii_ggplot() +
     xlab("") +
-    ylab("") +
-    labs(title = plot_title)
+    ylab("")
 
   p_techmix <- p_techmix +
     geom_bar(data = data, aes(

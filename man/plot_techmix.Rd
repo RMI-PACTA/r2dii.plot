@@ -4,19 +4,11 @@
 \alias{plot_techmix}
 \title{Create a techmix chart in a ggplot object}
 \usage{
-plot_techmix(
-  data,
-  plot_title = "",
-  show_legend = TRUE,
-  df_tech_colours,
-  df_bar_specs
-)
+plot_techmix(data, show_legend = TRUE, df_tech_colours, df_bar_specs)
 }
 \arguments{
 \item{data}{Filtered input data (dataframe with columns: technology,
 metric_type, metric and value).}
-
-\item{plot_title}{Title of the plot (character string).}
 
 \item{show_legend}{Flag indicating whether legend should be shown (boolean).}
 

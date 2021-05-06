@@ -498,9 +498,6 @@
           super:  <ggproto object: Class FacetNull, Facet, gg>
       
       $labels
-      $labels$title
-      [1] ""
-      
       $labels$y
       [1] ""
       
@@ -1083,9 +1080,6 @@
           super:  <ggproto object: Class FacetNull, Facet, gg>
       
       $labels
-      $labels$title
-      [1] ""
-      
       $labels$y
       [1] ""
       

@@ -125,7 +125,7 @@ data_techmix_power <- prepare_for_techmix_chart(example_data,
   sector_filter = "power",
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds", value_name = "technology_share"
+  scenario_filter = "sds", value_to_plot = "technology_share"
 )
 
 tech_colors_power <- get_r2dii_technology_colours("power")
