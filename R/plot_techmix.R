@@ -4,12 +4,14 @@
 #' technology mix for different categories (portfolio, scenario, benchmark,
 #' etc.).
 #'
-#' @param data Filtered input data (dataframe with columns: technology,
-#'   metric_type, metric and value).
-#' @param df_bar_specs Dataframe containing order of bars and their labels
-#'   (dataframe with columns: metric_type, label).
-#' @param tech_colours Dataframe containing colours per technology (dataframe
-#'   with columns: technology, label(optional), colour).
+#' @param data Filtered input data, with columns: technology, metric_type,
+#'   metric and value.
+#' @param metric_type_order Vector with the order of bars based on 'metric_type'
+#'   values.
+#' @param metric_type_labels Vector with labels for bars. Order must follow that
+#'   in 'metric type order'.
+#' @param tech_colours Dataframe containing colours per technology, with
+#'   columns: technology, colour, label(optional).
 #'
 #' @export
 #' @examples
@@ -22,32 +24,37 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-#' bar_specs <- dplyr::tibble(
-#'   metric_type = c(
+#'   metric_type_order = c(
 #'     "portfolio_2020",
 #'     "benchmark_2020",
 #'     "portfolio_2025",
 #'     "benchmark_2025",
 #'     "scenario_2025"
-#'   ),
-#'   label = c(
+#'   )
+#'   metric_type_label = c(
 #'     "Portfolio 2020",
 #'     "Benchmark 2020",
 #'     "Portfolio 2025",
 #'     "Benchmark 2025",
 #'     "Target SDS 2025"
 #'   )
-#' )
 #'
 #' print(
 #'   plot_techmix(
 #'     data,
-#'     df_bar_specs = bar_specs
+#'     metric_type_order = metric_type_order,
+#'     metric_type_label = metric_type_label
 #'   )
 #' )
 plot_techmix <- function(data,
-                         df_bar_specs,
+                         metric_type_order = NULL,
+                         metric_type_labels = NULL,
                          tech_colours = NULL) {
+
+  metric_type_order <- metric_type_order %||% unique(data$metric_type)
+  metric_type_labels <-
+    metric_type_labels %||% guess_label_metric_type(metric_type_order)
+
   sector <- data %>%
     slice_head(n = 1) %>%
     pull(.data$sector)
@@ -66,7 +73,7 @@ plot_techmix <- function(data,
   data_colours <- dplyr::semi_join(tech_colours, data, by = "technology")
 
   data <- data %>%
-    filter(.data$metric_type %in% df_bar_specs$metric_type)
+    filter(.data$metric_type %in% metric_type_order)
 
   p_techmix <- ggplot() +
     theme_2dii_ggplot() +
@@ -77,7 +84,7 @@ plot_techmix <- function(data,
     geom_bar(
       data = data,
       aes(
-        x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
+        x = factor(.data$metric_type, levels = rev(metric_type_order)),
         y = .data$value,
         fill = factor(.data$technology, levels = data_colours$technology)
       ),
@@ -90,7 +97,7 @@ plot_techmix <- function(data,
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = rev(df_bar_specs$label)) +
+    scale_x_discrete(labels = rev(metric_type_labels)) +
     scale_fill_manual(
       labels = data_colours$label,
       values = data_colours$colour
@@ -133,4 +140,9 @@ check_tech_colours <- function(data, tech_colours) {
 guess_label_tech <- function(string) {
   string <- stringr::str_to_title(string)
   string <- stringr::str_replace(string, "cap$", " Capacity")
+}
+
+guess_label_metric_type <- function(string) {
+  string <- stringr::str_to_title(string)
+  string <- stringr::str_replace(string, "_", " ")
 }

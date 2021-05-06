@@ -4,17 +4,25 @@
 \alias{plot_techmix}
 \title{Create a techmix chart in a ggplot object}
 \usage{
-plot_techmix(data, df_bar_specs, tech_colours = NULL)
+plot_techmix(
+  data,
+  metric_type_order = NULL,
+  metric_type_labels = NULL,
+  tech_colours = NULL
+)
 }
 \arguments{
-\item{data}{Filtered input data (dataframe with columns: technology,
-metric_type, metric and value).}
+\item{data}{Filtered input data, with columns: technology, metric_type,
+metric and value.}
 
-\item{df_bar_specs}{Dataframe containing order of bars and their labels
-(dataframe with columns: metric_type, label).}
+\item{metric_type_order}{Vector with the order of bars based on 'metric_type'
+values.}
 
-\item{tech_colours}{Dataframe containing colours per technology (dataframe
-with columns: technology, label(optional), colour).}
+\item{metric_type_labels}{Vector with labels for bars. Order must follow that
+in 'metric type order'.}
+
+\item{tech_colours}{Dataframe containing colours per technology, with
+columns: technology, colour, label(optional).}
 }
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a
@@ -31,27 +39,26 @@ data <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-bar_specs <- dplyr::tibble(
-  metric_type = c(
+  metric_type_order = c(
     "portfolio_2020",
     "benchmark_2020",
     "portfolio_2025",
     "benchmark_2025",
     "scenario_2025"
-  ),
-  label = c(
+  )
+  metric_type_label = c(
     "Portfolio 2020",
     "Benchmark 2020",
     "Portfolio 2025",
     "Benchmark 2025",
     "Target SDS 2025"
   )
-)
 
 print(
   plot_techmix(
     data,
-    df_bar_specs = bar_specs
+    metric_type_order = metric_type_order,
+    metric_type_label = metric_type_label
   )
 )
 }

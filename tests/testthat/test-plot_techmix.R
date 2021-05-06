@@ -10,28 +10,26 @@ test_that("with the simplest call outputs the expected snapshot", {
     scenario_filter = "sds",
     value_to_plot = "technology_share"
   )
-
-  specs <- dplyr::tibble(
-    label = c(
-      "Portfolio 2020",
-      "Benchmark 2020",
-      "Portfolio 2025",
-      "Benchmark 2025",
-      "Target SDS 2025"
-    ),
     # Not DRYing (see r2dii.plot.static/pull/91#discussion_r615990701)
-    metric_type = c(
+  metric_type_order = c(
       "portfolio_2020",
       "benchmark_2020",
       "portfolio_2025",
       "benchmark_2025",
       "target_sds_2025"
     )
-  )
+  metric_type_label = c(
+      "Portfolio 2020",
+      "Benchmark 2020",
+      "Portfolio 2025",
+      "Benchmark 2025",
+      "Target SDS 2025"
+    )
 
   out <- plot_techmix(
     data,
-    df_bar_specs = specs
+    metric_type_order = metric_type_order,
+    metric_type_label = metric_type_label
   )
 
   expect_s3_class(out, "ggplot")
