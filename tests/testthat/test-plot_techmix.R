@@ -39,38 +39,3 @@ test_that("with the simplest call outputs the expected snapshot", {
   out$plot_env <- NULL
   expect_snapshot(out)
 })
-
-test_that("with `show_legend = FALSE` outputs the expected snapshot", {
-  skip_if(r_version_is_older_than(4))
-
-  data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
-    sector_filter = "power",
-    years_filter = c(2020, 2025),
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    scenario_filter = "sds",
-    value_to_plot = "technology_share"
-  )
-
-  specs <- dplyr::tibble(
-    label = c(
-      "Portfolio 2020",
-      "Benchmark 2020",
-      "Portfolio 2025",
-      "Benchmark 2025",
-      "Target SDS 2025"
-    ),
-    metric_type = gsub(" ", "_", tolower(label))
-  )
-
-  out <- plot_techmix(
-    data,
-    show_legend = FALSE,
-    df_bar_specs = specs
-  )
-
-  out <- unclass(out)
-  out$plot_env <- NULL
-  expect_snapshot(out)
-})

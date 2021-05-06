@@ -6,7 +6,6 @@
 #'
 #' @param data Filtered input data (dataframe with columns: technology,
 #'   metric_type, metric and value).
-#' @param show_legend Flag indicating whether legend should be shown (boolean).
 #' @param tech_colours Dataframe containing colours per technology (dataframe
 #'   with columns: technology, label(optional), colour).
 #' @param df_bar_specs Dataframe containing order of bars and their labels
@@ -47,7 +46,6 @@
 #'   )
 #' )
 plot_techmix <- function(data,
-                         show_legend = TRUE,
                          tech_colours = NULL,
                          df_bar_specs) {
   sector <- data %>%
@@ -101,14 +99,9 @@ plot_techmix <- function(data,
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank())
 
-  if (show_legend) {
     p_techmix <- p_techmix +
       theme(legend.position = "bottom") +
       guides(fill = guide_legend(ncol = 3, byrow = TRUE))
-  } else {
-    p_techmix <- p_techmix +
-      theme(legend.position = "none")
-  }
 
   p_techmix
 }
