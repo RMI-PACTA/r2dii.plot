@@ -128,7 +128,6 @@ data_techmix_power <- prepare_for_techmix_chart(example_data,
   scenario_filter = "sds", value_to_plot = "technology_share"
 )
 
-tech_colors_power <- get_r2dii_technology_colours("power")
 bars_labels_specs <- dplyr::tibble(
   metric_type = c(
     "portfolio_2020", "benchmark_2020", "portfolio_2025",
@@ -141,9 +140,7 @@ bars_labels_specs <- dplyr::tibble(
 )
 
 plot_techmix_power <- plot_techmix(data_techmix_power,
-  show_legend = TRUE,
-  tech_colors_power,
-  bars_labels_specs
+  df_bar_specs = bars_labels_specs
 )
 plot_techmix_power +
   ggplot2::labs(title = "Technology mix for the Power sector")
@@ -155,7 +152,7 @@ power_colors_custom <- dplyr::tibble(
 )
 
 plot_techmix_custom_col <- plot_techmix(data_techmix_power,
-  show_legend = TRUE, power_colors_custom, bars_labels_specs
+  power_colors_custom, df_bar_specs = bars_labels_specs
 )
 plot_techmix_custom_col + 
   ggplot2::labs(

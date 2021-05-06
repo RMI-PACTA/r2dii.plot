@@ -6,10 +6,10 @@
 #'
 #' @param data Filtered input data (dataframe with columns: technology,
 #'   metric_type, metric and value).
-#' @param tech_colours Dataframe containing colours per technology (dataframe
-#'   with columns: technology, label(optional), colour).
 #' @param df_bar_specs Dataframe containing order of bars and their labels
 #'   (dataframe with columns: metric_type, label).
+#' @param tech_colours Dataframe containing colours per technology (dataframe
+#'   with columns: technology, label(optional), colour).
 #'
 #' @export
 #' @examples
@@ -46,8 +46,8 @@
 #'   )
 #' )
 plot_techmix <- function(data,
-                         tech_colours = NULL,
-                         df_bar_specs) {
+                         df_bar_specs,
+                         tech_colours = NULL) {
   sector <- data %>%
     slice_head(n = 1) %>%
     pull(.data$sector)

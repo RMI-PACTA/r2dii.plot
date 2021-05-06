@@ -4,17 +4,17 @@
 \alias{plot_techmix}
 \title{Create a techmix chart in a ggplot object}
 \usage{
-plot_techmix(data, tech_colours = NULL, df_bar_specs)
+plot_techmix(data, df_bar_specs, tech_colours = NULL)
 }
 \arguments{
 \item{data}{Filtered input data (dataframe with columns: technology,
 metric_type, metric and value).}
 
-\item{tech_colours}{Dataframe containing colours per technology (dataframe
-with columns: technology, label(optional), colour).}
-
 \item{df_bar_specs}{Dataframe containing order of bars and their labels
 (dataframe with columns: metric_type, label).}
+
+\item{tech_colours}{Dataframe containing colours per technology (dataframe
+with columns: technology, label(optional), colour).}
 }
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a
