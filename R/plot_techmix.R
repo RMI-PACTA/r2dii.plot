@@ -7,8 +7,8 @@
 #' @param data Filtered input data (dataframe with columns: technology,
 #'   metric_type, metric and value).
 #' @param show_legend Flag indicating whether legend should be shown (boolean).
-#' @param df_tech_colours Dataframe containing colors per technology (dataframe
-#'   with columns: technology, label, color).
+#' @param tech_colours Dataframe containing colours per technology (dataframe
+#'   with columns: technology, label(optional), colour).
 #' @param df_bar_specs Dataframe containing order of bars and their labels
 #'   (dataframe with columns: metric_type, label).
 #'
@@ -23,7 +23,6 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-#' power_colours <- get_r2dii_technology_colours("power")
 #' bar_specs <- dplyr::tibble(
 #'   metric_type = c(
 #'     "portfolio_2020",
@@ -44,15 +43,28 @@
 #' print(
 #'   plot_techmix(
 #'     data,
-#'     df_tech_colours = power_colours,
 #'     df_bar_specs = bar_specs
 #'   )
 #' )
 plot_techmix <- function(data,
                          show_legend = TRUE,
-                         df_tech_colours,
+                         tech_colours = NULL,
                          df_bar_specs) {
-  data_colours <- dplyr::semi_join(df_tech_colours, data, by = "technology")
+  sector <- data %>%
+    slice_head(n = 1) %>%
+    pull(.data$sector)
+
+  if (is.null(tech_colours)) {
+    tech_colours <- get_r2dii_technology_colours(sector)
+  }
+
+  check_tech_colours(data, tech_colours)
+
+  if (!("label" %in% names(tech_colours))) {
+
+  }
+
+  data_colours <- dplyr::semi_join(tech_colours, data, by = "technology")
 
   data <- data %>%
     filter(.data$metric_type %in% df_bar_specs$metric_type)
@@ -63,18 +75,26 @@ plot_techmix <- function(data,
     ylab("")
 
   p_techmix <- p_techmix +
-    geom_bar(data = data, aes(
-      fill = factor(.data$technology, levels = data_colours$technology),
-      x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
-      y = .data$value
-    ), position = "fill", stat = "identity", width = .5) +
+    geom_bar(
+      data = data,
+      aes(
+        x = factor(.data$metric_type, levels = rev(df_bar_specs$metric_type)),
+        y = .data$value,
+        fill = factor(.data$technology, levels = data_colours$technology)
+      ),
+      position = "fill",
+      stat = "identity",
+      width = .5
+    ) +
     scale_y_continuous(
-      labels = scales::percent_format(), expand = c(0, 0),
+      labels = scales::percent_format(),
+      expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
     scale_x_discrete(labels = rev(df_bar_specs$label)) +
     scale_fill_manual(
-      labels = data_colours$label, values = data_colours$colour
+      labels = data_colours$label,
+      values = data_colours$colour
     ) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +
@@ -90,4 +110,28 @@ plot_techmix <- function(data,
   }
 
   p_techmix
+}
+
+check_tech_colours <- function(data, tech_colours) {
+
+  if (!all(c("technology", "colour") %in% names(tech_colours))) {
+    msg <- sprintf(
+      "'tech_colours' must have columns 'technology' and 'colour'.
+      * The columns in 'tech_colours' given are: %s.",
+      toString(names(tech_colours))
+    )
+    stop(msg, call. = FALSE)
+  }
+
+  if (!all(unique(data$technology) %in% unique(tech_colours$technology))) {
+    msg <- sprintf(
+      "All technologies in input data must have a colour in 'tech_colours'.
+      * The 'technology' in data missing from tech_colours are: %s.
+      Note: if not given by the user, 'tech_colours' are specified internally based on 'sector'",
+      toString(setdiff(unique(data$technology), unique(tech_colours$technology)))
+    )
+    stop(msg, call. = FALSE)
+  }
+
+  invisible(data)
 }

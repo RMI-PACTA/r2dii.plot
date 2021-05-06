@@ -31,7 +31,6 @@ test_that("with the simplest call outputs the expected snapshot", {
 
   out <- plot_techmix(
     data,
-    df_tech_colours = get_r2dii_technology_colours("power"),
     df_bar_specs = specs
   )
 
@@ -68,7 +67,6 @@ test_that("with `show_legend = FALSE` outputs the expected snapshot", {
   out <- plot_techmix(
     data,
     show_legend = FALSE,
-    df_tech_colours = get_r2dii_technology_colours("power"),
     df_bar_specs = specs
   )
 

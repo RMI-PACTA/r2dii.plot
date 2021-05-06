@@ -4,7 +4,7 @@
 \alias{plot_techmix}
 \title{Create a techmix chart in a ggplot object}
 \usage{
-plot_techmix(data, show_legend = TRUE, df_tech_colours, df_bar_specs)
+plot_techmix(data, show_legend = TRUE, tech_colours = NULL, df_bar_specs)
 }
 \arguments{
 \item{data}{Filtered input data (dataframe with columns: technology,
@@ -12,8 +12,8 @@ metric_type, metric and value).}
 
 \item{show_legend}{Flag indicating whether legend should be shown (boolean).}
 
-\item{df_tech_colours}{Dataframe containing colors per technology (dataframe
-with columns: technology, label, color).}
+\item{tech_colours}{Dataframe containing colours per technology (dataframe
+with columns: technology, label(optional), colour).}
 
 \item{df_bar_specs}{Dataframe containing order of bars and their labels
 (dataframe with columns: metric_type, label).}
@@ -33,7 +33,6 @@ data <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-power_colours <- get_r2dii_technology_colours("power")
 bar_specs <- dplyr::tibble(
   metric_type = c(
     "portfolio_2020",
@@ -54,7 +53,6 @@ bar_specs <- dplyr::tibble(
 print(
   plot_techmix(
     data,
-    df_tech_colours = power_colours,
     df_bar_specs = bar_specs
   )
 )
