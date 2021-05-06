@@ -8,7 +8,7 @@ test_that("with the simplest call outputs the expected snapshot", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_name = "technology_share"
+    value_to_plot = "technology_share"
   )
 
   specs <- dplyr::tibble(
@@ -51,7 +51,7 @@ test_that("with `show_legend = FALSE` outputs the expected snapshot", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_name = "technology_share"
+    value_to_plot = "technology_share"
   )
 
   specs <- dplyr::tibble(

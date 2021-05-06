@@ -22,7 +22,7 @@
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
 #'   scenario_filter = "sds",
-#'   value_name = "technology_share"
+#'   value_to_plot = "technology_share"
 #' )
 #' power_colours <- get_r2dii_technology_colours("power")
 #' bar_specs <- dplyr::tibble(

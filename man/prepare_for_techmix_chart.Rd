@@ -6,12 +6,13 @@
 \usage{
 prepare_for_techmix_chart(
   data,
-  sector_filter,
-  years_filter,
-  region_filter,
-  scenario_source_filter,
-  scenario_filter,
-  value_name
+  sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
+    "steel", "power"),
+  years_filter = NULL,
+  region_filter = "global",
+  scenario_source_filter = NULL,
+  scenario_filter = NULL,
+  value_to_plot = "technology_share"
 )
 }
 \arguments{
@@ -28,7 +29,7 @@ prepare_for_techmix_chart(
 
 \item{scenario_filter}{Scenario to plot in the graph (character string).}
 
-\item{value_name}{The name of the value to be plotted as a bar chart
+\item{value_to_plot}{The name of the value to be plotted as a bar chart
 (character string).}
 }
 \description{
@@ -42,6 +43,6 @@ out <- prepare_for_techmix_chart(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_name = "technology_share"
+  value_to_plot = "technology_share"
 )
 }
