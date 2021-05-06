@@ -126,13 +126,7 @@
     <p>Create a time line plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_timeline</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  lines_specs <span class='op'>=</span> <span class='cn'>NULL</span>,
-  plot_title <span class='op'>=</span> <span class='cn'>NULL</span>,
-  x_title <span class='op'>=</span> <span class='st'>"Year"</span>,
-  y_title <span class='op'>=</span> <span class='st'>"Value"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>data</span>, lines_specs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,14 +142,6 @@ line_name.</p></td>
 (optionally) colour names from the r2dii_colours palette (column
 'r2dii_colour_name').</p></td>
     </tr>
-    <tr>
-      <th>plot_title</th>
-      <td><p>Title of the plot.</p></td>
-    </tr>
-    <tr>
-      <th>x_title, y_title</th>
-      <td><p>x- and y-axis title.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -163,23 +149,25 @@ line_name.</p></td>
     <p>An object of class "ggplot".</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># You may prepare and plot an sda_target-like dataset using defaults</span>
-<span class='va'>example_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 
-<span class='co'># FIXME: print() should be unnecessary if plot_timeline() retunrs visibly</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>example_data</span><span class='op'>)</span>
-<span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda_target</span>
+
+<span class='co'># You may prepare and plot an sda_target-like dataset using defaults</span>
+<span class='va'>data</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>plot_timeline</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_timeline-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or use custom values passed to a number of arguments</span>
-<span class='va'>data_sda_cement</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span>,
-  sector_filter <span class='op'>=</span> <span class='st'>"cement"</span>,
-  year_start <span class='op'>=</span> <span class='fl'>2020</span>,
-  year_end <span class='op'>=</span> <span class='fl'>2050</span>,
-  column_line_names <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>,
-  value_to_plot <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
-  extrapolate_missing_values <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
+<span class='va'>cement_data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span>
+    sector_filter <span class='op'>=</span> <span class='st'>"cement"</span>,
+    year_start <span class='op'>=</span> <span class='fl'>2020</span>,
+    year_end <span class='op'>=</span> <span class='fl'>2050</span>,
+    column_line_names <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>,
+    value_to_plot <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
+    extrapolate_missing_values <span class='op'>=</span> <span class='cn'>FALSE</span>
+  <span class='op'>)</span>
 
 <span class='va'>lines_specs</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
   line_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
@@ -197,14 +185,12 @@ line_name.</p></td>
   r2dii_colour_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dark_blue"</span>, <span class='st'>"green"</span>, <span class='st'>"grey"</span>, <span class='st'>"orange"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>data_sda_cement</span>,
-  lines_specs <span class='op'>=</span> <span class='va'>lines_specs</span>,
-  plot_title <span class='op'>=</span> <span class='st'>"Emission intensity trend for Cement."</span>,
-  x_title <span class='op'>=</span> <span class='st'>"Year"</span>,
-  y_title <span class='op'>=</span> <span class='st'>"Tons of CO2 per ton"</span>
-<span class='op'>)</span>
-<span class='va'>plot</span>
-</div><div class='img'><img src='plot_timeline-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>cement_data</span>, lines_specs <span class='op'>=</span> <span class='va'>lines_specs</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='img'><img src='plot_timeline-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Customize with ggplot2 as usual</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Emission intensity trend for Cement"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_timeline-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
