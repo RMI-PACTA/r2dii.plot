@@ -1,4 +1,4 @@
-test_that("inputs a data frame structured as get_example_data()", {
+test_that("inputs a data frame structured as example_data", {
   expect_no_error(process_input_data(fake_data()))
 })
 
@@ -24,7 +24,7 @@ test_that("depends on input column `metric`", {
 })
 
 test_that("modifies `metric`", {
-  before <- get_example_data()
+  before <- example_data
   after <- process_input_data(before)
   expect_false(identical(before$metric, after$metric))
 })
