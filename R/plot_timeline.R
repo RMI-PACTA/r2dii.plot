@@ -5,30 +5,30 @@
 #' @param lines_specs Dataframe containing order of lines, their labels and
 #'   (optionally) colour names from the r2dii_colours palette (column
 #'   'r2dii_colour_name').
-#' @param plot_title Title of the plot.
-#' @param x_title,y_title x- and y-axis title.
 #'
 #' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples
-#' # You may prepare and plot an sda_target-like dataset using defaults
-#' example_data <- prepare_for_timeline(sda_target)
+#' library(ggplot2)
 #'
-#' # FIXME: print() should be unnecessary if plot_timeline() retunrs visibly
-#' print(
-#'   plot_timeline(example_data)
-#' )
+#' data <- sda_target
+#'
+#' # You may prepare and plot an sda_target-like dataset using defaults
+#' data %>%
+#'   prepare_for_timeline() %>%
+#'   plot_timeline()
 #'
 #' # Or use custom values passed to a number of arguments
-#' data_sda_cement <- prepare_for_timeline(sda_target,
-#'   sector_filter = "cement",
-#'   year_start = 2020,
-#'   year_end = 2050,
-#'   column_line_names = "emission_factor_metric",
-#'   value_to_plot = "emission_factor_value",
-#'   extrapolate_missing_values = FALSE
-#' )
+#' cement_data <- data %>%
+#'   prepare_for_timeline(
+#'     sector_filter = "cement",
+#'     year_start = 2020,
+#'     year_end = 2050,
+#'     column_line_names = "emission_factor_metric",
+#'     value_to_plot = "emission_factor_value",
+#'     extrapolate_missing_values = FALSE
+#'   )
 #'
 #' lines_specs <- dplyr::tibble(
 #'   line_name = c(
@@ -46,64 +46,53 @@
 #'   r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
 #' )
 #'
-#' plot <- plot_timeline(data_sda_cement,
-#'   lines_specs = lines_specs,
-#'   plot_title = "Emission intensity trend for Cement.",
-#'   x_title = "Year",
-#'   y_title = "Tons of CO2 per ton"
-#' )
-#' plot
-plot_timeline <- function(data,
-                          lines_specs = NULL,
-                          plot_title = NULL,
-                          x_title = "Year",
-                          y_title = "Value") {
+#' p <- plot_timeline(cement_data, lines_specs = lines_specs)
+#' p
+#'
+#' # Customize with ggplot2 as usual
+#' p + labs(title = "Emission intensity trend for Cement")
+plot_timeline <- function(data, lines_specs = NULL) {
   lines_specs <- lines_specs %||% dplyr::tibble(
     line_name = unique(data$line_name),
     label = unique(data$line_name)
   )
 
-  check_lines_specs(data, lines_specs)
-  lines_specs <- add_r2dii_colours(lines_specs)
+  lines_specs <- lines_specs %>%
+    check_lines_specs(data) %>%
+    add_r2dii_colours()
 
-  plot <- ggplot(
-    data = data %>% filter(.data$extrapolated == FALSE),
-    aes(
-      x = .data$year,
-      y = .data$value,
-      colour = factor(.data$line_name, levels = lines_specs$line_name)
-    ),
-    linetype = .data$extrapolated
-  ) +
-    geom_line() +
+  measured <- filter(data, !.data$extrapolated)
+  plot <- ggplot() +
+    timeline_line(measured, lines_specs) +
     scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     expand_limits(y = 0) +
-    labs(title = plot_title) +
-    xlab(x_title) +
-    ylab(y_title) +
     scale_colour_manual(
       values = lines_specs$colour_hex,
       labels = lines_specs$label
-    ) +
-    theme_2dii_ggplot()
+    )
 
   if (any(data$extrapolated)) {
+    extrapolated <- filter(data, .data$extrapolated)
     plot <- plot +
-      geom_line(
-        data = data %>% filter(.data$extrapolated == TRUE),
-        aes(
-          x = .data$year,
-          y = .data$value,
-          colour = factor(.data$line_name, levels = lines_specs$line_name),
-          linetype = .data$extrapolated
-        )
-      ) +
+      timeline_line(extrapolated, lines_specs, linetype = .data$extrapolated) +
       scale_linetype_manual(values = "dashed") +
       guides(linetype = FALSE)
   }
 
-  plot
+  plot + theme_2dii_ggplot()
+}
+
+timeline_line <- function(data, lines_specs, ...) {
+  geom_line(
+    data = data,
+    aes(
+      x = .data$year,
+      y = .data$value,
+      colour = factor(.data$line_name, levels = lines_specs$line_name),
+      ...
+    )
+  )
 }
 
 factor_to_character <- function(data) {
@@ -115,7 +104,7 @@ factor_to_character <- function(data) {
   data
 }
 
-check_lines_specs <- function(data, lines_specs) {
+check_lines_specs <- function(lines_specs, data) {
   if (!is.data.frame(lines_specs)) {
     msg <- sprintf(
       "'line_specs' must be a dataframe.
@@ -161,7 +150,7 @@ check_lines_specs <- function(data, lines_specs) {
     stop(msg, call. = FALSE)
   }
 
-  invisible(data)
+  invisible(lines_specs)
 }
 
 add_r2dii_colours <- function(lines_specs) {

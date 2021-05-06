@@ -4,23 +4,13 @@
       out
     Output
       $data
-      # A tibble: 29 x 4
-          year line_name         value extrapolated
-         <dbl> <chr>             <dbl> <lgl>       
-       1  2020 projected         0.664 FALSE       
-       2  2021 projected         0.665 FALSE       
-       3  2022 projected         0.666 FALSE       
-       4  2023 projected         0.667 FALSE       
-       5  2024 projected         0.668 FALSE       
-       6  2025 projected         0.669 FALSE       
-       7  2020 corporate_economy 0.669 FALSE       
-       8  2021 corporate_economy 0.670 FALSE       
-       9  2022 corporate_economy 0.671 FALSE       
-      10  2023 corporate_economy 0.672 FALSE       
-      # ... with 19 more rows
+      list()
+      attr(,"class")
+      [1] "waiver"
       
       $layers
       $layers[[1]]
+      mapping: x = ~.data$year, y = ~.data$value, colour = ~factor(.data$line_name, levels = lines_specs$line_name) 
       geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
@@ -53,9 +43,7 @@
       
       $mapping
       Aesthetic mapping: 
-      * `x`      -> `.data$year`
-      * `y`      -> `.data$value`
-      * `colour` -> `factor(.data$line_name, levels = lines_specs$line_name)`
+      <empty>
       
       $theme
       List of 93
@@ -520,14 +508,11 @@
           super:  <ggproto object: Class FacetNull, Facet, gg>
       
       $labels
-      $labels$y
-      [1] "Value"
-      
       $labels$x
-      [1] "Year"
+      [1] "year"
       
-      $labels$title
-      NULL
+      $labels$y
+      [1] "value"
       
       $labels$colour
       [1] "factor(line_name, levels = lines_specs$line_name)"
