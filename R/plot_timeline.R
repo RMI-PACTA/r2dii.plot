@@ -80,7 +80,7 @@ plot_timeline <- function(data, lines_specs = NULL) {
       guides(linetype = FALSE)
   }
 
-  plot + theme_2dii_ggplot()
+  plot + theme_2dii()
 }
 
 timeline_line <- function(data, lines_specs, ...) {
