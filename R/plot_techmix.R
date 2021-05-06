@@ -61,7 +61,8 @@ plot_techmix <- function(data,
   check_tech_colours(data, tech_colours)
 
   if (!("label" %in% names(tech_colours))) {
-
+    tech_colours <- tech_colours %>%
+      mutate(label = guess_label_tech(.data$technology))
   }
 
   data_colours <- dplyr::semi_join(tech_colours, data, by = "technology")
@@ -134,4 +135,9 @@ check_tech_colours <- function(data, tech_colours) {
   }
 
   invisible(data)
+}
+
+guess_label_tech <- function(string) {
+  string <- stringr::str_to_title(string)
+  string <- stringr::str_replace(string, "cap$", " Capacity")
 }

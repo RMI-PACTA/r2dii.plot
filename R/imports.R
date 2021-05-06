@@ -4,6 +4,7 @@
 #' @importFrom dplyr desc lead tibble lag slice_head
 #' @importFrom ggpubr get_legend ggarrange
 #' @importFrom rlang .env
+#' @importFrom stringr str_to_title str_replace
 NULL
 
 utils::globalVariables("where")

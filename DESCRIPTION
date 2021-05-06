@@ -23,7 +23,8 @@ Imports:
     r2dii.data,
     rlang,
     scales,
-    ggpubr
+    ggpubr,
+    stringr
 Suggests: 
     covr,
     r2dii.analysis,
