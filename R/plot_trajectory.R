@@ -6,8 +6,6 @@
 #'
 #' @param data Filtered input data (dataframe with columns: year, metric_type,
 #'   metric and value).
-#' @param plot_title Title of the plot (character string).
-#' @param x_title,y_title Title of the x- and y-axis (character string).
 #' @param scenario_specs_good_to_bad Dataframe containing scenario
 #'   specifications like color or label, ordered from the most to least
 #'   sustainable (dataframe with columns: scenario, label, color).
@@ -41,23 +39,17 @@
 #'   label = "Corporate Economy"
 #' )
 #'
-#' plot_trajectory(data,
+#' p <- plot_trajectory(data,
 #'   scenario_specs_good_to_bad = scenario_specs,
 #'   main_line_metric = main_line_metric
 #' )
+#'
+#' p
 plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
-                            plot_title = "",
-                            x_title = "",
-                            y_title = "",
                             additional_line_metrics = NULL) {
   p_trajectory <- ggplot()
-
-  p_trajectory <- p_trajectory +
-    xlab(x_title) +
-    ylab(y_title) +
-    labs(title = plot_title)
 
   # adjusting the area border to center the starting point of the lines
   lower_area_border <- min(data$value)
@@ -202,6 +194,8 @@ plot_trajectory <- function(data,
     # FIXME: Should we include this in theme_2dii_ggplot() for consistency?
     theme_trajectory()
 
+  # FIXME: The resulting seems to not be a common "ggplot" but a more complex
+  # object that is insensitive to, e.g., p + labs(title = "blah").
   p_trajectory <- add_legend(
     p_trajectory,
     data_scenarios,
