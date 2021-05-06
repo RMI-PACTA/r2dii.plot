@@ -6,4 +6,3 @@ charts/
 .DS_Store
 docs
 example_script.R
-tests/testthat/Rplots.pdf
