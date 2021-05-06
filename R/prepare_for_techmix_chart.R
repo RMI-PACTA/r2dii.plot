@@ -14,7 +14,7 @@
 #' @examples
 #' # FIXME: Returns invisibly
 #' out <- prepare_for_techmix_chart(
-#'   process_input_data(get_example_data()),
+#'   process_input_data(example_data),
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
 #'   region_filter = "global",

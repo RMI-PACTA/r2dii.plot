@@ -40,7 +40,7 @@ etc.).
 }
 \examples{
 data <- prepare_for_trajectory_chart(
-  process_input_data(get_example_data()),
+  process_input_data(example_data),
   sector_filter = "power",
   technology_filter = "renewablescap",
   region_filter = "global",

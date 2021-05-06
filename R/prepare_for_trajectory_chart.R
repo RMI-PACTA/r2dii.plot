@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' raw <- get_example_data()
+#' raw <- example_data
 #' processed <- process_input_data(raw)
 #' # FIXME: Returns invisibly
 #' out <- prepare_for_trajectory_chart(
