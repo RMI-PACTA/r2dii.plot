@@ -141,12 +141,12 @@ bars_labels_specs <- dplyr::tibble(
 )
 
 plot_techmix_power <- plot_techmix(data_techmix_power,
-  plot_title = "Technology mix for the Power sector",
   show_legend = TRUE,
   tech_colors_power,
   bars_labels_specs
 )
-plot_techmix_power
+plot_techmix_power +
+  ggplot2::labs(title = "Technology mix for the Power sector")
 
 power_colors_custom <- dplyr::tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -154,10 +154,13 @@ power_colors_custom <- dplyr::tibble(
   colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
-plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
+plot_techmix_custom_col <- plot_techmix(data_techmix_power,
   show_legend = TRUE, power_colors_custom, bars_labels_specs
 )
-plot_techmix_custom_col
+plot_techmix_custom_col + 
+  ggplot2::labs(
+    title = "Technology mix for the Power sector"
+  )
 ```
 
 * `prepare_for_timeline()` `r pull_title("prepare_for_timeline")`.

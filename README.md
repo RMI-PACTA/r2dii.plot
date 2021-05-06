@@ -77,7 +77,6 @@ additional_line_metrics <- data.frame(
 plot <- plot_trajectory(data_trajectory,
   plot_title = "Production trajectory of Renewables Capacity technology \n in the Power sector",
   x_title = "Year", y_title = "Production rate (normalized to 2020)",
-  annotate_data = FALSE,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric, additional_line_metrics
 )
@@ -98,7 +97,7 @@ data_techmix_power <- prepare_for_techmix_chart(example_data,
   sector_filter = "power",
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds", value_name = "technology_share"
+  scenario_filter = "sds", value_to_plot = "technology_share"
 )
 
 tech_colors_power <- get_r2dii_technology_colours("power")
@@ -114,12 +113,12 @@ bars_labels_specs <- dplyr::tibble(
 )
 
 plot_techmix_power <- plot_techmix(data_techmix_power,
-  plot_title = "Technology mix for the Power sector",
   show_legend = TRUE,
   tech_colors_power,
   bars_labels_specs
 )
-plot_techmix_power
+plot_techmix_power +
+  ggplot2::labs(title = "Technology mix for the Power sector")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -131,10 +130,13 @@ power_colors_custom <- dplyr::tibble(
   colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
-plot_techmix_custom_col <- plot_techmix(data_techmix_power, "Technology mix for the Power sector",
+plot_techmix_custom_col <- plot_techmix(data_techmix_power,
   show_legend = TRUE, power_colors_custom, bars_labels_specs
 )
-plot_techmix_custom_col
+plot_techmix_custom_col + 
+  ggplot2::labs(
+    title = "Technology mix for the Power sector"
+  )
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
