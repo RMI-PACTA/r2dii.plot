@@ -24,8 +24,8 @@ fake_data <- function(sector = "automotive",
   )
 }
 
-lines_specs <- function(...) {
-  dplyr::tibble(
+fake_lines_specs <- function(...) {
+  tibble(
     line_name = c(
       "projected",
       "corporate_economy",

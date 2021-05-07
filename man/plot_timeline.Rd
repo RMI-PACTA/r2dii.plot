@@ -2,64 +2,61 @@
 % Please edit documentation in R/plot_timeline.R
 \name{plot_timeline}
 \alias{plot_timeline}
-\title{Create a time line plot}
+\title{Creates a time line plot}
 \usage{
-plot_timeline(data, lines_specs = NULL)
+plot_timeline(data, specs = timeline_specs(data))
 }
 \arguments{
 \item{data}{Pre-processed data for the chart, with columns: year, value,
 line_name.}
 
-\item{lines_specs}{Dataframe containing order of lines, their labels and
-(optionally) colour names from the r2dii_colours palette (column
-'r2dii_colour_name').}
+\item{specs}{Dataframe containing order of lines, their labels and colour
+names from the r2dii_colours palette.}
 }
 \value{
 An object of class "ggplot".
 }
 \description{
-Create a time line plot
+Creates a time line plot
 }
 \examples{
 library(ggplot2)
+library(dplyr)
 
-data <- sda_target
+# Using default preparation and specs
+data <- prepare_for_timeline(sda_target)
+plot_timeline(data)
 
-# You may prepare and plot an sda_target-like dataset using defaults
-data \%>\%
-  prepare_for_timeline() \%>\%
-  plot_timeline()
-
-# Or use custom values passed to a number of arguments
-cement_data <- data \%>\%
+# Using custom preparation and specs
+cement_data <- sda_target \%>\%
   prepare_for_timeline(
     sector_filter = "cement",
     year_start = 2020,
     year_end = 2050,
     column_line_names = "emission_factor_metric",
     value_to_plot = "emission_factor_value",
-    extrapolate_missing_values = FALSE
+    extrapolate_missing_values = TRUE
   )
 
-lines_specs <- dplyr::tibble(
-  line_name = c(
-    "projected",
-    "corporate_economy",
-    "target_demo",
-    "adjusted_scenario_demo"
-  ),
-  label = c(
-    "Projected",
-    "Corporate Economy",
-    "Target Demo",
-    "Adjusted Scenario Demo"
-  ),
-  r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
+# Combine `timeline_specs()` and `dput()` or `datapasta::tribble_paste()` to
+# produce the default `specs`; then adapt it as you wish:
+custom_specs <- tribble(
+                ~line_name,           ~label, ~colour_hex,
+               "projected",          "Proj.",   "#1b324f",
+       "corporate_economy",  "Corp. Economy",   "#00c082",
+             "target_demo",         "Target",   "#ff9623",
+  "adjusted_scenario_demo",  "Adj. Scenario",   "#d0d7e1"
 )
 
-p <- plot_timeline(cement_data, lines_specs = lines_specs)
-p
+# For reference
+r2dii_palette_colours()
 
-# Customize with ggplot2 as usual
-p + labs(title = "Emission intensity trend for Cement")
+plot_timeline(cement_data, specs = custom_specs)
+
+# Customize as usual with ggplot2
+plot_timeline(cement_data, specs = custom_specs) +
+  labs(title = "Emission intensity trend for Cement")
+}
+\seealso{
+timeline_specs
 }

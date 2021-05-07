@@ -183,7 +183,12 @@ plot_techmix(
 * `plot_timeline()` `r pull_title("plot_timeline")`.
 
 ```{r}
-data_sda_cement <- prepare_for_timeline(
+# Using default preparation and specs
+data <- prepare_for_timeline(sda_target)
+plot_timeline(data)
+
+# Using custom preparation
+data <- prepare_for_timeline(
   sda_target,
   sector_filter = "cement",
   year_start = 2020,
@@ -193,20 +198,23 @@ data_sda_cement <- prepare_for_timeline(
   extrapolate_missing_values = TRUE
 )
 
-lines_specs <- tibble(
-  line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-  label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-  r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
-)
-
-plot_timeline(
-  data_sda_cement,
-  lines_specs = lines_specs
-) +
+# Using custom specs and extending the plot with ggplot2
+plot_timeline(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",
     y = "Tons of CO2 per ton",
     caption = "Dashed line is an extrapolation of the last value in the dataset."
   )
+```
+
+* `timeline_specs()` `r pull_title("timeline_specs")`.
+* `r2dii_palette_colours()` `r pull_title("r2dii_palette_colours")`.
+
+```{r}
+# You may use it as a template to create your custom specs
+timeline_specs(data)
+
+# You may use it as a reference for 2DII's colour palette
+r2dii_palette_colours()
 ```

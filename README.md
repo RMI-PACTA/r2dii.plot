@@ -170,10 +170,19 @@ plot_techmix(
 
 -   `prepare_for_timeline()` prepares sda\_target-type data for timeline
     plot.
--   `plot_timeline()` create a time line plot.
+-   `plot_timeline()` creates a time line plot.
 
 ``` r
-data_sda_cement <- prepare_for_timeline(
+# Using default preparation and specs
+data <- prepare_for_timeline(sda_target)
+plot_timeline(data)
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+# Using custom preparation
+data <- prepare_for_timeline(
   sda_target,
   sector_filter = "cement",
   year_start = 2020,
@@ -183,16 +192,8 @@ data_sda_cement <- prepare_for_timeline(
   extrapolate_missing_values = TRUE
 )
 
-lines_specs <- tibble(
-  line_name = c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo"),
-  label = c("Projected", "Corporate Economy", "Target Demo", "Adjusted Scenario Demo"),
-  r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
-)
-
-plot_timeline(
-  data_sda_cement,
-  lines_specs = lines_specs
-) +
+# Using custom specs and extending the plot with ggplot2
+plot_timeline(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",
@@ -201,4 +202,35 @@ plot_timeline(
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+-   `timeline_specs()` creates the default specs data frame for
+    ‘plot\_timeline()’.
+-   `r2dii_palette_colours()` get the 2dii colour palette.
+
+``` r
+# You may use it as a template to create your custom specs
+timeline_specs(data)
+#> # A tibble: 4 x 3
+#>   line_name              label                  colour_hex
+#>   <chr>                  <chr>                  <chr>     
+#> 1 projected              Projected              #1b324f   
+#> 2 corporate_economy      Corporate Economy      #00c082   
+#> 3 target_demo            Target Demo            #ff9623   
+#> 4 adjusted_scenario_demo Adjusted Scenario Demo #d0d7e1
+
+# You may use it as a reference for 2DII's colour palette
+r2dii_palette_colours()
+#> # A tibble: 9 x 2
+#>   label       colour_hex
+#>   <chr>       <chr>     
+#> 1 dark_blue   #1b324f   
+#> 2 green       #00c082   
+#> 3 orange      #ff9623   
+#> 4 grey        #d0d7e1   
+#> 5 dark_purple #574099   
+#> 6 yellow      #f2e06e   
+#> 7 soft_blue   #78c4d6   
+#> 8 ruby_red    #a63d57   
+#> 9 moss_green  #4a5e54
+```
