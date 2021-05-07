@@ -45,8 +45,7 @@ Prepares pre-processed data for plotting a trajectory chart
 \examples{
 raw <- example_data
 processed <- process_input_data(raw)
-# FIXME: Returns invisibly
-out <- prepare_for_trajectory_chart(
+prepare_for_trajectory_chart(
   processed,
   sector_filter = "power",
   technology_filter = "oilcap",
@@ -54,6 +53,4 @@ out <- prepare_for_trajectory_chart(
   scenario_source_filter = "demo_2020",
   value_name = "production"
 )
-
-out
 }
