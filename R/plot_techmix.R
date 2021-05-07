@@ -140,8 +140,8 @@ check_input_parameters_plot_techmix <- function(data,
   if (length(metric_type_order) != length(metric_type_labels)) {
     msg <- sprintf(
       "'metric_type_labels' must be of the same length (and order) as 'metric_type_order'.
-      * 'metric_type_order' has length %f and elements: %s.
-      * You submitted 'metric_type_labels' of legth %f and elements: %s.",
+      * 'metric_type_order' has length %d and elements: %s.
+      * You submitted 'metric_type_labels' of legth %d and elements: %s.",
       length(metric_type_order),
       toString(metric_type_order),
       length(metric_type_labels),
@@ -166,6 +166,15 @@ check_input_parameters_plot_techmix <- function(data,
 }
 
 check_tech_colours <- function(data, tech_colours) {
+  if (!is.data.frame(tech_colours)) {
+    msg <- sprintf(
+      "'tech_colours' must be a dataframe.
+      * You've supplied a $s.",
+      typeof(tech_colours)
+    )
+    stop(msg, call. = FALSE)
+  }
+
   if (!all(c("technology", "colour") %in% names(tech_colours))) {
     msg <- sprintf(
       "'tech_colours' must have columns 'technology' and 'colour'.
