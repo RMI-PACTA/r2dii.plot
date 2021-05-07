@@ -60,7 +60,7 @@ plot_techmix <- function(data,
     filter(.data$metric_type %in% df_bar_specs$metric_type)
 
   p_techmix <- ggplot() +
-    theme_2dii_ggplot() +
+    theme_2dii() +
     xlab("") +
     ylab("") +
     labs(title = plot_title)
