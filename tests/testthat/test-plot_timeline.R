@@ -48,3 +48,14 @@ test_that("handles specs with factors", {
     plot_timeline(data, specs = specs)
   )
 })
+
+test_that("with line_name where specs missmatching data, errors gracefully", {
+  data <- fake_timeline_data()
+  specs <- timeline_specs(data)
+  specs$line_name <- "bad"
+
+  expect_error(
+    class = "missmatching_line_name",
+    plot_timeline(data, specs)
+  )
+})

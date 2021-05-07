@@ -3,7 +3,7 @@
 #' @inheritParams plot_timeline
 #'
 #' @seealso plot_timeline
-#' @return
+#' @return A data frame useful as the `specs` argument of [plot_timeline()].
 #' @export
 #' @examples
 #' data <- prepare_for_timeline(sda_target)
@@ -36,4 +36,13 @@ stop_if_too_many_lines <- function(data) {
   }
 
   invisible(data)
+}
+
+add_r2dii_colours <- function(specs) {
+  n <- seq_len(nrow(specs))
+  specs$r2dii_colour_name <- r2dii_palette_colours()$label[n]
+
+  specs %>%
+    left_join(r2dii_palette_colours(), by = c("r2dii_colour_name" = "label")) %>%
+    select(-.data$r2dii_colour_name)
 }

@@ -82,15 +82,6 @@ timeline_line <- function(data, specs, ...) {
   )
 }
 
-factor_to_character <- function(data) {
-  has_factors <- any(unlist(lapply(data, is.factor)))
-  if (is.data.frame(data) && has_factors) {
-    data <- mutate(data, across(where(is.factor), as.character))
-  }
-
-  data
-}
-
 check_specs <- function(specs, data) {
   crucial <- c("line_name", "label", "colour_hex")
   check_crucial_names(specs, crucial)
@@ -104,38 +95,23 @@ check_specs <- function(specs, data) {
     msg <- sprintf(
       "Can't find `line_name` values from 'specs' in the data.
       * Unique `line_name` values in 'data' are: %s.
-    * Unique `line_name` values in 'specs' are: %s.",
+      * Unique `line_name` values in 'specs' are: %s.",
       toString(sort(unique(data$line_name))),
       toString(sort(unique(specs$line_name)))
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(class = "missmatching_line_name", msg)
   }
 
   invisible(specs)
 }
 
-add_r2dii_colours <- function(specs) {
-  r2dii_colours <- r2dii_palette_colours()
-
-  n <- seq_len(nrow(specs))
-  specs$r2dii_colour_name <- r2dii_colours$label[n]
-
-  if (!(all(specs$r2dii_colour_name %in% r2dii_colours$label))) {
-    msg <- sprintf(
-      "Colour names specified in 'specs' must match r2dii_colours$label.
-      * The names in r2dii_colours are: %s.
-      * You've supplied: ",
-      toString(r2dii_colours$label),
-      specs %>%
-        filter(!.data$r2dii_colour_name %in% r2dii_colours$label) %>%
-        pull(.data$r2dii_colour_name)
-    )
-    stop(msg, call. = FALSE)
+factor_to_character <- function(data) {
+  has_factors <- any(unlist(lapply(data, is.factor)))
+  if (is.data.frame(data) && has_factors) {
+    data <- mutate(data, across(where(is.factor), as.character))
   }
 
-  specs %>%
-    left_join(r2dii_colours, by = c("r2dii_colour_name" = "label")) %>%
-    select(-.data$r2dii_colour_name)
+  data
 }
 
 fake_timeline_data <- function(year = NULL,
