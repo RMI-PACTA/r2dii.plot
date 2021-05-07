@@ -191,8 +191,11 @@ plot_trajectory <- function(data,
 
   p_trajectory <- p_trajectory +
     theme_2dii_ggplot() +
-    # FIXME: Should we include this in theme_2dii_ggplot() for consistency?
-    theme_trajectory()
+    theme(
+      axis.line = element_blank(),
+      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
+      legend.position = NULL
+    )
 
   # FIXME: The resulting seems to not be a common "ggplot" but a more complex
   # object that is insensitive to, e.g., p + labs(title = "blah").
@@ -207,12 +210,6 @@ plot_trajectory <- function(data,
   )
 
   p_trajectory
-}
-
-theme_trajectory <- function() {
-  theme(axis.line = element_blank()) +
-  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
-  theme(legend.position = NULL)
 }
 
 reverse_rows <- function(x) {
