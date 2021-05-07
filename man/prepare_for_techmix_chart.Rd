@@ -35,8 +35,7 @@ prepare_for_techmix_chart(
 Prepares pre-processed data for plotting a tech-mix chart
 }
 \examples{
-# FIXME: Returns invisibly
-out <- prepare_for_techmix_chart(
+prepare_for_techmix_chart(
   process_input_data(example_data),
   sector_filter = "power",
   years_filter = c(2020, 2025),
@@ -45,5 +44,4 @@ out <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_name = "technology_share"
 )
-out
 }
