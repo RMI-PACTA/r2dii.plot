@@ -21,7 +21,7 @@ test_that("with the simplest call outputs the expected snapshot", {
 
 test_that("with bad 'metric_type_order' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -55,7 +55,7 @@ test_that("with bad 'metric_type_labels' errors gracefully", {
 
 test_that("with bad 'tech_colours' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -72,7 +72,7 @@ test_that("with bad 'tech_colours' errors gracefully", {
 
 test_that("with bad column in 'tech_colours' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -92,7 +92,7 @@ test_that("with bad column in 'tech_colours' errors gracefully", {
 
 test_that("with bad technology in 'tech_colours' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
