@@ -39,20 +39,20 @@ data <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-  metric_type_order = c(
-    "portfolio_2020",
-    "benchmark_2020",
-    "portfolio_2025",
-    "benchmark_2025",
-    "scenario_2025"
-  )
-  metric_type_label = c(
-    "Portfolio 2020",
-    "Benchmark 2020",
-    "Portfolio 2025",
-    "Benchmark 2025",
-    "Target SDS 2025"
-  )
+metric_type_order <- c(
+  "portfolio_2020",
+  "benchmark_2020",
+  "portfolio_2025",
+  "benchmark_2025",
+  "scenario_2025"
+)
+metric_type_label <- c(
+  "Portfolio 2020",
+  "Benchmark 2020",
+  "Portfolio 2025",
+  "Benchmark 2025",
+  "Target SDS 2025"
+)
 
 print(
   plot_techmix(

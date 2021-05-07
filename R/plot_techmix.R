@@ -24,20 +24,20 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-#'   metric_type_order = c(
-#'     "portfolio_2020",
-#'     "benchmark_2020",
-#'     "portfolio_2025",
-#'     "benchmark_2025",
-#'     "scenario_2025"
-#'   )
-#'   metric_type_label = c(
-#'     "Portfolio 2020",
-#'     "Benchmark 2020",
-#'     "Portfolio 2025",
-#'     "Benchmark 2025",
-#'     "Target SDS 2025"
-#'   )
+#' metric_type_order <- c(
+#'   "portfolio_2020",
+#'   "benchmark_2020",
+#'   "portfolio_2025",
+#'   "benchmark_2025",
+#'   "scenario_2025"
+#' )
+#' metric_type_label <- c(
+#'   "Portfolio 2020",
+#'   "Benchmark 2020",
+#'   "Portfolio 2025",
+#'   "Benchmark 2025",
+#'   "Target SDS 2025"
+#' )
 #'
 #' print(
 #'   plot_techmix(
@@ -50,14 +50,22 @@ plot_techmix <- function(data,
                          metric_type_order = NULL,
                          metric_type_labels = NULL,
                          tech_colours = NULL) {
-
   metric_type_order <- metric_type_order %||% unique(data$metric_type)
   metric_type_labels <-
     metric_type_labels %||% guess_label_metric_type(metric_type_order)
 
   sector <- data %>%
     slice_head(n = 1) %>%
-    pull(.data$sector)
+    pull(.data$sector) %>%
+    guess_sector()
+
+  check_input_parameters_plot_techmix(
+    data,
+    metric_type_order,
+    metric_type_labels,
+    sector,
+    tech_colours
+  )
 
   if (is.null(tech_colours)) {
     tech_colours <- get_r2dii_technology_colours(sector)
@@ -106,15 +114,58 @@ plot_techmix <- function(data,
     theme(axis.line.y = element_blank()) +
     theme(axis.ticks.y = element_blank())
 
-    p_techmix <- p_techmix +
-      theme(legend.position = "bottom") +
-      guides(fill = guide_legend(ncol = 3, byrow = TRUE))
+  p_techmix <- p_techmix +
+    theme(legend.position = "bottom") +
+    guides(fill = guide_legend(ncol = 3, byrow = TRUE))
 
   p_techmix
 }
 
-check_tech_colours <- function(data, tech_colours) {
+check_input_parameters_plot_techmix <- function(data,
+                                                metric_type_order,
+                                                metric_type_labels,
+                                                sector,
+                                                tech_colours) {
+  if (!all(metric_type_order %in% unique(data$metric_type))) {
+    msg <- sprintf(
+      "'metric_type_order' elements must be found in 'metric_type' column of input data.
+      * Possible 'metric_type' in data are: %s.
+      * You submitted: %s.",
+      toString(unique(data$metric_type)),
+      toString(metric_type_order)
+    )
+    stop(msg, call. = FALSE)
+  }
 
+  if (length(metric_type_order) != length(metric_type_labels)) {
+    msg <- sprintf(
+      "'metric_type_labels' must be of the same length (and order) as 'metric_type_order'.
+      * 'metric_type_order' has length %f and elements: %s.
+      * You submitted 'metric_type_labels' of legth %f and elements: %s.",
+      length(metric_type_order),
+      toString(metric_type_order),
+      length(metric_type_labels),
+      toString(metric_type_labels)
+    )
+    stop(msg, call. = FALSE)
+  }
+
+  if (!(sector %in% c("power", "automotive", "oil&gas", "fossil fuels"))) {
+    if (is.null(tech_colours)) {
+      msg <- sprintf(
+        "Input data 'sector' not found in standard chart sectors.
+        * Standard sectors are: %s.
+        * You submitted data with sector: %s.
+        Please use data from a known sector or specify technology colours in 'tech_colours' parameters.",
+        toString(c("power", "automotive", "oil&gas", "fossil fuels")),
+        sector
+      )
+      stop(msg, call. = FALSE)
+    }
+  }
+}
+
+check_tech_colours <- function(data, tech_colours) {
   if (!all(c("technology", "colour") %in% names(tech_colours))) {
     msg <- sprintf(
       "'tech_colours' must have columns 'technology' and 'colour'.
@@ -145,4 +196,15 @@ guess_label_tech <- function(string) {
 guess_label_metric_type <- function(string) {
   string <- stringr::str_to_title(string)
   string <- stringr::str_replace(string, "_", " ")
+}
+
+guess_sector <- function(sector) {
+  sector <- case_when(
+    grepl("(?i)power(?-i)", sector) ~ "power",
+    grepl("(?i)auto(?-i)[a-zA-Z]+", sector) ~ "automotive",
+    grepl("(?i)oil(?-i).*(?i)gas(?-i)", sector) ~ "oil&gas",
+    grepl("(?i)fossil(?-i)[a-zA-Z]+", sector) ~ "fossil fuels",
+    TRUE ~ tolower(sector)
+  )
+  sector
 }
