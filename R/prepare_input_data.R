@@ -13,19 +13,20 @@
 #' data <- example_data
 #' process_input_data(data)
 process_input_data <- function(data) {
+  data %>%
+    add_metric_type() %>%
+    mutate(metric = sub("target_", "", .data$metric))
+}
+
+add_metric_type <- function(data) {
   check_crucial_names(data, "metric")
 
-  data %>%
-    mutate(
-      metric_type = case_when(
-        .data$metric == "projected" ~ "portfolio",
-        grepl("target", .data$metric) ~ "scenario",
-        TRUE ~ "benchmark"
-      )
-    ) %>%
-    mutate(metric = if_else(
-      grepl("target", .data$metric),
-      sub(".*_", "", .data$metric),
-      .data$metric
-    ))
+  mutate(
+    data,
+    metric_type = case_when(
+      .data$metric == "projected" ~ "portfolio",
+      startsWith(.data$metric, "target") ~ "scenario",
+      TRUE ~ "benchmark"
+    )
+  )
 }
