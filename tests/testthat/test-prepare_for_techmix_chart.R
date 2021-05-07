@@ -1,5 +1,5 @@
 test_that("outputs a data.frame", {
-  data <- process_input_data(get_example_data())
+  data <- process_input_data(example_data)
 
   out <- prepare_for_techmix_chart(
     data,
@@ -15,7 +15,7 @@ test_that("outputs a data.frame", {
 })
 
 test_that("returns visibly", {
-  data <- process_input_data(get_example_data())
+  data <- process_input_data(example_data)
 
   expect_visible(
     prepare_for_techmix_chart(
@@ -107,7 +107,7 @@ test_that("with bad `scenario_filter` errors gracefully", {
 
 test_that("adds the column `value` from the column named in `value_to_plot`", {
   out <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",

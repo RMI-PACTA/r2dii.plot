@@ -71,11 +71,11 @@ devtools::install_github("2DegreesInvesting/r2dii.plot.static")
 library(r2dii.plot.static)
 ```
 
-* `get_example_data()` `r pull_title("get_example_data")`.
+* `example_data` `r pull_title("example_data")`.
 * `process_input_data()` `r pull_title("process_input_data")`.
 
 ```{r}
-example_data <- get_example_data()
+example_data <- example_data
 example_data <- process_input_data(example_data)
 ```
 

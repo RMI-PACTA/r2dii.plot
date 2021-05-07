@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #' data <- prepare_for_trajectory_chart(
-#'   process_input_data(get_example_data()),
+#'   process_input_data(example_data),
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
 #'   region_filter = "global",
@@ -46,14 +46,12 @@
 #'   main_line_metric = main_line_metric
 #' )
 plot_trajectory <- function(data,
+                            scenario_specs_good_to_bad,
+                            main_line_metric,
                             plot_title = "",
                             x_title = "",
                             y_title = "",
-                            # FIXME: obligatory arguments come before optional
-                            scenario_specs_good_to_bad,
-                            # FIXME: obligatory arguments come before optional
-                            main_line_metric,
-                            additional_line_metrics = data.frame()) {
+                            additional_line_metrics = NULL) {
   p_trajectory <- ggplot() +
     theme_2dii_ggplot() +
     coord_cartesian(expand = FALSE, clip = "off") +
@@ -175,7 +173,7 @@ plot_trajectory <- function(data,
   linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
   linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
 
-  if (length(additional_line_metrics) >= 1) {
+  if (!is.null(additional_line_metrics)) {
     line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
     line_labels <- c(main_line_metric$label, additional_line_metrics$label)
   } else {

@@ -2,7 +2,7 @@ test_that("with the simplest call outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -38,7 +38,7 @@ test_that("with bad 'metric_type_order' errors gracefully", {
 
 test_that("with bad 'metric_type_labels' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
