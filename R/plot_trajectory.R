@@ -190,7 +190,7 @@ plot_trajectory <- function(data,
     scale_color_manual(values = linecolors_ordered[1:n_lines])
 
   p_trajectory <- p_trajectory +
-    theme_2dii_ggplot() +
+    theme_2dii() +
     theme(
       axis.line = element_blank(),
       plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
