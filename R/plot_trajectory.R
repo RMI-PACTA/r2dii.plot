@@ -53,7 +53,7 @@ plot_trajectory <- function(data,
                             y_title = "",
                             additional_line_metrics = NULL) {
   p_trajectory <- ggplot() +
-    theme_2dii_ggplot() +
+    theme_2dii() +
     coord_cartesian(expand = FALSE, clip = "off") +
     theme(axis.line = element_blank()) +
     xlab(x_title) +
@@ -280,7 +280,7 @@ help_plot_area_colors <- function(data_scenarios,
   value_span <- upper_area_border - lower_area_border
 
   p_legend <- ggplot() +
-    theme_2dii_ggplot() +
+    theme_2dii() +
     geom_point(
       data = data_scenarios,
       aes(
