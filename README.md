@@ -93,50 +93,71 @@ plot
 -   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
-data_techmix_power <- prepare_for_techmix_chart(example_data,
-  sector_filter = "power",
+# Default colours, all data, added title
+
+sector <- "power"
+
+data <- prepare_for_techmix_chart(example_data,
+  sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds", value_to_plot = "technology_share"
 )
 
-bars_labels_specs <- dplyr::tibble(
-  metric_type = c(
-    "portfolio_2020", "benchmark_2020", "portfolio_2025",
-    "benchmark_2025", "scenario_2025"
-  ),
-  label = c(
-    "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
-    "Benchmark 2025", "Target SDS 2025"
-  )
-)
-
-plot_techmix_power <- plot_techmix(data_techmix_power,
-  df_bar_specs = bars_labels_specs
-)
-plot_techmix_power +
+plot <- plot_techmix(data)
+plot +
   ggplot2::labs(title = "Technology mix for the Power sector")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+# Custom colours, all data, no title
+
 power_colors_custom <- dplyr::tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
   colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
-plot_techmix_custom_col <- plot_techmix(data_techmix_power,
-  power_colors_custom, df_bar_specs = bars_labels_specs
+plot <- plot_techmix(data,
+  tech_colours = power_colors_custom
 )
-plot_techmix_custom_col + 
-  ggplot2::labs(
-    title = "Technology mix for the Power sector"
-  )
+plot
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+# Default colours, selected data and labels (metric_type parameters), added title
+
+sector <- "automotive"
+
+data <- prepare_for_techmix_chart(example_data,
+  sector_filter = sector,
+  years_filter = c(2020, 2025), region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  scenario_filter = "sds", value_to_plot = "technology_share"
+)
+
+metric_type_order = c(
+    "portfolio_2020", "benchmark_2020", "portfolio_2025",
+    "benchmark_2025", "scenario_2025"
+)
+metric_type_labels = c(
+    "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
+    "Benchmark 2025", "Target SDS 2025"
+  )
+
+plot <- plot_techmix(data,
+  metric_type_order = metric_type_order,
+  metric_type_labels = metric_type_labels
+)
+plot +
+  ggplot2::labs(title = "Technology mix for the Automotive sector")
+```
+
+<img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `prepare_for_timeline()` prepares sda\_target-type data for timeline
     plot.
