@@ -34,13 +34,13 @@ test_that("with bad `sector_filter` errors gracefully", {
   expect_error(
     regexp = "arg.*should be one of",
     prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
-    sector_filter = "bad",
-    years_filter = c(2020, 2025),
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    scenario_filter = "sds",
-    value_to_plot = "technology_share"
+      process_input_data(get_example_data()),
+      sector_filter = "bad",
+      years_filter = c(2020, 2025),
+      region_filter = "global",
+      scenario_source_filter = "demo_2020",
+      scenario_filter = "sds",
+      value_to_plot = "technology_share"
     )
   )
 })

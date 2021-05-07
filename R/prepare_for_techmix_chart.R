@@ -79,11 +79,11 @@ prepare_for_techmix_chart <- function(data,
 }
 
 check_input_parameters_techmix <- function(data,
-                                   years_filter,
-                                   region_filter,
-                                   scenario_source_filter,
-                                   scenario_filter,
-                                   value_to_plot) {
+                                           years_filter,
+                                           region_filter,
+                                           scenario_source_filter,
+                                           scenario_filter,
+                                           value_to_plot) {
   if (typeof(years_filter) != "double") {
     msg <- sprintf(
       "'years_filter' must be a vector of numbers.
