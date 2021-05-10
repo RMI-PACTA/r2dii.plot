@@ -43,7 +43,7 @@ get_r2dii_technology_colours <- function(sector) {
   colours
 }
 
-#' Get the 2DII colour palette
+#' Outputs a data frame giving the 2DII colour palette
 #'
 #' @export
 #' @examples
