@@ -2,12 +2,12 @@
 % Please edit documentation in R/2dii_colours.R
 \name{r2dii_palette_colours}
 \alias{r2dii_palette_colours}
-\title{Get the 2DII colour palette}
+\title{Outputs a data frame giving the 2DII colour palette}
 \usage{
 r2dii_palette_colours()
 }
 \description{
-Get the 2DII colour palette
+Outputs a data frame giving the 2DII colour palette
 }
 \examples{
 r2dii_palette_colours()

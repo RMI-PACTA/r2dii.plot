@@ -1,147 +1,61 @@
-test_that("prints output ggplot object without error", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
-
-  plot <- plot_timeline(data_sda_cement)
-  expect_error(
-    {
-      path <- tempfile(fileext = ".pdf")
-      pdf(path)
-      print(plot)
-      dev.off()
-    },
-    NA
-  )
-})
-
-test_that("with bad 'lines_specs' errors gracefully", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
-
-  expect_error(
-    regexp = "line_specs.*must be.*data?frame",
-    plot_timeline(data_sda_cement, lines_specs = "bad")
-  )
-})
-
-test_that("with bad column names in 'lines_specs' errors gracefully", {
-  skip_if(r_version_is_older_than(4))
-
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
-
-  bad_lines_specs <- dplyr::rename(lines_specs(), bad = label)
-
-  expect_error(
-    regexp = "line_specs.*must have.*line_name.*and.*label",
-    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs)
-  )
-})
-
-test_that("with unmatching entries in 'lines_specs' errors gracefully", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
-
-  bad_lines_specs <- lines_specs()
-  bad_lines_specs$line_name[1] <- "bad"
-
-  expect_error(
-    regexp = "Can't find.*line_name",
-    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs)
-  )
-})
-
-test_that("with bad colour names in 'lines_specs' errors gracefully", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
-
-  bad_lines_specs <- lines_specs(
-    r2dii_colour_name = c("dark_blue", "green", "bad", "orange")
-  )
-
-  expect_error(
-    regexp = "Colour names.*must match",
-    plot_timeline(data_sda_cement, lines_specs = bad_lines_specs)
-  )
-})
-
 test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
-  extrapolated <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value",
-    extrapolate_missing_values = TRUE
-  )
-  lines_specs <- lines_specs(
-    r2dii_colour_name = c("dark_blue", "green", "grey", "orange")
+  data <- dplyr::tribble(
+    ~year,  ~line_name, ~value, ~extrapolated,
+     2021,         "a",    0.1,         FALSE,
+     2022,         "a",    0.2,         FALSE,
+     2023,         "a",    0.3,         FALSE,
+     2021,         "b",    0.5,          TRUE,
+     2022,         "b",    0.6,          TRUE,
+     2023,         "b",    0.7,          TRUE,
   )
 
-  out <- unclass(plot_timeline(extrapolated, lines_specs = lines_specs))
+  out <- unclass(
+    plot_timeline(data)
+  )
   out$plot_env <- NULL
+
   expect_snapshot(out)
 })
 
-test_that("with malformed lines_specs errors gracefully", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
+test_that("with specs missing crucial columns, errors gracefully", {
+  data <- fake_timeline_data()
+  bad <- timeline_specs(data)
+  bad$colour_hex <- NULL
 
-  too_many_rows <- Reduce(
-    dplyr::bind_rows,
-    list(
-      lines_specs(),
-      lines_specs(),
-      lines_specs()
-    )
-  )
   expect_error(
-    regexp = "lines.*must be.*lower",
-    plot_timeline(data_sda_cement, lines_specs = too_many_rows)
+    class = "missing_names",
+    plot_timeline(data, specs = bad)
   )
 })
 
-test_that("handles lines_specs with factors", {
-  data_sda_cement <- prepare_for_timeline(sda_target,
-    sector_filter = "cement",
-    year_start = 2020,
-    year_end = 2050,
-    column_line_names = "emission_factor_metric",
-    value_to_plot = "emission_factor_value"
-  )
+test_that("with too many lines errors gracefully", {
+  data <- fake_timeline_data(line_name = letters[1:10])
 
-  specs <- dplyr::mutate(lines_specs(), label = as.factor(label))
-  expect_no_error(plot_timeline(data_sda_cement, lines_specs = specs))
+  expect_error(
+    class = "too_many_lines",
+    plot_timeline(data)
+  )
+})
+
+test_that("handles specs with factors", {
+  data <- fake_timeline_data(2020:2021)
+  specs <- timeline_specs(data)
+  specs$label <- as.factor(specs$label)
+
+  expect_no_error(
+    plot_timeline(data, specs = specs)
+  )
+})
+
+test_that("with line_name where specs missmatching data, errors gracefully", {
+  data <- fake_timeline_data()
+  specs <- timeline_specs(data)
+  specs$line_name <- "bad"
+
+  expect_error(
+    class = "missmatching_line_name",
+    plot_timeline(data, specs)
+  )
 })

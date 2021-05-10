@@ -8,9 +8,6 @@ plot_trajectory(
   data,
   scenario_specs_good_to_bad,
   main_line_metric,
-  plot_title = "",
-  x_title = "",
-  y_title = "",
   additional_line_metrics = NULL
 )
 }
@@ -24,10 +21,6 @@ sustainable (dataframe with columns: scenario, label, color).}
 
 \item{main_line_metric}{Dataframe containing information about metric that
 should be plotted as the main line (dataframe with columns: metric, label).}
-
-\item{plot_title}{Title of the plot (character string).}
-
-\item{x_title, y_title}{Title of the x- and y-axis (character string).}
 
 \item{additional_line_metrics}{Dataframe containing information about
 additional metrics that should be plotted as lines (dataframe with columns:
@@ -61,8 +54,10 @@ additional_line_metrics <- dplyr::tibble(
   label = "Corporate Economy"
 )
 
-plot_trajectory(data,
+p <- plot_trajectory(data,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric
 )
+
+p
 }
