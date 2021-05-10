@@ -134,9 +134,6 @@ etc.).</p>
   <span class='va'>data</span>,
   <span class='va'>scenario_specs_good_to_bad</span>,
   <span class='va'>main_line_metric</span>,
-  plot_title <span class='op'>=</span> <span class='st'>""</span>,
-  x_title <span class='op'>=</span> <span class='st'>""</span>,
-  y_title <span class='op'>=</span> <span class='st'>""</span>,
   additional_line_metrics <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -158,14 +155,6 @@ sustainable (dataframe with columns: scenario, label, color).</p></td>
       <th>main_line_metric</th>
       <td><p>Dataframe containing information about metric that
 should be plotted as the main line (dataframe with columns: metric, label).</p></td>
-    </tr>
-    <tr>
-      <th>plot_title</th>
-      <td><p>Title of the plot (character string).</p></td>
-    </tr>
-    <tr>
-      <th>x_title, y_title</th>
-      <td><p>Title of the x- and y-axis (character string).</p></td>
     </tr>
     <tr>
       <th>additional_line_metrics</th>
@@ -199,10 +188,12 @@ metric, label).</p></td>
   label <span class='op'>=</span> <span class='st'>"Corporate Economy"</span>
 <span class='op'>)</span>
 
-<span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span>,
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span>,
   scenario_specs_good_to_bad <span class='op'>=</span> <span class='va'>scenario_specs</span>,
   main_line_metric <span class='op'>=</span> <span class='va'>main_line_metric</span>
 <span class='op'>)</span>
+
+<span class='va'>p</span>
 </div><div class='img'><img src='plot_trajectory-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
