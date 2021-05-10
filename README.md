@@ -111,7 +111,6 @@ plot_trajectory(
 -   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
-<<<<<<< HEAD
 # Default colours, all data, added title
 
 sector <- "power"
@@ -126,74 +125,22 @@ data <- prepare_for_techmix_chart(example_data,
 plot <- plot_techmix(data)
 plot +
   ggplot2::labs(title = "Technology mix for the Power sector")
-=======
-data_techmix_power <- prepare_for_techmix_chart(
-  example_data,
-  sector_filter = "power",
-  years_filter = c(2020, 2025),
-  region_filter = "global",
-  scenario_source_filter = "demo_2020",
-  scenario_filter = "sds",
-  value_name = "technology_share"
-)
-
-tech_colors_power <- get_r2dii_technology_colours("power")
-bars_labels_specs <- tibble(
-  metric_type = c(
-    "portfolio_2020",
-    "benchmark_2020",
-    "portfolio_2025",
-    "benchmark_2025",
-    "scenario_2025"
-  ),
-  label = c(
-    "Portfolio 2020",
-    "Benchmark 2020",
-    "Portfolio 2025",
-    "Benchmark 2025",
-    "Target SDS 2025"
-  )
-)
-
-plot_techmix(
-  data_techmix_power,
-  plot_title = "Technology mix for the Power sector",
-  show_legend = TRUE,
-  df_tech_colours = tech_colors_power,
-  df_bar_specs = bars_labels_specs
-)
->>>>>>> 40874c40540ec5f485a1804a6161c3389e241fbe
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-<<<<<<< HEAD
 # Custom colours, all data, no title
-
-power_colors_custom <- dplyr::tibble(
-=======
 power_colors_custom <- tibble(
->>>>>>> 40874c40540ec5f485a1804a6161c3389e241fbe
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
   colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
-<<<<<<< HEAD
 plot <- plot_techmix(data,
   tech_colours = power_colors_custom
 )
 plot
-=======
-plot_techmix(
-  data_techmix_power,
-  "Technology mix for the Power sector",
-  show_legend = TRUE,
-  df_tech_colours = power_colors_custom,
-  df_bar_specs = bars_labels_specs
-)
->>>>>>> 40874c40540ec5f485a1804a6161c3389e241fbe
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -267,7 +214,8 @@ plot_timeline(data) +
 
 -   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timeline()’.
--   `r2dii_palette_colours()` get the 2dii colour palette.
+-   `r2dii_palette_colours()` outputs a data frame giving the 2dii
+    colour palette.
 
 ``` r
 # You may use it as a template to create your custom specs
