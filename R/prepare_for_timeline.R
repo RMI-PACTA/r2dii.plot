@@ -43,8 +43,15 @@ prepare_for_timeline <- function(sda_target_data,
   sda_target_data$sector <- tolower(sda_target_data$sector)
 
   sector_filter <- tolower(sector_filter)
-  warn(class = "chosen_sector", sprintf("Choosing sector: %s", sector_filter))
   sector_filter <- match.arg(sector_filter)
+
+  too_long <- length(unique(sda_target_data$sector)) > 1L
+  if (too_long) {
+    warn(
+      class = "chosen_sector",
+      sprintf("Choosing sector: %s", sector_filter)
+    )
+  }
 
   check_input_parameters(
     sda_target_data,

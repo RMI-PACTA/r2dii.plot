@@ -128,55 +128,59 @@ plot_trajectory(
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
 ```{r}
-data_techmix_power <- prepare_for_techmix_chart(
-  example_data,
-  sector_filter = "power",
-  years_filter = c(2020, 2025),
-  region_filter = "global",
+# Default colours, all data, added title
+
+sector <- "power"
+
+data <- prepare_for_techmix_chart(example_data,
+  sector_filter = sector,
+  years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds",
-  value_name = "technology_share"
+  scenario_filter = "sds", value_to_plot = "technology_share"
 )
 
-tech_colors_power <- get_r2dii_technology_colours("power")
-bars_labels_specs <- tibble(
-  metric_type = c(
-    "portfolio_2020",
-    "benchmark_2020",
-    "portfolio_2025",
-    "benchmark_2025",
-    "scenario_2025"
-  ),
-  label = c(
-    "Portfolio 2020",
-    "Benchmark 2020",
-    "Portfolio 2025",
-    "Benchmark 2025",
-    "Target SDS 2025"
-  )
-)
+plot <- plot_techmix(data)
+plot +
+  ggplot2::labs(title = "Technology mix for the Power sector")
 
-plot_techmix(
-  data_techmix_power,
-  plot_title = "Technology mix for the Power sector",
-  show_legend = TRUE,
-  df_tech_colours = tech_colors_power,
-  df_bar_specs = bars_labels_specs
-)
-
+# Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
   colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
-plot_techmix(
-  data_techmix_power,
-  "Technology mix for the Power sector",
-  show_legend = TRUE,
-  df_tech_colours = power_colors_custom,
-  df_bar_specs = bars_labels_specs
+plot <- plot_techmix(data,
+  tech_colours = power_colors_custom
 )
+plot
+
+# Default colours, selected data and labels (metric_type parameters), added title
+
+sector <- "automotive"
+
+data <- prepare_for_techmix_chart(example_data,
+  sector_filter = sector,
+  years_filter = c(2020, 2025), region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  scenario_filter = "sds", value_to_plot = "technology_share"
+)
+
+metric_type_order = c(
+    "portfolio_2020", "benchmark_2020", "portfolio_2025",
+    "benchmark_2025", "scenario_2025"
+)
+metric_type_labels = c(
+    "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
+    "Benchmark 2025", "Target SDS 2025"
+  )
+
+plot <- plot_techmix(data,
+  metric_type_order = metric_type_order,
+  metric_type_labels = metric_type_labels
+)
+plot +
+  ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
 * `prepare_for_timeline()` `r pull_title("prepare_for_timeline")`.

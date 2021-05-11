@@ -106,8 +106,9 @@ test_that("with bad `extrapolate_missing_values` errors gracefully", {
 })
 
 test_that("warns chosen sector", {
-  expect_warning(class = "chosen_sector",
-  prepare_for_timeline(sda_target, sector_filter = "automotive")
+  expect_warning(
+    class = "chosen_sector",
+    prepare_for_timeline(sda_target, sector_filter = "automotive")
   )
 })
 
@@ -116,6 +117,15 @@ test_that("with a `sector_filter` of lengh > 1 throws an error", {
   expect_error(
     prepare_for_timeline(sda_target, sector_filter = too_long),
     "must be of length 1"
+  )
+})
+
+test_that("when data has a single sector throws no warning", {
+  data <- filter(sda_target, sector == dplyr::first(sector))
+
+  expect_warning(
+    prepare_for_timeline(data, sector_filter = "steel"),
+    NA
   )
 })
 

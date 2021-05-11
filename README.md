@@ -38,7 +38,7 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-#> ✓ tibble  3.1.0     ✓ dplyr   1.0.5
+#> ✓ tibble  3.1.0     ✓ dplyr   1.0.4
 #> ✓ tidyr   1.1.3     ✓ stringr 1.4.0
 #> ✓ readr   1.4.0     ✓ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -98,8 +98,6 @@ plot_trajectory(
     x = "Year",
     y = "Production rate (normalized to 2020)"
   )
-#> Warning: partial match of 'height' to 'heights'
-#> Warning: partial match of 'width' to 'widths'
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -111,62 +109,70 @@ plot_trajectory(
 -   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
-data_techmix_power <- prepare_for_techmix_chart(
-  example_data,
-  sector_filter = "power",
-  years_filter = c(2020, 2025),
-  region_filter = "global",
+# Default colours, all data, added title
+
+sector <- "power"
+
+data <- prepare_for_techmix_chart(example_data,
+  sector_filter = sector,
+  years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds",
-  value_name = "technology_share"
+  scenario_filter = "sds", value_to_plot = "technology_share"
 )
 
-tech_colors_power <- get_r2dii_technology_colours("power")
-bars_labels_specs <- tibble(
-  metric_type = c(
-    "portfolio_2020",
-    "benchmark_2020",
-    "portfolio_2025",
-    "benchmark_2025",
-    "scenario_2025"
-  ),
-  label = c(
-    "Portfolio 2020",
-    "Benchmark 2020",
-    "Portfolio 2025",
-    "Benchmark 2025",
-    "Target SDS 2025"
-  )
-)
-
-plot_techmix(
-  data_techmix_power,
-  plot_title = "Technology mix for the Power sector",
-  show_legend = TRUE,
-  df_tech_colours = tech_colors_power,
-  df_bar_specs = bars_labels_specs
-)
+plot <- plot_techmix(data)
+plot +
+  ggplot2::labs(title = "Technology mix for the Power sector")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+# Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
   colour = c("black", "brown", "grey", "red", "blue", "green4")
 )
 
-plot_techmix(
-  data_techmix_power,
-  "Technology mix for the Power sector",
-  show_legend = TRUE,
-  df_tech_colours = power_colors_custom,
-  df_bar_specs = bars_labels_specs
+plot <- plot_techmix(data,
+  tech_colours = power_colors_custom
 )
+plot
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+# Default colours, selected data and labels (metric_type parameters), added title
+
+sector <- "automotive"
+
+data <- prepare_for_techmix_chart(example_data,
+  sector_filter = sector,
+  years_filter = c(2020, 2025), region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  scenario_filter = "sds", value_to_plot = "technology_share"
+)
+
+metric_type_order = c(
+    "portfolio_2020", "benchmark_2020", "portfolio_2025",
+    "benchmark_2025", "scenario_2025"
+)
+metric_type_labels = c(
+    "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
+    "Benchmark 2025", "Target SDS 2025"
+  )
+
+plot <- plot_techmix(data,
+  metric_type_order = metric_type_order,
+  metric_type_labels = metric_type_labels
+)
+plot +
+  ggplot2::labs(title = "Technology mix for the Automotive sector")
+```
+
+<img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `prepare_for_timeline()` prepares sda\_target-type data for timeline
     plot.
@@ -206,7 +212,8 @@ plot_timeline(data) +
 
 -   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timeline()’.
--   `r2dii_palette_colours()` get the 2dii colour palette.
+-   `r2dii_palette_colours()` outputs a data frame giving the 2dii
+    colour palette.
 
 ``` r
 # You may use it as a template to create your custom specs
