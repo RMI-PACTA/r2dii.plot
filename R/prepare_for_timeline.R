@@ -41,25 +41,9 @@ prepare_for_timeline <- function(sda_target_data,
                                  value_to_plot = "emission_factor_value",
                                  extrapolate_missing_values = FALSE) {
   sda_target_data$sector <- tolower(sda_target_data$sector)
-
   sector_filter <- tolower(sector_filter)
   sector_filter <- match.arg(sector_filter)
-
-  too_long <- length(unique(sda_target_data$sector)) > 1L
-  if (too_long) {
-    warn(
-      class = "chosen_sector",
-      sprintf("Choosing sector: %s", sector_filter)
-    )
-  }
-
-  missing_sector <- !sector_filter %in% unique(sda_target_data$sector)
-  if (missing_sector) {
-    warn(
-      class = "missing_sector",
-      sprintf("Found no data for sector: %s", sector_filter)
-    )
-  }
+  warn_sector(sda_target_data, sector_filter)
 
   check_input_parameters(
     sda_target_data,
@@ -112,6 +96,26 @@ prepare_for_timeline <- function(sda_target_data,
   }
 
   data_timeline
+}
+
+warn_sector <- function(data, sector_filter) {
+  too_long <- length(unique(data$sector)) > 1L
+  if (too_long) {
+    warn(
+      class = "chosen_sector",
+      sprintf("Choosing sector: %s", sector_filter)
+    )
+  }
+
+  missing_sector <- !sector_filter %in% unique(data$sector)
+  if (missing_sector) {
+    warn(
+      class = "missing_sector",
+      sprintf("Found no data for sector: %s", sector_filter)
+    )
+  }
+
+  invisible(data)
 }
 
 check_input_parameters <- function(data,
@@ -171,3 +175,4 @@ check_input_parameters <- function(data,
 
   invisible(data)
 }
+
