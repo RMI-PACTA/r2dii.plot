@@ -6,25 +6,23 @@
 \usage{
 plot_techmix(
   data,
-  plot_title = "",
-  show_legend = TRUE,
-  df_tech_colours,
-  df_bar_specs
+  metric_type_order = NULL,
+  metric_type_labels = NULL,
+  tech_colours = NULL
 )
 }
 \arguments{
-\item{data}{Filtered input data (dataframe with columns: technology,
-metric_type, metric and value).}
+\item{data}{Filtered input data, with columns: technology, metric_type,
+metric and value.}
 
-\item{plot_title}{Title of the plot (character string).}
+\item{metric_type_order}{Vector with the order of bars based on 'metric_type'
+values.}
 
-\item{show_legend}{Flag indicating whether legend should be shown (boolean).}
+\item{metric_type_labels}{Vector with labels for bars. Order must follow that
+in 'metric type order'.}
 
-\item{df_tech_colours}{Dataframe containing colors per technology (dataframe
-with columns: technology, label, color).}
-
-\item{df_bar_specs}{Dataframe containing order of bars and their labels
-(dataframe with columns: metric_type, label).}
+\item{tech_colours}{Dataframe containing colours per technology, with
+columns: technology, colour, label(optional).}
 }
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a
@@ -39,31 +37,9 @@ data <- prepare_for_techmix_chart(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_name = "technology_share"
+  value_to_plot = "technology_share"
 )
-power_colours <- get_r2dii_technology_colours("power")
-bar_specs <- dplyr::tibble(
-  metric_type = c(
-    "portfolio_2020",
-    "benchmark_2020",
-    "portfolio_2025",
-    "benchmark_2025",
-    "scenario_2025"
-  ),
-  label = c(
-    "Portfolio 2020",
-    "Benchmark 2020",
-    "Portfolio 2025",
-    "Benchmark 2025",
-    "Target SDS 2025"
-  )
-)
-
 print(
-  plot_techmix(
-    data,
-    df_tech_colours = power_colours,
-    df_bar_specs = bar_specs
-  )
+  plot_techmix(data)
 )
 }
