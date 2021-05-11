@@ -110,3 +110,11 @@ test_that("warns chosen sector", {
   prepare_for_timeline(sda_target, sector_filter = "automotive")
   )
 })
+
+test_that("with a `sector_filter` of lengh > 1 throws an error", {
+  too_long <- c("steel", "power")
+  expect_error(
+    prepare_for_timeline(sda_target, sector_filter = too_long),
+    "must be of length 1"
+  )
+})
