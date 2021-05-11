@@ -40,8 +40,9 @@ prepare_for_timeline <- function(sda_target_data,
                                  column_line_names = "emission_factor_metric",
                                  value_to_plot = "emission_factor_value",
                                  extrapolate_missing_values = FALSE) {
+  sda_target_data$sector <- tolower(sda_target_data$sector)
 
-  # input checks
+  sector_filter <- tolower(sector_filter)
   warn(class = "chosen_sector", glue("Choosing sector: {sector_filter}"))
   sector_filter <- match.arg(sector_filter)
 

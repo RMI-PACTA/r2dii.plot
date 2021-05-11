@@ -118,3 +118,13 @@ test_that("with a `sector_filter` of lengh > 1 throws an error", {
     "must be of length 1"
   )
 })
+
+test_that("works with sectors in title case", {
+  data <- sda_target
+  data$sector <- tools::toTitleCase(data$sector)
+
+  expect_no_error(prepare_for_timeline(data, "Aviation"))
+
+  out <- prepare_for_timeline(data, "aviation")
+  expect_true(nrow(out) > 0L)
+})
