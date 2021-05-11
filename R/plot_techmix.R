@@ -33,7 +33,7 @@ plot_techmix <- function(data,
                          tech_colours = NULL) {
   metric_type_order <- metric_type_order %||% unique(data$metric_type)
   metric_type_labels <-
-    metric_type_labels %||% guess_label_metric_type(metric_type_order)
+    metric_type_labels %||% to_title(metric_type_order)
 
   sector <- data %>%
     pull(.data$sector) %>%
@@ -176,13 +176,9 @@ check_tech_colours <- function(data, tech_colours) {
 }
 
 guess_label_tech <- function(string) {
-  string <- stringr::str_to_title(string)
-  string <- stringr::str_replace(string, "cap$", " Capacity")
-}
-
-guess_label_metric_type <- function(string) {
-  string <- stringr::str_to_title(string)
-  string <- stringr::str_replace(string, "_", " ")
+  string <- to_title(string)
+  string <- gsub("cap$", " Capacity", string)
+  string
 }
 
 guess_sector <- function(sector) {

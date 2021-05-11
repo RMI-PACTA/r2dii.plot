@@ -4,7 +4,6 @@
 #' @importFrom dplyr desc lead tibble lag slice_head across
 #' @importFrom ggpubr get_legend ggarrange
 #' @importFrom rlang .env abort
-#' @importFrom stringr str_to_title str_replace
 #' @importFrom glue glue
 NULL
 
