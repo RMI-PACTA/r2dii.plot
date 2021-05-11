@@ -36,8 +36,8 @@ plot_techmix <- function(data,
     metric_type_labels %||% guess_label_metric_type(metric_type_order)
 
   sector <- data %>%
-    slice_head(n = 1) %>%
     pull(.data$sector) %>%
+    unique() %>%
     guess_sector()
 
   check_input_parameters_plot_techmix(
@@ -129,6 +129,16 @@ check_input_parameters_plot_techmix <- function(data,
       toString(metric_type_labels)
     )
     stop(msg, call. = FALSE)
+  }
+
+  if (length(sector) > 1) {
+    msg <- sprintf(
+        "Input data must have only one 'sector'.
+        * You submitted data with %d sectors: %s.",
+        length(sector),
+        toString(sector)
+      )
+      stop(msg, call. = FALSE)
   }
 
   if (!(sector %in% c("power", "automotive", "oil&gas", "fossil fuels"))) {

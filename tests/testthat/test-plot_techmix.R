@@ -21,7 +21,7 @@ test_that("with the simplest call outputs the expected snapshot", {
 
 test_that("with bad 'metric_type_order' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -53,9 +53,48 @@ test_that("with bad 'metric_type_labels' errors gracefully", {
   )
 })
 
+test_that("with more than one sector in data errors gracefully", {
+  data <- prepare_for_techmix_chart(
+    process_input_data(example_data),
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_to_plot = "technology_share"
+  )
+  data <- data %>%
+    dplyr::add_row(sector = "automotive", technology = "electric",
+            metric_type = data$metric_type[1], metric = data$metric[1],
+            value = data$value[1], scenario_source = data$scenario_source[1])
+
+  expect_error(
+    regexp = "Input data.*must.*one.*sector.",
+    plot_techmix(data)
+  )
+})
+
+test_that("with bad sector errors gracefully", {
+  data <- prepare_for_techmix_chart(
+    process_input_data(example_data),
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_to_plot = "technology_share"
+  ) %>%
+    mutate(sector = "bad")
+
+  expect_error(
+    regexp = "Input data.*sector.*not found.",
+    plot_techmix(data)
+  )
+})
+
 test_that("with bad 'tech_colours' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -72,7 +111,7 @@ test_that("with bad 'tech_colours' errors gracefully", {
 
 test_that("with bad column in 'tech_colours' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -92,7 +131,7 @@ test_that("with bad column in 'tech_colours' errors gracefully", {
 
 test_that("with bad technology in 'tech_colours' errors gracefully", {
   data <- prepare_for_techmix_chart(
-    process_input_data(get_example_data()),
+    process_input_data(example_data),
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
