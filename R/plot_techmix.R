@@ -108,81 +108,68 @@ check_input_parameters_plot_techmix <- function(data,
                                                 sector,
                                                 tech_colours) {
   if (!all(metric_type_order %in% unique(data$metric_type))) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'metric_type_order' elements must be found in 'metric_type' column of input data.
-      * Possible 'metric_type' in data are: %s.
-      * You submitted: %s.",
-      toString(unique(data$metric_type)),
-      toString(metric_type_order)
+      * Possible 'metric_type' in data are: {toString(unique(data$metric_type))}.
+      * You submitted: {toString(metric_type_order)}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (length(metric_type_order) != length(metric_type_labels)) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'metric_type_labels' must be of the same length (and order) as 'metric_type_order'.
-      * 'metric_type_order' has length %d and elements: %s.
-      * You submitted 'metric_type_labels' of legth %d and elements: %s.",
-      length(metric_type_order),
-      toString(metric_type_order),
-      length(metric_type_labels),
-      toString(metric_type_labels)
+      * 'metric_type_order' has length {length(metric_type_order)} and elements: {toString(metric_type_order)}.
+      * You submitted 'metric_type_labels' of legth {length(metric_type_labels)} and elements: {toString(metric_type_labels)}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (length(sector) > 1) {
-    msg <- sprintf(
+    msg <- glue::glue(
         "Input data must have only one 'sector'.
-        * You submitted data with %d sectors: %s.",
-        length(sector),
-        toString(sector)
+        * You submitted data with {length(sector)} sectors: {toString(sector)}."
       )
-      stop(msg, call. = FALSE)
+      rlang::abort(msg)
   }
 
   if (!(sector %in% c("power", "automotive", "oil&gas", "fossil fuels"))) {
     if (is.null(tech_colours)) {
-      msg <- sprintf(
+      msg <- glue::glue(
         "Input data 'sector' not found in standard chart sectors.
-        * Standard sectors are: %s.
-        * You submitted data with sector: %s.
-        Please use data from a known sector or specify technology colours in 'tech_colours' parameters.",
-        toString(c("power", "automotive", "oil&gas", "fossil fuels")),
-        sector
+        * Standard sectors are: power, automotive, oil&gas, fossil fuels.
+        * You submitted data with sector: {sector}.
+        Please use data from a known sector or specify technology colours in 'tech_colours' parameters."
       )
-      stop(msg, call. = FALSE)
+      rlang::abort(msg)
     }
   }
 }
 
 check_tech_colours <- function(data, tech_colours) {
   if (!is.data.frame(tech_colours)) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'tech_colours' must be a dataframe.
-      * You've supplied a $s.",
-      typeof(tech_colours)
+      * You've supplied a {typeof(tech_colours)}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (!all(c("technology", "colour") %in% names(tech_colours))) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'tech_colours' must have columns 'technology' and 'colour'.
-      * The columns in 'tech_colours' given are: %s.",
-      toString(names(tech_colours))
+      * The columns in 'tech_colours' given are: {toString(names(tech_colours))}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (!all(unique(data$technology) %in% unique(tech_colours$technology))) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "All technologies in input data must have a colour in 'tech_colours'.
-      * The 'technology' in data missing from tech_colours are: %s.
-      Note: if not given by the user, 'tech_colours' are specified internally based on 'sector'",
-      toString(setdiff(unique(data$technology), unique(tech_colours$technology)))
+      * The 'technology' in data missing from tech_colours are: {toString(setdiff(unique(data$technology), unique(tech_colours$technology)))}.
+      Note: if not given by the user, 'tech_colours' are specified internally based on 'sector'"
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   invisible(data)

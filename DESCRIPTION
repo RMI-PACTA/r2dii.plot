@@ -24,7 +24,8 @@ Imports:
     rlang,
     scales,
     ggpubr,
-    stringr
+    stringr,
+    glue
 Suggests: 
     covr,
     r2dii.analysis,

@@ -85,57 +85,48 @@ check_input_parameters_techmix <- function(data,
                                            scenario_filter,
                                            value_to_plot) {
   if (typeof(years_filter) != "double") {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'years_filter' must be a vector of numbers.
-        * You submitted a %s.",
-      typeof(years_filter)
+        * You submitted a {typeof(years_filter)}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (!(region_filter %in% data$region)) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'region_filter' must be found in the input data column 'region'.
-      * The unique regions in input data are: %s.
-      * You submitted: %s.",
-      toString(unique(data$region)),
-      region_filter
+      * The unique regions in input data are: {toString(unique(data$region))}.
+      * You submitted: {region_filter}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (!(scenario_source_filter %in% data$scenario_source)) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'scenario_source_filter' must be found in the input data column 'scenario_source'.
-      * The scenario sources in input data are: %s.
-      * You submitted: %s.",
-      toString(unique(data$scenario_source)),
-      scenario_source_filter
+      * The scenario sources in input data are: {toString(unique(data$scenario_source))}.
+      * You submitted: {scenario_source_filter}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   data_scenario <- data %>% filter(.data$metric_type == "scenario")
   if (!(scenario_filter %in% data_scenario$metric)) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'scenario_filter' must be found in the input data for scenarios in column 'metric'.
-      * The scenario names in input data are: %s.
-      * You submitted: %s.",
-      toString(unique(data_scenario$metric)),
-      scenario_filter
+      * The scenario names in input data are: {toString(unique(data_scenario$metric))}.
+      * You submitted: {scenario_filter}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   if (!(value_to_plot %in% names(data))) {
-    msg <- sprintf(
+    msg <- glue::glue(
       "'value_to_plot' must be one of column names in the input data.
-      * The input data column names are: %s.
-      * You submitted: %s.",
-      toString(names(data)),
-      value_to_plot
+      * The input data column names are: {toString(names(data))}.
+      * You submitted: {value_to_plot}."
     )
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   invisible(data)
