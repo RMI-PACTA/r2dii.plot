@@ -132,10 +132,9 @@ etc.).</p>
 
     <pre class="usage"><span class='fu'>plot_techmix</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  plot_title <span class='op'>=</span> <span class='st'>""</span>,
-  show_legend <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>df_tech_colours</span>,
-  <span class='va'>df_bar_specs</span>
+  metric_type_order <span class='op'>=</span> <span class='cn'>NULL</span>,
+  metric_type_labels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tech_colours <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -143,26 +142,23 @@ etc.).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Filtered input data (dataframe with columns: technology,
-metric_type, metric and value).</p></td>
+      <td><p>Filtered input data, with columns: technology, metric_type,
+metric and value.</p></td>
     </tr>
     <tr>
-      <th>plot_title</th>
-      <td><p>Title of the plot (character string).</p></td>
+      <th>metric_type_order</th>
+      <td><p>Vector with the order of bars based on 'metric_type'
+values.</p></td>
     </tr>
     <tr>
-      <th>show_legend</th>
-      <td><p>Flag indicating whether legend should be shown (boolean).</p></td>
+      <th>metric_type_labels</th>
+      <td><p>Vector with labels for bars. Order must follow that
+in 'metric type order'.</p></td>
     </tr>
     <tr>
-      <th>df_tech_colours</th>
-      <td><p>Dataframe containing colors per technology (dataframe
-with columns: technology, label, color).</p></td>
-    </tr>
-    <tr>
-      <th>df_bar_specs</th>
-      <td><p>Dataframe containing order of bars and their labels
-(dataframe with columns: metric_type, label).</p></td>
+      <th>tech_colours</th>
+      <td><p>Dataframe containing colours per technology, with
+columns: technology, colour, label(optional).</p></td>
     </tr>
     </table>
 
@@ -175,32 +171,10 @@ with columns: technology, label, color).</p></td>
   region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
   scenario_source_filter <span class='op'>=</span> <span class='st'>"demo_2020"</span>,
   scenario_filter <span class='op'>=</span> <span class='st'>"sds"</span>,
-  value_name <span class='op'>=</span> <span class='st'>"technology_share"</span>
+  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
 <span class='op'>)</span>
-<span class='va'>power_colours</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_r2dii_technology_colours.html'>get_r2dii_technology_colours</a></span><span class='op'>(</span><span class='st'>"power"</span><span class='op'>)</span>
-<span class='va'>bar_specs</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
-  metric_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    <span class='st'>"portfolio_2020"</span>,
-    <span class='st'>"benchmark_2020"</span>,
-    <span class='st'>"portfolio_2025"</span>,
-    <span class='st'>"benchmark_2025"</span>,
-    <span class='st'>"scenario_2025"</span>
-  <span class='op'>)</span>,
-  label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    <span class='st'>"Portfolio 2020"</span>,
-    <span class='st'>"Benchmark 2020"</span>,
-    <span class='st'>"Portfolio 2025"</span>,
-    <span class='st'>"Benchmark 2025"</span>,
-    <span class='st'>"Target SDS 2025"</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>
-
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='fu'>plot_techmix</span><span class='op'>(</span>
-    <span class='va'>data</span>,
-    df_tech_colours <span class='op'>=</span> <span class='va'>power_colours</span>,
-    df_bar_specs <span class='op'>=</span> <span class='va'>bar_specs</span>
-  <span class='op'>)</span>
+  <span class='fu'>plot_techmix</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 <span class='op'>)</span>
 </div><div class='img'><img src='plot_techmix-1.png' alt='' width='700' height='433' /></div></pre>
   </div>

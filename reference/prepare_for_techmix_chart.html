@@ -127,20 +127,21 @@
     </div>
 
     <pre class="usage"><span class='fu'>prepare_for_techmix_chart</span><span class='op'>(</span>
-  <span class='va'>data_preprocessed</span>,
-  <span class='va'>sector_filter</span>,
-  <span class='va'>years_filter</span>,
-  <span class='va'>region_filter</span>,
-  <span class='va'>scenario_source_filter</span>,
-  <span class='va'>scenario_filter</span>,
-  <span class='va'>value_name</span>
+  <span class='va'>data</span>,
+  sector_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"automotive"</span>, <span class='st'>"aviation"</span>, <span class='st'>"cement"</span>, <span class='st'>"oil and gas"</span>, <span class='st'>"shipping"</span>,
+    <span class='st'>"steel"</span>, <span class='st'>"power"</span><span class='op'>)</span>,
+  years_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
+  scenario_source_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scenario_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_preprocessed</th>
+      <th>data</th>
       <td><p>Pre-processed input data.</p></td>
     </tr>
     <tr>
@@ -165,7 +166,7 @@
       <td><p>Scenario to plot in the graph (character string).</p></td>
     </tr>
     <tr>
-      <th>value_name</th>
+      <th>value_to_plot</th>
       <td><p>The name of the value to be plotted as a bar chart
 (character string).</p></td>
     </tr>
@@ -180,21 +181,21 @@
   region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
   scenario_source_filter <span class='op'>=</span> <span class='st'>"demo_2020"</span>,
   scenario_filter <span class='op'>=</span> <span class='st'>"sds"</span>,
-  value_name <span class='op'>=</span> <span class='st'>"technology_share"</span>
+  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 4</span><span>
-#&gt;    technology metric_type    metric             value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> coalcap    portfolio_2020 projected         0.129 
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> coalcap    benchmark_2020 corporate_economy 0.374 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> coalcap    scenario_2020  sds               0.384 
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> coalcap    portfolio_2025 projected         0.117 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> coalcap    benchmark_2025 corporate_economy 0.374 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> coalcap    scenario_2025  sds               0.316 
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> gascap     portfolio_2020 projected         0.099</span><span style='text-decoration: underline;'>9</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> gascap     benchmark_2020 corporate_economy 0.118 
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> gascap     scenario_2020  sds               0.074</span><span style='text-decoration: underline;'>5</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> gascap     portfolio_2025 projected         0.088</span><span style='text-decoration: underline;'>5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 6</span><span>
+#&gt;    sector technology metric_type    metric             value scenario_source
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> power  coalcap    portfolio_2020 projected         0.129  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> power  coalcap    benchmark_2020 corporate_economy 0.374  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> power  coalcap    scenario_2020  sds               0.384  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> power  coalcap    portfolio_2025 projected         0.117  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> power  coalcap    benchmark_2025 corporate_economy 0.374  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> power  coalcap    scenario_2025  sds               0.316  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> power  gascap     portfolio_2020 projected         0.099</span><span style='text-decoration: underline;'>9</span><span> demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> power  gascap     benchmark_2020 corporate_economy 0.118  demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> power  gascap     scenario_2020  sds               0.074</span><span style='text-decoration: underline;'>5</span><span> demo_2020      
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> power  gascap     portfolio_2025 projected         0.088</span><span style='text-decoration: underline;'>5</span><span> demo_2020      
 #&gt; </span><span style='color: #949494;'># … with 20 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
