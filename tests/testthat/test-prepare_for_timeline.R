@@ -105,7 +105,7 @@ test_that("with bad `extrapolate_missing_values` errors gracefully", {
   )
 })
 
-test_that("outputs `year` of type date", {
+test_that("outputs `year` of class Date", {
   out <- prepare_for_timeline(sda_target)
   expect_s3_class(out$year, "Date")
 })
