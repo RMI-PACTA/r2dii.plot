@@ -38,7 +38,7 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-#> ✓ tibble  3.1.0     ✓ dplyr   1.0.5
+#> ✓ tibble  3.1.0     ✓ dplyr   1.0.4
 #> ✓ tidyr   1.1.3     ✓ stringr 1.4.0
 #> ✓ readr   1.4.0     ✓ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -98,8 +98,6 @@ plot_trajectory(
     x = "Year",
     y = "Production rate (normalized to 2020)"
   )
-#> Warning: partial match of 'height' to 'heights'
-#> Warning: partial match of 'width' to 'widths'
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
