@@ -120,12 +120,21 @@ test_that("with a `sector_filter` of lengh > 1 throws an error", {
   )
 })
 
-test_that("when data has a single sector throws no warning", {
-  data <- filter(sda_target, sector == dplyr::first(sector))
+test_that("w/ a single-sector dataset and it's selected, throws no warning", {
+  data <- filter(sda_target, sector == "steel")
 
   expect_warning(
     prepare_for_timeline(data, sector_filter = "steel"),
     NA
+  )
+})
+
+test_that("w/ a single-sector dataset and it's not selected, throws warning", {
+  data <- filter(sda_target, sector == dplyr::first(sector))
+
+  expect_warning(
+    class = "missing_sector",
+    prepare_for_timeline(data, sector_filter = "steel")
   )
 })
 

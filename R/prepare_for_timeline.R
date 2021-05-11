@@ -53,6 +53,14 @@ prepare_for_timeline <- function(sda_target_data,
     )
   }
 
+  missing_sector <- !sector_filter %in% unique(sda_target_data$sector)
+  if (missing_sector) {
+    warn(
+      class = "missing_sector",
+      sprintf("Found no data for sector: %s", sector_filter)
+    )
+  }
+
   check_input_parameters(
     sda_target_data,
     year_start,
