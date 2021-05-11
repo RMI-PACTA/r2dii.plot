@@ -11,12 +11,12 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' class(theme_2dii_ggplot())
+#' class(theme_2dii())
 #'
 #' ggplot(mtcars) +
-#'   geom_histogram(aes(mpg)) +
-#'   theme_2dii_ggplot()
-theme_2dii_ggplot <- function(font_family = "Helvetica") {
+#'   geom_histogram(aes(mpg), bins = 10) +
+#'   theme_2dii()
+theme_2dii <- function(font_family = "Helvetica") {
   font_size_ticks <- 10
   font_size_axis_titles <- 12
   supporting_elts_color <- "#C0C0C0"

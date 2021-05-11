@@ -6,8 +6,6 @@
 #'
 #' @param data Filtered input data (dataframe with columns: year, metric_type,
 #'   metric and value).
-#' @param plot_title Title of the plot (character string).
-#' @param x_title,y_title Title of the x- and y-axis (character string).
 #' @param scenario_specs_good_to_bad Dataframe containing scenario
 #'   specifications like color or label, ordered from the most to least
 #'   sustainable (dataframe with columns: scenario, label, color).
@@ -41,25 +39,17 @@
 #'   label = "Corporate Economy"
 #' )
 #'
-#' plot_trajectory(data,
+#' p <- plot_trajectory(data,
 #'   scenario_specs_good_to_bad = scenario_specs,
 #'   main_line_metric = main_line_metric
 #' )
+#'
+#' p
 plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
-                            plot_title = "",
-                            x_title = "",
-                            y_title = "",
                             additional_line_metrics = NULL) {
-  p_trajectory <- ggplot() +
-    theme_2dii_ggplot() +
-    coord_cartesian(expand = FALSE, clip = "off") +
-    theme(axis.line = element_blank()) +
-    xlab(x_title) +
-    ylab(y_title) +
-    labs(title = plot_title) +
-    theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
+  p_trajectory <- ggplot()
 
   # adjusting the area border to center the starting point of the lines
   lower_area_border <- min(data$value)
@@ -169,10 +159,6 @@ plot_trajectory <- function(data,
       }
     }
   }
-
-  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
-  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
-
   if (!is.null(additional_line_metrics)) {
     line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
     line_labels <- c(main_line_metric$label, additional_line_metrics$label)
@@ -184,6 +170,9 @@ plot_trajectory <- function(data,
   data_metrics <- data %>% filter(.data$metric %in% line_metrics)
   n_lines <- length(line_metrics)
 
+  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
+  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
+
   p_trajectory <- p_trajectory +
     geom_line(
       data = data_metrics,
@@ -193,15 +182,23 @@ plot_trajectory <- function(data,
         linetype = .data$metric,
         color = .data$metric
       )
-    ) +
-    scale_linetype_manual(
-      values = linetypes_ordered[1:n_lines]
-    ) +
-    scale_color_manual(
-      values = linecolors_ordered[1:n_lines]
-    ) +
-    theme(legend.position = NULL)
+    )
 
+  p_trajectory <- p_trajectory +
+    coord_cartesian(expand = FALSE, clip = "off") +
+    scale_linetype_manual(values = linetypes_ordered[1:n_lines]) +
+    scale_color_manual(values = linecolors_ordered[1:n_lines])
+
+  p_trajectory <- p_trajectory +
+    theme_2dii() +
+    theme(
+      axis.line = element_blank(),
+      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
+      legend.position = NULL
+    )
+
+  # FIXME: The resulting seems to not be a common "ggplot" but a more complex
+  # object that is insensitive to, e.g., p + labs(title = "blah").
   p_trajectory <- add_legend(
     p_trajectory,
     data_scenarios,
@@ -280,7 +277,7 @@ help_plot_area_colors <- function(data_scenarios,
   value_span <- upper_area_border - lower_area_border
 
   p_legend <- ggplot() +
-    theme_2dii_ggplot() +
+    theme_2dii() +
     geom_point(
       data = data_scenarios,
       aes(

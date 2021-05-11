@@ -65,7 +65,7 @@ plot_techmix <- function(data,
     filter(.data$metric_type %in% metric_type_order)
 
   p_techmix <- ggplot() +
-    theme_2dii_ggplot() +
+    theme_2dii() +
     xlab("") +
     ylab("")
 

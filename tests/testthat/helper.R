@@ -2,7 +2,7 @@ expect_no_error <- function(...) {
   expect_error(..., NA)
 }
 
-fake_data <- function(sector = "automotive",
+fake_example_data <- function(sector = "automotive",
                       technology = "electric",
                       year = 2020L,
                       region = "global",
@@ -24,8 +24,8 @@ fake_data <- function(sector = "automotive",
   )
 }
 
-lines_specs <- function(...) {
-  dplyr::tibble(
+fake_lines_specs <- function(...) {
+  tibble(
     line_name = c(
       "projected",
       "corporate_economy",
