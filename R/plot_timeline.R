@@ -51,7 +51,7 @@ plot_timeline <- function(data, specs = timeline_specs(data)) {
   measured <- filter(data, !.data$extrapolated)
   plot <- ggplot() +
     timeline_line(measured, specs) +
-    scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
+    scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     expand_limits(y = 0) +
     scale_colour_manual(
@@ -119,11 +119,15 @@ fake_timeline_data <- function(year = NULL,
                                value = NULL,
                                extrapolated = NULL,
                                ...) {
-  tibble(
+  out <- tibble(
     year = year %||% 2002,
     line_name = line_name %||% "projected",
     value = value %||% 0.2,
     extrapolated = extrapolated %||% FALSE,
     ...
   )
+
+  out$year <- lubridate::make_date(out$year)
+
+  out
 }

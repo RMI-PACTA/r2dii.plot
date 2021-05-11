@@ -93,6 +93,8 @@ prepare_for_timeline <- function(sda_target_data,
     }
   }
 
+  data_timeline$year <- lubridate::make_date(data_timeline$year)
+
   data_timeline
 }
 
