@@ -104,3 +104,9 @@ test_that("with bad `extrapolate_missing_values` errors gracefully", {
     )
   )
 })
+
+test_that("warns chosen sector", {
+  expect_warning(class = "chosen_sector",
+  prepare_for_timeline(sda_target, sector_filter = "automotive")
+  )
+})

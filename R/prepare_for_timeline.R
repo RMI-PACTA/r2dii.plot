@@ -42,7 +42,9 @@ prepare_for_timeline <- function(sda_target_data,
                                  extrapolate_missing_values = FALSE) {
 
   # input checks
+  warn(class = "chosen_sector", glue("Choosing sector: {sector_filter}"))
   sector_filter <- match.arg(sector_filter)
+
   check_input_parameters(
     sda_target_data,
     year_start,
