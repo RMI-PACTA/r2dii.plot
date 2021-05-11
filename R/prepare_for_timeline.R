@@ -3,8 +3,8 @@
 #' @param sda_target_data Dataframe with columns sector, year and two other
 #'   columns specifying value to be be plotted as timelines and line names
 #'   (dataframe).
-#' @param sector_filter Sector to be used for filtering (character string or a
-#'   vector of character strings).
+#' @param sector_filter Sector to be used for filtering (character string of
+#'   length 1).
 #' @param year_start Start year of the plot (double).
 #' @param year_end End year of the plot (double).
 #' @param column_line_names Column specifying the names of lines to be plotted
