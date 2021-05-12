@@ -19,6 +19,8 @@ Depends:
 Imports: 
     dplyr,
     ggplot2,
+    ggpubr,
+    lubridate,
     magrittr,
     r2dii.data,
     rlang,

@@ -59,3 +59,12 @@ test_that("with line_name where specs missmatching data, errors gracefully", {
     plot_timeline(data, specs)
   )
 })
+
+test_that("plots year as 'Date'", {
+  data <- fake_timeline_data()
+
+  gg <- plot_timeline(data)
+  year <- gg$layers[[1]]$data$year
+
+  expect_s3_class(year, "Date")
+})
