@@ -103,10 +103,11 @@ prepare_for_timeline <- function(sda_target_data,
 warn_sector <- function(data, sector_filter) {
   too_long <- length(unique(data$sector)) > 1L
   if (too_long) {
-    warn(
-      class = "chosen_sector",
-      sprintf("Choosing sector: %s", sector_filter)
+    msg <- glue::glue(
+      "Can only use one sector.
+      Using the first of the vector passed to `sector_filter`: {sector_filter}."
     )
+    warn(class = "chosen_sector", msg)
   }
 
   missing_sector <- !sector_filter %in% unique(data$sector)
