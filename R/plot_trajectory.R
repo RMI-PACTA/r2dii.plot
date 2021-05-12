@@ -49,73 +49,24 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = NULL) {
-  area_borders <- get_area_borders(data)
-
-  year <- unique(data$year)
-  data_worse_than_scenarios <- data.frame(year)
-
-  green_or_brown <- r2dii.data::green_or_brown
-  tech_green_or_brown <- green_or_brown[
-    green_or_brown$technology == data$technology[1],
-  ]$green_or_brown
-
-  if (tech_green_or_brown == "brown") {
-    scenario_specs <- scenario_specs_good_to_bad
-
-    data_worse_than_scenarios$value <- area_borders$upper
-    data_worse_than_scenarios$metric <- "worse"
-
-    data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
-      select(.data$year, .data$metric, .data$value)
-
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
-      arrange(.data$year, factor(.data$metric,
-        levels = scenario_specs$scenario
-      )) %>%
-      mutate(value_low = lag(.data$value,
-        n = 1,
-        default = area_borders$lower
-      ))
-  } else if (tech_green_or_brown == "green") {
-    scenario_specs <- reverse_rows(scenario_specs_good_to_bad)
-
-    data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
-      select(.data$year, .data$metric, value_low = .data$value)
-
-    data_worse_than_scenarios$value_low <- area_borders$lower
-    data_worse_than_scenarios$metric <- "worse"
-
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
-      arrange(.data$year, factor(.data$metric,
-        levels = scenario_specs$scenario
-      )) %>%
-      mutate(value = lead(.data$value_low,
-        n = 1,
-        default = area_borders$upper
-      ))
-  }
-
-  colors_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
-  p_trajectory <- ggplot()
-
-  for (i in seq_along(scenario_specs$scenario)) {
-    scen <- scenario_specs$scenario[i]
-    color <- colors_scenarios[i]
-    data_scen <- data_scenarios %>% filter(.data$metric == scen)
-    p_trajectory <- p_trajectory +
-      geom_ribbon(
-        data = data_scen, aes(
+  # plot scenario areas
+  scenario_specs <- get_ordered_scenario_specs(
+    scenario_specs_good_to_bad, data$technology[1])
+  data_scenarios <- get_scenario_data(data, scenario_specs)
+  colours_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
+  p_trajectory <- ggplot() +
+    geom_ribbon(
+        data = data_scenarios,
+        aes(
+          x = .data$year,
           ymin = .data$value_low,
-          ymax = .data$value, x = year, group = 1
-        ),
-        fill = color
-      )
-  }
+          ymax = .data$value,
+          fill = .data$metric
+        )
+      ) +
+    scale_fill_manual(values = colours_scenarios)
 
+  # plot trajectory lines
   if (!is.null(additional_line_metrics)) {
     line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
     line_labels <- c(main_line_metric$label, additional_line_metrics$label)
@@ -128,7 +79,7 @@ plot_trajectory <- function(data,
   n_lines <- length(line_metrics)
 
   linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
-  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
+  linecolours_ordered <- c("black", "black", "gray", "grey46", "black")
 
   p_trajectory <- p_trajectory +
     geom_line(
@@ -144,7 +95,7 @@ plot_trajectory <- function(data,
   p_trajectory <- p_trajectory +
     coord_cartesian(expand = FALSE, clip = "off") +
     scale_linetype_manual(values = linetypes_ordered[1:n_lines]) +
-    scale_color_manual(values = linecolors_ordered[1:n_lines])
+    scale_color_manual(values = linecolours_ordered[1:n_lines])
 
   p_trajectory <- p_trajectory +
     theme_2dii() +
@@ -162,7 +113,7 @@ plot_trajectory <- function(data,
     scenario_specs,
     data_metrics,
     linetypes_ordered,
-    linecolors_ordered,
+    linecolours_ordered,
     line_labels
   )
 
@@ -203,8 +154,65 @@ get_area_borders <- function(data) {
     }
   }
 
-  area_borders <- list("lower" = lower_area_border, "upper" = upper_area_border)
+  area_borders <- list(lower = lower_area_border, upper = upper_area_border)
   area_borders
+}
+
+get_ordered_scenario_specs <- function(scenario_specs_good_to_bad, technology) {
+  green_or_brown <- r2dii.data::green_or_brown
+  tech_green_or_brown <- green_or_brown %>%
+    filter(.data$technology == .env$technology) %>%
+    pull(.data$green_or_brown)
+
+  if (tech_green_or_brown == "brown") {
+    scenario_specs <- scenario_specs_good_to_bad
+  } else if (tech_green_or_brown == "green") {
+    scenario_specs <- reverse_rows(scenario_specs_good_to_bad)
+  }
+  scenario_specs
+}
+
+get_scenario_data <- function(data, scenario_specs) {
+  area_borders <- get_area_borders(data)
+
+  data_worse_than_scenarios <- data.frame(year = unique(data$year))
+  if (scenario_specs$scenario[1] == "worse") {
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year, .data$metric, value_low = .data$value)
+
+    data_worse_than_scenarios$value_low <- area_borders$lower
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      mutate(metric = factor(.data$metric,
+        levels = scenario_specs$scenario
+      )) %>%
+      arrange(.data$year, .data$metric) %>%
+      mutate(value = lead(.data$value_low,
+        n = 1,
+        default = area_borders$upper
+      ))
+  } else {
+    data_worse_than_scenarios$value <- area_borders$upper
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year, .data$metric, .data$value)
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      mutate(metric = factor(.data$metric,
+        levels = scenario_specs$scenario
+      )) %>%
+      arrange(.data$year, .data$metric) %>%
+      mutate(value_low = lag(.data$value,
+        n = 1,
+        default = area_borders$lower
+      ))
+  }
 }
 
 get_adjusted_colours <- function(data_scenarios,
