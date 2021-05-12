@@ -51,19 +51,20 @@ plot_trajectory <- function(data,
                             additional_line_metrics = NULL) {
   # plot scenario areas
   scenario_specs <- get_ordered_scenario_specs(
-    scenario_specs_good_to_bad, data$technology[1])
+    scenario_specs_good_to_bad, data$technology[1]
+  )
   data_scenarios <- get_scenario_data(data, scenario_specs)
   colours_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
   p_trajectory <- ggplot() +
     geom_ribbon(
-        data = data_scenarios,
-        aes(
-          x = .data$year,
-          ymin = .data$value_low,
-          ymax = .data$value,
-          fill = .data$metric
-        )
-      ) +
+      data = data_scenarios,
+      aes(
+        x = .data$year,
+        ymin = .data$value_low,
+        ymax = .data$value,
+        fill = .data$metric
+      )
+    ) +
     scale_fill_manual(values = colours_scenarios)
 
   # plot trajectory lines

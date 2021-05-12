@@ -27,11 +27,11 @@ stop_if_too_many_lines <- function(data) {
   n_colours <- nrow(r2dii_palette_colours())
   if (n_lines > n_colours) {
     msg <- sprintf(
-        "Can't plot more than %s lines. Found %s lines:\n%s",
-        n_colours,
-        n_lines,
-        toString(data$line_name)
-      )
+      "Can't plot more than %s lines. Found %s lines:\n%s",
+      n_colours,
+      n_lines,
+      toString(data$line_name)
+    )
     rlang::abort(class = "too_many_lines", msg)
   }
 
