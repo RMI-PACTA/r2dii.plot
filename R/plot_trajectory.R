@@ -142,23 +142,8 @@ plot_trajectory <- function(data,
         ),
         fill = color
       )
-
-    if (scen != "worse") {
-      if (tech_green_or_brown == "brown") {
-        p_trajectory <- p_trajectory +
-          geom_line(
-            data = data_scen, aes(x = year, y = .data$value),
-            color = color
-          )
-      } else if (tech_green_or_brown == "green") {
-        p_trajectory <- p_trajectory +
-          geom_line(
-            data = data_scen, aes(x = year, y = .data$value_low),
-            color = color
-          )
-      }
-    }
   }
+
   if (!is.null(additional_line_metrics)) {
     line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
     line_labels <- c(main_line_metric$label, additional_line_metrics$label)
