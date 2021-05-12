@@ -114,7 +114,7 @@ warn_sector <- function(data, sector_filter) {
   if (missing_sector) {
     warn(
       class = "missing_sector",
-      sprintf("Found no data for sector: %s", sector_filter)
+      glue::glue("Found no data for sector: {sector_filter}.")
     )
   }
 
