@@ -25,7 +25,6 @@ Imports:
     r2dii.data,
     rlang,
     scales,
-    ggpubr,
     glue
 Suggests: 
     covr,
