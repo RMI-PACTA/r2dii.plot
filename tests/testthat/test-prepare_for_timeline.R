@@ -147,3 +147,9 @@ test_that("works with sectors in title case", {
   out <- prepare_for_timeline(data, "aviation")
   expect_true(nrow(out) > 0L)
 })
+
+test_that("outputs `year` of class Date", {
+  out <- prepare_for_timeline(sda_target)
+  expect_s3_class(out$year, "Date")
+})
+
