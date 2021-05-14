@@ -17,16 +17,15 @@ BugReports: https://github.com/2DegreesInvesting/r2dii.plot.static/issues
 Depends: 
     R (>= 3.4)
 Imports: 
+    cowplot,
     dplyr,
     ggplot2,
-    ggpubr,
+    glue,
     lubridate,
     magrittr,
     r2dii.data,
     rlang,
-    scales,
-    ggpubr,
-    glue
+    scales
 Suggests: 
     covr,
     r2dii.analysis,

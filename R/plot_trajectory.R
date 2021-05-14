@@ -195,10 +195,9 @@ plot_trajectory <- function(data,
       axis.line = element_blank(),
       plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
       legend.position = NULL
-    )
+    ) +
+    guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
 
-  # FIXME: The resulting seems to not be a common "ggplot" but a more complex
-  # object that is insensitive to, e.g., p + labs(title = "blah").
   p_trajectory <- add_legend(
     p_trajectory,
     data_scenarios,
@@ -260,11 +259,7 @@ add_legend <- function(plot,
 
   legend <- get_legend(p_legend)
 
-  plot <- ggarrange(
-    plot,
-    legend.grob = legend,
-    legend = "right"
-  )
+  plot <- plot_grid(plot, legend, rel_widths = c(7.5, 2.5))
 
   plot
 }
