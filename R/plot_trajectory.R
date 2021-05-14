@@ -198,7 +198,7 @@ plot_trajectory <- function(data,
     ) +
     guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
 
-  p_trajectory <- add_legend(
+  legend <- plot_trajectory_legend(
     p_trajectory,
     data_scenarios,
     scenario_specs,
@@ -208,7 +208,7 @@ plot_trajectory <- function(data,
     line_labels
   )
 
-  p_trajectory
+  add_grobs(p_trajectory, get_legend(legend))
 }
 
 reverse_rows <- function(x) {
@@ -228,13 +228,13 @@ get_adjusted_colours <- function(data_scenarios,
   colors
 }
 
-add_legend <- function(plot,
-                       data_scenarios,
-                       scenario_specs,
-                       data_metrics,
-                       linetypes_ordered,
-                       linecolors_ordered,
-                       line_labels) {
+plot_trajectory_legend <- function(plot,
+                                   data_scenarios,
+                                   scenario_specs,
+                                   data_metrics,
+                                   linetypes_ordered,
+                                   linecolors_ordered,
+                                   line_labels) {
   p_legend <- help_plot_area_colors(data_scenarios, scenario_specs)
 
   n_lines <- length(line_labels)
@@ -257,11 +257,7 @@ add_legend <- function(plot,
       labels = line_labels
     )
 
-  legend <- get_legend(p_legend)
-
-  plot <- plot_grid(plot, legend, rel_widths = c(7.5, 2.5))
-
-  plot
+  p_legend
 }
 
 help_plot_area_colors <- function(data_scenarios,
@@ -293,4 +289,23 @@ help_plot_area_colors <- function(data_scenarios,
     )
 
   p_legend
+}
+
+add_grobs <- function(plot, legend) {
+  gridExtra::grid.arrange(
+    gridExtra::arrangeGrob(
+      plot + theme(legend.position = "none"),
+      nrow = 1
+    ),
+    legend,
+    ncol = 2,
+    widths = c(8, 2)
+  )
+}
+
+# https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+get_legend <- function(plot) {
+  tmp <- ggplot_gtable(ggplot_build(plot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  tmp$grobs[[leg]]
 }
