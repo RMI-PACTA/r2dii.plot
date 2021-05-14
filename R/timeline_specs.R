@@ -26,12 +26,10 @@ stop_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   n_colours <- nrow(r2dii_palette_colours())
   if (n_lines > n_colours) {
-    abort(
-      glue(
+    abort(glue(
         "Can't plot more than {n_colours} lines. Found {n_lines} lines:
         {toString(data$line_name)}."
-      )
-    )
+    ))
   }
 
   invisible(data)

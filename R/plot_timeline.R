@@ -94,13 +94,11 @@ check_specs <- function(specs, data) {
   if (malformed_line_name) {
     name_in_data <- toString(sort(unique(data$line_name)))
     name_in_specs <- toString(sort(unique(specs$line_name)))
-    abort(
-      glue(
-        "Can't find `line_name` values from 'specs' in the data:
-        * Unique `line_name` values in 'data' are: {name_in_data}.
-        * Unique `line_name` values in 'specs' are: {name_in_specs}."
-      )
-    )
+    abort(glue(
+      "Can't find `line_name` values from 'specs' in the data:
+      * Unique `line_name` values in 'data' are: {name_in_data}.
+      * Unique `line_name` values in 'specs' are: {name_in_specs}."
+    ))
   }
 
   invisible(specs)
