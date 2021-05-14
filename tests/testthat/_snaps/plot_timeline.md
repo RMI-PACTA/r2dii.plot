@@ -527,3 +527,14 @@
       
       
 
+# with too many lines errors gracefully
+
+    Can't plot more than 9 lines. Found 10 lines:
+    a, b, c, d, e, f, g, h, i, j.
+
+# with line_name where specs missmatching data, errors gracefully
+
+    Can't find `line_name` values from 'specs' in the data:
+    * Unique `line_name` values in 'data' are: projected.
+    * Unique `line_name` values in 'specs' are: bad.
+

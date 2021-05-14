@@ -24,19 +24,12 @@ test_that("with specs missing crucial columns, errors gracefully", {
   bad <- timeline_specs(data)
   bad$colour_hex <- NULL
 
-  expect_error(
-    class = "missing_names",
-    plot_timeline(data, specs = bad)
-  )
+  expect_error(class = "missing_names", plot_timeline(data, specs = bad))
 })
 
 test_that("with too many lines errors gracefully", {
   data <- fake_timeline_data(line_name = letters[1:10])
-
-  expect_error(
-    class = "too_many_lines",
-    plot_timeline(data)
-  )
+  expect_snapshot_error(plot_timeline(data))
 })
 
 test_that("handles specs with factors", {
@@ -54,10 +47,7 @@ test_that("with line_name where specs missmatching data, errors gracefully", {
   specs <- timeline_specs(data)
   specs$line_name <- "bad"
 
-  expect_error(
-    class = "missmatching_line_name",
-    plot_timeline(data, specs)
-  )
+  expect_snapshot_error(plot_timeline(data, specs))
 })
 
 test_that("plots year as 'Date'", {

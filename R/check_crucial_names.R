@@ -26,10 +26,9 @@ check_crucial_names <- function(x, expected_names) {
 
 abort_missing_names <- function(missing_names) {
   nms <- paste0("`", missing_names, "`", collapse = ", ")
-  msg <- sprintf(
-    "Must have missing names:
-    %s",
-    nms
-  )
-  rlang::abort(class = "missing_names", message = msg)
+  abort(
+    class = "missing_names",
+    glue("Must have missing names:
+    {nms}"
+  ))
 }
