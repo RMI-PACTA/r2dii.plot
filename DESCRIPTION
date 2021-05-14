@@ -20,13 +20,12 @@ Imports:
     dplyr,
     ggplot2,
     ggpubr,
+    glue,
     lubridate,
     magrittr,
     r2dii.data,
     rlang,
-    scales,
-    ggpubr,
-    glue
+    scales
 Suggests: 
     covr,
     r2dii.analysis,
