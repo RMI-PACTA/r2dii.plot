@@ -1,9 +1,9 @@
-#' Creates the default specs data frame for [plot_timeline()]
+#' Creates the default specs data frame for [plot_timelineA()]
 #'
-#' @inheritParams plot_timeline
+#' @inheritParams plot_timelineA
 #'
-#' @seealso plot_timeline
-#' @return A data frame useful as the `specs` argument of [plot_timeline()].
+#' @seealso plot_timelineA
+#' @return A data frame useful as the `specs` argument of [plot_timelineA()].
 #' @export
 #' @examples
 #' data <- prepare_for_timeline(sda_target)
