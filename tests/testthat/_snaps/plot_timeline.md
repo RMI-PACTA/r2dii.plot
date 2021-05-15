@@ -10,7 +10,7 @@
       
       $layers
       $layers[[1]]
-      mapping: x = ~.data$year, y = ~.data$value, colour = ~factor(.data$line_name, levels = specs$line_name) 
+      mapping: x = ~.data$year, y = ~.data$value, colour = ~.data$label 
       geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
@@ -22,7 +22,7 @@
       position_identity 
       
       $layers[[3]]
-      mapping: x = ~.data$year, y = ~.data$value, colour = ~factor(.data$line_name, levels = specs$line_name), linetype = ~.data$extrapolated 
+      mapping: x = ~.data$year, y = ~.data$value, colour = ~.data$label, linetype = ~.data$extrapolated 
       geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
@@ -515,7 +515,7 @@
       [1] "value"
       
       $labels$colour
-      [1] "factor(line_name, levels = specs$line_name)"
+      [1] "label"
       
       $labels$linetype
       [1] "extrapolated"

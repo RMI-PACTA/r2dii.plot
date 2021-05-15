@@ -48,21 +48,20 @@
 plot_timeline <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
 
+  data <- left_join(data, specs, by = "line_name")
+
   measured <- filter(data, !.data$extrapolated)
   plot <- ggplot() +
-    timeline_line(measured, specs) +
+    timeline_line(measured) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     expand_limits(y = 0) +
-    scale_colour_manual(
-      values = specs$colour_hex,
-      labels = specs$label
-    )
+    scale_colour_manual(values = unique(data$colour_hex))
 
   if (any(data$extrapolated)) {
     extrapolated <- filter(data, .data$extrapolated)
     plot <- plot +
-      timeline_line(extrapolated, specs, linetype = .data$extrapolated) +
+      timeline_line(extrapolated, linetype = .data$extrapolated) +
       scale_linetype_manual(values = "dashed") +
       guides(linetype = FALSE)
   }
@@ -70,13 +69,15 @@ plot_timeline <- function(data, specs = timeline_specs(data)) {
   plot + theme_2dii()
 }
 
-timeline_line <- function(data, specs, ...) {
+timeline_line <- function(data, ...) {
+  data$label <- forcats::fct_reorder2(data$label, data$year, data$value)
+
   geom_line(
     data = data,
     aes(
       x = .data$year,
       y = .data$value,
-      colour = factor(.data$line_name, levels = specs$line_name),
+      colour = .data$label,
       ...
     )
   )
