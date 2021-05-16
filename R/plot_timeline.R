@@ -47,40 +47,24 @@
 #'   labs(title = "Emission intensity trend for Cement")
 plot_timeline <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
-
   data <- left_join(data, specs, by = "line_name")
 
-  measured <- filter(data, !.data$extrapolated)
-  plot <- ggplot() +
-    timeline_line(measured) +
+  ggplot() +
+    geom_line(
+      data = data, aes(
+        x = .data$year,
+        y = .data$value,
+        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value),
+        linetype = .data$extrapolated
+      )) +
+    expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
-    expand_limits(y = 0) +
-    scale_colour_manual(values = unique(data$colour_hex))
-
-  if (any(data$extrapolated)) {
-    extrapolated <- filter(data, .data$extrapolated)
-    plot <- plot +
-      timeline_line(extrapolated, linetype = .data$extrapolated) +
-      scale_linetype_manual(values = "dashed") +
-      guides(linetype = FALSE)
-  }
-
-  plot + theme_2dii()
-}
-
-timeline_line <- function(data, ...) {
-  data$label <- forcats::fct_reorder2(data$label, data$year, data$value)
-
-  geom_line(
-    data = data,
-    aes(
-      x = .data$year,
-      y = .data$value,
-      colour = .data$label,
-      ...
-    )
-  )
+    scale_colour_manual(values = unique(data$colour_hex)) +
+    scale_linetype_manual(
+      values = if (any(data$extrapolated)) c("solid", "dashed") else "solid") +
+    guides(linetype = FALSE) +
+    theme_2dii()
 }
 
 check_specs <- function(specs, data) {

@@ -10,7 +10,7 @@
       
       $layers
       $layers[[1]]
-      mapping: x = ~.data$year, y = ~.data$value, colour = ~.data$label 
+      mapping: x = ~.data$year, y = ~.data$value, colour = ~forcats::fct_reorder2(.data$label, .data$year, .data$value), linetype = ~.data$extrapolated 
       geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
@@ -18,12 +18,6 @@
       $layers[[2]]
       mapping: y = ~y 
       geom_blank: na.rm = FALSE
-      stat_identity: na.rm = FALSE
-      position_identity 
-      
-      $layers[[3]]
-      mapping: x = ~.data$year, y = ~.data$value, colour = ~.data$label, linetype = ~.data$extrapolated 
-      geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
       
@@ -515,7 +509,7 @@
       [1] "value"
       
       $labels$colour
-      [1] "label"
+      [1] "forcats::fct_reorder2(label, year, value)"
       
       $labels$linetype
       [1] "extrapolated"
