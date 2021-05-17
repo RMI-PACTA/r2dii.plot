@@ -30,11 +30,11 @@
 #' # Combine `timeline_specs()` and `dput()` or `datapasta::tribble_paste()` to
 #' # produce the default `specs`; then adapt it as you wish:
 #' custom_specs <- tribble(
-#'                 ~line_name,           ~label, ~colour_hex,
-#'                "projected",          "Proj.",   "#1b324f",
-#'        "corporate_economy",  "Corp. Economy",   "#00c082",
-#'              "target_demo",         "Target",   "#ff9623",
-#'   "adjusted_scenario_demo",  "Adj. Scenario",   "#d0d7e1"
+#'   ~line_name, ~label, ~colour_hex,
+#'   "projected", "Proj.", "#1b324f",
+#'   "corporate_economy", "Corp. Economy", "#00c082",
+#'   "target_demo", "Target", "#ff9623",
+#'   "adjusted_scenario_demo", "Adj. Scenario", "#d0d7e1"
 #' )
 #'
 #' # For reference

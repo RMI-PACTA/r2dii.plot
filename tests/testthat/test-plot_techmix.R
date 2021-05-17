@@ -64,9 +64,11 @@ test_that("with more than one sector in data errors gracefully", {
     value_to_plot = "technology_share"
   )
   data <- data %>%
-    dplyr::add_row(sector = "automotive", technology = "electric",
-            metric_type = data$metric_type[1], metric = data$metric[1],
-            value = data$value[1], scenario_source = data$scenario_source[1])
+    dplyr::add_row(
+      sector = "automotive", technology = "electric",
+      metric_type = data$metric_type[1], metric = data$metric[1],
+      value = data$value[1], scenario_source = data$scenario_source[1]
+    )
 
   expect_error(
     regexp = "Input data.*must.*one.*sector.",
