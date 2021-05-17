@@ -104,11 +104,10 @@ plot_trajectory <- function(data,
       axis.line = element_blank(),
       plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
       legend.position = NULL
-    )
+    ) +
+    guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
 
-  # FIXME: The resulting seems to not be a common "ggplot" but a more complex
-  # object that is insensitive to, e.g., p + labs(title = "blah").
-  p_trajectory <- add_legend(
+  legend <- plot_trajectory_legend(
     p_trajectory,
     data_scenarios,
     scenario_specs,
@@ -118,7 +117,7 @@ plot_trajectory <- function(data,
     line_labels
   )
 
-  p_trajectory
+  add_grobs(p_trajectory, get_legend(legend))
 }
 
 reverse_rows <- function(x) {
@@ -229,13 +228,13 @@ get_adjusted_colours <- function(data_scenarios,
   colors
 }
 
-add_legend <- function(plot,
-                       data_scenarios,
-                       scenario_specs,
-                       data_metrics,
-                       linetypes_ordered,
-                       linecolors_ordered,
-                       line_labels) {
+plot_trajectory_legend <- function(plot,
+                                   data_scenarios,
+                                   scenario_specs,
+                                   data_metrics,
+                                   linetypes_ordered,
+                                   linecolours_ordered,
+                                   line_labels) {
   p_legend <- help_plot_area_colors(data_scenarios, scenario_specs)
 
   n_lines <- length(line_labels)
@@ -254,19 +253,11 @@ add_legend <- function(plot,
       labels = line_labels
     ) +
     scale_color_manual(
-      values = linecolors_ordered[1:n_lines],
+      values = linecolours_ordered[1:n_lines],
       labels = line_labels
     )
 
-  legend <- get_legend(p_legend)
-
-  plot <- ggarrange(
-    plot,
-    legend.grob = legend,
-    legend = "right"
-  )
-
-  plot
+  p_legend
 }
 
 help_plot_area_colors <- function(data_scenarios,
@@ -298,4 +289,23 @@ help_plot_area_colors <- function(data_scenarios,
     )
 
   p_legend
+}
+
+add_grobs <- function(plot, legend) {
+  gridExtra::grid.arrange(
+    gridExtra::arrangeGrob(
+      plot + theme(legend.position = "none"),
+      nrow = 1
+    ),
+    legend,
+    ncol = 2,
+    widths = c(7, 3)
+  )
+}
+
+# https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+get_legend <- function(plot) {
+  tmp <- ggplot_gtable(ggplot_build(plot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  tmp$grobs[[leg]]
 }
