@@ -1,24 +1,14 @@
-test_that("check_crucial_names with expected names returns `x` invisibly", {
-  x <- c(a = 1)
-  expect_silent(out <- check_crucial_names(x, "a"))
-  expect_identical(x, out)
-
-  x <- data.frame(a = 1)
-  expect_silent(out <- check_crucial_names(x, "a"))
-  expect_identical(x, out)
+test_that("with unexpected names throws a gracefull error", {
+  expect_snapshot_error(check_crucial_names(tibble(x = 1), c("bad1", "bad2")))
 })
 
-test_that("check_crucial_names with expected names returns `x` invisibly", {
-  x <- c(a = 1)
-  expect_error(check_crucial_names(x, "b"), class = "missing_names")
-
-  x <- data.frame(a = 1)
-  expect_error(check_crucial_names(x, "b"), class = "missing_names")
+test_that("with expected names returns first argument invisibly", {
+  data <- tibble(x = 1)
+  expect_invisible(out <- check_crucial_names(data, "x"))
+  expect_identical(data, out)
 })
 
-test_that("check_crucial_names w/ duplicated expected informs unique", {
-  expect_error(
-    check_crucial_names(c(x = 1), expected_names = c("x", "z", "a")),
-    class = "missing_names"
-  )
+test_that("with expected names is silent", {
+  expect_silent(check_crucial_names(c(a = 1), "a"))
 })
+

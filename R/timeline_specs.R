@@ -1,9 +1,9 @@
-#' Creates the default specs data frame for [plot_timeline()]
+#' Creates the default specs data frame for [plot_timelineA()]
 #'
-#' @inheritParams plot_timeline
+#' @inheritParams plot_timelineA
 #'
-#' @seealso plot_timeline
-#' @return A data frame useful as the `specs` argument of [plot_timeline()].
+#' @seealso plot_timelineA
+#' @return A data frame useful as the `specs` argument of [plot_timelineA()].
 #' @export
 #' @examples
 #' data <- prepare_for_timeline(sda_target)
@@ -26,13 +26,10 @@ stop_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   n_colours <- nrow(r2dii_palette_colours())
   if (n_lines > n_colours) {
-    msg <- sprintf(
-        "Can't plot more than %s lines. Found %s lines:\n%s",
-        n_colours,
-        n_lines,
-        toString(data$line_name)
-      )
-    rlang::abort(class = "too_many_lines", msg)
+    abort(glue(
+        "Can't plot more than {n_colours} lines. Found {n_lines} lines:
+        {toString(data$line_name)}."
+    ))
   }
 
   invisible(data)

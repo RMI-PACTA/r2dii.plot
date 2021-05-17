@@ -4,6 +4,7 @@
 #' @importFrom dplyr desc lead tibble lag slice_head across
 #' @importFrom ggpubr get_legend ggarrange
 #' @importFrom rlang .env abort warn
+#' @importFrom glue glue
 NULL
 
 utils::globalVariables("where")

@@ -128,52 +128,40 @@ check_input_parameters <- function(data,
                                    value_to_plot,
                                    extrapolate_missing_values) {
   if (typeof(year_start) != "double") {
-    msg <- sprintf(
+    abort(glue(
       "'year_start' must be a number.
-        * You submitted a %s.",
-      typeof(year_start)
-    )
-    stop(msg, call. = FALSE)
+        * You submitted a {typeof(year_start)}."
+    ))
   }
 
   if (typeof(year_end) != "double") {
-    msg <- sprintf(
+    abort(glue(
       "'year_end' must be a number.
-        * You submitted a %s.",
-      typeof(year_end)
-    )
-    stop(msg, call. = FALSE)
+        * You submitted a {typeof(year_end)}."
+    ))
   }
 
   if (!(column_line_names %in% names(data))) {
-    msg <- sprintf(
-      "'column_line_names' must be one of column names in the input data.
-      * The input data column names are: %s.
-      * You submitted: %s.",
-      toString(names(data)),
-      column_line_names
-    )
-    stop(msg, call. = FALSE)
+    abort(glue(
+      "`column_line_names` must be one of column names in the input `data`:
+      * The input `data` column names are: {toString(names(data))}.
+      * You submitted: {column_line_names}."
+    ))
   }
 
   if (!(value_to_plot %in% names(data))) {
-    msg <- sprintf(
-      "'value_to_plot' must be one of column names in the input data.
-      * The input data column names are: %s.
-      * You submitted: %s.",
-      toString(names(data)),
-      value_to_plot
-    )
-    stop(msg, call. = FALSE)
+    abort(glue(
+      "`value_to_plot` must be one of column names in the input `data`:
+      * The input `data` column names are: {toString(names(data))}.
+      * You submitted: {value_to_plot}."
+    ))
   }
 
   if (!is.logical(extrapolate_missing_values)) {
-    msg <- sprintf(
-      "'extrapolate_missing_values' must be a logical value.
-      * You submitted a %s.",
-      typeof(extrapolate_missing_values)
-    )
-    stop(msg, call. = FALSE)
+    abort(glue(
+      "`extrapolate_missing_values` must be a logical value:
+      * You submitted a {typeof(extrapolate_missing_values)}."
+    ))
   }
 
   invisible(data)
