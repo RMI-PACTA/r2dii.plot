@@ -25,7 +25,14 @@ library(dplyr)
 
 # Using default preparation and specs
 data <- prepare_for_timeline(sda_target)
-plot_timeline(data)
+p <- plot_timeline(data)
+p
+
+# Customize as usual with ggplot2
+custom <- c("red", "blue")
+p +
+  scale_colour_manual(values = custom) +
+  labs(title = "Time line plot")
 
 # Using custom preparation and specs
 cement_data <- sda_target \%>\%
@@ -52,10 +59,6 @@ custom_specs <- tribble(
 r2dii_palette_colours()
 
 plot_timeline(cement_data, specs = custom_specs)
-
-# Customize as usual with ggplot2
-plot_timeline(cement_data, specs = custom_specs) +
-  labs(title = "Emission intensity trend for Cement")
 }
 \seealso{
 timeline_specs
