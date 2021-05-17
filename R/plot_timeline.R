@@ -106,8 +106,8 @@ plot_timelineB <- function(data) {
 #' @param recode One of the following:
 #' * A function to apply to `data$line_name`.
 #' * A named vector to recode `data$line_name`.
-#' * A logical vector. `TRUE` recodes `data$line_name` to title case. `FALSE`
-#' does no recoding and plots `data$line_name` as is.
+#' * A logical vector of lenght 1. `TRUE` recodes `data$line_name` to title
+#' case. `FALSE` does no recoding and plots `data$line_name` as is.
 #' @seealso [dplyr::recode()].
 #' @export
 #' @examples
