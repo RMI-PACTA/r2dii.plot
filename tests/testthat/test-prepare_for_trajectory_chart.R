@@ -162,8 +162,7 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
 
 test_that("with missing crucial columns errors gracefully", {
   suppressWarnings(
-    expect_error(
-      class = "missing_names",
+    expect_snapshot_error(
       prepare_for_trajectory_chart(
         bad <- select(process_input_data(example_data), -sector),
         sector_filter = "power",

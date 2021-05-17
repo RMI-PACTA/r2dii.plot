@@ -19,9 +19,8 @@ Depends:
 Imports: 
     dplyr,
     ggplot2,
+    ggpubr,
     glue,
-    grid,
-    gridExtra,
     lubridate,
     magrittr,
     r2dii.data,
