@@ -44,27 +44,24 @@
 #'   labs(title = "Emission intensity trend for Cement")
 plot_timelineA <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
+  data <- left_join(data, specs, by = "line_name")
 
-  measured <- filter(data, !.data$extrapolated)
-  plot <- ggplot() +
-    timeline_line(measured, specs) +
+  ggplot() +
+    geom_line(
+      data = data, aes(
+        x = .data$year,
+        y = .data$value,
+        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value),
+        linetype = .data$extrapolated
+      )) +
+    expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
-    expand_limits(y = 0) +
-    scale_colour_manual(
-      values = specs$colour_hex,
-      labels = specs$label
-    )
-
-  if (any(data$extrapolated)) {
-    extrapolated <- filter(data, .data$extrapolated)
-    plot <- plot +
-      timeline_line(extrapolated, specs, linetype = .data$extrapolated) +
-      scale_linetype_manual(values = "dashed") +
-      guides(linetype = FALSE)
-  }
-
-  plot + theme_2dii()
+    scale_colour_manual(values = unique(data$colour_hex)) +
+    scale_linetype_manual(
+      values = if (any(data$extrapolated)) c("solid", "dashed") else "solid") +
+    guides(linetype = FALSE) +
+    theme_2dii()
 }
 
 #' @rdname plot_timelineA
@@ -135,6 +132,7 @@ plot_timelineC <- function(data, recode = TRUE) {
   if (!is.null(recode)) data$line_name <- recode_lines(recode, data)
   plot_timelineB(data)
 }
+
 recode_lines <- function(recode, data) {
   UseMethod("recode_lines")
 }
@@ -157,18 +155,6 @@ recode_lines.logical <- function(recode, data) {
   out
 }
 
-timeline_line <- function(data, specs, ...) {
-  geom_line(
-    data = data,
-    aes(
-      x = .data$year,
-      y = .data$value,
-      colour = factor(.data$line_name, levels = specs$line_name),
-      ...
-    )
-  )
-}
-
 check_specs <- function(specs, data) {
   crucial <- c("line_name", "label", "colour_hex")
   check_crucial_names(specs, crucial)
@@ -179,14 +165,13 @@ check_specs <- function(specs, data) {
     sort(unique(data$line_name))
   )
   if (malformed_line_name) {
-    msg <- sprintf(
-      "Can't find `line_name` values from 'specs' in the data.
-      * Unique `line_name` values in 'data' are: %s.
-      * Unique `line_name` values in 'specs' are: %s.",
-      toString(sort(unique(data$line_name))),
-      toString(sort(unique(specs$line_name)))
-    )
-    rlang::abort(class = "missmatching_line_name", msg)
+    name_in_data <- toString(sort(unique(data$line_name)))
+    name_in_specs <- toString(sort(unique(specs$line_name)))
+    abort(glue(
+      "Can't find `line_name` values from 'specs' in the data:
+      * Unique `line_name` values in 'data' are: {name_in_data}.
+      * Unique `line_name` values in 'specs' are: {name_in_specs}."
+    ))
   }
 
   invisible(specs)

@@ -17,10 +17,7 @@ test_that("adds a column `metric_type`", {
 
 test_that("depends on input column `metric`", {
   missing_metric <- select(fake_example_data(), -metric)
-  expect_error(
-    class = "missing_names",
-    process_input_data(missing_metric)
-  )
+  expect_snapshot_error(process_input_data(missing_metric))
 })
 
 test_that("modifies `metric`", {

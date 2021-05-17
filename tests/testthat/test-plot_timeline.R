@@ -2,13 +2,13 @@ test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- dplyr::tribble(
-    ~year,  ~line_name, ~value, ~extrapolated,
-     2021,         "a",    0.1,         FALSE,
-     2022,         "a",    0.2,         FALSE,
-     2023,         "a",    0.3,         FALSE,
-     2021,         "b",    0.5,          TRUE,
-     2022,         "b",    0.6,          TRUE,
-     2023,         "b",    0.7,          TRUE,
+    ~year, ~line_name, ~value, ~extrapolated,
+    2021, "a", 0.1, FALSE,
+    2022, "a", 0.2, FALSE,
+    2023, "a", 0.3, FALSE,
+    2021, "b", 0.5, TRUE,
+    2022, "b", 0.6, TRUE,
+    2023, "b", 0.7, TRUE,
   )
 
   out <- unclass(
@@ -24,19 +24,12 @@ test_that("with specs missing crucial columns, errors gracefully", {
   bad <- timeline_specs(data)
   bad$colour_hex <- NULL
 
-  expect_error(
-    class = "missing_names",
-    plot_timelineA(data, specs = bad)
-  )
+  expect_error(class = "missing_names", plot_timelineA(data, specs = bad))
 })
 
 test_that("with too many lines errors gracefully", {
   data <- fake_timeline_data(line_name = letters[1:10])
-
-  expect_error(
-    class = "too_many_lines",
-    plot_timelineA(data)
-  )
+  expect_snapshot_error(plot_timelineA(data))
 })
 
 test_that("handles specs with factors", {
@@ -54,10 +47,7 @@ test_that("with line_name where specs missmatching data, errors gracefully", {
   specs <- timeline_specs(data)
   specs$line_name <- "bad"
 
-  expect_error(
-    class = "missmatching_line_name",
-    plot_timelineA(data, specs)
-  )
+  expect_snapshot_error(plot_timelineA(data, specs))
 })
 
 test_that("plots year as 'Date'", {
