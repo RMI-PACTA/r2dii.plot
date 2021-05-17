@@ -104,11 +104,10 @@ plot_trajectory <- function(data,
       axis.line = element_blank(),
       plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
       legend.position = NULL
-    )
+    ) +
+    guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
 
-  # FIXME: The resulting seems to not be a common "ggplot" but a more complex
-  # object that is insensitive to, e.g., p + labs(title = "blah").
-  p_trajectory <- add_legend(
+  legend <- plot_trajectory_legend(
     p_trajectory,
     data_scenarios,
     scenario_specs,
@@ -118,7 +117,7 @@ plot_trajectory <- function(data,
     line_labels
   )
 
-  p_trajectory
+  add_grobs(p_trajectory, get_legend(legend))
 }
 
 reverse_rows <- function(x) {
@@ -214,92 +213,6 @@ get_scenario_data <- function(data, scenario_specs) {
         default = area_borders$lower
       ))
   }
-
-  colors_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
-
-  for (i in seq_along(scenario_specs$scenario)) {
-    scen <- scenario_specs$scenario[i]
-    color <- colors_scenarios[i]
-    data_scen <- data_scenarios %>% filter(.data$metric == scen)
-    p_trajectory <- p_trajectory +
-      geom_ribbon(
-        data = data_scen, aes(
-          ymin = .data$value_low,
-          ymax = .data$value, x = year, group = 1
-        ),
-        fill = color
-      )
-
-    if (scen != "worse") {
-      if (tech_green_or_brown == "brown") {
-        p_trajectory <- p_trajectory +
-          geom_line(
-            data = data_scen, aes(x = year, y = .data$value),
-            color = color
-          )
-      } else if (tech_green_or_brown == "green") {
-        p_trajectory <- p_trajectory +
-          geom_line(
-            data = data_scen, aes(x = year, y = .data$value_low),
-            color = color
-          )
-      }
-    }
-  }
-  if (!is.null(additional_line_metrics)) {
-    line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
-    line_labels <- c(main_line_metric$label, additional_line_metrics$label)
-  } else {
-    line_metrics <- c(main_line_metric$metric)
-    line_labels <- c(main_line_metric$label)
-  }
-
-  data_metrics <- data %>% filter(.data$metric %in% line_metrics)
-  n_lines <- length(line_metrics)
-
-  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
-  linecolors_ordered <- c("black", "black", "gray", "grey46", "black")
-
-  p_trajectory <- p_trajectory +
-    geom_line(
-      data = data_metrics,
-      aes(
-        x = .data$year,
-        y = .data$value,
-        linetype = .data$metric,
-        color = .data$metric
-      )
-    )
-
-  p_trajectory <- p_trajectory +
-    coord_cartesian(expand = FALSE, clip = "off") +
-    scale_linetype_manual(values = linetypes_ordered[1:n_lines]) +
-    scale_color_manual(values = linecolors_ordered[1:n_lines])
-
-  p_trajectory <- p_trajectory +
-    theme_2dii() +
-    theme(
-      axis.line = element_blank(),
-      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
-      legend.position = NULL
-    ) +
-    guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
-
-  legend <- plot_trajectory_legend(
-    p_trajectory,
-    data_scenarios,
-    scenario_specs,
-    data_metrics,
-    linetypes_ordered,
-    linecolors_ordered,
-    line_labels
-  )
-
-  add_grobs(p_trajectory, get_legend(legend))
-}
-
-reverse_rows <- function(x) {
-  x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
 }
 
 get_adjusted_colours <- function(data_scenarios,
@@ -320,7 +233,7 @@ plot_trajectory_legend <- function(plot,
                                    scenario_specs,
                                    data_metrics,
                                    linetypes_ordered,
-                                   linecolors_ordered,
+                                   linecolours_ordered,
                                    line_labels) {
   p_legend <- help_plot_area_colors(data_scenarios, scenario_specs)
 
@@ -340,7 +253,7 @@ plot_trajectory_legend <- function(plot,
       labels = line_labels
     ) +
     scale_color_manual(
-      values = linecolors_ordered[1:n_lines],
+      values = linecolours_ordered[1:n_lines],
       labels = line_labels
     )
 
@@ -386,7 +299,7 @@ add_grobs <- function(plot, legend) {
     ),
     legend,
     ncol = 2,
-    widths = c(8, 2)
+    widths = c(7, 3)
   )
 }
 
