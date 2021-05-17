@@ -216,7 +216,8 @@ case. <code>FALSE</code> does no recoding and plots <code>data$line_name</code> 
 <span class='co'># `plot_timelineA()` -------------------------------------------------------</span>
 
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span><span class='op'>)</span>
-<span class='fu'>plot_timelineA</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Can only use one sector.</span>
+#&gt; <span class='warning'>Using the first of the vector passed to `sector_filter`: automotive.</span></div><div class='input'><span class='fu'>plot_timelineA</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_timelineA-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Customize `line_name` via a data frame passed to `specs`</span>
 <span class='co'># styler: off</span>
@@ -234,7 +235,8 @@ case. <code>FALSE</code> does no recoding and plots <code>data$line_name</code> 
 <span class='co'># `plot_timelineB()` ------------------------------------------------------</span>
 
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span><span class='op'>)</span>
-<span class='fu'>plot_timelineB</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Can only use one sector.</span>
+#&gt; <span class='warning'>Using the first of the vector passed to `sector_filter`: automotive.</span></div><div class='input'><span class='fu'>plot_timelineB</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_timelineA-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>data</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>line_name <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/recode.html'>recode</a></span><span class='op'>(</span><span class='va'>line_name</span>,
@@ -246,7 +248,8 @@ case. <code>FALSE</code> does no recoding and plots <code>data$line_name</code> 
 <span class='co'># `plot_timelineC()` ------------------------------------------------------</span>
 
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>line_name</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Can only use one sector.</span>
+#&gt; <span class='warning'>Using the first of the vector passed to `sector_filter`: automotive.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>line_name</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "projected"         "corporate_economy"</div><div class='input'><span class='co'># Recode to title case</span>
 <span class='fu'>plot_timelineC</span><span class='op'>(</span><span class='va'>data</span>, recode <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_timelineA-5.png' alt='' width='700' height='433' /></div><div class='input'>
