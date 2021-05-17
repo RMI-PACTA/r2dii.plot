@@ -23,7 +23,7 @@ names from the r2dii_colours palette.}
 \itemize{
 \item A function/lambda to apply to \code{data$line_name}.
 \item A named vector to recode \code{data$line_name}.
-\item A logical vector of lenght 1. \code{TRUE} recodes \code{data$line_name} to title
+\item A logical vector of length 1. \code{TRUE} recodes \code{data$line_name} to title
 case. \code{FALSE} does no recoding and plots \code{data$line_name} as is.
 }}
 }
