@@ -127,10 +127,10 @@ check_input_parameters_plot_techmix <- function(data,
 
   if (length(sector) > 1) {
     msg <- glue::glue(
-        "Input data must have only one 'sector'.
+      "Input data must have only one 'sector'.
         * You submitted data with {length(sector)} sectors: {toString(sector)}."
-      )
-      rlang::abort(msg)
+    )
+    rlang::abort(msg)
   }
 
   if (!(sector %in% c("power", "automotive", "oil&gas", "fossil fuels"))) {

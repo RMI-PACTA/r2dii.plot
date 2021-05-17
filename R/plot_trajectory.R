@@ -49,9 +49,83 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = NULL) {
-  p_trajectory <- ggplot()
+  # plot scenario areas
+  scenario_specs <- get_ordered_scenario_specs(
+    scenario_specs_good_to_bad, data$technology[1]
+  )
+  data_scenarios <- get_scenario_data(data, scenario_specs)
+  colours_scenarios <- get_adjusted_colours(data_scenarios, scenario_specs)
+  p_trajectory <- ggplot() +
+    geom_ribbon(
+      data = data_scenarios,
+      aes(
+        x = .data$year,
+        ymin = .data$value_low,
+        ymax = .data$value,
+        fill = .data$metric
+      )
+    ) +
+    scale_fill_manual(values = colours_scenarios)
 
-  # adjusting the area border to center the starting point of the lines
+  # plot trajectory lines
+  if (!is.null(additional_line_metrics)) {
+    line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
+    line_labels <- c(main_line_metric$label, additional_line_metrics$label)
+  } else {
+    line_metrics <- c(main_line_metric$metric)
+    line_labels <- c(main_line_metric$label)
+  }
+
+  data_metrics <- data %>% filter(.data$metric %in% line_metrics)
+  n_lines <- length(line_metrics)
+
+  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
+  linecolours_ordered <- c("black", "black", "gray", "grey46", "black")
+
+  p_trajectory <- p_trajectory +
+    geom_line(
+      data = data_metrics,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        linetype = .data$metric,
+        color = .data$metric
+      )
+    )
+
+  p_trajectory <- p_trajectory +
+    coord_cartesian(expand = FALSE, clip = "off") +
+    scale_linetype_manual(values = linetypes_ordered[1:n_lines]) +
+    scale_color_manual(values = linecolours_ordered[1:n_lines])
+
+  p_trajectory <- p_trajectory +
+    theme_2dii() +
+    theme(
+      axis.line = element_blank(),
+      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
+      legend.position = NULL
+    )
+
+  # FIXME: The resulting seems to not be a common "ggplot" but a more complex
+  # object that is insensitive to, e.g., p + labs(title = "blah").
+  p_trajectory <- add_legend(
+    p_trajectory,
+    data_scenarios,
+    scenario_specs,
+    data_metrics,
+    linetypes_ordered,
+    linecolours_ordered,
+    line_labels
+  )
+
+  p_trajectory
+}
+
+reverse_rows <- function(x) {
+  x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
+}
+
+get_area_borders <- function(data) {
   lower_area_border <- min(data$value)
   upper_area_border <- max(data$value)
   value_span <- upper_area_border - lower_area_border
@@ -66,6 +140,7 @@ plot_trajectory <- function(data,
   perc_distance_lower_border <-
     (start_value_portfolio - lower_area_border) / value_span
 
+  # adjusting the area border to center the starting point of the lines
   max_delta_distance <- 0.1
   delta_distance <- abs(perc_distance_upper_border - perc_distance_lower_border)
   if (delta_distance > max_delta_distance) {
@@ -80,18 +155,48 @@ plot_trajectory <- function(data,
     }
   }
 
-  year <- unique(data$year)
-  data_worse_than_scenarios <- data.frame(year)
+  area_borders <- list(lower = lower_area_border, upper = upper_area_border)
+  area_borders
+}
 
+get_ordered_scenario_specs <- function(scenario_specs_good_to_bad, technology) {
   green_or_brown <- r2dii.data::green_or_brown
-  tech_green_or_brown <- green_or_brown[
-    green_or_brown$technology == data$technology[1],
-  ]$green_or_brown
+  tech_green_or_brown <- green_or_brown %>%
+    filter(.data$technology == .env$technology) %>%
+    pull(.data$green_or_brown)
 
   if (tech_green_or_brown == "brown") {
     scenario_specs <- scenario_specs_good_to_bad
+  } else if (tech_green_or_brown == "green") {
+    scenario_specs <- reverse_rows(scenario_specs_good_to_bad)
+  }
+  scenario_specs
+}
 
-    data_worse_than_scenarios$value <- upper_area_border
+get_scenario_data <- function(data, scenario_specs) {
+  area_borders <- get_area_borders(data)
+
+  data_worse_than_scenarios <- data.frame(year = unique(data$year))
+  if (scenario_specs$scenario[1] == "worse") {
+    data_scenarios <- data %>%
+      filter(.data$metric_type == "scenario") %>%
+      select(.data$year, .data$metric, value_low = .data$value)
+
+    data_worse_than_scenarios$value_low <- area_borders$lower
+    data_worse_than_scenarios$metric <- "worse"
+
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+      group_by(.data$year) %>%
+      mutate(metric = factor(.data$metric,
+        levels = scenario_specs$scenario
+      )) %>%
+      arrange(.data$year, .data$metric) %>%
+      mutate(value = lead(.data$value_low,
+        n = 1,
+        default = area_borders$upper
+      ))
+  } else {
+    data_worse_than_scenarios$value <- area_borders$upper
     data_worse_than_scenarios$metric <- "worse"
 
     data_scenarios <- data %>%
@@ -100,31 +205,13 @@ plot_trajectory <- function(data,
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
-      arrange(.data$year, factor(.data$metric,
+      mutate(metric = factor(.data$metric,
         levels = scenario_specs$scenario
       )) %>%
+      arrange(.data$year, .data$metric) %>%
       mutate(value_low = lag(.data$value,
         n = 1,
-        default = lower_area_border
-      ))
-  } else if (tech_green_or_brown == "green") {
-    scenario_specs <- reverse_rows(scenario_specs_good_to_bad)
-
-    data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
-      select(.data$year, .data$metric, value_low = .data$value)
-
-    data_worse_than_scenarios$value_low <- lower_area_border
-    data_worse_than_scenarios$metric <- "worse"
-
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
-      arrange(.data$year, factor(.data$metric,
-        levels = scenario_specs$scenario
-      )) %>%
-      mutate(value = lead(.data$value_low,
-        n = 1,
-        default = upper_area_border
+        default = area_borders$lower
       ))
   }
 
