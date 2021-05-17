@@ -26,8 +26,7 @@ Imports:
     magrittr,
     r2dii.data,
     rlang,
-    scales,
-    glue
+    scales
 Suggests: 
     covr,
     r2dii.analysis,
