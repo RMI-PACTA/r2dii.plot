@@ -105,7 +105,45 @@ test_that("with bad `extrapolate_missing_values` errors gracefully", {
   )
 })
 
-test_that("outputs `year` of class Date", {
-  out <- prepare_for_timeline(sda_target)
-  expect_s3_class(out$year, "Date")
+test_that("warns chosen sector", {
+  expect_warning(
+    class = "chosen_sector",
+    prepare_for_timeline(sda_target, sector_filter = "automotive")
+  )
+})
+
+test_that("with a `sector_filter` of lengh > 1 throws an error", {
+  too_long <- c("steel", "power")
+  expect_error(
+    prepare_for_timeline(sda_target, sector_filter = too_long),
+    "must be of length 1"
+  )
+})
+
+test_that("w/ a single-sector dataset and it's selected, throws no warning", {
+  data <- filter(sda_target, sector == "steel")
+
+  expect_warning(
+    prepare_for_timeline(data, sector_filter = "steel"),
+    NA
+  )
+})
+
+test_that("w/ a single-sector dataset and it's not selected, throws warning", {
+  data <- filter(sda_target, sector == dplyr::first(sector))
+
+  expect_warning(
+    class = "missing_sector",
+    prepare_for_timeline(data, sector_filter = "steel")
+  )
+})
+
+test_that("works with sectors in title case", {
+  data <- sda_target
+  data$sector <- tools::toTitleCase(data$sector)
+
+  expect_no_error(prepare_for_timeline(data, "Aviation"))
+
+  out <- prepare_for_timeline(data, "aviation")
+  expect_true(nrow(out) > 0L)
 })

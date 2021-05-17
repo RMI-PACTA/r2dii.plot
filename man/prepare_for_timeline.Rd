@@ -20,8 +20,8 @@ prepare_for_timeline(
 columns specifying value to be be plotted as timelines and line names
 (dataframe).}
 
-\item{sector_filter}{Sector to be used for filtering (character string or a
-vector of character strings).}
+\item{sector_filter}{Sector to be used for filtering (character string of
+length 1).}
 
 \item{year_start}{Start year of the plot (double).}
 

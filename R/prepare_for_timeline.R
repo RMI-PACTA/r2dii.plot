@@ -3,8 +3,8 @@
 #' @param sda_target_data Dataframe with columns sector, year and two other
 #'   columns specifying value to be be plotted as timelines and line names
 #'   (dataframe).
-#' @param sector_filter Sector to be used for filtering (character string or a
-#'   vector of character strings).
+#' @param sector_filter Sector to be used for filtering (character string of
+#'   length 1).
 #' @param year_start Start year of the plot (double).
 #' @param year_end End year of the plot (double).
 #' @param column_line_names Column specifying the names of lines to be plotted
@@ -40,9 +40,11 @@ prepare_for_timeline <- function(sda_target_data,
                                  column_line_names = "emission_factor_metric",
                                  value_to_plot = "emission_factor_value",
                                  extrapolate_missing_values = FALSE) {
-
-  # input checks
+  sda_target_data$sector <- tolower(sda_target_data$sector)
+  sector_filter <- tolower(sector_filter)
   sector_filter <- match.arg(sector_filter)
+  warn_sector(sda_target_data, sector_filter)
+
   check_input_parameters(
     sda_target_data,
     year_start,
@@ -98,6 +100,27 @@ prepare_for_timeline <- function(sda_target_data,
   data_timeline
 }
 
+warn_sector <- function(data, sector_filter) {
+  too_long <- length(unique(data$sector)) > 1L
+  if (too_long) {
+    msg <- glue::glue(
+      "Can only use one sector.
+      Using the first of the vector passed to `sector_filter`: {sector_filter}."
+    )
+    warn(class = "chosen_sector", msg)
+  }
+
+  missing_sector <- !sector_filter %in% unique(data$sector)
+  if (missing_sector) {
+    warn(
+      class = "missing_sector",
+      glue::glue("Found no data for sector: {sector_filter}.")
+    )
+  }
+
+  invisible(data)
+}
+
 check_input_parameters <- function(data,
                                    year_start,
                                    year_end,
@@ -143,3 +166,4 @@ check_input_parameters <- function(data,
 
   invisible(data)
 }
+
