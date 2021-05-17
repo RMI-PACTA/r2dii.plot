@@ -104,7 +104,7 @@ plot_timelineB <- function(data) {
 #' values, and allows none or other recoding via the argument `recode` (see
 #' Arguments).
 #' @param recode One of the following:
-#' * A function to apply to `data$line_name`.
+#' * A function/lambda to apply to `data$line_name`.
 #' * A named vector to recode `data$line_name`.
 #' * A logical vector of lenght 1. `TRUE` recodes `data$line_name` to title
 #' case. `FALSE` does no recoding and plots `data$line_name` as is.
@@ -125,6 +125,9 @@ plot_timelineB <- function(data) {
 #' # Recode using a function
 #' plot_timelineC(data, recode = toupper)
 #'
+#' # Recode using a formula giving a lambda function
+#' plot_timelineC(data, recode = ~ toupper(gsub("_", " ", .x)))
+#'
 #' # Recode via a named vector
 #' legend <- c("projected" = "Projected", "corporate_economy" = "Corp. Economy")
 #' plot_timelineC(data, recode = legend)
@@ -140,6 +143,10 @@ recode_lines.default <- function(recode, data) {
 }
 recode_lines.function <- function(recode, data) {
   recode(data$line_name)
+}
+recode_lines.formula <- function(recode, data) {
+  f <- rlang::as_function(recode)
+  f(data$line_name)
 }
 recode_lines.character <- function(recode, data) {
   dplyr::recode(data$line_name, !!!recode)
