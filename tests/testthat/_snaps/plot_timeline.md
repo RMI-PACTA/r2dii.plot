@@ -10,7 +10,7 @@
       
       $layers
       $layers[[1]]
-      mapping: x = ~.data$year, y = ~.data$value, colour = ~factor(.data$line_name, levels = specs$line_name) 
+      mapping: x = ~.data$year, y = ~.data$value, colour = ~forcats::fct_reorder2(.data$label, .data$year, .data$value), linetype = ~.data$extrapolated 
       geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
@@ -18,12 +18,6 @@
       $layers[[2]]
       mapping: y = ~y 
       geom_blank: na.rm = FALSE
-      stat_identity: na.rm = FALSE
-      position_identity 
-      
-      $layers[[3]]
-      mapping: x = ~.data$year, y = ~.data$value, colour = ~factor(.data$line_name, levels = specs$line_name), linetype = ~.data$extrapolated 
-      geom_line: na.rm = FALSE, orientation = NA
       stat_identity: na.rm = FALSE
       position_identity 
       
@@ -515,7 +509,7 @@
       [1] "value"
       
       $labels$colour
-      [1] "factor(line_name, levels = specs$line_name)"
+      [1] "forcats::fct_reorder2(label, year, value)"
       
       $labels$linetype
       [1] "extrapolated"
@@ -526,4 +520,15 @@
       [1] FALSE
       
       
+
+# with too many lines errors gracefully
+
+    Can't plot more than 9 lines. Found 10 lines:
+    a, b, c, d, e, f, g, h, i, j.
+
+# with line_name where specs missmatching data, errors gracefully
+
+    Can't find `line_name` values from 'specs' in the data:
+    * Unique `line_name` values in 'data' are: projected.
+    * Unique `line_name` values in 'specs' are: bad.
 

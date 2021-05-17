@@ -65,7 +65,7 @@ test_that("with bad `year_end` errors gracefully", {
 
 test_that("with bad `column_line_names` errors gracefully", {
   expect_error(
-    regexp = "column_line_names.*must be.*in.*input data.",
+    regexp = "column_line_names.*must be.*in.*data",
     prepare_for_timeline(
       sda_target,
       column_line_names = "bad",
@@ -79,7 +79,7 @@ test_that("with bad `column_line_names` errors gracefully", {
 
 test_that("with bad `value_to_plot` errors gracefully", {
   expect_error(
-    regexp = "'value_to_plot' must be one of column names in the input data.",
+    regexp = "value_to_plot.*must be.*in.*data.",
     prepare_for_timeline(
       sda_target,
       sector_filter = "automotive",
