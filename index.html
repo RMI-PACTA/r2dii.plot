@@ -231,12 +231,12 @@
 <li>
 <code><a href="reference/prepare_for_timeline.html">prepare_for_timeline()</a></code> prepares sda_target-type data for timeline plot.</li>
 <li>
-<code><a href="reference/plot_timeline.html">plot_timeline()</a></code> creates a time line plot.</li>
+<code><a href="reference/plot_timelineA.html">plot_timelineA()</a></code> creates a time line plot.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using default preparation and specs</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_timeline.html">prepare_for_timeline</a></span><span class="op">(</span><span class="va">sda_target</span><span class="op">)</span>
-<span class="fu"><a href="reference/plot_timeline.html">plot_timeline</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using custom preparation</span>
@@ -251,7 +251,7 @@
 <span class="op">)</span>
 
 <span class="co"># Using custom specs and extending the plot with ggplot2</span>
-<span class="fu"><a href="reference/plot_timeline.html">plot_timeline</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>
     title <span class="op">=</span> <span class="st">"Emission intensity trend for Cement."</span>,
     x <span class="op">=</span> <span class="st">"Year"</span>,
