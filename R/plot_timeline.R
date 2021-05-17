@@ -5,47 +5,44 @@
 #' @param specs Dataframe containing order of lines, their labels and colour
 #'   names from the r2dii_colours palette.
 #'
+#' @description
+#' We are exploring different interfaces before release. We are keen to hear
+#' feedback from beta-testers like you. Please try these alternative interfaces
+#' and let us know which one you prefer. The main difference between them is if
+#' and how they allow recoding the values of `line_name`, which become the
+#' labels of the plot legend:
+#'
+#' * `plot_timelineA()` defaults to recoding `line_name` to title case, and
+#' allows custom recoding via a data frame passed to the argument `specs`.
+#'
 #' @seealso timeline_specs
 #' @return An object of class "ggplot".
+#'
 #' @export
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#' # Using default preparation and specs
+#' # Which version of `plot_timeline*()` do you prefer?
+#'
+#' # `plot_timelineA()` -------------------------------------------------------
+#'
 #' data <- prepare_for_timeline(sda_target)
-#' plot_timeline(data)
+#' plot_timelineA(data)
 #'
-#' # Using custom preparation and specs
-#' cement_data <- sda_target %>%
-#'   prepare_for_timeline(
-#'     sector_filter = "cement",
-#'     year_start = 2020,
-#'     year_end = 2050,
-#'     column_line_names = "emission_factor_metric",
-#'     value_to_plot = "emission_factor_value",
-#'     extrapolate_missing_values = TRUE
-#'   )
-#'
-#' # Combine `timeline_specs()` and `dput()` or `datapasta::tribble_paste()` to
-#' # produce the default `specs`; then adapt it as you wish:
-#' custom_specs <- tribble(
-#'   ~line_name, ~label, ~colour_hex,
-#'   "projected", "Proj.", "#1b324f",
-#'   "corporate_economy", "Corp. Economy", "#00c082",
-#'   "target_demo", "Target", "#ff9623",
-#'   "adjusted_scenario_demo", "Adj. Scenario", "#d0d7e1"
+#' # Customize `line_name` via a data frame passed to `specs`
+#' # styler: off
+#' custom <- tribble(
+#'            ~line_name,           ~label, ~colour_hex,
+#'           "projected",          "Proj.",   "#1b324f",
+#'   "corporate_economy",  "Corp. Economy",   "#00c082",
 #' )
-#'
-#' # For reference
-#' r2dii_palette_colours()
-#'
-#' plot_timeline(cement_data, specs = custom_specs)
+#' # styler: on
 #'
 #' # Customize as usual with ggplot2
-#' plot_timeline(cement_data, specs = custom_specs) +
+#' plot_timelineA(data, specs = custom) +
 #'   labs(title = "Emission intensity trend for Cement")
-plot_timeline <- function(data, specs = timeline_specs(data)) {
+plot_timelineA <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
   data <- left_join(data, specs, by = "line_name")
 
@@ -65,6 +62,97 @@ plot_timeline <- function(data, specs = timeline_specs(data)) {
       values = if (any(data$extrapolated)) c("solid", "dashed") else "solid") +
     guides(linetype = FALSE) +
     theme_2dii()
+}
+
+#' @rdname plot_timelineA
+#' @description
+#' * `plot_timelineB()` plots `line_name` "as is". You may recode `line_name`
+#' before passing the `data` with, for example, [dplyr::recode()].
+#'
+#' @export
+#' @examples
+#'
+#' # `plot_timelineB()` ------------------------------------------------------
+#'
+#' data <- prepare_for_timeline(sda_target)
+#' plot_timelineB(data)
+#'
+#' data %>%
+#'   mutate(line_name = recode(line_name,
+#'     "projected" = "Proj.",
+#'     "corporate_economy" = "Corp. economy"
+#'   )) %>%
+#'   plot_timelineB()
+plot_timelineB <- function(data) {
+  check_crucial_names(data, "line_name")
+
+  line_names <- unique(data$line_name)
+  labels <- line_names
+  specs <- tibble(line_name = line_names, label = labels) %>%
+    stop_if_too_many_lines() %>%
+    add_r2dii_colours()
+
+  plot_timelineA(data = data, specs = specs)
+}
+
+#' @rdname plot_timelineA
+#' @description
+#' * `plot_timelineC()` defaults to plotting a title case version of `line_name`
+#' values, and allows none or other recoding via the argument `recode` (see
+#' Arguments).
+#' @param recode One of the following:
+#' * A function/lambda to apply to `data$line_name`.
+#' * A named vector to recode `data$line_name`.
+#' * A logical vector of length 1. `TRUE` recodes `data$line_name` to title
+#' case. `FALSE` does no recoding and plots `data$line_name` as is.
+#' @seealso [dplyr::recode()].
+#' @export
+#' @examples
+#'
+#' # `plot_timelineC()` ------------------------------------------------------
+#'
+#' data <- prepare_for_timeline(sda_target)
+#' unique(data$line_name)
+#' # Recode to title case
+#' plot_timelineC(data, recode = TRUE)
+#'
+#' # Don't recode
+#' plot_timelineC(data, recode = FALSE)
+#'
+#' # Recode using a function
+#' plot_timelineC(data, recode = toupper)
+#'
+#' # Recode using a formula giving a lambda function
+#' plot_timelineC(data, recode = ~ toupper(gsub("_", " ", .x)))
+#'
+#' # Recode via a named vector
+#' legend <- c("projected" = "Projected", "corporate_economy" = "Corp. Economy")
+#' plot_timelineC(data, recode = legend)
+plot_timelineC <- function(data, recode = TRUE) {
+  if (!is.null(recode)) data$line_name <- recode_lines(recode, data)
+  plot_timelineB(data)
+}
+
+recode_lines <- function(recode, data) {
+  UseMethod("recode_lines")
+}
+recode_lines.default <- function(recode, data) {
+  abort(glue("Can't handle `recode` of class: {class(recode)}"))
+}
+recode_lines.function <- function(recode, data) {
+  recode(data$line_name)
+}
+recode_lines.formula <- function(recode, data) {
+  f <- rlang::as_function(recode)
+  f(data$line_name)
+}
+recode_lines.character <- function(recode, data) {
+  dplyr::recode(data$line_name, !!!recode)
+}
+recode_lines.logical <- function(recode, data) {
+  out <- data$line_name
+  if (recode) out <- to_title(data$line_name)
+  out
 }
 
 check_specs <- function(specs, data) {

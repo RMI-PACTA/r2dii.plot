@@ -12,7 +12,7 @@ test_that("outputs the expected snapshot", {
   )
 
   out <- unclass(
-    plot_timeline(data)
+    plot_timelineA(data)
   )
   out$plot_env <- NULL
 
@@ -24,12 +24,12 @@ test_that("with specs missing crucial columns, errors gracefully", {
   bad <- timeline_specs(data)
   bad$colour_hex <- NULL
 
-  expect_error(class = "missing_names", plot_timeline(data, specs = bad))
+  expect_error(class = "missing_names", plot_timelineA(data, specs = bad))
 })
 
 test_that("with too many lines errors gracefully", {
   data <- fake_timeline_data(line_name = letters[1:10])
-  expect_snapshot_error(plot_timeline(data))
+  expect_snapshot_error(plot_timelineA(data))
 })
 
 test_that("handles specs with factors", {
@@ -38,7 +38,7 @@ test_that("handles specs with factors", {
   specs$label <- as.factor(specs$label)
 
   expect_no_error(
-    plot_timeline(data, specs = specs)
+    plot_timelineA(data, specs = specs)
   )
 })
 
@@ -47,13 +47,13 @@ test_that("with line_name where specs missmatching data, errors gracefully", {
   specs <- timeline_specs(data)
   specs$line_name <- "bad"
 
-  expect_snapshot_error(plot_timeline(data, specs))
+  expect_snapshot_error(plot_timelineA(data, specs))
 })
 
 test_that("plots year as 'Date'", {
   data <- fake_timeline_data()
 
-  gg <- plot_timeline(data)
+  gg <- plot_timelineA(data)
   year <- gg$layers[[1]]$data$year
 
   expect_s3_class(year, "Date")

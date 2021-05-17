@@ -176,12 +176,12 @@ plot +
 
 -   `prepare_for_timeline()` prepares sda\_target-type data for timeline
     plot.
--   `plot_timeline()` creates a time line plot.
+-   `plot_timelineA()` creates a time line plot.
 
 ``` r
 # Using default preparation and specs
 data <- prepare_for_timeline(sda_target)
-plot_timeline(data)
+plot_timelineA(data)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -199,7 +199,7 @@ data <- prepare_for_timeline(
 )
 
 # Using custom specs and extending the plot with ggplot2
-plot_timeline(data) +
+plot_timelineA(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",

@@ -184,12 +184,12 @@ plot +
 ```
 
 * `prepare_for_timeline()` `r pull_title("prepare_for_timeline")`.
-* `plot_timeline()` `r pull_title("plot_timeline")`.
+* `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 # Using default preparation and specs
 data <- prepare_for_timeline(sda_target)
-plot_timeline(data)
+plot_timelineA(data)
 
 # Using custom preparation
 data <- prepare_for_timeline(
@@ -203,7 +203,7 @@ data <- prepare_for_timeline(
 )
 
 # Using custom specs and extending the plot with ggplot2
-plot_timeline(data) +
+plot_timelineA(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",
