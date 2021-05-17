@@ -2,13 +2,13 @@ test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
   data <- dplyr::tribble(
-    ~year,  ~line_name, ~value, ~extrapolated,
-     2021,         "a",    0.1,         FALSE,
-     2022,         "a",    0.2,         FALSE,
-     2023,         "a",    0.3,         FALSE,
-     2021,         "b",    0.5,          TRUE,
-     2022,         "b",    0.6,          TRUE,
-     2023,         "b",    0.7,          TRUE,
+    ~year, ~line_name, ~value, ~extrapolated,
+    2021, "a", 0.1, FALSE,
+    2022, "a", 0.2, FALSE,
+    2023, "a", 0.3, FALSE,
+    2021, "b", 0.5, TRUE,
+    2022, "b", 0.6, TRUE,
+    2023, "b", 0.7, TRUE,
   )
 
   out <- unclass(

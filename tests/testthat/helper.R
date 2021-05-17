@@ -3,14 +3,14 @@ expect_no_error <- function(...) {
 }
 
 fake_example_data <- function(sector = "automotive",
-                      technology = "electric",
-                      year = 2020L,
-                      region = "global",
-                      scenario_source = "demo_2020",
-                      metric = "projected",
-                      production = 1,
-                      technology_share = 0.2,
-                      ...) {
+                              technology = "electric",
+                              year = 2020L,
+                              region = "global",
+                              scenario_source = "demo_2020",
+                              metric = "projected",
+                              production = 1,
+                              technology_share = 0.2,
+                              ...) {
   tibble(
     sector = sector,
     technology = technology,
