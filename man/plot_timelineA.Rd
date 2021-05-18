@@ -61,7 +61,13 @@ library(dplyr)
 # `plot_timelineA()` -------------------------------------------------------
 
 data <- prepare_for_timeline(sda_target)
-plot_timelineA(data)
+p <- plot_timelineA(data)
+p
+
+# Customize as usual with ggplot2
+p +
+  scale_colour_manual(values = c("red", "blue")) +
+  labs(title = "Timeline plot")
 
 # Customize `line_name` via a data frame passed to `specs`
 # styler: off
@@ -72,9 +78,7 @@ custom <- tribble(
 )
 # styler: on
 
-# Customize as usual with ggplot2
-plot_timelineA(data, specs = custom) +
-  labs(title = "Emission intensity trend for Cement")
+plot_timelineA(data, specs = custom)
 
 # `plot_timelineB()` ------------------------------------------------------
 
