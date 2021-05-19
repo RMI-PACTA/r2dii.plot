@@ -104,13 +104,6 @@ test_that("with bad `extrapolate_missing_values` errors gracefully", {
   )
 })
 
-test_that("warns chosen sector", {
-  expect_warning(
-    class = "chosen_sector",
-    prepare_for_timeline(sda_target, sector_filter = "automotive")
-  )
-})
-
 test_that("with a `sector_filter` of lengh > 1 throws an error", {
   too_long <- c("steel", "power")
   expect_error(

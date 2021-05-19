@@ -6,7 +6,7 @@
 #' @return A data frame useful as the `specs` argument of [plot_timelineA()].
 #' @export
 #' @examples
-#' data <- prepare_for_timeline(sda_target, sector_filter = "aviaiton")
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 #' timeline_specs(data)
 timeline_specs <- function(data) {
   check_crucial_names(data, "line_name")

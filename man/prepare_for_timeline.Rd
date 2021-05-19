@@ -20,7 +20,7 @@ columns specifying value to be be plotted as timelines and line names
 (dataframe).}
 
 \item{sector_filter}{Sector to be used for filtering (character string of
-length 1).}
+length 1). One of automotive, aviation, cement, oil and gas, shipping, steel, power)```.}
 
 \item{year_start}{Start year of the plot (double).}
 
