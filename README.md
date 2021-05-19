@@ -36,9 +36,9 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 
 ``` r
 library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 #> ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-#> ✓ tibble  3.1.0     ✓ dplyr   1.0.4
+#> ✓ tibble  3.1.2     ✓ dplyr   1.0.6
 #> ✓ tidyr   1.1.3     ✓ stringr 1.4.0
 #> ✓ readr   1.4.0     ✓ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -91,13 +91,7 @@ plot_trajectory(
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
-) +
-  labs(
-    title = "Production trajectory",
-    subtitle = "Renewables Capacity technology in the Power, sector",
-    x = "Year",
-    y = "Production rate (normalized to 2020)"
-  )
+)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -181,6 +175,8 @@ plot +
 ``` r
 # Using default preparation and specs
 data <- prepare_for_timeline(sda_target)
+#> Warning: Can only use one sector.
+#> Using the first of the vector passed to `sector_filter`: automotive.
 plot_timelineA(data)
 ```
 
@@ -197,6 +193,8 @@ data <- prepare_for_timeline(
   value_to_plot = "emission_factor_value",
   extrapolate_missing_values = TRUE
 )
+#> Warning: Can only use one sector.
+#> Using the first of the vector passed to `sector_filter`: cement.
 
 # Using custom specs and extending the plot with ggplot2
 plot_timelineA(data) +
@@ -211,7 +209,7 @@ plot_timelineA(data) +
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `timeline_specs()` creates the default specs data frame for
-    ‘plot\_timeline()’.
+    ‘plot\_timelinea()’.
 -   `r2dii_palette_colours()` outputs a data frame giving the 2dii
     colour palette.
 

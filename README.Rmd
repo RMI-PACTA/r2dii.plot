@@ -114,13 +114,7 @@ plot_trajectory(
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
-) +
-  labs(
-    title = "Production trajectory",
-    subtitle = "Renewables Capacity technology in the Power, sector",
-    x = "Year",
-    y = "Production rate (normalized to 2020)"
-  )
+)
 ```
 
 * `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
