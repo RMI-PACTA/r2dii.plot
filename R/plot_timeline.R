@@ -27,7 +27,7 @@
 #'
 #' # `plot_timelineA()` -------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target)
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 #' p <- plot_timelineA(data)
 #' p
 #'
@@ -78,7 +78,7 @@ plot_timelineA <- function(data, specs = timeline_specs(data)) {
 #'
 #' # `plot_timelineB()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target)
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 #' plot_timelineB(data)
 #'
 #' data %>%
@@ -115,7 +115,7 @@ plot_timelineB <- function(data) {
 #'
 #' # `plot_timelineC()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target)
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 #' unique(data$line_name)
 #' # Recode to title case
 #' plot_timelineC(data, recode = TRUE)

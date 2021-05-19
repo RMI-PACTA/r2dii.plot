@@ -60,7 +60,7 @@ library(dplyr)
 
 # `plot_timelineA()` -------------------------------------------------------
 
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 p <- plot_timelineA(data)
 p
 
@@ -82,7 +82,7 @@ plot_timelineA(data, specs = custom)
 
 # `plot_timelineB()` ------------------------------------------------------
 
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 plot_timelineB(data)
 
 data \%>\%
@@ -94,7 +94,7 @@ data \%>\%
 
 # `plot_timelineC()` ------------------------------------------------------
 
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 unique(data$line_name)
 # Recode to title case
 plot_timelineC(data, recode = TRUE)

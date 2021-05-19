@@ -26,23 +26,28 @@
 #'   extrapolate_missing_values = TRUE
 #' )
 prepare_for_timeline <- function(sda_target_data,
-                                 sector_filter = c(
-                                   "automotive",
-                                   "aviation",
-                                   "cement",
-                                   "oil and gas",
-                                   "shipping",
-                                   "steel",
-                                   "power"
-                                 ),
+                                 sector_filter,
                                  year_start = 0,
                                  year_end = Inf,
                                  column_line_names = "emission_factor_metric",
                                  value_to_plot = "emission_factor_value",
                                  extrapolate_missing_values = FALSE) {
+  if (length(sector_filter) > 1L) abort("`sector_filter` must be of length 1")
   sda_target_data$sector <- tolower(sda_target_data$sector)
   sector_filter <- tolower(sector_filter)
-  sector_filter <- match.arg(sector_filter)
+  valid_sectors <- c("automotive",
+                     "aviation",
+                     "cement",
+                     "oil and gas",
+                     "shipping",
+                     "steel",
+                     "power")
+  if (!sector_filter %in% valid_sectors) {
+    abort(glue(
+      "Invalid `sector_filter`: {sector_filter}.
+      Expected one of: {toString(valid_sectors)}."
+    ))
+  }
   warn_sector(sda_target_data, sector_filter)
 
   check_input_parameters(

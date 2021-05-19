@@ -6,8 +6,7 @@
 \usage{
 prepare_for_timeline(
   sda_target_data,
-  sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
-    "steel", "power"),
+  sector_filter,
   year_start = 0,
   year_end = Inf,
   column_line_names = "emission_factor_metric",
