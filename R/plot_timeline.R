@@ -70,6 +70,8 @@ plot_timelineA <- function(data, specs = timeline_specs(data)) {
     guides(linetype = FALSE) +
     theme_2dii()
 }
+# For backward compatibility until we decide which version to keep
+plot_timeline <- plot_timelineA
 
 #' @rdname plot_timelineA
 #' @description
