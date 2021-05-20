@@ -100,6 +100,8 @@ prepare_for_timelineA <- function(sda_target_data,
 
   data_timeline
 }
+# For backward compatibility until we decide which version to keep
+prepare_for_timeline <- prepare_for_timelineA
 
 warn_sector <- function(data, sector_filter) {
   too_long <- length(unique(data$sector)) > 1L
