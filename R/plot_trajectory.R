@@ -158,6 +158,30 @@ get_area_borders <- function(data) {
   area_borders
 }
 
+get_ordered_scenario_colours <- function(n) {
+  scenario_colours <- .env$r2dii_scenario_colours
+
+  if (n == 2) {
+    nscenario_colours <- scenario_colours %>%
+           filter(.data$label %in% c("light_green", "red"))
+  } else if (n == 3) {
+    nscenario_colours <- scenario_colours %>%
+           filter(.data$label %in% c("light_green", "light_yellow", "red"))
+  } else if (n == 4) {
+    nscenario_colours <- scenario_colours %>%
+           filter(.data$label %in%
+                    c("light_green", "dark_yellow", "light_yellow", "red"))
+  } else if (n == 5) {
+    nscenario_colours <- scenario_colours
+  } else {
+    rlang::abort(
+      glue(
+           "Scenario colours can be provided for at least 2 and at most 5 areas. You provided {n}."
+         ))
+  }
+  nscenario_colours
+}
+
 get_ordered_scenario_specs <- function(scenario_specs_good_to_bad, technology) {
   green_or_brown <- r2dii.data::green_or_brown
   tech_green_or_brown <- green_or_brown %>%
