@@ -27,9 +27,8 @@
 #' )
 #'
 #' scenario_specs <- dplyr::tibble(
-#'   scenario = c("sds", "sps", "cps", "worse"),
-#'   color = c("#9CAB7C", "#FFFFCC", "#FDE291", "#E07B73"),
-#'   label = c("SDS", "STEPS", "CPS", "worse")
+#'   scenario = c("sds", "sps", "cps"),
+#'   label = c("SDS", "STEPS", "CPS")
 #' )
 #'
 #' main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
@@ -50,7 +49,7 @@ plot_trajectory <- function(data,
                             main_line_metric,
                             additional_line_metrics = NULL) {
   # plot scenario areas
-  scenario_specs <- get_ordered_scenario_specs(
+  scenario_specs <- get_ordered_scenario_specs_with_colours(
     scenario_specs_good_to_bad, data$technology[1]
   )
   data_scenarios <- get_scenario_data(data, scenario_specs)
@@ -159,7 +158,7 @@ get_area_borders <- function(data) {
 }
 
 get_ordered_scenario_colours <- function(n) {
-  scenario_colours <- .env$r2dii_scenario_colours
+  scenario_colours <- r2dii_scenario_colours
 
   if (n == 2) {
     nscenario_colours <- scenario_colours %>%
@@ -176,13 +175,26 @@ get_ordered_scenario_colours <- function(n) {
   } else {
     rlang::abort(
       glue(
-           "Scenario colours can be provided for at least 2 and at most 5 areas. You provided {n}."
+           "Scenario colours can be provided for between 1 and 4 scenarios. You provided {n - 1}."
          ))
   }
   nscenario_colours
 }
 
-get_ordered_scenario_specs <- function(scenario_specs_good_to_bad, technology) {
+add_scenario_colours <- function(scenario_specs) {
+  num_scen_areas <- nrow(scenario_specs)
+  scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
+  scenario_specs$colour <- scenario_colours$hex
+
+  scenario_specs
+}
+
+get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
+  technology) {
+  worse_row <- data.frame(scenario = "worse", label = "Worse")
+  scenario_specs_good_to_bad <- rbind(scenario_specs_good_to_bad, worse_row)
+  scenario_specs_good_to_bad <- add_scenario_colours(scenario_specs_good_to_bad)
+
   green_or_brown <- r2dii.data::green_or_brown
   tech_green_or_brown <- green_or_brown %>%
     filter(.data$technology == .env$technology) %>%
