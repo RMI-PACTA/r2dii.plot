@@ -180,7 +180,7 @@ check_input_parameters <- function(data,
 #' tail(prepare_for_timelineB(data, extrapolate = TRUE))
 prepare_for_timelineB <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data), is.logical(extrapolate))
-  crucial <- c("emission_factor_metric", "emission_factor_value")
+    crucial <- c("emission_factor_metric", "emission_factor_value", "year")
   check_crucial_names(data, crucial)
 
   out <- data %>%
