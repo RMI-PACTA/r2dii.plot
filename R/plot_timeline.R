@@ -23,31 +23,34 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#' # Which version of `plot_timeline*()` do you prefer?
+#' data <- sda_target %>%
+#'   filter(sector == "cement", between(year, 2020, 2050)) %>%
+#'   prepare_for_timelineB(extrapolate = TRUE)
 #'
 #' # `plot_timelineA()` -------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target)
-#' p <- plot_timelineA(data)
-#' p
+#' plot_timelineA(data)
 #'
 #' # Customize as usual with ggplot2
-#' p +
-#'   scale_colour_manual(values = c("red", "blue")) +
+#' plot_timelineA(data) +
+#'   scale_colour_manual(values = c("red", "blue", "green", "black")) +
 #'   labs(title = "Timeline plot")
 #'
 #' # Customize `line_name` via a data frame passed to `specs`
-#' # styler: off
+# styler: off
 #' custom <- tribble(
-#'            ~line_name,           ~label, ~colour_hex,
-#'           "projected",          "Proj.",   "#1b324f",
-#'   "corporate_economy",  "Corp. Economy",   "#00c082",
+#'                 ~line_name,                  ~label, ~colour_hex,
+#'                "projected",                 "Proj.",   "#4a5e54",
+#'        "corporate_economy",         "Corp. Economy",   "#a63d57",
+#'              "target_demo",         "Target (demo)",   "#78c4d6",
+#'   "adjusted_scenario_demo",  "Adj. Scenario (demo)",   "#f2e06e",
 #' )
-#' # styler: on
+# styler: on
 #'
 #' plot_timelineA(data, specs = custom)
 plot_timelineA <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
+  abort_too_many_sectors(data)
   data <- left_join(data, specs, by = "line_name")
 
   ggplot() +
@@ -78,13 +81,15 @@ plot_timelineA <- function(data, specs = timeline_specs(data)) {
 #'
 #' # `plot_timelineB()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target)
 #' plot_timelineB(data)
 #'
+#' # Recode `line_name` with `dplyr::recode()`
 #' data %>%
 #'   mutate(line_name = recode(line_name,
+#'     "corporate_economy" = "Corp. economy",
 #'     "projected" = "Proj.",
-#'     "corporate_economy" = "Corp. economy"
+#'     "target_demo" = "Target (demo)",
+#'     "adjusted_scenario_demo" = "Adj. Scenario (demo)",
 #'   )) %>%
 #'   plot_timelineB()
 plot_timelineB <- function(data) {
@@ -115,13 +120,12 @@ plot_timelineB <- function(data) {
 #'
 #' # `plot_timelineC()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target)
-#' unique(data$line_name)
-#' # Recode to title case
-#' plot_timelineC(data, recode = TRUE)
-#'
 #' # Don't recode
 #' plot_timelineC(data, recode = FALSE)
+#'
+#' # Recode to title case
+#' unique(data$line_name)
+#' plot_timelineC(data)
 #'
 #' # Recode using a function
 #' plot_timelineC(data, recode = toupper)
@@ -130,7 +134,12 @@ plot_timelineB <- function(data) {
 #' plot_timelineC(data, recode = ~ toupper(gsub("_", " ", .x)))
 #'
 #' # Recode via a named vector
-#' legend <- c("projected" = "Projected", "corporate_economy" = "Corp. Economy")
+#' legend <- c(
+#'   "projected" = "Proj.",
+#'   "corporate_economy" = "Corp. Economy",
+#'   "target_demo" = "Target (demo)",
+#'   "adjusted_scenario_demo" = "Adj. Scenario (demo)"
+#' )
 #' plot_timelineC(data, recode = legend)
 plot_timelineC <- function(data, recode = TRUE) {
   if (!is.null(recode)) data$line_name <- recode_lines(recode, data)
@@ -179,6 +188,18 @@ check_specs <- function(specs, data) {
   }
 
   invisible(specs)
+}
+
+abort_too_many_sectors <- function(data) {
+  sectors <- unique(data$sector)
+  if (length(sectors) > 1L) {
+    abort(
+      class = "too_many_sectors",
+      glue("`data` must have a single sector. It has: {toString(sectors)}")
+    )
+  }
+
+  invisible(data)
 }
 
 factor_to_character <- function(data) {

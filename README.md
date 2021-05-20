@@ -168,13 +168,12 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prepare_for_timeline()` prepares sda\_target-type data for timeline
-    plot.
+-   `prepare_for_timelineA()` .
 -   `plot_timelineA()` creates a time line plot.
 
 ``` r
 # Using default preparation and specs
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timelineA(sda_target)
 #> Warning: Can only use one sector.
 #> Using the first of the vector passed to `sector_filter`: automotive.
 plot_timelineA(data)
@@ -184,7 +183,7 @@ plot_timelineA(data)
 
 ``` r
 # Using custom preparation
-data <- prepare_for_timeline(
+data <- prepare_for_timelineA(
   sda_target,
   sector_filter = "cement",
   year_start = 2020,
