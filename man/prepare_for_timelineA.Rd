@@ -46,15 +46,19 @@ Dataframe with columns: year, line_name, value, extrapolated.
 Prepares sda_target-type data for timeline plot
 }
 \examples{
+# prepare_for_timelineA() --------------------------------------------------
+
+data <- sda_target
 prepare_for_timelineA(
-  sda_target,
+  data,
   sector_filter = "cement",
   year_start = 2020,
   year_end = 2050, column_line_names = "emission_factor_metric",
   value_to_plot = "emission_factor_value",
   extrapolate_missing_values = TRUE
 )
-library(dplyr)
+
+# prepare_for_timelineA() --------------------------------------------------
 
 data <- sda_target
 tail(prepare_for_timelineB(data))
