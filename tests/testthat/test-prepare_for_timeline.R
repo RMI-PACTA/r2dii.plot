@@ -162,3 +162,7 @@ test_that("preserves sectors", {
   out <- prepare_for_timelineB(data)
   expect_equal(unique(data$sector), unique(out$sector))
 })
+
+test_that("outputs the expected snapshot", {
+    expect_snapshot(prepare_for_timelineB(sda_target))
+})
