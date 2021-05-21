@@ -314,7 +314,7 @@ help_plot_area_colors <- function(data_scenarios,
       )
     ) +
     scale_fill_stepsn(
-      colours = scenario_specs$color,
+      colours = scenario_specs$colour,
       guide = "coloursteps",
       breaks = seq(
         from = lower_area_border + value_span / num_scen,
