@@ -191,6 +191,8 @@ data <- prepare_for_timeline(
   value_to_plot = "emission_factor_value",
   extrapolate_missing_values = TRUE
 )
+#> Warning: Can only use one sector.
+#> Using the first of the vector passed to `sector_filter`: cement.
 
 # Using custom specs and extending the plot with ggplot2
 plot_timelineA(data) +
