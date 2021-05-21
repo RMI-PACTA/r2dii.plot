@@ -1,4 +1,8 @@
-<<<<<<< HEAD
+# with bad `sector_filter` errors gracefully
+
+    Invalid `sector_filter`: bad.
+    Expected one of: automotive, aviation, cement, oil and gas, shipping, steel, power.
+
 # outputs the expected snapshot
 
     Code
@@ -18,10 +22,4 @@
        9 2010-01-01 projected 0.212 FALSE        automotive
       10 2011-01-01 projected 0.210 FALSE        automotive
       # ... with 198 more rows
-=======
-# with bad `sector_filter` errors gracefully
-
-    Invalid `sector_filter`: bad.
-    Expected one of: automotive, aviation, cement, oil and gas, shipping, steel, power.
->>>>>>> 45dab9110fbf297bd6bfd8bb12de995be9ca4615
 

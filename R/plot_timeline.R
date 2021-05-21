@@ -29,10 +29,8 @@
 #'
 #' # `plot_timelineA()` -------------------------------------------------------
 #'
+#' data <- prepare_for_timelineA(sda_target, sector_filter = "cement")
 #' plot_timelineA(data)
-#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
-#' p <- plot_timelineA(data)
-#' p
 #'
 #' # Customize as usual with ggplot2
 #' plot_timelineA(data) +
@@ -40,7 +38,7 @@
 #'   labs(title = "Timeline plot")
 #'
 #' # Customize `line_name` via a data frame passed to `specs`
-# styler: off
+#' # styler: off
 #' custom <- tribble(
 #'                 ~line_name,                  ~label, ~colour_hex,
 #'                "projected",                 "Proj.",   "#4a5e54",
@@ -48,7 +46,7 @@
 #'              "target_demo",         "Target (demo)",   "#78c4d6",
 #'   "adjusted_scenario_demo",  "Adj. Scenario (demo)",   "#f2e06e",
 #' )
-# styler: on
+#' # styler: on
 #'
 #' plot_timelineA(data, specs = custom)
 plot_timelineA <- function(data, specs = timeline_specs(data)) {
@@ -86,7 +84,7 @@ plot_timeline <- plot_timelineA
 #'
 #' # `plot_timelineB()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
+#' data <- prepare_for_timelineA(sda_target, sector_filter = "aviation")
 #' plot_timelineB(data)
 #'
 #' # Recode `line_name` with `dplyr::recode()`
@@ -126,7 +124,7 @@ plot_timelineB <- function(data) {
 #'
 #' # `plot_timelineC()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
+#' data <- prepare_for_timelineA(sda_target, sector_filter = "aviation")
 #' unique(data$line_name)
 #' # Recode to title case
 #' plot_timelineC(data, recode = TRUE)
@@ -226,12 +224,14 @@ fake_timeline_data <- function(year = NULL,
                                line_name = NULL,
                                value = NULL,
                                extrapolated = NULL,
+                               sector = NULL,
                                ...) {
   out <- tibble(
     year = year %||% 2002,
     line_name = line_name %||% "projected",
     value = value %||% 0.2,
     extrapolated = extrapolated %||% FALSE,
+    sector = sector %||% "automotive",
     ...
   )
 
