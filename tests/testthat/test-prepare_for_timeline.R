@@ -120,6 +120,10 @@ test_that("with a `sector_filter` of lengh > 1 throws an error", {
   )
 })
 
+test_that("without `sector_filter` throws an error", {
+  expect_error(prepare_for_timeline(sda_target), "argument.*missing")
+})
+
 test_that("w/ a single-sector dataset and it's selected, throws no warning", {
   data <- filter(sda_target, sector == "steel")
 

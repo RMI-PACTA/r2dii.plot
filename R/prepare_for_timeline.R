@@ -4,7 +4,7 @@
 #'   columns specifying value to be be plotted as timelines and line names
 #'   (dataframe).
 #' @param sector_filter Sector to be used for filtering (character string of
-#'   length 1).
+#'   length 1). One of ```r toString(valid_sectors())```.
 #' @param year_start Start year of the plot (double).
 #' @param year_end End year of the plot (double).
 #' @param column_line_names Column specifying the names of lines to be plotted
@@ -46,7 +46,7 @@ prepare_for_timelineA <- function(sda_target_data,
                                   extrapolate_missing_values = FALSE) {
   sda_target_data$sector <- tolower(sda_target_data$sector)
   sector_filter <- tolower(sector_filter)
-  sector_filter <- match.arg(sector_filter)
+  abort_bad_sector(sector_filter)
   warn_sector(sda_target_data, sector_filter)
 
   check_input_parameters(
@@ -106,17 +106,33 @@ prepare_for_timelineA <- function(sda_target_data,
 # For backward compatibility until we decide which version to keep
 prepare_for_timeline <- prepare_for_timelineA
 
-warn_sector <- function(data, sector_filter) {
-  too_long <- length(unique(data$sector)) > 1L
-  if (too_long) {
-    msg <- glue::glue(
-      "Can only use one sector.
-      Using the first of the vector passed to `sector_filter`: {sector_filter}."
-    )
-    warn(class = "chosen_sector", msg)
+abort_bad_sector <- function(sector_filter) {
+  if (length(sector_filter) > 1L) abort("`sector_filter` must be of length 1")
+
+  if (!sector_filter %in% valid_sectors()) {
+    abort(glue(
+      "Invalid `sector_filter`: {sector_filter}.
+      Expected one of: {toString(valid_sectors())}."
+    ))
   }
 
-  missing_sector <- !sector_filter %in% unique(data$sector)
+  invisible(sector_filter)
+}
+
+valid_sectors <- function() {
+  valid_sectors <- c(
+    "automotive",
+    "aviation",
+    "cement",
+    "oil and gas",
+    "shipping",
+    "steel",
+    "power"
+  )
+}
+
+warn_sector <- function(data, sector_filter) {
+ missing_sector <- !sector_filter %in% unique(data$sector)
   if (missing_sector) {
     warn(
       class = "missing_sector",

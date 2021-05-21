@@ -30,6 +30,9 @@
 #' # `plot_timelineA()` -------------------------------------------------------
 #'
 #' plot_timelineA(data)
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
+#' p <- plot_timelineA(data)
+#' p
 #'
 #' # Customize as usual with ggplot2
 #' plot_timelineA(data) +
@@ -83,6 +86,7 @@ plot_timeline <- plot_timelineA
 #'
 #' # `plot_timelineB()` ------------------------------------------------------
 #'
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 #' plot_timelineB(data)
 #'
 #' # Recode `line_name` with `dplyr::recode()`
@@ -121,6 +125,11 @@ plot_timelineB <- function(data) {
 #' @examples
 #'
 #' # `plot_timelineC()` ------------------------------------------------------
+#'
+#' data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
+#' unique(data$line_name)
+#' # Recode to title case
+#' plot_timelineC(data, recode = TRUE)
 #'
 #' # Don't recode
 #' plot_timelineC(data, recode = FALSE)
