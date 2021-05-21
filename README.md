@@ -174,9 +174,7 @@ plot +
 
 ``` r
 # Using default preparation and specs
-data <- prepare_for_timeline(sda_target)
-#> Warning: Can only use one sector.
-#> Using the first of the vector passed to `sector_filter`: automotive.
+data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
 plot_timelineA(data)
 ```
 
