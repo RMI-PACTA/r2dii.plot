@@ -177,16 +177,16 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prepare_for_timeline()` `r pull_title("prepare_for_timeline")`.
+* `prepare_for_timelineA()` `r pull_title("prepare_for_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 # Using default preparation and specs
-data <- prepare_for_timeline(sda_target, sector_filter = "aviation")
+data <- prepare_for_timelineA(sda_target)
 plot_timelineA(data)
 
 # Using custom preparation
-data <- prepare_for_timeline(
+data <- prepare_for_timelineA(
   sda_target,
   sector_filter = "cement",
   year_start = 2020,

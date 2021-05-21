@@ -1,15 +1,18 @@
 test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
+  # styler: off
   data <- dplyr::tribble(
-    ~year, ~line_name, ~value, ~extrapolated,
-    2021, "a", 0.1, FALSE,
-    2022, "a", 0.2, FALSE,
-    2023, "a", 0.3, FALSE,
-    2021, "b", 0.5, TRUE,
-    2022, "b", 0.6, TRUE,
-    2023, "b", 0.7, TRUE,
+    ~year, ~line_name, ~value, ~extrapolated, ~sector,
+    2021,         "a",    0.1,         FALSE, "automotive",
+    2022,         "a",    0.2,         FALSE, "automotive",
+    2023,         "a",    0.3,         FALSE, "automotive",
+    2021,         "b",    0.5,          TRUE, "automotive",
+    2022,         "b",    0.6,          TRUE, "automotive",
+    2023,         "b",    0.7,          TRUE, "automotive",
   )
+  # styler: on
+
 
   out <- unclass(
     plot_timelineA(data)
@@ -57,4 +60,12 @@ test_that("plots year as 'Date'", {
   year <- gg$layers[[1]]$data$year
 
   expect_s3_class(year, "Date")
+})
+
+test_that("with data with multiple sectors throws an error", {
+  too_many_sectors <- fake_timeline_data(sector = c("automotive", "steel"))
+  expect_error(
+    class = "too_many_sectors",
+    plot_timelineA(too_many_sectors)
+  )
 })
