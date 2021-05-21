@@ -6,4 +6,4 @@
 #' @importFrom glue glue
 NULL
 
-utils::globalVariables("where")
+utils::globalVariables(c("where", "r2dii_scenario_colours"))
