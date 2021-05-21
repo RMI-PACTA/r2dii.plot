@@ -114,13 +114,7 @@ plot_trajectory(
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
-) +
-  labs(
-    title = "Production trajectory",
-    subtitle = "Renewables Capacity technology in the Power, sector",
-    x = "Year",
-    y = "Production rate (normalized to 2020)"
-  )
+)
 ```
 
 * `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
@@ -183,16 +177,16 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prepare_for_timeline()` `r pull_title("prepare_for_timeline")`.
+* `prepare_for_timelineA()` `r pull_title("prepare_for_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 # Using default preparation and specs
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timelineA(sda_target)
 plot_timelineA(data)
 
 # Using custom preparation
-data <- prepare_for_timeline(
+data <- prepare_for_timelineA(
   sda_target,
   sector_filter = "cement",
   year_start = 2020,

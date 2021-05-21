@@ -56,47 +56,61 @@ Arguments).
 library(ggplot2)
 library(dplyr)
 
-# Which version of `plot_timeline*()` do you prefer?
+data <- sda_target \%>\%
+  filter(sector == "cement", between(year, 2020, 2050)) \%>\%
+  prepare_for_timelineB(extrapolate = TRUE)
 
 # `plot_timelineA()` -------------------------------------------------------
 
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timelineA(sda_target, sector_filter = "cement")
 plot_timelineA(data)
+
+# Customize as usual with ggplot2
+plot_timelineA(data) +
+  scale_colour_manual(values = c("red", "blue", "green", "black")) +
+  labs(title = "Timeline plot")
 
 # Customize `line_name` via a data frame passed to `specs`
 # styler: off
 custom <- tribble(
-           ~line_name,           ~label, ~colour_hex,
-          "projected",          "Proj.",   "#1b324f",
-  "corporate_economy",  "Corp. Economy",   "#00c082",
+                ~line_name,                  ~label, ~colour_hex,
+               "projected",                 "Proj.",   "#4a5e54",
+       "corporate_economy",         "Corp. Economy",   "#a63d57",
+             "target_demo",         "Target (demo)",   "#78c4d6",
+  "adjusted_scenario_demo",  "Adj. Scenario (demo)",   "#f2e06e",
 )
 # styler: on
 
-# Customize as usual with ggplot2
-plot_timelineA(data, specs = custom) +
-  labs(title = "Emission intensity trend for Cement")
+plot_timelineA(data, specs = custom)
 
 # `plot_timelineB()` ------------------------------------------------------
 
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timelineA(sda_target, sector_filter = "aviation")
 plot_timelineB(data)
 
+# Recode `line_name` with `dplyr::recode()`
 data \%>\%
   mutate(line_name = recode(line_name,
+    "corporate_economy" = "Corp. economy",
     "projected" = "Proj.",
-    "corporate_economy" = "Corp. economy"
+    "target_demo" = "Target (demo)",
+    "adjusted_scenario_demo" = "Adj. Scenario (demo)",
   )) \%>\%
   plot_timelineB()
 
 # `plot_timelineC()` ------------------------------------------------------
 
-data <- prepare_for_timeline(sda_target)
+data <- prepare_for_timelineA(sda_target, sector_filter = "aviation")
 unique(data$line_name)
 # Recode to title case
 plot_timelineC(data, recode = TRUE)
 
 # Don't recode
 plot_timelineC(data, recode = FALSE)
+
+# Recode to title case
+unique(data$line_name)
+plot_timelineC(data)
 
 # Recode using a function
 plot_timelineC(data, recode = toupper)
@@ -105,7 +119,12 @@ plot_timelineC(data, recode = toupper)
 plot_timelineC(data, recode = ~ toupper(gsub("_", " ", .x)))
 
 # Recode via a named vector
-legend <- c("projected" = "Projected", "corporate_economy" = "Corp. Economy")
+legend <- c(
+  "projected" = "Proj.",
+  "corporate_economy" = "Corp. Economy",
+  "target_demo" = "Target (demo)",
+  "adjusted_scenario_demo" = "Adj. Scenario (demo)"
+)
 plot_timelineC(data, recode = legend)
 }
 \seealso{
