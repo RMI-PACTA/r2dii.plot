@@ -158,27 +158,23 @@ get_area_borders <- function(data) {
 }
 
 get_ordered_scenario_colours <- function(n) {
-  scenario_colours <- r2dii_scenario_colours
+  pick <- function(cols) filter(r2dii_scenario_colours, .data$label %in% cols)
+  switch(
+    as.character(n),
+    "2" = pick(c("light_green", "red")),
+    "3" = pick(c("light_green", "light_yellow", "red")),
+    "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
+    "5" = assert_5_rows(r2dii_scenario_colours),
+    rlang::abort(glue(
+      "Scenario colours can be provided for between 1 and 4 scenarios. \\
+      You provided {n - 1}."
+    ))
+  )
+}
 
-  if (n == 2) {
-    nscenario_colours <- scenario_colours %>%
-           filter(.data$label %in% c("light_green", "red"))
-  } else if (n == 3) {
-    nscenario_colours <- scenario_colours %>%
-           filter(.data$label %in% c("light_green", "light_yellow", "red"))
-  } else if (n == 4) {
-    nscenario_colours <- scenario_colours %>%
-           filter(.data$label %in%
-                    c("light_green", "dark_yellow", "light_yellow", "red"))
-  } else if (n == 5) {
-    nscenario_colours <- scenario_colours
-  } else {
-    rlang::abort(
-      glue(
-           "Scenario colours can be provided for between 1 and 4 scenarios. You provided {n - 1}."
-         ))
-  }
-  nscenario_colours
+assert_5_rows <- function(data) {
+  stopifnot(nrow(data) == 5L)
+  invisible(data)
 }
 
 add_scenario_colours <- function(scenario_specs) {
