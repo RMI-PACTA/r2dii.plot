@@ -1,39 +1,8 @@
-# with the simplest call outputs the expected snapshot
+# outputs the expected theme object
 
     Code
-      out
+      theme_2dii()
     Output
-      $data
-      list()
-      attr(,"class")
-      [1] "waiver"
-      
-      $layers
-      $layers[[1]]
-      mapping: x = ~factor(.data$metric_type, levels = rev(metric_type_order)), y = ~.data$value, fill = ~factor(.data$technology, levels = data_colours$technology) 
-      geom_bar: width = 0.5, na.rm = FALSE, orientation = NA
-      stat_identity: na.rm = FALSE
-      position_fill 
-      
-      
-      $scales
-      <ggproto object: Class ScalesList, gg>
-          add: function
-          clone: function
-          find: function
-          get_scales: function
-          has_scale: function
-          input: function
-          n: function
-          non_position_scales: function
-          scales: list
-          super:  <ggproto object: Class ScalesList, gg>
-      
-      $mapping
-      Aesthetic mapping: 
-      <empty>
-      
-      $theme
       List of 93
        $ line                      :List of 6
         ..$ colour       : chr "black"
@@ -221,8 +190,7 @@
        $ axis.ticks.x              : NULL
        $ axis.ticks.x.top          : NULL
        $ axis.ticks.x.bottom       : NULL
-       $ axis.ticks.y              : list()
-        ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+       $ axis.ticks.y              : NULL
        $ axis.ticks.y.left         : NULL
        $ axis.ticks.y.right        : NULL
        $ axis.ticks.length         : 'simpleUnit' num 2.75points
@@ -244,8 +212,7 @@
        $ axis.line.x               : NULL
        $ axis.line.x.top           : NULL
        $ axis.line.x.bottom        : NULL
-       $ axis.line.y               : list()
-        ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+       $ axis.line.y               : NULL
        $ axis.line.y.left          : NULL
        $ axis.line.y.right         : NULL
        $ legend.background         :List of 5
@@ -285,7 +252,7 @@
        $ legend.title              : list()
         ..- attr(*, "class")= chr [1:2] "element_blank" "element"
        $ legend.title.align        : NULL
-       $ legend.position           : chr "bottom"
+       $ legend.position           : chr "right"
        $ legend.direction          : NULL
        $ legend.justification      : chr "center"
        $ legend.box                : NULL
@@ -451,132 +418,4 @@
        - attr(*, "class")= chr [1:2] "theme" "gg"
        - attr(*, "complete")= logi TRUE
        - attr(*, "validate")= logi TRUE
-      
-      $coordinates
-      <ggproto object: Class CoordFlip, CoordCartesian, Coord, gg>
-          aspect: function
-          backtransform_range: function
-          clip: on
-          default: FALSE
-          distance: function
-          expand: TRUE
-          is_free: function
-          is_linear: function
-          labels: function
-          limits: list
-          modify_scales: function
-          range: function
-          render_axis_h: function
-          render_axis_v: function
-          render_bg: function
-          render_fg: function
-          setup_data: function
-          setup_layout: function
-          setup_panel_guides: function
-          setup_panel_params: function
-          setup_params: function
-          train_panel_guides: function
-          transform: function
-          super:  <ggproto object: Class CoordFlip, CoordCartesian, Coord, gg>
-      
-      $facet
-      <ggproto object: Class FacetNull, Facet, gg>
-          compute_layout: function
-          draw_back: function
-          draw_front: function
-          draw_labels: function
-          draw_panels: function
-          finish_data: function
-          init_scales: function
-          map_data: function
-          params: list
-          setup_data: function
-          setup_params: function
-          shrink: TRUE
-          train_scales: function
-          vars: function
-          super:  <ggproto object: Class FacetNull, Facet, gg>
-      
-      $labels
-      $labels$y
-      [1] ""
-      
-      $labels$x
-      [1] ""
-      
-      $labels$fill
-      [1] "factor(technology, levels = data_colours$technology)"
-      
-      
-      $guides
-      $guides$fill
-      $title
-      list()
-      attr(,"class")
-      [1] "waiver"
-      
-      $title.position
-      NULL
-      
-      $title.theme
-      NULL
-      
-      $title.hjust
-      NULL
-      
-      $title.vjust
-      NULL
-      
-      $label
-      [1] TRUE
-      
-      $label.position
-      NULL
-      
-      $label.theme
-      NULL
-      
-      $label.hjust
-      NULL
-      
-      $label.vjust
-      NULL
-      
-      $keywidth
-      NULL
-      
-      $keyheight
-      NULL
-      
-      $direction
-      NULL
-      
-      $override.aes
-      named list()
-      
-      $nrow
-      NULL
-      
-      $ncol
-      [1] 3
-      
-      $byrow
-      [1] TRUE
-      
-      $reverse
-      [1] FALSE
-      
-      $order
-      [1] 0
-      
-      $available_aes
-      [1] "any"
-      
-      $name
-      [1] "legend"
-      
-      attr(,"class")
-      [1] "guide"  "legend"
-      
-      
 
