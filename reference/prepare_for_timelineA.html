@@ -194,42 +194,42 @@ should be extrapolated to match the furthest value in the data set.</p></td>
   value_to_plot <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
   extrapolate_missing_values <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 35 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 35 x 5</span>
 #&gt;    year       line_name         value extrapolated sector
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2020-01-01 projected         0.664 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2021-01-01 projected         0.665 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2022-01-01 projected         0.666 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2023-01-01 projected         0.667 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2024-01-01 projected         0.668 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2025-01-01 projected         0.669 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2020-01-01 corporate_economy 0.669 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2021-01-01 corporate_economy 0.670 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2022-01-01 corporate_economy 0.671 FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2023-01-01 corporate_economy 0.672 FALSE        cement
-#&gt; </span><span style='color: #949494;'># … with 25 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'> 1</span> 2020-01-01 projected         0.664 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2021-01-01 projected         0.665 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 3</span> 2022-01-01 projected         0.666 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 4</span> 2023-01-01 projected         0.667 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 5</span> 2024-01-01 projected         0.668 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 6</span> 2025-01-01 projected         0.669 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 7</span> 2020-01-01 corporate_economy 0.669 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 8</span> 2021-01-01 corporate_economy 0.670 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'> 9</span> 2022-01-01 corporate_economy 0.671 FALSE        cement
+#&gt; <span style='color: #BCBCBC;'>10</span> 2023-01-01 corporate_economy 0.672 FALSE        cement
+#&gt; <span style='color: #949494;'># … with 25 more rows</span></div><div class='input'>
 <span class='co'># prepare_for_timelineA() --------------------------------------------------</span>
 
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda_target</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prepare_for_timelineB</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 5</span>
 #&gt;   year       line_name               value extrapolated sector
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2040-01-01 adjusted_scenario_demo 0.236  FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2040-01-01 adjusted_scenario_demo 0.065</span><span style='text-decoration: underline;'>4</span><span> FALSE        steel 
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2045-01-01 adjusted_scenario_demo 0.189  FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2045-01-01 adjusted_scenario_demo 0.032</span><span style='text-decoration: underline;'>7</span><span> FALSE        steel 
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2050-01-01 adjusted_scenario_demo 0.094</span><span style='text-decoration: underline;'>5</span><span> FALSE        cement
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 2050-01-01 adjusted_scenario_demo 0.026</span><span style='text-decoration: underline;'>2</span><span> FALSE        steel </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prepare_for_timelineB</span><span class='op'>(</span><span class='va'>data</span>, extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 5</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> 2040-01-01 adjusted_scenario_demo 0.236  FALSE        cement
+#&gt; <span style='color: #BCBCBC;'>2</span> 2040-01-01 adjusted_scenario_demo 0.065<span style='text-decoration: underline;'>4</span> FALSE        steel 
+#&gt; <span style='color: #BCBCBC;'>3</span> 2045-01-01 adjusted_scenario_demo 0.189  FALSE        cement
+#&gt; <span style='color: #BCBCBC;'>4</span> 2045-01-01 adjusted_scenario_demo 0.032<span style='text-decoration: underline;'>7</span> FALSE        steel 
+#&gt; <span style='color: #BCBCBC;'>5</span> 2050-01-01 adjusted_scenario_demo 0.094<span style='text-decoration: underline;'>5</span> FALSE        cement
+#&gt; <span style='color: #BCBCBC;'>6</span> 2050-01-01 adjusted_scenario_demo 0.026<span style='text-decoration: underline;'>2</span> FALSE        steel </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prepare_for_timelineB</span><span class='op'>(</span><span class='va'>data</span>, extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 5</span>
 #&gt;   year       line_name         value extrapolated sector    
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2026-01-01 corporate_economy 0.279 TRUE         automotive
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2026-01-01 projected         0.178 TRUE         automotive
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2025-01-01 target_demo       0.521 TRUE         cement    
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2050-01-01 corporate_economy 0.279 TRUE         automotive
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2050-01-01 projected         0.178 TRUE         automotive
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 2050-01-01 target_demo       0.521 TRUE         cement    </div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> 2026-01-01 corporate_economy 0.279 TRUE         automotive
+#&gt; <span style='color: #BCBCBC;'>2</span> 2026-01-01 projected         0.178 TRUE         automotive
+#&gt; <span style='color: #BCBCBC;'>3</span> 2025-01-01 target_demo       0.521 TRUE         cement    
+#&gt; <span style='color: #BCBCBC;'>4</span> 2050-01-01 corporate_economy 0.279 TRUE         automotive
+#&gt; <span style='color: #BCBCBC;'>5</span> 2050-01-01 projected         0.178 TRUE         automotive
+#&gt; <span style='color: #BCBCBC;'>6</span> 2050-01-01 target_demo       0.521 TRUE         cement    </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
