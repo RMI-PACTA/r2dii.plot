@@ -101,7 +101,6 @@ plot_trajectory <- function(data,
     theme_2dii() +
     theme(
       axis.line = element_blank(),
-      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
       legend.position = NULL
     ) +
     guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
