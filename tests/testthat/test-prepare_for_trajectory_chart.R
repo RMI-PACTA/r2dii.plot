@@ -1,8 +1,6 @@
 test_that("outputs a data.frame", {
-  data <- process_input_data(example_data)
-
   out <- prepare_for_trajectory_chart(
-    data,
+    example_data,
     sector_filter = "power",
     technology_filter = "oilcap",
     region_filter = "global",
@@ -14,11 +12,9 @@ test_that("outputs a data.frame", {
 })
 
 test_that("returns visibly", {
-  data <- process_input_data(example_data)
-
   expect_visible(
     prepare_for_trajectory_chart(
-      data,
+      example_data,
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
@@ -30,11 +26,10 @@ test_that("returns visibly", {
 
 test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
   dont_normalize <- FALSE
-  data <- process_input_data(example_data)
 
   expect_visible(
     prepare_for_trajectory_chart(
-      data,
+      example_data,
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
@@ -51,7 +46,7 @@ test_that("with bad `sector_filter` warns gracefully", {
     expect_warning(
       regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
-        process_input_data(example_data),
+        example_data,
         sector_filter = "bad",
         technology_filter = "oilcap",
         region_filter = "global",
@@ -68,7 +63,7 @@ test_that("with bad `technology_filter` warns gracefully", {
     expect_warning(
       regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
-        process_input_data(example_data),
+        example_data,
         sector_filter = "power",
         technology_filter = "bad",
         region_filter = "global",
@@ -85,7 +80,7 @@ test_that("with bad `region_filter` warns gracefully", {
     expect_warning(
       regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
-        process_input_data(example_data),
+        example_data,
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "bad",
@@ -102,7 +97,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
     expect_warning(
       regexp = "bad.*matches.*no",
       prepare_for_trajectory_chart(
-        process_input_data(example_data),
+        example_data,
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "global",
@@ -118,7 +113,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
 # argument `value_name` not via examples or README.
 test_that("adds the column `value` from the column named in `value_name`", {
   out <- prepare_for_trajectory_chart(
-    process_input_data(example_data),
+    example_data,
     sector_filter = "power",
     technology_filter = "oilcap",
     region_filter = "global",
@@ -134,7 +129,7 @@ test_that("adds the column `value` from the column named in `value_name`", {
 test_that("with bad `end_year_filter` throws no error", {
   expect_no_error(
     prepare_for_trajectory_chart(
-      process_input_data(example_data),
+      example_data,
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
@@ -149,7 +144,7 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
   expect_error(
     regexp = "not.*logical",
     prepare_for_trajectory_chart(
-      process_input_data(example_data),
+      example_data,
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
@@ -161,10 +156,12 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
 })
 
 test_that("with missing crucial columns errors gracefully", {
+  bad <- select(example_data, -sector)
+
   suppressWarnings(
     expect_snapshot_error(
       prepare_for_trajectory_chart(
-        bad <- select(process_input_data(example_data), -sector),
+        bad,
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "global",
@@ -176,7 +173,7 @@ test_that("with missing crucial columns errors gracefully", {
 })
 
 test_that("outputs data starting at the start of 'projected' or later", {
-  data <- process_input_data(example_data)
+  data <- example_data
 
   year_start_projected <- data %>%
     filter(.data$metric == "projected") %>%
