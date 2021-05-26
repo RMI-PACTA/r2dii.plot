@@ -192,7 +192,7 @@ add_scenario_colours <- function(scenario_specs) {
 
 get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
   technology) {
-  worse_row <- data.frame(scenario = "worse", label = "Worse")
+  worse_row <- tibble(scenario = "worse", label = "Worse")
   scenario_specs_good_to_bad <- rbind(scenario_specs_good_to_bad, worse_row)
   scenario_specs_good_to_bad <- add_scenario_colours(scenario_specs_good_to_bad)
 
@@ -212,7 +212,7 @@ get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
 get_scenario_data <- function(data, scenario_specs) {
   area_borders <- get_area_borders(data)
 
-  data_worse_than_scenarios <- data.frame(year = unique(data$year))
+  data_worse_than_scenarios <- tibble(year = unique(data$year))
   if (scenario_specs$scenario[1] == "worse") {
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%

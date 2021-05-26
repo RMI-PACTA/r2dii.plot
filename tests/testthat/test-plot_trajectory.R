@@ -8,12 +8,12 @@ test_that("with wrong number of scenarios errors gracefully", {
     normalize_to_start_year = TRUE
   )
 
-  scenario_specs <- data.frame(
+  scenario_specs <- tibble(
     scenario = c("sds", "sps", "cps", "sce4", "sce5"),
     label = c("SDS", "STEPS", "CPS", "Scenario 4", "Scenario 5")
   )
 
-  main_line_metric <- data.frame(metric = "projected", label = "Portfolio")
+  main_line_metric <- tibble(metric = "projected", label = "Portfolio")
 
   expect_snapshot_error(plot_trajectory(data,
     scenario_specs_good_to_bad = scenario_specs,
