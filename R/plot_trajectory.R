@@ -123,7 +123,7 @@ check_number_scenarios <- function(scenario_specs) {
   if (nrow(scenario_specs) > 4) {
       rlang::abort(glue(
       "Scenario number for plotting must be between 1 and 4. \\
-      You provided {nrow(scenario_specs)}."
+      You provided {nrow(scenario_specs)} scenarios in 'scenario_specs'."
     ))
   }
 }
