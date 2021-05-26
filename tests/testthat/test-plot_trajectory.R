@@ -2,7 +2,7 @@ test_that("with wrong number of scenarios errors gracefully", {
   example_data <- process_input_data(example_data)
 
   data <- prepare_for_trajectory_chart(
-    data = example_data, sector_filter = "power", technology_filter = "oilcap",
+    example_data, sector_filter = "power", technology_filter = "oilcap",
     region_filter = "global", scenario_source_filter = "demo_2020",
     value_name = "production", end_year_filter = 2025,
     normalize_to_start_year = TRUE
