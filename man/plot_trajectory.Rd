@@ -12,19 +12,19 @@ plot_trajectory(
 )
 }
 \arguments{
-\item{data}{Filtered input data (dataframe with columns: year, metric_type,
-metric and value).}
+\item{data}{Filtered input data; with columns: year, metric_type, metric and
+value.}
 
 \item{scenario_specs_good_to_bad}{Dataframe containing scenario
-specifications like color or label, ordered from the most to least
-sustainable (dataframe with columns: scenario, label, color).}
+specifications like name label, ordered from the most to least sustainable;
+with columns: scenario, label.}
 
 \item{main_line_metric}{Dataframe containing information about metric that
-should be plotted as the main line (dataframe with columns: metric, label).}
+should be plotted as the main line; with columns: metric, label.}
 
 \item{additional_line_metrics}{Dataframe containing information about
-additional metrics that should be plotted as lines (dataframe with columns:
-metric, label).}
+additional metrics that should be plotted as lines; with columns: metric,
+label).}
 }
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a
