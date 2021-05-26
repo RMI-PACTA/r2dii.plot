@@ -4,16 +4,16 @@
 #' technology mix for different categories (portfolio, scenario, benchmark,
 #' etc.).
 #'
-#' @param data Filtered input data (dataframe with columns: year, metric_type,
-#'   metric and value).
+#' @param data Filtered input data; with columns: year, metric_type, metric and
+#'   value.
 #' @param scenario_specs_good_to_bad Dataframe containing scenario
-#'   specifications like color or label, ordered from the most to least
-#'   sustainable (dataframe with columns: scenario, label, color).
+#'   specifications like name label, ordered from the most to least sustainable;
+#'   with columns: scenario, label.
 #' @param main_line_metric Dataframe containing information about metric that
-#'   should be plotted as the main line (dataframe with columns: metric, label).
+#'   should be plotted as the main line; with columns: metric, label.
 #' @param additional_line_metrics Dataframe containing information about
-#'   additional metrics that should be plotted as lines (dataframe with columns:
-#'   metric, label).
+#'   additional metrics that should be plotted as lines; with columns: metric,
+#'   label).
 #'
 #' @export
 #' @examples
@@ -27,9 +27,8 @@
 #' )
 #'
 #' scenario_specs <- dplyr::tibble(
-#'   scenario = c("sds", "sps", "cps", "worse"),
-#'   color = c("#9CAB7C", "#FFFFCC", "#FDE291", "#E07B73"),
-#'   label = c("SDS", "STEPS", "CPS", "worse")
+#'   scenario = c("sds", "sps", "cps"),
+#'   label = c("SDS", "STEPS", "CPS")
 #' )
 #'
 #' main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
@@ -50,7 +49,7 @@ plot_trajectory <- function(data,
                             main_line_metric,
                             additional_line_metrics = NULL) {
   # plot scenario areas
-  scenario_specs <- get_ordered_scenario_specs(
+  scenario_specs <- get_ordered_scenario_specs_with_colours(
     scenario_specs_good_to_bad, data$technology[1]
   )
   data_scenarios <- get_scenario_data(data, scenario_specs)
@@ -102,7 +101,6 @@ plot_trajectory <- function(data,
     theme_2dii() +
     theme(
       axis.line = element_blank(),
-      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
       legend.position = NULL
     ) +
     guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
@@ -158,7 +156,40 @@ get_area_borders <- function(data) {
   area_borders
 }
 
-get_ordered_scenario_specs <- function(scenario_specs_good_to_bad, technology) {
+get_ordered_scenario_colours <- function(n) {
+  pick <- function(cols) filter(r2dii_scenario_colours, .data$label %in% cols)
+  switch(
+    as.character(n),
+    "2" = pick(c("light_green", "red")),
+    "3" = pick(c("light_green", "light_yellow", "red")),
+    "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
+    "5" = assert_5_rows(r2dii_scenario_colours),
+    rlang::abort(glue(
+      "Scenario colours can be provided for between 1 and 4 scenarios. \\
+      You provided {n - 1}."
+    ))
+  )
+}
+
+assert_5_rows <- function(data) {
+  stopifnot(nrow(data) == 5L)
+  invisible(data)
+}
+
+add_scenario_colours <- function(scenario_specs) {
+  num_scen_areas <- nrow(scenario_specs)
+  scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
+  scenario_specs$colour <- scenario_colours$hex
+
+  scenario_specs
+}
+
+get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
+  technology) {
+  worse_row <- data.frame(scenario = "worse", label = "Worse")
+  scenario_specs_good_to_bad <- rbind(scenario_specs_good_to_bad, worse_row)
+  scenario_specs_good_to_bad <- add_scenario_colours(scenario_specs_good_to_bad)
+
   green_or_brown <- r2dii.data::green_or_brown
   tech_green_or_brown <- green_or_brown %>%
     filter(.data$technology == .env$technology) %>%
@@ -278,7 +309,7 @@ help_plot_area_colors <- function(data_scenarios,
       )
     ) +
     scale_fill_stepsn(
-      colours = scenario_specs$color,
+      colours = scenario_specs$colour,
       guide = "coloursteps",
       breaks = seq(
         from = lower_area_border + value_span / num_scen,
