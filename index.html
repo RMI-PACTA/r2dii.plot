@@ -99,15 +99,8 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
-<span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span>
-<span class="co">#&gt; ✔ ggplot2 3.3.3     ✔ purrr   0.3.4</span>
-<span class="co">#&gt; ✔ tibble  3.1.2     ✔ dplyr   1.0.6</span>
-<span class="co">#&gt; ✔ tidyr   1.1.3     ✔ stringr 1.4.0</span>
-<span class="co">#&gt; ✔ readr   1.4.0     ✔ forcats 0.5.1</span>
-<span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
-<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot.static">r2dii.plot.static</a></span><span class="op">)</span></code></pre></div>
 <ul>
 <li>
@@ -133,17 +126,17 @@
   normalize_to_start_year <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
 
-<span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+<span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   scenario <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sds"</span>, <span class="st">"sps"</span>, <span class="st">"cps"</span><span class="op">)</span>,
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SDS"</span>, <span class="st">"STEPS"</span>, <span class="st">"CPS"</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">main_line_metric</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+<span class="va">main_line_metric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   metric <span class="op">=</span> <span class="st">"projected"</span>,
   label <span class="op">=</span> <span class="st">"Portfolio"</span>
 <span class="op">)</span>
 
-<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   metric <span class="op">=</span> <span class="st">"corporate_economy"</span>,
   label <span class="op">=</span> <span class="st">"Corporate Economy"</span>
 <span class="op">)</span>
@@ -182,7 +175,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Custom colours, all data, no title</span>
-<span class="va">power_colors_custom</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+<span class="va">power_colors_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   technology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>,
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal Capacity"</span>, <span class="st">"Oil Capacity"</span>, <span class="st">"Gas Capacity"</span>, <span class="st">"Nuclear Capacity"</span>, <span class="st">"Hydro Capacity"</span>, <span class="st">"Renewables Capacity"</span><span class="op">)</span>,
   colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"brown"</span>, <span class="st">"grey"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green4"</span><span class="op">)</span>
@@ -248,7 +241,7 @@
 
 <span class="co"># Using custom specs and extending the plot with ggplot2</span>
 <span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     title <span class="op">=</span> <span class="st">"Emission intensity trend for Cement."</span>,
     x <span class="op">=</span> <span class="st">"Year"</span>,
     y <span class="op">=</span> <span class="st">"Tons of CO2 per ton"</span>,
