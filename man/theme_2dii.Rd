@@ -2,18 +2,30 @@
 % Please edit documentation in R/theme_2dii.R
 \name{theme_2dii}
 \alias{theme_2dii}
-\title{Returns a custom 2dii ggplot theme}
+\title{A theme to apply 2DII plotting aesthetics}
 \usage{
-theme_2dii(font_family = "Helvetica")
+theme_2dii(
+  base_size = 12,
+  base_family = "Helvetica",
+  base_line_size = base_size/22,
+  base_rect_size = base_size/22
+)
 }
 \arguments{
-\item{font_family}{argument specifying the font that should be used in a
-graph (character string taking the same values as standard ggplot font
-families).}
+\item{base_size}{base font size, given in pts.}
+
+\item{base_family}{base font family}
+
+\item{base_line_size}{base size for line elements}
+
+\item{base_rect_size}{base size for rect elements}
+}
+\value{
+An object of class theme, gg.
 }
 \description{
-Returns a ggplot theme which can be applied to all graphs to appear according
-to 2DII plotting aesthetics, like removed gridlines, grey axis lines etc.
+A ggplot theme which can be applied to all graphs to appear according to 2DII
+plotting aesthetics.
 }
 \examples{
 library(ggplot2)
