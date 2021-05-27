@@ -215,6 +215,3 @@ timeline_specs(data)
 # You may use it as a reference for 2DII's colour palette
 r2dii_palette_colours()
 ```
-
-
-deleteme
