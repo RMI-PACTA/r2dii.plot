@@ -75,9 +75,8 @@ data_trajectory <- prepare_for_trajectory_chart(
 )
 
 scenario_specs <- tibble(
-  scenario = c("sds", "sps", "cps", "worse"),
-  color = c("#9CAB7C", "#FFFFCC", "#FDE291", "#E07B73"),
-  label = c("SDS", "STEPS", "CPS", "worse")
+  scenario = c("sds", "sps", "cps"),
+  label = c("SDS", "STEPS", "CPS")
 )
 
 main_line_metric <- tibble(

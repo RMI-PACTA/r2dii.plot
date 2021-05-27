@@ -48,6 +48,7 @@ plot_trajectory <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = NULL) {
+  check_number_scenarios(scenario_specs_good_to_bad)
   # plot scenario areas
   scenario_specs <- get_ordered_scenario_specs_with_colours(
     scenario_specs_good_to_bad, data$technology[1]
@@ -118,6 +119,15 @@ plot_trajectory <- function(data,
   add_grobs(p_trajectory, get_legend(legend))
 }
 
+check_number_scenarios <- function(scenario_specs) {
+  if (nrow(scenario_specs) > 4) {
+      rlang::abort(glue(
+      "Scenario number for plotting must be between 1 and 4. \\
+      You provided {nrow(scenario_specs)} scenarios in 'scenario_specs'."
+    ))
+  }
+}
+
 reverse_rows <- function(x) {
   x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
 }
@@ -163,11 +173,7 @@ get_ordered_scenario_colours <- function(n) {
     "2" = pick(c("light_green", "red")),
     "3" = pick(c("light_green", "light_yellow", "red")),
     "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
-    "5" = assert_5_rows(r2dii_scenario_colours),
-    rlang::abort(glue(
-      "Scenario colours can be provided for between 1 and 4 scenarios. \\
-      You provided {n - 1}."
-    ))
+    "5" = assert_5_rows(r2dii_scenario_colours)
   )
 }
 
@@ -186,7 +192,7 @@ add_scenario_colours <- function(scenario_specs) {
 
 get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
   technology) {
-  worse_row <- data.frame(scenario = "worse", label = "Worse")
+  worse_row <- tibble(scenario = "worse", label = "Worse")
   scenario_specs_good_to_bad <- rbind(scenario_specs_good_to_bad, worse_row)
   scenario_specs_good_to_bad <- add_scenario_colours(scenario_specs_good_to_bad)
 
@@ -206,7 +212,7 @@ get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
 get_scenario_data <- function(data, scenario_specs) {
   area_borders <- get_area_borders(data)
 
-  data_worse_than_scenarios <- data.frame(year = unique(data$year))
+  data_worse_than_scenarios <- tibble(year = unique(data$year))
   if (scenario_specs$scenario[1] == "worse") {
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
