@@ -1,8 +1,4 @@
-# get_ordered_scenario_colours works with `n` in valid range
+# with wrong number of scenarios errors gracefully
 
-    Scenario colours can be provided for between 1 and 4 scenarios. You provided 0.
-
----
-
-    Scenario colours can be provided for between 1 and 4 scenarios. You provided 5.
+    Scenario number for plotting must be between 1 and 4. You provided 5 scenarios in 'scenario_specs'.
 

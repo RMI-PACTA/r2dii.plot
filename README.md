@@ -35,15 +35,8 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 ## Example
 
 ``` r
-library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-#> ✔ ggplot2 3.3.3     ✔ purrr   0.3.4
-#> ✔ tibble  3.1.2     ✔ dplyr   1.0.6
-#> ✔ tidyr   1.1.3     ✔ stringr 1.4.0
-#> ✔ readr   1.4.0     ✔ forcats 0.5.1
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot.static)
 ```
 
@@ -75,9 +68,8 @@ data_trajectory <- prepare_for_trajectory_chart(
 )
 
 scenario_specs <- tibble(
-  scenario = c("sds", "sps", "cps", "worse"),
-  color = c("#9CAB7C", "#FFFFCC", "#FDE291", "#E07B73"),
-  label = c("SDS", "STEPS", "CPS", "worse")
+  scenario = c("sds", "sps", "cps"),
+  label = c("SDS", "STEPS", "CPS")
 )
 
 main_line_metric <- tibble(

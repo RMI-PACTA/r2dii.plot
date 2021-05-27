@@ -37,7 +37,7 @@
       List of 93
        $ line                      :List of 6
         ..$ colour       : chr "black"
-        ..$ size         : num 0.5
+        ..$ size         : num 0.545
         ..$ linetype     : num 1
         ..$ lineend      : chr "butt"
         ..$ arrow        : logi FALSE
@@ -46,12 +46,12 @@
        $ rect                      :List of 5
         ..$ fill         : chr "white"
         ..$ colour       : chr "black"
-        ..$ size         : num 0.5
+        ..$ size         : num 0.545
         ..$ linetype     : num 1
         ..$ inherit.blank: logi TRUE
         ..- attr(*, "class")= chr [1:2] "element_rect" "element"
        $ text                      :List of 11
-        ..$ family       : chr ""
+        ..$ family       : chr "Helvetica"
         ..$ face         : chr "plain"
         ..$ colour       : chr "black"
         ..$ size         : num 11
@@ -67,10 +67,10 @@
        $ title                     : NULL
        $ aspect.ratio              : NULL
        $ axis.title                :List of 11
-        ..$ family       : chr "Helvetica"
+        ..$ family       : NULL
         ..$ face         : NULL
         ..$ colour       : NULL
-        ..$ size         : num 12
+        ..$ size         : NULL
         ..$ hjust        : NULL
         ..$ vjust        : NULL
         ..$ angle        : NULL
@@ -139,7 +139,7 @@
         ..$ inherit.blank: logi TRUE
         ..- attr(*, "class")= chr [1:2] "element_text" "element"
        $ axis.text                 :List of 11
-        ..$ family       : chr "Helvetica"
+        ..$ family       : NULL
         ..$ face         : NULL
         ..$ colour       : NULL
         ..$ size         : num 10
@@ -268,7 +268,7 @@
        $ legend.key.height         : NULL
        $ legend.key.width          : NULL
        $ legend.text               :List of 11
-        ..$ family       : chr "Helvetica"
+        ..$ family       : NULL
         ..$ face         : NULL
         ..$ colour       : NULL
         ..$ size         : num 9
@@ -334,7 +334,7 @@
         ..$ inherit.blank: logi TRUE
         ..- attr(*, "class")= chr [1:2] "element_rect" "element"
        $ plot.title                :List of 11
-        ..$ family       : chr "Helvetica"
+        ..$ family       : NULL
         ..$ face         : chr "bold"
         ..$ colour       : NULL
         ..$ size         : num 14

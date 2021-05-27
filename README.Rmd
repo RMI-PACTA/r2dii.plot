@@ -68,7 +68,8 @@ devtools::install_github("2DegreesInvesting/r2dii.plot.static")
 ## Example
 
 ```{r}
-library(tidyverse)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot.static)
 ```
 
@@ -93,9 +94,8 @@ data_trajectory <- prepare_for_trajectory_chart(
 )
 
 scenario_specs <- tibble(
-  scenario = c("sds", "sps", "cps", "worse"),
-  color = c("#9CAB7C", "#FFFFCC", "#FDE291", "#E07B73"),
-  label = c("SDS", "STEPS", "CPS", "worse")
+  scenario = c("sds", "sps", "cps"),
+  label = c("SDS", "STEPS", "CPS")
 )
 
 main_line_metric <- tibble(
@@ -215,3 +215,6 @@ timeline_specs(data)
 # You may use it as a reference for 2DII's colour palette
 r2dii_palette_colours()
 ```
+
+
+
