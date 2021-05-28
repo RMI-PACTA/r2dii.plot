@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' data <- example_data
+#' data <- market_share
 #' process_input_data(data)
 process_input_data <- function(data) {
   data %>%

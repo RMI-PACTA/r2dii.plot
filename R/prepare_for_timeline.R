@@ -1,6 +1,6 @@
-#' Prepares sda_target-type data for timeline plot
+#' Prepares sda-type data for timeline plot
 #'
-#' @param data,sda_target_data Dataframe with columns sector, year and two other
+#' @param data,sda_data Dataframe with columns sector, year and two other
 #'   columns specifying value to be be plotted as timelines and line names
 #'   (dataframe).
 #' @param sector_filter Sector to be used for filtering (character string of
@@ -20,7 +20,7 @@
 #' @examples
 #' # prepare_for_timelineA() --------------------------------------------------
 #'
-#' data <- sda_target
+#' data <- sda
 #' prepare_for_timelineA(
 #'   data,
 #'   sector_filter = "cement",
@@ -29,7 +29,7 @@
 #'   value_to_plot = "emission_factor_value",
 #'   extrapolate_missing_values = TRUE
 #' )
-prepare_for_timelineA <- function(sda_target_data,
+prepare_for_timelineA <- function(sda_data,
                                   sector_filter = c(
                                     "automotive",
                                     "aviation",
@@ -44,13 +44,13 @@ prepare_for_timelineA <- function(sda_target_data,
                                   column_line_names = "emission_factor_metric",
                                   value_to_plot = "emission_factor_value",
                                   extrapolate_missing_values = FALSE) {
-  sda_target_data$sector <- tolower(sda_target_data$sector)
+  sda_data$sector <- tolower(sda_data$sector)
   sector_filter <- tolower(sector_filter)
   abort_bad_sector(sector_filter)
-  warn_sector(sda_target_data, sector_filter)
+  warn_sector(sda_data, sector_filter)
 
   check_input_parameters(
-    sda_target_data,
+    sda_data,
     year_start,
     year_end,
     column_line_names,
@@ -59,7 +59,7 @@ prepare_for_timelineA <- function(sda_target_data,
   )
 
   # Create output data
-  data_timeline <- sda_target_data %>%
+  data_timeline <- sda_data %>%
     filter(.data$sector == .env$sector_filter) %>%
     filter(.data$year >= year_start) %>%
     filter(.data$year <= year_end) %>%
@@ -195,7 +195,7 @@ check_input_parameters <- function(data,
 #'
 #' # prepare_for_timelineA() --------------------------------------------------
 #'
-#' data <- sda_target
+#' data <- sda
 #' tail(prepare_for_timelineB(data))
 #' tail(prepare_for_timelineB(data, extrapolate = TRUE))
 prepare_for_timelineB <- function(data, extrapolate = FALSE) {
