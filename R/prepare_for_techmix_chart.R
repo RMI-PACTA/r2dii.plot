@@ -12,7 +12,7 @@
 #'
 #' @export
 #' @examples
-#' prepare_for_techmix_chart(
+#' prep__techmix_chart(
 #'   process_input_data(example_data),
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
@@ -21,7 +21,7 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-prepare_for_techmix_chart <- function(data,
+prep__techmix_chart <- function(data,
                                       sector_filter = c(
                                         "automotive",
                                         "aviation",

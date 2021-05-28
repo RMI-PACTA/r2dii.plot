@@ -18,10 +18,10 @@
 #' @export
 #'
 #' @examples
-#' # prepare_for_timelineA() --------------------------------------------------
+#' # prep__timelineA() --------------------------------------------------
 #'
 #' data <- sda_target
-#' prepare_for_timelineA(
+#' prep__timelineA(
 #'   data,
 #'   sector_filter = "cement",
 #'   year_start = 2020,
@@ -29,7 +29,7 @@
 #'   value_to_plot = "emission_factor_value",
 #'   extrapolate_missing_values = TRUE
 #' )
-prepare_for_timelineA <- function(sda_target_data,
+prep__timelineA <- function(sda_target_data,
                                   sector_filter = c(
                                     "automotive",
                                     "aviation",
@@ -104,7 +104,7 @@ prepare_for_timelineA <- function(sda_target_data,
   data_timeline
 }
 # For backward compatibility until we decide which version to keep
-prepare_for_timeline <- prepare_for_timelineA
+prep__timeline <- prep__timelineA
 
 abort_bad_sector <- function(sector_filter) {
   if (length(sector_filter) > 1L) abort("`sector_filter` must be of length 1")
@@ -190,15 +190,15 @@ check_input_parameters <- function(data,
 }
 
 #' @export
-#' @rdname prepare_for_timelineA
+#' @rdname prep__timelineA
 #' @examples
 #'
-#' # prepare_for_timelineA() --------------------------------------------------
+#' # prep__timelineA() --------------------------------------------------
 #'
 #' data <- sda_target
-#' tail(prepare_for_timelineB(data))
-#' tail(prepare_for_timelineB(data, extrapolate = TRUE))
-prepare_for_timelineB <- function(data, extrapolate = FALSE) {
+#' tail(prep__timelineB(data))
+#' tail(prep__timelineB(data, extrapolate = TRUE))
+prep__timelineB <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data), is.logical(extrapolate))
     crucial <- c("emission_factor_metric", "emission_factor_value", "year")
   check_crucial_names(data, crucial)

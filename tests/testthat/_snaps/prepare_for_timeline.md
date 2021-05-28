@@ -6,7 +6,7 @@
 # outputs the expected snapshot
 
     Code
-      prepare_for_timelineB(sda_target)
+      prep__timelineB(sda_target)
     Output
       # A tibble: 208 x 5
          year       line_name value extrapolated sector    
