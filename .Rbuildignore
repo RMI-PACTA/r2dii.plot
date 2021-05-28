@@ -6,7 +6,7 @@
 ^LICENSE\.md$
 ^pkgdown$
 ^_pkgdown\.yml$
-^r2dii\.plot\.static\.Rproj$
+^r2dii\.plot\.Rproj$
 ^README\.Rmd$
 ^\.Rproj\.user$
 ^Rplots\.pdf$
