@@ -32,7 +32,7 @@ technology mix for different categories (portfolio, scenario, benchmark,
 etc.).
 }
 \examples{
-data <- prep__trajectory_chart(
+data <- prep__trajectory(
   process_input_data(example_data),
   sector_filter = "power",
   technology_filter = "renewablescap",

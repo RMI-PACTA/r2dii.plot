@@ -1,7 +1,7 @@
 test_that("outputs a data.frame", {
   data <- process_input_data(example_data)
 
-  out <- prep__trajectory_chart(
+  out <- prep__trajectory(
     data,
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -17,7 +17,7 @@ test_that("returns visibly", {
   data <- process_input_data(example_data)
 
   expect_visible(
-    prep__trajectory_chart(
+    prep__trajectory(
       data,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -33,7 +33,7 @@ test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
   data <- process_input_data(example_data)
 
   expect_visible(
-    prep__trajectory_chart(
+    prep__trajectory(
       data,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -50,7 +50,7 @@ test_that("with bad `sector_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep__trajectory_chart(
+      prep__trajectory(
         process_input_data(example_data),
         sector_filter = "bad",
         technology_filter = "oilcap",
@@ -67,7 +67,7 @@ test_that("with bad `technology_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep__trajectory_chart(
+      prep__trajectory(
         process_input_data(example_data),
         sector_filter = "power",
         technology_filter = "bad",
@@ -84,7 +84,7 @@ test_that("with bad `region_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep__trajectory_chart(
+      prep__trajectory(
         process_input_data(example_data),
         sector_filter = "power",
         technology_filter = "oilcap",
@@ -101,7 +101,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep__trajectory_chart(
+      prep__trajectory(
         process_input_data(example_data),
         sector_filter = "power",
         technology_filter = "oilcap",
@@ -117,7 +117,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
 # "production"? That information is not documented in the description of the
 # argument `value_name` not via examples or README.
 test_that("adds the column `value` from the column named in `value_name`", {
-  out <- prep__trajectory_chart(
+  out <- prep__trajectory(
     process_input_data(example_data),
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -133,7 +133,7 @@ test_that("adds the column `value` from the column named in `value_name`", {
 # FIXME: Do we need an error or warning?
 test_that("with bad `end_year_filter` throws no error", {
   expect_no_error(
-    prep__trajectory_chart(
+    prep__trajectory(
       process_input_data(example_data),
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -148,7 +148,7 @@ test_that("with bad `end_year_filter` throws no error", {
 test_that("with bad `normalize_to_start_year` errors gracefully", {
   expect_error(
     regexp = "not.*logical",
-    prep__trajectory_chart(
+    prep__trajectory(
       process_input_data(example_data),
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -163,7 +163,7 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
 test_that("with missing crucial columns errors gracefully", {
   suppressWarnings(
     expect_snapshot_error(
-      prep__trajectory_chart(
+      prep__trajectory(
         bad <- select(process_input_data(example_data), -sector),
         sector_filter = "power",
         technology_filter = "oilcap",
@@ -183,7 +183,7 @@ test_that("outputs data starting at the start of 'projected' or later", {
     pull(.data$year) %>%
     min()
 
-  out <- prep__trajectory_chart(
+  out <- prep__trajectory(
     data,
     sector_filter = "power",
     technology_filter = "oilcap",

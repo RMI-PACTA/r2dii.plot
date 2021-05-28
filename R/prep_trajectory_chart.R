@@ -20,7 +20,7 @@
 #' @examples
 #' raw <- example_data
 #' processed <- process_input_data(raw)
-#' prep__trajectory_chart(
+#' prep__trajectory(
 #'   processed,
 #'   sector_filter = "power",
 #'   technology_filter = "oilcap",
@@ -28,7 +28,7 @@
 #'   scenario_source_filter = "demo_2020",
 #'   value_name = "production"
 #' )
-prep__trajectory_chart <- function(data_preprocessed,
+prep__trajectory <- function(data_preprocessed,
                                          sector_filter,
                                          technology_filter,
                                          region_filter,
