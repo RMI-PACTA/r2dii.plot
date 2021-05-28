@@ -139,14 +139,18 @@ plot_trajectory <- function(data,
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$metric),
+        label = .data$metric,
+        segment.color = .data$metric),
       direction = "y",
+      color = "black",
+      alpha = 1,
       nudge_x = 0.6,
       nudge_y = 0.01 * value_span,
       hjust = 0,
       segment.size = 0.3,
       xlim = c(min(data$year), last_year + 2)
-    )
+    ) +
+    scale_fill_manual(aesthetics = "segment.color", values = scenario_specs_lines$colour)
 
   p_trajectory <- p_trajectory +
     coord_cartesian(expand = FALSE, clip = "off") +
