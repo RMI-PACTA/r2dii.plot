@@ -108,13 +108,13 @@
 <li>
 <code><a href="reference/process_input_data.html">process_input_data()</a></code> performs the initial processing on raw input data in banks’ format.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_input_data.html">process_input_data</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>
 <code><a href="reference/plot_trajectory.html">plot_trajectory()</a></code> create a trajectory alignment chart in a ggplot object.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_trajectory_chart.html">prepare_for_trajectory_chart</a></span><span class="op">(</span>
   <span class="va">example_data</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
@@ -156,7 +156,7 @@
 <li>
 <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> create a techmix chart in a ggplot object.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default colours, all data, added title</span>
 
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"power"</span>
@@ -173,7 +173,8 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Technology mix for the Power sector"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Custom colours, all data, no title</span>
+<code class="sourceCode R">
+<span class="co"># Custom colours, all data, no title</span>
 <span class="va">power_colors_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   technology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>,
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal Capacity"</span>, <span class="st">"Oil Capacity"</span>, <span class="st">"Gas Capacity"</span>, <span class="st">"Nuclear Capacity"</span>, <span class="st">"Hydro Capacity"</span>, <span class="st">"Renewables Capacity"</span><span class="op">)</span>,
@@ -186,7 +187,8 @@
 <span class="va">plot</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
+<code class="sourceCode R">
+<span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
 
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"automotive"</span>
 
@@ -219,13 +221,14 @@
 <li>
 <code><a href="reference/plot_timelineA.html">plot_timelineA()</a></code> creates a time line plot.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using default preparation and specs</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_timelineA.html">prepare_for_timelineA</a></span><span class="op">(</span><span class="va">sda_target</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span><span class="op">)</span>
 <span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Using custom preparation</span>
+<code class="sourceCode R">
+<span class="co"># Using custom preparation</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_timelineA.html">prepare_for_timelineA</a></span><span class="op">(</span>
   <span class="va">sda_target</span>,
   sector_filter <span class="op">=</span> <span class="st">"cement"</span>,
@@ -251,7 +254,7 @@
 <li>
 <code><a href="reference/r2dii_palette_colours.html">r2dii_palette_colours()</a></code> outputs a data frame giving the 2dii colour palette.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You may use it as a template to create your custom specs</span>
 <span class="fu"><a href="reference/timeline_specs.html">timeline_specs</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 3</span>
