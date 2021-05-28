@@ -62,7 +62,8 @@ plot_trajectory <- function(data,
         x = .data$year,
         ymin = .data$value_low,
         ymax = .data$value,
-        fill = .data$metric
+        fill = .data$metric,
+        alpha = 0.9
       )
     ) +
     scale_fill_manual(values = colours_scenarios)
@@ -76,15 +77,31 @@ plot_trajectory <- function(data,
     line_labels <- c(main_line_metric$label)
   }
 
-  data_metrics <- data %>% filter(.data$metric %in% line_metrics)
+  scenario_specs_lines <- scenario_specs %>% filter(.data$scenario != "worse")
+  data_scenario_lines <- data %>%
+    filter(.data$metric_type == "scenario") %>%
+    mutate(metric = factor(.data$metric, levels = scenario_specs_lines$scenario))
+  n_scenarios <- nrow(scenario_specs_lines)
+
+  data_metrics <- data %>% filter(.data$metric %in% line_metrics) %>%
+    mutate(metric = factor(.data$metric, levels = line_metrics)) %>%
+    arrange(.data$metric)
   n_lines <- length(line_metrics)
 
   linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
   linecolours_ordered <- c("black", "black", "gray", "grey46", "black")
 
+  metrics <- c(scenario_specs_lines$scenario, line_metrics)
+  linetypes <- c(rep("solid", n_scenarios), linetypes_ordered[1:n_lines])
+  linecolours <- c(scenario_specs_lines$colour, linecolours_ordered[1:n_lines])
+
+  data_lines <- rbind(data_scenario_lines, data_metrics) %>%
+    mutate(metric = factor(.data$metric, levels = metrics)) %>%
+    arrange(.data$year, .data$metric)
+
   p_trajectory <- p_trajectory +
     geom_line(
-      data = data_metrics,
+      data = data_lines,
       aes(
         x = .data$year,
         y = .data$value,
@@ -93,30 +110,72 @@ plot_trajectory <- function(data,
       )
     )
 
+  last_year <- max(data$year)
+  value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
+  data_metrics_end <- data_metrics %>%
+    filter(.data$year == last_year)
+
+  p_trajectory <- p_trajectory +
+    ggrepel::geom_text_repel(
+      data = data_metrics_end,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        label = .data$metric),
+      direction = "y",
+      nudge_x = 0.15,
+      nudge_y = 0.01 * value_span,
+      hjust = 0,
+      segment.size = 0,
+      xlim = c(min(data$year), last_year + 2)
+    )
+
+  data_scenarios_end <- data_scenario_lines %>%
+    filter(.data$year == last_year)
+
+  p_trajectory <- p_trajectory +
+    ggrepel::geom_text_repel(
+      data = data_scenarios_end,
+      aes(
+        x = .data$year,
+        y = .data$value,
+        label = .data$metric),
+      direction = "y",
+      nudge_x = 0.6,
+      nudge_y = 0.01 * value_span,
+      hjust = 0,
+      segment.size = 0.3,
+      xlim = c(min(data$year), last_year + 2)
+    )
+
   p_trajectory <- p_trajectory +
     coord_cartesian(expand = FALSE, clip = "off") +
-    scale_linetype_manual(values = linetypes_ordered[1:n_lines]) +
-    scale_color_manual(values = linecolours_ordered[1:n_lines])
+    scale_linetype_manual(values = linetypes) +
+    scale_color_manual(values = linecolours)
 
   p_trajectory <- p_trajectory +
     theme_2dii() +
     theme(
       axis.line = element_blank(),
-      legend.position = NULL
+      legend.position = "none"
+    ) %+replace%
+    theme(
+      plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm")
     ) +
     guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
 
-  legend <- plot_trajectory_legend(
-    p_trajectory,
-    data_scenarios,
-    scenario_specs,
-    data_metrics,
-    linetypes_ordered,
-    linecolours_ordered,
-    line_labels
-  )
-
-  add_grobs(p_trajectory, get_legend(legend))
+  p_trajectory
+  # legend <- plot_trajectory_legend(
+  #   p_trajectory,
+  #   data_scenarios,
+  #   scenario_specs,
+  #   data_metrics,
+  #   linetypes_ordered,
+  #   linecolours_ordered,
+  #   line_labels
+  # )
+  #
+  # add_grobs(p_trajectory, get_legend(legend))
 }
 
 check_number_scenarios <- function(scenario_specs) {
@@ -133,8 +192,8 @@ reverse_rows <- function(x) {
 }
 
 get_area_borders <- function(data) {
-  lower_area_border <- min(data$value)
-  upper_area_border <- max(data$value)
+  lower_area_border <- 0.9 * min(data$value)
+  upper_area_border <- 1.1 * max(data$value)
   value_span <- upper_area_border - lower_area_border
 
   start_value_portfolio <- data %>%
