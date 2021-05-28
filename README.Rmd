@@ -117,7 +117,7 @@ plot_trajectory(
 )
 ```
 
-* `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
+* `prepare_for_techmix()` `r pull_title("prepare_for_techmix")`.
 * `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
@@ -126,7 +126,7 @@ plot_trajectory(
 
 sector <- "power"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prepare_for_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -153,7 +153,7 @@ plot
 
 sector <- "automotive"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prepare_for_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",

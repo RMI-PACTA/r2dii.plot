@@ -17,7 +17,7 @@
 #'
 #' @export
 #' @examples
-#' data <- prepare_for_trajectory_chart(
+#' data <- prepare_for_trajectory(
 #'   process_input_data(example_data),
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",

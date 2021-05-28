@@ -92,7 +92,7 @@ plot_trajectory(
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prepare_for_techmix_chart()` prepares pre-processed data for
+  - `prepare_for_techmix()` prepares pre-processed data for
     plotting a tech-mix chart.
   - `get_r2dii_technology_colours()` get the predefined technology
     colors for a sector.
@@ -105,7 +105,7 @@ plot_trajectory(
 
 sector <- "power"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prepare_for_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -142,7 +142,7 @@ plot
 
 sector <- "automotive"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prepare_for_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
