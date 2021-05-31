@@ -40,16 +40,20 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
--   `example_data` imports example data set for plotting.
--   `process_input_data()` performs the initial processing on raw input
+  - `example_data` imports example data set for plotting.
+  - `process_input_data()` performs the initial processing on raw input
     data in banks’ format.
+
+<!-- end list -->
 
 ``` r
 example_data <- process_input_data(example_data)
 ```
 
--   `plot_trajectory()` create a trajectory alignment chart in a ggplot
+  - `plot_trajectory()` create a trajectory alignment chart in a ggplot
     object.
+
+<!-- end list -->
 
 ``` r
 data_trajectory <- prepare_for_trajectory_chart(
@@ -88,9 +92,11 @@ plot_trajectory(
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prepare_for_techmix_chart()` prepares pre-processed data for
+  - `prepare_for_techmix_chart()` prepares pre-processed data for
     plotting a tech-mix chart.
--   `plot_techmix()` create a techmix chart in a ggplot object.
+  - `plot_techmix()` create a techmix chart in a ggplot object.
+
+<!-- end list -->
 
 ``` r
 # Default colours, all data, added title
@@ -111,6 +117,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -127,6 +134,7 @@ plot
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -157,8 +165,10 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prepare_for_timelineA()` .
--   `plot_timelineA()` creates a time line plot.
+  - `prepare_for_timelineA()` .
+  - `plot_timelineA()` creates a time line plot.
+
+<!-- end list -->
 
 ``` r
 # Using default preparation and specs
@@ -169,6 +179,7 @@ plot_timelineA(data)
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Using custom preparation
 data <- prepare_for_timelineA(
   sda_target,
@@ -192,9 +203,11 @@ plot_timelineA(data) +
 
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `timeline_specs()` creates the default specs data frame for
+  - `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.
--   See `colours` for details about colour datasets.
+  - See `colours` for details about colour datasets.
+
+<!-- end list -->
 
 ``` r
 # You may use it as a template to create your custom specs
