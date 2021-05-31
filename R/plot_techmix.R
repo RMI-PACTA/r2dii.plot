@@ -16,7 +16,7 @@
 #' @export
 #' @examples
 #' data <- prep_techmix(
-#'   process_input_data(market_share),
+#'   market_share,
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
 #'   region_filter = "global",
@@ -24,9 +24,8 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-#' print(
-#'   plot_techmix(data)
-#' )
+#'
+#' plot_techmix(data)
 plot_techmix <- function(data,
                          metric_type_order = NULL,
                          metric_type_labels = NULL,

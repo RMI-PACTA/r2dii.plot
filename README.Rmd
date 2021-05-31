@@ -74,10 +74,9 @@ library(r2dii.plot)
 ```
 
 * `market_share` `r pull_title("market_share")`.
-* `process_input_data()` `r pull_title("process_input_data")`.
 
 ```{r}
-market_share <- process_input_data(market_share)
+market_share
 ```
 
 * `plot_trajectory()` `r pull_title("plot_trajectory")`.
@@ -164,12 +163,24 @@ plot +
 
 sector <- "power"
 
-data <- prep_techmix(market_share,
-  sector_filter = sector,
-  years_filter = c(2020, 2025), region_filter = "global",
+data <- prep_techmix(
+  market_share,
+  sector_filter = "power",
+  years_filter = c(2020, 2025),
+  region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds", value_to_plot = "technology_share"
+  scenario_filter = "sds",
+  value_to_plot = "technology_share"
 )
+
+# data <- prep_techmix(market_share,
+#   sector_filter = "power",
+#   years_filter = c(2020, 2025), 
+#   region_filter = "global",
+#   scenario_source_filter = "demo_2020",
+#   scenario_filter = "sds", 
+#   value_to_plot = "technology_share"
+# )
 
 plot <- plot_techmix(data)
 plot +

@@ -1,10 +1,12 @@
 test_that("with wrong number of scenarios errors gracefully", {
-  market_share <- process_input_data(market_share)
-
   data <- prep_trajectory(
-    market_share, sector_filter = "power", technology_filter = "oilcap",
-    region_filter = "global", scenario_source_filter = "demo_2020",
-    value_name = "production", end_year_filter = 2025,
+    market_share,
+    sector_filter = "power",
+    technology_filter = "oilcap",
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    value_name = "production",
+    end_year_filter = 2025,
     normalize_to_start_year = TRUE
   )
 
