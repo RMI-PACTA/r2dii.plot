@@ -1,4 +1,4 @@
 library(testthat)
-library(r2dii.plot.static)
+library(r2dii.plot)
 
-test_check("r2dii.plot.static")
+test_check("r2dii.plot")

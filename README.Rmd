@@ -69,6 +69,8 @@ devtools::install_github("2DegreesInvesting/r2dii.plot")
 
 ```{r}
 library(tidyverse)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
@@ -254,3 +256,6 @@ timeline_specs(data)
 # You may use it as a reference for 2DII's colour palette
 r2dii_palette_colours()
 ```
+
+
+

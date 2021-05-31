@@ -32,7 +32,7 @@ fake_lines_specs <- function(...) {
       "target_demo",
       "adjusted_scenario_demo"
     ),
-    # Not DRYing (see r2dii.plot.static/pull/91#pullrequestreview-639054150)
+    # Not DRYing (see r2dii.plot/pull/91#pullrequestreview-639054150)
     label = c(
       "Projected",
       "Corporate Economy",

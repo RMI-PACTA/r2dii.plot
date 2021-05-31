@@ -35,6 +35,7 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 ## Example
 
 ``` r
+<<<<<<< HEAD
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
@@ -44,6 +45,10 @@ library(tidyverse)
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
+=======
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
+>>>>>>> c76ecace47c3589e0e0db94afda40c58bd86e483
 library(r2dii.plot)
 ```
 
