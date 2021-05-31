@@ -92,6 +92,8 @@ plot_trajectory <- function(data,
   linecolours_ordered <- c("black", "black", "gray", "grey46", "black")
 
   metrics <- c(scenario_specs_lines$scenario, line_metrics)
+  labels <- c(scenario_specs_lines$label, line_labels)
+  names(labels) <- metrics
   linetypes <- c(rep("solid", n_scenarios), linetypes_ordered[1:n_lines])
   linecolours <- c(scenario_specs_lines$colour, linecolours_ordered[1:n_lines])
 
@@ -113,6 +115,7 @@ plot_trajectory <- function(data,
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
   data_metrics_end <- data_metrics %>%
+    mutate(label = dplyr::recode(.data$metric, !!!labels)) %>%
     filter(.data$year == last_year)
 
   p_trajectory <- p_trajectory +
@@ -121,16 +124,18 @@ plot_trajectory <- function(data,
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$metric),
+        label = .data$label),
       direction = "y",
+      size = 3,
       nudge_x = 0.15,
       nudge_y = 0.01 * value_span,
       hjust = 0,
       segment.size = 0,
-      xlim = c(min(data$year), last_year + 2)
+      xlim = c(min(data$year), last_year + 3)
     )
 
   data_scenarios_end <- data_scenario_lines %>%
+    mutate(label = dplyr::recode(.data$metric, !!!labels)) %>%
     filter(.data$year == last_year)
 
   p_trajectory <- p_trajectory +
@@ -139,16 +144,17 @@ plot_trajectory <- function(data,
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$metric,
+        label = .data$label,
         segment.color = .data$metric),
       direction = "y",
       color = "black",
+      size = 3,
       alpha = 1,
       nudge_x = 0.6,
       nudge_y = 0.01 * value_span,
       hjust = 0,
       segment.size = 0.3,
-      xlim = c(min(data$year), last_year + 2)
+      xlim = c(min(data$year), last_year + 5)
     ) +
     scale_fill_manual(aesthetics = "segment.color", values = scenario_specs_lines$colour)
 
