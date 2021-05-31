@@ -40,14 +40,15 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-  - `example_data` imports example data set for plotting.
+  - `market_share` dataset imitating the output of
+    ‘r2dii.analysis::target\_market\_share()’.
   - `process_input_data()` performs the initial processing on raw input
     data in banks’ format.
 
 <!-- end list -->
 
 ``` r
-example_data <- process_input_data(example_data)
+market_share <- process_input_data(market_share)
 ```
 
   - `plot_trajectory()` create a trajectory alignment chart in a ggplot
@@ -57,7 +58,7 @@ example_data <- process_input_data(example_data)
 
 ``` r
 data_trajectory <- prepare_for_trajectory_chart(
-  example_data,
+  market_share,
   sector_filter = "power",
   technology_filter = "renewablescap",
   region_filter = "global",
@@ -105,7 +106,7 @@ plot_trajectory(
 
 sector <- "power"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prepare_for_techmix_chart(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -142,7 +143,7 @@ plot
 
 sector <- "automotive"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prepare_for_techmix_chart(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -175,7 +176,7 @@ plot +
 
 ``` r
 # Using default preparation and specs
-data <- prepare_for_timelineA(sda_target, sector_filter = "cement")
+data <- prepare_for_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 ```
 
@@ -185,7 +186,7 @@ plot_timelineA(data)
 
 # Using custom preparation
 data <- prepare_for_timelineA(
-  sda_target,
+  sda,
   sector_filter = "cement",
   year_start = 2020,
   year_end = 2050,

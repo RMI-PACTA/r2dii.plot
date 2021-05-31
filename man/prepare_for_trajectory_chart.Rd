@@ -43,7 +43,7 @@ A data frame.
 Prepares pre-processed data for plotting a trajectory chart
 }
 \examples{
-raw <- example_data
+raw <- market_share
 processed <- process_input_data(raw)
 prepare_for_trajectory_chart(
   processed,
