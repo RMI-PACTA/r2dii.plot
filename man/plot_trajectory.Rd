@@ -55,7 +55,8 @@ additional_line_metrics <- dplyr::tibble(
 
 p <- plot_trajectory(data,
   scenario_specs_good_to_bad = scenario_specs,
-  main_line_metric = main_line_metric
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
 )
 
 p
