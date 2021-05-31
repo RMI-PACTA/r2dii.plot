@@ -41,25 +41,13 @@ library(r2dii.plot)
 ```
 
   - `example_data` imports example data set for plotting.
+  - `process_input_data()` performs the initial processing on raw input
+    data in banks’ format.
 
 <!-- end list -->
 
 ``` r
-example_data
-#> # A tibble: 1,170 x 8
-#>    sector     technology  year region scenario_source metric          production
-#>    <chr>      <chr>      <int> <chr>  <chr>           <chr>                <dbl>
-#>  1 automotive electric    2020 global demo_2020       projected          145942.
-#>  2 automotive electric    2020 global demo_2020       corporate_econ…   8134869.
-#>  3 automotive electric    2020 global demo_2020       target_cps         145942.
-#>  4 automotive electric    2020 global demo_2020       target_sds         145942.
-#>  5 automotive electric    2020 global demo_2020       target_sps         145942.
-#>  6 automotive electric    2021 global demo_2020       projected          148212.
-#>  7 automotive electric    2021 global demo_2020       corporate_econ…   8183411.
-#>  8 automotive electric    2021 global demo_2020       target_cps         148361.
-#>  9 automotive electric    2021 global demo_2020       target_sds         160625.
-#> 10 automotive electric    2021 global demo_2020       target_sps         149016.
-#> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
+example_data <- process_input_data(example_data)
 ```
 
   - `plot_trajectory()` create a trajectory alignment chart in a ggplot

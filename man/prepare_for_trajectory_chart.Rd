@@ -43,8 +43,10 @@ A data frame.
 Prepares pre-processed data for plotting a trajectory chart
 }
 \examples{
+raw <- example_data
+processed <- process_input_data(raw)
 prepare_for_trajectory_chart(
-  example_data,
+  processed,
   sector_filter = "power",
   technology_filter = "oilcap",
   region_filter = "global",

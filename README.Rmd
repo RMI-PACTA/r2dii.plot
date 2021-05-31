@@ -74,9 +74,10 @@ library(r2dii.plot)
 ```
 
 * `example_data` `r pull_title("example_data")`.
+* `process_input_data()` `r pull_title("process_input_data")`.
 
 ```{r}
-example_data
+example_data <- process_input_data(example_data)
 ```
 
 * `plot_trajectory()` `r pull_title("plot_trajectory")`.
