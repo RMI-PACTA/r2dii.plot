@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepares sda_target-type data for timeline plot — prepare_for_timelineA • r2dii.plot</title>
+<title>Prepares sda-type data for timeline plot — prepare_for_timelineA • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Prepares sda_target-type data for timeline plot — prepare_for_timelineA" />
-<meta property="og:description" content="Prepares sda_target-type data for timeline plot" />
+<meta property="og:title" content="Prepares sda-type data for timeline plot — prepare_for_timelineA" />
+<meta property="og:description" content="Prepares sda-type data for timeline plot" />
 
 
 
@@ -117,17 +117,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepares sda_target-type data for timeline plot</h1>
+    <h1>Prepares sda-type data for timeline plot</h1>
     <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/prepare_for_timeline.R'><code>R/prepare_for_timeline.R</code></a></small>
     <div class="hidden name"><code>prepare_for_timelineA.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prepares sda_target-type data for timeline plot</p>
+    <p>Prepares sda-type data for timeline plot</p>
     </div>
 
     <pre class="usage"><span class='fu'>prepare_for_timelineA</span><span class='op'>(</span>
-  <span class='va'>sda_target_data</span>,
+  <span class='va'>sda_data</span>,
   sector_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"automotive"</span>, <span class='st'>"aviation"</span>, <span class='st'>"cement"</span>, <span class='st'>"oil and gas"</span>, <span class='st'>"shipping"</span>,
     <span class='st'>"steel"</span>, <span class='st'>"power"</span><span class='op'>)</span>,
   year_start <span class='op'>=</span> <span class='fl'>0</span>,
@@ -166,7 +166,7 @@ length 1). One of automotive, aviation, cement, oil and gas, shipping, steel, po
 string).</p></td>
     </tr>
     <tr>
-      <th>data, sda_target_data</th>
+      <th>data, sda_data</th>
       <td><p>Dataframe with columns sector, year and two other
 columns specifying value to be be plotted as timelines and line names
 (dataframe).</p></td>
@@ -185,7 +185,7 @@ should be extrapolated to match the furthest value in the data set.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># prepare_for_timelineA() --------------------------------------------------</span>
 
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda_target</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda</span>
 <span class='fu'>prepare_for_timelineA</span><span class='op'>(</span>
   <span class='va'>data</span>,
   sector_filter <span class='op'>=</span> <span class='st'>"cement"</span>,
@@ -210,7 +210,7 @@ should be extrapolated to match the furthest value in the data set.</p></td>
 #&gt; <span style='color: #949494;'># … with 25 more rows</span></div><div class='input'>
 <span class='co'># prepare_for_timelineA() --------------------------------------------------</span>
 
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda_target</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prepare_for_timelineB</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 5</span>
 #&gt;   year       line_name               value extrapolated sector

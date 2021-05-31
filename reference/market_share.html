@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Outputs a data frame giving the 2DII colour palette — r2dii_palette_colours • r2dii.plot</title>
+<title>Dataset imitating the output of r2dii.analysis::target_market_share() — market_share • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Outputs a data frame giving the 2DII colour palette — r2dii_palette_colours" />
-<meta property="og:description" content="Outputs a data frame giving the 2DII colour palette" />
+<meta property="og:title" content="Dataset imitating the output of r2dii.analysis::target_market_share() — market_share" />
+<meta property="og:description" content="Dataset imitating the output of r2dii.analysis::target_market_share()" />
 
 
 
@@ -117,39 +117,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Outputs a data frame giving the 2DII colour palette</h1>
-    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/2dii_colours.R'><code>R/2dii_colours.R</code></a></small>
-    <div class="hidden name"><code>r2dii_palette_colours.Rd</code></div>
+    <h1>Dataset imitating the output of <code>r2dii.analysis::target_market_share()</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/market_share.R'><code>R/market_share.R</code></a></small>
+    <div class="hidden name"><code>market_share.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Outputs a data frame giving the 2DII colour palette</p>
+    <p>Dataset imitating the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_market_share.html'>r2dii.analysis::target_market_share()</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>r2dii_palette_colours</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>market_share</span></pre>
 
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>spec_tbl_df</code> (inherits from <code>tbl_df</code>, <code>tbl</code>, <code>data.frame</code>) with 1170 rows and 8 columns.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other colour datasets: 
-<code><a href='get_r2dii_technology_colours.html'>get_r2dii_technology_colours</a>()</code>,
-<code><a href='r2dii_scenario_colours.html'>r2dii_scenario_colours</a></code>,
-<code><a href='r2dii_sector_colours.html'>r2dii_sector_colours</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_market_share.html'>r2dii.analysis::target_market_share()</a></code>.</p>
+<p>Other example datasets: 
+<code><a href='sda.html'>sda</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>r2dii_palette_colours</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 x 2</span>
-#&gt;   label       colour_hex
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'>1</span> dark_blue   #1b324f   
-#&gt; <span style='color: #BCBCBC;'>2</span> green       #00c082   
-#&gt; <span style='color: #BCBCBC;'>3</span> orange      #ff9623   
-#&gt; <span style='color: #BCBCBC;'>4</span> grey        #d0d7e1   
-#&gt; <span style='color: #BCBCBC;'>5</span> dark_purple #574099   
-#&gt; <span style='color: #BCBCBC;'>6</span> yellow      #f2e06e   
-#&gt; <span style='color: #BCBCBC;'>7</span> soft_blue   #78c4d6   
-#&gt; <span style='color: #BCBCBC;'>8</span> ruby_red    #a63d57   
-#&gt; <span style='color: #BCBCBC;'>9</span> moss_green  #4a5e54   </div></pre>
+    <pre class="examples"><div class='input'><span class='va'>market_share</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,170 x 8</span>
+#&gt;    sector     technology  year region scenario_source metric          production
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> automotive electric    <span style='text-decoration: underline;'>2</span>020 global demo_2020       projected          <span style='text-decoration: underline;'>145</span>942.
+#&gt; <span style='color: #BCBCBC;'> 2</span> automotive electric    <span style='text-decoration: underline;'>2</span>020 global demo_2020       corporate_econ…   8<span style='text-decoration: underline;'>134</span>869.
+#&gt; <span style='color: #BCBCBC;'> 3</span> automotive electric    <span style='text-decoration: underline;'>2</span>020 global demo_2020       target_cps         <span style='text-decoration: underline;'>145</span>942.
+#&gt; <span style='color: #BCBCBC;'> 4</span> automotive electric    <span style='text-decoration: underline;'>2</span>020 global demo_2020       target_sds         <span style='text-decoration: underline;'>145</span>942.
+#&gt; <span style='color: #BCBCBC;'> 5</span> automotive electric    <span style='text-decoration: underline;'>2</span>020 global demo_2020       target_sps         <span style='text-decoration: underline;'>145</span>942.
+#&gt; <span style='color: #BCBCBC;'> 6</span> automotive electric    <span style='text-decoration: underline;'>2</span>021 global demo_2020       projected          <span style='text-decoration: underline;'>148</span>212.
+#&gt; <span style='color: #BCBCBC;'> 7</span> automotive electric    <span style='text-decoration: underline;'>2</span>021 global demo_2020       corporate_econ…   8<span style='text-decoration: underline;'>183</span>411.
+#&gt; <span style='color: #BCBCBC;'> 8</span> automotive electric    <span style='text-decoration: underline;'>2</span>021 global demo_2020       target_cps         <span style='text-decoration: underline;'>148</span>361.
+#&gt; <span style='color: #BCBCBC;'> 9</span> automotive electric    <span style='text-decoration: underline;'>2</span>021 global demo_2020       target_sds         <span style='text-decoration: underline;'>160</span>625.
+#&gt; <span style='color: #BCBCBC;'>10</span> automotive electric    <span style='text-decoration: underline;'>2</span>021 global demo_2020       target_sps         <span style='text-decoration: underline;'>149</span>016.
+#&gt; <span style='color: #949494;'># … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

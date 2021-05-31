@@ -104,19 +104,19 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
 <ul>
 <li>
-<code>example_data</code> imports example data set for plotting.</li>
+<code>market_share</code> dataset imitating the output of ‘r2dii.analysis::target_market_share()’.</li>
 <li>
 <code><a href="reference/process_input_data.html">process_input_data()</a></code> performs the initial processing on raw input data in banks’ format.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_input_data.html">process_input_data</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">market_share</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_input_data.html">process_input_data</a></span><span class="op">(</span><span class="va">market_share</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>
 <code><a href="reference/plot_trajectory.html">plot_trajectory()</a></code> create a trajectory alignment chart in a ggplot object.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_trajectory_chart.html">prepare_for_trajectory_chart</a></span><span class="op">(</span>
-  <span class="va">example_data</span>,
+  <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
   technology_filter <span class="op">=</span> <span class="st">"renewablescap"</span>,
   region_filter <span class="op">=</span> <span class="st">"global"</span>,
@@ -161,7 +161,7 @@
 
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"power"</span>
 
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_techmix_chart.html">prepare_for_techmix_chart</a></span><span class="op">(</span><span class="va">example_data</span>,
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_techmix_chart.html">prepare_for_techmix_chart</a></span><span class="op">(</span><span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="va">sector</span>,
   years_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">2025</span><span class="op">)</span>, region_filter <span class="op">=</span> <span class="st">"global"</span>,
   scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
@@ -192,7 +192,7 @@
 
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"automotive"</span>
 
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_techmix_chart.html">prepare_for_techmix_chart</a></span><span class="op">(</span><span class="va">example_data</span>,
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_techmix_chart.html">prepare_for_techmix_chart</a></span><span class="op">(</span><span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="va">sector</span>,
   years_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">2025</span><span class="op">)</span>, region_filter <span class="op">=</span> <span class="st">"global"</span>,
   scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
@@ -223,14 +223,14 @@
 </ul>
 <!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using default preparation and specs</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_timelineA.html">prepare_for_timelineA</a></span><span class="op">(</span><span class="va">sda_target</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_timelineA.html">prepare_for_timelineA</a></span><span class="op">(</span><span class="va">sda</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span><span class="op">)</span>
 <span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Using custom preparation</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_for_timelineA.html">prepare_for_timelineA</a></span><span class="op">(</span>
-  <span class="va">sda_target</span>,
+  <span class="va">sda</span>,
   sector_filter <span class="op">=</span> <span class="st">"cement"</span>,
   year_start <span class="op">=</span> <span class="fl">2020</span>,
   year_end <span class="op">=</span> <span class="fl">2050</span>,
