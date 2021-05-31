@@ -4,11 +4,7 @@
 \name{r2dii.plot-package}
 \alias{r2dii.plot}
 \alias{r2dii.plot-package}
-<<<<<<< HEAD:man/r2dii.plot-package.Rd
 \title{r2dii.plot: Create Standard '2dii' Plots}
-=======
-\title{r2dii.plot: Create Standard Static '2dii' Plots}
->>>>>>> c76ecace47c3589e0e0db94afda40c58bd86e483:man/r2dii.plot.static-package.Rd
 \description{
 Allows the user to create standardized '2dii' graphs, like
     trajectory charts or technology mix charts, and outputs them as
