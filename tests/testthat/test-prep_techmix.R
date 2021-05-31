@@ -1,5 +1,5 @@
 test_that("outputs a data.frame", {
-  data <- process_input_data(market_share)
+  data <- market_share
 
   out <- prep_techmix(
     data,
@@ -15,11 +15,9 @@ test_that("outputs a data.frame", {
 })
 
 test_that("returns visibly", {
-  data <- process_input_data(market_share)
-
   expect_visible(
     prep_techmix(
-      data,
+      market_share,
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "global",
@@ -107,7 +105,7 @@ test_that("with bad `scenario_filter` errors gracefully", {
 
 test_that("adds the column `value` from the column named in `value_to_plot`", {
   out <- prep_techmix(
-    process_input_data(market_share),
+    market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",

@@ -18,10 +18,8 @@
 #' @export
 #'
 #' @examples
-#' raw <- market_share
-#' processed <- process_input_data(raw)
 #' prep_trajectory(
-#'   processed,
+#'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "oilcap",
 #'   region_filter = "global",
@@ -36,6 +34,8 @@ prep_trajectory <- function(data_preprocessed,
                                          value_name,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
+  data_preprocessed <- process_input_data(data_preprocessed)
+
   warn_bad_value(sector_filter, data_preprocessed$sector)
   warn_bad_value(technology_filter, data_preprocessed$technology)
   warn_bad_value(region_filter, data_preprocessed$region)
