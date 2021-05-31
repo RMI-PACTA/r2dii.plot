@@ -74,7 +74,6 @@ library(r2dii.plot)
 ```
 
 * `market_share` `r pull_title("market_share")`.
-* `process_input_data()` `r pull_title("process_input_data")`.
 
 ```{r}
 market_share

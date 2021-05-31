@@ -32,7 +32,7 @@ test_that("with bad `sector_filter` errors gracefully", {
   expect_error(
     regexp = "arg.*should be one of",
     prep_techmix(
-      process_input_data(market_share),
+      market_share,
       sector_filter = "bad",
       years_filter = c(2020, 2025),
       region_filter = "global",
@@ -47,7 +47,7 @@ test_that("with bad `years_filter` errors gracefully", {
   expect_error(
     regexp = "years_filter.*must be.*vector of numbers.",
     prep_techmix(
-      process_input_data(market_share),
+      market_share,
       sector_filter = "power",
       years_filter = "bad",
       region_filter = "global",
@@ -62,7 +62,7 @@ test_that("with bad `region_filter` errors gracefully", {
   expect_error(
     regexp = "region_filter.*must be.*in.*input data.*region.",
     prep_techmix(
-      process_input_data(market_share),
+      market_share,
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "bad",
@@ -77,7 +77,7 @@ test_that("with bad `scenario_source_filter` errors gracefully", {
   expect_error(
     regexp = "scenario_source_filter.*must be.*in.*input data.*scenario_source",
     prep_techmix(
-      process_input_data(market_share),
+      market_share,
       scenario_source_filter = "bad",
       sector_filter = "power",
       years_filter = c(2020, 2025),
@@ -92,7 +92,7 @@ test_that("with bad `scenario_filter` errors gracefully", {
   expect_error(
     regexp = "scenario_filter.*must.*in.*input data.*metric",
     prep_techmix(
-      process_input_data(market_share),
+      market_share,
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "global",

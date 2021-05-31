@@ -46,7 +46,6 @@ capitalize_single_letters <- function(words) {
 #' @return A dataframe with additional column `metric_type` and modified
 #'   `metric`.
 #'
-#' @export
 #' @examples
 #' process_input_data(market_share)
 #' @keywords internal
