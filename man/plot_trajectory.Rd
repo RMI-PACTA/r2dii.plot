@@ -33,7 +33,7 @@ etc.).
 }
 \examples{
 data <- prep_trajectory(
-  market_share,
+  process_input_data(market_share),
   sector_filter = "power",
   technology_filter = "renewablescap",
   region_filter = "global",

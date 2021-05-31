@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' raw <- example_data
+#' raw <- market_share
 #' processed <- process_input_data(raw)
 #' prep_trajectory(
 #'   processed,

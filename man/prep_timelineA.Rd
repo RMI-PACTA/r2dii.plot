@@ -3,10 +3,10 @@
 \name{prep_timelineA}
 \alias{prep_timelineA}
 \alias{prep_timelineB}
-\title{Prepares sda_target-type data for timeline plot}
+\title{Prepares sda-type data for timeline plot}
 \usage{
 prep_timelineA(
-  sda_target_data,
+  sda_data,
   sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
     "steel", "power"),
   year_start = 0,
@@ -32,7 +32,7 @@ length 1). One of automotive, aviation, cement, oil and gas, shipping, steel, po
 \item{value_to_plot}{Column name of the value to be plotted (character
 string).}
 
-\item{data, sda_target_data}{Dataframe with columns sector, year and two other
+\item{data, sda_data}{Dataframe with columns sector, year and two other
 columns specifying value to be be plotted as timelines and line names
 (dataframe).}
 
@@ -43,12 +43,12 @@ should be extrapolated to match the furthest value in the data set.}
 Dataframe with columns: year, line_name, value, extrapolated.
 }
 \description{
-Prepares sda_target-type data for timeline plot
+Prepares sda-type data for timeline plot
 }
 \examples{
 # prep_timelineA() --------------------------------------------------
 
-data <- sda_target
+data <- sda
 prep_timelineA(
   data,
   sector_filter = "cement",
@@ -60,7 +60,7 @@ prep_timelineA(
 
 # prep_timelineA() --------------------------------------------------
 
-data <- sda_target
+data <- sda
 tail(prep_timelineB(data))
 tail(prep_timelineB(data, extrapolate = TRUE))
 }
