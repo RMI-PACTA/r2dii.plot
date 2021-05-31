@@ -1,5 +1,5 @@
 test_that("outputs a data.frame", {
-  expect_s3_class(example_data, "data.frame")
+  expect_s3_class(market_share, "data.frame")
 })
 
 test_that("has the expected type of columns", {
@@ -14,7 +14,7 @@ test_that("has the expected type of columns", {
     year = "integer"
   )
 
-  data <- example_data
+  data <- market_share
   sorted <- data[sort(names(data))]
   actual <- vapply(sorted, typeof, character(1))
 
@@ -24,8 +24,8 @@ test_that("has the expected type of columns", {
 test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
-  some_example_data <- head(as.data.frame(example_data))
-  expect_snapshot(some_example_data)
+  some_market_share <- head(as.data.frame(market_share))
+  expect_snapshot(some_market_share)
 })
 
 test_that("outputs like r2dii.analysis::target_market_share()", {
@@ -47,7 +47,7 @@ test_that("outputs like r2dii.analysis::target_market_share()", {
   exp_df <- r2dii.analysis::target_market_share(matched, ald, scenario, region)
   expected <- vapply(sort_df(exp_df), typeof, character(1))
 
-  act_df <- example_data
+  act_df <- market_share
   actual <- vapply(sort_df(act_df), typeof, character(1))
 
   expect_equal(actual, expected)

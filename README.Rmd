@@ -73,18 +73,18 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-* `example_data` `r pull_title("example_data")`.
+* `market_share` `r pull_title("market_share")`.
 * `process_input_data()` `r pull_title("process_input_data")`.
 
 ```{r}
-example_data <- process_input_data(example_data)
+market_share <- process_input_data(market_share)
 ```
 
 * `plot_trajectory()` `r pull_title("plot_trajectory")`.
 
 ```{r}
-data_trajectory <- prep__trajectory(
-  example_data,
+data_trajectory <- prep_trajectory(
+  market_share,
   sector_filter = "power",
   technology_filter = "renewablescap",
   region_filter = "global",
@@ -117,7 +117,7 @@ plot_trajectory(
 )
 ```
 
-* `prep__techmix()` `r pull_title("prep__techmix")`.
+* `prep_techmix()` `r pull_title("prep_techmix")`.
 * `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
@@ -126,7 +126,7 @@ plot_trajectory(
 
 sector <- "power"
 
-data <- prep__techmix(example_data,
+data <- prep_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -153,7 +153,7 @@ plot
 
 sector <- "automotive"
 
-data <- prep__techmix(example_data,
+data <- prep_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -177,17 +177,17 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prep__timelineA()` `r pull_title("prep__timeline")`.
+* `prep_timelineA()` `r pull_title("prep_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 # Using default preparation and specs
-data <- prep__timelineA(sda_target, sector_filter = "cement")
+data <- prep_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 
 # Using custom preparation
-data <- prep__timelineA(
-  sda_target,
+data <- prep_timelineA(
+  sda,
   sector_filter = "cement",
   year_start = 2020,
   year_end = 2050,

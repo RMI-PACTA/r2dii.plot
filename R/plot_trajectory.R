@@ -17,8 +17,8 @@
 #'
 #' @export
 #' @examples
-#' data <- prep__trajectory(
-#'   process_input_data(example_data),
+#' data <- prep_trajectory(
+#'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
 #'   region_filter = "global",

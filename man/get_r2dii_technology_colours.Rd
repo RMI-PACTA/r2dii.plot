@@ -15,3 +15,10 @@ Get the predefined technology colors for a sector
 \examples{
 get_r2dii_technology_colours("power")
 }
+\seealso{
+Other colour datasets: 
+\code{\link{r2dii_palette_colours}()},
+\code{\link{r2dii_scenario_colours}},
+\code{\link{r2dii_sector_colours}()}
+}
+\concept{colour datasets}

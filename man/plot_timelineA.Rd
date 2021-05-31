@@ -56,13 +56,13 @@ Arguments).
 library(ggplot2)
 library(dplyr)
 
-data <- sda_target \%>\%
+data <- sda \%>\%
   filter(sector == "cement", between(year, 2020, 2050)) \%>\%
-  prep__timelineB(extrapolate = TRUE)
+  prep_timelineB(extrapolate = TRUE)
 
 # `plot_timelineA()` -------------------------------------------------------
 
-data <- prep__timelineA(sda_target, sector_filter = "cement")
+data <- prepare_for_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 
 # Customize as usual with ggplot2
@@ -85,7 +85,7 @@ plot_timelineA(data, specs = custom)
 
 # `plot_timelineB()` ------------------------------------------------------
 
-data <- prep__timelineA(sda_target, sector_filter = "aviation")
+data <- prepare_for_timelineA(sda, sector_filter = "aviation")
 plot_timelineB(data)
 
 # Recode `line_name` with `dplyr::recode()`
@@ -100,7 +100,7 @@ data \%>\%
 
 # `plot_timelineC()` ------------------------------------------------------
 
-data <- prep__timelineA(sda_target, sector_filter = "aviation")
+data <- prep_timelineA(sda, sector_filter = "aviation")
 unique(data$line_name)
 # Recode to title case
 plot_timelineC(data, recode = TRUE)

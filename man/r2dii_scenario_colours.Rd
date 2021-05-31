@@ -3,7 +3,7 @@
 \docType{data}
 \name{r2dii_scenario_colours}
 \alias{r2dii_scenario_colours}
-\title{Colour palette for scenarios}
+\title{Dataset giving the colour palette for scenarios}
 \format{
 An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 5 rows and 2 columns.
 }
@@ -26,4 +26,11 @@ Column definitions:
 \examples{
 r2dii_scenario_colours
 }
+\seealso{
+Other colour datasets: 
+\code{\link{get_r2dii_technology_colours}()},
+\code{\link{r2dii_palette_colours}()},
+\code{\link{r2dii_sector_colours}()}
+}
+\concept{colour datasets}
 \keyword{datasets}

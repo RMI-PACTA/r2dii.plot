@@ -2,6 +2,8 @@
 #'
 #' @param sector Sector for which we want to retrieve colors (character string).
 #'
+#' @family colour datasets
+#'
 #' @export
 #' @examples
 #' get_r2dii_technology_colours("power")
@@ -45,6 +47,8 @@ get_r2dii_technology_colours <- function(sector) {
 
 #' Outputs a data frame giving the 2DII colour palette
 #'
+#' @family colour datasets
+#'
 #' @export
 #' @examples
 #' r2dii_palette_colours()
@@ -66,6 +70,8 @@ r2dii_palette_colours <- function() {
 }
 
 #' Get the 2DII sector colour palette
+#'
+#' @family colour datasets
 #'
 #' @return Tribble with sector labels and colour hex strings.
 #' @export
