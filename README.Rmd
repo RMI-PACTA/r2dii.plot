@@ -68,7 +68,6 @@ devtools::install_github("2DegreesInvesting/r2dii.plot")
 ## Example
 
 ```{r}
-library(tidyverse)
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)

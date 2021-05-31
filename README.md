@@ -35,35 +35,22 @@ errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#in
 ## Example
 
 ``` r
-library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-#> ✔ ggplot2 3.3.3     ✔ purrr   0.3.4
-#> ✔ tibble  3.1.2     ✔ dplyr   1.0.6
-#> ✔ tidyr   1.1.3     ✔ stringr 1.4.0
-#> ✔ readr   1.4.0     ✔ forcats 0.5.1
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-  - `market_share` dataset imitating the output of
+-   `market_share` dataset imitating the output of
     ‘r2dii.analysis::target\_market\_share()’.
-  - `process_input_data()` performs the initial processing on raw input
+-   `process_input_data()` performs the initial processing on raw input
     data in banks’ format.
-
-<!-- end list -->
 
 ``` r
 market_share <- process_input_data(market_share)
 ```
 
-  - `plot_trajectory()` create a trajectory alignment chart in a ggplot
+-   `plot_trajectory()` create a trajectory alignment chart in a ggplot
     object.
-
-<!-- end list -->
 
 ``` r
 data_trajectory <- prep_trajectory(
@@ -103,7 +90,6 @@ plot_trajectory(
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # more elaborate annotations, title and labels
 
 data_trajectory <- prep_trajectory(
@@ -145,13 +131,11 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmix()` prepares pre-processed data for plotting a tech-mix
+-   `prep_techmix()` prepares pre-processed data for plotting a tech-mix
     chart.
-  - `get_r2dii_technology_colours()` get the predefined technology
+-   `get_r2dii_technology_colours()` get the predefined technology
     colors for a sector.
-  - `plot_techmix()` create a techmix chart in a ggplot object.
-
-<!-- end list -->
+-   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
 # Default colours, all data, added title
@@ -173,7 +157,6 @@ plot +
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -190,7 +173,6 @@ plot
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -221,10 +203,8 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_timelineA()` .
-  - `plot_timelineA()` creates a time line plot.
-
-<!-- end list -->
+-   `prep_timelineA()` .
+-   `plot_timelineA()` creates a time line plot.
 
 ``` r
 # Using default preparation and specs
@@ -235,7 +215,6 @@ plot_timelineA(data)
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Using custom preparation
 data <- prep_timelineA(
   sda,
@@ -259,12 +238,10 @@ plot_timelineA(data) +
 
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `timeline_specs()` creates the default specs data frame for
+-   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.
-  - `r2dii_palette_colours()` outputs a data frame giving the 2dii
+-   `r2dii_palette_colours()` outputs a data frame giving the 2dii
     colour palette.
-
-<!-- end list -->
 
 ``` r
 # You may use it as a template to create your custom specs
