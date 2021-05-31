@@ -1,7 +1,7 @@
 # outputs the expected snapshot
 
     Code
-      some_example_data
+      some_market_share
     Output
             sector technology year region scenario_source            metric
       1 automotive   electric 2020 global       demo_2020         projected

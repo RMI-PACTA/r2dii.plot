@@ -12,3 +12,10 @@ Outputs a data frame giving the 2DII colour palette
 \examples{
 r2dii_palette_colours()
 }
+\seealso{
+Other colour datasets: 
+\code{\link{get_r2dii_technology_colours}()},
+\code{\link{r2dii_scenario_colours}},
+\code{\link{r2dii_sector_colours}()}
+}
+\concept{colour datasets}

@@ -18,6 +18,6 @@ This function processes the data in banks' format so that it can
 be used later in data filtering functions for charts.
 }
 \examples{
-data <- example_data
+data <- market_share
 process_input_data(data)
 }

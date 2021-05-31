@@ -74,19 +74,18 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-* `example_data` `r pull_title("example_data")`.
+* `market_share` `r pull_title("market_share")`.
 * `process_input_data()` `r pull_title("process_input_data")`.
 
 ```{r}
-example_data <- process_input_data(example_data)
+market_share <- process_input_data(market_share)
 ```
 
 * `plot_trajectory()` `r pull_title("plot_trajectory")`.
 
 ```{r}
-# simple chart without title and axis labels
-data_trajectory <- prepare_for_trajectory_chart(
-  example_data,
+data_trajectory <- prep_trajectory(
+  market_share,
   sector_filter = "power",
   technology_filter = "oilcap",
   region_filter = "global",
@@ -120,8 +119,8 @@ plot_trajectory(
 
 # more elaborate annotations, title and labels
 
-data_trajectory <- prepare_for_trajectory_chart(
-  example_data, 
+data_trajectory <- prep_trajectory(
+  market_share, 
   sector_filter = "power",
   technology_filter = "renewablescap",
   region_filter = "global", 
@@ -157,7 +156,7 @@ plot +
   )
 ```
 
-* `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
+* `prep_techmix()` `r pull_title("prep_techmix")`.
 * `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
@@ -166,7 +165,7 @@ plot +
 
 sector <- "power"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prep_techmix(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -193,7 +192,7 @@ plot
 
 sector <- "automotive"
 
-data <- prepare_for_techmix_chart(example_data,
+data <- prep_techmix(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -217,17 +216,17 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prepare_for_timelineA()` `r pull_title("prepare_for_timeline")`.
+* `prep_timelineA()` `r pull_title("prep_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 # Using default preparation and specs
-data <- prepare_for_timelineA(sda_target, sector_filter = "cement")
+data <- prep_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 
 # Using custom preparation
-data <- prepare_for_timelineA(
-  sda_target,
+data <- prep_timelineA(
+  sda,
   sector_filter = "cement",
   year_start = 2020,
   year_end = 2050,
@@ -256,6 +255,3 @@ timeline_specs(data)
 # You may use it as a reference for 2DII's colour palette
 r2dii_palette_colours()
 ```
-
-
-

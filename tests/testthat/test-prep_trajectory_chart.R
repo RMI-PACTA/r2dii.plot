@@ -1,7 +1,7 @@
 test_that("outputs a data.frame", {
-  data <- process_input_data(example_data)
+  data <- process_input_data(market_share)
 
-  out <- prepare_for_trajectory_chart(
+  out <- prep_trajectory(
     data,
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -14,10 +14,10 @@ test_that("outputs a data.frame", {
 })
 
 test_that("returns visibly", {
-  data <- process_input_data(example_data)
+  data <- process_input_data(market_share)
 
   expect_visible(
-    prepare_for_trajectory_chart(
+    prep_trajectory(
       data,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -30,10 +30,10 @@ test_that("returns visibly", {
 
 test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
   dont_normalize <- FALSE
-  data <- process_input_data(example_data)
+  data <- process_input_data(market_share)
 
   expect_visible(
-    prepare_for_trajectory_chart(
+    prep_trajectory(
       data,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -50,8 +50,8 @@ test_that("with bad `sector_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prepare_for_trajectory_chart(
-        process_input_data(example_data),
+      prep_trajectory(
+        process_input_data(market_share),
         sector_filter = "bad",
         technology_filter = "oilcap",
         region_filter = "global",
@@ -67,8 +67,8 @@ test_that("with bad `technology_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prepare_for_trajectory_chart(
-        process_input_data(example_data),
+      prep_trajectory(
+        process_input_data(market_share),
         sector_filter = "power",
         technology_filter = "bad",
         region_filter = "global",
@@ -84,8 +84,8 @@ test_that("with bad `region_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prepare_for_trajectory_chart(
-        process_input_data(example_data),
+      prep_trajectory(
+        process_input_data(market_share),
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "bad",
@@ -101,8 +101,8 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prepare_for_trajectory_chart(
-        process_input_data(example_data),
+      prep_trajectory(
+        process_input_data(market_share),
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "global",
@@ -117,8 +117,8 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
 # "production"? That information is not documented in the description of the
 # argument `value_name` not via examples or README.
 test_that("adds the column `value` from the column named in `value_name`", {
-  out <- prepare_for_trajectory_chart(
-    process_input_data(example_data),
+  out <- prep_trajectory(
+    process_input_data(market_share),
     sector_filter = "power",
     technology_filter = "oilcap",
     region_filter = "global",
@@ -133,8 +133,8 @@ test_that("adds the column `value` from the column named in `value_name`", {
 # FIXME: Do we need an error or warning?
 test_that("with bad `end_year_filter` throws no error", {
   expect_no_error(
-    prepare_for_trajectory_chart(
-      process_input_data(example_data),
+    prep_trajectory(
+      process_input_data(market_share),
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
@@ -148,8 +148,8 @@ test_that("with bad `end_year_filter` throws no error", {
 test_that("with bad `normalize_to_start_year` errors gracefully", {
   expect_error(
     regexp = "not.*logical",
-    prepare_for_trajectory_chart(
-      process_input_data(example_data),
+    prep_trajectory(
+      process_input_data(market_share),
       sector_filter = "power",
       technology_filter = "oilcap",
       region_filter = "global",
@@ -163,8 +163,8 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
 test_that("with missing crucial columns errors gracefully", {
   suppressWarnings(
     expect_snapshot_error(
-      prepare_for_trajectory_chart(
-        bad <- select(process_input_data(example_data), -sector),
+      prep_trajectory(
+        bad <- select(process_input_data(market_share), -sector),
         sector_filter = "power",
         technology_filter = "oilcap",
         region_filter = "global",
@@ -176,14 +176,14 @@ test_that("with missing crucial columns errors gracefully", {
 })
 
 test_that("outputs data starting at the start of 'projected' or later", {
-  data <- process_input_data(example_data)
+  data <- process_input_data(market_share)
 
   year_start_projected <- data %>%
     filter(.data$metric == "projected") %>%
     pull(.data$year) %>%
     min()
 
-  out <- prepare_for_trajectory_chart(
+  out <- prep_trajectory(
     data,
     sector_filter = "power",
     technology_filter = "oilcap",
