@@ -213,7 +213,7 @@ case. <code>FALSE</code> does no recoding and plots <code>data$line_name</code> 
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>2020</span>, <span class='fl'>2050</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='prepare_for_timelineA.html'>prepare_for_timelineB</a></span><span class='op'>(</span>extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'><a href='prep_timelineA.html'>prep_timelineB</a></span><span class='op'>(</span>extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># `plot_timelineA()` -------------------------------------------------------</span>
 
@@ -256,7 +256,7 @@ case. <code>FALSE</code> does no recoding and plots <code>data$line_name</code> 
 </div><div class='img'><img src='plot_timelineA-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># `plot_timelineC()` ------------------------------------------------------</span>
 
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timelineA.html'>prepare_for_timelineA</a></span><span class='op'>(</span><span class='va'>sda</span>, sector_filter <span class='op'>=</span> <span class='st'>"aviation"</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep_timelineA.html'>prep_timelineA</a></span><span class='op'>(</span><span class='va'>sda</span>, sector_filter <span class='op'>=</span> <span class='st'>"aviation"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>line_name</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "projected"         "corporate_economy"</div><div class='input'><span class='co'># Recode to title case</span>
 <span class='fu'>plot_timelineC</span><span class='op'>(</span><span class='va'>data</span>, recode <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>

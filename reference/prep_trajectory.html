@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a techmix chart in a ggplot object — plot_techmix • r2dii.plot</title>
+<title>Prepares pre-processed data for plotting a trajectory chart — prep_trajectory • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a techmix chart in a ggplot object — plot_techmix" />
-<meta property="og:description" content="The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.)." />
+<meta property="og:title" content="Prepares pre-processed data for plotting a trajectory chart — prep_trajectory" />
+<meta property="og:description" content="Prepares pre-processed data for plotting a trajectory chart" />
 
 
 
@@ -119,64 +117,96 @@ etc.)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a techmix chart in a ggplot object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/plot_techmix.R'><code>R/plot_techmix.R</code></a></small>
-    <div class="hidden name"><code>plot_techmix.Rd</code></div>
+    <h1>Prepares pre-processed data for plotting a trajectory chart</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/prep_trajectory_chart.R'><code>R/prep_trajectory_chart.R</code></a></small>
+    <div class="hidden name"><code>prep_trajectory.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.).</p>
+    <p>Prepares pre-processed data for plotting a trajectory chart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_techmix</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  metric_type_order <span class='op'>=</span> <span class='cn'>NULL</span>,
-  metric_type_labels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  tech_colours <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>prep_trajectory</span><span class='op'>(</span>
+  <span class='va'>data_preprocessed</span>,
+  <span class='va'>sector_filter</span>,
+  <span class='va'>technology_filter</span>,
+  <span class='va'>region_filter</span>,
+  <span class='va'>scenario_source_filter</span>,
+  <span class='va'>value_name</span>,
+  end_year_filter <span class='op'>=</span> <span class='fl'>2025</span>,
+  normalize_to_start_year <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>Filtered input data, with columns: technology, metric_type,
-metric and value.</p></td>
+      <th>data_preprocessed</th>
+      <td><p>Pre-processed input data.</p></td>
     </tr>
     <tr>
-      <th>metric_type_order</th>
-      <td><p>Vector with the order of bars based on 'metric_type'
-values.</p></td>
+      <th>sector_filter</th>
+      <td><p>Sector for which to filter the data (character string).</p></td>
     </tr>
     <tr>
-      <th>metric_type_labels</th>
-      <td><p>Vector with labels for bars. Order must follow that
-in 'metric type order'.</p></td>
+      <th>technology_filter</th>
+      <td><p>Technology for which to filter the data (character
+string).</p></td>
     </tr>
     <tr>
-      <th>tech_colours</th>
-      <td><p>Dataframe containing colours per technology, with
-columns: technology, colour, label(optional).</p></td>
+      <th>region_filter</th>
+      <td><p>Region for which to filter the data (character string).</p></td>
+    </tr>
+    <tr>
+      <th>scenario_source_filter</th>
+      <td><p>Scenario source for which to filter the data
+(character string).</p></td>
+    </tr>
+    <tr>
+      <th>value_name</th>
+      <td><p>The name of the value to be plotted in the trajectory chart
+(character string).</p></td>
+    </tr>
+    <tr>
+      <th>end_year_filter</th>
+      <td><p>Cut-off year for the chart (an integer).</p></td>
+    </tr>
+    <tr>
+      <th>normalize_to_start_year</th>
+      <td><p>Flag indicating whether the values should be
+normalized (boolean).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A data frame.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep_techmix.html'>prep_techmix</a></span><span class='op'>(</span>
-  <span class='fu'><a href='process_input_data.html'>process_input_data</a></span><span class='op'>(</span><span class='va'>market_share</span><span class='op'>)</span>,
+    <pre class="examples"><div class='input'><span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='va'>market_share</span>
+<span class='va'>processed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='process_input_data.html'>process_input_data</a></span><span class='op'>(</span><span class='va'>raw</span><span class='op'>)</span>
+<span class='fu'>prep_trajectory</span><span class='op'>(</span>
+  <span class='va'>processed</span>,
   sector_filter <span class='op'>=</span> <span class='st'>"power"</span>,
-  years_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2020</span>, <span class='fl'>2025</span><span class='op'>)</span>,
+  technology_filter <span class='op'>=</span> <span class='st'>"oilcap"</span>,
   region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
   scenario_source_filter <span class='op'>=</span> <span class='st'>"demo_2020"</span>,
-  scenario_filter <span class='op'>=</span> <span class='st'>"sds"</span>,
-  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
+  value_name <span class='op'>=</span> <span class='st'>"production"</span>
 <span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='fu'>plot_techmix</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='plot_techmix-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 5</span>
+#&gt;     year metric_type metric            value technology
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>2</span>020 portfolio   projected         1     oilcap    
+#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>2</span>020 benchmark   corporate_economy 1     oilcap    
+#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>2</span>020 scenario    cps               1     oilcap    
+#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sds               1     oilcap    
+#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sps               1     oilcap    
+#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>2</span>021 portfolio   projected         0.994 oilcap    
+#&gt; <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>2</span>021 benchmark   corporate_economy 0.992 oilcap    
+#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>2</span>021 scenario    cps               0.932 oilcap    
+#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sds               0.922 oilcap    
+#&gt; <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sps               0.931 oilcap    
+#&gt; <span style='color: #949494;'># … with 20 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

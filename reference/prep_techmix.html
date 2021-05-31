@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a techmix chart in a ggplot object — plot_techmix • r2dii.plot</title>
+<title>Prepares pre-processed data for plotting a tech-mix chart — prep_techmix • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a techmix chart in a ggplot object — plot_techmix" />
-<meta property="og:description" content="The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.)." />
+<meta property="og:title" content="Prepares pre-processed data for plotting a tech-mix chart — prep_techmix" />
+<meta property="og:description" content="Prepares pre-processed data for plotting a tech-mix chart" />
 
 
 
@@ -119,22 +117,24 @@ etc.)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a techmix chart in a ggplot object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/plot_techmix.R'><code>R/plot_techmix.R</code></a></small>
-    <div class="hidden name"><code>plot_techmix.Rd</code></div>
+    <h1>Prepares pre-processed data for plotting a tech-mix chart</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/prep_techmix_chart.R'><code>R/prep_techmix_chart.R</code></a></small>
+    <div class="hidden name"><code>prep_techmix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.).</p>
+    <p>Prepares pre-processed data for plotting a tech-mix chart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_techmix</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>prep_techmix</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  metric_type_order <span class='op'>=</span> <span class='cn'>NULL</span>,
-  metric_type_labels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  tech_colours <span class='op'>=</span> <span class='cn'>NULL</span>
+  sector_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"automotive"</span>, <span class='st'>"aviation"</span>, <span class='st'>"cement"</span>, <span class='st'>"oil and gas"</span>, <span class='st'>"shipping"</span>,
+    <span class='st'>"steel"</span>, <span class='st'>"power"</span><span class='op'>)</span>,
+  years_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
+  scenario_source_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scenario_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -142,29 +142,39 @@ etc.).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Filtered input data, with columns: technology, metric_type,
-metric and value.</p></td>
+      <td><p>Pre-processed input data.</p></td>
     </tr>
     <tr>
-      <th>metric_type_order</th>
-      <td><p>Vector with the order of bars based on 'metric_type'
-values.</p></td>
+      <th>sector_filter</th>
+      <td><p>Sector for which to filter the data (character string).</p></td>
     </tr>
     <tr>
-      <th>metric_type_labels</th>
-      <td><p>Vector with labels for bars. Order must follow that
-in 'metric type order'.</p></td>
+      <th>years_filter</th>
+      <td><p>Years to plot in the graph (array of integer values).</p></td>
     </tr>
     <tr>
-      <th>tech_colours</th>
-      <td><p>Dataframe containing colours per technology, with
-columns: technology, colour, label(optional).</p></td>
+      <th>region_filter</th>
+      <td><p>Region for which to filter the data (character string).</p></td>
+    </tr>
+    <tr>
+      <th>scenario_source_filter</th>
+      <td><p>Scenario source for which to filter the data
+(character string).</p></td>
+    </tr>
+    <tr>
+      <th>scenario_filter</th>
+      <td><p>Scenario to plot in the graph (character string).</p></td>
+    </tr>
+    <tr>
+      <th>value_to_plot</th>
+      <td><p>The name of the value to be plotted as a bar chart
+(character string).</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep_techmix.html'>prep_techmix</a></span><span class='op'>(</span>
+    <pre class="examples"><div class='input'><span class='fu'>prep_techmix</span><span class='op'>(</span>
   <span class='fu'><a href='process_input_data.html'>process_input_data</a></span><span class='op'>(</span><span class='va'>market_share</span><span class='op'>)</span>,
   sector_filter <span class='op'>=</span> <span class='st'>"power"</span>,
   years_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2020</span>, <span class='fl'>2025</span><span class='op'>)</span>,
@@ -173,10 +183,20 @@ columns: technology, colour, label(optional).</p></td>
   scenario_filter <span class='op'>=</span> <span class='st'>"sds"</span>,
   value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
 <span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='fu'>plot_techmix</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='plot_techmix-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 6</span>
+#&gt;    sector technology metric_type    metric             value scenario_source
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          
+#&gt; <span style='color: #BCBCBC;'> 1</span> power  coalcap    portfolio_2020 projected         0.129  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 2</span> power  coalcap    benchmark_2020 corporate_economy 0.374  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 3</span> power  coalcap    scenario_2020  sds               0.384  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 4</span> power  coalcap    portfolio_2025 projected         0.117  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 5</span> power  coalcap    benchmark_2025 corporate_economy 0.374  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 6</span> power  coalcap    scenario_2025  sds               0.316  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 7</span> power  gascap     portfolio_2020 projected         0.099<span style='text-decoration: underline;'>9</span> demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 8</span> power  gascap     benchmark_2020 corporate_economy 0.118  demo_2020      
+#&gt; <span style='color: #BCBCBC;'> 9</span> power  gascap     scenario_2020  sds               0.074<span style='text-decoration: underline;'>5</span> demo_2020      
+#&gt; <span style='color: #BCBCBC;'>10</span> power  gascap     portfolio_2025 projected         0.088<span style='text-decoration: underline;'>5</span> demo_2020      
+#&gt; <span style='color: #949494;'># … with 20 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
