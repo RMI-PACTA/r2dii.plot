@@ -15,8 +15,8 @@
 #'
 #' @export
 #' @examples
-#' data <- prepare_for_techmix_chart(
-#'   process_input_data(example_data),
+#' data <- prep_techmix(
+#'   market_share,
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
 #'   region_filter = "global",

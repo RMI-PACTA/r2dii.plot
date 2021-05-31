@@ -12,8 +12,8 @@
 #'
 #' @export
 #' @examples
-#' prepare_for_techmix_chart(
-#'   process_input_data(example_data),
+#' prep_techmix(
+#'   market_share,
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
 #'   region_filter = "global",
@@ -21,7 +21,7 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-prepare_for_techmix_chart <- function(data,
+prep_techmix <- function(data,
                                       sector_filter = c(
                                         "automotive",
                                         "aviation",
@@ -36,6 +36,8 @@ prepare_for_techmix_chart <- function(data,
                                       scenario_source_filter = NULL,
                                       scenario_filter = NULL,
                                       value_to_plot = "technology_share") {
+  data <- process_input_data(data)
+
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
   scenario_filter <- scenario_filter %||% (data %>%

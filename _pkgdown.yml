@@ -29,6 +29,33 @@ navbar:
 
     - icon: fa-github
       href: https://github.com/2DegreesInvesting/r2dii.plot.static
-      
+
     - text: r2dii
       href: https://2degreesinvesting.github.io/r2dii/index.html
+
+
+
+reference:
+
+  - title: Prepare data for plotting
+    contents:
+      - starts_with("prep")
+
+  - title: Plot
+    contents:
+      - starts_with("plot")
+
+  - title: Colour datasets
+    contents:
+      - has_concept("colour datasets")
+
+  - title: Example datasets
+    contents:
+      - has_concept("example datasets")
+
+  - title: Miscelaneous
+    contents:
+      - -has_concept("example datasets")
+      - -starts_with("prep")
+      - -starts_with("plot")
+      - -has_concept("colour datasets")

@@ -18,17 +18,15 @@
 #' @export
 #'
 #' @examples
-#' raw <- example_data
-#' processed <- process_input_data(raw)
-#' prepare_for_trajectory_chart(
-#'   processed,
+#' prep_trajectory(
+#'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "oilcap",
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
 #'   value_name = "production"
 #' )
-prepare_for_trajectory_chart <- function(data_preprocessed,
+prep_trajectory <- function(data_preprocessed,
                                          sector_filter,
                                          technology_filter,
                                          region_filter,
@@ -36,6 +34,8 @@ prepare_for_trajectory_chart <- function(data_preprocessed,
                                          value_name,
                                          end_year_filter = 2025,
                                          normalize_to_start_year = TRUE) {
+  data_preprocessed <- process_input_data(data_preprocessed)
+
   warn_bad_value(sector_filter, data_preprocessed$sector)
   warn_bad_value(technology_filter, data_preprocessed$technology)
   warn_bad_value(region_filter, data_preprocessed$region)

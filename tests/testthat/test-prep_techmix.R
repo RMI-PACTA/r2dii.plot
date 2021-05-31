@@ -1,7 +1,7 @@
 test_that("outputs a data.frame", {
-  data <- process_input_data(example_data)
+  data <- market_share
 
-  out <- prepare_for_techmix_chart(
+  out <- prep_techmix(
     data,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -15,11 +15,9 @@ test_that("outputs a data.frame", {
 })
 
 test_that("returns visibly", {
-  data <- process_input_data(example_data)
-
   expect_visible(
-    prepare_for_techmix_chart(
-      data,
+    prep_techmix(
+      market_share,
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "global",
@@ -33,8 +31,8 @@ test_that("returns visibly", {
 test_that("with bad `sector_filter` errors gracefully", {
   expect_error(
     regexp = "arg.*should be one of",
-    prepare_for_techmix_chart(
-      process_input_data(example_data),
+    prep_techmix(
+      market_share,
       sector_filter = "bad",
       years_filter = c(2020, 2025),
       region_filter = "global",
@@ -48,8 +46,8 @@ test_that("with bad `sector_filter` errors gracefully", {
 test_that("with bad `years_filter` errors gracefully", {
   expect_error(
     regexp = "years_filter.*must be.*vector of numbers.",
-    prepare_for_techmix_chart(
-      process_input_data(example_data),
+    prep_techmix(
+      market_share,
       sector_filter = "power",
       years_filter = "bad",
       region_filter = "global",
@@ -63,8 +61,8 @@ test_that("with bad `years_filter` errors gracefully", {
 test_that("with bad `region_filter` errors gracefully", {
   expect_error(
     regexp = "region_filter.*must be.*in.*input data.*region.",
-    prepare_for_techmix_chart(
-      process_input_data(example_data),
+    prep_techmix(
+      market_share,
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "bad",
@@ -78,8 +76,8 @@ test_that("with bad `region_filter` errors gracefully", {
 test_that("with bad `scenario_source_filter` errors gracefully", {
   expect_error(
     regexp = "scenario_source_filter.*must be.*in.*input data.*scenario_source",
-    prepare_for_techmix_chart(
-      process_input_data(example_data),
+    prep_techmix(
+      market_share,
       scenario_source_filter = "bad",
       sector_filter = "power",
       years_filter = c(2020, 2025),
@@ -93,8 +91,8 @@ test_that("with bad `scenario_source_filter` errors gracefully", {
 test_that("with bad `scenario_filter` errors gracefully", {
   expect_error(
     regexp = "scenario_filter.*must.*in.*input data.*metric",
-    prepare_for_techmix_chart(
-      process_input_data(example_data),
+    prep_techmix(
+      market_share,
       sector_filter = "power",
       years_filter = c(2020, 2025),
       region_filter = "global",
@@ -106,8 +104,8 @@ test_that("with bad `scenario_filter` errors gracefully", {
 })
 
 test_that("adds the column `value` from the column named in `value_to_plot`", {
-  out <- prepare_for_techmix_chart(
-    process_input_data(example_data),
+  out <- prep_techmix(
+    market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",

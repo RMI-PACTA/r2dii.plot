@@ -1,7 +1,7 @@
 # outputs the expected snapshot
 
     Code
-      sda_target
+      sda
     Output
       # A tibble: 208 x 4
          sector      year emission_factor_metric emission_factor_value
