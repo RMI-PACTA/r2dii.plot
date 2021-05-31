@@ -58,7 +58,7 @@ library(dplyr)
 
 data <- sda \%>\%
   filter(sector == "cement", between(year, 2020, 2050)) \%>\%
-  prepare_for_timelineB(extrapolate = TRUE)
+  prep_timelineB(extrapolate = TRUE)
 
 # `plot_timelineA()` -------------------------------------------------------
 
@@ -100,7 +100,7 @@ data \%>\%
 
 # `plot_timelineC()` ------------------------------------------------------
 
-data <- prepare_for_timelineA(sda, sector_filter = "aviation")
+data <- prep_timelineA(sda, sector_filter = "aviation")
 unique(data$line_name)
 # Recode to title case
 plot_timelineC(data, recode = TRUE)

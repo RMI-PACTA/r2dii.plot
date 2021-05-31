@@ -17,7 +17,7 @@ A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineA]
 Creates the default specs data frame for \code{\link[=plot_timelineA]{plot_timelineA()}}
 }
 \examples{
-data <- prepare_for_timelineB(sda)
+data <- prep_timelineB(sda)
 timeline_specs(data)
 }
 \seealso{

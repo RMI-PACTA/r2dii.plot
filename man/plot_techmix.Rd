@@ -30,7 +30,7 @@ technology mix for different categories (portfolio, scenario, benchmark,
 etc.).
 }
 \examples{
-data <- prepare_for_techmix_chart(
+data <- prep_techmix(
   process_input_data(market_share),
   sector_filter = "power",
   years_filter = c(2020, 2025),

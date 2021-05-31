@@ -83,7 +83,7 @@ market_share <- process_input_data(market_share)
 * `plot_trajectory()` `r pull_title("plot_trajectory")`.
 
 ```{r}
-data_trajectory <- prepare_for_trajectory_chart(
+data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
   technology_filter = "renewablescap",
@@ -117,7 +117,7 @@ plot_trajectory(
 )
 ```
 
-* `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
+* `prep_techmix()` `r pull_title("prep_techmix")`.
 * `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
@@ -126,7 +126,7 @@ plot_trajectory(
 
 sector <- "power"
 
-data <- prepare_for_techmix_chart(market_share,
+data <- prep_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -153,7 +153,7 @@ plot
 
 sector <- "automotive"
 
-data <- prepare_for_techmix_chart(market_share,
+data <- prep_techmix(example_data,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -177,16 +177,16 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prepare_for_timelineA()` `r pull_title("prepare_for_timeline")`.
+* `prep_timelineA()` `r pull_title("prep_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 # Using default preparation and specs
-data <- prepare_for_timelineA(sda, sector_filter = "cement")
+data <- prep_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 
 # Using custom preparation
-data <- prepare_for_timelineA(
+data <- prep_timelineA(
   sda,
   sector_filter = "cement",
   year_start = 2020,
