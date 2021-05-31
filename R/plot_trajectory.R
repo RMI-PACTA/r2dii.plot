@@ -49,12 +49,12 @@ plot_trajectory <- function(data,
                             main_line_metric,
                             additional_line_metrics = NULL) {
   check_number_scenarios(scenario_specs_good_to_bad)
+
   # plot scenario areas
-  scenario_specs <- get_ordered_scenario_specs_with_colours(
+  scenario_specs_areas <- get_ordered_scenario_specs_with_colours(
     scenario_specs_good_to_bad, data$technology[1]
   )
-  data_scenarios <- get_scenario_data(data, scenario_specs)
-  colours_scenarios <- scenario_specs$colour
+  data_scenarios <- get_scenario_data(data, scenario_specs_areas)
   p_trajectory <- ggplot() +
     geom_ribbon(
       data = data_scenarios,
@@ -66,39 +66,38 @@ plot_trajectory <- function(data,
         alpha = 0.9
       )
     ) +
-    scale_fill_manual(values = colours_scenarios)
+    scale_fill_manual(values = scenario_specs_areas$colour)
 
-  # plot trajectory lines
+  # plot trajectory and scenario lines
+  scenario_specs_lines <- scenario_specs_areas %>% filter(.data$scenario != "worse")
   if (!is.null(additional_line_metrics)) {
-    line_metrics <- c(main_line_metric$metric, additional_line_metrics$metric)
-    line_labels <- c(main_line_metric$label, additional_line_metrics$label)
+    line_metrics <- c(
+      main_line_metric$metric,
+      additional_line_metrics$metric,
+      scenario_specs_lines$scenario
+    )
+    line_labels <- c(
+      main_line_metric$label,
+      additional_line_metrics$label,
+      scenario_specs_lines$label
+    )
   } else {
-    line_metrics <- c(main_line_metric$metric)
-    line_labels <- c(main_line_metric$label)
+    line_metrics <- c(main_line_metric$metric, scenario_specs_lines$scenario)
+    line_labels <- c(main_line_metric$label, scenario_specs_lines$label)
   }
+  names(line_labels) <- line_metrics
 
-  scenario_specs_lines <- scenario_specs %>% filter(.data$scenario != "worse")
-  data_scenario_lines <- data %>%
-    filter(.data$metric_type == "scenario") %>%
-    mutate(metric = factor(.data$metric, levels = scenario_specs_lines$scenario))
   n_scenarios <- nrow(scenario_specs_lines)
+  n_lines_traj <- length(line_metrics) - n_scenarios
+  linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
+  linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
+  line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", n_scenarios))
+  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_specs_lines$colour)
 
-  data_metrics <- data %>% filter(.data$metric %in% line_metrics) %>%
+  data_lines <- data %>%
+    filter(.data$metric %in% line_metrics) %>%
+    mutate(label = dplyr::recode(.data$metric, !!!line_labels)) %>%
     mutate(metric = factor(.data$metric, levels = line_metrics)) %>%
-    arrange(.data$metric)
-  n_lines <- length(line_metrics)
-
-  linetypes_ordered <- c("solid", "dashed", "solid", "solid", "twodash")
-  linecolours_ordered <- c("black", "black", "gray", "grey46", "black")
-
-  metrics <- c(scenario_specs_lines$scenario, line_metrics)
-  labels <- c(scenario_specs_lines$label, line_labels)
-  names(labels) <- metrics
-  linetypes <- c(rep("solid", n_scenarios), linetypes_ordered[1:n_lines])
-  linecolours <- c(scenario_specs_lines$colour, linecolours_ordered[1:n_lines])
-
-  data_lines <- rbind(data_scenario_lines, data_metrics) %>%
-    mutate(metric = factor(.data$metric, levels = metrics)) %>%
     arrange(.data$year, .data$metric)
 
   p_trajectory <- p_trajectory +
@@ -112,21 +111,29 @@ plot_trajectory <- function(data,
       )
     )
 
+  p_trajectory <- p_trajectory +
+    coord_cartesian(expand = FALSE, clip = "off") +
+    scale_linetype_manual(values = line_types) +
+    scale_color_manual(values = line_colours)
+
+  # annotate trajectory and scenario lines
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
-  data_metrics_end <- data_metrics %>%
-    mutate(label = dplyr::recode(.data$metric, !!!labels)) %>%
-    filter(.data$year == last_year)
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
-      data = data_metrics_end,
+      data = data_lines %>%
+        filter(
+          .data$year == last_year,
+          .data$metric_type != "scenario"
+        ),
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$label),
+        label = .data$label
+      ),
       direction = "y",
-      size = 3,
+      size = 3.5,
       nudge_x = 0.15,
       nudge_y = 0.01 * value_span,
       hjust = 0,
@@ -134,21 +141,22 @@ plot_trajectory <- function(data,
       xlim = c(min(data$year), last_year + 3)
     )
 
-  data_scenarios_end <- data_scenario_lines %>%
-    mutate(label = dplyr::recode(.data$metric, !!!labels)) %>%
-    filter(.data$year == last_year)
-
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
-      data = data_scenarios_end,
+      data = data_lines %>%
+        filter(
+          .data$year == last_year,
+          .data$metric_type == "scenario"
+        ),
       aes(
         x = .data$year,
         y = .data$value,
         label = .data$label,
-        segment.color = .data$metric),
+        segment.color = .data$metric
+      ),
       direction = "y",
       color = "black",
-      size = 3,
+      size = 3.5,
       alpha = 1,
       nudge_x = 0.6,
       nudge_y = 0.01 * value_span,
@@ -156,12 +164,10 @@ plot_trajectory <- function(data,
       segment.size = 0.3,
       xlim = c(min(data$year), last_year + 5)
     ) +
-    scale_fill_manual(aesthetics = "segment.color", values = scenario_specs_lines$colour)
-
-  p_trajectory <- p_trajectory +
-    coord_cartesian(expand = FALSE, clip = "off") +
-    scale_linetype_manual(values = linetypes) +
-    scale_color_manual(values = linecolours)
+    scale_fill_manual(
+      aesthetics = "segment.color",
+      values = scenario_specs_lines$colour
+    )
 
   p_trajectory <- p_trajectory +
     theme_2dii() +
@@ -171,15 +177,14 @@ plot_trajectory <- function(data,
     ) %+replace%
     theme(
       plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm")
-    ) +
-    guides(linetype = FALSE, colour = FALSE)  # remove legend for "projected"
+    )
 
   p_trajectory
 }
 
 check_number_scenarios <- function(scenario_specs) {
   if (nrow(scenario_specs) > 4) {
-      rlang::abort(glue(
+    rlang::abort(glue(
       "Scenario number for plotting must be between 1 and 4. \\
       You provided {nrow(scenario_specs)} scenarios in 'scenario_specs'."
     ))
@@ -249,7 +254,7 @@ add_scenario_colours <- function(scenario_specs) {
 }
 
 get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
-  technology) {
+                                                    technology) {
   worse_row <- tibble(scenario = "worse", label = "Worse")
   scenario_specs_good_to_bad <- rbind(scenario_specs_good_to_bad, worse_row)
   scenario_specs_good_to_bad <- add_scenario_colours(scenario_specs_good_to_bad)
