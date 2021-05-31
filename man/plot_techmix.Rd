@@ -39,7 +39,6 @@ data <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-print(
-  plot_techmix(data)
-)
+
+plot_techmix(data)
 }
