@@ -1,5 +1,5 @@
-Package: r2dii.plot.static
-Title: Create Standard Static '2dii' Plots
+Package: r2dii.plot
+Title: Create Standard '2dii' Plots
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Monika",
@@ -12,8 +12,8 @@ Description: Allows the user to create standardized '2dii' graphs, like
     prepare the standard PACTA data to be an input for the plotting
     functions.
 License: MIT + file LICENSE
-URL: https://github.com/2DegreesInvesting/r2dii.plot.static
-BugReports: https://github.com/2DegreesInvesting/r2dii.plot.static/issues
+URL: https://github.com/2DegreesInvesting/r2dii.plot
+BugReports: https://github.com/2DegreesInvesting/r2dii.plot/issues
 Depends: 
     R (>= 3.4)
 Imports: 

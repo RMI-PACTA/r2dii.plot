@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 #' @return String.
 #' @examples
 #' pull_title("plot_trajectory")
-pull_title <- function(name, db = enframe_documentation("r2dii.plot.static")) {
+pull_title <- function(name, db = enframe_documentation("r2dii.plot")) {
   is_name <- db$name == name
   out <- db$title[is_name]
   tolower(out)
@@ -38,29 +38,29 @@ locate_package <- function(pkg) {
 }
 ```
 
-# r2dii.plot.static <a href='https://github.com/2DegreesInvesting/r2dii.plot.static'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
+# r2dii.plot <a href='https://github.com/2DegreesInvesting/r2dii.plot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
 
 <!-- badges: start -->
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![Codecov test coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot.static/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot.static?branch=master)
-[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot.static/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot.static/actions)
-[![CRAN status](https://www.r-pkg.org/badges/version/r2dii.plot.static)](https://CRAN.R-project.org/package=r2dii.plot.static)
+[![Codecov test coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
+[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 <!-- badges: end -->
 
-The goal of r2dii.plot.static is to provide users with plotting and data
+The goal of r2dii.plot is to provide users with plotting and data
 processing functions that will allow the users to create standard 2DII plots
 using `PACTA_analysis` or banks' output data as input. The plots are in the form
 of ggplot objects.
 
 ## Installation
 
-You can install the development version of r2dii.plot.static from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot.static) with:
+You can install the development version of r2dii.plot from
+[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("2DegreesInvesting/r2dii.plot.static")
+devtools::install_github("2DegreesInvesting/r2dii.plot")
 ```
 
 [How to minimize installation errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
@@ -69,7 +69,7 @@ devtools::install_github("2DegreesInvesting/r2dii.plot.static")
 
 ```{r}
 library(tidyverse)
-library(r2dii.plot.static)
+library(r2dii.plot)
 ```
 
 * `example_data` `r pull_title("example_data")`.
@@ -82,10 +82,11 @@ example_data <- process_input_data(example_data)
 * `plot_trajectory()` `r pull_title("plot_trajectory")`.
 
 ```{r}
+# simple chart without title and axis labels
 data_trajectory <- prepare_for_trajectory_chart(
   example_data,
   sector_filter = "power",
-  technology_filter = "renewablescap",
+  technology_filter = "oilcap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   value_name = "production",
@@ -114,6 +115,44 @@ plot_trajectory(
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
 )
+
+# more elaborate annotations, title and labels
+
+data_trajectory <- prepare_for_trajectory_chart(
+  example_data, 
+  sector_filter = "power",
+  technology_filter = "renewablescap",
+  region_filter = "global", 
+  scenario_source_filter = "demo_2020",
+  value_name = "production", 
+  end_year_filter = 2025,
+  normalize_to_start_year = TRUE
+)
+
+scenario_specs <- tibble(
+  scenario = c("sds", "sps", "cps"),
+  label = c(
+    "Sustainable Development Scenario", 
+    "Stated Policies Scenario", 
+    "Current Policies Scenario")
+)
+
+plot <- plot_trajectory(data_trajectory,
+  scenario_specs_good_to_bad = scenario_specs,
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
+)
+
+plot +
+  ggplot2::theme(
+    plot.margin = ggplot2::unit(c(0.5, 7, 0.5, 0.5), "cm")
+  ) +
+  ggplot2::labs(
+    title = "Production trajectory of Renewables Capacity technology\n in the Power sector",
+    subtitle = "The coloured areas indicate trajectories in reference to a scenario.\n The red area indicates trajectories below any sustainble scenario.",
+    x = "Year",
+    y = "Production rate (normalized to 2020)"
+  )
 ```
 
 * `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
