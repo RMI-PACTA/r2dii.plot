@@ -7,11 +7,12 @@
 #'
 #' @return A dataframe with additional column `metric_type` and modified
 #'   `metric`.
-#' @export
 #'
 #' @examples
 #' data <- example_data
 #' process_input_data(data)
+#' @keywords internal
+#' @noRd
 process_input_data <- function(data) {
   data %>%
     add_metric_type() %>%
