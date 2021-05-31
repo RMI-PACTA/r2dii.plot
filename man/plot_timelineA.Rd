@@ -62,7 +62,7 @@ data <- sda \%>\%
 
 # `plot_timelineA()` -------------------------------------------------------
 
-data <- prepare_for_timelineA(sda, sector_filter = "cement")
+data <- prep_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 
 # Customize as usual with ggplot2
@@ -85,7 +85,7 @@ plot_timelineA(data, specs = custom)
 
 # `plot_timelineB()` ------------------------------------------------------
 
-data <- prepare_for_timelineA(sda, sector_filter = "aviation")
+data <- prep_timelineA(sda, sector_filter = "aviation")
 plot_timelineB(data)
 
 # Recode `line_name` with `dplyr::recode()`
