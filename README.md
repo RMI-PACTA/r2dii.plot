@@ -1,88 +1,58 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  fig.align = "left",
-  out.width = "100%"
-)
-
-#' Pull the title of a documented object
-#' This function helps keep README and help files in sync.
-#' @param name String. The name of a documented object.
-#' @return String.
-#' @examples
-#' pull_title("plot_trajectory")
-pull_title <- function(name, db = enframe_documentation("r2dii.plot")) {
-  is_name <- db$name == name
-  out <- db$title[is_name]
-  tolower(out)
-}
-
-enframe_documentation <- function(package) {
-  db <- utils::hsearch_db(package, lib.loc = locate_package(package))[["Base"]]
-  names(db) <- tolower(names(db))
-  db
-}
-
-locate_package <- function(pkg) {
-  locate <- function(path) any(grepl(pkg, list.files(path)))
-  has_pkg <- unlist(lapply(.libPaths(), locate))
-  .libPaths()[has_pkg][[1]]
-}
-```
 
 # r2dii.plot <a href='https://github.com/2DegreesInvesting/r2dii.plot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
 
 <!-- badges: start -->
+
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![Codecov test coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
+[![Codecov test
+coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot/actions)
-[![CRAN status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 <!-- badges: end -->
 
 The goal of r2dii.plot is to provide users with plotting and data
-processing functions that will allow the users to create standard 2DII plots
-using `PACTA_analysis` or banks' output data as input. The plots are in the form
-of ggplot objects.
+processing functions that will allow the users to create standard 2DII
+plots using `PACTA_analysis` or banks’ output data as input. The plots
+are in the form of ggplot objects.
 
 ## Installation
 
 You can install the development version of r2dii.plot from
 [GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
 
-```r
+``` r
 # install.packages("devtools")
 devtools::install_github("2DegreesInvesting/r2dii.plot")
 ```
 
-[How to minimize installation errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
+[How to minimize installation
+errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
 
 ## Example
 
-```{r}
+``` r
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-* `market_share` `r pull_title("market_share")`.
-* `process_input_data()` `r pull_title("process_input_data")`.
+-   `market_share` dataset imitating the output of
+    ‘r2dii.analysis::target\_market\_share()’.
+-   `process_input_data()` performs the initial processing on raw input
+    data in banks’ format.
 
-```{r}
+``` r
 market_share <- process_input_data(market_share)
 ```
 
-* `plot_trajectory()` `r pull_title("plot_trajectory")`.
+-   `plot_trajectory()` create a trajectory alignment chart in a ggplot
+    object.
 
-```{r}
+``` r
 data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
@@ -117,11 +87,15 @@ plot_trajectory(
 )
 ```
 
-* `prep_techmix()` `r pull_title("prep_techmix")`.
-* `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
-* `plot_techmix()` `r pull_title("plot_techmix")`.
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-```{r}
+-   `prep_techmix()` prepares pre-processed data for plotting a tech-mix
+    chart.
+-   `get_r2dii_technology_colours()` get the predefined technology
+    colors for a sector.
+-   `plot_techmix()` create a techmix chart in a ggplot object.
+
+``` r
 # Default colours, all data, added title
 
 sector <- "power"
@@ -136,7 +110,11 @@ data <- prep_techmix(market_share,
 plot <- plot_techmix(data)
 plot +
   ggplot2::labs(title = "Technology mix for the Power sector")
+```
 
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -148,7 +126,11 @@ plot <- plot_techmix(data,
   tech_colours = power_colors_custom
 )
 plot
+```
 
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -177,14 +159,20 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prep_timelineA()` `r pull_title("prep_timeline")`.
-* `plot_timelineA()` `r pull_title("plot_timelineA")`.
+<img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-```{r}
+-   `prep_timelineA()` .
+-   `plot_timelineA()` creates a time line plot.
+
+``` r
 # Using default preparation and specs
 data <- prep_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
+```
 
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
 # Using custom preparation
 data <- prep_timelineA(
   sda,
@@ -206,16 +194,36 @@ plot_timelineA(data) +
   )
 ```
 
-* `timeline_specs()` `r pull_title("timeline_specs")`.
-* `r2dii_palette_colours()` `r pull_title("r2dii_palette_colours")`.
+<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-```{r}
+-   `timeline_specs()` creates the default specs data frame for
+    ‘plot\_timelinea()’.
+-   `r2dii_palette_colours()` outputs a data frame giving the 2dii
+    colour palette.
+
+``` r
 # You may use it as a template to create your custom specs
 timeline_specs(data)
+#> # A tibble: 4 x 3
+#>   line_name              label                  colour_hex
+#>   <chr>                  <chr>                  <chr>     
+#> 1 projected              Projected              #1b324f   
+#> 2 corporate_economy      Corporate Economy      #00c082   
+#> 3 target_demo            Target Demo            #ff9623   
+#> 4 adjusted_scenario_demo Adjusted Scenario Demo #d0d7e1
 
 # You may use it as a reference for 2DII's colour palette
 r2dii_palette_colours()
+#> # A tibble: 9 x 2
+#>   label       colour_hex
+#>   <chr>       <chr>     
+#> 1 dark_blue   #1b324f   
+#> 2 green       #00c082   
+#> 3 orange      #ff9623   
+#> 4 grey        #d0d7e1   
+#> 5 dark_purple #574099   
+#> 6 yellow      #f2e06e   
+#> 7 soft_blue   #78c4d6   
+#> 8 ruby_red    #a63d57   
+#> 9 moss_green  #4a5e54
 ```
-
-
-
