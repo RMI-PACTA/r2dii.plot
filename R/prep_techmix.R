@@ -80,6 +80,65 @@ prep_techmix <- function(data,
   data_out
 }
 
+prep_techmixB <- function(data,
+                         sector_filter = c(
+                           "automotive",
+                           "aviation",
+                           "cement",
+                           "oil and gas",
+                           "shipping",
+                           "steel",
+                           "power"
+                         ),
+                         years_filter = NULL,
+                         region_filter = "global",
+                         scenario_source_filter = NULL,
+                         scenario_filter = NULL,
+                         value_to_plot = "technology_share") {
+  data <- process_input_data(data)
+
+  years_filter <- years_filter %||% c(min(data$year), max(data$year))
+  scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
+  scenario_filter <- scenario_filter %||% (data %>%
+    filter(
+      .data$scenario_source == .env$scenario_source_filter,
+      .data$metric_type == "scenario"
+    ) %>%
+    slice_head(n = 1) %>%
+    pull(.data$metric))
+
+  # input checks
+  sector_filter <- match.arg(sector_filter)
+  check_input_parameters_techmix(
+    data,
+    years_filter,
+    region_filter,
+    scenario_source_filter,
+    scenario_filter,
+    value_to_plot
+  )
+
+  data_out <- data %>%
+    filter(.data$sector == .env$sector_filter) %>%
+    filter(.data$region == .env$region_filter) %>%
+    filter(.data$year %in% .env$years_filter) %>%
+    filter(.data$scenario_source == .env$scenario_source_filter) %>%
+    filter(
+      .data$metric_type %in% c("portfolio", "benchmark") |
+        (.data$metric_type == "scenario" & .data$metric == scenario_filter)
+    ) %>%
+    mutate(
+      metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
+      value = .data[[value_to_plot]]
+    ) %>%
+    select(
+      .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value,
+      .data$scenario_source
+    )
+
+  data_out
+}
+
 check_input_parameters_techmix <- function(data,
                                            years_filter,
                                            region_filter,

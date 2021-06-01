@@ -1,8 +1,6 @@
 test_that("outputs a data.frame", {
-  data <- market_share
-
   out <- prep_techmix(
-    data,
+    market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
     region_filter = "global",
@@ -116,4 +114,22 @@ test_that("adds the column `value` from the column named in `value_to_plot`", {
 
   expect_true(rlang::has_name(out, "value"))
   expect_type(out$value, "double")
+})
+
+
+
+# prep_techmixB() ----
+
+test_that("outputs the expected snapshot", {
+  out <- prep_techmixB(
+    market_share,
+    sector_filter = "power",
+    years_filter = c(2020, 2025),
+    region_filter = "global",
+    scenario_source_filter = "demo_2020",
+    scenario_filter = "sds",
+    value_to_plot = "technology_share"
+  )
+
+  expect_snapshot(out)
 })
