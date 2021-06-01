@@ -4,7 +4,7 @@ template:
   params:
     bootswatch: flatly
 
-url: https://github.com/2DegreesInvesting/r2dii.plot.static/
+url: https://github.com/2DegreesInvesting/r2dii.plot/
 
 authors:
   Monika Furdyna:
@@ -28,7 +28,7 @@ navbar:
       href: https://github.com/MonikaFu
 
     - icon: fa-github
-      href: https://github.com/2DegreesInvesting/r2dii.plot.static
+      href: https://github.com/2DegreesInvesting/r2dii.plot
 
     - text: r2dii
       href: https://2degreesinvesting.github.io/r2dii/index.html

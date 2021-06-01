@@ -6,7 +6,7 @@
 #' @seealso [r2dii.analysis::target_sda()].
 #' @family example datasets
 #'
-#' @source <https://github.com/2DegreesInvesting/r2dii.plot.static/issues/55>.
+#' @source <https://github.com/2DegreesInvesting/r2dii.plot/issues/55>.
 #' @examples
 #' sda
 "sda"

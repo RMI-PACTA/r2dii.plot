@@ -8,7 +8,7 @@
 An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 208 rows and 4 columns.
 }
 \source{
-\url{https://github.com/2DegreesInvesting/r2dii.plot.static/issues/55}.
+\url{https://github.com/2DegreesInvesting/r2dii.plot/issues/55}.
 }
 \usage{
 sda
