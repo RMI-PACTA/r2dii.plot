@@ -10,7 +10,8 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' p <- ggplot(mtcars) + geom_histogram(aes(mpg), bins = 10)
+#' p <- ggplot(mtcars) +
+#'   geom_histogram(aes(mpg), bins = 10)
 #' p
 #'
 #' p + theme_2dii()
