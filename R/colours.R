@@ -7,22 +7,6 @@
 #' In `scenario_colours`, colours are ordered from red to green to be used in
 #' trajectory charts.
 #'
-#' @name colours
-#' @aliases palette_colours scenario_colours sector_colours technology_colours
-#' @family colour datasets
-#'
-#' @examples
-#' palette_colours
-#' scenario_colours
-#' sector_colours
-#' technology_colours
-NULL
-#' @rdname colours
+#' @aliases scenario_colours sector_colours technology_colours
+#' @keywords internal
 "palette_colours"
-#' @rdname colours
-"scenario_colours"
-#' @rdname colours
-"sector_colours"
-#' @rdname colours
-"technology_colours"
-
