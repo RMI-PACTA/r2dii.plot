@@ -2,7 +2,7 @@
 % Please edit documentation in R/timeline_specs.R
 \name{timeline_specs}
 \alias{timeline_specs}
-\title{Creates the default specs data frame for \code{\link[=plot_timelineA]{plot_timelineA()}}}
+\title{Creates the default specs data frame for \code{plot_timelineA()}}
 \usage{
 timeline_specs(data)
 }
@@ -14,7 +14,7 @@ line_name.}
 A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineA]{plot_timelineA()}}.
 }
 \description{
-Creates the default specs data frame for \code{\link[=plot_timelineA]{plot_timelineA()}}
+Creates the default specs data frame for \code{plot_timelineA()}
 }
 \examples{
 data <- prep_timelineB(sda)

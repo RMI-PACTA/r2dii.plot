@@ -1,4 +1,4 @@
-#' Creates the default specs data frame for [plot_timelineA()]
+#' Creates the default specs data frame for `plot_timelineA()`
 #'
 #' @inheritParams plot_timelineA
 #'
