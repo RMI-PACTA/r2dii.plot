@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//index.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/colours.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/colours.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/market_share.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/market_share.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/pipe.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/plot_techmix.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmix.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/plot_timelineA.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timelineA.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/plot_trajectory.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectory.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/prep_techmix.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_techmix.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/prep_timelineA.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_timelineA.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/prep_trajectory.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_trajectory.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/r2dii.plot-package.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/r2dii.plot-package.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/sda.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/sda.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/theme_2dii.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/theme_2dii.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot.static//reference/timeline_specs.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/timeline_specs.html</loc>
   </url>
 </urlset>
