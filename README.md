@@ -143,11 +143,9 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD \* `prepare_for_techmix_chart()` .
-======= \* `prep_techmix()` prepares pre-processed data for plotting a
-tech-mix chart. \* `get_r2dii_technology_colours()` .
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; 5048847f67eb9b45c9b021d7b3c59f1635155410 \*
-`plot_techmix()` create a techmix chart in a ggplot object.
+-   `prep_techmix()` prepares pre-processed data for plotting a tech-mix
+    chart.
+-   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
 # Default colours, all data, added title
@@ -155,22 +153,13 @@ sector <- "power"
 
 data <- prep_techmix(
   market_share,
-  sector_filter = "power",
+  sector_filter = sector,
   years_filter = c(2020, 2025),
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-
-# data <- prep_techmix(market_share,
-#   sector_filter = "power",
-#   years_filter = c(2020, 2025), 
-#   region_filter = "global",
-#   scenario_source_filter = "demo_2020",
-#   scenario_filter = "sds", 
-#   value_to_plot = "technology_share"
-# )
 
 plot <- plot_techmix(data)
 plot +
