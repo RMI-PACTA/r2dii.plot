@@ -122,11 +122,12 @@ test_that("with bad column in 'tech_colours' errors gracefully", {
     value_to_plot = "technology_share"
   )
 
-  tech_colours <- get_r2dii_technology_colours("power")
-  colnames(tech_colours)[1] <- "bad"
+  tech_colours <- technology_colours %>%
+    filter(sector == "power") %>%
+    dplyr::rename(bad = .data$hex)
 
   expect_error(
-    regexp = "tech_colours.*must.*columns.*technology.*colour.",
+    regexp = "tech_colours.*must.*columns.*technology.*hex",
     plot_techmix(data, tech_colours = tech_colours)
   )
 })
@@ -142,7 +143,7 @@ test_that("with bad technology in 'tech_colours' errors gracefully", {
     value_to_plot = "technology_share"
   )
 
-  tech_colours <- get_r2dii_technology_colours("power")
+  tech_colours <- filter(technology_colours, sector == "power")
   tech_colours$technology <- "bad"
 
   expect_error(

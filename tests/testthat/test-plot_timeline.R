@@ -25,7 +25,7 @@ test_that("outputs the expected snapshot", {
 test_that("with specs missing crucial columns, errors gracefully", {
   data <- fake_timeline_data()
   bad <- timeline_specs(data)
-  bad$colour_hex <- NULL
+  bad$hex <- NULL
 
   expect_error(class = "missing_names", plot_timelineA(data, specs = bad))
 })
