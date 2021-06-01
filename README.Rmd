@@ -85,7 +85,7 @@ market_share
 data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
-  technology_filter = "renewablescap",
+  technology_filter = "oilcap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   value_name = "production",
@@ -114,14 +114,47 @@ plot_trajectory(
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
 )
+
+# more elaborate annotations, title and labels
+
+data_trajectory <- prep_trajectory(
+  market_share, 
+  sector_filter = "power",
+  technology_filter = "renewablescap",
+  region_filter = "global", 
+  scenario_source_filter = "demo_2020",
+  value_name = "production", 
+  end_year_filter = 2025,
+  normalize_to_start_year = TRUE
+)
+
+scenario_specs <- tibble(
+  scenario = c("sds", "sps", "cps"),
+  label = c(
+    "Sustainable Development Scenario", 
+    "Stated Policies Scenario", 
+    "Current Policies Scenario")
+)
+
+plot <- plot_trajectory(data_trajectory,
+  scenario_specs_good_to_bad = scenario_specs,
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
+)
+
+plot +
+  ggplot2::theme(
+    plot.margin = ggplot2::unit(c(0.5, 7, 0.5, 0.5), "cm")
+  ) +
+  ggplot2::labs(
+    title = "Production trajectory of Renewables Capacity technology\n in the Power sector",
+    subtitle = "The coloured areas indicate trajectories in reference to a scenario.\n The red area indicates trajectories below any sustainble scenario.",
+    x = "Year",
+    y = "Production rate (normalized to 2020)"
+  )
 ```
 
-<<<<<<< HEAD
-* `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
-=======
 * `prep_techmix()` `r pull_title("prep_techmix")`.
-* `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
->>>>>>> 5048847f67eb9b45c9b021d7b3c59f1635155410
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
 ```{r}
@@ -130,22 +163,13 @@ sector <- "power"
 
 data <- prep_techmix(
   market_share,
-  sector_filter = "power",
+  sector_filter = sector,
   years_filter = c(2020, 2025),
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-
-# data <- prep_techmix(market_share,
-#   sector_filter = "power",
-#   years_filter = c(2020, 2025), 
-#   region_filter = "global",
-#   scenario_source_filter = "demo_2020",
-#   scenario_filter = "sds", 
-#   value_to_plot = "technology_share"
-# )
 
 plot <- plot_techmix(data)
 plot +
@@ -221,12 +245,15 @@ plot_timelineA(data) +
 ```
 
 * `timeline_specs()` `r pull_title("timeline_specs")`.
-* See `colours` for details about `r pull_title("colours")`.
 
 ```{r}
 # You may use it as a template to create your custom specs
 timeline_specs(data)
+```
 
+* See `colours` for details about `r pull_title("colours")`.
+
+```{r}
 # You may use it as a reference for 2DII's colour palette
 palette_colours
 
@@ -236,6 +263,3 @@ sector_colours
 
 technology_colours
 ```
-
-
-

@@ -29,6 +29,6 @@ abort_missing_names <- function(missing_names) {
   abort(
     class = "missing_names",
     glue("Must have missing names:
-    {nms}"
-  ))
+    {nms}")
+  )
 }

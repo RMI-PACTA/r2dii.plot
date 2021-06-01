@@ -4,7 +4,7 @@
 \name{r2dii.plot-package}
 \alias{r2dii.plot}
 \alias{r2dii.plot-package}
-\title{r2dii.plot: Create Standard Static '2dii' Plots}
+\title{r2dii.plot: Create Standard '2dii' Plots}
 \description{
 Allows the user to create standardized '2dii' graphs, like
     trajectory charts or technology mix charts, and outputs them as

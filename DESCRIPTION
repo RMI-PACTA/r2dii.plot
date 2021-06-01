@@ -1,5 +1,5 @@
 Package: r2dii.plot
-Title: Create Standard Static '2dii' Plots
+Title: Create Standard '2dii' Plots
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Monika",
@@ -20,6 +20,7 @@ Imports:
     dplyr,
     forcats,
     ggplot2,
+    ggrepel,
     glue,
     gridExtra,
     lubridate,

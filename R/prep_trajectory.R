@@ -27,13 +27,13 @@
 #'   value_name = "production"
 #' )
 prep_trajectory <- function(data_preprocessed,
-                                         sector_filter,
-                                         technology_filter,
-                                         region_filter,
-                                         scenario_source_filter,
-                                         value_name,
-                                         end_year_filter = 2025,
-                                         normalize_to_start_year = TRUE) {
+                            sector_filter,
+                            technology_filter,
+                            region_filter,
+                            scenario_source_filter,
+                            value_name,
+                            end_year_filter = 2025,
+                            normalize_to_start_year = TRUE) {
   data_preprocessed <- process_input_data(data_preprocessed)
 
   warn_bad_value(sector_filter, data_preprocessed$sector)
