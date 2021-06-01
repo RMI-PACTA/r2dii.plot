@@ -27,13 +27,6 @@ prep_timeline <- function(data, extrapolate = FALSE) {
       line_name = .data$emission_factor_metric,
       value = .data$emission_factor_value,
       extrapolated = FALSE
-    ) %>%
-    select(
-      .data$year,
-      .data$line_name,
-      .data$value,
-      .data$extrapolated,
-      .data$sector
     )
 
   if (extrapolate) {
