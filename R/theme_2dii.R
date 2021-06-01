@@ -5,6 +5,8 @@
 #'
 #' @inheritParams ggplot2::theme_classic
 #'
+#' @family plotting functions
+#'
 #' @return An object of class `r toString(class(theme_2dii()))`.
 #' @export
 #' @examples

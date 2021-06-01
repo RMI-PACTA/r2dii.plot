@@ -43,3 +43,10 @@ p
 theme_set(old)
 p
 }
+\seealso{
+Other plotting functions: 
+\code{\link{plot_techmix}()},
+\code{\link{plot_timelineA}()},
+\code{\link{plot_trajectory}()}
+}
+\concept{plotting functions}
