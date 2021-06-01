@@ -81,14 +81,14 @@ prep_techmix <- function(data,
 }
 
 prep_techmixB <- function(data,
-                         years_filter = NULL,
+
                          region_filter = "global",
                          scenario_source_filter = NULL,
                          scenario_filter = NULL,
                          value_to_plot = "technology_share") {
   data <- process_input_data(data)
 
-  years_filter <- years_filter %||% c(min(data$year), max(data$year))
+  year_range <- c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
   scenario_filter <- scenario_filter %||% (data %>%
     filter(
@@ -100,7 +100,7 @@ prep_techmixB <- function(data,
 
   check_input_parameters_techmix(
     data,
-    years_filter,
+    year_range,
     region_filter,
     scenario_source_filter,
     scenario_filter,
@@ -109,7 +109,7 @@ prep_techmixB <- function(data,
 
   data_out <- data %>%
     filter(.data$region == .env$region_filter) %>%
-    filter(.data$year %in% .env$years_filter) %>%
+    filter(.data$year %in% .env$year_range) %>%
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(
       .data$metric_type %in% c("portfolio", "benchmark") |
@@ -133,7 +133,7 @@ check_input_parameters_techmix <- function(data,
                                            scenario_source_filter,
                                            scenario_filter,
                                            value_to_plot) {
-  if (typeof(years_filter) != "double") {
+  if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.
       * You submitted a {typeof(years_filter)}."
