@@ -61,13 +61,15 @@ plot_timelineA <- function(data, specs = timeline_specs(data)) {
         y = .data$value,
         colour = forcats::fct_reorder2(.data$label, .data$year, .data$value),
         linetype = .data$extrapolated
-      )) +
+      )
+    ) +
     expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
     scale_linetype_manual(
-      values = if (any(data$extrapolated)) c("solid", "dashed") else "solid") +
+      values = if (any(data$extrapolated)) c("solid", "dashed") else "solid"
+    ) +
     guides(linetype = FALSE) +
     theme_2dii()
 }

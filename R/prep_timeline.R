@@ -30,20 +30,20 @@
 #'   extrapolate_missing_values = TRUE
 #' )
 prep_timelineA <- function(sda_data,
-                                  sector_filter = c(
-                                    "automotive",
-                                    "aviation",
-                                    "cement",
-                                    "oil and gas",
-                                    "shipping",
-                                    "steel",
-                                    "power"
-                                  ),
-                                  year_start = 0,
-                                  year_end = Inf,
-                                  column_line_names = "emission_factor_metric",
-                                  value_to_plot = "emission_factor_value",
-                                  extrapolate_missing_values = FALSE) {
+                           sector_filter = c(
+                             "automotive",
+                             "aviation",
+                             "cement",
+                             "oil and gas",
+                             "shipping",
+                             "steel",
+                             "power"
+                           ),
+                           year_start = 0,
+                           year_end = Inf,
+                           column_line_names = "emission_factor_metric",
+                           value_to_plot = "emission_factor_value",
+                           extrapolate_missing_values = FALSE) {
   sda_data$sector <- tolower(sda_data$sector)
   sector_filter <- tolower(sector_filter)
   abort_bad_sector(sector_filter)
@@ -132,7 +132,7 @@ valid_sectors <- function() {
 }
 
 warn_sector <- function(data, sector_filter) {
- missing_sector <- !sector_filter %in% unique(data$sector)
+  missing_sector <- !sector_filter %in% unique(data$sector)
   if (missing_sector) {
     warn(
       class = "missing_sector",
@@ -200,7 +200,7 @@ check_input_parameters <- function(data,
 #' tail(prep_timelineB(data, extrapolate = TRUE))
 prep_timelineB <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data), is.logical(extrapolate))
-    crucial <- c("emission_factor_metric", "emission_factor_value", "year")
+  crucial <- c("emission_factor_metric", "emission_factor_value", "year")
   check_crucial_names(data, crucial)
 
   out <- data %>%

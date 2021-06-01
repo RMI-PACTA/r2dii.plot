@@ -157,5 +157,5 @@ test_that("preserves sectors", {
 })
 
 test_that("outputs the expected snapshot", {
-    expect_snapshot(prep_timelineB(sda))
+  expect_snapshot(prep_timelineB(sda))
 })
