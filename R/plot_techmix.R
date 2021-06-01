@@ -13,6 +13,8 @@
 #' @param tech_colours Dataframe containing colours per technology, with
 #'   columns: technology, colour, label(optional).
 #'
+#' @family plotting functions
+#'
 #' @export
 #' @examples
 #' data <- prep_techmix(

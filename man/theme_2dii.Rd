@@ -30,7 +30,8 @@ plotting aesthetics.
 \examples{
 library(ggplot2)
 
-p <- ggplot(mtcars) + geom_histogram(aes(mpg), bins = 10)
+p <- ggplot(mtcars) +
+  geom_histogram(aes(mpg), bins = 10)
 p
 
 p + theme_2dii()
@@ -42,3 +43,10 @@ p
 theme_set(old)
 p
 }
+\seealso{
+Other plotting functions: 
+\code{\link{plot_techmix}()},
+\code{\link{plot_timelineA}()},
+\code{\link{plot_trajectory}()}
+}
+\concept{plotting functions}

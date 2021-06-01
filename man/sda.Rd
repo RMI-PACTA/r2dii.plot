@@ -23,8 +23,8 @@ sda
 \seealso{
 \code{\link[r2dii.analysis:target_sda]{r2dii.analysis::target_sda()}}.
 
-Other example datasets: 
+Other datasets: 
 \code{\link{market_share}}
 }
-\concept{example datasets}
+\concept{datasets}
 \keyword{datasets}

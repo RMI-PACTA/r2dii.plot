@@ -15,6 +15,8 @@
 #'   additional metrics that should be plotted as lines; with columns: metric,
 #'   label).
 #'
+#' @family plotting functions
+#'
 #' @export
 #' @examples
 #' data <- prep_trajectory(

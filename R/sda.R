@@ -4,7 +4,7 @@
 #' benchmark and scenarios and different sectors.
 #'
 #' @seealso [r2dii.analysis::target_sda()].
-#' @family example datasets
+#' @family datasets
 #'
 #' @source <https://github.com/2DegreesInvesting/r2dii.plot/issues/55>.
 #' @examples

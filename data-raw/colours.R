@@ -59,5 +59,6 @@ use_data(
   scenario_colours,
   sector_colours,
   technology_colours,
+  internal = TRUE,
   overwrite = TRUE
 )
