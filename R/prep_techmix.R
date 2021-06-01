@@ -81,8 +81,6 @@ prep_techmix <- function(data,
 }
 
 prep_techmixB <- function(data,
-
-                         region_filter = "global",
                          scenario_source_filter = NULL,
                          scenario_filter = NULL,
                          value_to_plot = "technology_share") {
@@ -100,15 +98,14 @@ prep_techmixB <- function(data,
 
   check_input_parameters_techmix(
     data,
-    year_range,
-    region_filter,
-    scenario_source_filter,
-    scenario_filter,
-    value_to_plot
+    years_filter = year_range,
+    region_filter = unique(data$region),
+    scenario_source_filter = scenario_source_filter,
+    scenario_filter = scenario_filter,
+    value_to_plot = value_to_plot
   )
 
   data_out <- data %>%
-    filter(.data$region == .env$region_filter) %>%
     filter(.data$year %in% .env$year_range) %>%
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(

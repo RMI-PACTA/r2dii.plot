@@ -122,11 +122,14 @@ test_that("adds the column `value` from the column named in `value_to_plot`", {
 
 test_that("outputs the expected snapshot", {
   data <- market_share %>%
-    filter(sector == "power", dplyr::between(year, 2020, 2025))
+    filter(
+      sector == "power",
+      dplyr::between(year, 2020, 2025),
+      region == "global"
+    )
 
   out <- prep_techmixB(
     data,
-    region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
     value_to_plot = "technology_share"
