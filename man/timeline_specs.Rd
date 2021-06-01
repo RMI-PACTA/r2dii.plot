@@ -7,8 +7,7 @@
 timeline_specs(data)
 }
 \arguments{
-\item{data}{Pre-processed data for the chart, with columns: year, value,
-line_name.}
+\item{data}{Dataframe like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
 }
 \value{
 A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineA]{plot_timelineA()}}.
@@ -17,7 +16,7 @@ A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineA]
 Creates the default specs data frame for \code{plot_timelineA()}
 }
 \examples{
-data <- prep_timelineB(sda)
+data <- prep_timeline(sda)
 timeline_specs(data)
 }
 \seealso{

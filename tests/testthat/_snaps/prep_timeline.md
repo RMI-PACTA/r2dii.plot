@@ -1,12 +1,7 @@
-# with bad `sector_filter` errors gracefully
-
-    Invalid `sector_filter`: bad.
-    Expected one of: automotive, aviation, cement, oil and gas, shipping, steel, power.
-
 # outputs the expected snapshot
 
     Code
-      prep_timelineB(sda)
+      prep_timeline(sda)
     Output
       # A tibble: 208 x 5
          year       line_name value extrapolated sector    

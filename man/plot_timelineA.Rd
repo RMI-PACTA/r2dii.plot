@@ -13,8 +13,7 @@ plot_timelineB(data)
 plot_timelineC(data, recode = TRUE)
 }
 \arguments{
-\item{data}{Pre-processed data for the chart, with columns: year, value,
-line_name.}
+\item{data}{Dataframe like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
 
 \item{specs}{Dataframe containing order of lines, their labels and colour
 names from the r2dii_colours palette.}
@@ -58,11 +57,13 @@ library(dplyr)
 
 data <- sda \%>\%
   filter(sector == "cement", between(year, 2020, 2050)) \%>\%
-  prep_timelineB(extrapolate = TRUE)
+  prep_timeline(extrapolate = TRUE)
 
 # `plot_timelineA()` -------------------------------------------------------
 
-data <- prep_timelineA(sda, sector_filter = "cement")
+data <- sda \%>\%
+  filter(sector == "cement") \%>\%
+  prep_timeline()
 plot_timelineA(data)
 
 # Customize as usual with ggplot2
@@ -85,7 +86,9 @@ plot_timelineA(data, specs = custom)
 
 # `plot_timelineB()` ------------------------------------------------------
 
-data <- prep_timelineA(sda, sector_filter = "aviation")
+data <- sda \%>\%
+  filter(sector == "aviation") \%>\%
+  prep_timeline()
 plot_timelineB(data)
 
 # Recode `line_name` with `dplyr::recode()`
@@ -100,8 +103,12 @@ data \%>\%
 
 # `plot_timelineC()` ------------------------------------------------------
 
-data <- prep_timelineA(sda, sector_filter = "aviation")
+data <- sda \%>\%
+  filter(sector == "aviation") \%>\%
+  prep_timeline()
+
 unique(data$line_name)
+
 # Recode to title case
 plot_timelineC(data, recode = TRUE)
 
@@ -128,7 +135,7 @@ legend <- c(
 plot_timelineC(data, recode = legend)
 }
 \seealso{
-timeline_specs
+\link{sda}, \link{timeline_specs}.
 
 \code{\link[dplyr:recode]{dplyr::recode()}}.
 }

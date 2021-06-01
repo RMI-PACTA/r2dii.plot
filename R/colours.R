@@ -25,4 +25,3 @@ NULL
 "sector_colours"
 #' @rdname colours
 "technology_colours"
-
