@@ -81,15 +81,6 @@ prep_techmix <- function(data,
 }
 
 prep_techmixB <- function(data,
-                         sector_filter = c(
-                           "automotive",
-                           "aviation",
-                           "cement",
-                           "oil and gas",
-                           "shipping",
-                           "steel",
-                           "power"
-                         ),
                          years_filter = NULL,
                          region_filter = "global",
                          scenario_source_filter = NULL,
@@ -107,8 +98,6 @@ prep_techmixB <- function(data,
     slice_head(n = 1) %>%
     pull(.data$metric))
 
-  # input checks
-  sector_filter <- match.arg(sector_filter)
   check_input_parameters_techmix(
     data,
     years_filter,
@@ -119,7 +108,6 @@ prep_techmixB <- function(data,
   )
 
   data_out <- data %>%
-    filter(.data$sector == .env$sector_filter) %>%
     filter(.data$region == .env$region_filter) %>%
     filter(.data$year %in% .env$years_filter) %>%
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
