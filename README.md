@@ -40,10 +40,8 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-  - `market_share` dataset imitating the output of
+-   `market_share` dataset imitating the output of
     ‘r2dii.analysis::target\_market\_share()’.
-
-<!-- end list -->
 
 ``` r
 market_share
@@ -63,10 +61,8 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-  - `plot_trajectory()` create a trajectory alignment chart in a ggplot
+-   `plot_trajectory()` create a trajectory alignment chart in a ggplot
     object.
-
-<!-- end list -->
 
 ``` r
 data_trajectory <- prep_trajectory(
@@ -106,7 +102,6 @@ plot_trajectory(
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # more elaborate annotations, title and labels
 
 data_trajectory <- prep_trajectory(
@@ -148,17 +143,14 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmix()` prepares pre-processed data for plotting a tech-mix
-    chart.
-  - `get_r2dii_technology_colours()` get the predefined technology
-    colors for a sector.
-  - `plot_techmix()` create a techmix chart in a ggplot object.
-
-<!-- end list -->
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD \* `prepare_for_techmix_chart()` .
+======= \* `prep_techmix()` prepares pre-processed data for plotting a
+tech-mix chart. \* `get_r2dii_technology_colours()` .
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 5048847f67eb9b45c9b021d7b3c59f1635155410 \*
+`plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
 # Default colours, all data, added title
-
 sector <- "power"
 
 data <- prep_techmix(
@@ -188,12 +180,11 @@ plot +
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
-  colour = c("black", "brown", "grey", "red", "blue", "green4")
+  hex = palette.colors(n = length(technology), palette = "ggplot2")
 )
 
 plot <- plot_techmix(data,
@@ -205,7 +196,6 @@ plot
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -236,10 +226,8 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_timelineA()` .
-  - `plot_timelineA()` creates a time line plot.
-
-<!-- end list -->
+-   `prep_timelineA()` .
+-   `plot_timelineA()` creates a time line plot.
 
 ``` r
 # Using default preparation and specs
@@ -250,7 +238,6 @@ plot_timelineA(data)
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Using custom preparation
 data <- prep_timelineA(
   sda,
@@ -274,36 +261,79 @@ plot_timelineA(data) +
 
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `timeline_specs()` creates the default specs data frame for
+-   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.
-  - `r2dii_palette_colours()` outputs a data frame giving the 2dii
-    colour palette.
-
-<!-- end list -->
+-   See `colours` for details about colour datasets.
 
 ``` r
 # You may use it as a template to create your custom specs
 timeline_specs(data)
 #> # A tibble: 4 x 3
-#>   line_name              label                  colour_hex
-#>   <chr>                  <chr>                  <chr>     
-#> 1 projected              Projected              #1b324f   
-#> 2 corporate_economy      Corporate Economy      #00c082   
-#> 3 target_demo            Target Demo            #ff9623   
+#>   line_name              label                  hex    
+#>   <chr>                  <chr>                  <chr>  
+#> 1 projected              Projected              #1b324f
+#> 2 corporate_economy      Corporate Economy      #00c082
+#> 3 target_demo            Target Demo            #ff9623
 #> 4 adjusted_scenario_demo Adjusted Scenario Demo #d0d7e1
 
 # You may use it as a reference for 2DII's colour palette
-r2dii_palette_colours()
+palette_colours
 #> # A tibble: 9 x 2
-#>   label       colour_hex
-#>   <chr>       <chr>     
-#> 1 dark_blue   #1b324f   
-#> 2 green       #00c082   
-#> 3 orange      #ff9623   
-#> 4 grey        #d0d7e1   
-#> 5 dark_purple #574099   
-#> 6 yellow      #f2e06e   
-#> 7 soft_blue   #78c4d6   
-#> 8 ruby_red    #a63d57   
+#>   label       hex    
+#>   <chr>       <chr>  
+#> 1 dark_blue   #1b324f
+#> 2 green       #00c082
+#> 3 orange      #ff9623
+#> 4 grey        #d0d7e1
+#> 5 dark_purple #574099
+#> 6 yellow      #f2e06e
+#> 7 soft_blue   #78c4d6
+#> 8 ruby_red    #a63d57
 #> 9 moss_green  #4a5e54
+
+scenario_colours
+#> # A tibble: 5 x 2
+#>   label        hex    
+#>   <chr>        <chr>  
+#> 1 dark_green   #768555
+#> 2 light_green  #9CAB7C
+#> 3 dark_yellow  #FFFFCC
+#> 4 light_yellow #FDE291
+#> 5 red          #E07B73
+
+sector_colours
+#> # A tibble: 8 x 2
+#>   label      hex    
+#>   <chr>      <chr>  
+#> 1 automotive #78C4D6
+#> 2 aviation   #00c082
+#> 3 cement     #c1b358
+#> 4 coal       #4e3b37
+#> 5 oil&gas    #181716
+#> 6 power      #a63603
+#> 7 shipping   #574099
+#> 8 steel      #a63d57
+
+technology_colours
+#> # A tibble: 18 x 4
+#>    sector       technology    label                        hex    
+#>    <chr>        <chr>         <chr>                        <chr>  
+#>  1 power        coalcap       Coal Capacity                #7A2701
+#>  2 power        oilcap        Oil Capacity                 #a63603
+#>  3 power        gascap        Gas Capacity                 #e6550d
+#>  4 power        nuclearcap    Nuclear Capacity             #fd8d3c
+#>  5 power        hydrocap      Hydro Capacity               #fdbe85
+#>  6 power        renewablescap Renewables Capacity          #ffd4ad
+#>  7 automotive   electric      Electric                     #548995
+#>  8 automotive   electric_hdv  Electric Heavy Duty Vehicles #609cab
+#>  9 automotive   fuelcell      FuelCell                     #6cb0c0
+#> 10 automotive   hybrid        Hybrid                       #78c4d6
+#> 11 automotive   hybrid_hdv    Hybrid Heavy Duty Vehicles   #93cfde
+#> 12 automotive   ice           ICE                          #aedbe6
+#> 13 automotive   ice_hdv       ICE Heavy Duty Vehicles      #c9e7ee
+#> 14 oil&gas      gas           Gas                          #b9b5b0
+#> 15 oil&gas      oil           Oil                          #181716
+#> 16 fossil fuels gas           Gas                          #b9b5b0
+#> 17 fossil fuels oil           Oil                          #181716
+#> 18 fossil fuels coal          Coal                         #4e3b37
 ```

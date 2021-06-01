@@ -154,13 +154,16 @@ plot +
   )
 ```
 
+<<<<<<< HEAD
+* `prepare_for_techmix_chart()` `r pull_title("prepare_for_techmix_chart")`.
+=======
 * `prep_techmix()` `r pull_title("prep_techmix")`.
 * `get_r2dii_technology_colours()` `r pull_title("get_r2dii_technology_colours")`.
+>>>>>>> 5048847f67eb9b45c9b021d7b3c59f1635155410
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
 ```{r}
 # Default colours, all data, added title
-
 sector <- "power"
 
 data <- prep_techmix(
@@ -190,7 +193,7 @@ plot +
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
-  colour = c("black", "brown", "grey", "red", "blue", "green4")
+  hex = palette.colors(n = length(technology), palette = "ggplot2")
 )
 
 plot <- plot_techmix(data,
@@ -256,12 +259,18 @@ plot_timelineA(data) +
 ```
 
 * `timeline_specs()` `r pull_title("timeline_specs")`.
-* `r2dii_palette_colours()` `r pull_title("r2dii_palette_colours")`.
+* See `colours` for details about `r pull_title("colours")`.
 
 ```{r}
 # You may use it as a template to create your custom specs
 timeline_specs(data)
 
 # You may use it as a reference for 2DII's colour palette
-r2dii_palette_colours()
+palette_colours
+
+scenario_colours
+
+sector_colours
+
+technology_colours
 ```
