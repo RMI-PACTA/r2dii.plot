@@ -48,8 +48,8 @@ plot_techmix <- function(data,
 
   if (is.null(tech_colours)) {
     tech_colours <- technology_colours %>%
-    filter(.data$sector == .env$sector) %>%
-    select(.data$technology, .data$label, .data$hex)
+      filter(.data$sector == .env$sector) %>%
+      select(.data$technology, .data$label, .data$hex)
   }
 
   check_tech_colours(data, tech_colours)

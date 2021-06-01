@@ -22,20 +22,20 @@
 #'   value_to_plot = "technology_share"
 #' )
 prep_techmix <- function(data,
-                                      sector_filter = c(
-                                        "automotive",
-                                        "aviation",
-                                        "cement",
-                                        "oil and gas",
-                                        "shipping",
-                                        "steel",
-                                        "power"
-                                      ),
-                                      years_filter = NULL,
-                                      region_filter = "global",
-                                      scenario_source_filter = NULL,
-                                      scenario_filter = NULL,
-                                      value_to_plot = "technology_share") {
+                         sector_filter = c(
+                           "automotive",
+                           "aviation",
+                           "cement",
+                           "oil and gas",
+                           "shipping",
+                           "steel",
+                           "power"
+                         ),
+                         years_filter = NULL,
+                         region_filter = "global",
+                         scenario_source_filter = NULL,
+                         scenario_filter = NULL,
+                         value_to_plot = "technology_share") {
   data <- process_input_data(data)
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))

@@ -1,4 +1,4 @@
-#' Creates the default specs data frame for [plot_timelineA()]
+#' Creates the default specs data frame for `plot_timelineA()`
 #'
 #' @inheritParams plot_timelineA
 #'
@@ -27,7 +27,7 @@ stop_if_too_many_lines <- function(data) {
   n_colours <- nrow(palette_colours)
   if (n_lines > n_colours) {
     abort(glue(
-        "Can't plot more than {n_colours} lines. Found {n_lines} lines:
+      "Can't plot more than {n_colours} lines. Found {n_lines} lines:
         {toString(data$line_name)}."
     ))
   }
