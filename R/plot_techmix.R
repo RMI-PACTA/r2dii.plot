@@ -15,8 +15,8 @@
 #'
 #' @export
 #' @examples
-#' data <- prepare_for_techmix_chart(
-#'   process_input_data(example_data),
+#' data <- prep_techmix(
+#'   market_share,
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
 #'   region_filter = "global",
@@ -24,16 +24,14 @@
 #'   scenario_filter = "sds",
 #'   value_to_plot = "technology_share"
 #' )
-#' print(
-#'   plot_techmix(data)
-#' )
+#'
+#' plot_techmix(data)
 plot_techmix <- function(data,
                          metric_type_order = NULL,
                          metric_type_labels = NULL,
                          tech_colours = NULL) {
   metric_type_order <- metric_type_order %||% unique(data$metric_type)
-  metric_type_labels <-
-    metric_type_labels %||% to_title(metric_type_order)
+  metric_type_labels <- metric_type_labels %||% to_title(metric_type_order)
 
   sector <- data %>%
     pull(.data$sector) %>%
@@ -49,7 +47,9 @@ plot_techmix <- function(data,
   )
 
   if (is.null(tech_colours)) {
-    tech_colours <- get_r2dii_technology_colours(sector)
+    tech_colours <- technology_colours %>%
+    filter(.data$sector == .env$sector) %>%
+    select(.data$technology, .data$label, .data$hex)
   }
 
   check_tech_colours(data, tech_colours)
@@ -89,7 +89,7 @@ plot_techmix <- function(data,
     scale_x_discrete(labels = rev(metric_type_labels)) +
     scale_fill_manual(
       labels = data_colours$label,
-      values = data_colours$colour
+      values = data_colours$hex
     ) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +
@@ -150,9 +150,9 @@ check_tech_colours <- function(data, tech_colours) {
     ))
   }
 
-  if (!all(c("technology", "colour") %in% names(tech_colours))) {
+  if (!all(c("technology", "hex") %in% names(tech_colours))) {
     abort(glue(
-      "'tech_colours' must have columns 'technology' and 'colour'.
+      "'tech_colours' must have columns `technology` and `hex`.
       * The columns in 'tech_colours' given are: {toString(names(tech_colours))}."
     ))
   }

@@ -6,7 +6,7 @@
 #' @return A data frame useful as the `specs` argument of [plot_timelineA()].
 #' @export
 #' @examples
-#' data <- prepare_for_timelineB(sda_target)
+#' data <- prep_timelineB(sda)
 #' timeline_specs(data)
 timeline_specs <- function(data) {
   check_crucial_names(data, "line_name")
@@ -24,7 +24,7 @@ timeline_specs <- function(data) {
 
 stop_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
-  n_colours <- nrow(r2dii_palette_colours())
+  n_colours <- nrow(palette_colours)
   if (n_lines > n_colours) {
     abort(glue(
         "Can't plot more than {n_colours} lines. Found {n_lines} lines:
@@ -37,9 +37,9 @@ stop_if_too_many_lines <- function(data) {
 
 add_r2dii_colours <- function(specs) {
   n <- seq_len(nrow(specs))
-  specs$r2dii_colour_name <- r2dii_palette_colours()$label[n]
+  specs$r2dii_colour_name <- palette_colours$label[n]
 
   specs %>%
-    left_join(r2dii_palette_colours(), by = c("r2dii_colour_name" = "label")) %>%
+    left_join(palette_colours, by = c("r2dii_colour_name" = "label")) %>%
     select(-.data$r2dii_colour_name)
 }

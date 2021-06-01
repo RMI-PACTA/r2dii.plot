@@ -2,7 +2,7 @@ expect_no_error <- function(...) {
   expect_error(..., NA)
 }
 
-fake_example_data <- function(sector = "automotive",
+fake_market_share <- function(sector = "automotive",
                               technology = "electric",
                               year = 2020L,
                               region = "global",

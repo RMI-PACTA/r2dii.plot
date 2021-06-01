@@ -30,8 +30,8 @@ technology mix for different categories (portfolio, scenario, benchmark,
 etc.).
 }
 \examples{
-data <- prepare_for_techmix_chart(
-  process_input_data(example_data),
+data <- prep_techmix(
+  market_share,
   sector_filter = "power",
   years_filter = c(2020, 2025),
   region_filter = "global",
@@ -39,7 +39,6 @@ data <- prepare_for_techmix_chart(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
-print(
-  plot_techmix(data)
-)
+
+plot_techmix(data)
 }

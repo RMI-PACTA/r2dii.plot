@@ -23,13 +23,13 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#' data <- sda_target %>%
+#' data <- sda %>%
 #'   filter(sector == "cement", between(year, 2020, 2050)) %>%
-#'   prepare_for_timelineB(extrapolate = TRUE)
+#'   prep_timelineB(extrapolate = TRUE)
 #'
 #' # `plot_timelineA()` -------------------------------------------------------
 #'
-#' data <- prepare_for_timelineA(sda_target, sector_filter = "cement")
+#' data <- prep_timelineA(sda, sector_filter = "cement")
 #' plot_timelineA(data)
 #'
 #' # Customize as usual with ggplot2
@@ -40,7 +40,7 @@
 #' # Customize `line_name` via a data frame passed to `specs`
 #' # styler: off
 #' custom <- tribble(
-#'                 ~line_name,                  ~label, ~colour_hex,
+#'                 ~line_name,                  ~label, ~hex,
 #'                "projected",                 "Proj.",   "#4a5e54",
 #'        "corporate_economy",         "Corp. Economy",   "#a63d57",
 #'              "target_demo",         "Target (demo)",   "#78c4d6",
@@ -65,7 +65,7 @@ plot_timelineA <- function(data, specs = timeline_specs(data)) {
     expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
-    scale_colour_manual(values = unique(data$colour_hex)) +
+    scale_colour_manual(values = unique(data$hex)) +
     scale_linetype_manual(
       values = if (any(data$extrapolated)) c("solid", "dashed") else "solid") +
     guides(linetype = FALSE) +
@@ -84,7 +84,7 @@ plot_timeline <- plot_timelineA
 #'
 #' # `plot_timelineB()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timelineA(sda_target, sector_filter = "aviation")
+#' data <- prep_timelineA(sda, sector_filter = "aviation")
 #' plot_timelineB(data)
 #'
 #' # Recode `line_name` with `dplyr::recode()`
@@ -124,7 +124,7 @@ plot_timelineB <- function(data) {
 #'
 #' # `plot_timelineC()` ------------------------------------------------------
 #'
-#' data <- prepare_for_timelineA(sda_target, sector_filter = "aviation")
+#' data <- prep_timelineA(sda, sector_filter = "aviation")
 #' unique(data$line_name)
 #' # Recode to title case
 #' plot_timelineC(data, recode = TRUE)
@@ -178,7 +178,7 @@ recode_lines.logical <- function(recode, data) {
 }
 
 check_specs <- function(specs, data) {
-  crucial <- c("line_name", "label", "colour_hex")
+  crucial <- c("line_name", "label", "hex")
   check_crucial_names(specs, crucial)
 
   specs <- factor_to_character(specs)

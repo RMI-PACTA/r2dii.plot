@@ -17,8 +17,8 @@
 #'
 #' @export
 #' @examples
-#' data <- prepare_for_trajectory_chart(
-#'   process_input_data(example_data),
+#' data <- prep_trajectory(
+#'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
 #'   region_filter = "global",
@@ -167,13 +167,13 @@ get_area_borders <- function(data) {
 }
 
 get_ordered_scenario_colours <- function(n) {
-  pick <- function(cols) filter(r2dii_scenario_colours, .data$label %in% cols)
+  pick <- function(cols) filter(scenario_colours, .data$label %in% cols)
   switch(
     as.character(n),
     "2" = pick(c("light_green", "red")),
     "3" = pick(c("light_green", "light_yellow", "red")),
     "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
-    "5" = assert_5_rows(r2dii_scenario_colours)
+    "5" = assert_5_rows(scenario_colours)
   )
 }
 
