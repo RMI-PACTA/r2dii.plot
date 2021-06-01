@@ -47,7 +47,7 @@ reference:
 
   - title: Colour datasets
     contents:
-      - has_concept("colour datasets")
+      - ends_with("colours") 
 
   - title: Example datasets
     contents:

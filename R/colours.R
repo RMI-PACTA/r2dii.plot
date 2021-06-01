@@ -16,4 +16,13 @@
 #' scenario_colours
 #' sector_colours
 #' technology_colours
+NULL
+#' @rdname colours
 "palette_colours"
+#' @rdname colours
+"scenario_colours"
+#' @rdname colours
+"sector_colours"
+#' @rdname colours
+"technology_colours"
+
