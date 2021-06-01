@@ -250,16 +250,3 @@ plot_timelineA(data) +
 # You may use it as a template to create your custom specs
 timeline_specs(data)
 ```
-
-* See `colours` for details about `r pull_title("colours")`.
-
-```{r}
-# You may use it as a reference for 2DII's colour palette
-palette_colours
-
-scenario_colours
-
-sector_colours
-
-technology_colours
-```
