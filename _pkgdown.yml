@@ -37,25 +37,21 @@ navbar:
 
 reference:
 
-  - title: Prepare data for plotting
+  - title: Prepare
     contents:
       - starts_with("prep")
 
   - title: Plot
     contents:
-      - starts_with("plot")
+      - has_concept("plotting functions")
 
-  - title: Colour datasets
+  - title: Helpers
     contents:
-      - ends_with("colours") 
-
-  - title: Example datasets
-    contents:
-      - has_concept("example datasets")
-
-  - title: Miscelaneous
-    contents:
-      - -has_concept("example datasets")
       - -starts_with("prep")
-      - -starts_with("plot")
-      - -has_concept("colour datasets")
+      - -has_concept("plotting functions")
+      - -has_concept("datasets")
+
+  - title: Datasets
+    contents:
+      - has_concept("datasets")
+

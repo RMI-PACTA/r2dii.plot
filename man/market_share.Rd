@@ -19,8 +19,8 @@ market_share
 \seealso{
 \code{\link[r2dii.analysis:target_market_share]{r2dii.analysis::target_market_share()}}.
 
-Other example datasets: 
+Other datasets: 
 \code{\link{sda}}
 }
-\concept{example datasets}
+\concept{datasets}
 \keyword{datasets}

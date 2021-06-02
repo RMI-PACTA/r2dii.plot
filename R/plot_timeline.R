@@ -82,6 +82,8 @@ plot_timeline <- plot_timelineA
 #' * `plot_timelineB()` plots `line_name` "as is". You may recode `line_name`
 #' before passing the `data` with, for example, [dplyr::recode()].
 #'
+#' @family plotting functions
+#'
 #' @export
 #' @examples
 #'
