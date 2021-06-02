@@ -51,6 +51,7 @@ used. You may recode \code{metric} before passing the data with, for example,
 }
 }
 \examples{
+# `plot_trajectoryA()` -------------------------------------------------------
 data <- prep_trajectory(
   market_share,
   sector_filter = "power",
@@ -59,8 +60,6 @@ data <- prep_trajectory(
   scenario_source_filter = "demo_2020",
   value_name = "production"
 )
-
-# `plot_trajectoryA()` -------------------------------------------------------
 
 scenario_specs <- dplyr::tibble(
   scenario = c("sds", "sps", "cps"),
@@ -83,8 +82,9 @@ p <- plot_trajectoryA(data,
 p
 
 # `plot_trajectoryB()` ------------------------------------------------------
+library(dplyr)
 
-#' data <- prep_trajectory(
+data <- prep_trajectory(
   market_share,
   sector_filter = "power",
   technology_filter = "renewablescap",
@@ -105,7 +105,7 @@ plot
 
 # Recode `metric` with `dplyr::recode()`
 data <- data \%>\%
-mutate(metric = dplyr::recode(
+mutate(metric = recode(
    .data$metric,
    "projected" = "Projeted",
    "corporate_economy" = "Corporate Economy",

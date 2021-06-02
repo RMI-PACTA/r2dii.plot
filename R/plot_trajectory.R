@@ -209,8 +209,9 @@ plot_trajectory <- plot_trajectoryA
 #' @examples
 #'
 #' # `plot_trajectoryB()` ------------------------------------------------------
+#' library(dplyr)
 #'
-#' #' data <- prep_trajectory(
+#' data <- prep_trajectory(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
@@ -232,7 +233,7 @@ plot_trajectory <- plot_trajectoryA
 #'
 #' # Recode `metric` with `dplyr::recode()`
 #' data <- data %>%
-#' mutate(metric = dplyr::recode(
+#' mutate(metric = recode(
 #'    .data$metric,
 #'    "projected" = "Projeted",
 #'    "corporate_economy" = "Corporate Economy",
