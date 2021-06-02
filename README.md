@@ -40,8 +40,10 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
--   `market_share` dataset imitating the output of
+  - `market_share` dataset imitating the output of
     ‘r2dii.analysis::target\_market\_share()’.
+
+<!-- end list -->
 
 ``` r
 market_share
@@ -61,10 +63,14 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
--   `plot_trajectory()` create a trajectory alignment chart in a ggplot
-    object.
+  - `plot_trajectoryA()` and `plot_trajectoryB()`: `r
+    pull_title("plot_trajectoryA")`.
+
+<!-- end list -->
 
 ``` r
+# `plot_trajectoryB()` takes fewer arguments
+
 data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
@@ -75,6 +81,29 @@ data_trajectory <- prep_trajectory(
   end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
+
+unique(data_trajectory$metric)
+#> [1] "projected"         "corporate_economy" "cps"              
+#> [4] "sds"               "sps"
+
+# IMPORTANT: Use `factor()` to order `metric` with the main trajectory line
+# first, then benchmarks, then scenarios. Else the line-types may be messed up
+lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+ordered <- data_trajectory %>%
+  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
+  arrange(.data$year, .data$metric)
+
+plot_trajectoryB(ordered)
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+  - `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
+
+<!-- end list -->
+
+``` r
+# `plot_trajectoryA()` takes more arguments
 
 scenario_specs <- tibble(
   scenario = c("sds", "sps", "cps"),
@@ -91,7 +120,7 @@ additional_line_metrics <- tibble(
   label = "Corporate Economy"
 )
 
-plot_trajectory(
+plot_trajectoryA(
   data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
@@ -99,9 +128,10 @@ plot_trajectory(
 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # more elaborate annotations, title and labels
 
 data_trajectory <- prep_trajectory(
@@ -141,11 +171,13 @@ plot +
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_techmix()` prepares pre-processed data for plotting a tech-mix
+  - `prep_techmix()` prepares pre-processed data for plotting a tech-mix
     chart.
--   `plot_techmix()` create a techmix chart in a ggplot object.
+  - `plot_techmix()` create a techmix chart in a ggplot object.
+
+<!-- end list -->
 
 ``` r
 # Default colours, all data, added title
@@ -166,9 +198,10 @@ plot +
   ggplot2::labs(title = "Technology mix for the Power sector")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -182,9 +215,10 @@ plot <- plot_techmix(data,
 plot
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -213,10 +247,12 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_timelineA()` .
--   `plot_timelineA()` creates a time line plot.
+  - `prep_timelineA()` .
+  - `plot_timelineA()` creates a time line plot.
+
+<!-- end list -->
 
 ``` r
 # Using default preparation and specs
@@ -224,9 +260,10 @@ data <- prep_timelineA(sda, sector_filter = "cement")
 plot_timelineA(data)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Using custom preparation
 data <- prep_timelineA(
   sda,
@@ -248,10 +285,12 @@ plot_timelineA(data) +
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `timeline_specs()` creates the default specs data frame for
+  - `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.
+
+<!-- end list -->
 
 ``` r
 # You may use it as a template to create your custom specs
