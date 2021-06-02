@@ -96,7 +96,16 @@ data_trajectory <- prep_trajectory(
   normalize_to_start_year = TRUE
 )
 
-plot_trajectoryB(data_trajectory)
+unique(data_trajectory$metric)
+
+# IMPORTANT: Use `factor()` to order `metric` with the main trajectory line
+# first, then benchmarks, then scenarios. Else the line-types may be messed up
+lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+ordered <- data_trajectory %>%
+  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
+  arrange(.data$year, .data$metric)
+
+plot_trajectoryB(ordered)
 ```
 
 * `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
