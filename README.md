@@ -40,8 +40,10 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
--   `market_share` dataset imitating the output of
+  - `market_share` dataset imitating the output of
     ‘r2dii.analysis::target\_market\_share()’.
+
+<!-- end list -->
 
 ``` r
 market_share
@@ -61,8 +63,10 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
--   `plot_trajectoryA()` and `plot_trajectoryB()`:
-    `r pull_title("plot_trajectoryA")`.
+  - `plot_trajectoryA()` and `plot_trajectoryB()`: `r
+    pull_title("plot_trajectoryA")`.
+
+<!-- end list -->
 
 ``` r
 # `plot_trajectoryB()` takes fewer arguments
@@ -83,7 +87,9 @@ plot_trajectoryB(data_trajectory)
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
+  - `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
+
+<!-- end list -->
 
 ``` r
 # `plot_trajectoryA()` takes more arguments
@@ -114,6 +120,7 @@ plot_trajectoryA(
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # more elaborate annotations, title and labels
 
 data_trajectory <- prep_trajectory(
@@ -155,9 +162,11 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_techmix()` prepares pre-processed data for plotting a tech-mix
+  - `prep_techmix()` prepares pre-processed data for plotting a tech-mix
     chart.
--   `plot_techmix()` create a techmix chart in a ggplot object.
+  - `plot_techmix()` create a techmix chart in a ggplot object.
+
+<!-- end list -->
 
 ``` r
 # Default colours, all data, added title
@@ -181,6 +190,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -197,6 +207,7 @@ plot
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -227,8 +238,10 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_timelineA()` .
--   `plot_timelineA()` creates a time line plot.
+  - `prep_timelineA()` .
+  - `plot_timelineA()` creates a time line plot.
+
+<!-- end list -->
 
 ``` r
 # Using default preparation and specs
@@ -239,6 +252,7 @@ plot_timelineA(data)
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Using custom preparation
 data <- prep_timelineA(
   sda,
@@ -262,8 +276,10 @@ plot_timelineA(data) +
 
 <img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `timeline_specs()` creates the default specs data frame for
+  - `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.
+
+<!-- end list -->
 
 ``` r
 # You may use it as a template to create your custom specs
