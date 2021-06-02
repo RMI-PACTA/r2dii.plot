@@ -396,7 +396,8 @@ order_for_trajectoryB <- function(data, scenario_specs) {
   data_ordered <- data %>%
     mutate(metric = factor(
       .data$metric,
-      levels = c(order_lines, order_scenarios))) %>%
+      levels = c(order_lines, order_scenarios)
+    )) %>%
     arrange(.data$year, .data$metric)
 
   data_ordered
@@ -477,12 +478,14 @@ get_ordered_scenario_specsB <- function(data) {
   if (tech_green_or_brown == "brown") {
     ordered_scenarios_good_to_bad <- tibble(
       scenario = rev(c("worse", ordered_scenarios)),
-      colour = scenario_colours$hex)
+      colour = scenario_colours$hex
+    )
     scenario_specs <- ordered_scenarios_good_to_bad
   } else if (tech_green_or_brown == "green") {
     ordered_scenarios_good_to_bad <- tibble(
       scenario = c(ordered_scenarios, c("worse")),
-      colour = scenario_colours$hex)
+      colour = scenario_colours$hex
+    )
     scenario_specs <- reverse_rows(ordered_scenarios_good_to_bad)
   }
   scenario_specs
