@@ -124,10 +124,12 @@
 <span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
 <ul>
 <li>
-<code><a href="reference/plot_trajectory.html">plot_trajectory()</a></code> create a trajectory alignment chart in a ggplot object.</li>
+<code><a href="reference/plot_trajectoryA.html">plot_trajectoryA()</a></code> and <code><a href="reference/plot_trajectoryA.html">plot_trajectoryB()</a></code>: <code>r pull_title("plot_trajectoryA")</code>.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="co"># `plot_trajectoryB()` takes fewer arguments</span>
+
+<span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
   technology_filter <span class="op">=</span> <span class="st">"oilcap"</span>,
@@ -137,6 +139,26 @@
   end_year_filter <span class="op">=</span> <span class="fl">2025</span>,
   normalize_to_start_year <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">data_trajectory</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
+<span class="co">#&gt; [1] "projected"         "corporate_economy" "cps"              </span>
+<span class="co">#&gt; [4] "sds"               "sps"</span>
+
+<span class="co"># IMPORTANT: Use `factor()` to order `metric` with the main trajectory line</span>
+<span class="co"># first, then benchmarks, then scenarios. Else the line-types may be messed up</span>
+<span class="va">lines_order</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"sds"</span>, <span class="st">"sps"</span>, <span class="st">"cps"</span><span class="op">)</span>
+<span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">data_trajectory</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">metric</span>, levels <span class="op">=</span> <span class="va">lines_order</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">year</span>, <span class="va">.data</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
+
+<span class="fu"><a href="reference/plot_trajectoryA.html">plot_trajectoryB</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<ul>
+<li>
+<code><a href="reference/plot_trajectoryA.html">plot_trajectoryA()</a></code> is an alternative to <code><a href="reference/plot_trajectoryA.html">plot_trajectoryB()</a></code>.</li>
+</ul>
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># `plot_trajectoryA()` takes more arguments</span>
 
 <span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   scenario <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sds"</span>, <span class="st">"sps"</span>, <span class="st">"cps"</span><span class="op">)</span>,
@@ -153,14 +175,14 @@
   label <span class="op">=</span> <span class="st">"Corporate Economy"</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span>
+<span class="fu"><a href="reference/plot_trajectoryA.html">plot_trajectoryA</a></span><span class="op">(</span>
   <span class="va">data_trajectory</span>,
   scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
   main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
   additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># more elaborate annotations, title and labels</span>
 
@@ -183,7 +205,7 @@
     <span class="st">"Current Policies Scenario"</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data_trajectory</span>,
+<span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_trajectoryA.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data_trajectory</span>,
   scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
   main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
   additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
@@ -199,14 +221,14 @@
     x <span class="op">=</span> <span class="st">"Year"</span>,
     y <span class="op">=</span> <span class="st">"Production rate (normalized to 2020)"</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>
 <code><a href="reference/prep_techmix.html">prep_techmix()</a></code> prepares pre-processed data for plotting a tech-mix chart.</li>
 <li>
 <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> create a techmix chart in a ggplot object.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default colours, all data, added title</span>
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"power"</span>
 
@@ -223,8 +245,8 @@
 <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="va">plot</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Technology mix for the Power sector"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Custom colours, all data, no title</span>
 <span class="va">power_colors_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
@@ -237,8 +259,8 @@
   tech_colours <span class="op">=</span> <span class="va">power_colors_custom</span>
 <span class="op">)</span>
 <span class="va">plot</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p><img src="reference/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
 
@@ -266,19 +288,19 @@
 <span class="op">)</span>
 <span class="va">plot</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Technology mix for the Automotive sector"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>
 <code><a href="reference/prep_timelineA.html">prep_timelineA()</a></code> .</li>
 <li>
 <code><a href="reference/plot_timelineA.html">plot_timelineA()</a></code> creates a time line plot.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using default preparation and specs</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_timelineA.html">prep_timelineA</a></span><span class="op">(</span><span class="va">sda</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span><span class="op">)</span>
 <span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Using custom preparation</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_timelineA.html">prep_timelineA</a></span><span class="op">(</span>
@@ -299,12 +321,12 @@
     y <span class="op">=</span> <span class="st">"Tons of CO2 per ton"</span>,
     caption <span class="op">=</span> <span class="st">"Dashed line is an extrapolation of the last value in the dataset."</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>
 <code><a href="reference/timeline_specs.html">timeline_specs()</a></code> creates the default specs data frame for ‘plot_timelinea()’.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You may use it as a template to create your custom specs</span>
 <span class="fu"><a href="reference/timeline_specs.html">timeline_specs</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 3</span>
