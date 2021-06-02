@@ -48,8 +48,8 @@ prep_timelineA <- function(sda_data,
   sector_filter <- tolower(sector_filter)
   abort_bad_sector(sector_filter)
   warn_sector(sda_data, sector_filter)
-  year_start <- year_start %||% min(data$year)
-  year_end <- year_end %||% max(data$year)
+  year_start <- year_start %||% min(sda_data$year)
+  year_end <- year_end %||% max(sda_data$year)
 
   check_input_parameters(
     sda_data,
