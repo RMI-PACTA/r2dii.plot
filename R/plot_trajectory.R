@@ -220,29 +220,22 @@ plot_trajectory <- plot_trajectoryA
 #'   value_name = "production"
 #' )
 #'
-#'# specify the order of metrics in data - first the main trajectory line, then
-# the benchmarks and finally scenarios
-#' lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+#' plot_trajectoryB(data)
 #'
+#' # You may recode `metric` with `dplyr::recode()`
 #' data <- data %>%
-#'  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
-#'  arrange(.data$year, .data$metric)
+#'   mutate(
+#'     metric = recode(
+#'       .data$metric,
+#'       "projected" = "Projeted",
+#'       "corporate_economy" = "Corporate Economy",
+#'       "sds" = "SDS",
+#'       "sps" = "SPS",
+#'       "cps" = "CPS"
+#'     )
+#'   )
 #'
-#'plot <- plot_trajectoryB(data)
-#'plot
-#'
-#' # Recode `metric` with `dplyr::recode()`
-#' data <- data %>%
-#' mutate(metric = recode(
-#'    .data$metric,
-#'    "projected" = "Projeted",
-#'    "corporate_economy" = "Corporate Economy",
-#'    "sds" = "SDS",
-#'    "sps" = "SPS",
-#'    "cps" = "CPS"))
-#'
-#' plot <- plot_trajectoryB(data)
-#' plot
+#' plot_trajectoryB(data)
 plot_trajectoryB <- function(data) {
   check_number_scenariosB(data)
 
