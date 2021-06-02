@@ -36,35 +36,25 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-#' Performs the initial processing on raw input data in banks' format
-#'
-#' @param data Raw input data in the format of banks' output.
-#'
-#' @description This function processes the data in banks' format so that it can
-#'   be used later in data filtering functions for charts.
-#'
-#' @return A dataframe with additional column `metric_type` and modified
-#'   `metric`.
-#'
-#' @examples
-#' process_input_data(market_share)
-#' @keywords internal
-#' @noRd
-process_input_data <- function(data) {
+recode_metric_and_metric_type <- function(data) {
   data %>%
-    add_metric_type() %>%
+    mutate(metric_type = recode_portfolio_benchmark_scenario(.data$metric)) %>%
     mutate(metric = sub("target_", "", .data$metric))
 }
 
-add_metric_type <- function(data) {
-  check_crucial_names(data, "metric")
-
-  mutate(
-    data,
-    metric_type = case_when(
-      .data$metric == "projected" ~ "portfolio",
-      startsWith(.data$metric, "target") ~ "scenario",
-      TRUE ~ "benchmark"
-    )
+recode_portfolio_benchmark_scenario <- function(x) {
+  case_when(
+    x == "projected" ~ "portfolio",
+    startsWith(x, "target") ~ "scenario",
+    TRUE ~ "benchmark"
   )
+}
+
+abort_bad_metric <- function(x) {
+  has_projected <- "projected" %in% x
+  if (!has_projected) abort("Can't find values to recode as 'portfolio'.")
+  has_scenarios <- any(startsWith(x, "target"))
+  if (!has_scenarios) abort("Can't find values to recode as scenarios.")
+
+  invisible(x)
 }

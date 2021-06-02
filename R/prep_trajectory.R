@@ -1,6 +1,6 @@
 #' Prepares pre-processed data for plotting a trajectory chart
 #'
-#' @param data_preprocessed Pre-processed input data.
+#' @param data Pre-processed input data.
 #' @param sector_filter Sector for which to filter the data (character string).
 #' @param technology_filter Technology for which to filter the data (character
 #'   string).
@@ -26,7 +26,7 @@
 #'   scenario_source_filter = "demo_2020",
 #'   value_name = "production"
 #' )
-prep_trajectory <- function(data_preprocessed,
+prep_trajectory <- function(data,
                             sector_filter,
                             technology_filter,
                             region_filter,
@@ -34,20 +34,21 @@ prep_trajectory <- function(data_preprocessed,
                             value_name,
                             end_year_filter = 2025,
                             normalize_to_start_year = TRUE) {
-  data_preprocessed <- process_input_data(data_preprocessed)
+  check_crucial_names(data, "metric")
+  data <- recode_metric_and_metric_type(data)
 
-  warn_bad_value(sector_filter, data_preprocessed$sector)
-  warn_bad_value(technology_filter, data_preprocessed$technology)
-  warn_bad_value(region_filter, data_preprocessed$region)
-  warn_bad_value(scenario_source_filter, data_preprocessed$scenario_source)
-  check_crucial_names(data_preprocessed, "sector")
+  warn_bad_value(sector_filter, data$sector)
+  warn_bad_value(technology_filter, data$technology)
+  warn_bad_value(region_filter, data$region)
+  warn_bad_value(scenario_source_filter, data$scenario_source)
+  check_crucial_names(data, "sector")
 
-  year_start_projected <- data_preprocessed %>%
+  year_start_projected <- data %>%
     filter(.data$metric == "projected") %>%
     pull(.data$year) %>%
     min()
 
-  data_filtered <- data_preprocessed %>%
+  data_filtered <- data %>%
     filter(.data$sector == .env$sector_filter) %>%
     filter(.data$technology == .env$technology_filter) %>%
     filter(.data$region == .env$region_filter) %>%

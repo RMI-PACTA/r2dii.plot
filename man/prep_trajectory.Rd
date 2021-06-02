@@ -5,7 +5,7 @@
 \title{Prepares pre-processed data for plotting a trajectory chart}
 \usage{
 prep_trajectory(
-  data_preprocessed,
+  data,
   sector_filter,
   technology_filter,
   region_filter,
@@ -16,7 +16,7 @@ prep_trajectory(
 )
 }
 \arguments{
-\item{data_preprocessed}{Pre-processed input data.}
+\item{data}{Pre-processed input data.}
 
 \item{sector_filter}{Sector for which to filter the data (character string).}
 

@@ -235,6 +235,35 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
+* `prep_techmixB()` is an alternative with fewer arguments. It requires more
+work upfront but if you forget its requirements you will get error messages that
+we hope will help you fix the problem.
+
+```{r error=TRUE}
+market_share %>%
+  # Pick a specific subset of data or you'll get (hopefully informative) errors
+  filter(
+    dplyr::between(year, 2020, 2025),
+    scenario_source == "demo_2020",
+    sector == "power",
+    region == "global",
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  ) %>% 
+  prep_techmixB() %>% 
+  plot_techmix()
+
+# Errors
+missing_column <- select(data, -metric)
+prep_techmixB(missing_column)
+
+missing_metric_values <- mutate(data, metric = "bad")
+prep_techmixB(missing_metric_values)
+
+# Expect similar errors with too many `scenario_source`s and `regions`
+too_many_sectors <- mutate(head(data, 2), sector = c("a", "b"))
+prep_techmixB(too_many_sectors)
+```
+
 * `prep_timeline()` `r pull_title("prep_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 

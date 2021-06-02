@@ -238,6 +238,45 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
+-   `prep_techmixB()` is an alternative with fewer arguments. It
+    requires more work upfront but if you forget its requirements you
+    will get error messages that we hope will help you fix the problem.
+
+``` r
+market_share %>%
+  # Pick a specific subset of data or you'll get (hopefully informative) errors
+  filter(
+    dplyr::between(year, 2020, 2025),
+    scenario_source == "demo_2020",
+    sector == "power",
+    region == "global",
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  ) %>% 
+  prep_techmixB() %>% 
+  plot_techmix()
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+``` r
+# Errors
+missing_column <- select(data, -metric)
+prep_techmixB(missing_column)
+#> Error: Must have missing names:
+#> `metric`, `region`, `technology_share`, `year`
+
+missing_metric_values <- mutate(data, metric = "bad")
+prep_techmixB(missing_metric_values)
+#> Error: Must have missing names:
+#> `region`, `technology_share`, `year`
+
+# Expect similar errors with too many `scenario_source`s and `regions`
+too_many_sectors <- mutate(head(data, 2), sector = c("a", "b"))
+prep_techmixB(too_many_sectors)
+#> Error: Must have missing names:
+#> `region`, `technology_share`, `year`
+```
+
 -   `prep_timeline()` prepare the output of
     ‘r2dii.analysis::target\_sda()’ for ‘plot\_timeline()’.
 -   `plot_timelineA()` creates a time line plot.
@@ -257,7 +296,7 @@ plot_timelineA(data) +
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.

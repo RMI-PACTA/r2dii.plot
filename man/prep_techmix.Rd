@@ -2,6 +2,7 @@
 % Please edit documentation in R/prep_techmix.R
 \name{prep_techmix}
 \alias{prep_techmix}
+\alias{prep_techmixB}
 \title{Prepares pre-processed data for plotting a tech-mix chart}
 \usage{
 prep_techmix(
@@ -14,6 +15,8 @@ prep_techmix(
   scenario_filter = NULL,
   value_to_plot = "technology_share"
 )
+
+prep_techmixB(data, value = "technology_share")
 }
 \arguments{
 \item{data}{Pre-processed input data.}
@@ -29,7 +32,7 @@ prep_techmix(
 
 \item{scenario_filter}{Scenario to plot in the graph (character string).}
 
-\item{value_to_plot}{The name of the value to be plotted as a bar chart
+\item{value_to_plot, value}{The name of the value to be plotted as a bar chart
 (character string).}
 }
 \description{
@@ -45,4 +48,15 @@ prep_techmix(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
+
+data <- market_share \%>\%
+  filter(
+    dplyr::between(year, 2020, 2025),
+    scenario_source == "demo_2020",
+    sector == "power",
+    region == "global",
+    metric \%in\% c("projected", "corporate_economy", "target_sds")
+  )
+
+prep <- prep_techmixB(data)
 }

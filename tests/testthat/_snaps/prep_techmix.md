@@ -18,3 +18,19 @@
       10 power  gascap     portfolio_2025 projected         0.0885 demo_2020      
       # ... with 20 more rows
 
+# with more than one value of some columns errors gracefully
+
+    `scenario_source` must have one value but has more: 1, 2.
+
+---
+
+    `sector` must have one value but has more: 1, 2.
+
+---
+
+    `region` must have one value but has more: 1, 2.
+
+# with bad metric errors gracefully
+
+    Can't find values to recode as 'portfolio'.
+
