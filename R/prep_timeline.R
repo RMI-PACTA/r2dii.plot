@@ -39,8 +39,8 @@ prep_timelineA <- function(sda_data,
                              "steel",
                              "power"
                            ),
-                           year_start = 0,
-                           year_end = Inf,
+                           year_start = NULL,
+                           year_end = NULL,
                            column_line_names = "emission_factor_metric",
                            value_to_plot = "emission_factor_value",
                            extrapolate_missing_values = FALSE) {
@@ -48,6 +48,8 @@ prep_timelineA <- function(sda_data,
   sector_filter <- tolower(sector_filter)
   abort_bad_sector(sector_filter)
   warn_sector(sda_data, sector_filter)
+  year_start <- year_start %||% min(data$year)
+  year_end <- year_end %||% max(data$year)
 
   check_input_parameters(
     sda_data,
