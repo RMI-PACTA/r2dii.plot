@@ -79,9 +79,12 @@ library(r2dii.plot)
 market_share
 ```
 
-* `plot_trajectory()` `r pull_title("plot_trajectory")`.
+* `plot_trajectoryA()` and `plot_trajectoryB()`: `r
+pull_title("plot_trajectoryA")`.
 
 ```{r}
+# `plot_trajectoryB()` takes fewer arguments
+
 data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
@@ -92,6 +95,23 @@ data_trajectory <- prep_trajectory(
   end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
+
+unique(data_trajectory$metric)
+
+# IMPORTANT: Use `factor()` to order `metric` with the main trajectory line
+# first, then benchmarks, then scenarios. Else the line-types may be messed up
+lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+ordered <- data_trajectory %>%
+  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
+  arrange(.data$year, .data$metric)
+
+plot_trajectoryB(ordered)
+```
+
+* `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
+
+```{r}
+# `plot_trajectoryA()` takes more arguments
 
 scenario_specs <- tibble(
   scenario = c("sds", "sps", "cps"),
@@ -108,7 +128,7 @@ additional_line_metrics <- tibble(
   label = "Corporate Economy"
 )
 
-plot_trajectory(
+plot_trajectoryA(
   data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,

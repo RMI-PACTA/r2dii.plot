@@ -45,7 +45,7 @@ plot_techmix(data)
 \seealso{
 Other plotting functions: 
 \code{\link{plot_timelineA}()},
-\code{\link{plot_trajectory}()},
+\code{\link{plot_trajectoryA}()},
 \code{\link{theme_2dii}()}
 }
 \concept{plotting functions}
