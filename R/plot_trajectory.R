@@ -1,8 +1,14 @@
 #' Create a trajectory alignment chart in a ggplot object
 #'
-#' The function returns a ggplot object containing a stacked bar chart showing a
-#' technology mix for different categories (portfolio, scenario, benchmark,
-#' etc.).
+#' @description We are exploring different interfaces before release. We are
+#'   keen to hear feedback from beta-testers like you. Please try these
+#'   alternative interfaces and let us know which one you prefer. The main
+#'   difference between them is the number of arguments and how the input data
+#'   is used:
+#'
+#'   * `plot_trajectoryA()` requires input arguments such as (at the minimum)
+#'   `scenario_specs_good_to_bad` and `main_line_metric` for specifying the
+#'   order and labels of scenario data and trajectory lines.
 #'
 #' @param data Filtered input data; with columns: year, metric_type, metric and
 #'   value.
@@ -19,6 +25,7 @@
 #'
 #' @export
 #' @examples
+#' # `plot_trajectoryA()` -------------------------------------------------------
 #' data <- prep_trajectory(
 #'   market_share,
 #'   sector_filter = "power",
@@ -40,14 +47,14 @@
 #'   label = "Corporate Economy"
 #' )
 #'
-#' p <- plot_trajectory(data,
+#' p <- plot_trajectoryA(data,
 #'   scenario_specs_good_to_bad = scenario_specs,
 #'   main_line_metric = main_line_metric,
 #'   additional_line_metrics = additional_line_metrics
 #' )
 #'
 #' p
-plot_trajectory <- function(data,
+plot_trajectoryA <- function(data,
                             scenario_specs_good_to_bad,
                             main_line_metric,
                             additional_line_metrics = NULL) {
@@ -185,10 +192,57 @@ plot_trajectory <- function(data,
   p_trajectory
 }
 
-plot_trajectoryB <- function(data,
-                            scenario_specs_good_to_bad,
-                            main_line_metric,
-                            additional_line_metrics = NULL) {
+# For backward compatibility until we decide which version to keep
+plot_trajectory <- plot_trajectoryA
+
+#' @rdname plot_trajectoryA
+#' @description * `plot_trajectoryB()` derives the main and additional lines as
+#'   well as scenario order from the data. The lines are plotted according to
+#'   the order of the input data. The scenario order is inferred from the order
+#'   of values on the last year. For the labels the `data` column `metric` is
+#'   used. You may recode `metric` before passing the data with, for example,
+#'   `dplyr::recode()`.
+#'
+#' @family plotting functions
+#'
+#' @export
+#' @examples
+#'
+#' # `plot_trajectoryB()` ------------------------------------------------------
+#'
+#' #' data <- prep_trajectory(
+#'   market_share,
+#'   sector_filter = "power",
+#'   technology_filter = "renewablescap",
+#'   region_filter = "global",
+#'   scenario_source_filter = "demo_2020",
+#'   value_name = "production"
+#' )
+#'
+#'# specify the order of metrics in data - first the main trajectory line, then
+# the benchmarks and finally scenarios
+#' lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+#'
+#' data <- data %>%
+#'  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
+#'  arrange(.data$year, .data$metric)
+#'
+#'plot <- plot_trajectoryB(data)
+#'plot
+#'
+#' # Recode `metric` with `dplyr::recode()`
+#' data <- data %>%
+#' mutate(metric = dplyr::recode(
+#'    .data$metric,
+#'    "projected" = "Projeted",
+#'    "corporate_economy" = "Corporate Economy",
+#'    "sds" = "SDS",
+#'    "sps" = "SPS",
+#'    "cps" = "CPS"))
+#'
+#' plot <- plot_trajectoryB(data)
+#' plot
+plot_trajectoryB <- function(data) {
   check_number_scenariosB(data)
 
   # plot scenario areas
