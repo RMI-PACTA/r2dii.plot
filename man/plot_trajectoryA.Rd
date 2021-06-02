@@ -101,14 +101,20 @@ data <- prep_trajectory(
   value_name = "production"
 )
 
-plot_trajectoryB(data)
+# Order metric: First main trajectory line, then benchmarks, then scenarios
+lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+ordered <- data \%>\%
+  mutate(metric = factor(.data$metric, levels = lines_order)) \%>\%
+  arrange(.data$year, .data$metric)
+
+plot_trajectoryB(ordered)
 
 # You may recode `metric` with `dplyr::recode()`
-data <- data \%>\%
+recoded <- ordered \%>\%
   mutate(
     metric = recode(
       .data$metric,
-      "projected" = "Projeted",
+      "projected" = "Projected",
       "corporate_economy" = "Corporate Economy",
       "sds" = "SDS",
       "sps" = "SPS",
@@ -116,7 +122,7 @@ data <- data \%>\%
     )
   )
 
-plot_trajectoryB(data)
+plot_trajectoryB(recoded)
 }
 \seealso{
 Other plotting functions: 

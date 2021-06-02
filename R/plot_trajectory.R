@@ -222,14 +222,20 @@ plot_trajectory <- plot_trajectoryA
 #'   value_name = "production"
 #' )
 #'
-#' plot_trajectoryB(data)
+#' # Order metric: First main trajectory line, then benchmarks, then scenarios
+#' lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
+#' ordered <- data %>%
+#'   mutate(metric = factor(.data$metric, levels = lines_order)) %>%
+#'   arrange(.data$year, .data$metric)
+#'
+#' plot_trajectoryB(ordered)
 #'
 #' # You may recode `metric` with `dplyr::recode()`
-#' data <- data %>%
+#' recoded <- ordered %>%
 #'   mutate(
 #'     metric = recode(
 #'       .data$metric,
-#'       "projected" = "Projeted",
+#'       "projected" = "Projected",
 #'       "corporate_economy" = "Corporate Economy",
 #'       "sds" = "SDS",
 #'       "sps" = "SPS",
@@ -237,7 +243,7 @@ plot_trajectory <- plot_trajectoryA
 #'     )
 #'   )
 #'
-#' plot_trajectoryB(data)
+#' plot_trajectoryB(recoded)
 plot_trajectoryB <- function(data) {
   check_number_scenariosB(data)
 
@@ -390,8 +396,7 @@ order_for_trajectoryB <- function(data, scenario_specs) {
   data_ordered <- data %>%
     mutate(metric = factor(
       .data$metric,
-      levels = c(order_lines, order_scenarios)
-    )) %>%
+      levels = c(order_lines, order_scenarios))) %>%
     arrange(.data$year, .data$metric)
 
   data_ordered
@@ -472,14 +477,12 @@ get_ordered_scenario_specsB <- function(data) {
   if (tech_green_or_brown == "brown") {
     ordered_scenarios_good_to_bad <- tibble(
       scenario = rev(c("worse", ordered_scenarios)),
-      colour = scenario_colours$hex
-    )
+      colour = scenario_colours$hex)
     scenario_specs <- ordered_scenarios_good_to_bad
   } else if (tech_green_or_brown == "green") {
     ordered_scenarios_good_to_bad <- tibble(
       scenario = c(ordered_scenarios, c("worse")),
-      colour = scenario_colours$hex
-    )
+      colour = scenario_colours$hex)
     scenario_specs <- reverse_rows(ordered_scenarios_good_to_bad)
   }
   scenario_specs
