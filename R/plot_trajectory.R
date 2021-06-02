@@ -193,6 +193,8 @@ plot_trajectoryA <- function(data,
 }
 
 # For backward compatibility until we decide which version to keep
+#' @export
+#' @rdname plot_trajectoryA
 plot_trajectory <- plot_trajectoryA
 
 #' @rdname plot_trajectoryA
