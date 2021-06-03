@@ -92,6 +92,8 @@ warn_bad_value <- function(x, y) {
 #' @rdname prep_trajectory
 #' @export
 #' @examples
+#' library(dplyr)
+#'
 #' data <- market_share %>%
 #'   filter(
 #'     technology == "oilcap",

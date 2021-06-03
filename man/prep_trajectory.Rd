@@ -54,6 +54,8 @@ prep_trajectory(
   scenario_source_filter = "demo_2020",
   value_name = "production"
 )
+library(dplyr)
+
 data <- market_share \%>\%
   filter(
     technology == "oilcap",
