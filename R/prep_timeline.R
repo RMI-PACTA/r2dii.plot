@@ -21,7 +21,7 @@
 #'   rename(
 #'     custom_value = "emission_factor_value",
 #'     custom_metric = "emission_factor_metric"
-#' )
+#'   )
 #' prep_timeline(data, value = "custom_value", metric = "custom_metric")
 prep_timeline <- function(data,
                           value = "emission_factor_value",
@@ -60,16 +60,15 @@ prep_timeline <- function(data,
 }
 
 check_prep_timeline <- function(data, value, metric, extrapolate) {
-    stopifnot(
-      is.data.frame(data),
-      is.character(value),
-      is.character(metric),
-      is.logical(extrapolate)
-    )
-    check_crucial_names(data, c("sector", "year", metric, value))
+  stopifnot(
+    is.data.frame(data),
+    is.character(value),
+    is.character(metric),
+    is.logical(extrapolate)
+  )
+  check_crucial_names(data, c("sector", "year", metric, value))
 
-    invisible(data)
-
+  invisible(data)
 }
 get_common_start_year <- function(data, column_line_names) {
   year <- max(

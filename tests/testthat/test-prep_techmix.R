@@ -47,7 +47,7 @@ test_that("with bad `years_filter` errors gracefully", {
     prep_techmix(
       market_share,
       sector_filter = "power",
-    years_filter = c("not", "good"),
+      years_filter = c("not", "good"),
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
