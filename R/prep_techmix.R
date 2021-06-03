@@ -37,12 +37,9 @@ prep_techmix <- function(data,
                          scenario_filter = NULL,
                          value = "technology_share") {
   check_crucial_names(data, "metric")
-  data <- recode_metric_and_metric_type(data)
+  abort_if_years_filter_is_too_long(years_filter)
 
-  length_y <- length(years_filter)
-  if (length_y != 2L) {
-    abort(glue("The length of `years_filter` must be 2, not {length_y}."))
-  }
+  data <- recode_metric_and_metric_type(data)
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
@@ -84,6 +81,14 @@ prep_techmix <- function(data,
     )
 
   data_out
+}
+
+abort_if_years_filter_is_too_long <- function(x) {
+  length_y <- length(x)
+  if (length_y != 2L) {
+    abort(glue("The length of `years_filter` must be 2, not {length_y}."))
+  }
+  invisible(x)
 }
 
 #' @rdname prep_techmix
