@@ -135,7 +135,9 @@
   scenario_source_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
   scenario_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
   value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>prep_techmixB</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"technology_share"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,7 +168,7 @@
       <td><p>Scenario to plot in the graph (character string).</p></td>
     </tr>
     <tr>
-      <th>value_to_plot</th>
+      <th>value_to_plot, value</th>
       <td><p>The name of the value to be plotted as a bar chart
 (character string).</p></td>
     </tr>
@@ -196,7 +198,19 @@
 #&gt; <span style='color: #BCBCBC;'> 8</span> power  gascap     benchmark_2020 corporate_economy 0.118  demo_2020      
 #&gt; <span style='color: #BCBCBC;'> 9</span> power  gascap     scenario_2020  sds               0.074<span style='text-decoration: underline;'>5</span> demo_2020      
 #&gt; <span style='color: #BCBCBC;'>10</span> power  gascap     portfolio_2025 projected         0.088<span style='text-decoration: underline;'>5</span> demo_2020      
-#&gt; <span style='color: #949494;'># … with 20 more rows</span></div></pre>
+#&gt; <span style='color: #949494;'># … with 20 more rows</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>market_share</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span>
+    <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>2020</span>, <span class='fl'>2025</span><span class='op'>)</span>,
+    <span class='va'>scenario_source</span> <span class='op'>==</span> <span class='st'>"demo_2020"</span>,
+    <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"power"</span>,
+    <span class='va'>region</span> <span class='op'>==</span> <span class='st'>"global"</span>,
+    <span class='va'>metric</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"projected"</span>, <span class='st'>"corporate_economy"</span>, <span class='st'>"target_sds"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='va'>prep</span> <span class='op'>&lt;-</span> <span class='fu'>prep_techmixB</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

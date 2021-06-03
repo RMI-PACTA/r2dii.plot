@@ -106,7 +106,7 @@
 <li>
 <code>market_share</code> dataset imitating the output of ‘r2dii.analysis::target_market_share()’.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">market_share</span>
 <span class="co">#&gt; # A tibble: 1,170 x 8</span>
 <span class="co">#&gt;    sector     technology  year region scenario_source metric          production</span>
@@ -124,12 +124,10 @@
 <span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
 <ul>
 <li>
-<code><a href="reference/plot_trajectoryA.html">plot_trajectoryA()</a></code> and <code><a href="reference/plot_trajectoryA.html">plot_trajectoryB()</a></code>: <code>r pull_title("plot_trajectoryA")</code>.</li>
+<code><a href="reference/prep_trajectory.html">prep_trajectory()</a></code> and <code><a href="reference/prep_trajectory.html">prep_trajectoryB()</a></code>: prepares pre-processed data for plotting a trajectory chart.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># `plot_trajectoryB()` takes fewer arguments</span>
-
-<span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
   technology_filter <span class="op">=</span> <span class="st">"oilcap"</span>,
@@ -139,6 +137,17 @@
   end_year_filter <span class="op">=</span> <span class="fl">2025</span>,
   normalize_to_start_year <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
+
+<span class="co"># Same, with more work upfront but fewer arguments</span>
+<span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">technology</span> <span class="op">==</span> <span class="st">"oilcap"</span>,
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
+    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
+    <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2025</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectoryB</a></span><span class="op">(</span>normalize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">data_trajectory</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
 <span class="co">#&gt; [1] "projected"         "corporate_economy" "cps"              </span>
@@ -151,13 +160,14 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">metric</span>, levels <span class="op">=</span> <span class="va">lines_order</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">year</span>, <span class="va">.data</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
 
+<span class="co"># `plot_trajectoryB()` takes fewer arguments</span>
 <span class="fu"><a href="reference/plot_trajectoryA.html">plot_trajectoryB</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>
 <code><a href="reference/plot_trajectoryA.html">plot_trajectoryA()</a></code> is an alternative to <code><a href="reference/plot_trajectoryA.html">plot_trajectoryB()</a></code>.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># `plot_trajectoryA()` takes more arguments</span>
 
 <span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
@@ -183,8 +193,7 @@
 <span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># more elaborate annotations, title and labels</span>
+<code class="sourceCode R"><span class="co"># more elaborate annotations, title and labels</span>
 
 <span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span>
   <span class="va">market_share</span>, 
@@ -228,7 +237,7 @@
 <li>
 <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> create a techmix chart in a ggplot object.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default colours, all data, added title</span>
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"power"</span>
 
@@ -247,8 +256,7 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Technology mix for the Power sector"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Custom colours, all data, no title</span>
+<code class="sourceCode R"><span class="co"># Custom colours, all data, no title</span>
 <span class="va">power_colors_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   technology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>,
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal Capacity"</span>, <span class="st">"Oil Capacity"</span>, <span class="st">"Gas Capacity"</span>, <span class="st">"Nuclear Capacity"</span>, <span class="st">"Hydro Capacity"</span>, <span class="st">"Renewables Capacity"</span><span class="op">)</span>,
@@ -261,8 +269,7 @@
 <span class="va">plot</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
+<code class="sourceCode R"><span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
 
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"automotive"</span>
 
@@ -291,29 +298,50 @@
 <p><img src="reference/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>
-<code><a href="reference/prep_timelineA.html">prep_timelineA()</a></code> .</li>
+<code><a href="reference/prep_techmix.html">prep_techmixB()</a></code> is an alternative with fewer arguments. It requires more work upfront but if you forget its requirements you will get error messages that we hope will help you fix the problem.</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">market_share</span> <span class="op">%&gt;%</span>
+  <span class="co"># Pick a specific subset of data or you'll get (hopefully informative) errors</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">2020</span>, <span class="fl">2025</span><span class="op">)</span>,
+    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
+    <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/prep_techmix.html">prep_techmixB</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Errors</span>
+<span class="va">missing_column</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">-</span><span class="va">metric</span><span class="op">)</span>
+<span class="fu"><a href="reference/prep_techmix.html">prep_techmixB</a></span><span class="op">(</span><span class="va">missing_column</span><span class="op">)</span>
+<span class="co">#&gt; Error: Must have missing names:</span>
+<span class="co">#&gt; `metric`, `region`, `technology_share`, `year`</span>
+
+<span class="va">missing_metric_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">data</span>, metric <span class="op">=</span> <span class="st">"bad"</span><span class="op">)</span>
+<span class="fu"><a href="reference/prep_techmix.html">prep_techmixB</a></span><span class="op">(</span><span class="va">missing_metric_values</span><span class="op">)</span>
+<span class="co">#&gt; Error: Must have missing names:</span>
+<span class="co">#&gt; `region`, `technology_share`, `year`</span>
+
+<span class="co"># Expect similar errors with too many `scenario_source`s and `regions`</span>
+<span class="va">too_many_sectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">data</span>, <span class="fl">2</span><span class="op">)</span>, sector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/prep_techmix.html">prep_techmixB</a></span><span class="op">(</span><span class="va">too_many_sectors</span><span class="op">)</span>
+<span class="co">#&gt; Error: Must have missing names:</span>
+<span class="co">#&gt; `region`, `technology_share`, `year`</span></code></pre></div>
+<ul>
+<li>
+<code><a href="reference/prep_timeline.html">prep_timeline()</a></code> prepare the output of ‘r2dii.analysis::target_sda()’ for ‘plot_timeline()’.</li>
 <li>
 <code><a href="reference/plot_timelineA.html">plot_timelineA()</a></code> creates a time line plot.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Using default preparation and specs</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_timelineA.html">prep_timelineA</a></span><span class="op">(</span><span class="va">sda</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span><span class="op">)</span>
-<span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Using custom preparation</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_timelineA.html">prep_timelineA</a></span><span class="op">(</span>
-  <span class="va">sda</span>,
-  sector_filter <span class="op">=</span> <span class="st">"cement"</span>,
-  year_start <span class="op">=</span> <span class="fl">2020</span>,
-  year_end <span class="op">=</span> <span class="fl">2050</span>,
-  column_line_names <span class="op">=</span> <span class="st">"emission_factor_metric"</span>,
-  value_to_plot <span class="op">=</span> <span class="st">"emission_factor_value"</span>,
-  extrapolate_missing_values <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">sda</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/prep_timeline.html">prep_timeline</a></span><span class="op">(</span>extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="co"># Using custom specs and extending the plot with ggplot2</span>
+<span class="co"># Plot and customize with ggplot2</span>
 <span class="fu"><a href="reference/plot_timelineA.html">plot_timelineA</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     title <span class="op">=</span> <span class="st">"Emission intensity trend for Cement."</span>,
@@ -321,12 +349,12 @@
     y <span class="op">=</span> <span class="st">"Tons of CO2 per ton"</span>,
     caption <span class="op">=</span> <span class="st">"Dashed line is an extrapolation of the last value in the dataset."</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>
 <code><a href="reference/timeline_specs.html">timeline_specs()</a></code> creates the default specs data frame for ‘plot_timelinea()’.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You may use it as a template to create your custom specs</span>
 <span class="fu"><a href="reference/timeline_specs.html">timeline_specs</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 3</span>

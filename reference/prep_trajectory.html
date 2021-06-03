@@ -127,7 +127,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>prep_trajectory</span><span class='op'>(</span>
-  <span class='va'>data_preprocessed</span>,
+  <span class='va'>data</span>,
   <span class='va'>sector_filter</span>,
   <span class='va'>technology_filter</span>,
   <span class='va'>region_filter</span>,
@@ -135,13 +135,15 @@
   <span class='va'>value_name</span>,
   end_year_filter <span class='op'>=</span> <span class='fl'>2025</span>,
   normalize_to_start_year <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>prep_trajectoryB</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"production"</span>, normalize <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_preprocessed</th>
+      <th>data</th>
       <td><p>Pre-processed input data.</p></td>
     </tr>
     <tr>
@@ -163,7 +165,7 @@ string).</p></td>
 (character string).</p></td>
     </tr>
     <tr>
-      <th>value_name</th>
+      <th>value_name, value</th>
       <td><p>The name of the value to be plotted in the trajectory chart
 (character string).</p></td>
     </tr>
@@ -172,9 +174,9 @@ string).</p></td>
       <td><p>Cut-off year for the chart (an integer).</p></td>
     </tr>
     <tr>
-      <th>normalize_to_start_year</th>
-      <td><p>Flag indicating whether the values should be
-normalized (boolean).</p></td>
+      <th>normalize_to_start_year, normalize</th>
+      <td><p>Logical of length-1. <code>TRUE</code>
+normalized to start year.</p></td>
     </tr>
     </table>
 
@@ -192,18 +194,43 @@ normalized (boolean).</p></td>
   value_name <span class='op'>=</span> <span class='st'>"production"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 5</span>
-#&gt;     year metric_type metric            value technology
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>2</span>020 portfolio   projected         1     oilcap    
-#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>2</span>020 benchmark   corporate_economy 1     oilcap    
-#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>2</span>020 scenario    cps               1     oilcap    
-#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sds               1     oilcap    
-#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sps               1     oilcap    
-#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>2</span>021 portfolio   projected         0.994 oilcap    
-#&gt; <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>2</span>021 benchmark   corporate_economy 0.992 oilcap    
-#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>2</span>021 scenario    cps               0.932 oilcap    
-#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sds               0.922 oilcap    
-#&gt; <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sps               0.931 oilcap    
+#&gt;     year metric_type metric            technology value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>2</span>020 portfolio   projected         oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>2</span>020 benchmark   corporate_economy oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>2</span>020 scenario    cps               oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sds               oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sps               oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>2</span>021 portfolio   projected         oilcap     0.994
+#&gt; <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>2</span>021 benchmark   corporate_economy oilcap     0.992
+#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>2</span>021 scenario    cps               oilcap     0.932
+#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sds               oilcap     0.922
+#&gt; <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sps               oilcap     0.931
+#&gt; <span style='color: #949494;'># … with 20 more rows</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>market_share</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span>
+    <span class='va'>technology</span> <span class='op'>==</span> <span class='st'>"oilcap"</span>,
+    <span class='va'>region</span> <span class='op'>==</span> <span class='st'>"global"</span>,
+    <span class='va'>scenario_source</span> <span class='op'>==</span> <span class='st'>"demo_2020"</span>,
+    <span class='va'>year</span> <span class='op'>&lt;=</span> <span class='fl'>2025</span>,
+    <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"power"</span>
+  <span class='op'>)</span>
+
+<span class='fu'>prep_trajectoryB</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 5</span>
+#&gt;     year metric_type metric            technology value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>2</span>020 portfolio   projected         oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>2</span>020 benchmark   corporate_economy oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>2</span>020 scenario    cps               oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sds               oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sps               oilcap     1    
+#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>2</span>021 portfolio   projected         oilcap     0.994
+#&gt; <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>2</span>021 benchmark   corporate_economy oilcap     0.992
+#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>2</span>021 scenario    cps               oilcap     0.932
+#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sds               oilcap     0.922
+#&gt; <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sps               oilcap     0.931
 #&gt; <span style='color: #949494;'># … with 20 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
