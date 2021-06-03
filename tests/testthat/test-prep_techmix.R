@@ -192,5 +192,8 @@ test_that("integrates with plot_techmix()", {
     )
 
   out <- prep_techmixB(data, value = "technology_share")
-  expect_no_error(plot_techmix(out))
+  expect_no_error(p <- plot_techmix(out))
+
+  p$plot_env <- NULL
+  expect_snapshot(str(p))
 })
