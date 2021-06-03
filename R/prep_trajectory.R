@@ -27,11 +27,11 @@
 #'   value = "production"
 #' )
 prep_trajectory <- function(data,
-                            value,
                             sector_filter,
                             technology_filter,
                             region_filter,
                             scenario_source_filter,
+                            value = "production",
                             end_year_filter = 2025,
                             normalize_to_start_year = TRUE) {
   check_crucial_names(data, "metric")

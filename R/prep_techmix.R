@@ -51,7 +51,6 @@ prep_techmix <- function(data,
     slice_head(n = 1) %>%
     pull(.data$metric))
 
-  # input checks
   sector_filter <- match.arg(sector_filter)
   check_prep_techmix(
     data,
@@ -151,11 +150,11 @@ abort_multiple <- function(data, colname) {
 }
 
 check_prep_techmix <- function(data,
-                                           years_filter,
-                                           region_filter,
-                                           scenario_source_filter,
-                                           scenario_filter,
-                                           value) {
+                               years_filter,
+                               region_filter,
+                               scenario_source_filter,
+                               scenario_filter,
+                               value) {
   if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.
