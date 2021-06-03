@@ -22,6 +22,7 @@
 #'   value = "technology_share"
 #' )
 prep_techmix <- function(data,
+                         value = "technology_share",
                          sector_filter = c(
                            "automotive",
                            "aviation",
@@ -34,8 +35,7 @@ prep_techmix <- function(data,
                          years_filter = NULL,
                          region_filter = "global",
                          scenario_source_filter = NULL,
-                         scenario_filter = NULL,
-                         value = "technology_share") {
+                         scenario_filter = NULL) {
   check_crucial_names(data, "metric")
   abort_if_years_filter_is_too_long(years_filter)
 

@@ -7,11 +7,11 @@
 \usage{
 prep_trajectory(
   data,
+  value,
   sector_filter,
   technology_filter,
   region_filter,
   scenario_source_filter,
-  value,
   end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
@@ -21,6 +21,9 @@ prep_trajectoryB(data, value = "production", normalize = TRUE)
 \arguments{
 \item{data}{Pre-processed input data.}
 
+\item{value, value}{The name of the value to be plotted in the trajectory chart
+(character string).}
+
 \item{sector_filter}{Sector for which to filter the data (character string).}
 
 \item{technology_filter}{Technology for which to filter the data (character
@@ -29,9 +32,6 @@ string).}
 \item{region_filter}{Region for which to filter the data (character string).}
 
 \item{scenario_source_filter}{Scenario source for which to filter the data
-(character string).}
-
-\item{value, value}{The name of the value to be plotted in the trajectory chart
 (character string).}
 
 \item{end_year_filter}{Cut-off year for the chart (an integer).}
