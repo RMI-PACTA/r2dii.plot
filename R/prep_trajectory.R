@@ -10,7 +10,7 @@
 #' @param value_name,value The name of the value to be plotted in the trajectory chart
 #'   (character string).
 #' @param end_year_filter Cut-off year for the chart (an integer).
-#' @param normalize_to_start_year,noramlize Logical of length-1. `TRUE`
+#' @param normalize_to_start_year,normalize Logical of length-1. `TRUE`
 #'   normalized to start year.
 #'
 #' @return A data frame.

@@ -36,7 +36,7 @@ string).}
 
 \item{end_year_filter}{Cut-off year for the chart (an integer).}
 
-\item{normalize_to_start_year, noramlize}{Logical of length-1. \code{TRUE}
+\item{normalize_to_start_year, normalize}{Logical of length-1. \code{TRUE}
 normalized to start year.}
 }
 \value{
