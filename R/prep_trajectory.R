@@ -10,7 +10,7 @@
 #' @param value,value The name of the value to be plotted in the trajectory chart
 #'   (character string).
 #' @param end_year_filter Cut-off year for the chart (an integer).
-#' @param normalize_to_start_year,normalize Logical of length-1. `TRUE`
+#' @param normalize,normalize Logical of length-1. `TRUE`
 #'   normalized to start year.
 #'
 #' @return A data frame.
@@ -33,7 +33,7 @@ prep_trajectory <- function(data,
                             scenario_source_filter,
                             value = "production",
                             end_year_filter = 2025,
-                            normalize_to_start_year = TRUE) {
+                            normalize = TRUE) {
   check_crucial_names(data, "metric")
   data <- recode_metric_and_metric_type(data)
 
@@ -64,7 +64,7 @@ prep_trajectory <- function(data,
       .data$value
     )
 
-  if (normalize_to_start_year) {
+  if (normalize) {
     data_filtered <- left_join(data_filtered,
       data_filtered[data_filtered$year == min(data_filtered$year), ],
       by = c("metric_type", "metric")

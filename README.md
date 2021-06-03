@@ -77,7 +77,7 @@ data_trajectory <- prep_trajectory(
   scenario_source_filter = "demo_2020",
   value_name = "production",
   end_year_filter = 2025,
-  normalize_to_start_year = TRUE
+  normalize = TRUE
 )
 
 # Same, with more work upfront but fewer arguments
@@ -152,7 +152,7 @@ data_trajectory <- prep_trajectory(
   scenario_source_filter = "demo_2020",
   value_name = "production", 
   end_year_filter = 2025,
-  normalize_to_start_year = TRUE
+  normalize = TRUE
 )
 
 scenario_specs <- tibble(

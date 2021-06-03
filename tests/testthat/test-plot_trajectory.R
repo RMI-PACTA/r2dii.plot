@@ -7,7 +7,7 @@ test_that("with wrong number of scenarios errors gracefully", {
     scenario_source_filter = "demo_2020",
     value = "production",
     end_year_filter = 2025,
-    normalize_to_start_year = TRUE
+    normalize = TRUE
   )
 
   scenario_specs <- tibble(

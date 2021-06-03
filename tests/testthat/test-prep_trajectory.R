@@ -24,7 +24,7 @@ test_that("returns visibly", {
   )
 })
 
-test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
+test_that("with `normalize = FALSE` outputs visibly", {
   dont_normalize <- FALSE
   expect_visible(
     prep_trajectory(
@@ -34,7 +34,7 @@ test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       value = "production",
-      normalize_to_start_year = dont_normalize
+      normalize = dont_normalize
     )
   )
 })
@@ -139,7 +139,7 @@ test_that("with bad `end_year_filter` throws no error", {
   )
 })
 
-test_that("with bad `normalize_to_start_year` errors gracefully", {
+test_that("with bad `normalize` errors gracefully", {
   expect_error(
     regexp = "not.*logical",
     prep_trajectory(
@@ -149,7 +149,7 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       value = "production",
-      normalize_to_start_year = "bad"
+      normalize = "bad"
     )
   )
 })

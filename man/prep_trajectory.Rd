@@ -13,7 +13,7 @@ prep_trajectory(
   region_filter,
   scenario_source_filter,
   end_year_filter = 2025,
-  normalize_to_start_year = TRUE
+  normalize = TRUE
 )
 
 prep_trajectoryB(data, value = "production", normalize = TRUE)
@@ -36,7 +36,7 @@ string).}
 
 \item{end_year_filter}{Cut-off year for the chart (an integer).}
 
-\item{normalize_to_start_year, normalize}{Logical of length-1. \code{TRUE}
+\item{normalize, normalize}{Logical of length-1. \code{TRUE}
 normalized to start year.}
 }
 \value{
