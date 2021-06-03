@@ -19,18 +19,19 @@ prep_techmix(
 prep_techmixB(data, value = "technology_share")
 }
 \arguments{
-\item{data}{Pre-processed input data.}
+\item{data}{Dataframe like \code{market_share} (the output of
+\code{r2dii.analysis::target_market_share()}).}
 
-\item{sector_filter}{Sector for which to filter the data (character string).}
+\item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 
-\item{years_filter}{Years to plot in the graph (array of integer values).}
+\item{years_filter}{Numeric vector of length 2. Range of years to plot.}
 
-\item{region_filter}{Region for which to filter the data (character string).}
+\item{region_filter}{String of length 1. Region to pick from the \code{data}.}
 
-\item{scenario_source_filter}{Scenario source for which to filter the data
-(character string).}
+\item{scenario_source_filter}{String of length 1. Value of the column
+\code{scenario_source} to pick from the \code{data}.}
 
-\item{scenario_filter}{Scenario to plot in the graph (character string).}
+\item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
 
 \item{value}{String of length 1. The name of the column holding the value to
 plot.}

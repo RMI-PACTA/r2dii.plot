@@ -1,12 +1,13 @@
 #' Prepares pre-processed data for plotting a tech-mix chart
 #'
-#' @param data Pre-processed input data.
-#' @param sector_filter Sector for which to filter the data (character string).
-#' @param years_filter Years to plot in the graph (array of integer values).
-#' @param region_filter Region for which to filter the data (character string).
-#' @param scenario_source_filter Scenario source for which to filter the data
-#'   (character string).
-#' @param scenario_filter Scenario to plot in the graph (character string).
+#' @param data Dataframe like `market_share` (the output of
+#'   `r2dii.analysis::target_market_share()`).
+#' @param sector_filter String of length 1. Sector to pick from the `data`.
+#' @param years_filter Numeric vector of length 2. Range of years to plot.
+#' @param region_filter String of length 1. Region to pick from the `data`.
+#' @param scenario_source_filter String of length 1. Value of the column
+#'   `scenario_source` to pick from the `data`.
+#' @param scenario_filter String of length 1. Scenario to pick from the `data`.
 #' @inheritParams prep_timeline
 #'
 #' @export
@@ -37,6 +38,11 @@ prep_techmix <- function(data,
                          value = "technology_share") {
   check_crucial_names(data, "metric")
   data <- recode_metric_and_metric_type(data)
+
+  length_y <- length(years_filter)
+  if (length_y != 2L) {
+    abort(glue("The length of `years_filter` must be 2, not {length_y}."))
+  }
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
