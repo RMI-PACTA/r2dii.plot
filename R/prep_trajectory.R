@@ -7,7 +7,7 @@
 #' @param region_filter Region for which to filter the data (character string).
 #' @param scenario_source_filter Scenario source for which to filter the data
 #'   (character string).
-#' @param value_name,value The name of the value to be plotted in the trajectory chart
+#' @param value,value The name of the value to be plotted in the trajectory chart
 #'   (character string).
 #' @param end_year_filter Cut-off year for the chart (an integer).
 #' @param normalize_to_start_year,normalize Logical of length-1. `TRUE`
@@ -24,14 +24,14 @@
 #'   technology_filter = "oilcap",
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
-#'   value_name = "production"
+#'   value = "production"
 #' )
 prep_trajectory <- function(data,
                             sector_filter,
                             technology_filter,
                             region_filter,
                             scenario_source_filter,
-                            value_name,
+                            value,
                             end_year_filter = 2025,
                             normalize_to_start_year = TRUE) {
   check_crucial_names(data, "metric")
@@ -55,7 +55,7 @@ prep_trajectory <- function(data,
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(.data$year >= .env$year_start_projected) %>%
     filter(.data$year <= .env$end_year_filter) %>%
-    mutate(value = .data[[value_name]]) %>%
+    mutate(value = .data[[value]]) %>%
     select(
       .data$year,
       .data$metric_type,

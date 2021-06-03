@@ -32,7 +32,7 @@
 #'   technology_filter = "renewablescap",
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
-#'   value_name = "production"
+#'   value = "production"
 #' )
 #'
 #' scenario_specs <- dplyr::tibble(
@@ -219,7 +219,7 @@ plot_trajectory <- plot_trajectoryA
 #'   technology_filter = "renewablescap",
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
-#'   value_name = "production"
+#'   value = "production"
 #' )
 #'
 #' # Order metric: First main trajectory line, then benchmarks, then scenarios

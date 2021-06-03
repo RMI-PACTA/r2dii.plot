@@ -5,7 +5,7 @@ test_that("with wrong number of scenarios errors gracefully", {
     technology_filter = "oilcap",
     region_filter = "global",
     scenario_source_filter = "demo_2020",
-    value_name = "production",
+    value = "production",
     end_year_filter = 2025,
     normalize_to_start_year = TRUE
   )

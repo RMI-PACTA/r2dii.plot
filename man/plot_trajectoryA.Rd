@@ -66,7 +66,7 @@ data <- prep_trajectory(
   technology_filter = "renewablescap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
-  value_name = "production"
+  value = "production"
 )
 
 scenario_specs <- dplyr::tibble(
@@ -98,7 +98,7 @@ data <- prep_trajectory(
   technology_filter = "renewablescap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
-  value_name = "production"
+  value = "production"
 )
 
 # Order metric: First main trajectory line, then benchmarks, then scenarios

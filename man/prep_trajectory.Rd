@@ -11,7 +11,7 @@ prep_trajectory(
   technology_filter,
   region_filter,
   scenario_source_filter,
-  value_name,
+  value,
   end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
@@ -31,7 +31,7 @@ string).}
 \item{scenario_source_filter}{Scenario source for which to filter the data
 (character string).}
 
-\item{value_name, value}{The name of the value to be plotted in the trajectory chart
+\item{value, value}{The name of the value to be plotted in the trajectory chart
 (character string).}
 
 \item{end_year_filter}{Cut-off year for the chart (an integer).}
@@ -52,7 +52,7 @@ prep_trajectory(
   technology_filter = "oilcap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
-  value_name = "production"
+  value = "production"
 )
 library(dplyr)
 
