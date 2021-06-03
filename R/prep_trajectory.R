@@ -1,22 +1,14 @@
-#' Prepares pre-processed data for plotting a trajectory chart
+#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_trajectory()`
 #'
-#' @param data Pre-processed input data.
-#' @param sector_filter Sector for which to filter the data (character string).
-#' @param technology_filter Technology for which to filter the data (character
-#'   string).
-#' @param region_filter Region for which to filter the data (character string).
-#' @param scenario_source_filter Scenario source for which to filter the data
-#'   (character string).
-#' @param value,value The name of the value to be plotted in the trajectory chart
-#'   (character string).
-#' @param end_year_filter Cut-off year for the chart (an integer).
-#' @param normalize,normalize Logical of length-1. `TRUE`
-#'   normalized to start year.
+#' @inheritParams prep_techmix
+#' @param technology_filter String of length 1. Technology to pick from the
+#'   `data`.
+#' @param end_year_filter Numeric of length 1. Cut-off year for the plot.
+#' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
 #' @return A data frame.
 #'
 #' @export
-#'
 #' @examples
 #' prep_trajectory(
 #'   market_share,
@@ -32,10 +24,11 @@ prep_trajectory <- function(data,
                             region_filter,
                             scenario_source_filter,
                             value = "production",
+                            metric = "metric",
                             end_year_filter = 2025,
                             normalize = TRUE) {
-  check_crucial_names(data, "metric")
-  data <- recode_metric_and_metric_type(data)
+  check_crucial_names(data, metric)
+  data <- recode_metric_and_metric_type(data, metric)
 
   warn_bad_value(sector_filter, data$sector)
   warn_bad_value(technology_filter, data$technology)
@@ -104,9 +97,12 @@ warn_bad_value <- function(x, y) {
 #'   )
 #'
 #' prep_trajectoryB(data)
-prep_trajectoryB <- function(data, value = "production", normalize = TRUE) {
+prep_trajectoryB <- function(data,
+                             value = "production",
+                             metric = "metric",
+                             normalize = TRUE) {
   check_prep_trajectoryB(data, value, normalize)
-  data <- recode_metric_and_metric_type(data)
+  data <- recode_metric_and_metric_type(data, metric)
 
   cols <- c("year", "metric_type", "metric", "technology", "value")
   out <- data %>%

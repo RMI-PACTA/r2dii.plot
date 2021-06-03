@@ -12,16 +12,19 @@ prep_timeline(
 )
 }
 \arguments{
-\item{data}{Dataframe like the output of \code{r2dii.analysis::target_sda()}.}
+\item{data}{Data frame like the output of \code{r2dii.analysis::target_sda()}.}
 
 \item{value}{String of length 1. The name of the column holding the value to
 plot.}
 
 \item{extrapolate}{Logical of length 1. \code{TRUE} extrapolates to match the
 furthest value in the data set.}
+
+\item{Metric}{String of length 1. The name of the column holding the metrics
+to plot.}
 }
 \value{
-Dataframe with columns: year, line_name, value, extrapolated.
+Data frame with columns: year, line_name, value, extrapolated.
 }
 \description{
 Prepare the output of \code{r2dii.analysis::target_sda()} for \code{plot_timeline()}

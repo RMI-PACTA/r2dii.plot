@@ -13,9 +13,9 @@ plot_timelineB(data)
 plot_timelineC(data, recode = TRUE)
 }
 \arguments{
-\item{data}{Dataframe like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
+\item{data}{Data frame like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
 
-\item{specs}{Dataframe containing order of lines, their labels and colour
+\item{specs}{Data frame containing order of lines, their labels and colour
 names from the r2dii_colours palette.}
 
 \item{recode}{One of the following:

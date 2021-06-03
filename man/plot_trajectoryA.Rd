@@ -26,14 +26,14 @@ plot_trajectoryB(data)
 \item{data}{Filtered input data; with columns: year, metric_type, metric and
 value.}
 
-\item{scenario_specs_good_to_bad}{Dataframe containing scenario
+\item{scenario_specs_good_to_bad}{Data frame containing scenario
 specifications like name label, ordered from the most to least sustainable;
 with columns: scenario, label.}
 
-\item{main_line_metric}{Dataframe containing information about metric that
+\item{main_line_metric}{Data frame containing information about metric that
 should be plotted as the main line; with columns: metric, label.}
 
-\item{additional_line_metrics}{Dataframe containing information about
+\item{additional_line_metrics}{Data frame containing information about
 additional metrics that should be plotted as lines; with columns: metric,
 label).}
 }

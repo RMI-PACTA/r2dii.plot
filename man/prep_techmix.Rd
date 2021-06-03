@@ -3,7 +3,7 @@
 \name{prep_techmix}
 \alias{prep_techmix}
 \alias{prep_techmixB}
-\title{Prepares pre-processed data for plotting a tech-mix chart}
+\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_timeline()}}
 \usage{
 prep_techmix(
   data,
@@ -19,8 +19,7 @@ prep_techmix(
 prep_techmixB(data, value = "technology_share")
 }
 \arguments{
-\item{data}{Dataframe like \code{market_share} (the output of
-\code{r2dii.analysis::target_market_share()}).}
+\item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
 
 \item{value}{String of length 1. The name of the column holding the value to
 plot.}
@@ -37,7 +36,7 @@ plot.}
 \item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
 }
 \description{
-Prepares pre-processed data for plotting a tech-mix chart
+Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_timeline()}
 }
 \examples{
 prep_techmix(

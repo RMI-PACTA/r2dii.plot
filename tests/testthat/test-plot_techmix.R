@@ -106,7 +106,7 @@ test_that("with bad 'tech_colours' errors gracefully", {
   )
 
   expect_error(
-    regexp = "tech_colours.*must.*dataframe",
+    regexp = "tech_colours.*must.*data frame",
     plot_techmix(data, tech_colours = "bad")
   )
 })

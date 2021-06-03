@@ -7,7 +7,7 @@
 timeline_specs(data)
 }
 \arguments{
-\item{data}{Dataframe like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
+\item{data}{Data frame like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
 }
 \value{
 A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineA]{plot_timelineA()}}.

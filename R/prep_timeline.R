@@ -1,14 +1,16 @@
 #' Prepare the output of `r2dii.analysis::target_sda()` for `plot_timeline()`
 #'
-#' @param data Dataframe like the output of `r2dii.analysis::target_sda()`.
+#' @param data Data frame like the output of `r2dii.analysis::target_sda()`.
 #' @param value String of length 1. The name of the column holding the value to
 #'   plot.
+#' @param Metric String of length 1. The name of the column holding the metrics
+#'   to plot.
 #' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
 #'   furthest value in the data set.
 #'
 #' @seealso [sda].
 #'
-#' @return Dataframe with columns: year, line_name, value, extrapolated.
+#' @return Data frame with columns: year, line_name, value, extrapolated.
 #' @export
 #'
 #' @examples

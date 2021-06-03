@@ -1,7 +1,6 @@
-#' Prepares pre-processed data for plotting a tech-mix chart
+#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_timeline()`
 #'
-#' @param data Dataframe like `market_share` (the output of
-#'   `r2dii.analysis::target_market_share()`).
+#' @param data Data frame like the output of `r2dii.analysis::target_market_share()`.
 #' @param sector_filter String of length 1. Sector to pick from the `data`.
 #' @param years_filter Numeric vector of length 2. Range of years to plot.
 #' @param region_filter String of length 1. Region to pick from the `data`.
@@ -23,6 +22,7 @@
 #' )
 prep_techmix <- function(data,
                          value = "technology_share",
+                         metric = "metric",
                          sector_filter = c(
                            "automotive",
                            "aviation",
@@ -39,7 +39,7 @@ prep_techmix <- function(data,
   check_crucial_names(data, "metric")
   abort_if_years_filter_is_too_long(years_filter)
 
-  data <- recode_metric_and_metric_type(data)
+  data <- recode_metric_and_metric_type(data, metric)
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
@@ -105,11 +105,11 @@ abort_if_years_filter_is_too_long <- function(x) {
 #'   )
 #'
 #' prep <- prep_techmixB(data)
-prep_techmixB <- function(data, value = "technology_share") {
+prep_techmixB <- function(data, value = "technology_share", metric = "metric") {
   check_prep_techmixB(data, value)
 
   data %>%
-    recode_metric_and_metric_type() %>%
+    recode_metric_and_metric_type(metric) %>%
     pick_extreeme_years() %>%
     date_metric_type() %>%
     mutate(value = .data[[value]]) %>%

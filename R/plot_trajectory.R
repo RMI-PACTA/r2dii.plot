@@ -12,12 +12,12 @@
 #'
 #' @param data Filtered input data; with columns: year, metric_type, metric and
 #'   value.
-#' @param scenario_specs_good_to_bad Dataframe containing scenario
+#' @param scenario_specs_good_to_bad Data frame containing scenario
 #'   specifications like name label, ordered from the most to least sustainable;
 #'   with columns: scenario, label.
-#' @param main_line_metric Dataframe containing information about metric that
+#' @param main_line_metric Data frame containing information about metric that
 #'   should be plotted as the main line; with columns: metric, label.
-#' @param additional_line_metrics Dataframe containing information about
+#' @param additional_line_metrics Data frame containing information about
 #'   additional metrics that should be plotted as lines; with columns: metric,
 #'   label).
 #'

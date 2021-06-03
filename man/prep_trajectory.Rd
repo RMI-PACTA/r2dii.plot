@@ -3,15 +3,15 @@
 \name{prep_trajectory}
 \alias{prep_trajectory}
 \alias{prep_trajectoryB}
-\title{Prepares pre-processed data for plotting a trajectory chart}
+\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_trajectory()}}
 \usage{
 prep_trajectory(
   data,
-  value,
   sector_filter,
   technology_filter,
   region_filter,
   scenario_source_filter,
+  value = "production",
   end_year_filter = 2025,
   normalize = TRUE
 )
@@ -19,31 +19,30 @@ prep_trajectory(
 prep_trajectoryB(data, value = "production", normalize = TRUE)
 }
 \arguments{
-\item{data}{Pre-processed input data.}
+\item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
 
-\item{value, value}{The name of the value to be plotted in the trajectory chart
-(character string).}
+\item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 
-\item{sector_filter}{Sector for which to filter the data (character string).}
+\item{technology_filter}{String of length 1. Technology to pick from the
+\code{data}.}
 
-\item{technology_filter}{Technology for which to filter the data (character
-string).}
+\item{region_filter}{String of length 1. Region to pick from the \code{data}.}
 
-\item{region_filter}{Region for which to filter the data (character string).}
+\item{scenario_source_filter}{String of length 1. Value of the column
+\code{scenario_source} to pick from the \code{data}.}
 
-\item{scenario_source_filter}{Scenario source for which to filter the data
-(character string).}
+\item{value}{String of length 1. The name of the column holding the value to
+plot.}
 
-\item{end_year_filter}{Cut-off year for the chart (an integer).}
+\item{end_year_filter}{Numeric of length 1. Cut-off year for the plot.}
 
-\item{normalize, normalize}{Logical of length-1. \code{TRUE}
-normalized to start year.}
+\item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
 }
 \value{
 A data frame.
 }
 \description{
-Prepares pre-processed data for plotting a trajectory chart
+Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_trajectory()}
 }
 \examples{
 prep_trajectory(
