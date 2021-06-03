@@ -39,8 +39,8 @@ prep_timelineA <- function(sda_data,
                              "steel",
                              "power"
                            ),
-                           year_start = 0,
-                           year_end = Inf,
+                           year_start = NULL,
+                           year_end = NULL,
                            column_line_names = "emission_factor_metric",
                            value_to_plot = "emission_factor_value",
                            extrapolate_missing_values = FALSE) {
@@ -48,6 +48,8 @@ prep_timelineA <- function(sda_data,
   sector_filter <- tolower(sector_filter)
   abort_bad_sector(sector_filter)
   warn_sector(sda_data, sector_filter)
+  year_start <- year_start %||% get_common_start_year(sda_data, column_line_names)
+  year_end <- year_end %||% max(sda_data$year)
 
   check_input_parameters(
     sda_data,
@@ -238,4 +240,14 @@ prep_timelineB <- function(data, extrapolate = FALSE) {
 
   out$year <- lubridate::make_date(out$year)
   out
+}
+
+get_common_start_year <- function(data, column_line_names) {
+  year <- max(
+    data %>%
+      group_by(.data[[column_line_names]]) %>%
+      summarise(year = min(.data$year)) %>%
+      pull(.data$year)
+  )
+  year
 }

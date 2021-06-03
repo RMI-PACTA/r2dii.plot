@@ -9,8 +9,8 @@ prep_timelineA(
   sda_data,
   sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
     "steel", "power"),
-  year_start = 0,
-  year_end = Inf,
+  year_start = NULL,
+  year_end = NULL,
   column_line_names = "emission_factor_metric",
   value_to_plot = "emission_factor_value",
   extrapolate_missing_values = FALSE
