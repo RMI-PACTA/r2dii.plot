@@ -4,10 +4,18 @@
 \alias{prep_timeline}
 \title{Prepare the output of \code{r2dii.analysis::target_sda()} for \code{plot_timeline()}}
 \usage{
-prep_timeline(data, extrapolate = FALSE)
+prep_timeline(
+  data,
+  value = "emission_factor_value",
+  metric = "emission_factor_metric",
+  extrapolate = FALSE
+)
 }
 \arguments{
 \item{data}{Dataframe like the output of \code{r2dii.analysis::target_sda()}.}
+
+\item{value}{String of length 1. The name of the column holding the value to
+plot.}
 
 \item{extrapolate}{Logical of length 1. \code{TRUE} extrapolates to match the
 furthest value in the data set.}
@@ -19,8 +27,17 @@ Dataframe with columns: year, line_name, value, extrapolated.
 Prepare the output of \code{r2dii.analysis::target_sda()} for \code{plot_timeline()}
 }
 \examples{
+library(dplyr)
+
 tail(prep_timeline(sda))
 tail(prep_timeline(sda, extrapolate = TRUE))
+
+data <- sda \%>\%
+  rename(
+    custom_value = "emission_factor_value",
+    custom_metric = "emission_factor_metric"
+ )
+prep_timeline(data, value = "custom_value", metric = "custom_metric")
 }
 \seealso{
 \link{sda}.
