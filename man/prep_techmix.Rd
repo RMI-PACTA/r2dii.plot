@@ -13,7 +13,7 @@ prep_techmix(
   region_filter = "global",
   scenario_source_filter = NULL,
   scenario_filter = NULL,
-  value_to_plot = "technology_share"
+  value = "technology_share"
 )
 
 prep_techmixB(data, value = "technology_share")
@@ -32,8 +32,8 @@ prep_techmixB(data, value = "technology_share")
 
 \item{scenario_filter}{Scenario to plot in the graph (character string).}
 
-\item{value_to_plot, value}{The name of the value to be plotted as a bar chart
-(character string).}
+\item{value}{String of length 1. The name of the column holding the value to
+plot.}
 }
 \description{
 Prepares pre-processed data for plotting a tech-mix chart
@@ -46,7 +46,7 @@ prep_techmix(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_to_plot = "technology_share"
+  value = "technology_share"
 )
 library(dplyr)
 

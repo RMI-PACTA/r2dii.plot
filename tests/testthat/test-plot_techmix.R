@@ -8,7 +8,7 @@ test_that("with the simplest call outputs the expected snapshot", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   out <- plot_techmix(data)
@@ -27,7 +27,7 @@ test_that("with bad 'metric_type_order' errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   expect_error(
@@ -44,7 +44,7 @@ test_that("with bad 'metric_type_labels' errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   expect_error(
@@ -61,7 +61,7 @@ test_that("with more than one sector in data errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
   data <- data %>%
     dplyr::add_row(
@@ -84,7 +84,7 @@ test_that("with bad sector errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   ) %>%
     mutate(sector = "bad")
 
@@ -102,7 +102,7 @@ test_that("with bad 'tech_colours' errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   expect_error(
@@ -119,7 +119,7 @@ test_that("with bad column in 'tech_colours' errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   tech_colours <- technology_colours %>%
@@ -140,7 +140,7 @@ test_that("with bad technology in 'tech_colours' errors gracefully", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   tech_colours <- filter(technology_colours, sector == "power")

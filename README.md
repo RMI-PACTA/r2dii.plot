@@ -200,7 +200,7 @@ data <- prep_techmix(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_to_plot = "technology_share"
+  value = "technology_share"
 )
 
 plot <- plot_techmix(data)
@@ -237,7 +237,7 @@ data <- prep_techmix(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds", value_to_plot = "technology_share"
+  scenario_filter = "sds", value = "technology_share"
 )
 
 metric_type_order = c(

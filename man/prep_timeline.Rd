@@ -36,7 +36,7 @@ data <- sda \%>\%
   rename(
     custom_value = "emission_factor_value",
     custom_metric = "emission_factor_metric"
- )
+)
 prep_timeline(data, value = "custom_value", metric = "custom_metric")
 }
 \seealso{

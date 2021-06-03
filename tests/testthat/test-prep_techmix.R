@@ -6,7 +6,7 @@ test_that("outputs a data.frame", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "technology_share"
+    value = "technology_share"
   )
 
   expect_s3_class(out, "data.frame")
@@ -21,7 +21,7 @@ test_that("returns visibly", {
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
-      value_to_plot = "technology_share"
+      value = "technology_share"
     )
   )
 })
@@ -36,7 +36,7 @@ test_that("with bad `sector_filter` errors gracefully", {
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
-      value_to_plot = "technology_share"
+      value = "technology_share"
     )
   )
 })
@@ -51,7 +51,7 @@ test_that("with bad `years_filter` errors gracefully", {
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
-      value_to_plot = "technology_share"
+      value = "technology_share"
     )
   )
 })
@@ -66,7 +66,7 @@ test_that("with bad `region_filter` errors gracefully", {
       region_filter = "bad",
       scenario_source_filter = "demo_2020",
       scenario_filter = "sds",
-      value_to_plot = "technology_share"
+      value = "technology_share"
     )
   )
 })
@@ -81,7 +81,7 @@ test_that("with bad `scenario_source_filter` errors gracefully", {
       years_filter = c(2020, 2025),
       region_filter = "global",
       scenario_filter = "sds",
-      value_to_plot = "technology_share"
+      value = "technology_share"
     )
   )
 })
@@ -96,12 +96,12 @@ test_that("with bad `scenario_filter` errors gracefully", {
       region_filter = "global",
       scenario_source_filter = "demo_2020",
       scenario_filter = "bad",
-      value_to_plot = "technology_share"
+      value = "technology_share"
     )
   )
 })
 
-test_that("adds the column `value` from the column named in `value_to_plot`", {
+test_that("adds the column `value` from the column named in `value`", {
   out <- prep_techmix(
     market_share,
     sector_filter = "power",
@@ -109,7 +109,7 @@ test_that("adds the column `value` from the column named in `value_to_plot`", {
     region_filter = "global",
     scenario_source_filter = "demo_2020",
     scenario_filter = "sds",
-    value_to_plot = "production"
+    value = "production"
   )
 
   expect_true(rlang::has_name(out, "value"))

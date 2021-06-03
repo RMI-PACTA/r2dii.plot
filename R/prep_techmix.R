@@ -7,8 +7,7 @@
 #' @param scenario_source_filter Scenario source for which to filter the data
 #'   (character string).
 #' @param scenario_filter Scenario to plot in the graph (character string).
-#' @param value_to_plot,value The name of the value to be plotted as a bar chart
-#'   (character string).
+#' @inheritParams prep_timeline
 #'
 #' @export
 #' @examples
@@ -19,7 +18,7 @@
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
 #'   scenario_filter = "sds",
-#'   value_to_plot = "technology_share"
+#'   value = "technology_share"
 #' )
 prep_techmix <- function(data,
                          sector_filter = c(
@@ -35,7 +34,7 @@ prep_techmix <- function(data,
                          region_filter = "global",
                          scenario_source_filter = NULL,
                          scenario_filter = NULL,
-                         value_to_plot = "technology_share") {
+                         value = "technology_share") {
   check_crucial_names(data, "metric")
   data <- recode_metric_and_metric_type(data)
 
@@ -57,7 +56,7 @@ prep_techmix <- function(data,
     region_filter,
     scenario_source_filter,
     scenario_filter,
-    value_to_plot
+    value
   )
 
   data_out <- data %>%
@@ -71,7 +70,7 @@ prep_techmix <- function(data,
     ) %>%
     mutate(
       metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
-      value = .data[[value_to_plot]]
+      value = .data[[value]]
     ) %>%
     select(
       .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value,
@@ -145,7 +144,7 @@ check_input_parameters_techmix <- function(data,
                                            region_filter,
                                            scenario_source_filter,
                                            scenario_filter,
-                                           value_to_plot) {
+                                           value) {
   if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.
@@ -178,11 +177,11 @@ check_input_parameters_techmix <- function(data,
     ))
   }
 
-  if (!(value_to_plot %in% names(data))) {
+  if (!(value %in% names(data))) {
     abort(glue(
-      "'value_to_plot' must be one of column names in the input data.
+      "'value' must be one of column names in the input data.
       * The input data column names are: {toString(names(data))}.
-      * You submitted: {value_to_plot}."
+      * You submitted: {value}."
     ))
   }
 

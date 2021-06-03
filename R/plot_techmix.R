@@ -24,7 +24,7 @@
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
 #'   scenario_filter = "sds",
-#'   value_to_plot = "technology_share"
+#'   value = "technology_share"
 #' )
 #'
 #' plot_techmix(data)
