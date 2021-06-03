@@ -72,4 +72,3 @@ check_prep_timeline <- function(data, value, metric, extrapolate) {
 
   invisible(data)
 }
-

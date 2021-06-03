@@ -60,7 +60,6 @@ prep_trajectory <- function(data,
         year = .data$year.x,
         technology = .data$technology.x
       )
-
   }
 
   data_filtered
