@@ -61,12 +61,10 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
--   `plot_trajectoryA()` and `plot_trajectoryB()`:
-    `r pull_title("plot_trajectoryA")`.
+-   `prep_trajectory()` and `prep_trajectoryB()`: prepares pre-processed
+    data for plotting a trajectory chart.
 
 ``` r
-# `plot_trajectoryB()` takes fewer arguments
-
 data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
@@ -77,6 +75,17 @@ data_trajectory <- prep_trajectory(
   end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
+
+# Same, with more work upfront but fewer arguments
+data_trajectory <- market_share %>%
+  filter(
+    sector == "power",
+    technology == "oilcap",
+    region == "global",
+    scenario_source == "demo_2020",
+    year <= 2025
+  ) %>% 
+  prep_trajectoryB(normalize = TRUE)
 
 unique(data_trajectory$metric)
 #> [1] "projected"         "corporate_economy" "cps"              
@@ -89,6 +98,7 @@ ordered <- data_trajectory %>%
   mutate(metric = factor(.data$metric, levels = lines_order)) %>%
   arrange(.data$year, .data$metric)
 
+# `plot_trajectoryB()` takes fewer arguments
 plot_trajectoryB(ordered)
 ```
 

@@ -79,12 +79,9 @@ library(r2dii.plot)
 market_share
 ```
 
-* `plot_trajectoryA()` and `plot_trajectoryB()`: `r
-pull_title("plot_trajectoryA")`.
+* `prep_trajectory()` and `prep_trajectoryB()`: `r pull_title("prep_trajectory")`.
 
 ```{r}
-# `plot_trajectoryB()` takes fewer arguments
-
 data_trajectory <- prep_trajectory(
   market_share,
   sector_filter = "power",
@@ -96,6 +93,17 @@ data_trajectory <- prep_trajectory(
   normalize_to_start_year = TRUE
 )
 
+# Same, with more work upfront but fewer arguments
+data_trajectory <- market_share %>%
+  filter(
+    sector == "power",
+    technology == "oilcap",
+    region == "global",
+    scenario_source == "demo_2020",
+    year <= 2025
+  ) %>% 
+  prep_trajectoryB(normalize = TRUE)
+
 unique(data_trajectory$metric)
 
 # IMPORTANT: Use `factor()` to order `metric` with the main trajectory line
@@ -105,6 +113,7 @@ ordered <- data_trajectory %>%
   mutate(metric = factor(.data$metric, levels = lines_order)) %>%
   arrange(.data$year, .data$metric)
 
+# `plot_trajectoryB()` takes fewer arguments
 plot_trajectoryB(ordered)
 ```
 

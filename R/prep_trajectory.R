@@ -7,11 +7,11 @@
 #' @param region_filter Region for which to filter the data (character string).
 #' @param scenario_source_filter Scenario source for which to filter the data
 #'   (character string).
-#' @param value_name The name of the value to be plotted in the trajectory chart
+#' @param value_name,value The name of the value to be plotted in the trajectory chart
 #'   (character string).
 #' @param end_year_filter Cut-off year for the chart (an integer).
-#' @param normalize_to_start_year Flag indicating whether the values should be
-#'   normalized (boolean).
+#' @param normalize_to_start_year,noramlize Logical of length-1. `TRUE`
+#'   normalized to start year.
 #'
 #' @return A data frame.
 #'
@@ -71,8 +71,11 @@ prep_trajectory <- function(data,
     ) %>%
       mutate(value = .data$value.x / .data$value.y) %>%
       select(
-        year = .data$year.x, .data$metric_type,
-        .data$metric, .data$value, technology = .data$technology.x
+        year = .data$year.x,
+        .data$metric_type,
+        .data$metric,
+        technology = .data$technology.x,
+        .data$value
       )
   }
 
@@ -84,4 +87,65 @@ warn_bad_value <- function(x, y) {
     warning("`", x, "` matches no data value.", call. = FALSE)
   }
   invisible(x)
+}
+
+#' @rdname prep_trajectory
+#' @export
+#' @examples
+#' data <- market_share %>%
+#'   filter(
+#'     technology == "oilcap",
+#'     region == "global",
+#'     scenario_source == "demo_2020",
+#'     year <= 2025,
+#'     sector == "power"
+#'   )
+#'
+#' prep_trajectoryB(data)
+prep_trajectoryB <- function(data, value = "production", normalize = TRUE) {
+  check_prep_trajectoryB(data, value, normalize)
+  data <- recode_metric_and_metric_type(data)
+
+  cols <- c("year", "metric_type", "metric", "technology", "value")
+  out <- data %>%
+    mutate(value = .data[[value]]) %>%
+    select(all_of(cols))
+
+  if (!normalize) {
+    return(out)
+  }
+
+  left_join(
+    out, filter(out, .data$year == min(.data$year)),
+    by = c("metric_type", "metric")
+  ) %>%
+    mutate(
+      value = .data$value.x / .data$value.y,
+      year = .data$year.x,
+      technology = .data$technology.x
+    ) %>%
+    select(all_of(cols))
+}
+
+check_prep_trajectoryB <- function(data, value, normalize) {
+  crucial <- c(
+    "metric",
+    "sector",
+    "technology",
+    "region",
+    "year",
+    "scenario_source",
+    value
+  )
+  check_crucial_names(data, crucial)
+
+  if (!length(normalize) == 1L) abort("`normalize` must be of length 1.")
+  stopifnot(is.logical(normalize))
+
+  abort_multiple(data, "sector")
+  abort_multiple(data, "technology")
+  abort_multiple(data, "region")
+  abort_multiple(data, "scenario_source")
+
+  invisible(data)
 }
