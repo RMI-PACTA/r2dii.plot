@@ -36,7 +36,7 @@ prep_techmix <- function(data,
                          region_filter = "global",
                          scenario_source_filter = NULL,
                          scenario_filter = NULL) {
-  check_crucial_names(data, "metric")
+  check_crucial_names(data, metric)
   abort_if_years_filter_is_too_long(years_filter)
 
   data <- recode_metric_and_metric_type(data, metric)

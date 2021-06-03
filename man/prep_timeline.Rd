@@ -17,11 +17,11 @@ prep_timeline(
 \item{value}{String of length 1. The name of the column holding the value to
 plot.}
 
+\item{metric}{String of length 1. The name of the column holding the metrics
+to plot.}
+
 \item{extrapolate}{Logical of length 1. \code{TRUE} extrapolates to match the
 furthest value in the data set.}
-
-\item{Metric}{String of length 1. The name of the column holding the metrics
-to plot.}
 }
 \value{
 Data frame with columns: year, line_name, value, extrapolated.

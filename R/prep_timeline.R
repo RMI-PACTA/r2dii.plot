@@ -3,7 +3,7 @@
 #' @param data Data frame like the output of `r2dii.analysis::target_sda()`.
 #' @param value String of length 1. The name of the column holding the value to
 #'   plot.
-#' @param Metric String of length 1. The name of the column holding the metrics
+#' @param metric String of length 1. The name of the column holding the metrics
 #'   to plot.
 #' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
 #'   furthest value in the data set.

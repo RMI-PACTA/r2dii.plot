@@ -8,6 +8,7 @@
 prep_techmix(
   data,
   value = "technology_share",
+  metric = "metric",
   sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
     "steel", "power"),
   years_filter = NULL,
@@ -16,13 +17,16 @@ prep_techmix(
   scenario_filter = NULL
 )
 
-prep_techmixB(data, value = "technology_share")
+prep_techmixB(data, value = "technology_share", metric = "metric")
 }
 \arguments{
 \item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
 
 \item{value}{String of length 1. The name of the column holding the value to
 plot.}
+
+\item{metric}{String of length 1. The name of the column holding the metrics
+to plot.}
 
 \item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 

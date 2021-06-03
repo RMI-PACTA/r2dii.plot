@@ -12,11 +12,17 @@ prep_trajectory(
   region_filter,
   scenario_source_filter,
   value = "production",
+  metric = "metric",
   end_year_filter = 2025,
   normalize = TRUE
 )
 
-prep_trajectoryB(data, value = "production", normalize = TRUE)
+prep_trajectoryB(
+  data,
+  value = "production",
+  metric = "metric",
+  normalize = TRUE
+)
 }
 \arguments{
 \item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
@@ -33,6 +39,9 @@ prep_trajectoryB(data, value = "production", normalize = TRUE)
 
 \item{value}{String of length 1. The name of the column holding the value to
 plot.}
+
+\item{metric}{String of length 1. The name of the column holding the metrics
+to plot.}
 
 \item{end_year_filter}{Numeric of length 1. Cut-off year for the plot.}
 
