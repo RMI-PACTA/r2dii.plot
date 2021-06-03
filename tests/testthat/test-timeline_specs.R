@@ -1,4 +1,7 @@
 test_that("outputs the expected snapshot", {
-  data <- prep_timelineA(sda, sector_filter = "cement")
+  data <- sda %>%
+    filter(sector == "cement") %>%
+    prep_timeline()
+
   expect_snapshot(timeline_specs(data))
 })

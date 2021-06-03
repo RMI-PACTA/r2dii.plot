@@ -10,3 +10,4 @@
 #' @aliases scenario_colours sector_colours technology_colours
 #' @keywords internal
 "palette_colours"
+

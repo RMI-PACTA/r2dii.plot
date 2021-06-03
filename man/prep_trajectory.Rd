@@ -2,10 +2,11 @@
 % Please edit documentation in R/prep_trajectory.R
 \name{prep_trajectory}
 \alias{prep_trajectory}
+\alias{prep_trajectoryB}
 \title{Prepares pre-processed data for plotting a trajectory chart}
 \usage{
 prep_trajectory(
-  data_preprocessed,
+  data,
   sector_filter,
   technology_filter,
   region_filter,
@@ -14,9 +15,11 @@ prep_trajectory(
   end_year_filter = 2025,
   normalize_to_start_year = TRUE
 )
+
+prep_trajectoryB(data, value = "production", normalize = TRUE)
 }
 \arguments{
-\item{data_preprocessed}{Pre-processed input data.}
+\item{data}{Pre-processed input data.}
 
 \item{sector_filter}{Sector for which to filter the data (character string).}
 
@@ -28,13 +31,13 @@ string).}
 \item{scenario_source_filter}{Scenario source for which to filter the data
 (character string).}
 
-\item{value_name}{The name of the value to be plotted in the trajectory chart
+\item{value_name, value}{The name of the value to be plotted in the trajectory chart
 (character string).}
 
 \item{end_year_filter}{Cut-off year for the chart (an integer).}
 
-\item{normalize_to_start_year}{Flag indicating whether the values should be
-normalized (boolean).}
+\item{normalize_to_start_year, normalize}{Logical of length-1. \code{TRUE}
+normalized to start year.}
 }
 \value{
 A data frame.
@@ -51,4 +54,16 @@ prep_trajectory(
   scenario_source_filter = "demo_2020",
   value_name = "production"
 )
+library(dplyr)
+
+data <- market_share \%>\%
+  filter(
+    technology == "oilcap",
+    region == "global",
+    scenario_source == "demo_2020",
+    year <= 2025,
+    sector == "power"
+  )
+
+prep_trajectoryB(data)
 }

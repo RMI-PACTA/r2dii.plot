@@ -7,7 +7,7 @@
 #' @param scenario_source_filter Scenario source for which to filter the data
 #'   (character string).
 #' @param scenario_filter Scenario to plot in the graph (character string).
-#' @param value_to_plot The name of the value to be plotted as a bar chart
+#' @param value_to_plot,value The name of the value to be plotted as a bar chart
 #'   (character string).
 #'
 #' @export
@@ -36,7 +36,8 @@ prep_techmix <- function(data,
                          scenario_source_filter = NULL,
                          scenario_filter = NULL,
                          value_to_plot = "technology_share") {
-  data <- process_input_data(data)
+  check_crucial_names(data, "metric")
+  data <- recode_metric_and_metric_type(data)
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
@@ -80,13 +81,72 @@ prep_techmix <- function(data,
   data_out
 }
 
+#' @rdname prep_techmix
+#' @export
+#' @examples
+#' library(dplyr)
+#'
+#' data <- market_share %>%
+#'   filter(
+#'     dplyr::between(year, 2020, 2025),
+#'     scenario_source == "demo_2020",
+#'     sector == "power",
+#'     region == "global",
+#'     metric %in% c("projected", "corporate_economy", "target_sds")
+#'   )
+#'
+#' prep <- prep_techmixB(data)
+prep_techmixB <- function(data, value = "technology_share") {
+  check_prep_techmixB(data, value)
+
+  data %>%
+    recode_metric_and_metric_type() %>%
+    pick_extreeme_years() %>%
+    date_metric_type() %>%
+    mutate(value = .data[[value]]) %>%
+    select(
+      .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value,
+      .data$scenario_source
+    )
+}
+
+pick_extreeme_years <- function(data) {
+  filter(data, .data$year %in% c(min(data$year), max(data$year)))
+}
+
+date_metric_type <- function(data) {
+  mutate(data, metric_type = paste0(.data$metric_type, "_", .data$year))
+}
+
+check_prep_techmixB <- function(data, value) {
+  crucial <- c("metric", "year", "scenario_source", "region", value)
+  check_crucial_names(data, crucial)
+
+  cols <- c("scenario_source", "sector", "region")
+  lapply(cols, function(x) abort_multiple(data, x))
+
+  abort_bad_metric(data$metric)
+
+  invisible(data)
+}
+abort_multiple <- function(data, colname) {
+  values <- unique(data[[colname]])
+  if (length(values) != 1L) {
+    abort(glue(
+      "`{colname}` must have one value but has more: {toString(values)}."
+    ))
+  }
+
+  invisible(data)
+}
+
 check_input_parameters_techmix <- function(data,
                                            years_filter,
                                            region_filter,
                                            scenario_source_filter,
                                            scenario_filter,
                                            value_to_plot) {
-  if (typeof(years_filter) != "double") {
+  if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.
       * You submitted a {typeof(years_filter)}."
