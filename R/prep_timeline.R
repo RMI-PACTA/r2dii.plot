@@ -72,12 +72,4 @@ check_prep_timeline <- function(data, value, metric, extrapolate) {
 
   invisible(data)
 }
-get_common_start_year <- function(data, column_line_names) {
-  year <- max(
-    data %>%
-      group_by(.data[[column_line_names]]) %>%
-      summarise(year = min(.data$year)) %>%
-      pull(.data$year)
-  )
-  year
-}
+
