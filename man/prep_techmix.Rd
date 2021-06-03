@@ -7,13 +7,13 @@
 \usage{
 prep_techmix(
   data,
+  value = "technology_share",
   sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
     "steel", "power"),
   years_filter = NULL,
   region_filter = "global",
   scenario_source_filter = NULL,
-  scenario_filter = NULL,
-  value = "technology_share"
+  scenario_filter = NULL
 )
 
 prep_techmixB(data, value = "technology_share")
@@ -21,6 +21,9 @@ prep_techmixB(data, value = "technology_share")
 \arguments{
 \item{data}{Dataframe like \code{market_share} (the output of
 \code{r2dii.analysis::target_market_share()}).}
+
+\item{value}{String of length 1. The name of the column holding the value to
+plot.}
 
 \item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 
@@ -32,9 +35,6 @@ prep_techmixB(data, value = "technology_share")
 \code{scenario_source} to pick from the \code{data}.}
 
 \item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
-
-\item{value}{String of length 1. The name of the column holding the value to
-plot.}
 }
 \description{
 Prepares pre-processed data for plotting a tech-mix chart

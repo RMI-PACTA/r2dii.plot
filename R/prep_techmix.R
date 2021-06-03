@@ -53,7 +53,7 @@ prep_techmix <- function(data,
 
   # input checks
   sector_filter <- match.arg(sector_filter)
-  check_input_parameters_techmix(
+  check_prep_techmix(
     data,
     years_filter,
     region_filter,
@@ -150,7 +150,7 @@ abort_multiple <- function(data, colname) {
   invisible(data)
 }
 
-check_input_parameters_techmix <- function(data,
+check_prep_techmix <- function(data,
                                            years_filter,
                                            region_filter,
                                            scenario_source_filter,
