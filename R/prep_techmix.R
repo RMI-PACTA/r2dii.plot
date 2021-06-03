@@ -84,6 +84,7 @@ prep_techmix <- function(data,
 #' @rdname prep_techmix
 #' @export
 #' @examples
+#' library(dplyr)
 #'
 #' data <- market_share %>%
 #'   filter(

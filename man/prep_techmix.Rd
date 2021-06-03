@@ -48,6 +48,7 @@ prep_techmix(
   scenario_filter = "sds",
   value_to_plot = "technology_share"
 )
+library(dplyr)
 
 data <- market_share \%>\%
   filter(
