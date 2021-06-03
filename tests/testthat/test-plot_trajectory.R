@@ -33,17 +33,19 @@ test_that("outputs the expected snapshot", {
     value = "production"
   )
 
-  scenario_specs <- dplyr::tibble(scenario = c("sds", "sps", "cps"),
-                                  label = c("SDS", "STEPS", "CPS"))
+  scenario_specs <- dplyr::tibble(
+    scenario = c("sds", "sps", "cps"),
+    label = c("SDS", "STEPS", "CPS")
+  )
 
-  main_line_metric <-
-    dplyr::tibble(metric = "projected", label = "Portfolio")
+  main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
 
-  additional_line_metrics <- dplyr::tibble(metric = "corporate_economy",
-                                           label = "Corporate Economy")
+  additional_line_metrics <- dplyr::tibble(
+    metric = "corporate_economy",
+    label = "Corporate Economy"
+  )
 
-  p <- plot_trajectoryA(
-    data,
+  p <- plot_trajectoryA(data,
     scenario_specs_good_to_bad = scenario_specs,
     main_line_metric = main_line_metric,
     additional_line_metrics = additional_line_metrics

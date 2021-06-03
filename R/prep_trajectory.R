@@ -48,28 +48,19 @@ prep_trajectory <- function(data,
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(.data$year >= .env$year_start_projected) %>%
     filter(.data$year <= .env$end_year_filter) %>%
-    mutate(value = .data[[value]]) %>%
-    select(
-      .data$year,
-      .data$metric_type,
-      .data$metric,
-      .data$technology,
-      .data$value
-    )
+    mutate(value = .data[[value]])
 
   if (normalize) {
     data_filtered <- left_join(data_filtered,
       data_filtered[data_filtered$year == min(data_filtered$year), ],
       by = c("metric_type", "metric")
     ) %>%
-      mutate(value = .data$value.x / .data$value.y) %>%
-      select(
+      mutate(
+        value = .data$value.x / .data$value.y,
         year = .data$year.x,
-        .data$metric_type,
-        .data$metric,
-        technology = .data$technology.x,
-        .data$value
+        technology = .data$technology.x
       )
+
   }
 
   data_filtered
