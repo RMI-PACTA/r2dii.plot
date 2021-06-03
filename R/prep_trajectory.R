@@ -131,23 +131,15 @@ prep_trajectoryB <- function(data, value = "production", normalize = TRUE) {
 
 check_prep_trajectoryB <- function(data, value, normalize) {
   crucial <- c(
-    "metric",
-    "sector",
-    "technology",
-    "region",
-    "year",
-    "scenario_source",
-    value
+    "metric", "sector", "technology", "region", "year", "scenario_source", value
   )
   check_crucial_names(data, crucial)
 
   if (!length(normalize) == 1L) abort("`normalize` must be of length 1.")
   stopifnot(is.logical(normalize))
 
-  abort_multiple(data, "sector")
-  abort_multiple(data, "technology")
-  abort_multiple(data, "region")
-  abort_multiple(data, "scenario_source")
+  cols <- c("sector", "technology", "region", "scenario_source")
+  lapply(cols, function(x) abort_multiple(data, x))
 
   invisible(data)
 }
