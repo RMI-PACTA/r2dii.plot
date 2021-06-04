@@ -11,4 +11,3 @@ test_that("with expected names returns first argument invisibly", {
 test_that("with expected names is silent", {
   expect_silent(abort_if_missing_names(c(a = 1), "a"))
 })
-
