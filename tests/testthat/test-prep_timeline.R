@@ -11,6 +11,24 @@ test_that("with bad `extrapolate` errors gracefully", {
   )
 })
 
+test_that("with bad `line` errors gracefully", {
+  data <- head(sda)
+  expect_error(
+    prep_timeline(data, metric = 1L),
+    "character.*not TRUE"
+  )
+})
+
+test_that("with bad `value` errors gracefully", {
+  data <- head(sda)
+  expect_error(
+    prep_timeline(data, value = 1L),
+    "character.*not TRUE"
+  )
+})
+
+
+
 test_that("outputs column `sector`", {
   data <- head(sda)
   out <- prep_timeline(data)
@@ -48,4 +66,18 @@ test_that("outputs expected colums", {
   out <- prep_timeline(data)
   expected <- c("year", "line_name", "value", "extrapolated")
   expect_true(all(expected %in% names(out)))
+})
+
+test_that("is sensitive to `value`", {
+  data <- dplyr::rename(sda, custom = "emission_factor_value")
+  expect_no_error(
+    prep_timeline(data, value = "custom")
+  )
+})
+
+test_that("is sensitive to `line`", {
+  data <- dplyr::rename(sda, custom = "emission_factor_metric")
+  expect_no_error(
+    prep_timeline(data, metric = "custom")
+  )
 })

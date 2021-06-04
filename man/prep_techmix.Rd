@@ -3,40 +3,44 @@
 \name{prep_techmix}
 \alias{prep_techmix}
 \alias{prep_techmixB}
-\title{Prepares pre-processed data for plotting a tech-mix chart}
+\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}}
 \usage{
 prep_techmix(
   data,
+  value = "technology_share",
+  metric = "metric",
   sector_filter = c("automotive", "aviation", "cement", "oil and gas", "shipping",
     "steel", "power"),
   years_filter = NULL,
   region_filter = "global",
   scenario_source_filter = NULL,
-  scenario_filter = NULL,
-  value_to_plot = "technology_share"
+  scenario_filter = NULL
 )
 
-prep_techmixB(data, value = "technology_share")
+prep_techmixB(data, value = "technology_share", metric = "metric")
 }
 \arguments{
-\item{data}{Pre-processed input data.}
+\item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
 
-\item{sector_filter}{Sector for which to filter the data (character string).}
+\item{value}{String of length 1. The name of the column holding the value to
+plot.}
 
-\item{years_filter}{Years to plot in the graph (array of integer values).}
+\item{metric}{String of length 1. The name of the column holding the metrics
+to plot.}
 
-\item{region_filter}{Region for which to filter the data (character string).}
+\item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 
-\item{scenario_source_filter}{Scenario source for which to filter the data
-(character string).}
+\item{years_filter}{Numeric vector of length 2. Range of years to plot.}
 
-\item{scenario_filter}{Scenario to plot in the graph (character string).}
+\item{region_filter}{String of length 1. Region to pick from the \code{data}.}
 
-\item{value_to_plot, value}{The name of the value to be plotted as a bar chart
-(character string).}
+\item{scenario_source_filter}{String of length 1. Value of the column
+\code{scenario_source} to pick from the \code{data}.}
+
+\item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
 }
 \description{
-Prepares pre-processed data for plotting a tech-mix chart
+Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}
 }
 \examples{
 prep_techmix(
@@ -46,7 +50,7 @@ prep_techmix(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_to_plot = "technology_share"
+  value = "technology_share"
 )
 library(dplyr)
 

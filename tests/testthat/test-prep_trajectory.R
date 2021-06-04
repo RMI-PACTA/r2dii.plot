@@ -5,7 +5,7 @@ test_that("outputs a data.frame", {
     technology_filter = "oilcap",
     region_filter = "global",
     scenario_source_filter = "demo_2020",
-    value_name = "production"
+    value = "production"
   )
 
   expect_s3_class(out, "data.frame")
@@ -19,12 +19,12 @@ test_that("returns visibly", {
       technology_filter = "oilcap",
       region_filter = "global",
       scenario_source_filter = "demo_2020",
-      value_name = "production"
+      value = "production"
     )
   )
 })
 
-test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
+test_that("with `normalize = FALSE` outputs visibly", {
   dont_normalize <- FALSE
   expect_visible(
     prep_trajectory(
@@ -33,8 +33,8 @@ test_that("with `normalize_to_start_year = FALSE` outputs visibly", {
       technology_filter = "oilcap",
       region_filter = "global",
       scenario_source_filter = "demo_2020",
-      value_name = "production",
-      normalize_to_start_year = dont_normalize
+      value = "production",
+      normalize = dont_normalize
     )
   )
 })
@@ -50,7 +50,7 @@ test_that("with bad `sector_filter` warns gracefully", {
         technology_filter = "oilcap",
         region_filter = "global",
         scenario_source_filter = "demo_2020",
-        value_name = "production"
+        value = "production"
       )
     )
   )
@@ -67,7 +67,7 @@ test_that("with bad `technology_filter` warns gracefully", {
         technology_filter = "bad",
         region_filter = "global",
         scenario_source_filter = "demo_2020",
-        value_name = "production"
+        value = "production"
       )
     )
   )
@@ -84,7 +84,7 @@ test_that("with bad `region_filter` warns gracefully", {
         technology_filter = "oilcap",
         region_filter = "bad",
         scenario_source_filter = "demo_2020",
-        value_name = "production"
+        value = "production"
       )
     )
   )
@@ -101,23 +101,23 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
         technology_filter = "oilcap",
         region_filter = "global",
         scenario_source_filter = "bad",
-        value_name = "production"
+        value = "production"
       )
     )
   )
 })
 
-# FIXME: Is this what `value_name` means? What are valid options other than
+# FIXME: Is this what `value` means? What are valid options other than
 # "production"? That information is not documented in the description of the
-# argument `value_name` not via examples or README.
-test_that("adds the column `value` from the column named in `value_name`", {
+# argument `value` not via examples or README.
+test_that("adds the column `value` from the column named in `value`", {
   out <- prep_trajectory(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",
     region_filter = "global",
     scenario_source_filter = "demo_2020",
-    value_name = "production"
+    value = "production"
   )
 
   expect_true(rlang::has_name(out, "value"))
@@ -133,13 +133,13 @@ test_that("with bad `end_year_filter` throws no error", {
       technology_filter = "oilcap",
       region_filter = "global",
       scenario_source_filter = "demo_2020",
-      value_name = "production",
+      value = "production",
       end_year_filter = "bad"
     )
   )
 })
 
-test_that("with bad `normalize_to_start_year` errors gracefully", {
+test_that("with bad `normalize` errors gracefully", {
   expect_error(
     regexp = "not.*logical",
     prep_trajectory(
@@ -148,8 +148,8 @@ test_that("with bad `normalize_to_start_year` errors gracefully", {
       technology_filter = "oilcap",
       region_filter = "global",
       scenario_source_filter = "demo_2020",
-      value_name = "production",
-      normalize_to_start_year = "bad"
+      value = "production",
+      normalize = "bad"
     )
   )
 })
@@ -163,7 +163,7 @@ test_that("with missing crucial columns errors gracefully", {
         technology_filter = "oilcap",
         region_filter = "global",
         scenario_source_filter = "demo_2020",
-        value_name = "production"
+        value = "production"
       )
     )
   )
@@ -183,7 +183,7 @@ test_that("outputs data starting at the start of 'projected' or later", {
     technology_filter = "oilcap",
     region_filter = "global",
     scenario_source_filter = "demo_2020",
-    value_name = "production"
+    value = "production"
   )
 
   expect_true(min(out$year) >= year_start_projected)
