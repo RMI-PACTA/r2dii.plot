@@ -243,7 +243,7 @@ plot_trajectory <- plot_trajectoryA
 #'
 #' plot_trajectoryB(recoded, main_line = "Projected")
 plot_trajectoryB <- function(data, main_line = NULL) {
-  check_number_scenariosB(data)
+  abort_if_invalid_scenarios_number(data)
 
   main_line <- main_line %||%
     (data %>%
@@ -362,7 +362,7 @@ plot_trajectoryB <- function(data, main_line = NULL) {
   p_trajectory
 }
 
-check_number_scenariosB <- function(data) {
+abort_if_invalid_scenarios_number <- function(data) {
   unique_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     pull(.data$metric) %>%
