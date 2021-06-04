@@ -205,8 +205,9 @@ plot_trajectory <- plot_trajectoryA
 #'   used. You may recode `metric` before passing the data with, for example,
 #'   `dplyr::recode()`.
 #'
-#' @param main_line Character string with the `metric` that should be
-#'   plotted as the line with the most visual salience (solid black line).
+#' @param main_line String of length 1. The `metric` to plot as the line with
+#'   the most visual salience (solid black line). `NULL` defaults to
+#'   "projected".
 #'
 #' @family plotting functions
 #'
