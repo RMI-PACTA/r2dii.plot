@@ -198,12 +198,12 @@ plot_trajectoryA <- function(data,
 plot_trajectory <- plot_trajectoryA
 
 #' @rdname plot_trajectoryA
-#' @description * `plot_trajectoryB()` derives the main and additional lines as
-#'   well as scenario order from the data. The lines are plotted according to
-#'   the order of the input data. The scenario order is inferred from the order
-#'   of values on the last year. For the labels the `data` column `metric` is
-#'   used. You may recode `metric` before passing the data with, for example,
-#'   `dplyr::recode()`.
+#' @description
+#' * `plot_trajectoryB()` derives the main and additional lines as well as
+#' scenario order from the data. The lines are plotted according to the order of
+#' the input data. The scenario order is inferred from the order of values on
+#' the last year. For the labels the `data` column `metric` is used. You may
+#' recode `metric` before passing the data with, for example, `dplyr::recode()`.
 #'
 #' @param main_line String of length 1. The `metric` to plot as the line with
 #'   the most visual salience (solid black line). `NULL` defaults to
