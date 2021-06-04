@@ -110,12 +110,12 @@ prep_techmixB <- function(data, value = "technology_share", metric = "metric") {
 
   data %>%
     recode_metric_and_metric_type(metric) %>%
-    pick_extreeme_years() %>%
+    pick_extreme_years() %>%
     date_metric_type() %>%
     mutate(value = .data[[value]])
 }
 
-pick_extreeme_years <- function(data) {
+pick_extreme_years <- function(data) {
   filter(data, .data$year %in% c(min(data$year), max(data$year)))
 }
 
