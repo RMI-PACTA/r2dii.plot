@@ -1,22 +1,14 @@
-#' Prepares pre-processed data for plotting a trajectory chart
+#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_trajectory()`
 #'
-#' @param data Pre-processed input data.
-#' @param sector_filter Sector for which to filter the data (character string).
-#' @param technology_filter Technology for which to filter the data (character
-#'   string).
-#' @param region_filter Region for which to filter the data (character string).
-#' @param scenario_source_filter Scenario source for which to filter the data
-#'   (character string).
-#' @param value_name,value The name of the value to be plotted in the trajectory chart
-#'   (character string).
-#' @param end_year_filter Cut-off year for the chart (an integer).
-#' @param normalize_to_start_year,normalize Logical of length-1. `TRUE`
-#'   normalized to start year.
+#' @inheritParams prep_techmix
+#' @param technology_filter String of length 1. Technology to pick from the
+#'   `data`.
+#' @param end_year_filter Numeric of length 1. Cut-off year for the plot.
+#' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
 #' @return A data frame.
 #'
 #' @export
-#'
 #' @examples
 #' prep_trajectory(
 #'   market_share,
@@ -24,18 +16,19 @@
 #'   technology_filter = "oilcap",
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
-#'   value_name = "production"
+#'   value = "production"
 #' )
 prep_trajectory <- function(data,
                             sector_filter,
                             technology_filter,
                             region_filter,
                             scenario_source_filter,
-                            value_name,
+                            value = "production",
+                            metric = "metric",
                             end_year_filter = 2025,
-                            normalize_to_start_year = TRUE) {
-  check_crucial_names(data, "metric")
-  data <- recode_metric_and_metric_type(data)
+                            normalize = TRUE) {
+  check_crucial_names(data, metric)
+  data <- recode_metric_and_metric_type(data, metric)
 
   warn_bad_value(sector_filter, data$sector)
   warn_bad_value(technology_filter, data$technology)
@@ -55,27 +48,17 @@ prep_trajectory <- function(data,
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(.data$year >= .env$year_start_projected) %>%
     filter(.data$year <= .env$end_year_filter) %>%
-    mutate(value = .data[[value_name]]) %>%
-    select(
-      .data$year,
-      .data$metric_type,
-      .data$metric,
-      .data$technology,
-      .data$value
-    )
+    mutate(value = .data[[value]])
 
-  if (normalize_to_start_year) {
+  if (normalize) {
     data_filtered <- left_join(data_filtered,
       data_filtered[data_filtered$year == min(data_filtered$year), ],
       by = c("metric_type", "metric")
     ) %>%
-      mutate(value = .data$value.x / .data$value.y) %>%
-      select(
+      mutate(
+        value = .data$value.x / .data$value.y,
         year = .data$year.x,
-        .data$metric_type,
-        .data$metric,
-        technology = .data$technology.x,
-        .data$value
+        technology = .data$technology.x
       )
   }
 
@@ -104,9 +87,12 @@ warn_bad_value <- function(x, y) {
 #'   )
 #'
 #' prep_trajectoryB(data)
-prep_trajectoryB <- function(data, value = "production", normalize = TRUE) {
+prep_trajectoryB <- function(data,
+                             value = "production",
+                             metric = "metric",
+                             normalize = TRUE) {
   check_prep_trajectoryB(data, value, normalize)
-  data <- recode_metric_and_metric_type(data)
+  data <- recode_metric_and_metric_type(data, metric)
 
   cols <- c("year", "metric_type", "metric", "technology", "value")
   out <- data %>%

@@ -3,7 +3,7 @@
 \name{prep_trajectory}
 \alias{prep_trajectory}
 \alias{prep_trajectoryB}
-\title{Prepares pre-processed data for plotting a trajectory chart}
+\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_trajectory()}}
 \usage{
 prep_trajectory(
   data,
@@ -11,39 +11,47 @@ prep_trajectory(
   technology_filter,
   region_filter,
   scenario_source_filter,
-  value_name,
+  value = "production",
+  metric = "metric",
   end_year_filter = 2025,
-  normalize_to_start_year = TRUE
+  normalize = TRUE
 )
 
-prep_trajectoryB(data, value = "production", normalize = TRUE)
+prep_trajectoryB(
+  data,
+  value = "production",
+  metric = "metric",
+  normalize = TRUE
+)
 }
 \arguments{
-\item{data}{Pre-processed input data.}
+\item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
 
-\item{sector_filter}{Sector for which to filter the data (character string).}
+\item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 
-\item{technology_filter}{Technology for which to filter the data (character
-string).}
+\item{technology_filter}{String of length 1. Technology to pick from the
+\code{data}.}
 
-\item{region_filter}{Region for which to filter the data (character string).}
+\item{region_filter}{String of length 1. Region to pick from the \code{data}.}
 
-\item{scenario_source_filter}{Scenario source for which to filter the data
-(character string).}
+\item{scenario_source_filter}{String of length 1. Value of the column
+\code{scenario_source} to pick from the \code{data}.}
 
-\item{value_name, value}{The name of the value to be plotted in the trajectory chart
-(character string).}
+\item{value}{String of length 1. The name of the column holding the value to
+plot.}
 
-\item{end_year_filter}{Cut-off year for the chart (an integer).}
+\item{metric}{String of length 1. The name of the column holding the metrics
+to plot.}
 
-\item{normalize_to_start_year, normalize}{Logical of length-1. \code{TRUE}
-normalized to start year.}
+\item{end_year_filter}{Numeric of length 1. Cut-off year for the plot.}
+
+\item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
 }
 \value{
 A data frame.
 }
 \description{
-Prepares pre-processed data for plotting a trajectory chart
+Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_trajectory()}
 }
 \examples{
 prep_trajectory(
@@ -52,7 +60,7 @@ prep_trajectory(
   technology_filter = "oilcap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
-  value_name = "production"
+  value = "production"
 )
 library(dplyr)
 

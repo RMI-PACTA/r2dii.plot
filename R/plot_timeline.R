@@ -1,7 +1,7 @@
 #' Creates a time line plot
 #'
-#' @param data Dataframe like the output of [prep_timeline()].
-#' @param specs Dataframe containing order of lines, their labels and colour
+#' @param data Data frame like the output of [prep_timeline()].
+#' @param specs Data frame containing order of lines, their labels and colour
 #'   names from the r2dii_colours palette.
 #'
 #' @description

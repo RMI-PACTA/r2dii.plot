@@ -1,14 +1,13 @@
-#' Prepares pre-processed data for plotting a tech-mix chart
+#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_techmix()`
 #'
-#' @param data Pre-processed input data.
-#' @param sector_filter Sector for which to filter the data (character string).
-#' @param years_filter Years to plot in the graph (array of integer values).
-#' @param region_filter Region for which to filter the data (character string).
-#' @param scenario_source_filter Scenario source for which to filter the data
-#'   (character string).
-#' @param scenario_filter Scenario to plot in the graph (character string).
-#' @param value_to_plot,value The name of the value to be plotted as a bar chart
-#'   (character string).
+#' @param data Data frame like the output of `r2dii.analysis::target_market_share()`.
+#' @param sector_filter String of length 1. Sector to pick from the `data`.
+#' @param years_filter Numeric vector of length 2. Range of years to plot.
+#' @param region_filter String of length 1. Region to pick from the `data`.
+#' @param scenario_source_filter String of length 1. Value of the column
+#'   `scenario_source` to pick from the `data`.
+#' @param scenario_filter String of length 1. Scenario to pick from the `data`.
+#' @inheritParams prep_timeline
 #'
 #' @export
 #' @examples
@@ -19,9 +18,11 @@
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
 #'   scenario_filter = "sds",
-#'   value_to_plot = "technology_share"
+#'   value = "technology_share"
 #' )
 prep_techmix <- function(data,
+                         value = "technology_share",
+                         metric = "metric",
                          sector_filter = c(
                            "automotive",
                            "aviation",
@@ -34,10 +35,10 @@ prep_techmix <- function(data,
                          years_filter = NULL,
                          region_filter = "global",
                          scenario_source_filter = NULL,
-                         scenario_filter = NULL,
-                         value_to_plot = "technology_share") {
-  check_crucial_names(data, "metric")
-  data <- recode_metric_and_metric_type(data)
+                         scenario_filter = NULL) {
+  check_crucial_names(data, metric)
+
+  data <- recode_metric_and_metric_type(data, metric)
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
@@ -49,15 +50,14 @@ prep_techmix <- function(data,
     slice_head(n = 1) %>%
     pull(.data$metric))
 
-  # input checks
   sector_filter <- match.arg(sector_filter)
-  check_input_parameters_techmix(
+  check_prep_techmix(
     data,
     years_filter,
     region_filter,
     scenario_source_filter,
     scenario_filter,
-    value_to_plot
+    value
   )
 
   data_out <- data %>%
@@ -71,7 +71,7 @@ prep_techmix <- function(data,
     ) %>%
     mutate(
       metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
-      value = .data[[value_to_plot]]
+      value = .data[[value]]
     ) %>%
     select(
       .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value,
@@ -96,21 +96,17 @@ prep_techmix <- function(data,
 #'   )
 #'
 #' prep <- prep_techmixB(data)
-prep_techmixB <- function(data, value = "technology_share") {
+prep_techmixB <- function(data, value = "technology_share", metric = "metric") {
   check_prep_techmixB(data, value)
 
   data %>%
-    recode_metric_and_metric_type() %>%
-    pick_extreeme_years() %>%
+    recode_metric_and_metric_type(metric) %>%
+    pick_extreme_years() %>%
     date_metric_type() %>%
-    mutate(value = .data[[value]]) %>%
-    select(
-      .data$sector, .data$technology, .data$metric_type, .data$metric, .data$value,
-      .data$scenario_source
-    )
+    mutate(value = .data[[value]])
 }
 
-pick_extreeme_years <- function(data) {
+pick_extreme_years <- function(data) {
   filter(data, .data$year %in% c(min(data$year), max(data$year)))
 }
 
@@ -129,9 +125,11 @@ check_prep_techmixB <- function(data, value) {
 
   invisible(data)
 }
+
 abort_multiple <- function(data, colname) {
   values <- unique(data[[colname]])
   if (length(values) != 1L) {
+    # FIXME replace 'but has more' with '. 'but it has: ...'
     abort(glue(
       "`{colname}` must have one value but has more: {toString(values)}."
     ))
@@ -140,12 +138,12 @@ abort_multiple <- function(data, colname) {
   invisible(data)
 }
 
-check_input_parameters_techmix <- function(data,
-                                           years_filter,
-                                           region_filter,
-                                           scenario_source_filter,
-                                           scenario_filter,
-                                           value_to_plot) {
+check_prep_techmix <- function(data,
+                               years_filter,
+                               region_filter,
+                               scenario_source_filter,
+                               scenario_filter,
+                               value) {
   if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.
@@ -178,11 +176,11 @@ check_input_parameters_techmix <- function(data,
     ))
   }
 
-  if (!(value_to_plot %in% names(data))) {
+  if (!(value %in% names(data))) {
     abort(glue(
-      "'value_to_plot' must be one of column names in the input data.
+      "'value' must be one of column names in the input data.
       * The input data column names are: {toString(names(data))}.
-      * You submitted: {value_to_plot}."
+      * You submitted: {value}."
     ))
   }
 

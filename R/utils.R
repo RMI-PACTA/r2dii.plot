@@ -36,10 +36,10 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-recode_metric_and_metric_type <- function(data) {
+recode_metric_and_metric_type <- function(data, metric) {
   data %>%
-    mutate(metric_type = recode_portfolio_benchmark_scenario(.data$metric)) %>%
-    mutate(metric = sub("target_", "", .data$metric))
+    mutate(metric_type = recode_portfolio_benchmark_scenario(.data[[metric]])) %>%
+    mutate(metric = sub("target_", "", .data[[metric]]))
 }
 
 recode_portfolio_benchmark_scenario <- function(x) {

@@ -10,7 +10,7 @@
 #'   values.
 #' @param metric_type_labels Vector with labels for bars. Order must follow that
 #'   in 'metric type order'.
-#' @param tech_colours Dataframe containing colours per technology, with
+#' @param tech_colours Data frame containing colours per technology, with
 #'   columns: technology, colour, label(optional).
 #'
 #' @family plotting functions
@@ -24,7 +24,7 @@
 #'   region_filter = "global",
 #'   scenario_source_filter = "demo_2020",
 #'   scenario_filter = "sds",
-#'   value_to_plot = "technology_share"
+#'   value = "technology_share"
 #' )
 #'
 #' plot_techmix(data)
@@ -147,7 +147,7 @@ check_input_parameters_plot_techmix <- function(data,
 check_tech_colours <- function(data, tech_colours) {
   if (!is.data.frame(tech_colours)) {
     abort(glue(
-      "'tech_colours' must be a dataframe.
+      "'tech_colours' must be a data frame.
       * You've supplied a {typeof(tech_colours)}."
     ))
   }

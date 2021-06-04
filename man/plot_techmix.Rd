@@ -21,7 +21,7 @@ values.}
 \item{metric_type_labels}{Vector with labels for bars. Order must follow that
 in 'metric type order'.}
 
-\item{tech_colours}{Dataframe containing colours per technology, with
+\item{tech_colours}{Data frame containing colours per technology, with
 columns: technology, colour, label(optional).}
 }
 \description{
@@ -37,7 +37,7 @@ data <- prep_techmix(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_to_plot = "technology_share"
+  value = "technology_share"
 )
 
 plot_techmix(data)

@@ -63,8 +63,9 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-  - `prep_trajectory()` and `prep_trajectoryB()`: prepares pre-processed
-    data for plotting a trajectory chart.
+  - `prep_trajectory()` and `prep_trajectoryB()`: prepare the output of
+    ‘r2dii.analysis::target\_market\_share()’ for
+    ‘plot\_trajectory()’.
 
 <!-- end list -->
 
@@ -75,9 +76,8 @@ data_trajectory <- prep_trajectory(
   technology_filter = "oilcap",
   region_filter = "global",
   scenario_source_filter = "demo_2020",
-  value_name = "production",
   end_year_filter = 2025,
-  normalize_to_start_year = TRUE
+  normalize = TRUE
 )
 
 # Same, with more work upfront but fewer arguments
@@ -150,9 +150,9 @@ data_trajectory <- prep_trajectory(
   technology_filter = "renewablescap",
   region_filter = "global", 
   scenario_source_filter = "demo_2020",
-  value_name = "production", 
+  value = "production", 
   end_year_filter = 2025,
-  normalize_to_start_year = TRUE
+  normalize = TRUE
 )
 
 scenario_specs <- tibble(
@@ -183,8 +183,8 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmix()` prepares pre-processed data for plotting a tech-mix
-    chart.
+  - `prep_techmix()` prepare the output of
+    ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_timeline()’.
   - `plot_techmix()` create a techmix chart in a ggplot object.
 
 <!-- end list -->
@@ -200,7 +200,7 @@ data <- prep_techmix(
   region_filter = "global",
   scenario_source_filter = "demo_2020",
   scenario_filter = "sds",
-  value_to_plot = "technology_share"
+  value = "technology_share"
 )
 
 plot <- plot_techmix(data)
@@ -237,7 +237,7 @@ data <- prep_techmix(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
-  scenario_filter = "sds", value_to_plot = "technology_share"
+  scenario_filter = "sds", value = "technology_share"
 )
 
 metric_type_order = c(
