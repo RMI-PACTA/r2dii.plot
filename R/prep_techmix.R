@@ -1,4 +1,4 @@
-#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_timeline()`
+#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_techmix()`
 #'
 #' @param data Data frame like the output of `r2dii.analysis::target_market_share()`.
 #' @param sector_filter String of length 1. Sector to pick from the `data`.

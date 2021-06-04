@@ -3,7 +3,7 @@
 \name{prep_techmix}
 \alias{prep_techmix}
 \alias{prep_techmixB}
-\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_timeline()}}
+\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}}
 \usage{
 prep_techmix(
   data,
@@ -40,7 +40,7 @@ to plot.}
 \item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
 }
 \description{
-Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_timeline()}
+Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}
 }
 \examples{
 prep_techmix(
