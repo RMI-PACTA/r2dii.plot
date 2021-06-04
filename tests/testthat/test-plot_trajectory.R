@@ -23,34 +23,3 @@ test_that("with wrong number of scenarios errors gracefully", {
   ))
 })
 
-test_that("outputs the expected snapshot", {
-  data <- prep_trajectory(
-    market_share,
-    sector_filter = "power",
-    technology_filter = "renewablescap",
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    value = "production"
-  )
-
-  scenario_specs <- dplyr::tibble(
-    scenario = c("sds", "sps", "cps"),
-    label = c("SDS", "STEPS", "CPS")
-  )
-
-  main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
-
-  additional_line_metrics <- dplyr::tibble(
-    metric = "corporate_economy",
-    label = "Corporate Economy"
-  )
-
-  p <- plot_trajectoryA(data,
-    scenario_specs_good_to_bad = scenario_specs,
-    main_line_metric = main_line_metric,
-    additional_line_metrics = additional_line_metrics
-  )
-
-  p$plot_env <- NULL
-  expect_snapshot(str(p))
-})

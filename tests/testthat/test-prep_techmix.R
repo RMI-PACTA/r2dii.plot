@@ -180,20 +180,3 @@ test_that("with bad metric errors gracefully", {
   bad_metric <- mutate(head(market_share), metric = "bad")
   expect_snapshot_error(prep_techmixB(bad_metric))
 })
-
-test_that("integrates with plot_techmix()", {
-  data <- market_share %>%
-    filter(
-      dplyr::between(year, 2020, 2025),
-      scenario_source == "demo_2020",
-      sector == "power",
-      region == "global",
-      metric %in% c("projected", "corporate_economy", "target_sds")
-    )
-
-  out <- prep_techmixB(data, value = "technology_share")
-  expect_no_error(p <- plot_techmix(out))
-
-  p$plot_env <- NULL
-  expect_snapshot(str(p))
-})
