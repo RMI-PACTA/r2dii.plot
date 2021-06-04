@@ -37,7 +37,6 @@ prep_techmix <- function(data,
                          scenario_source_filter = NULL,
                          scenario_filter = NULL) {
   check_crucial_names(data, metric)
-  abort_if_years_filter_is_too_long(years_filter)
 
   data <- recode_metric_and_metric_type(data, metric)
 
@@ -80,14 +79,6 @@ prep_techmix <- function(data,
     )
 
   data_out
-}
-
-abort_if_years_filter_is_too_long <- function(x) {
-  length_y <- length(x)
-  if (length_y != 2L) {
-    abort(glue("The length of `years_filter` must be 2, not {length_y}."))
-  }
-  invisible(x)
 }
 
 #' @rdname prep_techmix

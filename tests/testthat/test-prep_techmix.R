@@ -56,21 +56,6 @@ test_that("with bad `years_filter` errors gracefully", {
   )
 })
 
-test_that("with year_filter of length > 2 errors gracefully", {
-  too_long <- c(2020, 2025, 2050)
-  expect_error(
-    prep_techmix(
-      years_filter = too_long,
-      market_share,
-      sector_filter = "power",
-      region_filter = "global",
-      scenario_source_filter = "demo_2020",
-      scenario_filter = "sds",
-      value = "technology_share"
-    )
-  )
-})
-
 test_that("with bad `region_filter` errors gracefully", {
   expect_error(
     regexp = "region_filter.*must be.*in.*input data.*region.",
