@@ -104,6 +104,8 @@ ordered <- data_trajectory %>%
 
 # `plot_trajectoryB()` takes fewer arguments
 plot_trajectoryB(ordered)
+#> Warning: Removed 6 row(s) containing missing values (geom_path).
+#> Warning: Removed 1 rows containing missing values (geom_text_repel).
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
