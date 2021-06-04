@@ -184,7 +184,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
   - `prep_techmix()` prepare the output of
-    ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_timeline()’.
+    ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_techmix()’.
   - `plot_techmix()` create a techmix chart in a ggplot object.
 
 <!-- end list -->
