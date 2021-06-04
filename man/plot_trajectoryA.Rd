@@ -38,7 +38,8 @@ additional metrics that should be plotted as lines; with columns: metric,
 label).}
 
 \item{main_line}{String of length 1. The \code{metric} to plot as the line with
-the most visual salience (solid black line).}
+the most visual salience (solid black line). \code{NULL} defaults to
+"projected".}
 }
 \description{
 We are exploring different interfaces before release. We are
