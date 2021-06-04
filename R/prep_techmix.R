@@ -137,6 +137,7 @@ check_prep_techmixB <- function(data, value) {
 abort_multiple <- function(data, colname) {
   values <- unique(data[[colname]])
   if (length(values) != 1L) {
+    # FIXME replace 'but has more' with '. 'but it has: ...'
     abort(glue(
       "`{colname}` must have one value but has more: {toString(values)}."
     ))
