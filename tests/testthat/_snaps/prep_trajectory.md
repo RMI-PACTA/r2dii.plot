@@ -25,19 +25,19 @@
 
 # with multiple distinct values in some columns errors gracefully
 
-    `sector` must have one value but has more: 1, 2.
+    `sector` must have a single value. It has: 1, 2.
 
 ---
 
-    `technology` must have one value but has more: 1, 2.
+    `technology` must have a single value. It has: 1, 2.
 
 ---
 
-    `region` must have one value but has more: 1, 2.
+    `region` must have a single value. It has: 1, 2.
 
 ---
 
-    `scenario_source` must have one value but has more: 1, 2.
+    `scenario_source` must have a single value. It has: 1, 2.
 
 # if `normalize` isn't length-1 errors gracefully
 

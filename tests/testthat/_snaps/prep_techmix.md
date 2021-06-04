@@ -21,15 +21,15 @@
 
 # with more than one value of some columns errors gracefully
 
-    `scenario_source` must have one value but has more: 1, 2.
+    `scenario_source` must have a single value. It has: 1, 2.
 
 ---
 
-    `sector` must have one value but has more: 1, 2.
+    `sector` must have a single value. It has: 1, 2.
 
 ---
 
-    `region` must have one value but has more: 1, 2.
+    `region` must have a single value. It has: 1, 2.
 
 # with bad metric errors gracefully
 
