@@ -52,7 +52,7 @@
 #' plot_timelineA(data, specs = custom)
 plot_timelineA <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
-  abort_too_many_sectors(data)
+  abort_if_too_many_sectors(data)
   data <- left_join(data, specs, by = "line_name")
 
   ggplot() +
@@ -109,7 +109,7 @@ plot_timelineB <- function(data) {
   line_names <- unique(data$line_name)
   labels <- line_names
   specs <- tibble(line_name = line_names, label = labels) %>%
-    stop_if_too_many_lines() %>%
+    abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
   plot_timelineA(data = data, specs = specs)
@@ -210,7 +210,7 @@ check_specs <- function(specs, data) {
   invisible(specs)
 }
 
-abort_too_many_sectors <- function(data) {
+abort_if_too_many_sectors <- function(data) {
   sectors <- unique(data$sector)
   if (length(sectors) > 1L) {
     abort(

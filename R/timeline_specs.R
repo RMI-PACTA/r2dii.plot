@@ -18,11 +18,11 @@ timeline_specs <- function(data) {
   line_names <- unique(data$line_name)
   labels <- unlist(lapply(line_names, to_title))
   tibble(line_name = line_names, label = labels) %>%
-    stop_if_too_many_lines() %>%
+    abort_if_too_many_lines() %>%
     add_r2dii_colours()
 }
 
-stop_if_too_many_lines <- function(data) {
+abort_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   n_colours <- nrow(palette_colours)
   if (n_lines > n_colours) {
