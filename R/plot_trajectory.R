@@ -246,9 +246,9 @@ plot_trajectoryB <- function(data, main_line = NULL) {
 
   main_line <- main_line %||%
     (data %>%
-    filter(.data$metric_type != "scenario") %>%
-    slice_head(n = 1) %>%
-    pull(.data$metric))
+      filter(.data$metric_type != "scenario") %>%
+      slice_head(n = 1) %>%
+      pull(.data$metric))
   check_main_line_in_metricB(data, main_line)
 
   # plot scenario areas
@@ -400,8 +400,10 @@ reverse_rows <- function(x) {
 
 order_for_trajectoryB <- function(data, scenario_specs, main_line) {
   order_add_lines <- data %>%
-    filter(.data$metric_type != "scenario",
-           .data$metric != .env$main_line) %>%
+    filter(
+      .data$metric_type != "scenario",
+      .data$metric != .env$main_line
+    ) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
