@@ -104,7 +104,7 @@ plot_timeline <- plot_timelineA
 #'   )) %>%
 #'   plot_timelineB()
 plot_timelineB <- function(data) {
-  check_crucial_names(data, "line_name")
+  abort_if_missing_names(data, "line_name")
 
   line_names <- unique(data$line_name)
   labels <- line_names
@@ -190,7 +190,7 @@ recode_lines.logical <- function(recode, data) {
 
 check_specs <- function(specs, data) {
   crucial <- c("line_name", "label", "hex")
-  check_crucial_names(specs, crucial)
+  abort_if_missing_names(specs, crucial)
 
   specs <- factor_to_character(specs)
   malformed_line_name <- !identical(

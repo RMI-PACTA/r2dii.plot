@@ -105,10 +105,10 @@ plot_techmix <- function(data,
 }
 
 check_plot_techmix <- function(data,
-                                                metric_type_order,
-                                                metric_type_labels,
-                                                sector,
-                                                tech_colours) {
+                               metric_type_order,
+                               metric_type_labels,
+                               sector,
+                               tech_colours) {
   if (!all(metric_type_order %in% unique(data$metric_type))) {
     abort(glue(
       "'metric_type_order' elements must be found in 'metric_type' column of input data.

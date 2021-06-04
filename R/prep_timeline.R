@@ -68,7 +68,7 @@ check_prep_timeline <- function(data, value, metric, extrapolate) {
     is.character(metric),
     is.logical(extrapolate)
   )
-  check_crucial_names(data, c("sector", "year", metric, value))
+  abort_if_missing_names(data, c("sector", "year", metric, value))
 
   invisible(data)
 }

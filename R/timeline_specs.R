@@ -9,7 +9,7 @@
 #' data <- prep_timeline(sda)
 #' timeline_specs(data)
 timeline_specs <- function(data) {
-  check_crucial_names(data, "line_name")
+  abort_if_missing_names(data, "line_name")
 
   to_title <- function(x) {
     paste(tools::toTitleCase(unlist(strsplit(x, "_"))), collapse = " ")

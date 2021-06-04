@@ -1,6 +1,6 @@
 #' Check if a named object contains expected names
 #'
-#' Based on fgeo.tool::check_crucial_names()
+#' Based on fgeo.tool::abort_if_missing_names()
 #'
 #' @param x A named object.
 #' @param expected_names String; expected names of `x`.
@@ -9,10 +9,10 @@
 #'
 #' @examples
 #' x <- c(a = 1)
-#' check_crucial_names(x, "a")
-#' try(check_crucial_names(x, "bad"))
+#' abort_if_missing_names(x, "a")
+#' try(abort_if_missing_names(x, "bad"))
 #' @noRd
-check_crucial_names <- function(x, expected_names) {
+abort_if_missing_names <- function(x, expected_names) {
   stopifnot(rlang::is_named(x))
   stopifnot(is.character(expected_names))
 
