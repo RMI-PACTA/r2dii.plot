@@ -126,14 +126,29 @@
     <p>Prepare the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_sda.html'>r2dii.analysis::target_sda()</a></code> for <code>plot_timeline()</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>prep_timeline</span><span class='op'>(</span><span class='va'>data</span>, extrapolate <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>prep_timeline</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  value <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
+  metric <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>,
+  extrapolate <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Dataframe like the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_sda.html'>r2dii.analysis::target_sda()</a></code>.</p></td>
+      <td><p>Data frame like the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_sda.html'>r2dii.analysis::target_sda()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>String of length 1. The name of the column holding the value to
+plot.</p></td>
+    </tr>
+    <tr>
+      <th>metric</th>
+      <td><p>String of length 1. The name of the column holding the metrics
+to plot.</p></td>
     </tr>
     <tr>
       <th>extrapolate</th>
@@ -144,13 +159,15 @@ furthest value in the data set.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Dataframe with columns: year, line_name, value, extrapolated.</p>
+    <p>Data frame with columns: year, line_name, value, extrapolated.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='sda.html'>sda</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prep_timeline</span><span class='op'>(</span><span class='va'>sda</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prep_timeline</span><span class='op'>(</span><span class='va'>sda</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 7</span>
 #&gt;   sector year       emission_factor_me… emission_factor_v… line_name       value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -170,7 +187,27 @@ furthest value in the data set.</p></td>
 #&gt; <span style='color: #BCBCBC;'>4</span> automot… 2050-01-01 corporate_economy                 0.279 corporate_e… 0.279
 #&gt; <span style='color: #BCBCBC;'>5</span> automot… 2050-01-01 projected                         0.178 projected    0.178
 #&gt; <span style='color: #BCBCBC;'>6</span> cement   2050-01-01 target_demo                       0.521 target_demo  0.521
-#&gt; <span style='color: #949494;'># … with 1 more variable: extrapolated &lt;lgl&gt;</span></div></pre>
+#&gt; <span style='color: #949494;'># … with 1 more variable: extrapolated &lt;lgl&gt;</span></div><div class='input'>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>
+    custom_value <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
+    custom_metric <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>
+  <span class='op'>)</span>
+<span class='fu'>prep_timeline</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"custom_value"</span>, metric <span class='op'>=</span> <span class='st'>"custom_metric"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 208 x 7</span>
+#&gt;    sector     year       custom_metric custom_value line_name value extrapolated
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>       
+#&gt; <span style='color: #BCBCBC;'> 1</span> automotive 2002-01-01 projected            0.228 projected 0.228 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 2</span> automotive 2003-01-01 projected            0.226 projected 0.226 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 3</span> automotive 2004-01-01 projected            0.224 projected 0.224 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 4</span> automotive 2005-01-01 projected            0.222 projected 0.222 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 5</span> automotive 2006-01-01 projected            0.220 projected 0.220 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 6</span> automotive 2007-01-01 projected            0.218 projected 0.218 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 7</span> automotive 2008-01-01 projected            0.216 projected 0.216 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 8</span> automotive 2009-01-01 projected            0.214 projected 0.214 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 9</span> automotive 2010-01-01 projected            0.212 projected 0.212 FALSE       
+#&gt; <span style='color: #BCBCBC;'>10</span> automotive 2011-01-01 projected            0.210 projected 0.210 FALSE       
+#&gt; <span style='color: #949494;'># … with 198 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

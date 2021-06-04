@@ -175,11 +175,11 @@ Arguments).</p></li>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Dataframe like the output of <code><a href='prep_timeline.html'>prep_timeline()</a></code>.</p></td>
+      <td><p>Data frame like the output of <code><a href='prep_timeline.html'>prep_timeline()</a></code>.</p></td>
     </tr>
     <tr>
       <th>specs</th>
-      <td><p>Dataframe containing order of lines, their labels and colour
+      <td><p>Data frame containing order of lines, their labels and colour
 names from the r2dii_colours palette.</p></td>
     </tr>
     <tr>
@@ -208,12 +208,7 @@ case. <code>FALSE</code> does no recoding and plots <code>data$line_name</code> 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
+
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>2020</span>, <span class='fl'>2050</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='prep_timeline.html'>prep_timeline</a></span><span class='op'>(</span>extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepares pre-processed data for plotting a trajectory chart — prep_trajectory • r2dii.plot</title>
+<title>Prepare the output of r2dii.analysis::target_market_share() for plot_trajectory() — prep_trajectory • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Prepares pre-processed data for plotting a trajectory chart — prep_trajectory" />
-<meta property="og:description" content="Prepares pre-processed data for plotting a trajectory chart" />
+<meta property="og:title" content="Prepare the output of r2dii.analysis::target_market_share() for plot_trajectory() — prep_trajectory" />
+<meta property="og:description" content="Prepare the output of r2dii.analysis::target_market_share() for plot_trajectory()" />
 
 
 
@@ -117,13 +117,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepares pre-processed data for plotting a trajectory chart</h1>
+    <h1>Prepare the output of <code>r2dii.analysis::target_market_share()</code> for <code>plot_trajectory()</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/prep_trajectory.R'><code>R/prep_trajectory.R</code></a></small>
     <div class="hidden name"><code>prep_trajectory.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prepares pre-processed data for plotting a trajectory chart</p>
+    <p>Prepare the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_market_share.html'>r2dii.analysis::target_market_share()</a></code> for <code><a href='plot_trajectoryA.html'>plot_trajectory()</a></code></p>
     </div>
 
     <pre class="usage"><span class='fu'>prep_trajectory</span><span class='op'>(</span>
@@ -132,51 +132,61 @@
   <span class='va'>technology_filter</span>,
   <span class='va'>region_filter</span>,
   <span class='va'>scenario_source_filter</span>,
-  <span class='va'>value_name</span>,
+  value <span class='op'>=</span> <span class='st'>"production"</span>,
+  metric <span class='op'>=</span> <span class='st'>"metric"</span>,
   end_year_filter <span class='op'>=</span> <span class='fl'>2025</span>,
-  normalize_to_start_year <span class='op'>=</span> <span class='cn'>TRUE</span>
+  normalize <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>prep_trajectoryB</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"production"</span>, normalize <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+<span class='fu'>prep_trajectoryB</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  value <span class='op'>=</span> <span class='st'>"production"</span>,
+  metric <span class='op'>=</span> <span class='st'>"metric"</span>,
+  normalize <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Pre-processed input data.</p></td>
+      <td><p>Data frame like the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_market_share.html'>r2dii.analysis::target_market_share()</a></code>.</p></td>
     </tr>
     <tr>
       <th>sector_filter</th>
-      <td><p>Sector for which to filter the data (character string).</p></td>
+      <td><p>String of length 1. Sector to pick from the <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>technology_filter</th>
-      <td><p>Technology for which to filter the data (character
-string).</p></td>
+      <td><p>String of length 1. Technology to pick from the
+<code>data</code>.</p></td>
     </tr>
     <tr>
       <th>region_filter</th>
-      <td><p>Region for which to filter the data (character string).</p></td>
+      <td><p>String of length 1. Region to pick from the <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>scenario_source_filter</th>
-      <td><p>Scenario source for which to filter the data
-(character string).</p></td>
+      <td><p>String of length 1. Value of the column
+<code>scenario_source</code> to pick from the <code>data</code>.</p></td>
     </tr>
     <tr>
-      <th>value_name, value</th>
-      <td><p>The name of the value to be plotted in the trajectory chart
-(character string).</p></td>
+      <th>value</th>
+      <td><p>String of length 1. The name of the column holding the value to
+plot.</p></td>
+    </tr>
+    <tr>
+      <th>metric</th>
+      <td><p>String of length 1. The name of the column holding the metrics
+to plot.</p></td>
     </tr>
     <tr>
       <th>end_year_filter</th>
-      <td><p>Cut-off year for the chart (an integer).</p></td>
+      <td><p>Numeric of length 1. Cut-off year for the plot.</p></td>
     </tr>
     <tr>
-      <th>normalize_to_start_year, normalize</th>
-      <td><p>Logical of length-1. <code>TRUE</code>
-normalized to start year.</p></td>
+      <th>normalize</th>
+      <td><p>Logical of length-1. <code>TRUE</code> normalizes to the start year.</p></td>
     </tr>
     </table>
 
@@ -191,22 +201,26 @@ normalized to start year.</p></td>
   technology_filter <span class='op'>=</span> <span class='st'>"oilcap"</span>,
   region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
   scenario_source_filter <span class='op'>=</span> <span class='st'>"demo_2020"</span>,
-  value_name <span class='op'>=</span> <span class='st'>"production"</span>
+  value <span class='op'>=</span> <span class='st'>"production"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 5</span>
-#&gt;     year metric_type metric            technology value
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>2</span>020 portfolio   projected         oilcap     1    
-#&gt; <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>2</span>020 benchmark   corporate_economy oilcap     1    
-#&gt; <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>2</span>020 scenario    cps               oilcap     1    
-#&gt; <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sds               oilcap     1    
-#&gt; <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>2</span>020 scenario    sps               oilcap     1    
-#&gt; <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>2</span>021 portfolio   projected         oilcap     0.994
-#&gt; <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>2</span>021 benchmark   corporate_economy oilcap     0.992
-#&gt; <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>2</span>021 scenario    cps               oilcap     0.932
-#&gt; <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sds               oilcap     0.922
-#&gt; <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>021 scenario    sps               oilcap     0.931
-#&gt; <span style='color: #949494;'># … with 20 more rows</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 21</span>
+#&gt;    sector.x technology.x year.x region.x scenario_source.x metric   production.x
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> power    oilcap         <span style='text-decoration: underline;'>2</span>020 global   demo_2020         project…         145.
+#&gt; <span style='color: #BCBCBC;'> 2</span> power    oilcap         <span style='text-decoration: underline;'>2</span>020 global   demo_2020         corpora…       <span style='text-decoration: underline;'>20</span>277.
+#&gt; <span style='color: #BCBCBC;'> 3</span> power    oilcap         <span style='text-decoration: underline;'>2</span>020 global   demo_2020         cps              145.
+#&gt; <span style='color: #BCBCBC;'> 4</span> power    oilcap         <span style='text-decoration: underline;'>2</span>020 global   demo_2020         sds              145.
+#&gt; <span style='color: #BCBCBC;'> 5</span> power    oilcap         <span style='text-decoration: underline;'>2</span>020 global   demo_2020         sps              145.
+#&gt; <span style='color: #BCBCBC;'> 6</span> power    oilcap         <span style='text-decoration: underline;'>2</span>021 global   demo_2020         project…         144.
+#&gt; <span style='color: #BCBCBC;'> 7</span> power    oilcap         <span style='text-decoration: underline;'>2</span>021 global   demo_2020         corpora…       <span style='text-decoration: underline;'>20</span>123.
+#&gt; <span style='color: #BCBCBC;'> 8</span> power    oilcap         <span style='text-decoration: underline;'>2</span>021 global   demo_2020         cps              135.
+#&gt; <span style='color: #BCBCBC;'> 9</span> power    oilcap         <span style='text-decoration: underline;'>2</span>021 global   demo_2020         sds              134.
+#&gt; <span style='color: #BCBCBC;'>10</span> power    oilcap         <span style='text-decoration: underline;'>2</span>021 global   demo_2020         sps              135.
+#&gt; <span style='color: #949494;'># … with 20 more rows, and 14 more variables: technology_share.x &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   metric_type &lt;chr&gt;, value.x &lt;dbl&gt;, sector.y &lt;chr&gt;, technology.y &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   year.y &lt;int&gt;, region.y &lt;chr&gt;, scenario_source.y &lt;chr&gt;, production.y &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   technology_share.y &lt;dbl&gt;, value.y &lt;dbl&gt;, value &lt;dbl&gt;, year &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   technology &lt;chr&gt;</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>market_share</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span>

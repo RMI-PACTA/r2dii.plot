@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepares pre-processed data for plotting a tech-mix chart — prep_techmix • r2dii.plot</title>
+<title>Prepare the output of r2dii.analysis::target_market_share() for plot_techmix() — prep_techmix • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Prepares pre-processed data for plotting a tech-mix chart — prep_techmix" />
-<meta property="og:description" content="Prepares pre-processed data for plotting a tech-mix chart" />
+<meta property="og:title" content="Prepare the output of r2dii.analysis::target_market_share() for plot_techmix() — prep_techmix" />
+<meta property="og:description" content="Prepare the output of r2dii.analysis::target_market_share() for plot_techmix()" />
 
 
 
@@ -117,60 +117,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepares pre-processed data for plotting a tech-mix chart</h1>
+    <h1>Prepare the output of <code>r2dii.analysis::target_market_share()</code> for <code>plot_techmix()</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/prep_techmix.R'><code>R/prep_techmix.R</code></a></small>
     <div class="hidden name"><code>prep_techmix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prepares pre-processed data for plotting a tech-mix chart</p>
+    <p>Prepare the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_market_share.html'>r2dii.analysis::target_market_share()</a></code> for <code><a href='plot_techmix.html'>plot_techmix()</a></code></p>
     </div>
 
     <pre class="usage"><span class='fu'>prep_techmix</span><span class='op'>(</span>
   <span class='va'>data</span>,
+  value <span class='op'>=</span> <span class='st'>"technology_share"</span>,
+  metric <span class='op'>=</span> <span class='st'>"metric"</span>,
   sector_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"automotive"</span>, <span class='st'>"aviation"</span>, <span class='st'>"cement"</span>, <span class='st'>"oil and gas"</span>, <span class='st'>"shipping"</span>,
     <span class='st'>"steel"</span>, <span class='st'>"power"</span><span class='op'>)</span>,
   years_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
   region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
   scenario_source_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scenario_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
-  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
+  scenario_filter <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
 
-<span class='fu'>prep_techmixB</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"technology_share"</span><span class='op'>)</span></pre>
+<span class='fu'>prep_techmixB</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"technology_share"</span>, metric <span class='op'>=</span> <span class='st'>"metric"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Pre-processed input data.</p></td>
+      <td><p>Data frame like the output of <code><a href='https://rdrr.io/pkg/r2dii.analysis/man/target_market_share.html'>r2dii.analysis::target_market_share()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>String of length 1. The name of the column holding the value to
+plot.</p></td>
+    </tr>
+    <tr>
+      <th>metric</th>
+      <td><p>String of length 1. The name of the column holding the metrics
+to plot.</p></td>
     </tr>
     <tr>
       <th>sector_filter</th>
-      <td><p>Sector for which to filter the data (character string).</p></td>
+      <td><p>String of length 1. Sector to pick from the <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>years_filter</th>
-      <td><p>Years to plot in the graph (array of integer values).</p></td>
+      <td><p>Numeric vector of length 2. Range of years to plot.</p></td>
     </tr>
     <tr>
       <th>region_filter</th>
-      <td><p>Region for which to filter the data (character string).</p></td>
+      <td><p>String of length 1. Region to pick from the <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>scenario_source_filter</th>
-      <td><p>Scenario source for which to filter the data
-(character string).</p></td>
+      <td><p>String of length 1. Value of the column
+<code>scenario_source</code> to pick from the <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>scenario_filter</th>
-      <td><p>Scenario to plot in the graph (character string).</p></td>
-    </tr>
-    <tr>
-      <th>value_to_plot, value</th>
-      <td><p>The name of the value to be plotted as a bar chart
-(character string).</p></td>
+      <td><p>String of length 1. Scenario to pick from the <code>data</code>.</p></td>
     </tr>
     </table>
 
@@ -183,7 +189,7 @@
   region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
   scenario_source_filter <span class='op'>=</span> <span class='st'>"demo_2020"</span>,
   scenario_filter <span class='op'>=</span> <span class='st'>"sds"</span>,
-  value_to_plot <span class='op'>=</span> <span class='st'>"technology_share"</span>
+  value <span class='op'>=</span> <span class='st'>"technology_share"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 6</span>
 #&gt;    sector technology metric_type    metric             value scenario_source
