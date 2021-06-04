@@ -1,0 +1,143 @@
+---
+title: "r2dii.plot A: Thin API"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The goal of r2dii.plot is to help you plot 2DII data in an informative,
+beautiful, and easy way.
+
+## Installation
+
+You can install the development version of r2dii.plot from
+[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
+
+```r
+# install.packages("devtools")
+devtools::install_github("2DegreesInvesting/r2dii.plot")
+```
+
+## Example
+
+The r2dii.plot package is designed to work smoothly with other "r2dii" packages
+-- [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
+[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
+[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/). It also
+plays well with the popular packages [dplyr](https://www.tidyverse.org/) and
+[ggplot2](https://ggplot2.tidyverse.org/), which help you customize your plots.
+
+```{r setup}
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
+library(r2dii.plot)
+```
+
+Your data typically comes from the output of two functions in the
+r2dii.analysis package:
+[`target_sda()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html)
+and
+[`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html).
+Here you'll use two example datasets that come wiht r2dii.plot.
+
+```{r}
+sda
+
+market_share
+```
+
+### Timeline
+
+Use `plot_timelineX()` with `sda`-like data. You'll need to pick the
+specific rows you want to plot. For details see the documented "Requirements" of
+the argument `data`, or try intuitively and let the error messages guide you.
+
+```{r error = TRUE}
+plot_timelineX(sda)
+```
+
+The error message suggests you must first pick only one value of `sector`, for
+example "cement".
+
+```{r}
+sda %>% 
+  filter(sector == "cement") %>% 
+  plot_timelineX()
+```
+
+Great! You can now polish you plot. Your options are limitless but these are
+some things you may do:
+
+* Pick a narrower time range.
+* Recode the legend.
+* Extrapolate the timeline.
+* Add a title. 
+
+```{r}
+to_title <- function(x) gsub("_", " ", tools::toTitleCase(x))
+
+sda %>% 
+  filter(sector == "cement", year >= 2020) %>% 
+  mutate(emission_factor_metric = to_title(emission_factor_metric)) %>% 
+  plot_timelineX(extrapolate = TRUE) + labs(title = "Timeline plot")
+```
+
+### Techmix
+
+Use `plot_techmixX()` with `market_share`-like data. Again, learn which rows to
+pick by reading the documented "Requirements" of the argument `data`, or by trial and error.
+
+```{r error = TRUE}
+unique(market_share$metric)
+chosen_metrics <- c("projected", "corporate_economy", "target_sds")
+
+market_share %>%
+  filter(
+    metric %in% chosen_metrics,
+    sector == "power",
+    region == "global"
+  ) %>% 
+  plot_techmixX() + labs(title = "power")
+```
+
+How would you create one plot for every sector? One way is to wrap the code
+in a helper function and make `sector` and argument. Then you can iterate over
+each sector with `lapply()`.
+
+```{r}
+plot_sector_techmix <- function(x) {
+  chosen_metrics <- c("projected", "corporate_economy", "target_sds")
+  
+  market_share %>%
+    filter(
+      metric %in% chosen_metrics,
+      sector == x,
+      region == "global"
+    ) %>%
+    plot_techmixX() + labs(title = x)
+}
+
+(sectors <- unique(market_share$sector))
+lapply(sectors, plot_sector_techmix)
+```
+
+
+### Trajectory
+
+Use `plot_trajectoryX()` with `market_share`-like data. Again, learn which rows
+to pick by reading the documented "Requirements" of the argument `data`, or by
+trial and error.
+
+```{r}
+market_share %>% 
+  filter(
+    sector == "power", 
+    region == "global", 
+    technology == "renewablescap"
+  ) %>% 
+  plot_trajectoryX()
+```

@@ -50,6 +50,11 @@ reference:
       - -starts_with("prep")
       - -has_concept("plotting functions")
       - -has_concept("datasets")
+      - -has_concept("functions with minimal arguments")
+
+  - title: r2dii.plot A - Thin API
+    contents:
+      - has_concept("functions with minimal arguments")
 
   - title: Datasets
     contents:
