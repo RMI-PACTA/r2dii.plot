@@ -41,7 +41,7 @@
 
 # if `normalize` isn't length-1 errors gracefully
 
-    `normalize` must be of length 1.
+    `normalize` must be of length 1, not 2.
 
 # if `normalize` isn't logical errors gracefully
 

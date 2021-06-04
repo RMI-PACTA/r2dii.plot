@@ -121,7 +121,7 @@ check_prep_trajectoryB <- function(data, value, normalize) {
   )
   check_crucial_names(data, crucial)
 
-  if (!length(normalize) == 1L) abort("`normalize` must be of length 1.")
+  abort_if_invalid_length(normalize)
   stopifnot(is.logical(normalize))
 
   cols <- c("sector", "technology", "region", "scenario_source")

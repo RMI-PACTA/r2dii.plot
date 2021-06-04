@@ -249,7 +249,7 @@ plot_trajectoryB <- function(data, main_line = NULL) {
       filter(.data$metric_type != "scenario") %>%
       slice_head(n = 1) %>%
       pull(.data$metric))
-  check_main_line_in_metricB(data, main_line)
+  abort_if_invalid_main_line(data, main_line)
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specsB(data)
@@ -375,14 +375,19 @@ check_number_scenariosB <- function(data) {
   }
 }
 
-check_main_line_in_metricB <- function(data, main_line) {
-  if (!any(main_line %in% unique(data$metric))) {
+abort_if_invalid_main_line <- function(data, main_line) {
+  abort_if_invalid_length(main_line)
+
+  metrics <- unique(data$metric)
+  if (!main_line %in% metrics) {
     rlang::abort(glue(
-      "'main_line' must be found in 'data' column 'metric'. \\
-      * The unique 'metric' values in 'data' are: '{toString(unique(data$metric))}'. \\
-      * You provided: '{main_line}'. \\"
+      "`main_line` must be one value of `data$metric`.
+      * Valid values: {toString(metrics)}.
+      * You provided: {toString(main_line)}."
     ))
   }
+
+  invisible(data)
 }
 
 check_number_scenarios <- function(scenario_specs) {
