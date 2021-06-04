@@ -134,6 +134,7 @@ check_prep_techmixB <- function(data, value) {
 
   invisible(data)
 }
+
 abort_multiple <- function(data, colname) {
   values <- unique(data[[colname]])
   if (length(values) != 1L) {
