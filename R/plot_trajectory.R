@@ -374,6 +374,8 @@ abort_if_invalid_scenarios_number <- function(data) {
       You provided {nrow(scenario_specs)} scenarios in 'scenario_specs'."
     ))
   }
+
+  invisible(data)
 }
 
 abort_if_invalid_main_line <- function(data, main_line) {
