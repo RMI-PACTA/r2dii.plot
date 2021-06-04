@@ -205,6 +205,9 @@ plot_trajectory <- plot_trajectoryA
 #'   used. You may recode `metric` before passing the data with, for example,
 #'   `dplyr::recode()`.
 #'
+#' @param main_line Character string with the `metric` that should be
+#'   plotted as the line with the most visual salience (solid black line).
+#'
 #' @family plotting functions
 #'
 #' @export
@@ -222,16 +225,10 @@ plot_trajectory <- plot_trajectoryA
 #'   value_name = "production"
 #' )
 #'
-#' # Order metric: First main trajectory line, then benchmarks, then scenarios
-#' lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
-#' ordered <- data %>%
-#'   mutate(metric = factor(.data$metric, levels = lines_order)) %>%
-#'   arrange(.data$year, .data$metric)
-#'
-#' plot_trajectoryB(ordered)
+#' plot_trajectoryB(data, main_line = "projected")
 #'
 #' # You may recode `metric` with `dplyr::recode()`
-#' recoded <- ordered %>%
+#' recoded <- data %>%
 #'   mutate(
 #'     metric = recode(
 #'       .data$metric,
@@ -243,9 +240,16 @@ plot_trajectory <- plot_trajectoryA
 #'     )
 #'   )
 #'
-#' plot_trajectoryB(recoded)
-plot_trajectoryB <- function(data) {
+#' plot_trajectoryB(recoded, main_line = "Projected")
+plot_trajectoryB <- function(data, main_line = NULL) {
   check_number_scenariosB(data)
+
+  main_line <- main_line %||%
+    (data %>%
+    filter(.data$metric_type != "scenario") %>%
+    slice_head(n = 1) %>%
+    pull(.data$metric))
+  check_main_line_in_metricB(data, main_line)
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specsB(data)
@@ -266,7 +270,7 @@ plot_trajectoryB <- function(data) {
   # plot trajectory and scenario lines
   scenario_specs_lines <- scenario_specs_areas %>%
     filter(.data$scenario != "worse")
-  data_lines <- order_for_trajectoryB(data, scenario_specs_lines)
+  data_lines <- order_for_trajectoryB(data, scenario_specs_lines, main_line)
 
   n_scenarios <- nrow(scenario_specs_lines)
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
@@ -371,6 +375,16 @@ check_number_scenariosB <- function(data) {
   }
 }
 
+check_main_line_in_metricB <- function(data, main_line) {
+  if (!any(main_line %in% unique(data$metric))) {
+    rlang::abort(glue(
+      "'main_line' must be found in 'data' column 'metric'. \\
+      * The unique 'metric' values in 'data' are: '{toString(unique(data$metric))}'. \\
+      * You provided: '{main_line}'. \\"
+    ))
+  }
+}
+
 check_number_scenarios <- function(scenario_specs) {
   if (nrow(scenario_specs) > 4) {
     rlang::abort(glue(
@@ -384,19 +398,20 @@ reverse_rows <- function(x) {
   x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
 }
 
-order_for_trajectoryB <- function(data, scenario_specs) {
-  order_lines <- data %>%
-    mutate(metric = factor(.data$metric, levels = unique(data$metric))) %>%
-    filter(.data$metric_type != "scenario") %>%
+order_for_trajectoryB <- function(data, scenario_specs, main_line) {
+  order_add_lines <- data %>%
+    filter(.data$metric_type != "scenario",
+           .data$metric != .env$main_line) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
+
   order_scenarios <- scenario_specs$scenario
 
   data_ordered <- data %>%
     mutate(metric = factor(
       .data$metric,
-      levels = c(order_lines, order_scenarios)
+      levels = c(main_line, order_add_lines, order_scenarios)
     )) %>%
     arrange(.data$year, .data$metric)
 

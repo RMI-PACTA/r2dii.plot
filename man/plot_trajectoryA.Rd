@@ -20,7 +20,7 @@ plot_trajectory(
   additional_line_metrics = NULL
 )
 
-plot_trajectoryB(data)
+plot_trajectoryB(data, main_line = NULL)
 }
 \arguments{
 \item{data}{Filtered input data; with columns: year, metric_type, metric and
@@ -36,6 +36,9 @@ should be plotted as the main line; with columns: metric, label.}
 \item{additional_line_metrics}{Dataframe containing information about
 additional metrics that should be plotted as lines; with columns: metric,
 label).}
+
+\item{main_line}{Character string with the \code{metric} that should be
+plotted as the line with the most visual salience (solid black line).}
 }
 \description{
 We are exploring different interfaces before release. We are
@@ -101,16 +104,10 @@ data <- prep_trajectory(
   value_name = "production"
 )
 
-# Order metric: First main trajectory line, then benchmarks, then scenarios
-lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
-ordered <- data \%>\%
-  mutate(metric = factor(.data$metric, levels = lines_order)) \%>\%
-  arrange(.data$year, .data$metric)
-
-plot_trajectoryB(ordered)
+plot_trajectoryB(data, main_line = "projected")
 
 # You may recode `metric` with `dplyr::recode()`
-recoded <- ordered \%>\%
+recoded <- data \%>\%
   mutate(
     metric = recode(
       .data$metric,
@@ -122,7 +119,7 @@ recoded <- ordered \%>\%
     )
   )
 
-plot_trajectoryB(recoded)
+plot_trajectoryB(recoded, main_line = "Projected")
 }
 \seealso{
 Other plotting functions: 
