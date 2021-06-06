@@ -36,7 +36,7 @@ prep_techmix <- function(data,
                          region_filter = "global",
                          scenario_source_filter = NULL,
                          scenario_filter = NULL) {
-  check_crucial_names(data, metric)
+  abort_if_missing_names(data, metric)
 
   data <- recode_metric_and_metric_type(data, metric)
 
@@ -116,7 +116,7 @@ date_metric_type <- function(data) {
 
 check_prep_techmixB <- function(data, value) {
   crucial <- c("metric", "year", "scenario_source", "region", value)
-  check_crucial_names(data, crucial)
+  abort_if_missing_names(data, crucial)
 
   cols <- c("scenario_source", "sector", "region")
   lapply(cols, function(x) abort_multiple(data, x))

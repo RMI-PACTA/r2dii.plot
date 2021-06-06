@@ -40,7 +40,7 @@ plot_techmix <- function(data,
     unique() %>%
     guess_sector()
 
-  check_input_parameters_plot_techmix(
+  check_plot_techmix(
     data,
     metric_type_order,
     metric_type_labels,
@@ -104,11 +104,11 @@ plot_techmix <- function(data,
   p_techmix
 }
 
-check_input_parameters_plot_techmix <- function(data,
-                                                metric_type_order,
-                                                metric_type_labels,
-                                                sector,
-                                                tech_colours) {
+check_plot_techmix <- function(data,
+                               metric_type_order,
+                               metric_type_labels,
+                               sector,
+                               tech_colours) {
   if (!all(metric_type_order %in% unique(data$metric_type))) {
     abort(glue(
       "'metric_type_order' elements must be found in 'metric_type' column of input data.

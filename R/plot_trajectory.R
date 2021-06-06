@@ -198,12 +198,16 @@ plot_trajectoryA <- function(data,
 plot_trajectory <- plot_trajectoryA
 
 #' @rdname plot_trajectoryA
-#' @description * `plot_trajectoryB()` derives the main and additional lines as
-#'   well as scenario order from the data. The lines are plotted according to
-#'   the order of the input data. The scenario order is inferred from the order
-#'   of values on the last year. For the labels the `data` column `metric` is
-#'   used. You may recode `metric` before passing the data with, for example,
-#'   `dplyr::recode()`.
+#' @description
+#' * `plot_trajectoryB()` derives the main and additional lines as well as
+#' scenario order from the data. The lines are plotted according to the order of
+#' the input data. The scenario order is inferred from the order of values on
+#' the last year. For the labels the `data` column `metric` is used. You may
+#' recode `metric` before passing the data with, for example, `dplyr::recode()`.
+#'
+#' @param main_line String of length 1. The `metric` to plot as the line with
+#'   the most visual salience (solid black line). `NULL` defaults to
+#'   "projected".
 #'
 #' @family plotting functions
 #'
@@ -222,16 +226,10 @@ plot_trajectory <- plot_trajectoryA
 #'   value = "production"
 #' )
 #'
-#' # Order metric: First main trajectory line, then benchmarks, then scenarios
-#' lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
-#' ordered <- data %>%
-#'   mutate(metric = factor(.data$metric, levels = lines_order)) %>%
-#'   arrange(.data$year, .data$metric)
-#'
-#' plot_trajectoryB(ordered)
+#' plot_trajectoryB(data, main_line = "projected")
 #'
 #' # You may recode `metric` with `dplyr::recode()`
-#' recoded <- ordered %>%
+#' recoded <- data %>%
 #'   mutate(
 #'     metric = recode(
 #'       .data$metric,
@@ -243,9 +241,16 @@ plot_trajectory <- plot_trajectoryA
 #'     )
 #'   )
 #'
-#' plot_trajectoryB(recoded)
-plot_trajectoryB <- function(data) {
-  check_number_scenariosB(data)
+#' plot_trajectoryB(recoded, main_line = "Projected")
+plot_trajectoryB <- function(data, main_line = NULL) {
+  abort_if_invalid_scenarios_number(data)
+
+  main_line <- main_line %||%
+    (data %>%
+      filter(.data$metric_type != "scenario") %>%
+      slice_head(n = 1) %>%
+      pull(.data$metric))
+  abort_if_invalid_main_line(data, main_line)
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specsB(data)
@@ -266,7 +271,7 @@ plot_trajectoryB <- function(data) {
   # plot trajectory and scenario lines
   scenario_specs_lines <- scenario_specs_areas %>%
     filter(.data$scenario != "worse")
-  data_lines <- order_for_trajectoryB(data, scenario_specs_lines)
+  data_lines <- order_for_trajectoryB(data, scenario_specs_lines, main_line)
 
   n_scenarios <- nrow(scenario_specs_lines)
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
@@ -357,7 +362,7 @@ plot_trajectoryB <- function(data) {
   p_trajectory
 }
 
-check_number_scenariosB <- function(data) {
+abort_if_invalid_scenarios_number <- function(data) {
   unique_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     pull(.data$metric) %>%
@@ -369,6 +374,23 @@ check_number_scenariosB <- function(data) {
       You provided {nrow(scenario_specs)} scenarios in 'scenario_specs'."
     ))
   }
+
+  invisible(data)
+}
+
+abort_if_invalid_main_line <- function(data, main_line) {
+  abort_if_invalid_length(main_line)
+
+  metrics <- unique(data$metric)
+  if (!main_line %in% metrics) {
+    rlang::abort(glue(
+      "`main_line` must be one value of `data$metric`.
+      * Valid values: {toString(metrics)}.
+      * You provided: {toString(main_line)}."
+    ))
+  }
+
+  invisible(data)
 }
 
 check_number_scenarios <- function(scenario_specs) {
@@ -384,19 +406,22 @@ reverse_rows <- function(x) {
   x[sort(rownames(x), decreasing = TRUE), , drop = FALSE]
 }
 
-order_for_trajectoryB <- function(data, scenario_specs) {
-  order_lines <- data %>%
-    mutate(metric = factor(.data$metric, levels = unique(data$metric))) %>%
-    filter(.data$metric_type != "scenario") %>%
+order_for_trajectoryB <- function(data, scenario_specs, main_line) {
+  order_add_lines <- data %>%
+    filter(
+      .data$metric_type != "scenario",
+      .data$metric != .env$main_line
+    ) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
+
   order_scenarios <- scenario_specs$scenario
 
   data_ordered <- data %>%
     mutate(metric = factor(
       .data$metric,
-      levels = c(order_lines, order_scenarios)
+      levels = c(main_line, order_add_lines, order_scenarios)
     )) %>%
     arrange(.data$year, .data$metric)
 

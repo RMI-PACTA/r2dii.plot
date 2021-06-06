@@ -27,14 +27,14 @@ prep_trajectory <- function(data,
                             metric = "metric",
                             end_year_filter = 2025,
                             normalize = TRUE) {
-  check_crucial_names(data, metric)
+  abort_if_missing_names(data, metric)
   data <- recode_metric_and_metric_type(data, metric)
 
   warn_bad_value(sector_filter, data$sector)
   warn_bad_value(technology_filter, data$technology)
   warn_bad_value(region_filter, data$region)
   warn_bad_value(scenario_source_filter, data$scenario_source)
-  check_crucial_names(data, "sector")
+  abort_if_missing_names(data, "sector")
 
   year_start_projected <- data %>%
     filter(.data$metric == "projected") %>%
@@ -119,9 +119,9 @@ check_prep_trajectoryB <- function(data, value, normalize) {
   crucial <- c(
     "metric", "sector", "technology", "region", "year", "scenario_source", value
   )
-  check_crucial_names(data, crucial)
+  abort_if_missing_names(data, crucial)
 
-  if (!length(normalize) == 1L) abort("`normalize` must be of length 1.")
+  abort_if_invalid_length(normalize)
   stopifnot(is.logical(normalize))
 
   cols <- c("sector", "technology", "region", "scenario_source")

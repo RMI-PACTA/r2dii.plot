@@ -95,15 +95,7 @@ unique(data_trajectory$metric)
 #> [1] "projected"         "corporate_economy" "cps"              
 #> [4] "sds"               "sps"
 
-# IMPORTANT: Use `factor()` to order `metric` with the main trajectory line
-# first, then benchmarks, then scenarios. Else the line-types may be messed up
-lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
-ordered <- data_trajectory %>%
-  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
-  arrange(.data$year, .data$metric)
-
-# `plot_trajectoryB()` takes fewer arguments
-plot_trajectoryB(ordered)
+plot_trajectoryB(data_trajectory, main_line = "projected")
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
