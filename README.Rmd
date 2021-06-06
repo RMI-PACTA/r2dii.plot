@@ -105,15 +105,7 @@ data_trajectory <- market_share %>%
 
 unique(data_trajectory$metric)
 
-# IMPORTANT: Use `factor()` to order `metric` with the main trajectory line
-# first, then benchmarks, then scenarios. Else the line-types may be messed up
-lines_order <- c("projected", "corporate_economy", "sds", "sps", "cps")
-ordered <- data_trajectory %>%
-  mutate(metric = factor(.data$metric, levels = lines_order)) %>%
-  arrange(.data$year, .data$metric)
-
-# `plot_trajectoryB()` takes fewer arguments
-plot_trajectoryB(ordered)
+plot_trajectoryB(data_trajectory, main_line = "projected")
 ```
 
 * `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
