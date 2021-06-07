@@ -22,10 +22,6 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#' data <- sda %>%
-#'   filter(sector == "cement", between(year, 2020, 2050)) %>%
-#'   prep_timeline(extrapolate = TRUE)
-#'
 #' # `plot_timelineA()` -------------------------------------------------------
 #'
 #' data <- sda %>%
