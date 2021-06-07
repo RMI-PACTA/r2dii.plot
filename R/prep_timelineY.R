@@ -7,6 +7,7 @@
 #'   to plot.
 #' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
 #'   furthest value in the data set.
+#' @inheritParams prep_techmixY
 #'
 #' @seealso [sda].
 #'
@@ -14,10 +15,11 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #'
-#' tail(prep_timelineY(sda))
-#' tail(prep_timelineY(sda, extrapolate = TRUE))
+#' # Fails
+#' prep_timelineY(sda)
+#' prep_timelineY(sda, extrapolate = TRUE)
 #'
 #' data <- sda %>%
 #'   rename(
@@ -30,9 +32,12 @@ prep_timelineY <- function(data,
                            metric = "emission_factor_metric",
                            sector_filter = NULL,
                            extrapolate = FALSE) {
-  check_prep_timelineY(data, value, metric, extrapolate, sector_filter)
+  check_prep_timelineY(data, value, metric, extrapolate)
   if (!is.null(sector_filter)) {
+    stopifnot(is.character(sector_filter))
+    abort_if_invalid_length(sector_filter, 1L)
     data <- filter(data, .data$sector == sector_filter)
+    abort_multiple(data, "sector")
   }
 
   out <- data %>%
@@ -65,7 +70,7 @@ prep_timelineY <- function(data,
   out
 }
 
-check_prep_timelineY <- function(data, value, metric, extrapolate, sector_filter) {
+check_prep_timelineY <- function(data, value, metric, extrapolate) {
   stopifnot(
     is.data.frame(data),
     is.character(value),
@@ -73,10 +78,6 @@ check_prep_timelineY <- function(data, value, metric, extrapolate, sector_filter
     is.logical(extrapolate)
   )
   abort_if_missing_names(data, c("sector", "year", metric, value))
-  if (!is.null(sector_filter)) {
-    stopifnot(is.character(sector_filter))
-    abort_if_invalid_length(sector_filter, 1L)
-  }
 
   invisible(data)
 }

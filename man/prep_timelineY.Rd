@@ -8,6 +8,7 @@ prep_timelineY(
   data,
   value = "emission_factor_value",
   metric = "emission_factor_metric",
+  sector_filter = NULL,
   extrapolate = FALSE
 )
 }
@@ -19,6 +20,8 @@ plot.}
 
 \item{metric}{String of length 1. The name of the column holding the metrics
 to plot.}
+
+\item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
 
 \item{extrapolate}{Logical of length 1. \code{TRUE} extrapolates to match the
 furthest value in the data set.}
@@ -32,8 +35,9 @@ Prepare the output of \code{r2dii.analysis::target_sda()} for \code{plot_timelin
 \examples{
 library(dplyr)
 
-tail(prep_timelineY(sda))
-tail(prep_timelineY(sda, extrapolate = TRUE))
+prep_timelineY(sda)
+
+prep_timelineY(sda, extrapolate = TRUE)
 
 data <- sda \%>\%
   rename(
