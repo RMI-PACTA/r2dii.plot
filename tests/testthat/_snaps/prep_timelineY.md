@@ -14,3 +14,11 @@
       6 automoti~ 2007-01-01 projected                           0.218 projected 0.218
       # ... with 1 more variable: extrapolated <lgl>
 
+# with bad `sector_filter` errors gracefully
+
+    `sector_filter` must be of length 1, not 2.
+
+---
+
+    is.character(sector_filter) is not TRUE
+

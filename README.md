@@ -235,9 +235,7 @@ plot +
 <!-- end list -->
 
 ``` r
-data <- sda %>% 
-  filter(sector == "cement") %>% 
-  prep_timelineY(extrapolate = TRUE)
+data <- prep_timelineY(sda, sector_filter = "cement", extrapolate = TRUE)
 
 # Plot and customize with ggplot2
 plot_timelineY(data) +
