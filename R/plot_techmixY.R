@@ -27,8 +27,8 @@
 #'   value = "technology_share"
 #' )
 #'
-#' plot_techmix(data)
-plot_techmix <- function(data,
+#' plot_techmixY(data)
+plot_techmixY <- function(data,
                          metric_type_order = NULL,
                          metric_type_labels = NULL,
                          tech_colours = NULL) {
@@ -40,7 +40,7 @@ plot_techmix <- function(data,
     unique() %>%
     guess_sector()
 
-  check_plot_techmix(
+  check_plot_techmixY(
     data,
     metric_type_order,
     metric_type_labels,
@@ -104,7 +104,7 @@ plot_techmix <- function(data,
   p_techmix
 }
 
-check_plot_techmix <- function(data,
+check_plot_techmixY <- function(data,
                                metric_type_order,
                                metric_type_labels,
                                sector,

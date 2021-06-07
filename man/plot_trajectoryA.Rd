@@ -71,7 +71,7 @@ p
 }
 \seealso{
 Other plotting functions: 
-\code{\link{plot_techmix}()},
+\code{\link{plot_techmixY}()},
 \code{\link{theme_2dii}()}
 }
 \concept{plotting functions}

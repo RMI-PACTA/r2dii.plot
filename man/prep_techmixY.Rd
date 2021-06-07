@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_techmixY.R
 \name{prep_techmixY}
 \alias{prep_techmixY}
-\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}}
+\title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmixY()}}
 \usage{
 prep_techmixY(
   data,
@@ -37,7 +37,7 @@ to plot.}
 \item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
 }
 \description{
-Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}
+Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmixY()}
 }
 \examples{
 prep_techmixY(

@@ -148,7 +148,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `prep_techmixY()` .
--   `plot_techmix()` create a techmix chart in a ggplot object.
+-   `plot_techmixY()` create a techmix chart in a ggplot object.
 
 ``` r
 # Default colours, all data, added title
@@ -164,7 +164,7 @@ data <- prep_techmixY(
   value = "technology_share"
 )
 
-plot <- plot_techmix(data)
+plot <- plot_techmixY(data)
 plot +
   ggplot2::labs(title = "Technology mix for the Power sector")
 ```
@@ -179,7 +179,7 @@ power_colors_custom <- tibble(
   hex = palette.colors(n = length(technology), palette = "ggplot2")
 )
 
-plot <- plot_techmix(data,
+plot <- plot_techmixY(data,
   tech_colours = power_colors_custom
 )
 plot
@@ -208,7 +208,7 @@ metric_type_labels = c(
     "Benchmark 2025", "Target SDS 2025"
   )
 
-plot <- plot_techmix(data,
+plot <- plot_techmixY(data,
   metric_type_order = metric_type_order,
   metric_type_labels = metric_type_labels
 )
