@@ -112,7 +112,7 @@ check_prep_trajectoryB <- function(data, value, normalize) {
 #'
 #' data <- sda %>%
 #'   filter(sector == "aviation") %>%
-#'   prep_timeline()
+#'   prep_timelineY()
 #' plot_timelineB(data)
 #'
 #' # Recode `line_name` with `dplyr::recode()`
@@ -153,7 +153,7 @@ plot_timelineB <- function(data) {
 #'
 #' data <- sda %>%
 #'   filter(sector == "aviation") %>%
-#'   prep_timeline()
+#'   prep_timelineY()
 #'
 #' unique(data$line_name)
 #'

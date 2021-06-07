@@ -1,12 +1,12 @@
 test_that("outputs a data.frame", {
   data <- head(sda)
-  expect_s3_class(prep_timeline(data), "data.frame")
+  expect_s3_class(prep_timelineY(data), "data.frame")
 })
 
 test_that("with bad `extrapolate` errors gracefully", {
   data <- head(sda)
   expect_error(
-    prep_timeline(data, extrapolate = "bad"),
+    prep_timelineY(data, extrapolate = "bad"),
     "logical.*not TRUE"
   )
 })
@@ -14,7 +14,7 @@ test_that("with bad `extrapolate` errors gracefully", {
 test_that("with bad `line` errors gracefully", {
   data <- head(sda)
   expect_error(
-    prep_timeline(data, metric = 1L),
+    prep_timelineY(data, metric = 1L),
     "character.*not TRUE"
   )
 })
@@ -22,7 +22,7 @@ test_that("with bad `line` errors gracefully", {
 test_that("with bad `value` errors gracefully", {
   data <- head(sda)
   expect_error(
-    prep_timeline(data, value = 1L),
+    prep_timelineY(data, value = 1L),
     "character.*not TRUE"
   )
 })
@@ -31,39 +31,39 @@ test_that("with bad `value` errors gracefully", {
 
 test_that("outputs column `sector`", {
   data <- head(sda)
-  out <- prep_timeline(data)
+  out <- prep_timelineY(data)
   expect_true(hasName(out, "sector"))
 })
 
 test_that("preserves sectors", {
   data <- head(sda)
-  out <- prep_timeline(data)
+  out <- prep_timelineY(data)
   expect_equal(unique(out$sector), unique(out$sector))
 })
 
 test_that("outputs the expected snapshot", {
   data <- head(sda)
-  expect_snapshot(prep_timeline(data))
+  expect_snapshot(prep_timelineY(data))
 })
 
 test_that("without crucial columns errors gracefully", {
   data <- head(sda)
 
-  expect_error(class = "missing_names", prep_timeline(select(data, -sector)))
-  expect_error(class = "missing_names", prep_timeline(select(data, -year)))
+  expect_error(class = "missing_names", prep_timelineY(select(data, -sector)))
+  expect_error(class = "missing_names", prep_timelineY(select(data, -year)))
   expect_error(
     class = "missing_names",
-    prep_timeline(select(data, -emission_factor_metric))
+    prep_timelineY(select(data, -emission_factor_metric))
   )
   expect_error(
     class = "missing_names",
-    prep_timeline(select(data, -emission_factor_value))
+    prep_timelineY(select(data, -emission_factor_value))
   )
 })
 
 test_that("outputs expected colums", {
   data <- head(sda)
-  out <- prep_timeline(data)
+  out <- prep_timelineY(data)
   expected <- c("year", "line_name", "value", "extrapolated")
   expect_true(all(expected %in% names(out)))
 })
@@ -71,13 +71,13 @@ test_that("outputs expected colums", {
 test_that("is sensitive to `value`", {
   data <- dplyr::rename(sda, custom = "emission_factor_value")
   expect_no_error(
-    prep_timeline(data, value = "custom")
+    prep_timelineY(data, value = "custom")
   )
 })
 
 test_that("is sensitive to `line`", {
   data <- dplyr::rename(sda, custom = "emission_factor_metric")
   expect_no_error(
-    prep_timeline(data, metric = "custom")
+    prep_timelineY(data, metric = "custom")
   )
 })

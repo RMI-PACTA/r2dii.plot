@@ -7,7 +7,7 @@
 plot_timelineA(data, specs = timeline_specs(data))
 }
 \arguments{
-\item{data}{Data frame like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
+\item{data}{Data frame like the output of \code{\link[=prep_timelineY]{prep_timelineY()}}.}
 
 \item{specs}{Data frame containing order of lines, their labels and colour
 names from the r2dii_colours palette.}
@@ -34,7 +34,7 @@ library(dplyr)
 
 data <- sda \%>\%
   filter(sector == "cement") \%>\%
-  prep_timeline()
+  prep_timelineY()
 plot_timelineA(data)
 
 # Customize as usual with ggplot2

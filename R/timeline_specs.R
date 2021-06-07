@@ -6,7 +6,7 @@
 #' @return A data frame useful as the `specs` argument of [plot_timelineA()].
 #' @export
 #' @examples
-#' data <- prep_timeline(sda)
+#' data <- prep_timelineY(sda)
 #' timeline_specs(data)
 timeline_specs <- function(data) {
   abort_if_missing_names(data, "line_name")

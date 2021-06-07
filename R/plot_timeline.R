@@ -1,6 +1,6 @@
 #' Creates a time line plot
 #'
-#' @param data Data frame like the output of [prep_timeline()].
+#' @param data Data frame like the output of [prep_timelineY()].
 #' @param specs Data frame containing order of lines, their labels and colour
 #'   names from the r2dii_colours palette.
 #'
@@ -26,7 +26,7 @@
 #'
 #' data <- sda %>%
 #'   filter(sector == "cement") %>%
-#'   prep_timeline()
+#'   prep_timelineY()
 #' plot_timelineA(data)
 #'
 #' # Customize as usual with ggplot2

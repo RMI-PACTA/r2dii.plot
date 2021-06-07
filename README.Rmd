@@ -220,13 +220,13 @@ plot +
   ggplot2::labs(title = "Technology mix for the Automotive sector")
 ```
 
-* `prep_timeline()` `r pull_title("prep_timeline")`.
+* `prep_timelineY()` `r pull_title("prep_timeline")`.
 * `plot_timelineA()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 data <- sda %>% 
   filter(sector == "cement") %>% 
-  prep_timeline(extrapolate = TRUE)
+  prep_timelineY(extrapolate = TRUE)
 
 # Plot and customize with ggplot2
 plot_timelineA(data) +

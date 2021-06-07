@@ -219,14 +219,14 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_timeline()` prepare the output of
+-   `prep_timelineY()` prepare the output of
     ‘r2dii.analysis::target\_sda()’ for ‘plot\_timeline()’.
 -   `plot_timelineA()` creates a time line plot.
 
 ``` r
 data <- sda %>% 
   filter(sector == "cement") %>% 
-  prep_timeline(extrapolate = TRUE)
+  prep_timelineY(extrapolate = TRUE)
 
 # Plot and customize with ggplot2
 plot_timelineA(data) +

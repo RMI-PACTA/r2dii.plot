@@ -7,7 +7,7 @@
 #' @param scenario_source_filter String of length 1. Value of the column
 #'   `scenario_source` to pick from the `data`.
 #' @param scenario_filter String of length 1. Scenario to pick from the `data`.
-#' @inheritParams prep_timeline
+#' @inheritParams prep_timelineY
 #'
 #' @export
 #' @examples
