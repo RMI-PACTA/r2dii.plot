@@ -19,14 +19,14 @@
 #'   value = "production"
 #' )
 prep_trajectoryY <- function(data,
-                            sector_filter,
-                            technology_filter,
-                            region_filter,
-                            scenario_source_filter,
-                            value = "production",
-                            metric = "metric",
-                            end_year_filter = 2025,
-                            normalize = TRUE) {
+                             sector_filter,
+                             technology_filter,
+                             region_filter,
+                             scenario_source_filter,
+                             value = "production",
+                             metric = "metric",
+                             end_year_filter = 2025,
+                             normalize = TRUE) {
   abort_if_missing_names(data, metric)
   data <- recode_metric_and_metric_type(data, metric)
 

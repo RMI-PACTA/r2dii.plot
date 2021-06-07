@@ -26,9 +26,9 @@
 #'   )
 #' prep_timelineY(data, value = "custom_value", metric = "custom_metric")
 prep_timelineY <- function(data,
-                          value = "emission_factor_value",
-                          metric = "emission_factor_metric",
-                          extrapolate = FALSE) {
+                           value = "emission_factor_value",
+                           metric = "emission_factor_metric",
+                           extrapolate = FALSE) {
   check_prep_timelineY(data, value, metric, extrapolate)
 
   out <- data %>%

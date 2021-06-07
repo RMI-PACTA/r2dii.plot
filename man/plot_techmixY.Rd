@@ -44,7 +44,7 @@ plot_techmixY(data)
 }
 \seealso{
 Other plotting functions: 
-\code{\link{plot_trajectoryA}()},
+\code{\link{plot_trajectoryY}()},
 \code{\link{theme_2dii}()}
 }
 \concept{plotting functions}

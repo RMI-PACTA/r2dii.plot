@@ -93,10 +93,10 @@ data_trajectory <- prep_trajectoryY(
 )
 ```
 
-* `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
+* `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
 
 ```{r}
-# `plot_trajectoryA()` takes more arguments
+# `plot_trajectoryY()` takes more arguments
 
 scenario_specs <- tibble(
   scenario = c("sds", "sps", "cps"),
@@ -113,7 +113,7 @@ additional_line_metrics <- tibble(
   label = "Corporate Economy"
 )
 
-plot_trajectoryA(
+plot_trajectoryY(
   data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
@@ -141,7 +141,7 @@ scenario_specs <- tibble(
     "Current Policies Scenario")
 )
 
-plot <- plot_trajectoryA(data_trajectory,
+plot <- plot_trajectoryY(data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics

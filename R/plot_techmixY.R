@@ -29,9 +29,9 @@
 #'
 #' plot_techmixY(data)
 plot_techmixY <- function(data,
-                         metric_type_order = NULL,
-                         metric_type_labels = NULL,
-                         tech_colours = NULL) {
+                          metric_type_order = NULL,
+                          metric_type_labels = NULL,
+                          tech_colours = NULL) {
   metric_type_order <- metric_type_order %||% unique(data$metric_type)
   metric_type_labels <- metric_type_labels %||% to_title(metric_type_order)
 
@@ -105,10 +105,10 @@ plot_techmixY <- function(data,
 }
 
 check_plot_techmixY <- function(data,
-                               metric_type_order,
-                               metric_type_labels,
-                               sector,
-                               tech_colours) {
+                                metric_type_order,
+                                metric_type_labels,
+                                sector,
+                                tech_colours) {
   if (!all(metric_type_order %in% unique(data$metric_type))) {
     abort(glue(
       "'metric_type_order' elements must be found in 'metric_type' column of input data.
