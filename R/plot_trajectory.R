@@ -289,7 +289,7 @@ plot_trajectoryB <- function(data, main_line = NULL) {
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$label,
+        label = .data$metric,
         segment.color = .data$metric
       ),
       direction = "y",
