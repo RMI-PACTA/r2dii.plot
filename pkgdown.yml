@@ -2,9 +2,9 @@ pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  articles/r2dii-plot-A: r2dii-plot-A.html
-  articles/r2dii-plot-B-Thik-API: r2dii-plot-B-Thik-API.html
-last_built: 2021-06-07T02:15Z
+  articles/Thick-API: Thick-API.html
+  articles/Thin-API: Thin-API.html
+last_built: 2021-06-07T13:01Z
 urls:
   reference: https://github.com/2DegreesInvesting/r2dii.plot//reference
   article: https://github.com/2DegreesInvesting/r2dii.plot//articles
