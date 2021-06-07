@@ -87,21 +87,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/articles/r2dii-plot-X.html">r2dii.plot X</a>
-    </li>
-    <li>
-      <a href="../articles/articles/r2dii-plot-Y.html">r2dii.plot Y</a>
-    </li>
-  </ul>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -145,6 +130,7 @@
   <span class='va'>data</span>,
   value <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
   metric <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>,
+  sector_filter <span class='op'>=</span> <span class='cn'>NULL</span>,
   extrapolate <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -166,6 +152,10 @@ plot.</p></td>
 to plot.</p></td>
     </tr>
     <tr>
+      <th>sector_filter</th>
+      <td><p>String of length 1. Sector to pick from the <code>data</code>.</p></td>
+    </tr>
+    <tr>
       <th>extrapolate</th>
       <td><p>Logical of length 1. <code>TRUE</code> extrapolates to match the
 furthest value in the data set.</p></td>
@@ -180,49 +170,81 @@ furthest value in the data set.</p></td>
     <div class='dont-index'><p><a href='sda.html'>sda</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='va'>sda</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 7</span>
-#&gt;   sector year       emission_factor_me… emission_factor_v… line_name       value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> cement 2040-01-01 adjusted_scenario_…             0.236  adjusted_scen… 0.236 
-#&gt; <span style='color: #BCBCBC;'>2</span> steel  2040-01-01 adjusted_scenario_…             0.065<span style='text-decoration: underline;'>4</span> adjusted_scen… 0.065<span style='text-decoration: underline;'>4</span>
-#&gt; <span style='color: #BCBCBC;'>3</span> cement 2045-01-01 adjusted_scenario_…             0.189  adjusted_scen… 0.189 
-#&gt; <span style='color: #BCBCBC;'>4</span> steel  2045-01-01 adjusted_scenario_…             0.032<span style='text-decoration: underline;'>7</span> adjusted_scen… 0.032<span style='text-decoration: underline;'>7</span>
-#&gt; <span style='color: #BCBCBC;'>5</span> cement 2050-01-01 adjusted_scenario_…             0.094<span style='text-decoration: underline;'>5</span> adjusted_scen… 0.094<span style='text-decoration: underline;'>5</span>
-#&gt; <span style='color: #BCBCBC;'>6</span> steel  2050-01-01 adjusted_scenario_…             0.026<span style='text-decoration: underline;'>2</span> adjusted_scen… 0.026<span style='text-decoration: underline;'>2</span>
-#&gt; <span style='color: #949494;'># … with 1 more variable: extrapolated &lt;lgl&gt;</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='va'>sda</span>, extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 7</span>
-#&gt;   sector   year       emission_factor_me… emission_factor_va… line_name    value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> automot… 2026-01-01 corporate_economy                 0.279 corporate_e… 0.279
-#&gt; <span style='color: #BCBCBC;'>2</span> automot… 2026-01-01 projected                         0.178 projected    0.178
-#&gt; <span style='color: #BCBCBC;'>3</span> cement   2025-01-01 target_demo                       0.521 target_demo  0.521
-#&gt; <span style='color: #BCBCBC;'>4</span> automot… 2050-01-01 corporate_economy                 0.279 corporate_e… 0.279
-#&gt; <span style='color: #BCBCBC;'>5</span> automot… 2050-01-01 projected                         0.178 projected    0.178
-#&gt; <span style='color: #BCBCBC;'>6</span> cement   2050-01-01 target_demo                       0.521 target_demo  0.521
-#&gt; <span style='color: #949494;'># … with 1 more variable: extrapolated &lt;lgl&gt;</span></div><div class='input'>
+<span class='co'># Fails</span>
+<span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='va'>sda</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Error : `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</div><div class='input'>
+<span class='co'># Works: meets `data` requirements</span>
+<span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='va'>sda</span>, sector_filter <span class='op'>=</span> <span class='st'>"cement"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 43 x 7</span>
+#&gt;    sector year       emission_factor_metric emission_factor_val… line_name value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                 <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> cement 2013-01-01 projected                             0.658 projected 0.658
+#&gt; <span style='color: #BCBCBC;'> 2</span> cement 2014-01-01 projected                             0.659 projected 0.659
+#&gt; <span style='color: #BCBCBC;'> 3</span> cement 2015-01-01 projected                             0.660 projected 0.660
+#&gt; <span style='color: #BCBCBC;'> 4</span> cement 2016-01-01 projected                             0.661 projected 0.661
+#&gt; <span style='color: #BCBCBC;'> 5</span> cement 2017-01-01 projected                             0.662 projected 0.662
+#&gt; <span style='color: #BCBCBC;'> 6</span> cement 2018-01-01 projected                             0.662 projected 0.662
+#&gt; <span style='color: #BCBCBC;'> 7</span> cement 2019-01-01 projected                             0.663 projected 0.663
+#&gt; <span style='color: #BCBCBC;'> 8</span> cement 2020-01-01 projected                             0.664 projected 0.664
+#&gt; <span style='color: #BCBCBC;'> 9</span> cement 2021-01-01 projected                             0.665 projected 0.665
+#&gt; <span style='color: #BCBCBC;'>10</span> cement 2022-01-01 projected                             0.666 projected 0.666
+#&gt; <span style='color: #949494;'># … with 33 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></div><div class='input'>
+<span class='co'># Same</span>
+<span class='va'>sda</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 43 x 7</span>
+#&gt;    sector year       emission_factor_metric emission_factor_val… line_name value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                 <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> cement 2013-01-01 projected                             0.658 projected 0.658
+#&gt; <span style='color: #BCBCBC;'> 2</span> cement 2014-01-01 projected                             0.659 projected 0.659
+#&gt; <span style='color: #BCBCBC;'> 3</span> cement 2015-01-01 projected                             0.660 projected 0.660
+#&gt; <span style='color: #BCBCBC;'> 4</span> cement 2016-01-01 projected                             0.661 projected 0.661
+#&gt; <span style='color: #BCBCBC;'> 5</span> cement 2017-01-01 projected                             0.662 projected 0.662
+#&gt; <span style='color: #BCBCBC;'> 6</span> cement 2018-01-01 projected                             0.662 projected 0.662
+#&gt; <span style='color: #BCBCBC;'> 7</span> cement 2019-01-01 projected                             0.663 projected 0.663
+#&gt; <span style='color: #BCBCBC;'> 8</span> cement 2020-01-01 projected                             0.664 projected 0.664
+#&gt; <span style='color: #BCBCBC;'> 9</span> cement 2021-01-01 projected                             0.665 projected 0.665
+#&gt; <span style='color: #BCBCBC;'>10</span> cement 2022-01-01 projected                             0.666 projected 0.666
+#&gt; <span style='color: #949494;'># … with 33 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></div><div class='input'>
+<span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='va'>sda</span>, sector_filter <span class='op'>=</span> <span class='st'>"cement"</span>, extrapolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 49 x 7</span>
+#&gt;    sector year       emission_factor_metric emission_factor_val… line_name value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                 <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> cement 2013-01-01 projected                             0.658 projected 0.658
+#&gt; <span style='color: #BCBCBC;'> 2</span> cement 2014-01-01 projected                             0.659 projected 0.659
+#&gt; <span style='color: #BCBCBC;'> 3</span> cement 2015-01-01 projected                             0.660 projected 0.660
+#&gt; <span style='color: #BCBCBC;'> 4</span> cement 2016-01-01 projected                             0.661 projected 0.661
+#&gt; <span style='color: #BCBCBC;'> 5</span> cement 2017-01-01 projected                             0.662 projected 0.662
+#&gt; <span style='color: #BCBCBC;'> 6</span> cement 2018-01-01 projected                             0.662 projected 0.662
+#&gt; <span style='color: #BCBCBC;'> 7</span> cement 2019-01-01 projected                             0.663 projected 0.663
+#&gt; <span style='color: #BCBCBC;'> 8</span> cement 2020-01-01 projected                             0.664 projected 0.664
+#&gt; <span style='color: #BCBCBC;'> 9</span> cement 2021-01-01 projected                             0.665 projected 0.665
+#&gt; <span style='color: #BCBCBC;'>10</span> cement 2022-01-01 projected                             0.666 projected 0.666
+#&gt; <span style='color: #949494;'># … with 39 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></div><div class='input'>
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>sda</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>
     custom_value <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
     custom_metric <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>
   <span class='op'>)</span>
 <span class='fu'>prep_timelineY</span><span class='op'>(</span><span class='va'>data</span>, value <span class='op'>=</span> <span class='st'>"custom_value"</span>, metric <span class='op'>=</span> <span class='st'>"custom_metric"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 208 x 7</span>
-#&gt;    sector     year       custom_metric custom_value line_name value extrapolated
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>       
-#&gt; <span style='color: #BCBCBC;'> 1</span> automotive 2002-01-01 projected            0.228 projected 0.228 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 2</span> automotive 2003-01-01 projected            0.226 projected 0.226 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 3</span> automotive 2004-01-01 projected            0.224 projected 0.224 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 4</span> automotive 2005-01-01 projected            0.222 projected 0.222 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 5</span> automotive 2006-01-01 projected            0.220 projected 0.220 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 6</span> automotive 2007-01-01 projected            0.218 projected 0.218 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 7</span> automotive 2008-01-01 projected            0.216 projected 0.216 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 8</span> automotive 2009-01-01 projected            0.214 projected 0.214 FALSE       
-#&gt; <span style='color: #BCBCBC;'> 9</span> automotive 2010-01-01 projected            0.212 projected 0.212 FALSE       
-#&gt; <span style='color: #BCBCBC;'>10</span> automotive 2011-01-01 projected            0.210 projected 0.210 FALSE       
-#&gt; <span style='color: #949494;'># … with 198 more rows</span></div></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 43 x 7</span>
+#&gt;    sector year       custom_metric custom_value line_name value extrapolated
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>       
+#&gt; <span style='color: #BCBCBC;'> 1</span> cement 2013-01-01 projected            0.658 projected 0.658 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 2</span> cement 2014-01-01 projected            0.659 projected 0.659 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 3</span> cement 2015-01-01 projected            0.660 projected 0.660 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 4</span> cement 2016-01-01 projected            0.661 projected 0.661 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 5</span> cement 2017-01-01 projected            0.662 projected 0.662 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 6</span> cement 2018-01-01 projected            0.662 projected 0.662 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 7</span> cement 2019-01-01 projected            0.663 projected 0.663 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 8</span> cement 2020-01-01 projected            0.664 projected 0.664 FALSE       
+#&gt; <span style='color: #BCBCBC;'> 9</span> cement 2021-01-01 projected            0.665 projected 0.665 FALSE       
+#&gt; <span style='color: #BCBCBC;'>10</span> cement 2022-01-01 projected            0.666 projected 0.666 FALSE       
+#&gt; <span style='color: #949494;'># … with 33 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

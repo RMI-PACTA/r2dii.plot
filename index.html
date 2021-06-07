@@ -50,21 +50,6 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/articles/r2dii-plot-X.html">r2dii.plot X</a>
-    </li>
-    <li>
-      <a href="articles/articles/r2dii-plot-Y.html">r2dii.plot Y</a>
-    </li>
-  </ul>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -107,7 +92,7 @@
 <p>You can install the development version of r2dii.plot from <a href="https://github.com/2DegreesInvesting/r2dii.plot">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
 <p><a href="https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation">How to minimize installation errors?</a></p>
 </div>
 <div id="example" class="section level2">
@@ -121,7 +106,7 @@
 <li>
 <code>market_share</code> dataset imitating the output of ‘r2dii.analysis::target_market_share()’.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">market_share</span>
 <span class="co">#&gt; # A tibble: 1,170 x 8</span>
 <span class="co">#&gt;    sector     technology  year region scenario_source metric          production</span>
@@ -141,7 +126,7 @@
 <li>
 <code><a href="reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>: .</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
@@ -155,7 +140,7 @@
 <li>
 <code><a href="reference/plot_trajectoryY.html">plot_trajectoryY()</a></code> is an alternative to <code>plot_trajectoryB()</code>.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># `plot_trajectoryY()` takes more arguments</span>
 
 <span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
@@ -181,7 +166,8 @@
 <span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># more elaborate annotations, title and labels</span>
+<code class="sourceCode R">
+<span class="co"># more elaborate annotations, title and labels</span>
 
 <span class="va">data_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
   <span class="va">market_share</span>, 
@@ -225,7 +211,7 @@
 <li>
 <code><a href="reference/plot_techmixY.html">plot_techmixY()</a></code> .</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default colours, all data, added title</span>
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"power"</span>
 
@@ -244,7 +230,8 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Technology mix for the Power sector"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Custom colours, all data, no title</span>
+<code class="sourceCode R">
+<span class="co"># Custom colours, all data, no title</span>
 <span class="va">power_colors_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   technology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>,
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal Capacity"</span>, <span class="st">"Oil Capacity"</span>, <span class="st">"Gas Capacity"</span>, <span class="st">"Nuclear Capacity"</span>, <span class="st">"Hydro Capacity"</span>, <span class="st">"Renewables Capacity"</span><span class="op">)</span>,
@@ -257,7 +244,8 @@
 <span class="va">plot</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
+<code class="sourceCode R">
+<span class="co"># Default colours, selected data and labels (metric_type parameters), added title</span>
 
 <span class="va">sector</span> <span class="op">&lt;-</span> <span class="st">"automotive"</span>
 
@@ -290,10 +278,8 @@
 <li>
 <code><a href="reference/plot_timelineY.html">plot_timelineY()</a></code> .</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">sda</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span>extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<!-- end list --><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span><span class="va">sda</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span>, extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Plot and customize with ggplot2</span>
 <span class="fu"><a href="reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
@@ -308,7 +294,7 @@
 <li>
 <code><a href="reference/timeline_specs.html">timeline_specs()</a></code> creates the default specs data frame for ‘plot_timeliney()’.</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You may use it as a template to create your custom specs</span>
 <span class="fu"><a href="reference/timeline_specs.html">timeline_specs</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 3</span>
