@@ -61,9 +61,7 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-  - `prep_trajectoryY()`: .
-
-<!-- end list -->
+-   `prep_trajectoryY()`: .
 
 ``` r
 data_trajectory <- prep_trajectoryY(
@@ -77,9 +75,7 @@ data_trajectory <- prep_trajectoryY(
 )
 ```
 
-  - `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
-
-<!-- end list -->
+-   `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
 
 ``` r
 # `plot_trajectoryY()` takes more arguments
@@ -151,10 +147,8 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmixY()` .
-  - `plot_techmixY()` .
-
-<!-- end list -->
+-   `prep_techmixY()` .
+-   `plot_techmixY()` .
 
 ``` r
 # Default colours, all data, added title
@@ -224,10 +218,8 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_timelineY()` .
-  - `plot_timelineY()` .
-
-<!-- end list -->
+-   `prep_timelineY()` .
+-   `plot_timelineY()` .
 
 ``` r
 data <- sda %>% 
@@ -246,7 +238,7 @@ plot_timelineY(data) +
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `timeline_specs()` creates the default specs data frame for
+-   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timeliney()’.
 
 ``` r

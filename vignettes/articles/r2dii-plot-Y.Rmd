@@ -1,5 +1,5 @@
 ---
-title: "r2dii.plot B: Thick API"
+title: "r2dii.plot Y"
 ---
 
 ```{r, include = FALSE}
