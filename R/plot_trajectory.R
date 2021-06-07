@@ -129,35 +129,14 @@ plot_trajectoryA <- function(data,
   # annotate trajectory and scenario lines
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
+  data_lines_end <- data_lines %>%
+        filter(
+          .data$year == last_year
+        )
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
-      data = data_lines %>%
-        filter(
-          .data$year == last_year,
-          .data$metric_type != "scenario"
-        ),
-      aes(
-        x = .data$year,
-        y = .data$value,
-        label = .data$label
-      ),
-      direction = "y",
-      size = 3.5,
-      nudge_x = 0.15,
-      nudge_y = 0.01 * value_span,
-      hjust = 0,
-      segment.size = 0,
-      xlim = c(min(data$year), last_year + 3)
-    )
-
-  p_trajectory <- p_trajectory +
-    ggrepel::geom_text_repel(
-      data = data_lines %>%
-        filter(
-          .data$year == last_year,
-          .data$metric_type == "scenario"
-        ),
+      data = data_lines_end,
       aes(
         x = .data$year,
         y = .data$value,
@@ -168,15 +147,15 @@ plot_trajectoryA <- function(data,
       color = "black",
       size = 3.5,
       alpha = 1,
-      nudge_x = 0.6,
+      nudge_x = if_else(data_lines_end$metric_type == "scenario", 0.6, 0.1),
       nudge_y = 0.01 * value_span,
       hjust = 0,
-      segment.size = 0.3,
-      xlim = c(min(data$year), last_year + 5)
+      segment.size = if_else(data_lines_end$metric_type == "scenario", 0.4, 0),
+      xlim = c(min(data$year), last_year + 6)
     ) +
     scale_fill_manual(
       aesthetics = "segment.color",
-      values = scenario_specs_lines$colour
+      values = line_colours
     )
 
   p_trajectory <- p_trajectory +
@@ -299,54 +278,33 @@ plot_trajectoryB <- function(data, main_line = NULL) {
   # annotate trajectory and scenario lines
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
+  data_lines_end <- data_lines %>%
+        filter(
+          .data$year == last_year
+        )
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
-      data = data_lines %>%
-        filter(
-          .data$year == last_year,
-          .data$metric_type != "scenario"
-        ),
+      data = data_lines_end,
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$metric
-      ),
-      direction = "y",
-      size = 3.5,
-      nudge_x = 0.15,
-      nudge_y = 0.01 * value_span,
-      hjust = 0,
-      segment.size = 0,
-      xlim = c(min(data$year), last_year + 3)
-    )
-
-  p_trajectory <- p_trajectory +
-    ggrepel::geom_text_repel(
-      data = data_lines %>%
-        filter(
-          .data$year == last_year,
-          .data$metric_type == "scenario"
-        ),
-      aes(
-        x = .data$year,
-        y = .data$value,
-        label = .data$metric,
+        label = .data$label,
         segment.color = .data$metric
       ),
       direction = "y",
       color = "black",
       size = 3.5,
       alpha = 1,
-      nudge_x = 0.6,
+      nudge_x = if_else(data_lines_end$metric_type == "scenario", 0.6, 0.1),
       nudge_y = 0.01 * value_span,
       hjust = 0,
-      segment.size = 0.3,
-      xlim = c(min(data$year), last_year + 5)
+      segment.size = if_else(data_lines_end$metric_type == "scenario", 0.4, 0),
+      xlim = c(min(data$year), last_year + 6)
     ) +
     scale_fill_manual(
       aesthetics = "segment.color",
-      values = scenario_specs_lines$colour
+      values = line_colours
     )
 
   p_trajectory <- p_trajectory +
