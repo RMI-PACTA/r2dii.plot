@@ -101,30 +101,8 @@ market_share %>%
     sector == "power",
     region == "global"
   ) %>% 
-  plot_techmixX() + labs(title = "power")
+  plot_techmixX()
 ```
-
-How would you create one plot for every sector? One way is to wrap the code
-in a helper function and make `sector` and argument. Then you can iterate over
-each sector with `lapply()`.
-
-```{r}
-plot_sector_techmix <- function(x) {
-  chosen_metrics <- c("projected", "corporate_economy", "target_sds")
-  
-  market_share %>%
-    filter(
-      metric %in% chosen_metrics,
-      sector == x,
-      region == "global"
-    ) %>%
-    plot_techmixX() + labs(title = x)
-}
-
-(sectors <- unique(market_share$sector))
-lapply(sectors, plot_sector_techmix)
-```
-
 
 ### Trajectory
 
