@@ -28,8 +28,12 @@
 prep_timelineY <- function(data,
                            value = "emission_factor_value",
                            metric = "emission_factor_metric",
+                           sector_filter = NULL,
                            extrapolate = FALSE) {
-  check_prep_timelineY(data, value, metric, extrapolate)
+  check_prep_timelineY(data, value, metric, extrapolate, sector_filter)
+  if (!is.null(sector_filter)) {
+    data <- filter(data, sector == sector_filter)
+  }
 
   out <- data %>%
     mutate(
@@ -61,7 +65,7 @@ prep_timelineY <- function(data,
   out
 }
 
-check_prep_timelineY <- function(data, value, metric, extrapolate) {
+check_prep_timelineY <- function(data, value, metric, extrapolate, sector_filter) {
   stopifnot(
     is.data.frame(data),
     is.character(value),
@@ -69,6 +73,10 @@ check_prep_timelineY <- function(data, value, metric, extrapolate) {
     is.logical(extrapolate)
   )
   abort_if_missing_names(data, c("sector", "year", metric, value))
+  if (!is.null(sector_filter)) {
+    stopifnot(is.character(sector_filter))
+    abort_if_invalid_length(sector_filter, 1L)
+  }
 
   invisible(data)
 }

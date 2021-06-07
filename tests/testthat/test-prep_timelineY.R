@@ -27,8 +27,6 @@ test_that("with bad `value` errors gracefully", {
   )
 })
 
-
-
 test_that("outputs column `sector`", {
   data <- head(sda)
   out <- prep_timelineY(data)
@@ -80,4 +78,33 @@ test_that("is sensitive to `line`", {
   expect_no_error(
     prep_timelineY(data, metric = "custom")
   )
+})
+
+test_that("is sensitive to `sector_filter`", {
+  data <- head(sda, 2)
+  data$sector <- c("a", "b")
+
+  default <- NULL
+  expect_no_error(prep_timelineY(data, sector_filter = default))
+
+  out <- prep_timelineY(data, sector_filter = "a")
+  expect_equal(unique(out$sector), "a")
+
+  too_long <- c("a", "b")
+  expect_snapshot_error(
+    prep_timelineY(data, sector_filter = too_long)
+  )
+})
+
+test_that("with bad `sector_filter` errors gracefully", {
+  data <- head(sda, 2)
+  too_long <- c("a", "b")
+  expect_snapshot_error(
+    prep_timelineY(data, sector_filter = too_long)
+  )
+
+  expect_snapshot_error(
+    prep_timelineY(data, sector_filter = TRUE)
+  )
+
 })
