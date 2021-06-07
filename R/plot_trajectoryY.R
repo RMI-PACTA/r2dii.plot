@@ -6,7 +6,7 @@
 #'   difference between them is the number of arguments and how the input data
 #'   is used:
 #'
-#'   * `plot_trajectoryA()` requires input arguments such as (at the minimum)
+#'   * `plot_trajectoryY()` requires input arguments such as (at the minimum)
 #'   `scenario_specs_good_to_bad` and `main_line_metric` for specifying the
 #'   order and labels of scenario data and trajectory lines.
 #'
@@ -25,8 +25,8 @@
 #'
 #' @export
 #' @examples
-#' # `plot_trajectoryA()` -------------------------------------------------------
-#' data <- prep_trajectory(
+#' # `plot_trajectoryY()` -------------------------------------------------------
+#' data <- prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
@@ -47,14 +47,14 @@
 #'   label = "Corporate Economy"
 #' )
 #'
-#' p <- plot_trajectoryA(data,
+#' p <- plot_trajectoryY(data,
 #'   scenario_specs_good_to_bad = scenario_specs,
 #'   main_line_metric = main_line_metric,
 #'   additional_line_metrics = additional_line_metrics
 #' )
 #'
 #' p
-plot_trajectoryA <- function(data,
+plot_trajectoryY <- function(data,
                              scenario_specs_good_to_bad,
                              main_line_metric,
                              additional_line_metrics = NULL) {
@@ -130,9 +130,9 @@ plot_trajectoryA <- function(data,
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
   data_lines_end <- data_lines %>%
-        filter(
-          .data$year == last_year
-        )
+    filter(
+      .data$year == last_year
+    )
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
@@ -249,7 +249,3 @@ add_scenario_colours <- function(scenario_specs) {
 
   scenario_specs
 }
-
-
-
-

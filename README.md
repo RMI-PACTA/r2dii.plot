@@ -63,14 +63,12 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-  - `prep_trajectory()`: prepare the output of
-    ‘r2dii.analysis::target\_market\_share()’ for
-    ‘plot\_trajectory()’.
+  - `prep_trajectoryY()`: .
 
 <!-- end list -->
 
 ``` r
-data_trajectory <- prep_trajectory(
+data_trajectory <- prep_trajectoryY(
   market_share,
   sector_filter = "power",
   technology_filter = "oilcap",
@@ -81,12 +79,12 @@ data_trajectory <- prep_trajectory(
 )
 ```
 
-  - `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
+  - `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
 
 <!-- end list -->
 
 ``` r
-# `plot_trajectoryA()` takes more arguments
+# `plot_trajectoryY()` takes more arguments
 
 scenario_specs <- tibble(
   scenario = c("sds", "sps", "cps"),
@@ -103,7 +101,7 @@ additional_line_metrics <- tibble(
   label = "Corporate Economy"
 )
 
-plot_trajectoryA(
+plot_trajectoryY(
   data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
@@ -117,7 +115,7 @@ plot_trajectoryA(
 
 # more elaborate annotations, title and labels
 
-data_trajectory <- prep_trajectory(
+data_trajectory <- prep_trajectoryY(
   market_share, 
   sector_filter = "power",
   technology_filter = "renewablescap",
@@ -136,7 +134,7 @@ scenario_specs <- tibble(
     "Current Policies Scenario")
 )
 
-plot <- plot_trajectoryA(data_trajectory,
+plot <- plot_trajectoryY(data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
@@ -156,9 +154,8 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmix()` prepare the output of
-    ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_techmix()’.
-  - `plot_techmix()` create a techmix chart in a ggplot object.
+  - `prep_techmixY()` .
+  - `plot_techmixY()` .
 
 <!-- end list -->
 
@@ -166,7 +163,7 @@ plot +
 # Default colours, all data, added title
 sector <- "power"
 
-data <- prep_techmix(
+data <- prep_techmixY(
   market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025),
@@ -176,7 +173,7 @@ data <- prep_techmix(
   value = "technology_share"
 )
 
-plot <- plot_techmix(data)
+plot <- plot_techmixY(data)
 plot +
   ggplot2::labs(title = "Technology mix for the Power sector")
 ```
@@ -192,7 +189,7 @@ power_colors_custom <- tibble(
   hex = palette.colors(n = length(technology), palette = "ggplot2")
 )
 
-plot <- plot_techmix(data,
+plot <- plot_techmixY(data,
   tech_colours = power_colors_custom
 )
 plot
@@ -206,7 +203,7 @@ plot
 
 sector <- "automotive"
 
-data <- prep_techmix(market_share,
+data <- prep_techmixY(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
@@ -222,7 +219,7 @@ metric_type_labels = c(
     "Benchmark 2025", "Target SDS 2025"
   )
 
-plot <- plot_techmix(data,
+plot <- plot_techmixY(data,
   metric_type_order = metric_type_order,
   metric_type_labels = metric_type_labels
 )
@@ -232,19 +229,18 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_timeline()` prepare the output of
-    ‘r2dii.analysis::target\_sda()’ for ‘plot\_timeline()’.
-  - `plot_timelineA()` creates a time line plot.
+  - `prep_timelineY()` .
+  - `plot_timelineY()` .
 
 <!-- end list -->
 
 ``` r
 data <- sda %>% 
   filter(sector == "cement") %>% 
-  prep_timeline(extrapolate = TRUE)
+  prep_timelineY(extrapolate = TRUE)
 
 # Plot and customize with ggplot2
-plot_timelineA(data) +
+plot_timelineY(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",
@@ -256,7 +252,7 @@ plot_timelineA(data) +
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
   - `timeline_specs()` creates the default specs data frame for
-    ‘plot\_timelinea()’.
+    ‘plot\_timeliney()’.
 
 <!-- end list -->
 

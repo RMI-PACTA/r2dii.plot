@@ -161,7 +161,7 @@ test_that("integrates with plot_trajectory()", {
 # plot_trajectoryB() ----
 
 test_that("with wrong 'main_line' errors gracefully", {
-  data <- prep_trajectory(
+  data <- prep_trajectoryY(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -178,7 +178,7 @@ test_that("with wrong 'main_line' errors gracefully", {
 })
 
 test_that("with too long `main_line` errors gracefully", {
-  data <- prep_trajectory(
+  data <- prep_trajectoryY(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",

@@ -1,4 +1,4 @@
-#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_techmix()`
+#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_techmixY()`
 #'
 #' @param data Data frame like the output of `r2dii.analysis::target_market_share()`.
 #' @param sector_filter String of length 1. Sector to pick from the `data`.
@@ -7,11 +7,11 @@
 #' @param scenario_source_filter String of length 1. Value of the column
 #'   `scenario_source` to pick from the `data`.
 #' @param scenario_filter String of length 1. Scenario to pick from the `data`.
-#' @inheritParams prep_timeline
+#' @inheritParams prep_timelineY
 #'
 #' @export
 #' @examples
-#' prep_techmix(
+#' prep_techmixY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
@@ -20,22 +20,22 @@
 #'   scenario_filter = "sds",
 #'   value = "technology_share"
 #' )
-prep_techmix <- function(data,
-                         value = "technology_share",
-                         metric = "metric",
-                         sector_filter = c(
-                           "automotive",
-                           "aviation",
-                           "cement",
-                           "oil and gas",
-                           "shipping",
-                           "steel",
-                           "power"
-                         ),
-                         years_filter = NULL,
-                         region_filter = "global",
-                         scenario_source_filter = NULL,
-                         scenario_filter = NULL) {
+prep_techmixY <- function(data,
+                          value = "technology_share",
+                          metric = "metric",
+                          sector_filter = c(
+                            "automotive",
+                            "aviation",
+                            "cement",
+                            "oil and gas",
+                            "shipping",
+                            "steel",
+                            "power"
+                          ),
+                          years_filter = NULL,
+                          region_filter = "global",
+                          scenario_source_filter = NULL,
+                          scenario_filter = NULL) {
   abort_if_missing_names(data, metric)
 
   data <- recode_metric_and_metric_type(data, metric)
@@ -51,7 +51,7 @@ prep_techmix <- function(data,
     pull(.data$metric))
 
   sector_filter <- match.arg(sector_filter)
-  check_prep_techmix(
+  check_prep_techmixY(
     data,
     years_filter,
     region_filter,
@@ -81,12 +81,12 @@ prep_techmix <- function(data,
   data_out
 }
 
-check_prep_techmix <- function(data,
-                               years_filter,
-                               region_filter,
-                               scenario_source_filter,
-                               scenario_filter,
-                               value) {
+check_prep_techmixY <- function(data,
+                                years_filter,
+                                region_filter,
+                                scenario_source_filter,
+                                scenario_filter,
+                                value) {
   if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.

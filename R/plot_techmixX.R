@@ -27,5 +27,5 @@
 #' plot_techmixX(data)
 plot_techmixX <- function(data) {
   prep <- prep_techmixB(data)
-  plot_techmix(prep)
+  plot_techmixY(prep)
 }

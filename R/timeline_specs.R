@@ -1,12 +1,12 @@
-#' Creates the default specs data frame for `plot_timelineA()`
+#' Creates the default specs data frame for `plot_timelineY()`
 #'
-#' @inheritParams plot_timelineA
+#' @inheritParams plot_timelineY
 #'
 #' @seealso plot_timelineA
-#' @return A data frame useful as the `specs` argument of [plot_timelineA()].
+#' @return A data frame useful as the `specs` argument of [plot_timelineY()].
 #' @export
 #' @examples
-#' data <- prep_timeline(sda)
+#' data <- prep_timelineY(sda)
 #' timeline_specs(data)
 timeline_specs <- function(data) {
   abort_if_missing_names(data, "line_name")

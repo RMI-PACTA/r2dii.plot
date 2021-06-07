@@ -1,6 +1,6 @@
 #' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_trajectory()`
 #'
-#' @inheritParams prep_techmix
+#' @inheritParams prep_techmixY
 #' @param technology_filter String of length 1. Technology to pick from the
 #'   `data`.
 #' @param end_year_filter Numeric of length 1. Cut-off year for the plot.
@@ -10,7 +10,7 @@
 #'
 #' @export
 #' @examples
-#' prep_trajectory(
+#' prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "oilcap",
@@ -18,15 +18,15 @@
 #'   scenario_source_filter = "demo_2020",
 #'   value = "production"
 #' )
-prep_trajectory <- function(data,
-                            sector_filter,
-                            technology_filter,
-                            region_filter,
-                            scenario_source_filter,
-                            value = "production",
-                            metric = "metric",
-                            end_year_filter = 2025,
-                            normalize = TRUE) {
+prep_trajectoryY <- function(data,
+                             sector_filter,
+                             technology_filter,
+                             region_filter,
+                             scenario_source_filter,
+                             value = "production",
+                             metric = "metric",
+                             end_year_filter = 2025,
+                             normalize = TRUE) {
   abort_if_missing_names(data, metric)
   data <- recode_metric_and_metric_type(data, metric)
 
@@ -49,7 +49,7 @@ prep_trajectory <- function(data,
     filter(.data$year >= .env$year_start_projected) %>%
     filter(.data$year <= .env$end_year_filter) %>%
     mutate(value = .data[[value]]) %>%
-      select(.data$metric, .data$metric_type, .data$year, .data$technology, .data$value)
+    select(.data$metric, .data$metric_type, .data$year, .data$technology, .data$value)
 
   if (normalize) {
     data_filtered <- left_join(data_filtered,

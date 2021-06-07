@@ -112,7 +112,7 @@ check_prep_trajectoryB <- function(data, value, normalize) {
 #'
 #' data <- sda %>%
 #'   filter(sector == "aviation") %>%
-#'   prep_timeline()
+#'   prep_timelineY()
 #' plot_timelineB(data)
 #'
 #' # Recode `line_name` with `dplyr::recode()`
@@ -133,7 +133,7 @@ plot_timelineB <- function(data) {
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
-  plot_timelineA(data = data, specs = specs)
+  plot_timelineY(data = data, specs = specs)
 }
 
 #' @noRd
@@ -153,7 +153,7 @@ plot_timelineB <- function(data) {
 #'
 #' data <- sda %>%
 #'   filter(sector == "aviation") %>%
-#'   prep_timeline()
+#'   prep_timelineY()
 #'
 #' unique(data$line_name)
 #'
@@ -227,7 +227,7 @@ recode_lines.logical <- function(recode, data) {
 #' # `plot_trajectoryB()` ------------------------------------------------------
 #' library(dplyr)
 #'
-#' data <- prep_trajectory(
+#' data <- prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
