@@ -32,7 +32,7 @@ prep_timelineY <- function(data,
                            extrapolate = FALSE) {
   check_prep_timelineY(data, value, metric, extrapolate, sector_filter)
   if (!is.null(sector_filter)) {
-    data <- filter(data, sector == sector_filter)
+    data <- filter(data, .data$sector == sector_filter)
   }
 
   out <- data %>%
