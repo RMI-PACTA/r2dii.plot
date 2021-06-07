@@ -23,7 +23,7 @@ A "ggplot".
 Create a techmix plot
 }
 \examples{
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
 # `data` must meet documented "Requirements"
 data <- market_share \%>\%

@@ -67,7 +67,7 @@ test_that("outputs expected colums", {
 })
 
 test_that("is sensitive to `value`", {
-  data <-  rename(head(sda, 1), custom = "emission_factor_value")
+  data <- rename(head(sda, 1), custom = "emission_factor_value")
   expect_no_error(
     prep_timelineY(data, value = "custom")
   )

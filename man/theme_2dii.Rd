@@ -28,7 +28,7 @@ A ggplot theme which can be applied to all graphs to appear according to 2DII
 plotting aesthetics.
 }
 \examples{
-library(ggplot2)
+library(ggplot2, warn.conflicts = FALSE)
 
 p <- ggplot(mtcars) +
   geom_histogram(aes(mpg), bins = 10)

@@ -115,3 +115,37 @@ test_that("adds the column `value` from the column named in `value`", {
   expect_true(rlang::has_name(out, "value"))
   expect_type(out$value, "double")
 })
+
+test_that("with too many scenarios errors gracefully", {
+  too_many <- head(market_share, 4L)
+  too_many$metric <- c("projected", "corporate_economy", "target_a", "target_b")
+
+  expect_error(
+    class = "invalid_length",
+    prep_techmixY(
+      too_many,
+      sector_filter = "power",
+      years_filter = c(2020, 2025),
+      region_filter = "global",
+      scenario_source_filter = "demo_2020",
+      value = "technology_share"
+    )
+  )
+})
+
+test_that("with too few scenarios errors gracefully", {
+  too_few <- head(market_share, 2L)
+  too_few$metric <- c("projected", "corporate_economy")
+
+  expect_error(
+    class = "invalid_length",
+    prep_techmixY(
+      too_few,
+      sector_filter = "power",
+      years_filter = c(2020, 2025),
+      region_filter = "global",
+      scenario_source_filter = "demo_2020",
+      value = "technology_share"
+    )
+  )
+})
