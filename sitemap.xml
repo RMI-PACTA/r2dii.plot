@@ -13,31 +13,31 @@
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmix.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmixX.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timelineA.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmixY.html</loc>
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timelineX.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectoryA.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timelineY.html</loc>
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectoryX.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_techmix.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectoryY.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_timeline.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_techmixY.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_trajectory.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_timelineY.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_trajectoryY.html</loc>
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/r2dii.plot-package.html</loc>
