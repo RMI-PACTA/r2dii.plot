@@ -141,7 +141,7 @@ scenario_specs <- tibble(
     "Current Policies Scenario")
 )
 
-plot <- plot_trajectory(data_trajectory,
+plot <- plot_trajectoryA(data_trajectory,
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
