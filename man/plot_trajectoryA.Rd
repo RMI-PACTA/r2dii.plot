@@ -124,12 +124,10 @@ plot_trajectoryB(recoded, main_line = "Projected")
 \seealso{
 Other plotting functions: 
 \code{\link{plot_techmix}()},
-\code{\link{plot_timelineA}()},
 \code{\link{theme_2dii}()}
 
 Other plotting functions: 
 \code{\link{plot_techmix}()},
-\code{\link{plot_timelineA}()},
 \code{\link{theme_2dii}()}
 }
 \concept{plotting functions}
