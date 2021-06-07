@@ -106,7 +106,6 @@ check_prep_trajectoryB <- function(data, value, normalize) {
 #'
 #' @family plotting functions
 #'
-#' @export
 #' @examples
 #'
 #' # `plot_timelineB()` ------------------------------------------------------
@@ -148,7 +147,6 @@ plot_timelineB <- function(data) {
 #' * A logical vector of length 1. `TRUE` recodes `data$line_name` to title
 #' case. `FALSE` does no recoding and plots `data$line_name` as is.
 #' @seealso [dplyr::recode()].
-#' @export
 #' @examples
 #'
 #' # `plot_timelineC()` ------------------------------------------------------
@@ -224,7 +222,6 @@ recode_lines.logical <- function(recode, data) {
 #'
 #' @family plotting functions
 #'
-#' @export
 #' @examples
 #'
 #' # `plot_trajectoryB()` ------------------------------------------------------
