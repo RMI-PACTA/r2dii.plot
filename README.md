@@ -40,8 +40,10 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
--   `market_share` dataset imitating the output of
+  - `market_share` dataset imitating the output of
     ‘r2dii.analysis::target\_market\_share()’.
+
+<!-- end list -->
 
 ``` r
 market_share
@@ -61,7 +63,9 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
--   `prep_trajectoryY()`: .
+  - `prep_trajectoryY()`: .
+
+<!-- end list -->
 
 ``` r
 data_trajectory <- prep_trajectoryY(
@@ -75,7 +79,9 @@ data_trajectory <- prep_trajectoryY(
 )
 ```
 
--   `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
+  - `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
+
+<!-- end list -->
 
 ``` r
 # `plot_trajectoryY()` takes more arguments
@@ -106,6 +112,7 @@ plot_trajectoryY(
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # more elaborate annotations, title and labels
 
 data_trajectory <- prep_trajectoryY(
@@ -147,8 +154,10 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_techmixY()` .
--   `plot_techmixY()` .
+  - `prep_techmixY()` .
+  - `plot_techmixY()` .
+
+<!-- end list -->
 
 ``` r
 # Default colours, all data, added title
@@ -172,6 +181,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -188,6 +198,7 @@ plot
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
+
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -218,12 +229,13 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_timelineY()` .
--   `plot_timelineY()` .
+  - `prep_timelineY()` .
+  - `plot_timelineY()` .
+
+<!-- end list -->
 
 ``` r
-data <- sda %>% 
-  prep_timelineY(sector_filter = "cement", extrapolate = TRUE)
+data <- prep_timelineY(sda, sector_filter = "cement", extrapolate = TRUE)
 
 # Plot and customize with ggplot2
 plot_timelineY(data) +
@@ -237,8 +249,10 @@ plot_timelineY(data) +
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `timeline_specs()` creates the default specs data frame for
+  - `timeline_specs()` creates the default specs data frame for
     ‘plot\_timeliney()’.
+
+<!-- end list -->
 
 ``` r
 # You may use it as a template to create your custom specs
