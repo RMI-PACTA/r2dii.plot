@@ -15,7 +15,7 @@ test_that("outputs the expected snapshot", {
 
 
   out <- unclass(
-    plot_timelineA(data)
+    plot_timelineY(data)
   )
   out$plot_env <- NULL
 
@@ -27,12 +27,12 @@ test_that("with specs missing crucial columns, errors gracefully", {
   bad <- timeline_specs(data)
   bad$hex <- NULL
 
-  expect_error(class = "missing_names", plot_timelineA(data, specs = bad))
+  expect_error(class = "missing_names", plot_timelineY(data, specs = bad))
 })
 
 test_that("with too many lines errors gracefully", {
   data <- fake_timeline_data(line_name = letters[1:10])
-  expect_snapshot_error(plot_timelineA(data))
+  expect_snapshot_error(plot_timelineY(data))
 })
 
 test_that("handles specs with factors", {
@@ -41,7 +41,7 @@ test_that("handles specs with factors", {
   specs$label <- as.factor(specs$label)
 
   expect_no_error(
-    plot_timelineA(data, specs = specs)
+    plot_timelineY(data, specs = specs)
   )
 })
 
@@ -50,13 +50,13 @@ test_that("with line_name where specs missmatching data, errors gracefully", {
   specs <- timeline_specs(data)
   specs$line_name <- "bad"
 
-  expect_snapshot_error(plot_timelineA(data, specs))
+  expect_snapshot_error(plot_timelineY(data, specs))
 })
 
 test_that("plots year as 'Date'", {
   data <- fake_timeline_data()
 
-  gg <- plot_timelineA(data)
+  gg <- plot_timelineY(data)
   year <- gg$layers[[1]]$data$year
 
   expect_s3_class(year, "Date")
@@ -66,6 +66,6 @@ test_that("with data with multiple sectors throws an error", {
   too_many_sectors <- fake_timeline_data(sector = c("automotive", "steel"))
   expect_error(
     class = "too_many_sectors",
-    plot_timelineA(too_many_sectors)
+    plot_timelineY(too_many_sectors)
   )
 })

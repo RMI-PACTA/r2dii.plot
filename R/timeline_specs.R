@@ -1,15 +1,15 @@
-#' Creates the default specs data frame for `plot_timelineA()`
+#' Creates the default specs data frame for `plot_timelineY()`
 #'
-#' @inheritParams plot_timelineA
+#' @inheritParams plot_timelineY
 #'
 #' @seealso plot_timelineA
-#' @return A data frame useful as the `specs` argument of [plot_timelineA()].
+#' @return A data frame useful as the `specs` argument of [plot_timelineY()].
 #' @export
 #' @examples
-#' data <- prep_timeline(sda)
+#' data <- prep_timelineY(sda)
 #' timeline_specs(data)
 timeline_specs <- function(data) {
-  check_crucial_names(data, "line_name")
+  abort_if_missing_names(data, "line_name")
 
   to_title <- function(x) {
     paste(tools::toTitleCase(unlist(strsplit(x, "_"))), collapse = " ")
@@ -18,11 +18,11 @@ timeline_specs <- function(data) {
   line_names <- unique(data$line_name)
   labels <- unlist(lapply(line_names, to_title))
   tibble(line_name = line_names, label = labels) %>%
-    stop_if_too_many_lines() %>%
+    abort_if_too_many_lines() %>%
     add_r2dii_colours()
 }
 
-stop_if_too_many_lines <- function(data) {
+abort_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   n_colours <- nrow(palette_colours)
   if (n_lines > n_colours) {

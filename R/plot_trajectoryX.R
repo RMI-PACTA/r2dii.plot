@@ -6,8 +6,8 @@
 #'   `region`, `scenario_source`.
 #' @param main String of length 1. `metric` value to plot most prominently, as
 #'   the main trajectory line.
-#' @inheritParams prep_trajectoryB
-#' @inheritParams prep_timeline
+#' @inheritParams prep_trajectoryY
+#' @inheritParams prep_timelineY
 #'
 #' @return A "ggplot".
 #' @export

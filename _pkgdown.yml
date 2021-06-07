@@ -37,26 +37,20 @@ navbar:
 
 reference:
 
-  - title: Prepare
+  - title: Version X only
     contents:
-      - starts_with("prep")
+      - matches("plot_.*X")
 
-  - title: Plot
+  - title: Version Y only
     contents:
-      - has_concept("plotting functions")
+      - matches("prep_.*Y")
+      - matches("plot_.*Y")
 
-  - title: Helpers
-    contents:
-      - -starts_with("prep")
-      - -has_concept("plotting functions")
-      - -has_concept("datasets")
-      - -has_concept("functions with minimal arguments")
 
-  - title: r2dii.plot A - Thin API
+  - title: Version X and Y (plot, helpers, datasets)
     contents:
-      - has_concept("functions with minimal arguments")
-
-  - title: Datasets
-    contents:
+      - theme_2dii
       - has_concept("datasets")
-
+      - -matches("plot_.*X")
+      - -matches("prep_.*Y")
+      - -matches("plot_.*Y")

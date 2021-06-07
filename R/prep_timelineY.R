@@ -16,20 +16,20 @@
 #' @examples
 #' library(dplyr)
 #'
-#' tail(prep_timeline(sda))
-#' tail(prep_timeline(sda, extrapolate = TRUE))
+#' tail(prep_timelineY(sda))
+#' tail(prep_timelineY(sda, extrapolate = TRUE))
 #'
 #' data <- sda %>%
 #'   rename(
 #'     custom_value = "emission_factor_value",
 #'     custom_metric = "emission_factor_metric"
 #'   )
-#' prep_timeline(data, value = "custom_value", metric = "custom_metric")
-prep_timeline <- function(data,
-                          value = "emission_factor_value",
-                          metric = "emission_factor_metric",
-                          extrapolate = FALSE) {
-  check_prep_timeline(data, value, metric, extrapolate)
+#' prep_timelineY(data, value = "custom_value", metric = "custom_metric")
+prep_timelineY <- function(data,
+                           value = "emission_factor_value",
+                           metric = "emission_factor_metric",
+                           extrapolate = FALSE) {
+  check_prep_timelineY(data, value, metric, extrapolate)
 
   out <- data %>%
     mutate(
@@ -61,14 +61,14 @@ prep_timeline <- function(data,
   out
 }
 
-check_prep_timeline <- function(data, value, metric, extrapolate) {
+check_prep_timelineY <- function(data, value, metric, extrapolate) {
   stopifnot(
     is.data.frame(data),
     is.character(value),
     is.character(metric),
     is.logical(extrapolate)
   )
-  check_crucial_names(data, c("sector", "year", metric, value))
+  abort_if_missing_names(data, c("sector", "year", metric, value))
 
   invisible(data)
 }

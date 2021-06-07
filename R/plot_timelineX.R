@@ -3,8 +3,8 @@
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
-#' @inheritParams prep_timeline
-#' @inheritParams plot_timelineB
+#' @inheritParams prep_timelineY
+#' @inheritParams plot_timelineY
 #'
 #' @return A "ggplot".
 #' @export
@@ -19,6 +19,6 @@
 #' data <- filter(sda, sector == "cement")
 #' plot_timelineX(data)
 plot_timelineX <- function(data, extrapolate = FALSE) {
-  prep <- prep_timeline(data, extrapolate = extrapolate)
+  prep <- prep_timelineY(data, extrapolate = extrapolate)
   plot_timelineB(prep)
 }

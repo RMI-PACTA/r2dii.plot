@@ -1,5 +1,5 @@
 test_that("with wrong number of scenarios errors gracefully", {
-  data <- prep_trajectory(
+  data <- prep_trajectoryY(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -17,9 +17,8 @@ test_that("with wrong number of scenarios errors gracefully", {
 
   main_line_metric <- tibble(metric = "projected", label = "Portfolio")
 
-  expect_snapshot_error(plot_trajectory(data,
+  expect_snapshot_error(plot_trajectoryY(data,
     scenario_specs_good_to_bad = scenario_specs,
     main_line_metric = main_line_metric
   ))
 })
-

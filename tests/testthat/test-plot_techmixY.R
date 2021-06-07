@@ -1,7 +1,7 @@
 test_that("with the simplest call outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
 
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -11,7 +11,7 @@ test_that("with the simplest call outputs the expected snapshot", {
     value = "technology_share"
   )
 
-  out <- plot_techmix(data)
+  out <- plot_techmixY(data)
 
   expect_s3_class(out, "ggplot")
   out <- unclass(out)
@@ -20,7 +20,7 @@ test_that("with the simplest call outputs the expected snapshot", {
 })
 
 test_that("with bad 'metric_type_order' errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -32,12 +32,12 @@ test_that("with bad 'metric_type_order' errors gracefully", {
 
   expect_error(
     regexp = "metric_type_order.*must be.*in.*metric_type.*data.",
-    plot_techmix(data, metric_type_order = "bad")
+    plot_techmixY(data, metric_type_order = "bad")
   )
 })
 
 test_that("with bad 'metric_type_labels' errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -49,12 +49,12 @@ test_that("with bad 'metric_type_labels' errors gracefully", {
 
   expect_error(
     regexp = "metric_type_labels.*must be.*same length.*metric_type_order.",
-    plot_techmix(data, metric_type_labels = "bad")
+    plot_techmixY(data, metric_type_labels = "bad")
   )
 })
 
 test_that("with more than one sector in data errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -72,12 +72,12 @@ test_that("with more than one sector in data errors gracefully", {
 
   expect_error(
     regexp = "Input data.*must.*one.*sector.",
-    plot_techmix(data)
+    plot_techmixY(data)
   )
 })
 
 test_that("with bad sector errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -90,12 +90,12 @@ test_that("with bad sector errors gracefully", {
 
   expect_error(
     regexp = "Input data.*sector.*not found.",
-    plot_techmix(data)
+    plot_techmixY(data)
   )
 })
 
 test_that("with bad 'tech_colours' errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -107,12 +107,12 @@ test_that("with bad 'tech_colours' errors gracefully", {
 
   expect_error(
     regexp = "tech_colours.*must.*data frame",
-    plot_techmix(data, tech_colours = "bad")
+    plot_techmixY(data, tech_colours = "bad")
   )
 })
 
 test_that("with bad column in 'tech_colours' errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -128,12 +128,12 @@ test_that("with bad column in 'tech_colours' errors gracefully", {
 
   expect_error(
     regexp = "tech_colours.*must.*columns.*technology.*hex",
-    plot_techmix(data, tech_colours = tech_colours)
+    plot_techmixY(data, tech_colours = tech_colours)
   )
 })
 
 test_that("with bad technology in 'tech_colours' errors gracefully", {
-  data <- prep_techmix(
+  data <- prep_techmixY(
     market_share,
     sector_filter = "power",
     years_filter = c(2020, 2025),
@@ -148,6 +148,6 @@ test_that("with bad technology in 'tech_colours' errors gracefully", {
 
   expect_error(
     regexp = ".*technologies.*input data.*must.*colour.*tech_colours.",
-    plot_techmix(data, tech_colours = tech_colours)
+    plot_techmixY(data, tech_colours = tech_colours)
   )
 })

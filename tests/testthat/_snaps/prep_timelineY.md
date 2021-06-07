@@ -1,7 +1,7 @@
 # outputs the expected snapshot
 
     Code
-      prep_timeline(data)
+      prep_timelineY(data)
     Output
       # A tibble: 6 x 7
         sector    year       emission_factor_metr~ emission_factor_va~ line_name value

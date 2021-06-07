@@ -2,21 +2,21 @@
 % Please edit documentation in R/timeline_specs.R
 \name{timeline_specs}
 \alias{timeline_specs}
-\title{Creates the default specs data frame for \code{plot_timelineA()}}
+\title{Creates the default specs data frame for \code{plot_timelineY()}}
 \usage{
 timeline_specs(data)
 }
 \arguments{
-\item{data}{Data frame like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
+\item{data}{Data frame like the output of \code{\link[=prep_timelineY]{prep_timelineY()}}.}
 }
 \value{
-A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineA]{plot_timelineA()}}.
+A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineY]{plot_timelineY()}}.
 }
 \description{
-Creates the default specs data frame for \code{plot_timelineA()}
+Creates the default specs data frame for \code{plot_timelineY()}
 }
 \examples{
-data <- prep_timeline(sda)
+data <- prep_timelineY(sda)
 timeline_specs(data)
 }
 \seealso{
