@@ -61,11 +61,10 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
--   `prep_trajectory()`: prepare the output of
-    ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_trajectory()’.
+-   `prep_trajectoryY()`: .
 
 ``` r
-data_trajectory <- prep_trajectory(
+data_trajectory <- prep_trajectoryY(
   market_share,
   sector_filter = "power",
   technology_filter = "oilcap",
@@ -109,7 +108,7 @@ plot_trajectoryA(
 ``` r
 # more elaborate annotations, title and labels
 
-data_trajectory <- prep_trajectory(
+data_trajectory <- prep_trajectoryY(
   market_share, 
   sector_filter = "power",
   technology_filter = "renewablescap",
@@ -219,8 +218,7 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   `prep_timelineY()` prepare the output of
-    ‘r2dii.analysis::target\_sda()’ for ‘plot\_timeline()’.
+-   `prep_timelineY()` .
 -   `plot_timelineA()` creates a time line plot.
 
 ``` r

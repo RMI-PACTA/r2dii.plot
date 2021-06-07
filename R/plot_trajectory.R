@@ -26,7 +26,7 @@
 #' @export
 #' @examples
 #' # `plot_trajectoryA()` -------------------------------------------------------
-#' data <- prep_trajectory(
+#' data <- prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",

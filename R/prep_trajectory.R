@@ -10,7 +10,7 @@
 #'
 #' @export
 #' @examples
-#' prep_trajectory(
+#' prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "oilcap",
@@ -18,7 +18,7 @@
 #'   scenario_source_filter = "demo_2020",
 #'   value = "production"
 #' )
-prep_trajectory <- function(data,
+prep_trajectoryY <- function(data,
                             sector_filter,
                             technology_filter,
                             region_filter,

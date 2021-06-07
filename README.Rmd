@@ -79,10 +79,10 @@ library(r2dii.plot)
 market_share
 ```
 
-* `prep_trajectory()`: `r pull_title("prep_trajectory")`.
+* `prep_trajectoryY()`: `r pull_title("prep_trajectory")`.
 
 ```{r}
-data_trajectory <- prep_trajectory(
+data_trajectory <- prep_trajectoryY(
   market_share,
   sector_filter = "power",
   technology_filter = "oilcap",
@@ -122,7 +122,7 @@ plot_trajectoryA(
 
 # more elaborate annotations, title and labels
 
-data_trajectory <- prep_trajectory(
+data_trajectory <- prep_trajectoryY(
   market_share, 
   sector_filter = "power",
   technology_filter = "renewablescap",

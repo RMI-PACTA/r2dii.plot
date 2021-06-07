@@ -1,5 +1,5 @@
 test_that("with wrong number of scenarios errors gracefully", {
-  data <- prep_trajectory(
+  data <- prep_trajectoryY(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",

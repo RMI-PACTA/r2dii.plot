@@ -1,5 +1,5 @@
 test_that("outputs a data.frame", {
-  out <- prep_trajectory(
+  out <- prep_trajectoryY(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -13,7 +13,7 @@ test_that("outputs a data.frame", {
 
 test_that("returns visibly", {
   expect_visible(
-    prep_trajectory(
+    prep_trajectoryY(
       market_share,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -27,7 +27,7 @@ test_that("returns visibly", {
 test_that("with `normalize = FALSE` outputs visibly", {
   dont_normalize <- FALSE
   expect_visible(
-    prep_trajectory(
+    prep_trajectoryY(
       market_share,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -44,7 +44,7 @@ test_that("with bad `sector_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep_trajectory(
+      prep_trajectoryY(
         market_share,
         sector_filter = "bad",
         technology_filter = "oilcap",
@@ -61,7 +61,7 @@ test_that("with bad `technology_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep_trajectory(
+      prep_trajectoryY(
         market_share,
         sector_filter = "power",
         technology_filter = "bad",
@@ -78,7 +78,7 @@ test_that("with bad `region_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep_trajectory(
+      prep_trajectoryY(
         market_share,
         sector_filter = "power",
         technology_filter = "oilcap",
@@ -95,7 +95,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
   suppressWarnings(
     expect_warning(
       regexp = "bad.*matches.*no",
-      prep_trajectory(
+      prep_trajectoryY(
         market_share,
         sector_filter = "power",
         technology_filter = "oilcap",
@@ -111,7 +111,7 @@ test_that("with bad `scenario_source_filter` warns gracefully", {
 # "production"? That information is not documented in the description of the
 # argument `value` not via examples or README.
 test_that("adds the column `value` from the column named in `value`", {
-  out <- prep_trajectory(
+  out <- prep_trajectoryY(
     market_share,
     sector_filter = "power",
     technology_filter = "oilcap",
@@ -127,7 +127,7 @@ test_that("adds the column `value` from the column named in `value`", {
 # FIXME: Do we need an error or warning?
 test_that("with bad `end_year_filter` throws no error", {
   expect_no_error(
-    prep_trajectory(
+    prep_trajectoryY(
       market_share,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -142,7 +142,7 @@ test_that("with bad `end_year_filter` throws no error", {
 test_that("with bad `normalize` errors gracefully", {
   expect_error(
     regexp = "not.*logical",
-    prep_trajectory(
+    prep_trajectoryY(
       market_share,
       sector_filter = "power",
       technology_filter = "oilcap",
@@ -157,7 +157,7 @@ test_that("with bad `normalize` errors gracefully", {
 test_that("with missing crucial columns errors gracefully", {
   suppressWarnings(
     expect_snapshot_error(
-      prep_trajectory(
+      prep_trajectoryY(
         bad <- select(market_share, -sector),
         sector_filter = "power",
         technology_filter = "oilcap",
@@ -177,7 +177,7 @@ test_that("outputs data starting at the start of 'projected' or later", {
     pull(.data$year) %>%
     min()
 
-  out <- prep_trajectory(
+  out <- prep_trajectoryY(
     data,
     sector_filter = "power",
     technology_filter = "oilcap",

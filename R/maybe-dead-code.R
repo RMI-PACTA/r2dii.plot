@@ -227,7 +227,7 @@ recode_lines.logical <- function(recode, data) {
 #' # `plot_trajectoryB()` ------------------------------------------------------
 #' library(dplyr)
 #'
-#' data <- prep_trajectory(
+#' data <- prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   technology_filter = "renewablescap",
