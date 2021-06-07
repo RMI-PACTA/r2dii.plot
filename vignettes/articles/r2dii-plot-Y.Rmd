@@ -37,8 +37,8 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-Your data typically comes from the output of two functions in the
-r2dii.analysis package:
+Your data typically comes from the output of two functions in the r2dii.analysis
+package:
 [`target_sda()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html)
 and
 [`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html).
@@ -50,34 +50,33 @@ sda
 market_share
 ```
 
-Before plotting, you need to prepare your data. The following sections show the preparation and plotting workflow for the three kinds of plots that r2dii.plot supports: timeline, techmix, and trajectory.
+Before plotting, you need to prepare your data. The following sections show the
+preparation and plotting workflow for the three kinds of plots that r2dii.plot
+supports: timeline, techmix, and trajectory.
 
 ### Timeline
 
-The timeline plot uses `sda`-like data. First prepare it with `prep_timelineY()`, then plot it with `plot_timeline*()`. 
+The timeline plot uses `sda`-like data. First prepare it with
+`prep_timelineY()`, then plot it with `plot_timelineY()`.
 
-Use `prep_timelineY()` to prepare the data.
-
-```{r}
-prep <- prep_timelineY(sda)
-prep
-```
-
-You'll need to subset the data to meet the requirements of the `plot_*()`
-functions. If you don't get it right, the error should guide you.
+Use `prep_timelineY()` to prepare the data. You'll need to subset the data to
+meet the requirements of the `plot_timelineY()`, which you can do with the
+argument `sector_filter`. If you forget, the error message should guide you.
 
 ```{r error = TRUE}
-# FIXME: This should become an argumet `sector_filter` for consistency.
-plot_timelineY(prep)
+# Fails
+prep_timelineY(sda)
+
+# Works
+cement <- prep_timelineY(sda, sector_filter = "cement")
+# Same
+cement <- prep_timelineY(filter(sda, sector == "cement"))
+
+cement
 ```
 
-The error message suggests you need to pick only one sector, e.g. "cement".
-
-```{r}
-cement <- filter(prep, sector == "cement")
-```
-
-* `plot_timelineY()` defaults to recoding `line_name` to title case, and allows custom recoding via a data frame passed to the argument `specs`.
+* `plot_timelineY()` defaults to recoding `line_name` to title case, and allows
+custom recoding via a data frame passed to the argument `specs`.
 
 ```{r}
 # Default recoding
