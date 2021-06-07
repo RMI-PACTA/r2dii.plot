@@ -46,10 +46,10 @@ reference:
       - matches("prep_.*Y")
       - matches("plot_.*Y")
 
-
   - title: Version X and Y (plot, helpers, datasets)
     contents:
       - theme_2dii
+      - timeline_specs
       - has_concept("datasets")
       - -matches("plot_.*X")
       - -matches("prep_.*Y")
