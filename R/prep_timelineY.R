@@ -37,8 +37,8 @@ prep_timelineY <- function(data,
     stopifnot(is.character(sector_filter))
     abort_if_invalid_length(sector_filter, 1L)
     data <- filter(data, .data$sector == sector_filter)
-    abort_multiple(data, "sector")
   }
+  abort_multiple(data, "sector")
 
   out <- data %>%
     mutate(

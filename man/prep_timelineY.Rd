@@ -33,10 +33,10 @@ Data frame with columns: year, line_name, value, extrapolated.
 Prepare the output of \code{r2dii.analysis::target_sda()} for \code{plot_timeline()}
 }
 \examples{
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
+# Fails
 prep_timelineY(sda)
-
 prep_timelineY(sda, extrapolate = TRUE)
 
 data <- sda \%>\%
