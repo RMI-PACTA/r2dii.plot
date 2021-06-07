@@ -1,6 +1,6 @@
 #' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_trajectory()`
 #'
-#' @inheritParams prep_techmix
+#' @inheritParams prep_techmixY
 #' @param technology_filter String of length 1. Technology to pick from the
 #'   `data`.
 #' @param end_year_filter Numeric of length 1. Cut-off year for the plot.

@@ -156,7 +156,7 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmix()` prepare the output of
+  - `prep_techmixY()` prepare the output of
     ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_techmix()’.
   - `plot_techmix()` create a techmix chart in a ggplot object.
 
@@ -166,7 +166,7 @@ plot +
 # Default colours, all data, added title
 sector <- "power"
 
-data <- prep_techmix(
+data <- prep_techmixY(
   market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025),
@@ -206,7 +206,7 @@ plot
 
 sector <- "automotive"
 
-data <- prep_techmix(market_share,
+data <- prep_techmixY(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",

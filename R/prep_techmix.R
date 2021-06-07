@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @examples
-#' prep_techmix(
+#' prep_techmixY(
 #'   market_share,
 #'   sector_filter = "power",
 #'   years_filter = c(2020, 2025),
@@ -20,7 +20,7 @@
 #'   scenario_filter = "sds",
 #'   value = "technology_share"
 #' )
-prep_techmix <- function(data,
+prep_techmixY <- function(data,
                          value = "technology_share",
                          metric = "metric",
                          sector_filter = c(
@@ -51,7 +51,7 @@ prep_techmix <- function(data,
     pull(.data$metric))
 
   sector_filter <- match.arg(sector_filter)
-  check_prep_techmix(
+  check_prep_techmixY(
     data,
     years_filter,
     region_filter,
@@ -81,7 +81,7 @@ prep_techmix <- function(data,
   data_out
 }
 
-check_prep_techmix <- function(data,
+check_prep_techmixY <- function(data,
                                years_filter,
                                region_filter,
                                scenario_source_filter,

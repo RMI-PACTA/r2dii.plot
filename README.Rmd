@@ -159,14 +159,14 @@ plot +
   )
 ```
 
-* `prep_techmix()` `r pull_title("prep_techmix")`.
+* `prep_techmixY()` `r pull_title("prep_techmix")`.
 * `plot_techmix()` `r pull_title("plot_techmix")`.
 
 ```{r}
 # Default colours, all data, added title
 sector <- "power"
 
-data <- prep_techmix(
+data <- prep_techmixY(
   market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025),
@@ -196,7 +196,7 @@ plot
 
 sector <- "automotive"
 
-data <- prep_techmix(market_share,
+data <- prep_techmixY(market_share,
   sector_filter = sector,
   years_filter = c(2020, 2025), region_filter = "global",
   scenario_source_filter = "demo_2020",
