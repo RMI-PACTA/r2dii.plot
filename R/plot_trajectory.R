@@ -130,9 +130,9 @@ plot_trajectoryA <- function(data,
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
   data_lines_end <- data_lines %>%
-        filter(
-          .data$year == last_year
-        )
+    filter(
+      .data$year == last_year
+    )
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
@@ -249,7 +249,3 @@ add_scenario_colours <- function(scenario_specs) {
 
   scenario_specs
 }
-
-
-
-

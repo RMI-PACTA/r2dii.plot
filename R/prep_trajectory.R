@@ -49,7 +49,7 @@ prep_trajectory <- function(data,
     filter(.data$year >= .env$year_start_projected) %>%
     filter(.data$year <= .env$end_year_filter) %>%
     mutate(value = .data[[value]]) %>%
-      select(.data$metric, .data$metric_type, .data$year, .data$technology, .data$value)
+    select(.data$metric, .data$metric_type, .data$year, .data$technology, .data$value)
 
   if (normalize) {
     data_filtered <- left_join(data_filtered,

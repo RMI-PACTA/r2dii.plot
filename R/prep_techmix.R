@@ -21,21 +21,21 @@
 #'   value = "technology_share"
 #' )
 prep_techmixY <- function(data,
-                         value = "technology_share",
-                         metric = "metric",
-                         sector_filter = c(
-                           "automotive",
-                           "aviation",
-                           "cement",
-                           "oil and gas",
-                           "shipping",
-                           "steel",
-                           "power"
-                         ),
-                         years_filter = NULL,
-                         region_filter = "global",
-                         scenario_source_filter = NULL,
-                         scenario_filter = NULL) {
+                          value = "technology_share",
+                          metric = "metric",
+                          sector_filter = c(
+                            "automotive",
+                            "aviation",
+                            "cement",
+                            "oil and gas",
+                            "shipping",
+                            "steel",
+                            "power"
+                          ),
+                          years_filter = NULL,
+                          region_filter = "global",
+                          scenario_source_filter = NULL,
+                          scenario_filter = NULL) {
   abort_if_missing_names(data, metric)
 
   data <- recode_metric_and_metric_type(data, metric)
@@ -82,11 +82,11 @@ prep_techmixY <- function(data,
 }
 
 check_prep_techmixY <- function(data,
-                               years_filter,
-                               region_filter,
-                               scenario_source_filter,
-                               scenario_filter,
-                               value) {
+                                years_filter,
+                                region_filter,
+                                scenario_source_filter,
+                                scenario_filter,
+                                value) {
   if (!is.numeric(years_filter)) {
     abort(glue(
       "'years_filter' must be a vector of numbers.
