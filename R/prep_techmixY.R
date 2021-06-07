@@ -78,7 +78,8 @@ prep_techmixY <- function(data,
 }
 
 pull_scenarios <- function(data) {
-  unique(filter(data, .data$metric_type == "scenario")$metric)
+  scenarios <- filter(data, startsWith(.data$metric_type, "scenario"))$metric
+  unique(scenarios)
 }
 
 check_prep_techmixY <- function(data,
