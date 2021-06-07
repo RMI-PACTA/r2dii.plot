@@ -50,6 +50,9 @@ prep_timelineY <- function(data,
   }
   abort_multiple(data, "sector")
 
+  start_year <- get_common_start_year(data, metric)
+  data <- filter(data, .data$year >= start_year)
+
   out <- data %>%
     mutate(
       line_name = .data[[metric]],
@@ -90,4 +93,14 @@ check_prep_timelineY <- function(data, value, metric, extrapolate) {
   abort_if_missing_names(data, c("sector", "year", metric, value))
 
   invisible(data)
+}
+
+get_common_start_year <- function(data, metric) {
+  year <- max(
+    data %>%
+      group_by(.data[[metric]]) %>%
+      summarise(year = min(.data$year)) %>%
+      pull(.data$year)
+  )
+  year
 }

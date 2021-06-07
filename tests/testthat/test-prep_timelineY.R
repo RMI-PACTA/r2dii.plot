@@ -101,3 +101,14 @@ test_that("with bad `sector_filter` errors gracefully", {
     prep_timelineY(data, sector_filter = bad_type)
   )
 })
+
+test_that("starts from common start year", {
+  raw <- min(sda$year)
+  prep <- sda %>%
+    prep_timelineY(sector_filter = "cement") %>%
+    pull(year) %>%
+    lubridate::year() %>%
+    min()
+
+  expect_gte(prep, raw)
+})
