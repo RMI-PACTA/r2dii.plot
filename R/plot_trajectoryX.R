@@ -16,7 +16,7 @@
 #' @seealso [market_share].
 #'
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #'
 #' # `data` must meet documented "Requirements"
 #' data <- market_share %>%

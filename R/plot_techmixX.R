@@ -14,7 +14,7 @@
 #' @seealso [market_share].
 #'
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #'
 #' # `data` must meet documented "Requirements"
 #' data <- market_share %>%
@@ -27,5 +27,8 @@
 #' plot_techmixX(data)
 plot_techmixX <- function(data) {
   prep <- prep_techmixB(data)
+  found_scenarios <- pull_scenarios(prep)
+  abort_if_invalid_length(found_scenarios)
+
   plot_techmixY(prep)
 }

@@ -13,7 +13,7 @@
 #' @seealso [sda].
 #'
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #'
 #' # `data` must meet documented "Requirements"
 #' data <- filter(sda, sector == "cement")
