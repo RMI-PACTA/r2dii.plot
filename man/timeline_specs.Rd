@@ -16,7 +16,7 @@ A data frame useful as the \code{specs} argument of \code{\link[=plot_timelineY]
 Creates the default specs data frame for \code{plot_timelineY()}
 }
 \examples{
-data <- prep_timelineY(sda)
+data <- prep_timelineY(sda, sector_filter = "cement")
 timeline_specs(data)
 }
 \seealso{

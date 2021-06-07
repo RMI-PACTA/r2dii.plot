@@ -7,6 +7,7 @@
 #'   to plot.
 #' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
 #'   furthest value in the data set.
+#' @inheritParams prep_techmixY
 #'
 #' @seealso [sda].
 #'
@@ -14,12 +15,23 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #'
-#' tail(prep_timelineY(sda))
-#' tail(prep_timelineY(sda, extrapolate = TRUE))
+#' # Fails
+#' try(prep_timelineY(sda))
+#'
+#' # Works: meets `data` requirements
+#' prep_timelineY(sda, sector_filter = "cement")
+#'
+#' # Same
+#' sda %>%
+#'   filter(sector == "cement") %>%
+#'   prep_timelineY()
+#'
+#' prep_timelineY(sda, sector_filter = "cement", extrapolate = TRUE)
 #'
 #' data <- sda %>%
+#'   filter(sector == "cement") %>%
 #'   rename(
 #'     custom_value = "emission_factor_value",
 #'     custom_metric = "emission_factor_metric"
@@ -28,8 +40,18 @@
 prep_timelineY <- function(data,
                            value = "emission_factor_value",
                            metric = "emission_factor_metric",
+                           sector_filter = NULL,
                            extrapolate = FALSE) {
   check_prep_timelineY(data, value, metric, extrapolate)
+  if (!is.null(sector_filter)) {
+    stopifnot(is.character(sector_filter))
+    abort_if_invalid_length(sector_filter, 1L)
+    data <- filter(data, .data$sector == sector_filter)
+  }
+  abort_multiple(data, "sector")
+
+  start_year <- get_common_start_year(data, metric)
+  data <- filter(data, .data$year >= start_year)
 
   out <- data %>%
     mutate(
@@ -71,4 +93,14 @@ check_prep_timelineY <- function(data, value, metric, extrapolate) {
   abort_if_missing_names(data, c("sector", "year", metric, value))
 
   invisible(data)
+}
+
+get_common_start_year <- function(data, metric) {
+  year <- max(
+    data %>%
+      group_by(.data[[metric]]) %>%
+      summarise(year = min(.data$year)) %>%
+      pull(.data$year)
+  )
+  year
 }

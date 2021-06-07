@@ -27,14 +27,10 @@ allows custom recoding via a data frame passed to the argument \code{specs}.
 }
 }
 \examples{
-library(ggplot2)
-library(dplyr)
+library(ggplot2, warn.conflicts = FALSE)
+library(dplyr, warn.conflicts = FALSE)
 
-# `plot_timelineY()` -------------------------------------------------------
-
-data <- sda \%>\%
-  filter(sector == "cement") \%>\%
-  prep_timelineY()
+data <- prep_timelineY(sda, sector_filter = "cement")
 plot_timelineY(data)
 
 # Customize as usual with ggplot2
@@ -45,7 +41,7 @@ plot_timelineY(data) +
 # Customize `line_name` via a data frame passed to `specs`
 # styler: off
 custom <- tribble(
-                ~line_name,                  ~label, ~hex,
+                ~line_name,                  ~label,        ~hex,
                "projected",                 "Proj.",   "#4a5e54",
        "corporate_economy",         "Corp. Economy",   "#a63d57",
              "target_demo",         "Target (demo)",   "#78c4d6",
