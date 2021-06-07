@@ -39,16 +39,18 @@ reference:
 
   - title: Prepare
     contents:
-      - starts_with("prep")
+      - starts_with("prep_")
 
   - title: Plot
     contents:
-      - has_concept("plotting functions")
+      - starts_with("plot_")
+      - theme_2dii
 
   - title: Helpers
     contents:
-      - -starts_with("prep")
-      - -has_concept("plotting functions")
+      - -starts_with("prep_")
+      - -starts_with("plot_")
+      - -theme_2dii
       - -has_concept("datasets")
 
   - title: Datasets
