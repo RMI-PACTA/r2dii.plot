@@ -148,7 +148,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `prep_techmixY()` .
--   `plot_techmixY()` create a techmix chart in a ggplot object.
+-   `plot_techmixY()` .
 
 ``` r
 # Default colours, all data, added title
@@ -219,7 +219,7 @@ plot +
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `prep_timelineY()` .
--   `plot_timelineA()` creates a time line plot.
+-   `plot_timelineY()` creates a time line plot.
 
 ``` r
 data <- sda %>% 
@@ -227,7 +227,7 @@ data <- sda %>%
   prep_timelineY(extrapolate = TRUE)
 
 # Plot and customize with ggplot2
-plot_timelineA(data) +
+plot_timelineY(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",

@@ -221,7 +221,7 @@ plot +
 ```
 
 * `prep_timelineY()` `r pull_title("prep_timeline")`.
-* `plot_timelineA()` `r pull_title("plot_timelineA")`.
+* `plot_timelineY()` `r pull_title("plot_timelineA")`.
 
 ```{r}
 data <- sda %>% 
@@ -229,7 +229,7 @@ data <- sda %>%
   prep_timelineY(extrapolate = TRUE)
 
 # Plot and customize with ggplot2
-plot_timelineA(data) +
+plot_timelineY(data) +
   labs(
     title = "Emission intensity trend for Cement.",
     x = "Year",

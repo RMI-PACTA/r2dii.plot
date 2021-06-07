@@ -133,7 +133,7 @@ plot_timelineB <- function(data) {
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
-  plot_timelineA(data = data, specs = specs)
+  plot_timelineY(data = data, specs = specs)
 }
 
 #' @noRd

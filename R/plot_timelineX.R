@@ -4,7 +4,7 @@
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
 #' @inheritParams prep_timelineY
-#' @inheritParams plot_timelineA
+#' @inheritParams plot_timelineY
 #'
 #' @return A "ggplot".
 #' @export

@@ -11,7 +11,7 @@
 #' and how they allow recoding the values of `line_name`, which become the
 #' labels of the plot legend:
 #'
-#' * `plot_timelineA()` defaults to recoding `line_name` to title case, and
+#' * `plot_timelineY()` defaults to recoding `line_name` to title case, and
 #' allows custom recoding via a data frame passed to the argument `specs`.
 #'
 #' @seealso [sda], [timeline_specs].
@@ -22,15 +22,15 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#' # `plot_timelineA()` -------------------------------------------------------
+#' # `plot_timelineY()` -------------------------------------------------------
 #'
 #' data <- sda %>%
 #'   filter(sector == "cement") %>%
 #'   prep_timelineY()
-#' plot_timelineA(data)
+#' plot_timelineY(data)
 #'
 #' # Customize as usual with ggplot2
-#' plot_timelineA(data) +
+#' plot_timelineY(data) +
 #'   scale_colour_manual(values = c("red", "blue", "green", "black")) +
 #'   labs(title = "Timeline plot")
 #'
@@ -45,8 +45,8 @@
 #' )
 #' # styler: on
 #'
-#' plot_timelineA(data, specs = custom)
-plot_timelineA <- function(data, specs = timeline_specs(data)) {
+#' plot_timelineY(data, specs = custom)
+plot_timelineY <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
   abort_if_too_many_sectors(data)
   data <- left_join(data, specs, by = "line_name")
@@ -70,8 +70,6 @@ plot_timelineA <- function(data, specs = timeline_specs(data)) {
     guides(linetype = FALSE) +
     theme_2dii()
 }
-# For backward compatibility until we decide which version to keep
-plot_timeline <- plot_timelineA
 
 check_specs <- function(specs, data) {
   crucial <- c("line_name", "label", "hex")
