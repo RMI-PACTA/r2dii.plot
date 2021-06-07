@@ -37,18 +37,14 @@ prep_techmixY <- function(data,
                           scenario_source_filter = NULL,
                           scenario_filter = NULL) {
   abort_if_missing_names(data, metric)
-
   data <- recode_metric_and_metric_type(data, metric)
+
 
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
-  scenario_filter <- scenario_filter %||% (data %>%
-    filter(
-      .data$scenario_source == .env$scenario_source_filter,
-      .data$metric_type == "scenario"
-    ) %>%
-    slice_head(n = 1) %>%
-    pull(.data$metric))
+
+  found_scenarios <- scenario_filter %||% pull_scenarios(data)
+  abort_if_invalid_length(found_scenarios)
 
   sector_filter <- match.arg(sector_filter)
   check_prep_techmixY(
@@ -56,7 +52,7 @@ prep_techmixY <- function(data,
     years_filter,
     region_filter,
     scenario_source_filter,
-    scenario_filter,
+    found_scenarios,
     value
   )
 
@@ -67,7 +63,7 @@ prep_techmixY <- function(data,
     filter(.data$scenario_source == .env$scenario_source_filter) %>%
     filter(
       .data$metric_type %in% c("portfolio", "benchmark") |
-        (.data$metric_type == "scenario" & .data$metric == scenario_filter)
+        (.data$metric_type == "scenario" & .data$metric == found_scenarios)
     ) %>%
     mutate(
       metric_type = paste0(.data$metric_type, "_", as.character(.data$year)),
@@ -79,6 +75,10 @@ prep_techmixY <- function(data,
     )
 
   data_out
+}
+
+pull_scenarios <- function(data) {
+  unique(filter(data, .data$metric_type == "scenario")$metric)
 }
 
 check_prep_techmixY <- function(data,
