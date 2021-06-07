@@ -23,7 +23,7 @@ A "ggplot".
 Create a timeline plot
 }
 \examples{
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 
 # `data` must meet documented "Requirements"
 data <- filter(sda, sector == "cement")

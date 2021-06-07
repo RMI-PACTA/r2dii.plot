@@ -10,7 +10,7 @@
 #' @return An object of class `r toString(class(theme_2dii()))`.
 #' @export
 #' @examples
-#' library(ggplot2)
+#' library(ggplot2, warn.conflicts = FALSE)
 #'
 #' p <- ggplot(mtcars) +
 #'   geom_histogram(aes(mpg), bins = 10)
