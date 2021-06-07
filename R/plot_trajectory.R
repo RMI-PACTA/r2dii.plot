@@ -192,11 +192,6 @@ plot_trajectoryA <- function(data,
   p_trajectory
 }
 
-# For backward compatibility until we decide which version to keep
-#' @export
-#' @rdname plot_trajectoryA
-plot_trajectory <- plot_trajectoryA
-
 check_number_scenarios <- function(scenario_specs) {
   if (nrow(scenario_specs) > 4) {
     rlang::abort(glue(

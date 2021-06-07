@@ -2,17 +2,9 @@
 % Please edit documentation in R/plot_trajectory.R
 \name{plot_trajectoryA}
 \alias{plot_trajectoryA}
-\alias{plot_trajectory}
 \title{Create a trajectory alignment chart in a ggplot object}
 \usage{
 plot_trajectoryA(
-  data,
-  scenario_specs_good_to_bad,
-  main_line_metric,
-  additional_line_metrics = NULL
-)
-
-plot_trajectory(
   data,
   scenario_specs_good_to_bad,
   main_line_metric,
