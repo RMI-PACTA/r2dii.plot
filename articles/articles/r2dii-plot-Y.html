@@ -155,42 +155,42 @@
 <div id="timeline" class="section level3">
 <h3 class="hasAnchor">
 <a href="#timeline" class="anchor"></a>Timeline</h3>
-<p>The timeline plot uses <code>sda</code>-like data. First prepare it with <code><a href="../../reference/prep_timelineY.html">prep_timelineY()</a></code>, then plot it with <code>plot_timeline*()</code>.</p>
-<p>Use <code><a href="../../reference/prep_timelineY.html">prep_timelineY()</a></code> to prepare the data.</p>
+<p>The timeline plot uses <code>sda</code>-like data. First prepare it with <code><a href="../../reference/prep_timelineY.html">prep_timelineY()</a></code>, then plot it with <code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code>.</p>
+<p>Use <code><a href="../../reference/prep_timelineY.html">prep_timelineY()</a></code> to prepare the data. You’ll need to subset the data to meet the requirements of the <code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code>, which you can do with the argument <code>sector_filter</code>. If you forget, the error message should guide you.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prep</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
-<span class="va">prep</span>
-<span class="co">#&gt; # A tibble: 208 x 7</span>
-<span class="co">#&gt;    sector    year       emission_factor_met… emission_factor_va… line_name value</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;                              &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automoti… 2002-01-01 projected                          0.228 projected 0.228</span>
-<span class="co">#&gt;  2 automoti… 2003-01-01 projected                          0.226 projected 0.226</span>
-<span class="co">#&gt;  3 automoti… 2004-01-01 projected                          0.224 projected 0.224</span>
-<span class="co">#&gt;  4 automoti… 2005-01-01 projected                          0.222 projected 0.222</span>
-<span class="co">#&gt;  5 automoti… 2006-01-01 projected                          0.220 projected 0.220</span>
-<span class="co">#&gt;  6 automoti… 2007-01-01 projected                          0.218 projected 0.218</span>
-<span class="co">#&gt;  7 automoti… 2008-01-01 projected                          0.216 projected 0.216</span>
-<span class="co">#&gt;  8 automoti… 2009-01-01 projected                          0.214 projected 0.214</span>
-<span class="co">#&gt;  9 automoti… 2010-01-01 projected                          0.212 projected 0.212</span>
-<span class="co">#&gt; 10 automoti… 2011-01-01 projected                          0.210 projected 0.210</span>
-<span class="co">#&gt; # … with 198 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></code></pre></div>
-<p>You’ll need to subset the data to meet the requirements of the <code>plot_*()</code> functions. If you don’t get it right, the error should guide you.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># FIXME: This should become an argumet `sector_filter` for consistency.</span>
-<span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">prep</span><span class="op">)</span>
-<span class="co">#&gt; Error: `data` must have a single sector. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel</span></code></pre></div>
-<p>The error message suggests you need to pick only one sector, e.g. “cement”.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cement</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">prep</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># Fails</span>
+<span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
+<span class="co">#&gt; Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span>
+
+<span class="co"># Works</span>
+<span class="va">cement</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span><span class="va">sda</span>, sector_filter <span class="op">=</span> <span class="st">"cement"</span><span class="op">)</span>
+<span class="co"># Same</span>
+<span class="va">cement</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">cement</span>
+<span class="co">#&gt; # A tibble: 29 x 7</span>
+<span class="co">#&gt;    sector year       emission_factor_met… emission_factor_v… line_name     value</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                             &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 cement 2020-01-01 projected                         0.664 projected     0.664</span>
+<span class="co">#&gt;  2 cement 2021-01-01 projected                         0.665 projected     0.665</span>
+<span class="co">#&gt;  3 cement 2022-01-01 projected                         0.666 projected     0.666</span>
+<span class="co">#&gt;  4 cement 2023-01-01 projected                         0.667 projected     0.667</span>
+<span class="co">#&gt;  5 cement 2024-01-01 projected                         0.668 projected     0.668</span>
+<span class="co">#&gt;  6 cement 2025-01-01 projected                         0.669 projected     0.669</span>
+<span class="co">#&gt;  7 cement 2020-01-01 corporate_economy                 0.669 corporate_ec… 0.669</span>
+<span class="co">#&gt;  8 cement 2021-01-01 corporate_economy                 0.670 corporate_ec… 0.670</span>
+<span class="co">#&gt;  9 cement 2022-01-01 corporate_economy                 0.671 corporate_ec… 0.671</span>
+<span class="co">#&gt; 10 cement 2023-01-01 corporate_economy                 0.672 corporate_ec… 0.672</span>
+<span class="co">#&gt; # … with 19 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></code></pre></div>
 <ul>
 <li>
 <code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code> defaults to recoding <code>line_name</code> to title case, and allows custom recoding via a data frame passed to the argument <code>specs</code>.</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default recoding</span>
 <span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Custom recoding</span>
 <span class="va">custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
@@ -202,7 +202,7 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span>, specs <span class="op">=</span> <span class="va">custom</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
 </div>
 <div id="techmix" class="section level3">
 <h3 class="hasAnchor">
