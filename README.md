@@ -61,7 +61,7 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
--   `prep_trajectory()` and `prep_trajectoryB()`: prepare the output of
+-   `prep_trajectory()`: prepare the output of
     ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_trajectory()’.
 
 ``` r
@@ -74,26 +74,7 @@ data_trajectory <- prep_trajectory(
   end_year_filter = 2025,
   normalize = TRUE
 )
-
-# Same, with more work upfront but fewer arguments
-data_trajectory <- market_share %>%
-  filter(
-    sector == "power",
-    technology == "oilcap",
-    region == "global",
-    scenario_source == "demo_2020",
-    year <= 2025
-  ) %>% 
-  prep_trajectoryB(normalize = TRUE)
-
-unique(data_trajectory$metric)
-#> [1] "projected"         "corporate_economy" "cps"              
-#> [4] "sds"               "sps"
-
-plot_trajectoryB(data_trajectory, main_line = "projected")
 ```
-
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 -   `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
 

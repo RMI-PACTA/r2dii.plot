@@ -79,7 +79,7 @@ library(r2dii.plot)
 market_share
 ```
 
-* `prep_trajectory()` and `prep_trajectoryB()`: `r pull_title("prep_trajectory")`.
+* `prep_trajectory()`: `r pull_title("prep_trajectory")`.
 
 ```{r}
 data_trajectory <- prep_trajectory(
@@ -91,21 +91,6 @@ data_trajectory <- prep_trajectory(
   end_year_filter = 2025,
   normalize = TRUE
 )
-
-# Same, with more work upfront but fewer arguments
-data_trajectory <- market_share %>%
-  filter(
-    sector == "power",
-    technology == "oilcap",
-    region == "global",
-    scenario_source == "demo_2020",
-    year <= 2025
-  ) %>% 
-  prep_trajectoryB(normalize = TRUE)
-
-unique(data_trajectory$metric)
-
-plot_trajectoryB(data_trajectory, main_line = "projected")
 ```
 
 * `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
