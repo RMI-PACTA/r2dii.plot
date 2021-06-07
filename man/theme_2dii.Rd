@@ -46,7 +46,6 @@ p
 \seealso{
 Other plotting functions: 
 \code{\link{plot_techmix}()},
-\code{\link{plot_timelineA}()},
 \code{\link{plot_trajectoryA}()}
 }
 \concept{plotting functions}

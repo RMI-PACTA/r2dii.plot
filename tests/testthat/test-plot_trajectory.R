@@ -17,42 +17,8 @@ test_that("with wrong number of scenarios errors gracefully", {
 
   main_line_metric <- tibble(metric = "projected", label = "Portfolio")
 
-  expect_snapshot_error(plot_trajectory(data,
+  expect_snapshot_error(plot_trajectoryA(data,
     scenario_specs_good_to_bad = scenario_specs,
     main_line_metric = main_line_metric
   ))
-})
-
-test_that("with wrong 'main_line' errors gracefully", {
-  data <- prep_trajectory(
-    market_share,
-    sector_filter = "power",
-    technology_filter = "oilcap",
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    value = "production",
-    end_year_filter = 2025,
-    normalize = TRUE
-  )
-
-  expect_snapshot_error(
-    plot_trajectoryB(data, main_line = "bad")
-  )
-})
-
-test_that("with too long `main_line` errors gracefully", {
-  data <- prep_trajectory(
-    market_share,
-    sector_filter = "power",
-    technology_filter = "oilcap",
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    value = "production",
-    end_year_filter = 2025,
-    normalize = TRUE
-  )
-
-  expect_snapshot_error(
-    plot_trajectoryB(data, main_line = c("too", "long"))
-  )
 })

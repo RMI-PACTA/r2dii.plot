@@ -2,7 +2,6 @@
 % Please edit documentation in R/prep_techmix.R
 \name{prep_techmix}
 \alias{prep_techmix}
-\alias{prep_techmixB}
 \title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmix()}}
 \usage{
 prep_techmix(
@@ -16,8 +15,6 @@ prep_techmix(
   scenario_source_filter = NULL,
   scenario_filter = NULL
 )
-
-prep_techmixB(data, value = "technology_share", metric = "metric")
 }
 \arguments{
 \item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
@@ -52,16 +49,4 @@ prep_techmix(
   scenario_filter = "sds",
   value = "technology_share"
 )
-library(dplyr)
-
-data <- market_share \%>\%
-  filter(
-    dplyr::between(year, 2020, 2025),
-    scenario_source == "demo_2020",
-    sector == "power",
-    region == "global",
-    metric \%in\% c("projected", "corporate_economy", "target_sds")
-  )
-
-prep <- prep_techmixB(data)
 }

@@ -2,29 +2,15 @@
 % Please edit documentation in R/plot_timeline.R
 \name{plot_timelineA}
 \alias{plot_timelineA}
-\alias{plot_timelineB}
-\alias{plot_timelineC}
 \title{Creates a time line plot}
 \usage{
 plot_timelineA(data, specs = timeline_specs(data))
-
-plot_timelineB(data)
-
-plot_timelineC(data, recode = TRUE)
 }
 \arguments{
 \item{data}{Data frame like the output of \code{\link[=prep_timeline]{prep_timeline()}}.}
 
 \item{specs}{Data frame containing order of lines, their labels and colour
 names from the r2dii_colours palette.}
-
-\item{recode}{One of the following:
-\itemize{
-\item A function/lambda to apply to \code{data$line_name}.
-\item A named vector to recode \code{data$line_name}.
-\item A logical vector of length 1. \code{TRUE} recodes \code{data$line_name} to title
-case. \code{FALSE} does no recoding and plots \code{data$line_name} as is.
-}}
 }
 \value{
 An object of class "ggplot".
@@ -38,17 +24,6 @@ labels of the plot legend:
 \itemize{
 \item \code{plot_timelineA()} defaults to recoding \code{line_name} to title case, and
 allows custom recoding via a data frame passed to the argument \code{specs}.
-}
-
-\itemize{
-\item \code{plot_timelineB()} plots \code{line_name} "as is". You may recode \code{line_name}
-before passing the \code{data} with, for example, \code{\link[dplyr:recode]{dplyr::recode()}}.
-}
-
-\itemize{
-\item \code{plot_timelineC()} defaults to plotting a title case version of \code{line_name}
-values, and allows none or other recoding via the argument \code{recode} (see
-Arguments).
 }
 }
 \examples{
@@ -79,65 +54,7 @@ custom <- tribble(
 # styler: on
 
 plot_timelineA(data, specs = custom)
-
-# `plot_timelineB()` ------------------------------------------------------
-
-data <- sda \%>\%
-  filter(sector == "aviation") \%>\%
-  prep_timeline()
-plot_timelineB(data)
-
-# Recode `line_name` with `dplyr::recode()`
-data \%>\%
-  mutate(line_name = recode(line_name,
-    "corporate_economy" = "Corp. economy",
-    "projected" = "Proj.",
-    "target_demo" = "Target (demo)",
-    "adjusted_scenario_demo" = "Adj. Scenario (demo)",
-  )) \%>\%
-  plot_timelineB()
-
-# `plot_timelineC()` ------------------------------------------------------
-
-data <- sda \%>\%
-  filter(sector == "aviation") \%>\%
-  prep_timeline()
-
-unique(data$line_name)
-
-# Recode to title case
-plot_timelineC(data, recode = TRUE)
-
-# Don't recode
-plot_timelineC(data, recode = FALSE)
-
-# Recode to title case
-unique(data$line_name)
-plot_timelineC(data)
-
-# Recode using a function
-plot_timelineC(data, recode = toupper)
-
-# Recode using a formula giving a lambda function
-plot_timelineC(data, recode = ~ toupper(gsub("_", " ", .x)))
-
-# Recode via a named vector
-legend <- c(
-  "projected" = "Proj.",
-  "corporate_economy" = "Corp. Economy",
-  "target_demo" = "Target (demo)",
-  "adjusted_scenario_demo" = "Adj. Scenario (demo)"
-)
-plot_timelineC(data, recode = legend)
 }
 \seealso{
 \link{sda}, \link{timeline_specs}.
-
-\code{\link[dplyr:recode]{dplyr::recode()}}.
-
-Other plotting functions: 
-\code{\link{plot_techmix}()},
-\code{\link{plot_trajectoryA}()},
-\code{\link{theme_2dii}()}
 }
-\concept{plotting functions}

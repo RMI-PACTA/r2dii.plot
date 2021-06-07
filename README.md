@@ -40,10 +40,8 @@ library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-  - `market_share` dataset imitating the output of
+-   `market_share` dataset imitating the output of
     ‘r2dii.analysis::target\_market\_share()’.
-
-<!-- end list -->
 
 ``` r
 market_share
@@ -63,11 +61,8 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-  - `prep_trajectory()` and `prep_trajectoryB()`: prepare the output of
-    ‘r2dii.analysis::target\_market\_share()’ for
-    ‘plot\_trajectory()’.
-
-<!-- end list -->
+-   `prep_trajectory()`: prepare the output of
+    ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_trajectory()’.
 
 ``` r
 data_trajectory <- prep_trajectory(
@@ -79,30 +74,9 @@ data_trajectory <- prep_trajectory(
   end_year_filter = 2025,
   normalize = TRUE
 )
-
-# Same, with more work upfront but fewer arguments
-data_trajectory <- market_share %>%
-  filter(
-    sector == "power",
-    technology == "oilcap",
-    region == "global",
-    scenario_source == "demo_2020",
-    year <= 2025
-  ) %>% 
-  prep_trajectoryB(normalize = TRUE)
-
-unique(data_trajectory$metric)
-#> [1] "projected"         "corporate_economy" "cps"              
-#> [4] "sds"               "sps"
-
-plot_trajectoryB(data_trajectory, main_line = "projected")
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-
-  - `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
-
-<!-- end list -->
+-   `plot_trajectoryA()` is an alternative to `plot_trajectoryB()`.
 
 ``` r
 # `plot_trajectoryA()` takes more arguments
@@ -133,7 +107,6 @@ plot_trajectoryA(
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # more elaborate annotations, title and labels
 
 data_trajectory <- prep_trajectory(
@@ -175,11 +148,9 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmix()` prepare the output of
+-   `prep_techmix()` prepare the output of
     ‘r2dii.analysis::target\_market\_share()’ for ‘plot\_techmix()’.
-  - `plot_techmix()` create a techmix chart in a ggplot object.
-
-<!-- end list -->
+-   `plot_techmix()` create a techmix chart in a ggplot object.
 
 ``` r
 # Default colours, all data, added title
@@ -203,7 +174,6 @@ plot +
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Custom colours, all data, no title
 power_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
@@ -220,7 +190,6 @@ plot
 <img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
-
 # Default colours, selected data and labels (metric_type parameters), added title
 
 sector <- "automotive"
@@ -251,53 +220,9 @@ plot +
 
 <img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `prep_techmixB()` is an alternative with fewer arguments. It
-    requires more work upfront but if you forget its requirements you
-    will get error messages that we hope will help you fix the problem.
-
-<!-- end list -->
-
-``` r
-market_share %>%
-  # Pick a specific subset of data or you'll get (hopefully informative) errors
-  filter(
-    dplyr::between(year, 2020, 2025),
-    scenario_source == "demo_2020",
-    sector == "power",
-    region == "global",
-    metric %in% c("projected", "corporate_economy", "target_sds")
-  ) %>% 
-  prep_techmixB() %>% 
-  plot_techmix()
-```
-
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-
-``` r
-
-# Errors
-missing_column <- select(data, -metric)
-prep_techmixB(missing_column)
-#> Error: Must have missing names:
-#> `metric`, `region`, `technology_share`, `year`
-
-missing_metric_values <- mutate(data, metric = "bad")
-prep_techmixB(missing_metric_values)
-#> Error: Must have missing names:
-#> `region`, `technology_share`, `year`
-
-# Expect similar errors with too many `scenario_source`s and `regions`
-too_many_sectors <- mutate(head(data, 2), sector = c("a", "b"))
-prep_techmixB(too_many_sectors)
-#> Error: Must have missing names:
-#> `region`, `technology_share`, `year`
-```
-
-  - `prep_timeline()` prepare the output of
+-   `prep_timeline()` prepare the output of
     ‘r2dii.analysis::target\_sda()’ for ‘plot\_timeline()’.
-  - `plot_timelineA()` creates a time line plot.
-
-<!-- end list -->
+-   `plot_timelineA()` creates a time line plot.
 
 ``` r
 data <- sda %>% 
@@ -314,12 +239,10 @@ plot_timelineA(data) +
   )
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - `timeline_specs()` creates the default specs data frame for
+-   `timeline_specs()` creates the default specs data frame for
     ‘plot\_timelinea()’.
-
-<!-- end list -->
 
 ``` r
 # You may use it as a template to create your custom specs
