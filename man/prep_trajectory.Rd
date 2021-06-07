@@ -2,7 +2,6 @@
 % Please edit documentation in R/prep_trajectory.R
 \name{prep_trajectory}
 \alias{prep_trajectory}
-\alias{prep_trajectoryB}
 \title{Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_trajectory()}}
 \usage{
 prep_trajectory(
@@ -14,13 +13,6 @@ prep_trajectory(
   value = "production",
   metric = "metric",
   end_year_filter = 2025,
-  normalize = TRUE
-)
-
-prep_trajectoryB(
-  data,
-  value = "production",
-  metric = "metric",
   normalize = TRUE
 )
 }
@@ -62,16 +54,4 @@ prep_trajectory(
   scenario_source_filter = "demo_2020",
   value = "production"
 )
-library(dplyr)
-
-data <- market_share \%>\%
-  filter(
-    technology == "oilcap",
-    region == "global",
-    scenario_source == "demo_2020",
-    year <= 2025,
-    sector == "power"
-  )
-
-prep_trajectoryB(data)
 }
