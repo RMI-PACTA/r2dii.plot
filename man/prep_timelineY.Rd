@@ -36,10 +36,20 @@ Prepare the output of \code{r2dii.analysis::target_sda()} for \code{plot_timelin
 library(dplyr, warn.conflicts = FALSE)
 
 # Fails
-prep_timelineY(sda)
-prep_timelineY(sda, extrapolate = TRUE)
+try(prep_timelineY(sda))
+
+# Works: meets `data` requirements
+prep_timelineY(sda, sector_filter = "cement")
+
+# Same
+sda \%>\%
+  filter(sector == "cement") \%>\%
+  prep_timelineY()
+
+prep_timelineY(sda, sector_filter = "cement", extrapolate = TRUE)
 
 data <- sda \%>\%
+  filter(sector == "cement") \%>\%
   rename(
     custom_value = "emission_factor_value",
     custom_metric = "emission_factor_metric"
