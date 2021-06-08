@@ -56,10 +56,13 @@ about the main input -- passed to the first argument `data`. To meet those
 requirements we currently provide two experimental sets of functions -- or
 Application User Interfaces (APIs), "X" and "Y":
 
-* With the "X" API you meet the `data` requirements with `dplyr::filter()`.
+* With the "X" API you meet the `data` requirements mainly with
+`dplyr::filter()`, and with "internal magic" based on the known structure of
+r2dii data.
 
 * With the "Y" API you meet the `data` requirements with dedicated "preparation"
-functions (`prep_*Y()`), for example `prep_timelineY()`:
+functions (`prep_*Y()`), for example `prep_trajectoryY()`, and with explicit
+arguments to both the preparation and and plotting functions.
 
 This small example highlights the essence of the differences between the "X" and
 "Y" API.
@@ -67,17 +70,50 @@ This small example highlights the essence of the differences between the "X" and
 * "X" API
 
 ```{r}
-data <- sda
-prep <- filter(data, sector == "cement")
-plot_timelineX(prep, extrapolate = TRUE)
+data <- market_share
+prep <- filter(
+  data,
+  sector == "power",
+  technology == "renewablescap",
+  region == "global",
+  scenario_source == "demo_2020"
+)
+
+plot_trajectoryX(prep)
 ```
 
 * "Y" API
 
 ```{r}
-data <- sda
-prep <- prep_timelineY(data, sector_filter = "cement", extrapolate = )
-plot_timelineY(prep)
+data <- market_share
+
+prep <- prep_trajectoryY(
+  data,
+  sector_filter = "power",
+  technology_filter = "renewablescap",
+  region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  value = "production"
+)
+
+scenario_specs <- dplyr::tibble(
+  scenario = c("sds", "sps", "cps"),
+  label = c("SDS", "STEPS", "CPS")
+)
+
+main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
+
+additional_line_metrics <- dplyr::tibble(
+  metric = "corporate_economy",
+  label = "Corporate Economy"
+)
+
+plot_trajectoryY(
+  prep,
+  scenario_specs_good_to_bad = scenario_specs,
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
+)
 ```
 
 For full examples see the dedicated articles [r2dii.plot
