@@ -7,6 +7,6 @@ test_that("outputs a ggplot", {
       scenario_source == "demo_2020"
     )
 
-  p <- plot_trajectoryX(data, main = "projected", normalize = TRUE)
+  p <- plot_trajectoryX(data, normalize = TRUE)
   expect_s3_class(p, "ggplot")
 })

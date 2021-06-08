@@ -4,7 +4,7 @@
 \alias{plot_trajectoryX}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectoryX(data, main = "projected", normalize = TRUE)
+plot_trajectoryX(data, normalize = TRUE)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -14,10 +14,10 @@ plot_trajectoryX(data, main = "projected", normalize = TRUE)
 \code{region}, \code{scenario_source}.
 }}
 
+\item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
+
 \item{main}{String of length 1. \code{metric} value to plot most prominently, as
 the main trajectory line.}
-
-\item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
 }
 \value{
 A "ggplot".
@@ -36,7 +36,9 @@ data <- market_share \%>\%
     region == "global",
     scenario_source == "demo_2020"
   )
-plot_trajectoryX(data, main = "projected")
+plot_trajectoryX(data)
+
+plot_trajectoryX(data, normalize = FALSE)
 }
 \seealso{
 \link{market_share}.

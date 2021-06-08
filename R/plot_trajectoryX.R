@@ -26,8 +26,13 @@
 #'     region == "global",
 #'     scenario_source == "demo_2020"
 #'   )
-#' plot_trajectoryX(data, main = "projected")
-plot_trajectoryX <- function(data, main = "projected", normalize = TRUE) {
+#' plot_trajectoryX(data)
+#'
+#' plot_trajectoryX(data, normalize = FALSE)
+plot_trajectoryX <- function(data, normalize = TRUE) {
+  stopifnot("projected" %in% tolower(data$metric))
+  main <- "projected"
+
   prep <- prep_trajectoryB(data, normalize = normalize)
 
   # FIXME: Make it work with values exposed to the user. Now it's not the case.
