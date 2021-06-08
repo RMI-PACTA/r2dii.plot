@@ -27,9 +27,14 @@
 #' plot_trajectoryX(data)
 #'
 #' plot_trajectoryX(data, normalize = FALSE)
-plot_trajectoryX <- function(data, normalize = TRUE) {
-  stopifnot("projected" %in% tolower(data$metric))
-  main <- "projected"
+plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
+  if (is.null(main_line)) {
+    stopifnot("projected" %in% tolower(data$metric))
+    main <- "projected"
+  } else {
+    stopifnot(main_line %in% tolower(data$metric))
+    main <- main_line
+  }
 
   prep <- prep_trajectoryB(data, normalize = normalize)
 
