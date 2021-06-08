@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="r2dii-plot-X_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="r2dii-plot-X_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>r2dii.plot X</h1>
@@ -137,23 +137,12 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>emission_factor_metric <span class="op">=</span> <span class="fu">to_title</span><span class="op">(</span><span class="va">emission_factor_metric</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/plot_timelineX.html">plot_timelineX</a></span><span class="op">(</span>extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timeline plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>You can further customize your plot by adding a custom manual scale using <code>ggplot</code> function <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual()</a></code> with custom legend labels.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sda</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../../reference/plot_timelineX.html">plot_timelineX</a></span><span class="op">(</span>extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>
-    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#4a5e54"</span>, <span class="st">"#a63d57"</span>, <span class="st">"#78c4d6"</span>, <span class="st">"#f2e06e"</span><span class="op">)</span>,
-    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Proj."</span>, <span class="st">"Corp. Economy"</span>, <span class="st">"Target (demo)"</span>, <span class="st">"Adj. Scenario (demo)"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="techmix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#techmix" class="anchor"></a>Techmix</h3>
 <p>Use <code><a href="../../reference/plot_techmixX.html">plot_techmixX()</a></code> with <code>market_share</code>-like data. Again, learn which rows to pick by reading the documented “Requirements” of the argument <code>data</code>, or by trial and error.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">market_share</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
 <span class="co">#&gt; [1] "projected"         "corporate_economy" "target_cps"       </span>
 <span class="co">#&gt; [4] "target_sds"        "target_sps"</span>
@@ -166,13 +155,13 @@
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/plot_techmixX.html">plot_techmixX</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Techmix plot"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
 <p>Use <code><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX()</a></code> with <code>market_share</code>-like data. Again, learn which rows to pick by reading the documented “Requirements” of the argument <code>data</code>, or by trial and error.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
     <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>, 
@@ -182,15 +171,15 @@
   <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>Use <code>main_line</code> argument to indicate which trajectory line should be most visually salient (solid black line).</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">data</span>, main_line <span class="op">=</span> <span class="st">"projected"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>Use <code>normalize = FALSE</code> if you prefer not to normalize to the start year.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">data</span>, main_line <span class="op">=</span> <span class="st">"projected"</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <p>If you haven’t done so already, please see the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html">article about the “Y” API</a>.</p>
 </div>
   </div>

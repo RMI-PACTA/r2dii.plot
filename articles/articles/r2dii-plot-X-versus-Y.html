@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="r2dii-plot-X-versus-Y_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="r2dii-plot-X-versus-Y_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>r2dii.plot X versus Y</h1>
@@ -111,7 +111,7 @@
 <p>You can install the development version of r2dii.plot from <a href="https://github.com/2DegreesInvesting/r2dii.plot">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -154,12 +154,63 @@
 <span class="co">#&gt;  9 automotive electric    2021 global demo_2020       target_sds         160625.</span>
 <span class="co">#&gt; 10 automotive electric    2021 global demo_2020       target_sps         149016.</span>
 <span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
-<p>r2dii.plot currently supports three kinds of plots: <code>plot_timeline*()</code>, <code>plot_techmix*()</code>, and <code>plot_trajectory*()</code>. Each plot has specific requirements about the main input – passed to the first argument <code>data</code>. To meet those requirements we currently provide two experimental sets of functions – or Application User Interfaces (APIs), “X” and “Y”:</p>
+<p>r2dii.plot currently supports three kinds of plots: <code>plot_timeline*()</code>, <code>plot_techmix*()</code>, and <code>plot_trajectory*()</code>. Each plot has specific requirements about the main input – passed to the first argument <code>data</code>. To meet those requirements we currently provide two experimental sets of functions (<a href="https://en.wikipedia.org/wiki/API">API</a>s) – “X” and “Y”. Both APIs can help you get the same basic plots, which you can further customization with ggplot2. Their difference difference is not in what you can do but in how you can do it:</p>
 <ul>
-<li><p>With the “X” API you meet the <code>data</code> requirements mainly with <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code>, and with “internal magic” based on the known structure of r2dii data.</p></li>
-<li><p>With the “Y” API you meet the <code>data</code> requirements with dedicated “preparation” functions (<code>prep_*Y()</code>), for example <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, and with explicit arguments to both the preparation and and plotting functions.</p></li>
+<li><p>With the “X” API you meet the <code>data</code> requirements mainly with <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code>, and with “internal magic” based on the known structure of r2dii data. This API should be best for users who already use dplyr or want to learn it.</p></li>
+<li><p>With the “Y” API you could meet the <code>data</code> requirements with dplyr but you can also use dedicated “preparation” functions (<code>prep_*Y()</code>),, and with explicit arguments to both the preparation and and plotting functions. This API should best for users who do not use dplyr or care about it.</p></li>
 </ul>
-<p>This small example highlights the essence of the differences between the “X” and “Y” API.</p>
+<p>We recognize users and developers have different preferences. Here is how the APIs compare across a number of criteria relevant to them:</p>
+<table class="table">
+<caption>User’s perspective.</caption>
+<colgroup>
+<col width="33%">
+<col width="27%">
+<col width="38%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Criteria</th>
+<th align="left">Thin API “X”</th>
+<th align="left">Thin API, “Y”</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Required knowledge of dplyr and ggplot2</td>
+<td align="left">More</td>
+<td align="left">Less</td>
+</tr>
+<tr class="even">
+<td align="left">Customization possible</td>
+<td align="left">Limitless with dplyr and ggplot2</td>
+<td align="left">Limitless with dplyr, ggplot2, and r2dii.plot</td>
+</tr>
+<tr class="odd">
+<td align="left">Integration with other R workflows</td>
+<td align="left">More</td>
+<td align="left">Less</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<caption>Developer’s perspective.</caption>
+<thead><tr class="header">
+<th align="left">Criteria</th>
+<th align="left">Thin API “X”</th>
+<th align="left">Thin API, “Y”</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Maintenance burden</td>
+<td align="left">Less</td>
+<td align="left">More</td>
+</tr>
+<tr class="even">
+<td align="left">Easy to extend</td>
+<td align="left">More</td>
+<td align="left">Less</td>
+</tr>
+</tbody>
+</table>
+<p>To make the comparison concrete consider this small example. Notice the resulting plot is the same but the toolkit is different.</p>
 <ul>
 <li>“X” API</li>
 </ul>
@@ -175,8 +226,9 @@
   <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2025</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">prep</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X-versus-Y_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">prep</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span> <span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot with the thin 'X' API"</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-X-versus-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <ul>
 <li>“Y” API</li>
 </ul>
@@ -209,8 +261,9 @@
   scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
   main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
   additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X-versus-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span> <span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot with the thick 'Y' API"</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-X-versus-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>For full examples see the dedicated articles <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html">r2dii.plot X</a> and <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html">r2dii.plot Y</a>.</p>
 </div>
   </div>
