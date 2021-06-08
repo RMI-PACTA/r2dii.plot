@@ -1,0 +1,86 @@
+---
+title: "r2dii.plot X versus Y"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The goal of r2dii.plot is to help you plot 2DII data in an informative,
+beautiful, and easy way.
+
+## Installation
+
+You can install the development version of r2dii.plot from
+[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
+
+```r
+# install.packages("devtools")
+devtools::install_github("2DegreesInvesting/r2dii.plot")
+```
+
+## Example
+
+The r2dii.plot package is designed to work smoothly with other "r2dii" packages
+-- [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
+[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
+[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/). It also
+plays well with the popular packages [dplyr](https://www.tidyverse.org/) and
+[ggplot2](https://ggplot2.tidyverse.org/), which help you customize your plots.
+
+```{r setup}
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
+library(r2dii.plot)
+```
+
+Your data typically comes from the output of two functions in the r2dii.analysis
+package:
+[`target_sda()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html)
+and
+[`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html).
+Here you'll use two example datasets that come with r2dii.plot.
+
+```{r}
+sda
+
+market_share
+```
+
+r2dii.plot currently supports three kinds of plots: `plot_timeline*()`,
+`plot_techmix*()`, and `plot_trajectory*()`. Each plot has specific requirements
+about the main input -- passed to the first argument `data`. To meet those
+requirements we currently provide two experimental sets of functions -- or
+Application User Interfaces (APIs), "X" and "Y":
+
+* With the "X" API you meet the `data` requirements with `dplyr::filter()`.
+
+* With the "Y" API you meet the `data` requirements with dedicated "preparation"
+functions (`prep_*Y()`), for example `prep_timelineY()`:
+
+This small example highlights the essence of the differences between the "X" and
+"Y" API.
+
+* "X" API
+
+```{r}
+data <- sda
+prep <- filter(data, sector == "cement")
+plot_timelineX(prep, extrapolate = TRUE)
+```
+
+* "Y" API
+
+```{r}
+data <- sda
+prep <- prep_timelineY(data, sector_filter = "cement", extrapolate = )
+plot_timelineY(prep)
+```
+
+For full examples see the dedicated articles [r2dii.plot
+X](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
+and [r2dii.plot
+Y](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html).
