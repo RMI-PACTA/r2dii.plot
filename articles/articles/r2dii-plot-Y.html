@@ -207,12 +207,54 @@
 <div id="techmix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#techmix" class="anchor"></a>Techmix</h3>
-<p>TODO</p>
+<p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_techmixY.html">prep_techmixY()</a></code>, then plot it with <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code>. <code>prep_techmiY()</code> includes a number of arguments that help you meet the <code>data</code> requirements of <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_techmixY.html">prep_techmixY</a></span><span class="op">(</span>
+  <span class="va">market_share</span>,
+  sector_filter <span class="op">=</span> <span class="st">"power"</span>,
+  years_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">2025</span><span class="op">)</span>,
+  region_filter <span class="op">=</span> <span class="st">"global"</span>,
+  scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
+  scenario_filter <span class="op">=</span> <span class="st">"sds"</span>,
+  value <span class="op">=</span> <span class="st">"technology_share"</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="../../reference/plot_techmixY.html">plot_techmixY</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
-<p>TODO</p>
+<p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, then plot it with <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. As you may expect by now, <code>prep_techmiY()</code> includes arguments to meet the <code>data</code> requirements of <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code>. <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code> inputs a number of data frames which you can create with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">dplyr::tibble()</a></code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
+  <span class="va">market_share</span>,
+  sector_filter <span class="op">=</span> <span class="st">"power"</span>,
+  technology_filter <span class="op">=</span> <span class="st">"renewablescap"</span>,
+  region_filter <span class="op">=</span> <span class="st">"global"</span>,
+  scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
+  value <span class="op">=</span> <span class="st">"production"</span>
+<span class="op">)</span>
+
+<span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  scenario <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sds"</span>, <span class="st">"sps"</span>, <span class="st">"cps"</span><span class="op">)</span>,
+  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SDS"</span>, <span class="st">"STEPS"</span>, <span class="st">"CPS"</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">main_line_metric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"projected"</span>, label <span class="op">=</span> <span class="st">"Portfolio"</span><span class="op">)</span>
+
+<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  metric <span class="op">=</span> <span class="st">"corporate_economy"</span>,
+  label <span class="op">=</span> <span class="st">"Corporate Economy"</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY</a></span><span class="op">(</span>
+  <span class="va">data</span>,
+  scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
+  main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
+  additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
+<span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 </div>
   </div>
