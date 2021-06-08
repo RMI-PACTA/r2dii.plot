@@ -38,6 +38,25 @@ cement <- prep_timelineY(sda, sector_filter = "cement")
 cement <- prep_timelineY(filter(sda, sector == "cement"))
 
 cement
+
+# Default recoding
+plot_timelineY(cement)
+```
+
+You can further polish your plot. Your options are limitless but these are
+some typical things you may do:
+
+* Pick a narrower time range (by filtering your data using `dplyr`).
+* Extrapolate the timeline.
+* Add a title. 
+
+```{r}
+cement <- prep_timelineY(
+  filter(sda, sector == "cement", year >= 2020), 
+  extrapolate = TRUE)
+
+plot_timelineY(cement) + 
+  labs(title = "Timeline plot")
 ```
 
 * `plot_timelineY()` defaults to recoding `line_name` to title case, and allows
@@ -45,8 +64,6 @@ custom recoding and colour setting via a data frame passed to the argument
 `specs`.
 
 ```{r}
-# Default recoding
-plot_timelineY(cement)
 
 # Custom recoding
 custom <- tribble(
