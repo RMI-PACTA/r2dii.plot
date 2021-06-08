@@ -138,15 +138,29 @@
 <span class="co">#&gt;  8 cement 2021-01-01 corporate_economy                 0.670 corporate_ec… 0.670</span>
 <span class="co">#&gt;  9 cement 2022-01-01 corporate_economy                 0.671 corporate_ec… 0.671</span>
 <span class="co">#&gt; 10 cement 2023-01-01 corporate_economy                 0.672 corporate_ec… 0.672</span>
-<span class="co">#&gt; # … with 19 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></code></pre></div>
+<span class="co">#&gt; # … with 19 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span>
+
+<span class="co"># Default recoding</span>
+<span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p>You can further polish your plot. Your options are limitless but these are some typical things you may do:</p>
+<ul>
+<li>Pick a narrower time range (by filtering your data using <code>dplyr</code>).</li>
+<li>Extrapolate the timeline.</li>
+<li>Add a title.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cement</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span>, <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span>, 
+  extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timeline plot"</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <ul>
 <li>
 <code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code> defaults to recoding <code>line_name</code> to title case, and allows custom recoding and colour setting via a data frame passed to the argument <code>specs</code>.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Default recoding</span>
-<span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Custom recoding</span>
@@ -159,7 +173,7 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span>, specs <span class="op">=</span> <span class="va">custom</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 <div id="techmix" class="section level3">
 <h3 class="hasAnchor">
@@ -177,7 +191,7 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_techmixY.html">plot_techmixY</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>You can also add a bunch of customizations (order and choice of bars to show, custom labels, custom colours) using additional <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code> arguments.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_techmixY.html">prep_techmixY</a></span><span class="op">(</span>
@@ -205,7 +219,7 @@
   metric_type_label <span class="op">=</span> <span class="va">metric_type_label</span>,
   tech_colours <span class="op">=</span> <span class="va">tech_colors_custom</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
@@ -239,7 +253,7 @@
   main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
   additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>If you haven’t done so already, please see the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html">article about the “X” API</a>.</p>
 </div>
   </div>
