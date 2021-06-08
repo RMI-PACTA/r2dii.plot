@@ -54,9 +54,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/articles/r2dii-plot-X-versus-Y.html">r2dii.plot X versus Y</a>
-    </li>
-    <li>
       <a href="../../articles/articles/r2dii-plot-X.html">r2dii.plot X</a>
     </li>
     <li>
@@ -187,7 +184,7 @@
 <span class="co">#&gt; # … with 19 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></code></pre></div>
 <ul>
 <li>
-<code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code> defaults to recoding <code>line_name</code> to title case, and allows custom recoding via a data frame passed to the argument <code>specs</code>.</li>
+<code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code> defaults to recoding <code>line_name</code> to title case, and allows custom recoding and color setting via a data frame passed to the argument <code>specs</code>.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default recoding</span>
@@ -228,7 +225,7 @@
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
-<p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, then plot it with <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. As you may expect by now, <code>prep_techmiY()</code> includes arguments to meet the <code>data</code> requirements of <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code>. <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code> inputs a number of data frames which you can create with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">dplyr::tibble()</a></code>.</p>
+<p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, then plot it with <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. As you may expect by now, <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code> includes arguments to meet the <code>data</code> requirements of <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code> inputs a number of data frames which you can create with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">dplyr::tibble()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
