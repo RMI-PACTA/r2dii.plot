@@ -132,6 +132,6 @@ plot_trajectoryX(data, main_line = "projected")
 Use `normalize = FALSE` if you prefer not to normalize to the start year.
 
 ```{r}
-plot_trajectoryX(data, normalize = FALSE)
+plot_trajectoryX(data, main_line = "projected", normalize = FALSE)
 ```
 

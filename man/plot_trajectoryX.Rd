@@ -4,7 +4,7 @@
 \alias{plot_trajectoryX}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectoryX(data, normalize = TRUE)
+plot_trajectoryX(data, normalize = TRUE, main_line = NULL)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -15,6 +15,10 @@ plot_trajectoryX(data, normalize = TRUE)
 }}
 
 \item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
+
+\item{main_line}{String of length 1. The \code{metric} to plot as the line with
+the most visual salience (solid black line). \code{NULL} defaults to
+"projected".}
 }
 \value{
 A "ggplot".

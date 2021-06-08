@@ -4,6 +4,9 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
+#' @param main_line String of length 1. The `metric` to plot as the line with
+#'   the most visual salience (solid black line). `NULL` defaults to
+#'   "projected".
 #' @inheritParams prep_trajectoryY
 #' @inheritParams prep_timelineY
 #'
