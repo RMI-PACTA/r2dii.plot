@@ -1,0 +1,123 @@
+---
+title: "r2dii.plot Y"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This article shows the "Y" API. It assumes you already read the [article
+comparing the "X" and "Y"
+APIs](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X-versus-Y.html).
+
+```{r setup}
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2, warn.conflicts = FALSE)
+library(r2dii.plot)
+```
+
+### Timeline
+
+The timeline plot uses `sda`-like data. First prepare it with
+`prep_timelineY()`, then plot it with `plot_timelineY()`.
+
+Use `prep_timelineY()` to prepare the data. You'll need to subset the data to
+meet the requirements of the `plot_timelineY()`, which you can do with the
+argument `sector_filter`. If you forget, the error message should guide you.
+
+```{r error = TRUE}
+# Fails
+prep_timelineY(sda)
+
+# Works
+cement <- prep_timelineY(sda, sector_filter = "cement")
+# Same
+cement <- prep_timelineY(filter(sda, sector == "cement"))
+
+cement
+```
+
+* `plot_timelineY()` defaults to recoding `line_name` to title case, and allows
+custom recoding and colour setting via a data frame passed to the argument 
+`specs`.
+
+```{r}
+# Default recoding
+plot_timelineY(cement)
+
+# Custom recoding
+custom <- tribble(
+                ~line_name,                  ~label,        ~hex,
+               "projected",                 "Proj.",   "#4a5e54",
+       "corporate_economy",         "Corp. Economy",   "#a63d57",
+             "target_demo",         "Target (demo)",   "#78c4d6",
+  "adjusted_scenario_demo",  "Adj. Scenario (demo)",   "#f2e06e",
+)
+
+plot_timelineY(cement, specs = custom)
+```
+
+### Techmix
+
+The techmix plot uses `market_share`-like data. First prepare it with
+`prep_techmixY()`, then plot it with `plot_techmixY()`. `prep_techmiY()` 
+includes a number of arguments that help you meet the `data` requirements
+of `plot_techmixY()`.
+
+```{r}
+data <- prep_techmixY(
+  market_share,
+  sector_filter = "power",
+  years_filter = c(2020, 2025),
+  region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  scenario_filter = "sds",
+  value = "technology_share"
+)
+
+plot_techmixY(data)
+```
+
+### Trajectory
+
+The techmix plot uses `market_share`-like data. First prepare it with
+`prep_trajectoryY()`, then plot it with `plot_trajectoryY()`. As you may expect
+by now, `prep_trajectoryY()` includes arguments to meet the `data` requirements 
+of `plot_trajectoryY()`. `plot_trajectoryY()` inputs a number of data frames 
+which you can create with `dplyr::tibble()`.
+
+```{r}
+data <- prep_trajectoryY(
+  market_share,
+  sector_filter = "power",
+  technology_filter = "renewablescap",
+  region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  value = "production"
+)
+
+scenario_specs <- tibble(
+  scenario = c("sds", "sps", "cps"),
+  label = c("SDS", "STEPS", "CPS")
+)
+
+main_line_metric <- tibble(metric = "projected", label = "Portfolio")
+
+additional_line_metrics <- tibble(
+  metric = "corporate_economy",
+  label = "Corporate Economy"
+)
+
+plot_trajectoryY(
+  data,
+  scenario_specs_good_to_bad = scenario_specs,
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
+)
+```
+
+If you haven't done so already, please see the [article about the "X"
+API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html).

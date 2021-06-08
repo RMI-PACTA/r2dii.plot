@@ -25,7 +25,6 @@
 #'
 #' @export
 #' @examples
-#' # `plot_trajectoryY()` -------------------------------------------------------
 #' data <- prep_trajectoryY(
 #'   market_share,
 #'   sector_filter = "power",

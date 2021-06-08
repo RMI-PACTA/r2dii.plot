@@ -29,6 +29,7 @@ Imports:
     rlang,
     scales
 Suggests: 
+    rmarkdown,
     covr,
     r2dii.analysis,
     r2dii.match,

@@ -39,7 +39,6 @@ order and labels of scenario data and trajectory lines.
 }
 }
 \examples{
-# `plot_trajectoryY()` -------------------------------------------------------
 data <- prep_trajectoryY(
   market_share,
   sector_filter = "power",
