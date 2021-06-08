@@ -4,8 +4,6 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
-#' @param main String of length 1. `metric` value to plot most prominently, as
-#'   the main trajectory line.
 #' @inheritParams prep_trajectoryY
 #' @inheritParams prep_timelineY
 #'
@@ -26,8 +24,13 @@
 #'     region == "global",
 #'     scenario_source == "demo_2020"
 #'   )
-#' plot_trajectoryX(data, main = "projected")
-plot_trajectoryX <- function(data, main = "projected", normalize = TRUE) {
+#' plot_trajectoryX(data)
+#'
+#' plot_trajectoryX(data, normalize = FALSE)
+plot_trajectoryX <- function(data, normalize = TRUE) {
+  stopifnot("projected" %in% tolower(data$metric))
+  main <- "projected"
+
   prep <- prep_trajectoryB(data, normalize = normalize)
 
   # FIXME: Make it work with values exposed to the user. Now it's not the case.
