@@ -104,63 +104,17 @@
 
     
     
-<p>The goal of r2dii.plot is to help you plot 2DII data in an informative, beautiful, and easy way.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of r2dii.plot from <a href="https://github.com/2DegreesInvesting/r2dii.plot">GitHub</a> with:</p>
+<p>This article shows the “Y” API. It assumes you already read the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X-versus-Y.html">article comparing the “X” and “Y” APIs</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://2degreesinvesting.github.io/r2dii.data/">r2dii.data</a>, <a href="https://2degreesinvesting.github.io/r2dii.match/">r2dii.match</a>, and <a href="https://2degreesinvesting.github.io/r2dii.analysis/">r2dii.analysis</a>. It also plays well with the popular packages <a href="https://www.tidyverse.org/">dplyr</a> and <a href="https://ggplot2.tidyverse.org/">ggplot2</a>, which help you customize your plots.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
-<p>Your data typically comes from the output of two functions in the r2dii.analysis package: <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html"><code>target_sda()</code></a> and <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html"><code>target_market_share()</code></a>. Here you’ll use two example datasets that come with r2dii.plot.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sda</span>
-<span class="co">#&gt; # A tibble: 208 x 4</span>
-<span class="co">#&gt;    sector      year emission_factor_metric emission_factor_value</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;                                  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automotive  2002 projected                              0.228</span>
-<span class="co">#&gt;  2 automotive  2003 projected                              0.226</span>
-<span class="co">#&gt;  3 automotive  2004 projected                              0.224</span>
-<span class="co">#&gt;  4 automotive  2005 projected                              0.222</span>
-<span class="co">#&gt;  5 automotive  2006 projected                              0.220</span>
-<span class="co">#&gt;  6 automotive  2007 projected                              0.218</span>
-<span class="co">#&gt;  7 automotive  2008 projected                              0.216</span>
-<span class="co">#&gt;  8 automotive  2009 projected                              0.214</span>
-<span class="co">#&gt;  9 automotive  2010 projected                              0.212</span>
-<span class="co">#&gt; 10 automotive  2011 projected                              0.210</span>
-<span class="co">#&gt; # … with 198 more rows</span>
-
-<span class="va">market_share</span>
-<span class="co">#&gt; # A tibble: 1,170 x 8</span>
-<span class="co">#&gt;    sector     technology  year region scenario_source metric          production</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automotive electric    2020 global demo_2020       projected          145942.</span>
-<span class="co">#&gt;  2 automotive electric    2020 global demo_2020       corporate_econ…   8134869.</span>
-<span class="co">#&gt;  3 automotive electric    2020 global demo_2020       target_cps         145942.</span>
-<span class="co">#&gt;  4 automotive electric    2020 global demo_2020       target_sds         145942.</span>
-<span class="co">#&gt;  5 automotive electric    2020 global demo_2020       target_sps         145942.</span>
-<span class="co">#&gt;  6 automotive electric    2021 global demo_2020       projected          148212.</span>
-<span class="co">#&gt;  7 automotive electric    2021 global demo_2020       corporate_econ…   8183411.</span>
-<span class="co">#&gt;  8 automotive electric    2021 global demo_2020       target_cps         148361.</span>
-<span class="co">#&gt;  9 automotive electric    2021 global demo_2020       target_sds         160625.</span>
-<span class="co">#&gt; 10 automotive electric    2021 global demo_2020       target_sps         149016.</span>
-<span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
-<p>Before plotting, you need to prepare your data. The following sections show the preparation and plotting workflow for the three kinds of plots that r2dii.plot supports: timeline, techmix, and trajectory.</p>
 <div id="timeline" class="section level3">
 <h3 class="hasAnchor">
 <a href="#timeline" class="anchor"></a>Timeline</h3>
 <p>The timeline plot uses <code>sda</code>-like data. First prepare it with <code><a href="../../reference/prep_timelineY.html">prep_timelineY()</a></code>, then plot it with <code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code>.</p>
 <p>Use <code><a href="../../reference/prep_timelineY.html">prep_timelineY()</a></code> to prepare the data. You’ll need to subset the data to meet the requirements of the <code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code>, which you can do with the argument <code>sector_filter</code>. If you forget, the error message should guide you.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Fails</span>
 <span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
 <span class="co">#&gt; Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span>
@@ -187,13 +141,13 @@
 <span class="co">#&gt; # … with 19 more rows, and 1 more variable: extrapolated &lt;lgl&gt;</span></code></pre></div>
 <ul>
 <li>
-<code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code> defaults to recoding <code>line_name</code> to title case, and allows custom recoding and color setting via a data frame passed to the argument <code>specs</code>.</li>
+<code><a href="../../reference/plot_timelineY.html">plot_timelineY()</a></code> defaults to recoding <code>line_name</code> to title case, and allows custom recoding and colour setting via a data frame passed to the argument <code>specs</code>.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default recoding</span>
 <span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Custom recoding</span>
 <span class="va">custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
@@ -205,13 +159,13 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span>, specs <span class="op">=</span> <span class="va">custom</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
 </div>
 <div id="techmix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#techmix" class="anchor"></a>Techmix</h3>
 <p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_techmixY.html">prep_techmixY()</a></code>, then plot it with <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code>. <code>prep_techmiY()</code> includes a number of arguments that help you meet the <code>data</code> requirements of <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_techmixY.html">prep_techmixY</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
@@ -223,13 +177,13 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_techmixY.html">plot_techmixY</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
 <p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, then plot it with <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. As you may expect by now, <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code> includes arguments to meet the <code>data</code> requirements of <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code> inputs a number of data frames which you can create with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">dplyr::tibble()</a></code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
@@ -257,16 +211,14 @@
   main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
   additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-</div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p>If you haven’t done so already, please see the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html">article about the “X” API</a>.</p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 

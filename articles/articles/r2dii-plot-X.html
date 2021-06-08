@@ -104,69 +104,24 @@
 
     
     
-<p>The goal of r2dii.plot is to help you plot 2DII data in an informative, beautiful, and easy way.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of r2dii.plot from <a href="https://github.com/2DegreesInvesting/r2dii.plot">GitHub</a> with:</p>
+<p>This article shows the “X” API. It assumes you already read the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X-versus-Y.html">article comparing the “X” and “Y” APIs</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://2degreesinvesting.github.io/r2dii.data/">r2dii.data</a>, <a href="https://2degreesinvesting.github.io/r2dii.match/">r2dii.match</a>, and <a href="https://2degreesinvesting.github.io/r2dii.analysis/">r2dii.analysis</a>. It also plays well with the popular packages <a href="https://www.tidyverse.org/">dplyr</a> and <a href="https://ggplot2.tidyverse.org/">ggplot2</a>, which help you customize your plots.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
-<p>Your data typically comes from the output of two functions in the r2dii.analysis package: <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html"><code>target_sda()</code></a> and <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html"><code>target_market_share()</code></a>. Here you’ll use two example datasets that come wiht r2dii.plot.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sda</span>
-<span class="co">#&gt; # A tibble: 208 x 4</span>
-<span class="co">#&gt;    sector      year emission_factor_metric emission_factor_value</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;                                  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automotive  2002 projected                              0.228</span>
-<span class="co">#&gt;  2 automotive  2003 projected                              0.226</span>
-<span class="co">#&gt;  3 automotive  2004 projected                              0.224</span>
-<span class="co">#&gt;  4 automotive  2005 projected                              0.222</span>
-<span class="co">#&gt;  5 automotive  2006 projected                              0.220</span>
-<span class="co">#&gt;  6 automotive  2007 projected                              0.218</span>
-<span class="co">#&gt;  7 automotive  2008 projected                              0.216</span>
-<span class="co">#&gt;  8 automotive  2009 projected                              0.214</span>
-<span class="co">#&gt;  9 automotive  2010 projected                              0.212</span>
-<span class="co">#&gt; 10 automotive  2011 projected                              0.210</span>
-<span class="co">#&gt; # … with 198 more rows</span>
-
-<span class="va">market_share</span>
-<span class="co">#&gt; # A tibble: 1,170 x 8</span>
-<span class="co">#&gt;    sector     technology  year region scenario_source metric          production</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automotive electric    2020 global demo_2020       projected          145942.</span>
-<span class="co">#&gt;  2 automotive electric    2020 global demo_2020       corporate_econ…   8134869.</span>
-<span class="co">#&gt;  3 automotive electric    2020 global demo_2020       target_cps         145942.</span>
-<span class="co">#&gt;  4 automotive electric    2020 global demo_2020       target_sds         145942.</span>
-<span class="co">#&gt;  5 automotive electric    2020 global demo_2020       target_sps         145942.</span>
-<span class="co">#&gt;  6 automotive electric    2021 global demo_2020       projected          148212.</span>
-<span class="co">#&gt;  7 automotive electric    2021 global demo_2020       corporate_econ…   8183411.</span>
-<span class="co">#&gt;  8 automotive electric    2021 global demo_2020       target_cps         148361.</span>
-<span class="co">#&gt;  9 automotive electric    2021 global demo_2020       target_sds         160625.</span>
-<span class="co">#&gt; 10 automotive electric    2021 global demo_2020       target_sps         149016.</span>
-<span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
 <div id="timeline" class="section level3">
 <h3 class="hasAnchor">
 <a href="#timeline" class="anchor"></a>Timeline</h3>
 <p>Use <code><a href="../../reference/plot_timelineX.html">plot_timelineX()</a></code> with <code>sda</code>-like data. You’ll need to pick the specific rows you want to plot. For details see the documented “Requirements” of the argument <code>data</code>, or try intuitively and let the error messages guide you.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/plot_timelineX.html">plot_timelineX</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
 <span class="co">#&gt; Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span></code></pre></div>
 <p>The error message suggests you must first pick only one value of <code>sector</code>, for example “cement”.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sda</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/plot_timelineX.html">plot_timelineX</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Great! You can now polish your plot. Your options are limitless but these are some typical things you may do:</p>
 <ul>
 <li>Pick a narrower time range.</li>
@@ -174,20 +129,20 @@
 <li>Extrapolate the timeline.</li>
 <li>Add a title.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">to_title</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html">toTitleCase</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">sda</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span>, <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>emission_factor_metric <span class="op">=</span> <span class="fu">to_title</span><span class="op">(</span><span class="va">emission_factor_metric</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/plot_timelineX.html">plot_timelineX</a></span><span class="op">(</span>extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timeline plot"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 <div id="techmix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#techmix" class="anchor"></a>Techmix</h3>
 <p>Use <code><a href="../../reference/plot_techmixX.html">plot_techmixX()</a></code> with <code>market_share</code>-like data. Again, learn which rows to pick by reading the documented “Requirements” of the argument <code>data</code>, or by trial and error.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">market_share</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
 <span class="co">#&gt; [1] "projected"         "corporate_economy" "target_cps"       </span>
 <span class="co">#&gt; [4] "target_sds"        "target_sps"</span>
@@ -200,13 +155,13 @@
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../../reference/plot_techmixX.html">plot_techmixX</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Techmix plot"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
 <p>Use <code><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX()</a></code> with <code>market_share</code>-like data. Again, learn which rows to pick by reading the documented “Requirements” of the argument <code>data</code>, or by trial and error.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
     <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>, 
@@ -216,24 +171,22 @@
   <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>Use <code>main_line</code> argument to indicate which trajectory line should be most visually salient (solid black line).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">data</span>, main_line <span class="op">=</span> <span class="st">"projected"</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>Use <code>normalize = FALSE</code> if you prefer not to normalize to the start year.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">data</span>, main_line <span class="op">=</span> <span class="st">"projected"</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-</div>
+<p><img src="r2dii-plot-X_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p>If you haven’t done so already, please see the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html">article about the “Y” API</a>.</p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
