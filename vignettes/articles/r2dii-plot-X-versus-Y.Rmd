@@ -71,6 +71,7 @@ This small example highlights the essence of the differences between the "X" and
 
 ```{r}
 data <- market_share
+
 prep <- filter(
   data,
   sector == "power",
