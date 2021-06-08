@@ -9,50 +9,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of r2dii.plot is to help you plot 2DII data in an informative,
-beautiful, and easy way.
-
-## Installation
-
-You can install the development version of r2dii.plot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
-
-```r
-# install.packages("devtools")
-devtools::install_github("2DegreesInvesting/r2dii.plot")
-```
-
-## Example
-
-The r2dii.plot package is designed to work smoothly with other "r2dii" packages
--- [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
-[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
-[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/). It also
-plays well with the popular packages [dplyr](https://www.tidyverse.org/) and
-[ggplot2](https://ggplot2.tidyverse.org/), which help you customize your plots.
+This article shows the "Y" API. It assumes you already read the [article
+comparing the "X" and "Y"
+APIs](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X-versus-Y.html).
 
 ```{r setup}
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
-
-Your data typically comes from the output of two functions in the r2dii.analysis
-package:
-[`target_sda()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html)
-and
-[`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html).
-Here you'll use two example datasets that come with r2dii.plot.
-
-```{r}
-sda
-
-market_share
-```
-
-Before plotting, you need to prepare your data. The following sections show the
-preparation and plotting workflow for the three kinds of plots that r2dii.plot
-supports: timeline, techmix, and trajectory.
 
 ### Timeline
 
@@ -76,7 +41,7 @@ cement
 ```
 
 * `plot_timelineY()` defaults to recoding `line_name` to title case, and allows
-custom recoding and color setting via a data frame passed to the argument 
+custom recoding and colour setting via a data frame passed to the argument 
 `specs`.
 
 ```{r}
@@ -153,3 +118,6 @@ plot_trajectoryY(
   additional_line_metrics = additional_line_metrics
 )
 ```
+
+If you haven't done so already, please see the [article about the "X"
+API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html).

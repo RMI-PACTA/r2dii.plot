@@ -9,45 +9,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of r2dii.plot is to help you plot 2DII data in an informative,
-beautiful, and easy way.
-
-## Installation
-
-You can install the development version of r2dii.plot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
-
-```r
-# install.packages("devtools")
-devtools::install_github("2DegreesInvesting/r2dii.plot")
-```
-
-## Example
-
-The r2dii.plot package is designed to work smoothly with other "r2dii" packages
--- [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
-[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
-[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/). It also
-plays well with the popular packages [dplyr](https://www.tidyverse.org/) and
-[ggplot2](https://ggplot2.tidyverse.org/), which help you customize your plots.
+This article shows the "X" API. It assumes you already read the [article
+comparing the "X" and "Y"
+APIs](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X-versus-Y.html).
 
 ```{r setup}
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
-```
-
-Your data typically comes from the output of two functions in the
-r2dii.analysis package:
-[`target_sda()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html)
-and
-[`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html).
-Here you'll use two example datasets that come wiht r2dii.plot.
-
-```{r}
-sda
-
-market_share
 ```
 
 ### Timeline
@@ -135,3 +104,5 @@ Use `normalize = FALSE` if you prefer not to normalize to the start year.
 plot_trajectoryX(data, main_line = "projected", normalize = FALSE)
 ```
 
+If you haven't done so already, please see the [article about the "Y"
+API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html).
