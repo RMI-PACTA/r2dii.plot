@@ -77,7 +77,8 @@ prep <- filter(
   sector == "power",
   technology == "renewablescap",
   region == "global",
-  scenario_source == "demo_2020"
+  scenario_source == "demo_2020",
+  year <= 2025
 )
 
 plot_trajectoryX(prep)
