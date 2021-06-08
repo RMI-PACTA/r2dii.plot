@@ -69,8 +69,8 @@ sda %>%
   plot_timelineX()
 ```
 
-Great! You can now polish you plot. Your options are limitless but these are
-some things you may do:
+Great! You can now polish your plot. Your options are limitless but these are
+some typical things you may do:
 
 * Pick a narrower time range.
 * Recode the legend.
@@ -101,7 +101,7 @@ market_share %>%
     sector == "power",
     region == "global"
   ) %>% 
-  plot_techmixX()
+  plot_techmixX() + labs(title = "Techmix plot")
 ```
 
 ### Trajectory
@@ -119,7 +119,14 @@ data <- market_share %>%
     year <= 2025
   )
 
-plot_trajectoryX(data)
+plot_trajectoryX(data) + labs(title = "Trajectory plot")
+```
+
+Use `main_line` argument to indicate which trajectory line should be most 
+visually salient (solid black line).
+
+```{r}
+plot_trajectoryX(data, main_line = "projected")
 ```
 
 Use `normalize = FALSE` if you prefer not to normalize to the start year.
