@@ -33,12 +33,7 @@ plot_trajectoryX <- function(data, normalize = TRUE) {
 
   prep <- prep_trajectoryB(data, normalize = normalize)
 
-  # FIXME: Make it work with values exposed to the user. Now it's not the case.
-  # e.g. exposed metric: "target_sds", current metric: "sds".
-  .metric <- factor(prep$metric, levels = set_first(prep$metric, first = main))
-  ordered <- arrange(mutate(prep, metric = .metric), .data$year, .data$metric)
-
-  plot_trajectoryB(ordered)
+  plot_trajectoryB(prep, main_line = main)
 }
 
 set_first <- function(x, first) {
