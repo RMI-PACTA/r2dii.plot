@@ -55,6 +55,18 @@ sda %>%
   plot_timelineX(extrapolate = TRUE) + labs(title = "Timeline plot")
 ```
 
+You can further customize your plot by adding a custom manual scale using 
+`ggplot` function `scale_colour_manual()` with custom legend labels. 
+
+```{r}
+sda %>% 
+  filter(sector == "cement") %>% 
+  plot_timelineX(extrapolate = TRUE) +
+  scale_color_manual(
+    values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
+    labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)"))
+```
+
 ### Techmix
 
 Use `plot_techmixX()` with `market_share`-like data. Again, learn which rows to
