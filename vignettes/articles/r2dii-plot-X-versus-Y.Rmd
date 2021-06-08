@@ -68,8 +68,8 @@ also use dedicated "preparation" functions (`prep_*Y()`),, and with explicit
 arguments to both the preparation and and plotting functions. This API should
 best for users who do not use dplyr or care about it.
 
-We recognize users and developers have different preferences. Here is how the
-APIs compare across a number of criteria relevant to them:
+Users and developers may have different preferences. The tables below compare
+the X and Y APIs across a number of criteria relevant to them.
 
 ```{r echo=FALSE}
 users <- tibble::tribble(
@@ -78,7 +78,8 @@ users <- tibble::tribble(
   "Customization possible", "Limitless with dplyr and ggplot2", "Limitless with dplyr, ggplot2, and r2dii.plot",
   "Integration with other R workflows", "More", "Less",
 )
-knitr::kable(users, caption = "User's perspective.")
+caption <- "The X and Y APIs compared from a user's perspective."
+knitr::kable(users, caption = caption)
 
 devs <- tibble::tribble(
   ~Criteria, ~`Thin API "X"`, ~`Thin API, "Y"`,
@@ -86,7 +87,8 @@ devs <- tibble::tribble(
   "Easy to extend", "More", "Less",
   
 )
-knitr::kable(devs, caption = "Developer's perspective.")
+caption <- "The X and Y APIs compared from a developer's perspective."
+knitr::kable(devs, caption = caption)
 ```
 
 To make the comparison concrete consider this small example. Notice the
