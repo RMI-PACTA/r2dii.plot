@@ -4,6 +4,9 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
+#' @param main_line String of length 1. The `metric` to plot as the line with
+#'   the most visual salience (solid black line). `NULL` defaults to
+#'   "projected".
 #' @inheritParams prep_trajectoryY
 #' @inheritParams prep_timelineY
 #'
@@ -27,18 +30,18 @@
 #' plot_trajectoryX(data)
 #'
 #' plot_trajectoryX(data, normalize = FALSE)
-plot_trajectoryX <- function(data, normalize = TRUE) {
-  stopifnot("projected" %in% tolower(data$metric))
-  main <- "projected"
+plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
+  if (is.null(main_line)) {
+    stopifnot("projected" %in% tolower(data$metric))
+    main <- "projected"
+  } else {
+    stopifnot(main_line %in% tolower(data$metric))
+    main <- main_line
+  }
 
   prep <- prep_trajectoryB(data, normalize = normalize)
 
-  # FIXME: Make it work with values exposed to the user. Now it's not the case.
-  # e.g. exposed metric: "target_sds", current metric: "sds".
-  .metric <- factor(prep$metric, levels = set_first(prep$metric, first = main))
-  ordered <- arrange(mutate(prep, metric = .metric), .data$year, .data$metric)
-
-  plot_trajectoryB(ordered)
+  plot_trajectoryB(prep, main_line = main)
 }
 
 set_first <- function(x, first) {
