@@ -111,11 +111,19 @@ to pick by reading the documented "Requirements" of the argument `data`, or by
 trial and error.
 
 ```{r}
-market_share %>% 
+data <- market_share %>% 
   filter(
     sector == "power", 
     region == "global", 
     technology == "renewablescap"
-  ) %>% 
-  plot_trajectoryX()
+  )
+
+plot_trajectoryX(data)
 ```
+
+Use `normalize = FALSE` if you prefer not to normalize to the start year.
+
+```{r}
+plot_trajectoryX(data, normalize = FALSE)
+```
+
