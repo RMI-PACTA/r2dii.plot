@@ -4,8 +4,6 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
-#' @param main String of length 1. `metric` value to plot most prominently, as
-#'   the main trajectory line.
 #' @inheritParams prep_trajectoryY
 #' @inheritParams prep_timelineY
 #'

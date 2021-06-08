@@ -15,9 +15,6 @@ plot_trajectoryX(data, normalize = TRUE)
 }}
 
 \item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
-
-\item{main}{String of length 1. \code{metric} value to plot most prominently, as
-the main trajectory line.}
 }
 \value{
 A "ggplot".
