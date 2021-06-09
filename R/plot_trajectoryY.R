@@ -60,17 +60,17 @@ plot_trajectoryY <- function(data,
   abort_if_missing_names(scenario_specs_good_to_bad, "scenario")
   check_number_scenarios(scenario_specs_good_to_bad)
   if (!("label" %in% names(scenario_specs_good_to_bad))) {
-    scenario_specs_good_to_bad$label = scenario_specs_good_to_bad$scenario
+    scenario_specs_good_to_bad$label <- scenario_specs_good_to_bad$scenario
   }
 
   abort_if_missing_names(main_line_metric, "metric")
   if (!("label" %in% names(main_line_metric))) {
-    main_line_metric$label = main_line_metric$metric
+    main_line_metric$label <- main_line_metric$metric
   }
   if (!is.null(additional_line_metrics)) {
     abort_if_missing_names(additional_line_metrics, "metric")
     if (!("label" %in% names(additional_line_metrics))) {
-      additional_line_metrics$label = additional_line_metrics$metric
+      additional_line_metrics$label <- additional_line_metrics$metric
     }
   }
 
