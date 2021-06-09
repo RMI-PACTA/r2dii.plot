@@ -125,7 +125,7 @@ plot_trajectoryX(data) + labs(title = "Trajectory plot")
 ```
 
 Use `main_line` argument to indicate which trajectory line should be most 
-visually salient (solid black line).
+visually salient (solid black line). Without the argument, the first 'metric' in data which is not a scenario is used as a main line.
 
 ```{r}
 plot_trajectoryX(data, main_line = "projected")

@@ -142,11 +142,62 @@ plot_techmixY(
 
 ### Trajectory
 
-The techmix plot uses `market_share`-like data. First prepare it with
+The trajectory plot uses `market_share`-like data. First prepare it with
 `prep_trajectoryY()`, then plot it with `plot_trajectoryY()`. As you may expect
 by now, `prep_trajectoryY()` includes arguments to meet the `data` requirements 
 of `plot_trajectoryY()`. `plot_trajectoryY()` inputs a number of data frames 
-which you can create with `dplyr::tibble()`.
+which you can create with `dplyr::tibble()` or standard `data.frame` and which require you to specify the order of scenarios and order of significance for the trajectory lines.
+
+```{r}
+data <- prep_trajectoryY(
+  market_share,
+  sector_filter = "power",
+  technology_filter = "renewablescap",
+  region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  value = "production"
+)
+
+scenario_specs <- tibble(
+  scenario = c("sds", "sps", "cps")
+)
+
+main_line_metric <- tibble(metric = "projected")
+
+additional_line_metrics <- data.frame(
+  metric = "corporate_economy"
+)
+
+plot_trajectoryY(
+  data,
+  scenario_specs_good_to_bad = scenario_specs,
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
+) + labs(title = "Trajectory plot")
+```
+
+Use `normalize = FALSE` if you prefer not to normalize to the start year.
+
+```{r}
+data <- prep_trajectoryY(
+  market_share,
+  sector_filter = "power",
+  technology_filter = "renewablescap",
+  region_filter = "global",
+  scenario_source_filter = "demo_2020",
+  value = "production",
+  normalize = FALSE
+)
+
+plot_trajectoryY(
+  data,
+  scenario_specs_good_to_bad = scenario_specs,
+  main_line_metric = main_line_metric,
+  additional_line_metrics = additional_line_metrics
+)
+``` 
+
+You can customize the labels in the plot by adding 'label' column to the input data frames/tibbles. 
 
 ```{r}
 data <- prep_trajectoryY(
@@ -165,7 +216,7 @@ scenario_specs <- tibble(
 
 main_line_metric <- tibble(metric = "projected", label = "Portfolio")
 
-additional_line_metrics <- tibble(
+additional_line_metrics <- data.frame(
   metric = "corporate_economy",
   label = "Corporate Economy"
 )
@@ -175,7 +226,7 @@ plot_trajectoryY(
   scenario_specs_good_to_bad = scenario_specs,
   main_line_metric = main_line_metric,
   additional_line_metrics = additional_line_metrics
-)
+) + labs(title = "Trajectory plot")
 ```
 
 If you haven't done so already, please see the [article about the "X"
