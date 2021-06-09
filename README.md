@@ -95,14 +95,14 @@ Both APIs can help you get the same basic plots, which you can further
 customization with ggplot2. Their difference difference is not in what
 you can do but in how you can do it:
 
--   With the “X” API you meet the `data` requirements mainly with
+  - With the “X” API you meet the `data` requirements mainly with
     `dplyr::filter()`, and with “internal magic” based on the known
     structure of r2dii data. This API should be best for users who
     already use dplyr or want to learn it. It allows for slightly less
     customization than “Y” but with the advantage of a much simpler
     interface.
 
--   With the “Y” API you could meet the `data` requirements with dplyr
+  - With the “Y” API you could meet the `data` requirements with dplyr
     but you can also use dedicated “preparation” functions
     (`prep_*Y()`). There are explicit arguments to both the preparation
     and plotting functions which allow for a customization inside the
@@ -114,7 +114,7 @@ Users and developers may have different preferences. The tables below
 compare the X and Y APIs across a number of criteria relevant to them.
 
 | Criteria                                | Thin API “X”                     | Thin API, “Y”                                 |
-|:----------------------------------------|:---------------------------------|:----------------------------------------------|
+| :-------------------------------------- | :------------------------------- | :-------------------------------------------- |
 | Required knowledge of dplyr and ggplot2 | More                             | Less                                          |
 | Customization possible                  | Limitless with dplyr and ggplot2 | Limitless with dplyr, ggplot2, and r2dii.plot |
 | Integration with other R workflows      | More                             | Less                                          |
@@ -122,7 +122,7 @@ compare the X and Y APIs across a number of criteria relevant to them.
 The X and Y APIs compared from a user’s perspective.
 
 | Criteria           | Thin API “X” | Thin API, “Y” |
-|:-------------------|:-------------|:--------------|
+| :----------------- | :----------- | :------------ |
 | Maintenance burden | Less         | More          |
 | Easy to extend     | More         | Less          |
 
@@ -136,7 +136,9 @@ API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot
 articles. Notice the resulting plot is almost the same (except for the
 labels) but the toolkit is different.
 
--   “X” API
+  - “X” API
+
+<!-- end list -->
 
 ``` r
 data <- market_share
@@ -156,7 +158,9 @@ plot_trajectoryX(prep) +
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   “Y” API
+  - “Y” API
+
+<!-- end list -->
 
 ``` r
 data <- market_share
