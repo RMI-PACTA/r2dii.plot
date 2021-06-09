@@ -137,7 +137,7 @@ the X and Y APIs across a number of criteria relevant to them.
 
 \`\`\`{r echo=FALSE}
 
-users &lt;- tibble::tribble(
+users \<- tibble::tribble(
 
 \~Criteria, \~\`Thin API “X”\`, \~\`Thin API, “Y”\`,
 
@@ -150,11 +150,11 @@ with dplyr, ggplot2, and r2dii.plot”,
 
 )
 
-caption &lt;- “The X and Y APIs compared from a user’s perspective.”
+caption \<- “The X and Y APIs compared from a user’s perspective.”
 
 knitr::kable(users, caption = caption)
 
-devs &lt;- tibble::tribble(
+devs \<- tibble::tribble(
 
 \~Criteria, \~\`Thin API “X”\`, \~\`Thin API, “Y”\`,
 
@@ -164,8 +164,7 @@ devs &lt;- tibble::tribble(
 
 )
 
-caption &lt;- “The X and Y APIs compared from a developer’s
-perspective.”
+caption \<- “The X and Y APIs compared from a developer’s perspective.”
 
 knitr::kable(devs, caption = caption)
 
@@ -179,9 +178,9 @@ resulting plot is the same but the toolkit is different.
 
 \`\`\`{r}
 
-data &lt;- market\_share
+data \<- market\_share
 
-prep &lt;- filter(
+prep \<- filter(
 
 data,
 
@@ -193,7 +192,7 @@ region == “global”,
 
 scenario\_source == “demo\_2020”,
 
-year &lt;= 2025
+year \<= 2025
 
 )
 
@@ -207,9 +206,9 @@ labs (title = “Trajectory plot with the thin ‘X’ API”)
 
 \`\`\`{r}
 
-data &lt;- market\_share
+data \<- market\_share
 
-prep &lt;- prep\_trajectoryY(
+prep \<- prep\_trajectoryY(
 
 data,
 
@@ -225,7 +224,7 @@ value = “production”
 
 )
 
-scenario\_specs &lt;- dplyr::tibble(
+scenario\_specs \<- dplyr::tibble(
 
 scenario = c(“sds”, “sps”, “cps”),
 
@@ -233,10 +232,10 @@ label = c(“SDS”, “STEPS”, “CPS”)
 
 )
 
-main\_line\_metric &lt;- dplyr::tibble(metric = “projected”, label =
+main\_line\_metric \<- dplyr::tibble(metric = “projected”, label =
 “Portfolio”)
 
-additional\_line\_metrics &lt;- dplyr::tibble(
+additional\_line\_metrics \<- dplyr::tibble(
 
 metric = “corporate\_economy”,
 
