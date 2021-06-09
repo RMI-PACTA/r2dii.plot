@@ -151,10 +151,11 @@
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cement</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_timelineY.html">prep_timelineY</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span>, <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span>, 
-  extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span>, <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span>,
+  extrapolate <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span>
 
-<span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span> <span class="op">+</span> 
+<span class="fu"><a href="../../reference/plot_timelineY.html">plot_timelineY</a></span><span class="op">(</span><span class="va">cement</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timeline plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <ul>
@@ -190,7 +191,7 @@
   value <span class="op">=</span> <span class="st">"technology_share"</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../../reference/plot_techmixY.html">plot_techmixY</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../../reference/plot_techmixY.html">plot_techmixY</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Techmix plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>You can also add a bunch of customizations (order and choice of bars to show, custom labels, custom colours) using additional <code><a href="../../reference/plot_techmixY.html">plot_techmixY()</a></code> arguments.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -207,25 +208,100 @@
 <span class="va">metric_type_order</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"portfolio_2020"</span>, <span class="st">"benchmark_2020"</span>, <span class="st">"portfolio_2025"</span>, <span class="st">"benchmark_2025"</span>, <span class="st">"scenario_2025"</span><span class="op">)</span>
 <span class="va">metric_type_label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Port. 2020"</span>, <span class="st">"Bench. 2020"</span>, <span class="st">"Port. 2025"</span>, <span class="st">"Bench. 2025"</span>, <span class="st">"Scen. 2025"</span><span class="op">)</span>
 
+<span class="co"># use `dplyr::tibble` for nicer printing options</span>
 <span class="va">tech_colors_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   technology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>,
   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal Cap."</span>, <span class="st">"Oil Cap."</span>, <span class="st">"Gas Cap."</span>, <span class="st">"Nuclear Cap."</span>, <span class="st">"Hydro Cap."</span>, <span class="st">"Renewables Cap."</span><span class="op">)</span>,
   hex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"brown"</span>, <span class="st">"grey"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green4"</span><span class="op">)</span>
 <span class="op">)</span>
+<span class="va">tech_colors_custom</span>
+<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt;   technology    label           hex   </span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt; </span>
+<span class="co">#&gt; 1 coalcap       Coal Cap.       black </span>
+<span class="co">#&gt; 2 oilcap        Oil Cap.        brown </span>
+<span class="co">#&gt; 3 gascap        Gas Cap.        grey  </span>
+<span class="co">#&gt; 4 nuclearcap    Nuclear Cap.    red   </span>
+<span class="co">#&gt; 5 hydrocap      Hydro Cap.      blue  </span>
+<span class="co">#&gt; 6 renewablescap Renewables Cap. green4</span>
+
+<span class="co"># or you can pass a standard data frame (try both in R)</span>
+<span class="va">tech_colors_custom_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  technology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>,
+  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal Cap."</span>, <span class="st">"Oil Cap."</span>, <span class="st">"Gas Cap."</span>, <span class="st">"Nuclear Cap."</span>, <span class="st">"Hydro Cap."</span>, <span class="st">"Renewables Cap."</span><span class="op">)</span>,
+  hex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"brown"</span>, <span class="st">"grey"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green4"</span><span class="op">)</span>,
+  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="va">tech_colors_custom_df</span>
+<span class="co">#&gt;      technology           label    hex</span>
+<span class="co">#&gt; 1       coalcap       Coal Cap.  black</span>
+<span class="co">#&gt; 2        oilcap        Oil Cap.  brown</span>
+<span class="co">#&gt; 3        gascap        Gas Cap.   grey</span>
+<span class="co">#&gt; 4    nuclearcap    Nuclear Cap.    red</span>
+<span class="co">#&gt; 5      hydrocap      Hydro Cap.   blue</span>
+<span class="co">#&gt; 6 renewablescap Renewables Cap. green4</span>
 
 <span class="fu"><a href="../../reference/plot_techmixY.html">plot_techmixY</a></span><span class="op">(</span>
-  <span class="va">data</span>, 
+  <span class="va">data</span>,
   metric_type_order <span class="op">=</span> <span class="va">metric_type_order</span>,
   metric_type_label <span class="op">=</span> <span class="va">metric_type_label</span>,
   tech_colours <span class="op">=</span> <span class="va">tech_colors_custom</span>
-  <span class="op">)</span></code></pre></div>
+<span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div id="trajectory" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
-<p>The techmix plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, then plot it with <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. As you may expect by now, <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code> includes arguments to meet the <code>data</code> requirements of <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code> inputs a number of data frames which you can create with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">dplyr::tibble()</a></code>.</p>
+<p>The trajectory plot uses <code>market_share</code>-like data. First prepare it with <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code>, then plot it with <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. As you may expect by now, <code><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY()</a></code> includes arguments to meet the <code>data</code> requirements of <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code>. <code><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY()</a></code> inputs a number of data frames which you can create with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">dplyr::tibble()</a></code> or standard <code>data.frame</code> and which require you to specify the order of scenarios and order of significance for the trajectory lines.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
+  <span class="va">market_share</span>,
+  sector_filter <span class="op">=</span> <span class="st">"power"</span>,
+  technology_filter <span class="op">=</span> <span class="st">"renewablescap"</span>,
+  region_filter <span class="op">=</span> <span class="st">"global"</span>,
+  scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
+  value <span class="op">=</span> <span class="st">"production"</span>
+<span class="op">)</span>
+
+<span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  scenario <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sds"</span>, <span class="st">"sps"</span>, <span class="st">"cps"</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">main_line_metric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"projected"</span><span class="op">)</span>
+
+<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  metric <span class="op">=</span> <span class="st">"corporate_economy"</span>,
+  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY</a></span><span class="op">(</span>
+  <span class="va">data</span>,
+  scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
+  main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
+  additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
+<span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p>Use <code>normalize = FALSE</code> if you prefer not to normalize to the start year.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
+  <span class="va">market_share</span>,
+  sector_filter <span class="op">=</span> <span class="st">"power"</span>,
+  technology_filter <span class="op">=</span> <span class="st">"renewablescap"</span>,
+  region_filter <span class="op">=</span> <span class="st">"global"</span>,
+  scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
+  value <span class="op">=</span> <span class="st">"production"</span>,
+  normalize <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY</a></span><span class="op">(</span>
+  <span class="va">data</span>,
+  scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
+  main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
+  additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
+<span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p>You can customize the labels in the plot by adding ‘label’ column to the input data frames/tibbles.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   sector_filter <span class="op">=</span> <span class="st">"power"</span>,
@@ -242,9 +318,10 @@
 
 <span class="va">main_line_metric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"projected"</span>, label <span class="op">=</span> <span class="st">"Portfolio"</span><span class="op">)</span>
 
-<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   metric <span class="op">=</span> <span class="st">"corporate_economy"</span>,
-  label <span class="op">=</span> <span class="st">"Corporate Economy"</span>
+  label <span class="op">=</span> <span class="st">"Corporate Economy"</span>,
+  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="../../reference/plot_trajectoryY.html">plot_trajectoryY</a></span><span class="op">(</span>
@@ -252,8 +329,8 @@
   scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
   main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
   additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span></code></pre></div>
+<p><img src="r2dii-plot-Y_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>If you haven’t done so already, please see the <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html">article about the “X” API</a>.</p>
 </div>
   </div>
