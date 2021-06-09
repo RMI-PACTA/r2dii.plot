@@ -26,6 +26,9 @@ should be plotted as the main line; with columns: metric, label.}
 additional metrics that should be plotted as lines; with columns: metric,
 label).}
 }
+\value{
+An object of class "ggplot".
+}
 \description{
 We are exploring different interfaces before release. We are
 keen to hear feedback from beta-testers like you. Please try these

@@ -7,12 +7,12 @@
 #'   * The column `metric` must have a portfolio (e.g. "projected"), a benchmark
 #'   (e.g. "corporate_economy"), and a single `scenario` (e.g. "target_sds").
 #'
-#' @return A "ggplot".
-#' @export
-#'
 #' @family functions with minimal arguments
 #' @seealso [market_share].
 #'
+#' @return An object of class "ggplot".
+#'
+#' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
 #'

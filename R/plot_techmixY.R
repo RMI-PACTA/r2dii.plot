@@ -15,6 +15,8 @@
 #'
 #' @family plotting functions
 #'
+#' @return An object of class "ggplot".
+#'
 #' @export
 #' @examples
 #' data <- prep_techmixY(

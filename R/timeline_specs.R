@@ -3,7 +3,9 @@
 #' @inheritParams plot_timelineY
 #'
 #' @seealso plot_timelineA
+#'
 #' @return A data frame useful as the `specs` argument of [plot_timelineY()].
+#'
 #' @export
 #' @examples
 #' data <- prep_timelineY(sda, sector_filter = "cement")
