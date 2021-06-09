@@ -10,8 +10,6 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot/actions)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 <!-- badges: end -->
 
 The goal of r2dii.plot is to help you plot 2DII data in an informative,
@@ -94,13 +92,13 @@ sets of functions ([API](https://en.wikipedia.org/wiki/API)s) – X and Y.
 Both APIs can help you get the same plots. The difference is not in what
 you can do but in how you can do it:
 
-  - The X API has a simpler interface. It focuses exclusively on the
+-   The X API has a simpler interface. It focuses exclusively on the
     tasks you can’t easily achieve with other packages, and assumes you
     can meet the `data` requirements and customize your plots with other
     packages such as base R, dplyr, and ggplot2. It forces you to learn
     or reuse your existing knowledge of other R packages and workflows.
 
-  - The Y API has a more complex but complete toolkit. It offers more
+-   The Y API has a more complex but complete toolkit. It offers more
     functions and arguments that wrap features from other packages to
     help you meet the `data` requirements and customize your plots
     directly with r2dii.plot. and ggplot2. It forces you to learn the
@@ -111,7 +109,7 @@ These tables summarize the differences for users and developers of
 r2dii.plot:
 
 |                                                | X API               | Y API                                         |
-| :--------------------------------------------- | :------------------ | :-------------------------------------------- |
+|:-----------------------------------------------|:--------------------|:----------------------------------------------|
 | Interface                                      | Simpler             | More complex                                  |
 | Meet `data` requirements                       | With other packages | With r2dii.plot and optionally other packages |
 | Customize plots                                | With other packages | With r2dii.plot and optionally other packages |
@@ -120,7 +118,7 @@ r2dii.plot:
 *The X and Y APIs compared from a user’s perspective.*
 
 |                  | X API | Y API |
-| :--------------- | :---- | :---- |
+|:-----------------|:------|:------|
 | Easy to maintain | Less  | More  |
 | Easy to extend   | More  | Less  |
 
@@ -134,9 +132,7 @@ API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot
 articles. Notice the resulting plot is almost the same (except for the
 labels) but the toolkit is different.
 
-  - X API
-
-<!-- end list -->
+-   X API
 
 ``` r
 data <- market_share
@@ -156,9 +152,7 @@ plot_trajectoryX(prep) +
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - Y API
-
-<!-- end list -->
+-   Y API
 
 ``` r
 data <- market_share
