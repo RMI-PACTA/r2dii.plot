@@ -95,7 +95,7 @@ data <- prep_techmixY(
   value = "technology_share"
 )
 
-plot_techmixY(data)
+plot_techmixY(data) + labs(title = "Techmix plot")
 ```
 
 
@@ -116,11 +116,21 @@ data <- prep_techmixY(
 metric_type_order <- c("portfolio_2020", "benchmark_2020", "portfolio_2025", "benchmark_2025", "scenario_2025")
 metric_type_label <- c("Port. 2020", "Bench. 2020", "Port. 2025", "Bench. 2025", "Scen. 2025")
 
+# use `dplyr::tibble` for nicer printing options
 tech_colors_custom <- tibble(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Nuclear Cap.", "Hydro Cap.", "Renewables Cap."),
   hex = c("black", "brown", "grey", "red", "blue", "green4")
 )
+tech_colors_custom
+
+# or you can pass a standard data frame (try both in R)
+tech_colors_custom_df <- data.frame(
+  technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
+  label = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Nuclear Cap.", "Hydro Cap.", "Renewables Cap."),
+  hex = c("black", "brown", "grey", "red", "blue", "green4")
+)
+tech_colors_custom_df
 
 plot_techmixY(
   data, 
