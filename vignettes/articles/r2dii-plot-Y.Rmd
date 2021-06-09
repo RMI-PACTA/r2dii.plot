@@ -52,10 +52,11 @@ some typical things you may do:
 
 ```{r}
 cement <- prep_timelineY(
-  filter(sda, sector == "cement", year >= 2020), 
-  extrapolate = TRUE)
+  filter(sda, sector == "cement", year >= 2020),
+  extrapolate = TRUE
+)
 
-plot_timelineY(cement) + 
+plot_timelineY(cement) +
   labs(title = "Timeline plot")
 ```
 
@@ -133,11 +134,11 @@ tech_colors_custom_df <- data.frame(
 tech_colors_custom_df
 
 plot_techmixY(
-  data, 
+  data,
   metric_type_order = metric_type_order,
   metric_type_label = metric_type_label,
   tech_colours = tech_colors_custom
-  )
+)
 ```
 
 ### Trajectory
