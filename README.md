@@ -14,239 +14,252 @@ coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph
 status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 <!-- badges: end -->
 
-The goal of r2dii.plot is to provide users with plotting and data
-processing functions that will allow the users to create standard 2DII
-plots using `PACTA_analysis` or banks’ output data as input. The plots
-are in the form of ggplot objects.
+The goal of r2dii.plot is to help you plot 2DII data in an informative,
 
-## Installation
+beautiful, and easy way.
+
+\#\# Installation
 
 You can install the development version of r2dii.plot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("2DegreesInvesting/r2dii.plot")
-```
+[GitHub](%5Bhttps://github.com/2DegreesInvesting/r2dii.plot)\](<https://github.com/2DegreesInvesting/r2dii.plot>))
+with:
 
-[How to minimize installation
-errors?](https://gist.github.com/maurolepore/a0187be9d40aee95a43f20a85f4caed6#installation)
+\`\`\`r
 
-## Example
+\# install.packages(“devtools”)
 
-``` r
+devtools::install\_github(“2DegreesInvesting/r2dii.plot”)
+
+\`\`\`
+
+\#\# Example
+
+The r2dii.plot package is designed to work smoothly with other “r2dii”
+packages
+
+–
+[r2dii.data](%5Bhttps://2degreesinvesting.github.io/r2dii.data/),\](<https://2degreesinvesting.github.io/r2dii.data/>),)
+
+[r2dii.match](%5Bhttps://2degreesinvesting.github.io/r2dii.match/),\](<https://2degreesinvesting.github.io/r2dii.match/>),)
+and
+
+[r2dii.analysis](%5Bhttps://2degreesinvesting.github.io/r2dii.analysis/).\](<https://2degreesinvesting.github.io/r2dii.analysis/>).)
+It also
+
+plays well with the popular packages
+[dplyr](%5Bhttps://www.tidyverse.org/)\](<https://www.tidyverse.org/>))
+and
+
+[ggplot2](%5Bhttps://ggplot2.tidyverse.org/),\](<https://ggplot2.tidyverse.org/>),)
+which help you customize your plots.
+
+\`\`\`{r setup}
+
 library(dplyr, warn.conflicts = FALSE)
+
 library(ggplot2, warn.conflicts = FALSE)
+
 library(r2dii.plot)
-```
 
--   `market_share` dataset imitating the output of
-    ‘r2dii.analysis::target\_market\_share()’.
+\`\`\`
 
-``` r
-market_share
-#> # A tibble: 1,170 x 8
-#>    sector     technology  year region scenario_source metric          production
-#>    <chr>      <chr>      <int> <chr>  <chr>           <chr>                <dbl>
-#>  1 automotive electric    2020 global demo_2020       projected          145942.
-#>  2 automotive electric    2020 global demo_2020       corporate_econ…   8134869.
-#>  3 automotive electric    2020 global demo_2020       target_cps         145942.
-#>  4 automotive electric    2020 global demo_2020       target_sds         145942.
-#>  5 automotive electric    2020 global demo_2020       target_sps         145942.
-#>  6 automotive electric    2021 global demo_2020       projected          148212.
-#>  7 automotive electric    2021 global demo_2020       corporate_econ…   8183411.
-#>  8 automotive electric    2021 global demo_2020       target_cps         148361.
-#>  9 automotive electric    2021 global demo_2020       target_sds         160625.
-#> 10 automotive electric    2021 global demo_2020       target_sps         149016.
-#> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
-```
+Your data typically comes from the output of two functions in the
+r2dii.analysis
 
--   `prep_trajectoryY()`: .
+package:
 
-``` r
-data_trajectory <- prep_trajectoryY(
-  market_share,
-  sector_filter = "power",
-  technology_filter = "oilcap",
-  region_filter = "global",
-  scenario_source_filter = "demo_2020",
-  end_year_filter = 2025,
-  normalize = TRUE
-)
-```
+[\`target\_sda()\`](%5Bhttps://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html)\](<https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html>))
 
--   `plot_trajectoryY()` is an alternative to `plot_trajectoryB()`.
+and
 
-``` r
-# `plot_trajectoryY()` takes more arguments
+[\`target\_market\_share()\`](%5Bhttps://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html).\](<https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html>).)
 
-scenario_specs <- tibble(
-  scenario = c("sds", "sps", "cps"),
-  label = c("SDS", "STEPS", "CPS")
-)
+Here you’ll use two example datasets that come with r2dii.plot.
 
-main_line_metric <- tibble(
-  metric = "projected",
-  label = "Portfolio"
-)
+\`\`\`{r}
 
-additional_line_metrics <- tibble(
-  metric = "corporate_economy",
-  label = "Corporate Economy"
-)
+sda
 
-plot_trajectoryY(
-  data_trajectory,
-  scenario_specs_good_to_bad = scenario_specs,
-  main_line_metric = main_line_metric,
-  additional_line_metrics = additional_line_metrics
-)
-```
+market\_share
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+\`\`\`
 
-``` r
-# more elaborate annotations, title and labels
+r2dii.plot currently supports three kinds of plots:
+\`plot\_timeline\*()\`,
 
-data_trajectory <- prep_trajectoryY(
-  market_share, 
-  sector_filter = "power",
-  technology_filter = "renewablescap",
-  region_filter = "global", 
-  scenario_source_filter = "demo_2020",
-  value = "production", 
-  end_year_filter = 2025,
-  normalize = TRUE
-)
+\`plot\_techmix\*()\`, and \`plot\_trajectory\*()\`. Each plot has
+specific requirements
 
-scenario_specs <- tibble(
-  scenario = c("sds", "sps", "cps"),
-  label = c(
-    "Sustainable Development Scenario", 
-    "Stated Policies Scenario", 
-    "Current Policies Scenario")
+about the main input – passed to the first argument \`data\`. To meet
+those
+
+requirements we currently provide two experimental sets of functions
+
+([API](%5Bhttps://en.wikipedia.org/wiki/API)s)\](<https://en.wikipedia.org/wiki/API)s>))
+– “X” and “Y”. Both APIs can help
+
+you get the same basic plots, which you can further customization with
+ggplot2.
+
+Their difference difference is not in what you can do but in how you can
+do it:
+
+\* With the “X” API you meet the \`data\` requirements mainly with
+
+\`dplyr::filter()\`, and with “internal magic” based on the known
+structure of
+
+r2dii data. This API should be best for users who already use dplyr or
+want to
+
+learn it.
+
+\* With the “Y” API you could meet the \`data\` requirements with dplyr
+but you can
+
+also use dedicated “preparation” functions (\`prep\_\*Y()\`),, and with
+explicit
+
+arguments to both the preparation and and plotting functions. This API
+should
+
+best for users who do not use dplyr or care about it.
+
+Users and developers may have different preferences. The tables below
+compare
+
+the X and Y APIs across a number of criteria relevant to them.
+
+\`\`\`{r echo=FALSE}
+
+users &lt;- tibble::tribble(
+
+\~Criteria, \~\`Thin API “X”\`, \~\`Thin API, “Y”\`,
+
+“Required knowledge of dplyr and ggplot2”, “More”, “Less”,
+
+“Customization possible”, “Limitless with dplyr and ggplot2”, “Limitless
+with dplyr, ggplot2, and r2dii.plot”,
+
+“Integration with other R workflows”, “More”, “Less”,
+
 )
 
-plot <- plot_trajectoryY(data_trajectory,
-  scenario_specs_good_to_bad = scenario_specs,
-  main_line_metric = main_line_metric,
-  additional_line_metrics = additional_line_metrics
+caption &lt;- “The X and Y APIs compared from a user’s perspective.”
+
+knitr::kable(users, caption = caption)
+
+devs &lt;- tibble::tribble(
+
+\~Criteria, \~\`Thin API “X”\`, \~\`Thin API, “Y”\`,
+
+“Maintenance burden”, “Less”, “More”,
+
+“Easy to extend”, “More”, “Less”,
+
 )
 
-plot +
-  ggplot2::theme(
-    plot.margin = ggplot2::unit(c(0.5, 7, 0.5, 0.5), "cm")
-  ) +
-  ggplot2::labs(
-    title = "Production trajectory of Renewables Capacity technology\n in the Power sector",
-    subtitle = "The coloured areas indicate trajectories in reference to a scenario.\n The red area indicates trajectories below any sustainble scenario.",
-    x = "Year",
-    y = "Production rate (normalized to 2020)"
-  )
-```
+caption &lt;- “The X and Y APIs compared from a developer’s
+perspective.”
 
-<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+knitr::kable(devs, caption = caption)
 
--   `prep_techmixY()` .
--   `plot_techmixY()` .
+\`\`\`
 
-``` r
-# Default colours, all data, added title
-sector <- "power"
+To make the comparison concrete consider this small example. Notice the
 
-data <- prep_techmixY(
-  market_share,
-  sector_filter = sector,
-  years_filter = c(2020, 2025),
-  region_filter = "global",
-  scenario_source_filter = "demo_2020",
-  scenario_filter = "sds",
-  value = "technology_share"
+resulting plot is the same but the toolkit is different.
+
+\* “X” API
+
+\`\`\`{r}
+
+data &lt;- market\_share
+
+prep &lt;- filter(
+
+data,
+
+sector == “power”,
+
+technology == “renewablescap”,
+
+region == “global”,
+
+scenario\_source == “demo\_2020”,
+
+year &lt;= 2025
+
 )
 
-plot <- plot_techmixY(data)
-plot +
-  ggplot2::labs(title = "Technology mix for the Power sector")
-```
+plot\_trajectoryX(prep) +
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+labs (title = “Trajectory plot with the thin ‘X’ API”)
 
-``` r
-# Custom colours, all data, no title
-power_colors_custom <- tibble(
-  technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
-  label = c("Coal Capacity", "Oil Capacity", "Gas Capacity", "Nuclear Capacity", "Hydro Capacity", "Renewables Capacity"),
-  hex = palette.colors(n = length(technology), palette = "ggplot2")
+\`\`\`
+
+\* “Y” API
+
+\`\`\`{r}
+
+data &lt;- market\_share
+
+prep &lt;- prep\_trajectoryY(
+
+data,
+
+sector\_filter = “power”,
+
+technology\_filter = “renewablescap”,
+
+region\_filter = “global”,
+
+scenario\_source\_filter = “demo\_2020”,
+
+value = “production”
+
 )
 
-plot <- plot_techmixY(data,
-  tech_colours = power_colors_custom
-)
-plot
-```
+scenario\_specs &lt;- dplyr::tibble(
 
-<img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+scenario = c(“sds”, “sps”, “cps”),
 
-``` r
-# Default colours, selected data and labels (metric_type parameters), added title
+label = c(“SDS”, “STEPS”, “CPS”)
 
-sector <- "automotive"
-
-data <- prep_techmixY(market_share,
-  sector_filter = sector,
-  years_filter = c(2020, 2025), region_filter = "global",
-  scenario_source_filter = "demo_2020",
-  scenario_filter = "sds", value = "technology_share"
 )
 
-metric_type_order = c(
-    "portfolio_2020", "benchmark_2020", "portfolio_2025",
-    "benchmark_2025", "scenario_2025"
+main\_line\_metric &lt;- dplyr::tibble(metric = “projected”, label =
+“Portfolio”)
+
+additional\_line\_metrics &lt;- dplyr::tibble(
+
+metric = “corporate\_economy”,
+
+label = “Corporate Economy”
+
 )
-metric_type_labels = c(
-    "Portfolio 2020", "Benchmark 2020", "Portfolio 2025",
-    "Benchmark 2025", "Target SDS 2025"
-  )
 
-plot <- plot_techmixY(data,
-  metric_type_order = metric_type_order,
-  metric_type_labels = metric_type_labels
-)
-plot +
-  ggplot2::labs(title = "Technology mix for the Automotive sector")
-```
+plot\_trajectoryY(
 
-<img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+prep,
 
--   `prep_timelineY()` .
--   `plot_timelineY()` .
+scenario\_specs\_good\_to\_bad = scenario\_specs,
 
-``` r
-data <- prep_timelineY(sda, sector_filter = "cement", extrapolate = TRUE)
+main\_line\_metric = main\_line\_metric,
 
-# Plot and customize with ggplot2
-plot_timelineY(data) +
-  labs(
-    title = "Emission intensity trend for Cement.",
-    x = "Year",
-    y = "Tons of CO2 per ton",
-    caption = "Dashed line is an extrapolation of the last value in the dataset."
-  )
-```
+additional\_line\_metrics = additional\_line\_metrics
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+) +
 
--   `timeline_specs()` creates the default specs data frame for
-    ‘plot\_timeliney()’.
+labs (title = “Trajectory plot with the thick ‘Y’ API”)
 
-``` r
-# You may use it as a template to create your custom specs
-timeline_specs(data)
-#> # A tibble: 4 x 3
-#>   line_name              label                  hex    
-#>   <chr>                  <chr>                  <chr>  
-#> 1 projected              Projected              #1b324f
-#> 2 corporate_economy      Corporate Economy      #00c082
-#> 3 target_demo            Target Demo            #ff9623
-#> 4 adjusted_scenario_demo Adjusted Scenario Demo #d0d7e1
-```
+\`\`\`
+
+For full examples see the dedicated articles \[r2dii.plot
+
+X\]([https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html))
+
+and \[r2dii.plot
+
+Y\]([https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html).](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html).)
