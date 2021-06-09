@@ -36,8 +36,8 @@ packages –
 [r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/).
 It also plays well with the popular packages
 [dplyr](https://www.tidyverse.org/) and
-[ggplot2](https://ggplot2.tidyverse.org/), which help you customize your
-plots.
+[ggplot2](https://ggplot2.tidyverse.org/), which help you prepare your
+data and customize your plots.
 
 ``` r
 library(dplyr, warn.conflicts = FALSE)
@@ -86,59 +86,55 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-r2dii.plot currently supports three kinds of plots: `plot_timeline*()`,
-`plot_techmix*()`, and `plot_trajectory*()`. Each plot has specific
-requirements about the main input – passed to the first argument `data`.
-To meet those requirements we currently provide two experimental sets of
-functions ([API](https://en.wikipedia.org/wiki/API)s) – “X” and “Y”.
-Both APIs can help you get the same basic plots, which you can further
-customization with ggplot2. Their difference difference is not in what
+r2dii.plot supports three kinds of plots – timeline, techmix, and
+trajectory. Each plot has specific requirements for the first argument
+`data`. To meet those requirements we currently provide two experimental
+sets of functions ([API](https://en.wikipedia.org/wiki/API)s) – X and Y.
+
+Both APIs can help you get the same plots. The difference is not in what
 you can do but in how you can do it:
 
-  - With the “X” API you meet the `data` requirements mainly with
-    `dplyr::filter()`, and with “internal magic” based on the known
-    structure of r2dii data. This API should be best for users who
-    already use dplyr or want to learn it. It allows for slightly less
-    customization than “Y” but with the advantage of a much simpler
-    interface.
+-   The X API has a simpler interface. It focuses exclusively on the
+    tasks you can’t easily achieve with other packages, and assumes you
+    can meet the `data` requirements and customize your plots with other
+    packages such as base R, dplyr, and ggplot2. It forces you to learn
+    or reuse your existing knowledge of other R packages and workflows.
 
-  - With the “Y” API you could meet the `data` requirements with dplyr
-    but you can also use dedicated “preparation” functions
-    (`prep_*Y()`). There are explicit arguments to both the preparation
-    and plotting functions which allow for a customization inside the
-    plotting function of what appears in the plot and how (colours,
-    labels). This API should be best for users who do not use dplyr or
-    care about it.
+-   The Y API has a more complex but complete toolkit. It offers more
+    functions and arguments that wrap features from other packages to
+    help you meet the `data` requirements and customize your plots
+    directly with r2dii.plot. and ggplot2. It forces you to learn the
+    new r2dii.plot way of doing things but requires little knowledge of
+    other packages and workflows.
 
-Users and developers may have different preferences. The tables below
-compare the X and Y APIs across a number of criteria relevant to them.
+The tables below summarize the differences between the two APIs with
+both users and developers in mind.
 
-| Criteria                                | Thin API “X”                     | Thin API, “Y”                                 |
-| :-------------------------------------- | :------------------------------- | :-------------------------------------------- |
-| Required knowledge of dplyr and ggplot2 | More                             | Less                                          |
-| Customization possible                  | Limitless with dplyr and ggplot2 | Limitless with dplyr, ggplot2, and r2dii.plot |
-| Integration with other R workflows      | More                             | Less                                          |
+|                                                | X API               | Y API                                         |
+|:-----------------------------------------------|:--------------------|:----------------------------------------------|
+| Interface                                      | Simpler             | More complex                                  |
+| Meet `data` requirements                       | With other packages | With r2dii.plot and optionally other packages |
+| Customize plots                                | With other packages | With r2dii.plot and optionally other packages |
+| Integrates with other R packages and workflows | More                | Less                                          |
 
-The X and Y APIs compared from a user’s perspective.
+*The X and Y APIs compared from a user’s perspective.*
 
-| Criteria           | Thin API “X” | Thin API, “Y” |
-| :----------------- | :----------- | :------------ |
-| Maintenance burden | Less         | More          |
-| Easy to extend     | More         | Less          |
+|                  | X API | Y API |
+|:-----------------|:------|:------|
+| Easy to maintain | Less  | More  |
+| Easy to extend   | More  | Less  |
 
-The X and Y APIs compared from a developer’s perspective.
+*The X and Y APIs compared from a developer’s perspective.*
 
 To make the comparison concrete consider this small example of a
-trajectory plot (the other plot types you can find in the detailed [“X”
+trajectory plot (the other plot types you can find in the detailed [X
 API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
-and [“Y”
+and [Y
 API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html))
 articles. Notice the resulting plot is almost the same (except for the
 labels) but the toolkit is different.
 
-  - “X” API
-
-<!-- end list -->
+-   X API
 
 ``` r
 data <- market_share
@@ -158,9 +154,7 @@ plot_trajectoryX(prep) +
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - “Y” API
-
-<!-- end list -->
+-   Y API
 
 ``` r
 data <- market_share
