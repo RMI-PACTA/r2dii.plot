@@ -57,7 +57,22 @@ plot_trajectoryY <- function(data,
                              scenario_specs_good_to_bad,
                              main_line_metric,
                              additional_line_metrics = NULL) {
+  abort_if_missing_names(scenario_specs_good_to_bad, "scenario")
   check_number_scenarios(scenario_specs_good_to_bad)
+  if (!("label" %in% names(scenario_specs_good_to_bad))) {
+    scenario_specs_good_to_bad$label = scenario_specs_good_to_bad$scenario
+  }
+
+  abort_if_missing_names(main_line_metric, "metric")
+  if (!("label" %in% names(main_line_metric))) {
+    main_line_metric$label = main_line_metric$metric
+  }
+  if (!is.null(additional_line_metrics)) {
+    abort_if_missing_names(additional_line_metrics, "metric")
+    if (!("label" %in% names(additional_line_metrics))) {
+      additional_line_metrics$label = additional_line_metrics$metric
+    }
+  }
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specs_with_colours(
