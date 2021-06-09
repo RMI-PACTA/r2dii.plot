@@ -128,7 +128,8 @@ tech_colors_custom
 tech_colors_custom_df <- data.frame(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Nuclear Cap.", "Hydro Cap.", "Renewables Cap."),
-  hex = c("black", "brown", "grey", "red", "blue", "green4")
+  hex = c("black", "brown", "grey", "red", "blue", "green4"),
+  stringsAsFactors = FALSE
 )
 tech_colors_custom_df
 
@@ -167,7 +168,8 @@ scenario_specs <- tibble(
 main_line_metric <- tibble(metric = "projected")
 
 additional_line_metrics <- data.frame(
-  metric = "corporate_economy"
+  metric = "corporate_economy",
+  stringsAsFactors = FALSE
 )
 
 plot_trajectoryY(
@@ -221,7 +223,8 @@ main_line_metric <- tibble(metric = "projected", label = "Portfolio")
 
 additional_line_metrics <- data.frame(
   metric = "corporate_economy",
-  label = "Corporate Economy"
+  label = "Corporate Economy",
+  stringsAsFactors = FALSE
 )
 
 plot_trajectoryY(
