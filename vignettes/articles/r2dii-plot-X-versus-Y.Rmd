@@ -61,12 +61,15 @@ Their difference difference is not in what you can do but in how you can do it:
 * With the "X" API you meet the `data` requirements mainly with
 `dplyr::filter()`, and with "internal magic" based on the known structure of
 r2dii data. This API should be best for users who already use dplyr or want to
-learn it.
+learn it. It allows for slightly less customization than "Y" but with the
+advantage of a much simpler interface.
 
 * With the "Y" API you could meet the `data` requirements with dplyr but you can
-also use dedicated "preparation" functions (`prep_*Y()`),, and with explicit
-arguments to both the preparation and and plotting functions. This API should
-best for users who do not use dplyr or care about it.
+also use dedicated "preparation" functions (`prep_*Y()`). There are explicit
+arguments to both the preparation and plotting functions which allow for a
+customization inside the plotting function of what appears in the plot and how
+(colours, labels). This API should be best for users who do not use dplyr or
+care about it.
 
 Users and developers may have different preferences. The tables below compare
 the X and Y APIs across a number of criteria relevant to them.
@@ -91,8 +94,13 @@ caption <- "The X and Y APIs compared from a developer's perspective."
 knitr::kable(devs, caption = caption)
 ```
 
-To make the comparison concrete consider this small example. Notice the
-resulting plot is the same but the toolkit is different.
+To make the comparison concrete consider this small example of a trajectory plot
+(the other plot types you can find in the detailed ["X"
+API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
+and ["Y"
+API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html))
+articles. Notice the resulting plot is almost the same (except for the labels)
+but the toolkit is different.
 
 * "X" API
 
