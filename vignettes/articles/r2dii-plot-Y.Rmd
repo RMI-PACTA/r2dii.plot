@@ -116,22 +116,13 @@ data <- prep_techmixY(
 metric_type_order <- c("portfolio_2020", "benchmark_2020", "portfolio_2025", "benchmark_2025", "scenario_2025")
 metric_type_label <- c("Port. 2020", "Bench. 2020", "Port. 2025", "Bench. 2025", "Scen. 2025")
 
-# use `dplyr::tibble` for nicer printing options
-tech_colors_custom <- tibble(
-  technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
-  label = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Nuclear Cap.", "Hydro Cap.", "Renewables Cap."),
-  hex = c("black", "brown", "grey", "red", "blue", "green4")
-)
-tech_colors_custom
-
-# or you can pass a standard data frame (try both in R)
-tech_colors_custom_df <- data.frame(
+tech_colors_custom <- data.frame(
   technology = c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap"),
   label = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Nuclear Cap.", "Hydro Cap.", "Renewables Cap."),
   hex = c("black", "brown", "grey", "red", "blue", "green4"),
   stringsAsFactors = FALSE
 )
-tech_colors_custom_df
+tech_colors_custom
 
 plot_techmixY(
   data,
@@ -147,9 +138,8 @@ The trajectory plot uses `market_share`-like data. First prepare it with
 `prep_trajectoryY()`, then plot it with `plot_trajectoryY()`. As you may expect
 by now, `prep_trajectoryY()` includes arguments to meet the `data` requirements
 of `plot_trajectoryY()`. `plot_trajectoryY()` inputs a number of data frames
-which you can create with `dplyr::tibble()` or standard `data.frame` and which
-require you to specify the order of scenarios and order of significance for the
-trajectory lines.
+which require you to specify the order of scenarios and order of significance
+for the trajectory lines.
 
 ```{r}
 data <- prep_trajectoryY(
@@ -161,11 +151,12 @@ data <- prep_trajectoryY(
   value = "production"
 )
 
-scenario_specs <- tibble(
-  scenario = c("sds", "sps", "cps")
+scenario_specs <- data.frame(
+  scenario = c("sds", "sps", "cps"),
+  stringsAsFactors = FALSE
 )
 
-main_line_metric <- tibble(metric = "projected")
+main_line_metric <- data.frame(metric = "projected", stringsAsFactors = FALSE)
 
 additional_line_metrics <- data.frame(
   metric = "corporate_economy",
@@ -202,7 +193,7 @@ plot_trajectoryY(
 ``` 
 
 You can customize the labels in the plot by adding 'label' column to the input
-data frames/tibbles.
+data frames.
 
 ```{r}
 data <- prep_trajectoryY(
@@ -214,12 +205,17 @@ data <- prep_trajectoryY(
   value = "production"
 )
 
-scenario_specs <- tibble(
+scenario_specs <- data.frame(
   scenario = c("sds", "sps", "cps"),
-  label = c("SDS", "STEPS", "CPS")
+  label = c("SDS", "STEPS", "CPS"),
+  stringsAsFactors = FALSE
 )
 
-main_line_metric <- tibble(metric = "projected", label = "Portfolio")
+main_line_metric <- data.frame(
+  metric = "projected", 
+  label = "Portfolio",
+  stringsAsFactors = FALSE
+)
 
 additional_line_metrics <- data.frame(
   metric = "corporate_economy",
