@@ -4,8 +4,7 @@
 \name{r2dii.plot-package}
 \alias{r2dii.plot}
 \alias{r2dii.plot-package}
-\title{r2dii.plot: Visualize Climate Scenario Alignment of Financial Portfolios
-    Portfolios}
+\title{r2dii.plot: Visualize Climate Scenario Alignment of Financial Portfolios}
 \description{
 These tools help you to assess if a financial portfolio
     aligns with climate goals. They visualize key climate indicators
