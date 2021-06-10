@@ -35,7 +35,7 @@ check_prep_techmixB <- function(data, value) {
   abort_if_missing_names(data, crucial)
 
   cols <- c("scenario_source", "sector", "region")
-  lapply(cols, function(x) abort_multiple(data, x))
+  lapply(cols, function(x) abort_if_multiple(data, x))
 
   abort_bad_metric(data$metric)
 
@@ -94,7 +94,7 @@ check_prep_trajectoryB <- function(data, value, normalize) {
   stopifnot(is.logical(normalize))
 
   cols <- c("sector", "technology", "region", "scenario_source")
-  lapply(cols, function(x) abort_multiple(data, x))
+  lapply(cols, function(x) abort_if_multiple(data, x))
 
   invisible(data)
 }
@@ -310,9 +310,9 @@ plot_trajectoryB <- function(data, main_line = NULL) {
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
   data_lines_end <- data_lines %>%
-        filter(
-          .data$year == last_year
-        )
+    filter(
+      .data$year == last_year
+    )
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(

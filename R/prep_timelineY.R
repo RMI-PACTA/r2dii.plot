@@ -48,7 +48,7 @@ prep_timelineY <- function(data,
     abort_if_invalid_length(sector_filter, 1L)
     data <- filter(data, .data$sector == sector_filter)
   }
-  abort_multiple(data, "sector")
+  abort_if_multiple(data, "sector")
 
   start_year <- get_common_start_year(data, metric)
   data <- filter(data, .data$year >= start_year)

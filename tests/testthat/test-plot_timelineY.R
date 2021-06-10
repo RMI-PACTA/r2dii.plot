@@ -62,10 +62,7 @@ test_that("plots year as 'Date'", {
   expect_s3_class(year, "Date")
 })
 
-test_that("with data with multiple sectors throws an error", {
+test_that("with multiple sectors errors gracefully", {
   too_many_sectors <- fake_timeline_data(sector = c("automotive", "steel"))
-  expect_error(
-    class = "too_many_sectors",
-    plot_timelineY(too_many_sectors)
-  )
+  expect_snapshot_error(plot_timelineY(too_many_sectors))
 })

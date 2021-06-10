@@ -71,3 +71,18 @@ abort_if_invalid_length <- function(x, valid = 1L) {
 
   invisible(x)
 }
+
+abort_if_multiple <- function(data, x) {
+  .data <- deparse1(substitute(data, env = parent.frame()))
+
+  .x <- unique(data[[x]])
+  if (length(.x) > 1L) {
+    abort(glue(
+      "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
+      Pick one value, e.g. '{first(.x)}', with:
+        dplyr::filter({.data}, {x} == '{first(.x)}')"
+    ))
+  }
+
+  invisible(data)
+}
