@@ -21,7 +21,18 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Monika Furdyna \email{monika.furdyna@gmail.com}
+\strong{Maintainer}: Monika Furdyna \email{monika.furdyna@gmail.com} (\href{https://orcid.org/0000-0002-3728-0646}{ORCID}) [contractor]
+
+Authors:
+\itemize{
+  \item Mauro Lepore \email{maurolepore@gmail.com} (\href{https://orcid.org/0000-0002-1986-7988}{ORCID}) [contractor]
+  \item Alex Axthelm \email{alex@2degrees-investing.org} [contractor]
+}
+
+Other contributors:
+\itemize{
+  \item 2 Degrees Investing Initiative \email{contact@2degrees-investing.org} [copyright holder, funder]
+}
 
 }
 \keyword{internal}
