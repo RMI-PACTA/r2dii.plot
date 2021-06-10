@@ -4,14 +4,14 @@
 \name{r2dii.plot-package}
 \alias{r2dii.plot}
 \alias{r2dii.plot-package}
-\title{r2dii.plot: Visualize Climate Scenario Alignment of Corporate Lending
+\title{r2dii.plot: Visualize Climate Scenario Alignment of Financial Portfolios
     Portfolios}
 \description{
-These tools help you to assess if a corporate lending
-    portfolio aligns with climate goals. They visualize key climate
-    indicators attributed to the portfolio (e.g. production, emission
-    factors), and calculate alignment targets based on climate scenarios.
-    They implement in R the last step of the free software 'PACTA' (Paris
+These tools help you to assess if a financial portfolio
+    aligns with climate goals. They visualize key climate indicators
+    attributed to the portfolio (e.g. production, emission factors), and
+    calculate alignment targets based on climate scenarios.  They
+    implement in R the last step of the free software 'PACTA' (Paris
     Agreement Capital Transition Assessment;
     <https://2degrees-investing.org/>). Financial institutions use 'PACTA'
     to study how their capital allocation decisions align with climate
@@ -26,7 +26,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Monika Furdyna \email{maurolepore@gmail.com}
+\strong{Maintainer}: Monika Furdyna \email{monika.furdyna@gmail.com}
 
 }
 \keyword{internal}
