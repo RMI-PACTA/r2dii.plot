@@ -12,8 +12,8 @@
 #' @seealso [sda].
 #'
 #' @return Data frame with columns: year, line_name, value, extrapolated.
-#' @export
 #'
+#' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
 #'

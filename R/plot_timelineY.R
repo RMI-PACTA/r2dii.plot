@@ -15,6 +15,7 @@
 #' allows custom recoding via a data frame passed to the argument `specs`.
 #'
 #' @seealso [sda], [timeline_specs].
+#'
 #' @return An object of class "ggplot".
 #'
 #' @export

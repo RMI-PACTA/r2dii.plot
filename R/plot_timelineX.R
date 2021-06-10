@@ -6,12 +6,12 @@
 #' @inheritParams prep_timelineY
 #' @inheritParams plot_timelineY
 #'
-#' @return A "ggplot".
-#' @export
-#'
 #' @family functions with minimal arguments
 #' @seealso [sda].
 #'
+#' @return An object of class "ggplot".
+#'
+#' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
 #'

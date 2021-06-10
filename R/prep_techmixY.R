@@ -9,6 +9,8 @@
 #' @param scenario_filter String of length 1. Scenario to pick from the `data`.
 #' @inheritParams prep_timelineY
 #'
+#' @return An object of class "ggplot".
+#'
 #' @export
 #' @examples
 #' prep_techmixY(
