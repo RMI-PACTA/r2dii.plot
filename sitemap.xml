@@ -7,9 +7,6 @@
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/market_share.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/palette_colours.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/pipe.html</loc>
   </url>
   <url>
@@ -41,6 +38,9 @@
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/r2dii.plot-package.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/r2dii_colours.html</loc>
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/sda.html</loc>
