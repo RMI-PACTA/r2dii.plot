@@ -20,8 +20,10 @@ abort_if_missing_names <- function(x, expected_names) {
     missing_names <- sort(setdiff(expected_names, names(x)))
     abort(
       class = "missing_names",
-      glue("Must have missing names:
-      {toString(missing_names)}")
+      glue(
+        "Must have missing names:
+        {toString(missing_names)}"
+      )
     )
   }
 
