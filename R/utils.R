@@ -73,7 +73,7 @@ abort_if_invalid_length <- function(x, valid = 1L) {
 }
 
 abort_if_multiple <- function(data, x) {
-  .data <- deparse1(substitute(data, env = parent.frame()))
+  .data <- deparse_1(substitute(data, env = parent.frame()))
 
   .x <- unique(data[[x]])
   if (length(.x) > 1L) {
@@ -85,4 +85,9 @@ abort_if_multiple <- function(data, x) {
   }
 
   invisible(data)
+}
+
+# Backport `base::deparse1()` to R < 4.0.0
+deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
+  paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
