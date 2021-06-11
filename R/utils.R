@@ -60,9 +60,8 @@ abort_bad_metric <- function(x) {
 }
 
 abort_if_invalid_length <- function(x, valid = 1L) {
-  .x <- as.character(substitute(x))
-  long <- !length(x) == valid
-  if (long) {
+  .x <- deparse_1(substitute(x))
+  if (!length(x) == valid) {
     abort(
       class = "invalid_length",
       glue("`{.x}` must be of length {valid}, not {length(x)}.")
