@@ -22,3 +22,9 @@
 
     is.character(sector_filter) is not TRUE
 
+# with multiple values of `sector` errors gracefully
+
+    `too_many_sectors` must have a single value of `sector` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(too_many_sectors, sector == 'a')
+

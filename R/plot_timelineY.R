@@ -45,7 +45,7 @@
 #' plot_timelineY(data, specs = custom)
 plot_timelineY <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
-  abort_if_too_many_sectors(data)
+  abort_if_multiple(data, "sector")
   data <- left_join(data, specs, by = "line_name")
 
   ggplot() +
@@ -88,18 +88,6 @@ check_specs <- function(specs, data) {
   }
 
   invisible(specs)
-}
-
-abort_if_too_many_sectors <- function(data) {
-  sectors <- unique(data$sector)
-  if (length(sectors) > 1L) {
-    abort(
-      class = "too_many_sectors",
-      glue("`data` must have a single sector. It has: {toString(sectors)}")
-    )
-  }
-
-  invisible(data)
 }
 
 factor_to_character <- function(data) {

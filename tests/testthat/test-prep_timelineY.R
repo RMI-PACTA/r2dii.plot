@@ -112,3 +112,8 @@ test_that("starts from common start year", {
 
   expect_gte(prep, raw)
 })
+
+test_that("with multiple values of `sector` errors gracefully", {
+  too_many_sectors <- mutate(head(sda, 2), sector = c("a", "b"))
+  expect_snapshot_error(prep_timelineY(too_many_sectors, "sector"))
+})
