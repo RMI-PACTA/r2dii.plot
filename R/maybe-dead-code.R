@@ -37,7 +37,7 @@ check_prep_techmixB <- function(data, value) {
   cols <- c("scenario_source", "sector", "region")
   lapply(cols, function(x) abort_if_multiple(data, x))
 
-  abort_bad_metric(data$metric)
+  abort_if_bad_metric(data$metric)
 
   invisible(data)
 }

@@ -50,7 +50,7 @@ recode_portfolio_benchmark_scenario <- function(x) {
   )
 }
 
-abort_bad_metric <- function(x) {
+abort_if_bad_metric <- function(x) {
   has_projected <- "projected" %in% x
   if (!has_projected) abort("Can't find values to recode as 'portfolio'.")
   has_scenarios <- any(startsWith(x, "target"))
