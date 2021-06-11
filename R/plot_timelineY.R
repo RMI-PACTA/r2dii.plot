@@ -45,7 +45,6 @@
 #' plot_timelineY(data, specs = custom)
 plot_timelineY <- function(data, specs = timeline_specs(data)) {
   check_specs(specs, data)
-  # abort_if_too_many_sectors(data)
   abort_if_multiple(data, "sector")
   data <- left_join(data, specs, by = "line_name")
 
