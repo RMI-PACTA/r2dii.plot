@@ -115,7 +115,9 @@
 <p>Use <code><a href="../../reference/plot_timelineX.html">plot_timelineX()</a></code> with <code>sda</code>-like data. You’ll need to pick the specific rows you want to plot. For details see the documented “Requirements” of the argument <code>data</code>, or try intuitively and let the error messages guide you.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/plot_timelineX.html">plot_timelineX</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
-<span class="co">#&gt; Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span></code></pre></div>
+<span class="co">#&gt; Error: `data` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span>
+<span class="co">#&gt; Pick one value, e.g. 'automotive', with:</span>
+<span class="co">#&gt;   dplyr::filter(data, sector == 'automotive')</span></code></pre></div>
 <p>The error message suggests you must first pick only one value of <code>sector</code>, for example “cement”.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sda</span> <span class="op">%&gt;%</span> 
