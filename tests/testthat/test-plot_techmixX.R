@@ -32,7 +32,7 @@ test_that("with too many scenarios errors gracefully", {
   )
 })
 
-test_that("with too many scenarios errors gracefully", {
+test_that("with too few scenarios errors gracefully", {
   too_few <- head(market_share, 2L)
   too_few$metric <- c("projected", "corporate_economy")
 
