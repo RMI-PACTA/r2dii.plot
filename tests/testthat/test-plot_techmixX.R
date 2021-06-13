@@ -13,6 +13,13 @@ test_that("outputs the expected ggplot object", {
   expect_snapshot(str(p))
 })
 
+test_that("without a `data` frame errors gracefully", {
+  expect_error(plot_techmixX(1), "data.frame.*not")
+})
+test_that("without `market_share` data errors gracefully", {
+
+})
+
 test_that("with too many scenarios errors gracefully", {
   too_many <- head(market_share, 4L)
   too_many$metric <- c("projected", "corporate_economy", "target_a", "target_b")
