@@ -27,6 +27,7 @@
 #' plot_techmixX(data)
 plot_techmixX <- function(data) {
   stopifnot(is.data.frame(data))
+  abort_if_multiple(data, "sector")
 
   prep <- hint_if_missing_names(
     prep_techmixB(data)

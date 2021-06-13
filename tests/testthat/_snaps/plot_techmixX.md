@@ -579,3 +579,15 @@
     metric, region, scenario_source, technology_share
     Is your data `market_share`-like? See `data` requirements at `?plot_techmix`.
 
+# with too many sectors errors gracefully
+
+    `bad_sector` must have a single value of `sector` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(bad_sector, sector == 'a')
+
+# with too many regions errors gracefully
+
+    `data` must have a single value of `region` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(data, region == 'a')
+

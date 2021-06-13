@@ -17,8 +17,22 @@ test_that("without a `data` frame errors gracefully", {
   expect_error(plot_techmixX(1), "data.frame.*not")
 })
 test_that("without `market_share` data errors gracefully", {
-  bad <- sda
-  expect_snapshot_error(plot_techmixX(bad))
+  bad_kind <- filter(sda, sector == first(sector))
+  expect_snapshot_error(plot_techmixX(bad_kind))
+})
+
+test_that("with too many sectors errors gracefully", {
+  bad_sector <- head(market_share, 2L)
+  bad_sector$sector <- c("a", "b")
+  expect_snapshot_error(plot_techmixX(bad_sector))
+})
+
+test_that("with too many regions errors gracefully", {
+  bad_region <- head(market_share, 2L)
+  bad_region$region <- c("a", "b")
+  expect_snapshot_error(
+    plot_techmixX(bad_region)
+  )
 })
 
 test_that("with too many scenarios errors gracefully", {
