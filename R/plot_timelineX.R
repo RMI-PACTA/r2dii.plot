@@ -30,11 +30,3 @@ plot_timelineX <- function(data, extrapolate = FALSE) {
   prep <- prep_timelineY(data, extrapolate = extrapolate)
   plot_timelineB(prep)
 }
-
-abort_if_has_cero_rows <- function(data) {
-  .data <- deparse_1(substitute(data, env = parent.frame()))
-  if (nrow(data) == 0L) {
-    abort(glue("`{.data}` must have some rows but has none."))
-  }
-  invisible(data)
-}
