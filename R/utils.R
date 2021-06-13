@@ -99,3 +99,21 @@ abort_if_has_cero_rows <- function(data) {
 
   invisible(data)
 }
+
+hint_if_missing_names <- function(expr) {
+  .expr <- deparse_1(substitute(expr))
+  fun <- gsub("(.*)\\(.*", "\\1", .expr)
+  kind <- ifelse(grepl("timeline", fun), "sda", "market_share")
+
+  rlang::with_handlers(
+    expr,
+    missing_names = function(e) {
+      abort(glue(
+        "{conditionMessage(e)}
+        Is your data `{kind}`-like? See `data` requirements at `?{fun}`."
+      ))
+    }
+  )
+
+  invisible(expr)
+}

@@ -20,6 +20,9 @@
 #' plot_timelineX(data)
 plot_timelineX <- function(data, extrapolate = FALSE) {
   abort_if_has_cero_rows(data)
-  prep <- prep_timelineY(data, extrapolate = extrapolate)
+  prep <- hint_if_missing_names(
+    prep_timelineY(data, extrapolate = extrapolate)
+  )
   plot_timelineB(prep)
 }
+
