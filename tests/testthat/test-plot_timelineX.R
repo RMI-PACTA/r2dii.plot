@@ -19,8 +19,14 @@ test_that("with data other than sda errors gracefully", {
   expect_snapshot_error(plot_timelineX(bad))
 })
 
+test_that("with cero-row data errors gracefully", {
+  cero_row <- sda[0L, ]
+  expect_snapshot_error(plot_timelineX(cero_row))
+})
+
 test_that("with too many sectors errors gracefully", {
   data <- head(sda, 2)
   data$sector <- c("a", "b")
   expect_snapshot_error(plot_timelineX(data))
 })
+
