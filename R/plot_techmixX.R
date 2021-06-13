@@ -28,7 +28,9 @@
 plot_techmixX <- function(data) {
   stopifnot(is.data.frame(data))
 
-  prep <- prep_techmixB(data)
+  prep <- hint_if_missing_names(
+    prep_techmixB(data)
+  )
   found_scenarios <- pull_scenarios(prep)
   abort_if_invalid_length(found_scenarios)
 
