@@ -102,7 +102,7 @@ abort_if_has_cero_rows <- function(data) {
 
 hint_if_missing_names <- function(expr) {
   .expr <- deparse_1(substitute(expr))
-  fun <- gsub("(.*)\\(.*", "\\1", .expr)
+  fun <- format_plot_function_name(.expr)
   kind <- ifelse(grepl("timeline", fun), "sda", "market_share")
 
   rlang::with_handlers(
@@ -116,4 +116,12 @@ hint_if_missing_names <- function(expr) {
   )
 
   invisible(expr)
+}
+
+format_plot_function_name <- function(.expr) {
+  # Matches "fun_name" from "fun_name(...)"
+  fun <- gsub("(.*)\\(.*", "\\1", .expr)
+  # Matches "_name" from "fun_nameZ"
+  fun <- gsub(".*_(.*)[A-Z]", "\\1", fun)
+  fun <- glue("plot_{fun}")
 }

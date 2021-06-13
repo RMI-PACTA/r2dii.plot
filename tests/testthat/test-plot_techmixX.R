@@ -18,7 +18,7 @@ test_that("without a `data` frame errors gracefully", {
 })
 test_that("without `market_share` data errors gracefully", {
   bad <- sda
-  plot_techmixX(bad)
+  expect_snapshot_error(plot_techmixX(bad))
 })
 
 test_that("with too many scenarios errors gracefully", {

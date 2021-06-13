@@ -573,3 +573,9 @@
         .. ..- attr(*, "class")= chr [1:2] "guide" "legend"
        - attr(*, "class")= chr [1:2] "gg" "ggplot"
 
+# without `market_share` data errors gracefully
+
+    Must have missing names:
+    metric, region, scenario_source, technology_share
+    Is your data `market_share`-like? See `data` requirements at `?plot_techmix`.
+
