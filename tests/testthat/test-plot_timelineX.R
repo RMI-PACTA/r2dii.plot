@@ -15,7 +15,7 @@ test_that("outputs the expected ggplot object", {
 })
 
 test_that("with data other than sda errors gracefully", {
-  bad <- market_share
+  bad <- head(market_share, 1L)
   expect_snapshot_error(plot_timelineX(bad))
 })
 
