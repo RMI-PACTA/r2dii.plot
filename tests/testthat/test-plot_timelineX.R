@@ -19,6 +19,14 @@ test_that("with data other than sda errors gracefully", {
   expect_snapshot_error(plot_timelineX(bad))
 })
 
+test_that("with data other than sda errors gracefully", {
+  bad <- head(market_share, 1L)
+  expect_error(
+    regexp = "sda.*data",
+    plot_timelineX(bad)
+  )
+})
+
 test_that("with cero-row data errors gracefully", {
   cero_row <- sda[0L, ]
   expect_snapshot_error(plot_timelineX(cero_row))

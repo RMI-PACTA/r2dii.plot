@@ -96,5 +96,6 @@ abort_if_has_cero_rows <- function(data) {
   if (nrow(data) == 0L) {
     abort(glue("`{.data}` must have some rows but has none."))
   }
+
   invisible(data)
 }
