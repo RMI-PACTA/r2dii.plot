@@ -13,3 +13,9 @@ test_that("outputs the expected ggplot object", {
   p$plot_env <- NULL
   expect_snapshot(str(p))
 })
+
+test_that("with too many sectors errors gracefully", {
+  data <- head(sda, 2)
+  data$sector <- c("a", "b")
+  expect_snapshot_error(plot_timelineX(data))
+})
