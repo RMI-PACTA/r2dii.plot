@@ -587,7 +587,13 @@
 
 # with too many regions errors gracefully
 
-    `data` must have a single value of `region` but has: a, b.
+    `bad_region` must have a single value of `region` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(data, region == 'a')
+      dplyr::filter(bad_region, region == 'a')
+
+# with too many scenario_source errors gracefully
+
+    `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(bad_scenario_source, scenario_source == 'a')
 

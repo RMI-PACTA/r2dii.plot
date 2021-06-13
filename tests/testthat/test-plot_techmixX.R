@@ -35,6 +35,14 @@ test_that("with too many regions errors gracefully", {
   )
 })
 
+test_that("with too many scenario_source errors gracefully", {
+  bad_scenario_source <- head(market_share, 2L)
+  bad_scenario_source$scenario_source <- c("a", "b")
+  expect_snapshot_error(
+    plot_techmixX(bad_scenario_source)
+  )
+})
+
 test_that("with too many scenarios errors gracefully", {
   too_many <- head(market_share, 4L)
   too_many$metric <- c("projected", "corporate_economy", "target_a", "target_b")
