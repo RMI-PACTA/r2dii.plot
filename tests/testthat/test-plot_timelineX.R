@@ -19,3 +19,8 @@ test_that("with too many sectors errors gracefully", {
   data$sector <- c("a", "b")
   expect_snapshot_error(plot_timelineX(data))
 })
+
+test_that("with data other than sda errors gracefully", {
+  bad <- market_share
+  expect_snapshot_error(plot_timelineX(bad))
+})
