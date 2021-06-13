@@ -69,3 +69,10 @@ test_that("outputs a ggplot", {
   p <- plot_techmixX(data)
   expect_s3_class(p, "ggplot")
 })
+
+test_that("with cero-row data errors gracefully", {
+  cero_row <- market_share[0L, ]
+  expect_snapshot_error(
+    plot_techmixX(cero_row)
+  )
+})

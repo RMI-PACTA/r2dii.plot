@@ -597,3 +597,7 @@
     Pick one value, e.g. 'a', with:
       dplyr::filter(bad_scenario_source, scenario_source == 'a')
 
+# with cero-row data errors gracefully
+
+    `cero_row` must have some rows but has none.
+

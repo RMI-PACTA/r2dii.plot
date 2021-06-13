@@ -27,6 +27,7 @@
 #' plot_techmixX(data)
 plot_techmixX <- function(data) {
   stopifnot(is.data.frame(data))
+  abort_if_has_cero_rows(data)
   abort_if_multiple(data, "sector")
   abort_if_multiple(data, "region")
   abort_if_multiple(data, "scenario_source")
