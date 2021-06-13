@@ -19,6 +19,7 @@
 #' data <- filter(sda, sector == "cement")
 #' plot_timelineX(data)
 plot_timelineX <- function(data, extrapolate = FALSE) {
+  stopifnot(is.data.frame(data))
   abort_if_has_cero_rows(data)
   prep <- hint_if_missing_names(
     prep_timelineY(data, extrapolate = extrapolate)

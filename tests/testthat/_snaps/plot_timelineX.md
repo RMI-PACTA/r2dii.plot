@@ -605,7 +605,11 @@
         ..$ linetype: logi FALSE
        - attr(*, "class")= chr [1:2] "gg" "ggplot"
 
-# with data other than sda errors gracefully
+# without a data frame errors gracefully
+
+    is.data.frame(data) is not TRUE
+
+# without sda-like data errors gracefully
 
     Must have missing names:
     emission_factor_metric, emission_factor_value
@@ -620,4 +624,8 @@
     `data` must have a single value of `sector` but has: a, b.
     Pick one value, e.g. 'a', with:
       dplyr::filter(data, sector == 'a')
+
+# with bad `extrapolate errors gracefully
+
+    is.logical(extrapolate) is not TRUE
 

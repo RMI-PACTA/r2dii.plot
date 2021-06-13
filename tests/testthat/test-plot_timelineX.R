@@ -14,7 +14,11 @@ test_that("outputs the expected ggplot object", {
   expect_snapshot(str(p))
 })
 
-test_that("with data other than sda errors gracefully", {
+test_that("without a data frame errors gracefully", {
+  expect_snapshot_error(plot_timelineX(1))
+})
+
+test_that("without sda-like data errors gracefully", {
   bad <- head(market_share, 1L)
   expect_snapshot_error(plot_timelineX(bad))
 })
@@ -30,3 +34,7 @@ test_that("with too many sectors errors gracefully", {
   expect_snapshot_error(plot_timelineX(data))
 })
 
+test_that("with bad `extrapolate errors gracefully", {
+  data <- head(filter(sda, sector == "cement"))
+  expect_snapshot_error(plot_timelineX(data, extrapolate = 1))
+})
