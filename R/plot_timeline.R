@@ -29,14 +29,8 @@ plot_timeline <- function(data, extrapolate = FALSE) {
 prep_timeline <- function(data,
                           value = "emission_factor_value",
                           metric = "emission_factor_metric",
-                          sector_filter = NULL,
                           extrapolate = FALSE) {
   check_prep_timeline(data, value, metric, extrapolate)
-  if (!is.null(sector_filter)) {
-    stopifnot(is.character(sector_filter))
-    abort_if_invalid_length(sector_filter, 1L)
-    data <- filter(data, .data$sector == sector_filter)
-  }
   abort_if_multiple(data, "sector")
 
   start_year <- get_common_start_year(data, metric)
