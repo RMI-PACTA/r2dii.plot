@@ -93,8 +93,7 @@ plot_timelineB <- function(data) {
 
   specs <- tibble(line_name = unique(data$line_name), label = line_name) %>%
     abort_if_too_many_lines() %>%
-    add_r2dii_colours() %>%
-    factor_to_character()
+    add_r2dii_colours()
 
   plot_timelineY(data = data, specs = specs)
 }
@@ -121,15 +120,6 @@ plot_timelineY <- function(data, specs) {
     ) +
     guides(linetype = FALSE) +
     theme_2dii()
-}
-
-factor_to_character <- function(data) {
-  has_factors <- any(unlist(lapply(data, is.factor)))
-  if (is.data.frame(data) && has_factors) {
-    data <- mutate(data, across(where(is.factor), as.character))
-  }
-
-  data
 }
 
 fake_timeline_data <- function(year = NULL,

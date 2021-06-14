@@ -1,3 +1,12 @@
+test_that("has no factors in columns derived from `specs`", {
+  data <- head(filter(sda, sector == "cement"))
+  p <- plot_timeline(data)
+  p_data <- p$layers[[1]]$data
+  specs_cols <- c("line_name", "label", "hex")
+  has_factors <- any(unlist(lapply(p_data[specs_cols], is.factor)))
+  expect_false(has_factors)
+})
+
 test_that("outputs the expected ggplot object", {
   mauro <- path.expand("~") == "/home/mauro"
   skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
