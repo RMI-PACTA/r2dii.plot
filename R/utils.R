@@ -185,3 +185,15 @@ fmt_string <- function(x) {
 fmt_vector <- function(x) {
   paste0("c(", x, ")")
 }
+
+expect_no_error <- function(...) {
+  expect_error(..., NA)
+}
+
+example_market_share <- function(...) {
+  filter(market_share, technology == first(technology), ...)
+}
+
+r_version_is_older_than <- function(major) {
+  as.integer(R.version$major) < major
+}

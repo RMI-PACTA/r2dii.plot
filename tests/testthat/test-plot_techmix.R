@@ -2,10 +2,7 @@ test_that("outputs the expected ggplot object", {
   mauro <- path.expand("~") == "/home/mauro"
   skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
 
-  # data <- head(filter(market_share, sector == "cement"))
-  data <- market_share %>%
-    filter(
-      sector == first(.data$sector),
+  data <- example_market_share(
       metric %in% c("projected", "corporate_economy", "target_sds")
     )
   p <- plot_techmix(data)
@@ -30,11 +27,8 @@ test_that("with cero-row data errors gracefully", {
 })
 
 test_that("with more than one scenario errors gracefully", {
-  data <- market_share
-  prep <- filter(market_share, sector == first(sector))
-  expect_snapshot_error(
-    plot_techmix(prep)
-  )
+  prep <- example_market_share()
+  expect_snapshot_error(plot_techmix(prep))
 })
 
 test_that("with too many sectors errors gracefully", {
@@ -46,23 +40,18 @@ test_that("with too many sectors errors gracefully", {
 test_that("with too many regions errors gracefully", {
   bad_region <- head(market_share, 2L)
   bad_region$region <- c("a", "b")
-  expect_snapshot_error(
-    plot_techmix(bad_region)
-  )
+  expect_snapshot_error(plot_techmix(bad_region))
 })
 
 test_that("with too many scenario_source errors gracefully", {
   bad_scenario_source <- head(market_share, 2L)
   bad_scenario_source$scenario_source <- c("a", "b")
-  expect_snapshot_error(
-    plot_techmix(bad_scenario_source)
-  )
+  expect_snapshot_error(plot_techmix(bad_scenario_source))
 })
 
 test_that("with too few scenarios errors gracefully", {
   too_few <- head(market_share, 2L)
   too_few$metric <- c("projected", "corporate_economy")
-
   expect_snapshot_error(plot_techmix(too_few))
 })
 
@@ -72,20 +61,18 @@ test_that("outputs a ggplot", {
   expect_s3_class(p, "ggplot")
 })
 
-# prep_techmix() ----
-
 test_that("with missing crucial names errors gracefully", {
   data <- head(market_share)
 
   bad <- select(data, -metric)
-  expect_error(class = "missing_names", prep_techmix(bad))
+  expect_error(class = "hint_missing_names", plot_techmix(bad))
 
   bad <- select(data, -technology_share)
-  expect_error(class = "missing_names", prep_techmix(bad, "technology_share"))
+  expect_error(class = "hint_missing_names", plot_techmix(bad))
 
   bad <- select(data, -year)
-  expect_error(class = "missing_names", prep_techmix(bad))
+  expect_error(class = "hint_missing_names", plot_techmix(bad))
 
   bad <- select(data, -scenario_source)
-  expect_error(class = "missing_names", prep_techmix(bad))
+  expect_error(class = "hint_missing_names", plot_techmix(bad))
 })
