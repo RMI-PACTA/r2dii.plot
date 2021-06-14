@@ -12,6 +12,10 @@ test_that("outputs the expected ggplot object", {
   expect_snapshot(str(p))
 })
 
+test_that("without a data frame errors gracefully", {
+  expect_snapshot_error(plot_trajectoryX(1))
+})
+
 test_that("outputs a ggplot", {
   data <- market_share %>%
     filter(
