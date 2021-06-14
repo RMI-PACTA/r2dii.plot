@@ -1,4 +1,17 @@
-test_that("works with 1 to max number of scenarios", {
+test_that("outputs the expected ggplot object", {
+  mauro <- path.expand("~") == "/home/mauro"
+  skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
+
+  data <- market_share %>%
+    filter(sector == first(sector), technology == first(technology))
+
+  p <- plot_trajectory(data)
+  p$plot_env <- NULL
+
+  expect_snapshot(str(p))
+})
+
+test_that("works with up to 4 scenarios (+ 1 portfolio + 1 benchmark)", {
   data <- market_share %>%
     filter(sector == first(sector), technology == first(technology))
 
@@ -31,60 +44,30 @@ test_that("works with 1 to max number of scenarios", {
   expect_equal(count_metrics(p), n)
 })
 
-test_that("with corropt `scenario_colours` errors gracefully", {
+test_that("with corrupt `scenario_colours` errors gracefully", {
   prep <- market_share %>%
     filter(sector == first(sector), technology == first(technology))
 
   too_short <- 4L
   corrupt <- head(scenario_colours, too_short)
-
   op <- options("r2dii.plot.scenario_colours" = corrupt)
   on.exit(options(op), add = TRUE)
 
   expect_snapshot_error(plot_trajectory(prep))
 })
 
-test_that("outputs the expected ggplot object", {
-  mauro <- path.expand("~") == "/home/mauro"
-  skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
-
-  data <- market_share %>%
-    filter(
-      sector == first(sector),
-      technology == first(technology)
-    )
-  p <- plot_trajectory(data)
-  p$plot_env <- NULL
-  expect_snapshot(str(p))
-})
-
-test_that("without a data frame errors gracefully", {
+test_that("if `data` is not a data frame errors gracefully", {
   expect_snapshot_error(plot_trajectory(1))
 })
 
-test_that("without market_share-like data errors gracefully", {
-  bad <- sda
+test_that("if `data` is not market_share-like errors gracefully", {
+  bad <- head(sda)
   expect_snapshot_error(plot_trajectory(bad))
 })
 
 test_that("with cero-row data errors gracefully", {
   cero_row <- market_share[0L, ]
-  expect_snapshot_error(
-    plot_trajectory(cero_row)
-  )
-})
-
-test_that("outputs a ggplot", {
-  data <- market_share %>%
-    filter(
-      sector == "power",
-      technology == "renewablescap",
-      region == "global",
-      scenario_source == "demo_2020"
-    )
-
-  p <- plot_trajectory(data, normalize = TRUE)
-  expect_s3_class(p, "ggplot")
+  expect_snapshot_error(plot_trajectory(cero_row))
 })
 
 test_that("with too many sectors errors gracefully", {
@@ -102,17 +85,13 @@ test_that("with too many technologies errors gracefully", {
 test_that("with too many regions errors gracefully", {
   bad_region <- head(market_share, 2L)
   bad_region$region <- c("a", "b")
-  expect_snapshot_error(
-    plot_trajectory(bad_region)
-  )
+  expect_snapshot_error(plot_trajectory(bad_region))
 })
 
 test_that("with too many scenario_source errors gracefully", {
   bad_scenario_source <- head(market_share, 2L)
   bad_scenario_source$scenario_source <- c("a", "b")
-  expect_snapshot_error(
-    plot_trajectory(bad_scenario_source)
-  )
+  expect_snapshot_error(plot_trajectory(bad_scenario_source))
 })
 
 test_that("with inexistent `main_line` errors gracefully", {
@@ -134,17 +113,16 @@ test_that("is sensitive to `main_line`", {
   data <- market_share %>%
     filter(
       sector == first(sector),
-      year >= 2025,
       technology == first(technology)
     )
+  plot_trajectory(data, main_line = "corporate_economy")
+
   expect_no_error(plot_trajectory(data, main_line = "corporate_economy"))
 })
 
 test_that("with too long `main_line` errors gracefully", {
   data <- head(market_share, 1L)
-  expect_snapshot_error(
-    plot_trajectory(data, main_line = c("too", "long"))
-  )
+  expect_snapshot_error(plot_trajectory(data, main_line = c("too", "long")))
 })
 
 # prep_trajectory() ----

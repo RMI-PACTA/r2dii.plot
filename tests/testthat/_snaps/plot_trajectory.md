@@ -1,7 +1,3 @@
-# with corropt `scenario_colours` errors gracefully
-
-    `scenario_colours` must have 5 rows, not 4.
-
 # outputs the expected ggplot object
 
     Code
@@ -669,11 +665,15 @@
         ..$ segment.colour: chr "metric"
        - attr(*, "class")= chr [1:2] "gg" "ggplot"
 
-# without a data frame errors gracefully
+# with corrupt `scenario_colours` errors gracefully
+
+    `scenario_colours` must have 5 rows, not 4.
+
+# if `data` is not a data frame errors gracefully
 
     is.data.frame(data) is not TRUE
 
-# without market_share-like data errors gracefully
+# if `data` is not market_share-like errors gracefully
 
     Must have missing names:
     metric, region, scenario_source, technology
