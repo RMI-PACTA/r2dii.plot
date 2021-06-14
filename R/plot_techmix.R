@@ -79,8 +79,7 @@ check_prep_techmix <- function(data, value) {
 
 plot_techmixY <- function(data,
                           metric_type_order = NULL,
-                          metric_type_labels = NULL,
-                          tech_colours = NULL) {
+                          metric_type_labels = NULL) {
   metric_type_order <- metric_type_order %||% unique(data$metric_type)
   metric_type_labels <- metric_type_labels %||% to_title(metric_type_order)
 
@@ -89,21 +88,11 @@ plot_techmixY <- function(data,
     unique() %>%
     guess_sector()
 
-  check_plot_techmixY(
-    data,
-    metric_type_order,
-    metric_type_labels,
-    sector,
-    tech_colours
-  )
+  check_plot_techmixY(data, metric_type_order, metric_type_labels, sector)
 
-  if (is.null(tech_colours)) {
-    tech_colours <- technology_colours %>%
-      filter(.data$sector == .env$sector) %>%
-      select(.data$technology, .data$label, .data$hex)
-  }
-
-  check_tech_colours(data, tech_colours)
+  tech_colours <- technology_colours %>%
+    filter(.data$sector == .env$sector) %>%
+    select(.data$technology, .data$label, .data$hex)
 
   if (!("label" %in% names(tech_colours))) {
     tech_colours <- tech_colours %>%
@@ -156,8 +145,7 @@ plot_techmixY <- function(data,
 check_plot_techmixY <- function(data,
                                 metric_type_order,
                                 metric_type_labels,
-                                sector,
-                                tech_colours) {
+                                sector) {
   if (!all(metric_type_order %in% unique(data$metric_type))) {
     abort(glue(
       "'metric_type_order' elements must be found in 'metric_type' column of input data.
@@ -180,43 +168,6 @@ check_plot_techmixY <- function(data,
       * You submitted data with {length(sector)} sectors: {toString(sector)}."
     ))
   }
-
-  if (!(sector %in% c("power", "automotive", "oil&gas", "fossil fuels"))) {
-    if (is.null(tech_colours)) {
-      abort(glue(
-        "Input data 'sector' not found in standard chart sectors.
-        * Standard sectors are: power, automotive, oil&gas, fossil fuels.
-        * You submitted data with sector: {sector}.
-        Please use data from a known sector or specify technology colours in 'tech_colours' parameters."
-      ))
-    }
-  }
-}
-
-check_tech_colours <- function(data, tech_colours) {
-  if (!is.data.frame(tech_colours)) {
-    abort(glue(
-      "'tech_colours' must be a data frame.
-      * You've supplied a {typeof(tech_colours)}."
-    ))
-  }
-
-  if (!all(c("technology", "hex") %in% names(tech_colours))) {
-    abort(glue(
-      "'tech_colours' must have columns `technology` and `hex`.
-      * The columns in 'tech_colours' given are: {toString(names(tech_colours))}."
-    ))
-  }
-
-  if (!all(unique(data$technology) %in% unique(tech_colours$technology))) {
-    abort(glue(
-      "All technologies in input data must have a colour in 'tech_colours'.
-      * The 'technology' in data missing from tech_colours are: {toString(setdiff(unique(data$technology), unique(tech_colours$technology)))}.
-      Note: if not given by the user, 'tech_colours' are specified internally based on 'sector'"
-    ))
-  }
-
-  invisible(data)
 }
 
 guess_label_tech <- function(string) {
