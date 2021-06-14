@@ -703,3 +703,7 @@
     Pick one value, e.g. 'a', with:
       dplyr::filter(bad_scenario_source, scenario_source == 'a')
 
+# with inexistent `main_line` errors gracefully
+
+    metric_includes_main_line is not TRUE
+

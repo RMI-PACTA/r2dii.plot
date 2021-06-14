@@ -46,7 +46,8 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
     stopifnot("projected" %in% tolower(data$metric))
     main <- "projected"
   } else {
-    stopifnot(main_line %in% tolower(data$metric))
+    metric_includes_main_line <- main_line %in% tolower(data$metric)
+    stopifnot(metric_includes_main_line)
     main <- main_line
   }
 

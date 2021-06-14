@@ -69,3 +69,8 @@ test_that("with too many scenario_source errors gracefully", {
   )
 })
 
+test_that("with inexistent `main_line` errors gracefully", {
+  data <- head(market_share, 1L)
+  expect_snapshot_error(plot_trajectoryX(data, main_line = "bad"))
+})
+
