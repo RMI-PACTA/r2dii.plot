@@ -126,3 +126,7 @@ format_plot_function_name <- function(.expr) {
   fun <- gsub(".*_(.*)[A-Z]", "\\1", fun)
   fun <- glue("plot_{fun}")
 }
+
+single_value_columns <- function() {
+  c("region", "sector", "scenario_source")
+}

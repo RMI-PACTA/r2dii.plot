@@ -41,7 +41,6 @@ prep_techmixY <- function(data,
   abort_if_missing_names(data, metric)
   data <- recode_metric_and_metric_type(data, metric)
 
-
   years_filter <- years_filter %||% c(min(data$year), max(data$year))
   scenario_source_filter <- scenario_source_filter %||% data$scenario_source[1]
 

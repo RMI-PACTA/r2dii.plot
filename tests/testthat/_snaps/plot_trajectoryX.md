@@ -3,10 +3,70 @@
     Code
       str(p)
     Output
-      List of 9
+      List of 8
        $ data       : list()
         ..- attr(*, "class")= chr "waiver"
-       $ layers     :List of 1
+       $ layers     :List of 3
+        ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
+          aes_params: list
+          compute_aesthetics: function
+          compute_geom_1: function
+          compute_geom_2: function
+          compute_position: function
+          compute_statistic: function
+          data: grouped_df, tbl_df, tbl, data.frame
+          draw_geom: function
+          finish_statistics: function
+          geom: <ggproto object: Class GeomRibbon, Geom, gg>
+              aesthetics: function
+              default_aes: uneval
+              draw_group: function
+              draw_key: function
+              draw_layer: function
+              draw_panel: function
+              extra_params: na.rm orientation
+              handle_na: function
+              non_missing_aes: 
+              optional_aes: 
+              parameters: function
+              required_aes: x|y ymin|xmin ymax|xmax
+              setup_data: function
+              setup_params: function
+              use_defaults: function
+              super:  <ggproto object: Class Geom, gg>
+          geom_params: list
+          inherit.aes: TRUE
+          layer_data: function
+          map_statistic: function
+          mapping: uneval
+          position: <ggproto object: Class PositionIdentity, Position, gg>
+              compute_layer: function
+              compute_panel: function
+              required_aes: 
+              setup_data: function
+              setup_params: function
+              super:  <ggproto object: Class Position, gg>
+          print: function
+          setup_layer: function
+          show.legend: NA
+          stat: <ggproto object: Class StatIdentity, Stat, gg>
+              aesthetics: function
+              compute_group: function
+              compute_layer: function
+              compute_panel: function
+              default_aes: uneval
+              extra_params: na.rm
+              finish_layer: function
+              non_missing_aes: 
+              optional_aes: 
+              parameters: function
+              required_aes: 
+              retransform: TRUE
+              setup_data: function
+              setup_params: function
+              super:  <ggproto object: Class Stat, gg>
+          stat_params: list
+          super:  <ggproto object: Class Layer, gg> 
         ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
           aes_params: list
           compute_aesthetics: function
@@ -17,7 +77,7 @@
           data: spec_tbl_df, tbl_df, tbl, data.frame
           draw_geom: function
           finish_statistics: function
-          geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>
+          geom: <ggproto object: Class GeomLine, GeomPath, Geom, gg>
               aesthetics: function
               default_aes: uneval
               draw_group: function
@@ -26,30 +86,88 @@
               draw_panel: function
               extra_params: na.rm orientation
               handle_na: function
-              non_missing_aes: xmin xmax ymin ymax
+              non_missing_aes: 
               optional_aes: 
               parameters: function
               required_aes: x y
               setup_data: function
               setup_params: function
               use_defaults: function
-              super:  <ggproto object: Class GeomRect, Geom, gg>
+              super:  <ggproto object: Class GeomPath, Geom, gg>
           geom_params: list
           inherit.aes: TRUE
           layer_data: function
           map_statistic: function
           mapping: uneval
-          position: <ggproto object: Class PositionFill, PositionStack, Position, gg>
+          position: <ggproto object: Class PositionIdentity, Position, gg>
               compute_layer: function
               compute_panel: function
-              fill: TRUE
               required_aes: 
-              reverse: FALSE
               setup_data: function
               setup_params: function
-              type: NULL
-              vjust: 1
-              super:  <ggproto object: Class PositionStack, Position, gg>
+              super:  <ggproto object: Class Position, gg>
+          print: function
+          setup_layer: function
+          show.legend: NA
+          stat: <ggproto object: Class StatIdentity, Stat, gg>
+              aesthetics: function
+              compute_group: function
+              compute_layer: function
+              compute_panel: function
+              default_aes: uneval
+              extra_params: na.rm
+              finish_layer: function
+              non_missing_aes: 
+              optional_aes: 
+              parameters: function
+              required_aes: 
+              retransform: TRUE
+              setup_data: function
+              setup_params: function
+              super:  <ggproto object: Class Stat, gg>
+          stat_params: list
+          super:  <ggproto object: Class Layer, gg> 
+        ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
+          aes_params: list
+          compute_aesthetics: function
+          compute_geom_1: function
+          compute_geom_2: function
+          compute_position: function
+          compute_statistic: function
+          data: spec_tbl_df, tbl_df, tbl, data.frame
+          draw_geom: function
+          finish_statistics: function
+          geom: <ggproto object: Class GeomTextRepel, Geom, gg>
+              aesthetics: function
+              default_aes: uneval
+              draw_group: function
+              draw_key: function
+              draw_layer: function
+              draw_panel: function
+              extra_params: na.rm
+              handle_na: function
+              non_missing_aes: 
+              optional_aes: 
+              parameters: function
+              required_aes: x y label
+              setup_data: function
+              setup_params: function
+              use_defaults: function
+              super:  <ggproto object: Class Geom, gg>
+          geom_params: list
+          inherit.aes: TRUE
+          layer_data: function
+          map_statistic: function
+          mapping: uneval
+          position: <ggproto object: Class PositionNudgeRepel, Position, gg>
+              compute_layer: function
+              compute_panel: function
+              required_aes: 
+              setup_data: function
+              setup_params: function
+              x: 0.1 0.1 0.6 0.6 0.6
+              y: 0.0143853010520683
+              super:  <ggproto object: Class PositionNudgeRepel, Position, gg>
           print: function
           setup_layer: function
           show.legend: NA
@@ -271,8 +389,7 @@
         ..$ axis.ticks.x              : NULL
         ..$ axis.ticks.x.top          : NULL
         ..$ axis.ticks.x.bottom       : NULL
-        ..$ axis.ticks.y              : list()
-        .. ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+        ..$ axis.ticks.y              : NULL
         ..$ axis.ticks.y.left         : NULL
         ..$ axis.ticks.y.right        : NULL
         ..$ axis.ticks.length         : 'simpleUnit' num 2.75points
@@ -283,19 +400,12 @@
         ..$ axis.ticks.length.y       : NULL
         ..$ axis.ticks.length.y.left  : NULL
         ..$ axis.ticks.length.y.right : NULL
-        ..$ axis.line                 :List of 6
-        .. ..$ colour       : chr "#C0C0C0"
-        .. ..$ size         : NULL
-        .. ..$ linetype     : NULL
-        .. ..$ lineend      : NULL
-        .. ..$ arrow        : logi FALSE
-        .. ..$ inherit.blank: logi FALSE
-        .. ..- attr(*, "class")= chr [1:2] "element_line" "element"
+        ..$ axis.line                 : list()
+        .. ..- attr(*, "class")= chr [1:2] "element_blank" "element"
         ..$ axis.line.x               : NULL
         ..$ axis.line.x.top           : NULL
         ..$ axis.line.x.bottom        : NULL
-        ..$ axis.line.y               : list()
-        .. ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+        ..$ axis.line.y               : NULL
         ..$ axis.line.y.left          : NULL
         ..$ axis.line.y.right         : NULL
         ..$ legend.background         :List of 5
@@ -335,7 +445,7 @@
         ..$ legend.title              : list()
         .. ..- attr(*, "class")= chr [1:2] "element_blank" "element"
         ..$ legend.title.align        : NULL
-        ..$ legend.position           : chr "bottom"
+        ..$ legend.position           : chr "none"
         ..$ legend.direction          : NULL
         ..$ legend.justification      : chr "center"
         ..$ legend.box                : NULL
@@ -441,7 +551,7 @@
         .. ..$ inherit.blank: logi TRUE
         .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
         ..$ plot.tag.position         : chr "topleft"
-        ..$ plot.margin               : 'simpleUnit' num [1:4] 0.5cm 1cm 0.5cm 0.5cm
+        ..$ plot.margin               : 'simpleUnit' num [1:4] 0.5cm 4cm 0.5cm 0.5cm
         .. ..- attr(*, "unit")= int 1
         ..$ strip.background          :List of 5
         .. ..$ fill         : chr "white"
@@ -501,13 +611,13 @@
         ..- attr(*, "class")= chr [1:2] "theme" "gg"
         ..- attr(*, "complete")= logi TRUE
         ..- attr(*, "validate")= logi TRUE
-       $ coordinates:Classes 'CoordFlip', 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordFlip, CoordCartesian, Coord, gg>
+       $ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>
           aspect: function
           backtransform_range: function
-          clip: on
+          clip: off
           default: FALSE
           distance: function
-          expand: TRUE
+          expand: FALSE
           is_free: function
           is_linear: function
           labels: function
@@ -525,7 +635,7 @@
           setup_params: function
           train_panel_guides: function
           transform: function
-          super:  <ggproto object: Class CoordFlip, CoordCartesian, Coord, gg> 
+          super:  <ggproto object: Class CoordCartesian, Coord, gg> 
        $ facet      :Classes 'FacetNull', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetNull, Facet, gg>
           compute_layout: function
           draw_back: function
@@ -542,62 +652,26 @@
           train_scales: function
           vars: function
           super:  <ggproto object: Class FacetNull, Facet, gg> 
-       $ labels     :List of 3
-        ..$ y   : chr ""
-        ..$ x   : chr ""
-        ..$ fill: chr "factor(technology, levels = data_colours$technology)"
-       $ guides     :List of 1
-        ..$ fill:List of 21
-        .. ..$ title         : list()
-        .. .. ..- attr(*, "class")= chr "waiver"
-        .. ..$ title.position: NULL
-        .. ..$ title.theme   : NULL
-        .. ..$ title.hjust   : NULL
-        .. ..$ title.vjust   : NULL
-        .. ..$ label         : logi TRUE
-        .. ..$ label.position: NULL
-        .. ..$ label.theme   : NULL
-        .. ..$ label.hjust   : NULL
-        .. ..$ label.vjust   : NULL
-        .. ..$ keywidth      : NULL
-        .. ..$ keyheight     : NULL
-        .. ..$ direction     : NULL
-        .. ..$ override.aes  : Named list()
-        .. ..$ nrow          : NULL
-        .. ..$ ncol          : num 3
-        .. ..$ byrow         : logi TRUE
-        .. ..$ reverse       : logi FALSE
-        .. ..$ order         : num 0
-        .. ..$ available_aes : chr "any"
-        .. ..$ name          : chr "legend"
-        .. ..- attr(*, "class")= chr [1:2] "guide" "legend"
+       $ labels     :List of 10
+        ..$ x             : chr "year"
+        ..$ ymin          : chr "value_low"
+        ..$ ymax          : chr "value"
+        ..$ fill          : chr "metric"
+        ..$ alpha         : chr "alpha"
+        ..$ y             : chr "value"
+        ..$ linetype      : chr "metric"
+        ..$ colour        : chr "metric"
+        ..$ label         : chr "metric"
+        ..$ segment.colour: chr "metric"
        - attr(*, "class")= chr [1:2] "gg" "ggplot"
 
-# without `market_share` data errors gracefully
+# without a data frame errors gracefully
+
+    is.data.frame(data) is not TRUE
+
+# without market_share-like data errors gracefully
 
     Must have missing names:
-    metric, region, scenario_source, technology, technology_share
+    metric, region, scenario_source, technology
     Is your data `market_share`-like?
-
-# with too many sectors errors gracefully
-
-    `bad_sector` must have a single value of `sector` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_sector, sector == 'a')
-
-# with too many regions errors gracefully
-
-    `bad_region` must have a single value of `region` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_region, region == 'a')
-
-# with too many scenario_source errors gracefully
-
-    `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_scenario_source, scenario_source == 'a')
-
-# with cero-row data errors gracefully
-
-    `cero_row` must have some rows but has none.
 
