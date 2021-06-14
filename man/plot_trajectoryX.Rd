@@ -21,7 +21,7 @@ the most visual salience (solid black line). \code{NULL} defaults to
 "projected".}
 }
 \value{
-A "ggplot".
+An object of class "ggplot".
 }
 \description{
 Create a trajectory plot

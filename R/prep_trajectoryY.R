@@ -73,14 +73,3 @@ warn_bad_value <- function(x, y) {
   }
   invisible(x)
 }
-
-abort_multiple <- function(data, colname) {
-  values <- unique(data[[colname]])
-  if (length(values) != 1L) {
-    abort(glue(
-      "`{colname}` must have a single value. It has: {toString(values)}."
-    ))
-  }
-
-  invisible(data)
-}

@@ -532,3 +532,9 @@
     * Unique `line_name` values in 'data' are: projected.
     * Unique `line_name` values in 'specs' are: bad.
 
+# with multiple sectors errors gracefully
+
+    `too_many_sectors` must have a single value of `sector` but has: automotive, steel.
+    Pick one value, e.g. 'automotive', with:
+      dplyr::filter(too_many_sectors, sector == 'automotive')
+

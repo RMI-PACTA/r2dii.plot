@@ -50,7 +50,7 @@ recode_portfolio_benchmark_scenario <- function(x) {
   )
 }
 
-abort_bad_metric <- function(x) {
+abort_if_bad_metric <- function(x) {
   has_projected <- "projected" %in% x
   if (!has_projected) abort("Can't find values to recode as 'portfolio'.")
   has_scenarios <- any(startsWith(x, "target"))
@@ -60,9 +60,8 @@ abort_bad_metric <- function(x) {
 }
 
 abort_if_invalid_length <- function(x, valid = 1L) {
-  .x <- as.character(substitute(x))
-  long <- !length(x) == valid
-  if (long) {
+  .x <- deparse_1(substitute(x))
+  if (!length(x) == valid) {
     abort(
       class = "invalid_length",
       glue("`{.x}` must be of length {valid}, not {length(x)}.")
@@ -70,4 +69,24 @@ abort_if_invalid_length <- function(x, valid = 1L) {
   }
 
   invisible(x)
+}
+
+abort_if_multiple <- function(data, x) {
+  .data <- deparse_1(substitute(data, env = parent.frame()))
+
+  .x <- unique(data[[x]])
+  if (length(.x) > 1L) {
+    abort(glue(
+      "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
+      Pick one value, e.g. '{first(.x)}', with:
+        dplyr::filter({.data}, {x} == '{first(.x)}')"
+    ))
+  }
+
+  invisible(data)
+}
+
+# Backport `base::deparse1()` to R < 4.0.0
+deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
+  paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }

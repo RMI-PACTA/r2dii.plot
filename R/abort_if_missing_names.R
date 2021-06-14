@@ -16,19 +16,16 @@ abort_if_missing_names <- function(x, expected_names) {
   stopifnot(rlang::is_named(x))
   stopifnot(is.character(expected_names))
 
-  ok <- all(unique(expected_names) %in% names(x))
-  if (!ok) {
-    abort_missing_names(sort(setdiff(expected_names, names(x))))
+  if (!all(unique(expected_names) %in% names(x))) {
+    missing_names <- sort(setdiff(expected_names, names(x)))
+    abort(
+      class = "missing_names",
+      glue(
+        "Must have missing names:
+        {toString(missing_names)}"
+      )
+    )
   }
 
   invisible(x)
-}
-
-abort_missing_names <- function(missing_names) {
-  nms <- paste0("`", missing_names, "`", collapse = ", ")
-  abort(
-    class = "missing_names",
-    glue("Must have missing names:
-    {nms}")
-  )
 }

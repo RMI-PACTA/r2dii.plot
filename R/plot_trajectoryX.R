@@ -10,12 +10,12 @@
 #' @inheritParams prep_trajectoryY
 #' @inheritParams prep_timelineY
 #'
-#' @return A "ggplot".
-#' @export
-#'
 #' @family functions with minimal arguments
 #' @seealso [market_share].
 #'
+#' @return An object of class "ggplot".
+#'
+#' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
 #'

@@ -17,7 +17,7 @@ plot_techmixX(data)
 }}
 }
 \value{
-A "ggplot".
+An object of class "ggplot".
 }
 \description{
 Create a techmix plot

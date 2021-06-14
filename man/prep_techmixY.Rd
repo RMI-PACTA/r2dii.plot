@@ -36,6 +36,9 @@ to plot.}
 
 \item{scenario_filter}{String of length 1. Scenario to pick from the \code{data}.}
 }
+\value{
+An object of class "ggplot".
+}
 \description{
 Prepare the output of \code{r2dii.analysis::target_market_share()} for \code{plot_techmixY()}
 }

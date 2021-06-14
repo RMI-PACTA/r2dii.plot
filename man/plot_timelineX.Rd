@@ -17,7 +17,7 @@ plot_timelineX(data, extrapolate = FALSE)
 furthest value in the data set.}
 }
 \value{
-A "ggplot".
+An object of class "ggplot".
 }
 \description{
 Create a timeline plot

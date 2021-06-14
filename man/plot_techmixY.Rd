@@ -24,6 +24,9 @@ in 'metric type order'.}
 \item{tech_colours}{Data frame containing colours per technology, with
 columns: technology, colour, label(optional).}
 }
+\value{
+An object of class "ggplot".
+}
 \description{
 The function returns a ggplot object containing a stacked bar chart showing a
 technology mix for different categories (portfolio, scenario, benchmark,

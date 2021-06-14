@@ -8,6 +8,7 @@
 #' @family plotting functions
 #'
 #' @return An object of class `r toString(class(theme_2dii()))`.
+#'
 #' @export
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
