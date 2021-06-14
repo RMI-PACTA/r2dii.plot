@@ -125,22 +125,26 @@ test_that("with too long `main_line` errors gracefully", {
   expect_snapshot_error(plot_trajectory(data, main_line = c("too", "long")))
 })
 
+
+
+
+
+
+
+
 # prep_trajectory() ----
 
 
 test_that("is sensitive to `normalize`", {
-  data <- market_share %>%
-    filter(
-      technology == "oilcap",
-      region == "global",
-      scenario_source == "demo_2020",
-      sector == "power"
-    )
+  data <- filter(market_share, technology == first(technology))
+  pull_value <- function(p) {
+    p$layers[[1]]$data$value
+  }
 
   expect_false(
     identical(
-      prep_trajectory(data, normalize = TRUE),
-      prep_trajectory(data, normalize = FALSE)
+      pull_value(plot_trajectory(data, normalize = TRUE)),
+      pull_value(plot_trajectory(data, normalize = FALSE))
     )
   )
 })
