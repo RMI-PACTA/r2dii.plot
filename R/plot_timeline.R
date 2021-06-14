@@ -122,20 +122,6 @@ plot_timelineY <- function(data, specs) {
     theme_2dii()
 }
 
-timeline_specs <- function(data) {
-  abort_if_missing_names(data, "line_name")
-
-  to_title <- function(x) {
-    paste(tools::toTitleCase(unlist(strsplit(x, "_"))), collapse = " ")
-  }
-
-  line_names <- unique(data$line_name)
-  labels <- unlist(lapply(line_names, to_title))
-  tibble(line_name = line_names, label = labels) %>%
-    abort_if_too_many_lines() %>%
-    add_r2dii_colours()
-}
-
 abort_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   n_colours <- nrow(palette_colours)
