@@ -83,3 +83,13 @@ test_that("with too many scenarios errors gracefully", {
   )
   expect_snapshot_error(plot_trajectoryX(data))
 })
+
+test_that("is sensitive to `main_line`", {
+  data <- market_share %>%
+    filter(
+      sector == first(sector),
+      year >= 2025,
+      technology == first(technology)
+    )
+  expect_no_error(plot_trajectoryX(data, main_line = "corporate_economy"))
+})
