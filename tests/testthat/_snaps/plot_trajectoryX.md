@@ -679,3 +679,27 @@
 
     `cero_row` must have some rows but has none.
 
+# with too many sectors errors gracefully
+
+    `bad_sector` must have a single value of `sector` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(bad_sector, sector == 'a')
+
+# with too many technologies errors gracefully
+
+    `bad_tech` must have a single value of `technology` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(bad_tech, technology == 'a')
+
+# with too many regions errors gracefully
+
+    `bad_region` must have a single value of `region` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(bad_region, region == 'a')
+
+# with too many scenario_source errors gracefully
+
+    `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
+    Pick one value, e.g. 'a', with:
+      dplyr::filter(bad_scenario_source, scenario_source == 'a')
+

@@ -37,6 +37,11 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   )
   abort_if_has_cero_rows(data)
 
+  abort_if_multiple(data, "sector")
+  abort_if_multiple(data, "technology")
+  abort_if_multiple(data, "region")
+  abort_if_multiple(data, "scenario_source")
+
   if (is.null(main_line)) {
     stopifnot("projected" %in% tolower(data$metric))
     main <- "projected"

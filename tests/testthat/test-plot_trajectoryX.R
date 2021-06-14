@@ -40,3 +40,32 @@ test_that("outputs a ggplot", {
   p <- plot_trajectoryX(data, normalize = TRUE)
   expect_s3_class(p, "ggplot")
 })
+
+test_that("with too many sectors errors gracefully", {
+  bad_sector <- head(market_share, 2L)
+  bad_sector$sector <- c("a", "b")
+  expect_snapshot_error(plot_trajectoryX(bad_sector))
+})
+
+test_that("with too many technologies errors gracefully", {
+  bad_tech <- head(market_share, 2L)
+  bad_tech$technology <- c("a", "b")
+  expect_snapshot_error(plot_trajectoryX(bad_tech))
+})
+
+test_that("with too many regions errors gracefully", {
+  bad_region <- head(market_share, 2L)
+  bad_region$region <- c("a", "b")
+  expect_snapshot_error(
+    plot_trajectoryX(bad_region)
+  )
+})
+
+test_that("with too many scenario_source errors gracefully", {
+  bad_scenario_source <- head(market_share, 2L)
+  bad_scenario_source$scenario_source <- c("a", "b")
+  expect_snapshot_error(
+    plot_trajectoryX(bad_scenario_source)
+  )
+})
+
