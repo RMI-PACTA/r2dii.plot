@@ -191,7 +191,7 @@ expect_no_error <- function(...) {
 }
 
 example_market_share <- function(...) {
-  filter(market_share, technology == first(technology), ...)
+  filter(market_share, .data$technology == first(.data$technology), ...)
 }
 
 r_version_is_older_than <- function(major) {

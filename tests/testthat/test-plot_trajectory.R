@@ -38,8 +38,7 @@ test_that("works with up to 4 scenarios (+ 1 portfolio + 1 benchmark)", {
 })
 
 test_that("with corrupt `scenario_colours` errors gracefully", {
-  prep <- market_share %>%
-    filter(sector == first(sector), technology == first(technology))
+  prep <- example_market_share()
 
   too_short <- 4L
   corrupt <- head(scenario_colours, too_short)
@@ -95,9 +94,7 @@ test_that("with inexistent `main_line` errors gracefully", {
 test_that("with too many scenarios errors gracefully", {
   data <- head(market_share, 7)
   data$metric <- c(
-    "projected",
-    "corporate_economy",
-    glue("target_{letters[1:5]}")
+    "projected", "corporate_economy", glue("target_{letters[1:5]}")
   )
   expect_snapshot_error(plot_trajectory(data))
 })
