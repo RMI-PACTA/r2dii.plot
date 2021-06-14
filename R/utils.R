@@ -185,6 +185,3 @@ fmt_vector <- function(x) {
   paste0("c(", x, ")")
 }
 
-extract_scenarios <- function(x) {
-  unique(x[startsWith(x, "target_")])
-}
