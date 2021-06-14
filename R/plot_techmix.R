@@ -30,7 +30,8 @@ plot_techmix <- function(data) {
 
   hint_if_missing_names(
     abort_if_missing_names(
-      data, c(common_crucial_market_share_columns(), "technology_share"))
+      data, c(common_crucial_market_share_columns(), "technology_share")
+    )
   )
 
   abort_if_has_cero_rows(data)
@@ -38,7 +39,7 @@ plot_techmix <- function(data) {
   abort_if_multiple(data, "region")
   abort_if_multiple(data, "scenario_source")
 
-  prep <- prep_techmixB(data)
+  prep <- prep_techmix(data)
 
   found_scenarios <- pull_scenarios(prep)
   abort_if_invalid_length(found_scenarios)
@@ -46,8 +47,8 @@ plot_techmix <- function(data) {
   plot_techmixY(prep)
 }
 
-prep_techmixB <- function(data, value = "technology_share", metric = "metric") {
-  check_prep_techmixB(data, value)
+prep_techmix <- function(data, value = "technology_share", metric = "metric") {
+  check_prep_techmix(data, value)
 
   data %>%
     recode_metric_and_metric_type(metric) %>%
@@ -64,7 +65,7 @@ date_metric_type <- function(data) {
   mutate(data, metric_type = paste0(.data$metric_type, "_", .data$year))
 }
 
-check_prep_techmixB <- function(data, value) {
+check_prep_techmix <- function(data, value) {
   crucial <- c(common_crucial_market_share_columns(), value)
   abort_if_missing_names(data, crucial)
 

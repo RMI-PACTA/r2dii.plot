@@ -27,10 +27,10 @@ plot_timeline <- function(data, extrapolate = FALSE) {
 }
 
 prep_timeline <- function(data,
-                           value = "emission_factor_value",
-                           metric = "emission_factor_metric",
-                           sector_filter = NULL,
-                           extrapolate = FALSE) {
+                          value = "emission_factor_value",
+                          metric = "emission_factor_metric",
+                          sector_filter = NULL,
+                          extrapolate = FALSE) {
   check_prep_timeline(data, value, metric, extrapolate)
   if (!is.null(sector_filter)) {
     stopifnot(is.character(sector_filter))
