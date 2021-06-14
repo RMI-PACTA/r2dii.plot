@@ -1,15 +1,3 @@
-#' Creates the default specs data frame for `plot_timelineY()`
-#'
-#' @inheritParams plot_timelineY
-#'
-#' @seealso plot_timelineA
-#'
-#' @return A data frame useful as the `specs` argument of [plot_timelineY()].
-#'
-#' @export
-#' @examples
-#' data <- prep_timelineY(sda, sector_filter = "cement")
-#' timeline_specs(data)
 timeline_specs <- function(data) {
   abort_if_missing_names(data, "line_name")
 
