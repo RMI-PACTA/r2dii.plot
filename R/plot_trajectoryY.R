@@ -139,49 +139,6 @@ check_number_scenarios <- function(scenario_specs) {
   }
 }
 
-get_scenario_data <- function(data, scenario_specs) {
-  area_borders <- get_area_borders(data)
-
-  data_worse_than_scenarios <- tibble(year = unique(data$year))
-  if (scenario_specs$scenario[1] == "worse") {
-    data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
-      select(.data$year, .data$metric, value_low = .data$value)
-
-    data_worse_than_scenarios$value_low <- area_borders$lower
-    data_worse_than_scenarios$metric <- "worse"
-
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
-      mutate(metric = factor(.data$metric,
-        levels = scenario_specs$scenario
-      )) %>%
-      arrange(.data$year, .data$metric) %>%
-      mutate(value = lead(.data$value_low,
-        n = 1,
-        default = area_borders$upper
-      ))
-  } else {
-    data_worse_than_scenarios$value <- area_borders$upper
-    data_worse_than_scenarios$metric <- "worse"
-
-    data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
-      select(.data$year, .data$metric, .data$value)
-
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
-      mutate(metric = factor(.data$metric,
-        levels = scenario_specs$scenario
-      )) %>%
-      arrange(.data$year, .data$metric) %>%
-      mutate(value_low = lag(.data$value,
-        n = 1,
-        default = area_borders$lower
-      ))
-  }
-}
-
 get_ordered_scenario_specs_with_colours <- function(scenario_specs_good_to_bad,
                                                     technology) {
   worse_row <- tibble(scenario = "worse", label = "Worse")
