@@ -72,10 +72,9 @@ abort_if_invalid_length <- function(x, valid = 1L) {
 }
 
 abort_if_multiple <- function(data, x, env = parent.frame()) {
-  # FIXME: Pretty labels must work beyond the top level. May need to pass `env`
   .data <- deparse_1(substitute(data, env = env))
 
-  doit_once <- function(x) {
+  do_it_once <- function(x) {
     .x <- unique(data[[x]])
     if (length(.x) > 1L) {
       abort(glue(
@@ -86,7 +85,7 @@ abort_if_multiple <- function(data, x, env = parent.frame()) {
     }
     invisible(x)
   }
-  lapply(x, doit_once)
+  lapply(x, do_it_once)
 
   invisible(data)
 }
