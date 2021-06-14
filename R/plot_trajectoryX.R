@@ -26,10 +26,10 @@
 #'     region == "global",
 #'     scenario_source == "demo_2020"
 #'   )
-#' plot_trajectoryX(data)
+#' plot_trajectory(data)
 #'
-#' plot_trajectoryX(data, normalize = FALSE)
-plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
+#' plot_trajectory(data, normalize = FALSE)
+plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
   stopifnot(is.data.frame(data))
   hint_if_missing_names(
     abort_if_missing_names(data, common_crucial_market_share_columns())

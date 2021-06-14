@@ -24,8 +24,8 @@
 #'     region == "global",
 #'     metric %in% c("projected", "corporate_economy", "target_sds")
 #'   )
-#' plot_techmixX(data)
-plot_techmixX <- function(data) {
+#' plot_techmix(data)
+plot_techmix <- function(data) {
   stopifnot(is.data.frame(data))
 
   crucial_techmix_and_trajectory <- function() {

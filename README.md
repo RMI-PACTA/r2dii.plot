@@ -89,13 +89,13 @@ trajectory.
 
 ### Timeline
 
-Use `plot_timelineX()` with `sda`-like data. You’ll need to pick the
+Use `plot_timeline()` with `sda`-like data. You’ll need to pick the
 specific rows you want to plot. For details see the documented
 “Requirements” of the argument `data`, or try intuitively and let the
 error messages guide you.
 
 ``` r
-plot_timelineX(sda)
+plot_timeline(sda)
 #> Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 ```
 
@@ -105,7 +105,7 @@ The error message suggests you must first pick only one value of
 ``` r
 sda %>% 
   filter(sector == "cement") %>% 
-  plot_timelineX()
+  plot_timeline()
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -124,7 +124,7 @@ to_title <- function(x) gsub("_", " ", tools::toTitleCase(x))
 sda %>% 
   filter(sector == "cement", year >= 2020) %>% 
   mutate(emission_factor_metric = to_title(emission_factor_metric)) %>% 
-  plot_timelineX(extrapolate = TRUE) + labs(title = "Timeline plot")
+  plot_timeline(extrapolate = TRUE) + labs(title = "Timeline plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -136,7 +136,7 @@ labels.
 ``` r
 sda %>% 
   filter(sector == "cement") %>% 
-  plot_timelineX(extrapolate = TRUE) +
+  plot_timeline(extrapolate = TRUE) +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)"))
@@ -201,7 +201,7 @@ market_share %>%
 
 ### Trajectory
 
-Use `plot_trajectoryX()` with `market_share`-like data. Again, learn
+Use `plot_trajectory()` with `market_share`-like data. Again, learn
 which rows to pick by reading the documented “Requirements” of the
 argument `data`, or by trial and error.
 
@@ -214,7 +214,7 @@ data <- market_share %>%
     year <= 2025
   )
 
-plot_trajectoryX(data) + labs(title = "Trajectory plot")
+plot_trajectory(data) + labs(title = "Trajectory plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -224,7 +224,7 @@ most visually salient (solid black line). Without the argument, the
 first ‘metric’ in data which is not a scenario is used as a main line.
 
 ``` r
-plot_trajectoryX(data, main_line = "projected")
+plot_trajectory(data, main_line = "projected")
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -233,7 +233,7 @@ Use `normalize = FALSE` if you prefer not to normalize to the start
 year.
 
 ``` r
-plot_trajectoryX(data, main_line = "projected", normalize = FALSE)
+plot_trajectory(data, main_line = "projected", normalize = FALSE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
