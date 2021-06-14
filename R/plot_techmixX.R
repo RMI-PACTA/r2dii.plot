@@ -28,16 +28,21 @@
 plot_techmixX <- function(data) {
   stopifnot(is.data.frame(data))
 
-  crucial <- c(
-    "metric",
-    "region",
-    "scenario_source",
-    "sector",
-    "technology",
-    "technology_share",
-    "year"
+  crucial_techmix_and_trajectory <- function() {
+    c(
+      "metric",
+      "region",
+      "scenario_source",
+      "sector",
+      "technology",
+      "technology_share",
+      "year"
+    )
+  }
+
+  hint_if_missing_names(
+    abort_if_missing_names(data, crucial_techmix_and_trajectory())
   )
-  hint_if_missing_names(abort_if_missing_names(data, crucial))
 
   abort_if_has_cero_rows(data)
   abort_if_multiple(data, "sector")

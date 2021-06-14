@@ -126,3 +126,15 @@ format_plot_function_name <- function(.expr) {
   fun <- gsub(".*_(.*)[A-Z]", "\\1", fun)
   fun <- glue("plot_{fun}")
 }
+
+some_crucial_market_share_columns <- function() {
+  c(
+    "metric",
+    "region",
+    "scenario_source",
+    "sector",
+    "technology",
+    "year"
+  )
+
+}
