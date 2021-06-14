@@ -705,7 +705,7 @@
 
 # with inexistent `main_line` errors gracefully
 
-      `main_line` must be one of `metric`.
-      * Valid: projected.
-      * Provided: bad.
+    `main_line` must be one value of `data$metric`.
+    * Valid: projected.
+    * Provided: bad.
 
