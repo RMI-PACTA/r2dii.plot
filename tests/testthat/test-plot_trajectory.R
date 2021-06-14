@@ -125,16 +125,6 @@ test_that("with too long `main_line` errors gracefully", {
   expect_snapshot_error(plot_trajectory(data, main_line = c("too", "long")))
 })
 
-
-
-
-
-
-
-
-# prep_trajectory() ----
-
-
 test_that("is sensitive to `normalize`", {
   data <- filter(market_share, technology == first(technology))
   pull_value <- function(p) {
@@ -153,16 +143,16 @@ test_that("with missing crucial names errors gracefully", {
   data <- head(market_share)
 
   bad <- select(data, -metric)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -sector)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -technology)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -region)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -year)
   expect_error(class = "missing_names", prep_trajectory(bad))
@@ -172,18 +162,4 @@ test_that("with missing crucial names errors gracefully", {
 
   bad <- select(data, -production)
   expect_error(class = "missing_names", prep_trajectory(bad))
-})
-
-test_that("integrates with plot_trajectory()", {
-  data <- market_share %>%
-    filter(
-      technology == "oilcap",
-      region == "global",
-      scenario_source == "demo_2020",
-      year <= 2025,
-      sector == "power"
-    )
-
-  out <- prep_trajectory(data)
-  expect_no_error(plot_trajectoryB(out))
 })
