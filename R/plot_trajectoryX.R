@@ -334,20 +334,6 @@ assert_5_rows <- function(data) {
   invisible(data)
 }
 
-#' @noRd
-#' @examples
-#' library(dplyr)
-#'
-#' data <- market_share %>%
-#'   filter(
-#'     technology == "oilcap",
-#'     region == "global",
-#'     scenario_source == "demo_2020",
-#'     year <= 2025,
-#'     sector == "power"
-#'   )
-#'
-#' prep_trajectoryB(data)
 prep_trajectoryB <- function(data,
                              value = "production",
                              metric = "metric",
