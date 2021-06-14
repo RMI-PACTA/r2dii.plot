@@ -91,17 +91,15 @@ get_common_start_year <- function(data, metric) {
 plot_timelineB <- function(data) {
   abort_if_missing_names(data, "line_name")
 
-  line_names <- unique(data$line_name)
-  labels <- line_names
-  specs <- tibble(line_name = line_names, label = labels) %>%
+  specs <- tibble(line_name = unique(data$line_name), label = line_name) %>%
     abort_if_too_many_lines() %>%
-    add_r2dii_colours()
+    add_r2dii_colours() %>%
+    factor_to_character()
 
   plot_timelineY(data = data, specs = specs)
 }
 
-plot_timelineY <- function(data, specs = timeline_specs(data)) {
-  check_specs(specs, data)
+plot_timelineY <- function(data, specs) {
   abort_if_multiple(data, "sector")
   data <- left_join(data, specs, by = "line_name")
 
@@ -123,28 +121,6 @@ plot_timelineY <- function(data, specs = timeline_specs(data)) {
     ) +
     guides(linetype = FALSE) +
     theme_2dii()
-}
-
-check_specs <- function(specs, data) {
-  crucial <- c("line_name", "label", "hex")
-  abort_if_missing_names(specs, crucial)
-
-  specs <- factor_to_character(specs)
-  malformed_line_name <- !identical(
-    sort(unique(specs$line_name)),
-    sort(unique(data$line_name))
-  )
-  if (malformed_line_name) {
-    name_in_data <- toString(sort(unique(data$line_name)))
-    name_in_specs <- toString(sort(unique(specs$line_name)))
-    abort(glue(
-      "Can't find `line_name` values from 'specs' in the data:
-      * Unique `line_name` values in 'data' are: {name_in_data}.
-      * Unique `line_name` values in 'specs' are: {name_in_specs}."
-    ))
-  }
-
-  invisible(specs)
 }
 
 factor_to_character <- function(data) {
