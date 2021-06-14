@@ -120,11 +120,12 @@ hint_if_missing_names <- function(expr) {
 }
 
 format_plot_function_name <- function(.expr) {
-  # Matches "fun_name" from "fun_name(...)"
+  # "fun_name(...)" -> "fun_name"
   fun <- gsub("(.*)\\(.*", "\\1", .expr)
-  # Matches "_name" from "fun_nameZ"
+  # "fun_nameZ" -> "_name"
   fun <- gsub(".*_(.*)[A-Z]", "\\1", fun)
   fun <- glue("plot_{fun}")
+  fun
 }
 
 common_crucial_market_share_columns <- function() {
