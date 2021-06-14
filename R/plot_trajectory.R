@@ -48,7 +48,7 @@ plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
     main <- main_line
   }
 
-  prep <- prep_trajectoryB(data, normalize = normalize)
+  prep <- prep_trajectory(data, normalize = normalize)
 
   plot_trajectoryB(prep, main_line = main)
 }
@@ -289,11 +289,11 @@ assert_5_rows <- function(data) {
   invisible(data)
 }
 
-prep_trajectoryB <- function(data,
+prep_trajectory <- function(data,
                              value = "production",
                              metric = "metric",
                              normalize = TRUE) {
-  check_prep_trajectoryB(data, value, normalize)
+  check_prep_trajectory(data, value, normalize)
   data <- recode_metric_and_metric_type(data, metric)
 
   cols <- c("year", "metric_type", "metric", "technology", "value")
@@ -317,7 +317,7 @@ prep_trajectoryB <- function(data,
     select(all_of(cols))
 }
 
-check_prep_trajectoryB <- function(data, value, normalize) {
+check_prep_trajectory <- function(data, value, normalize) {
   crucial <- c(common_crucial_market_share_columns(), value)
   abort_if_missing_names(data, crucial)
 

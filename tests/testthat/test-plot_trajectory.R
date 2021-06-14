@@ -101,9 +101,9 @@ test_that("with too long `main_line` errors gracefully", {
   )
 })
 
-# prep_trajectoryB() ----
+# prep_trajectory() ----
 
-test_that("prep_trajectoryB() outputs the expected snapshot", {
+test_that("prep_trajectory() outputs the expected snapshot", {
   data <- market_share %>%
     filter(
       technology == "oilcap",
@@ -112,7 +112,7 @@ test_that("prep_trajectoryB() outputs the expected snapshot", {
       year <= 2025,
       sector == "power"
     )
-  out <- prep_trajectoryB(data)
+  out <- prep_trajectory(data)
 
   skip("Dead code")
   expect_snapshot(out)
@@ -121,32 +121,32 @@ test_that("prep_trajectoryB() outputs the expected snapshot", {
 test_that("with multiple distinct values in some columns errors gracefully", {
   long_sector <- mutate(head(market_share, 2), sector = 1:2)
   skip("Dead code")
-  expect_snapshot_error(prep_trajectoryB(long_sector))
+  expect_snapshot_error(prep_trajectory(long_sector))
 
   long_tech <- mutate(head(market_share, 2), technology = 1:2)
   skip("Dead code")
-  expect_snapshot_error(prep_trajectoryB(long_tech))
+  expect_snapshot_error(prep_trajectory(long_tech))
 
   long_region <- mutate(head(market_share, 2), region = 1:2)
   skip("Dead code")
-  expect_snapshot_error(prep_trajectoryB(long_region))
+  expect_snapshot_error(prep_trajectory(long_region))
 
   long_source <- mutate(head(market_share, 2), scenario_source = 1:2)
   skip("Dead code")
-  expect_snapshot_error(prep_trajectoryB(long_source))
+  expect_snapshot_error(prep_trajectory(long_source))
 })
 
 test_that("if `normalize` isn't length-1 errors gracefully", {
   skip("Dead code")
   expect_snapshot_error(
-    prep_trajectoryB(market_share, normalize = c(TRUE, TRUE))
+    prep_trajectory(market_share, normalize = c(TRUE, TRUE))
   )
 })
 
 test_that("if `normalize` isn't logical errors gracefully", {
   skip("Dead code")
   expect_snapshot_error(
-    prep_trajectoryB(market_share, normalize = "a")
+    prep_trajectory(market_share, normalize = "a")
   )
 })
 
@@ -161,8 +161,8 @@ test_that("is sensitive to `normalize`", {
 
   expect_false(
     identical(
-      prep_trajectoryB(data, normalize = TRUE),
-      prep_trajectoryB(data, normalize = FALSE)
+      prep_trajectory(data, normalize = TRUE),
+      prep_trajectory(data, normalize = FALSE)
     )
   )
 })
@@ -171,25 +171,25 @@ test_that("with missing crucial names errors gracefully", {
   data <- head(market_share)
 
   bad <- select(data, -metric)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 
   bad <- select(data, -sector)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 
   bad <- select(data, -technology)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 
   bad <- select(data, -region)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 
   bad <- select(data, -year)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 
   bad <- select(data, -scenario_source)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 
   bad <- select(data, -production)
-  expect_error(class = "missing_names", prep_trajectoryB(bad))
+  expect_error(class = "missing_names", prep_trajectory(bad))
 })
 
 test_that("integrates with plot_trajectory()", {
@@ -202,6 +202,6 @@ test_that("integrates with plot_trajectory()", {
       sector == "power"
     )
 
-  out <- prep_trajectoryB(data)
+  out <- prep_trajectory(data)
   expect_no_error(plot_trajectoryB(out))
 })
