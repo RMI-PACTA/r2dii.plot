@@ -38,13 +38,9 @@ plot_techmix <- function(data) {
   cols <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, cols)
 
-
   abort_if_multiple_scenarios(data)
 
   prep <- prep_techmix(data)
-
-  found_scenarios <- pull_scenarios(prep)
-  abort_if_invalid_length(found_scenarios)
 
   plot_techmixY(prep)
 }
