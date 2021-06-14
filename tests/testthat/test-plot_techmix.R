@@ -80,21 +80,6 @@ test_that("outputs a ggplot", {
 
 # prep_techmix() ----
 
-test_that("prep_techmix() outputs the expected snapshot", {
-  data <- market_share %>%
-    filter(
-      dplyr::between(year, 2020, 2025),
-      scenario_source == "demo_2020",
-      sector == "power",
-      region == "global",
-      metric %in% c("projected", "corporate_economy", "target_sds")
-    )
-
-  out <- prep_techmix(data, value = "technology_share")
-  skip("Dead code")
-  expect_snapshot(out)
-})
-
 test_that("with missing crucial names errors gracefully", {
   data <- head(market_share)
 
@@ -109,24 +94,4 @@ test_that("with missing crucial names errors gracefully", {
 
   bad <- select(data, -scenario_source)
   expect_error(class = "missing_names", prep_techmix(bad))
-})
-
-test_that("with more than one value of some columns errors gracefully", {
-  long_source <- mutate(head(market_share, 2), scenario_source = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_techmix(long_source))
-
-  long_sector <- mutate(head(market_share, 2), sector = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_techmix(long_sector))
-
-  long_region <- mutate(head(market_share, 2), region = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_techmix(long_region))
-})
-
-test_that("with bad metric errors gracefully", {
-  bad_metric <- mutate(head(market_share), metric = "bad")
-  skip("Dead code")
-  expect_snapshot_error(prep_techmix(bad_metric))
 })

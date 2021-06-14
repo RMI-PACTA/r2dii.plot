@@ -103,52 +103,6 @@ test_that("with too long `main_line` errors gracefully", {
 
 # prep_trajectory() ----
 
-test_that("prep_trajectory() outputs the expected snapshot", {
-  data <- market_share %>%
-    filter(
-      technology == "oilcap",
-      region == "global",
-      scenario_source == "demo_2020",
-      year <= 2025,
-      sector == "power"
-    )
-  out <- prep_trajectory(data)
-
-  skip("Dead code")
-  expect_snapshot(out)
-})
-
-test_that("with multiple distinct values in some columns errors gracefully", {
-  long_sector <- mutate(head(market_share, 2), sector = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_trajectory(long_sector))
-
-  long_tech <- mutate(head(market_share, 2), technology = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_trajectory(long_tech))
-
-  long_region <- mutate(head(market_share, 2), region = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_trajectory(long_region))
-
-  long_source <- mutate(head(market_share, 2), scenario_source = 1:2)
-  skip("Dead code")
-  expect_snapshot_error(prep_trajectory(long_source))
-})
-
-test_that("if `normalize` isn't length-1 errors gracefully", {
-  skip("Dead code")
-  expect_snapshot_error(
-    prep_trajectory(market_share, normalize = c(TRUE, TRUE))
-  )
-})
-
-test_that("if `normalize` isn't logical errors gracefully", {
-  skip("Dead code")
-  expect_snapshot_error(
-    prep_trajectory(market_share, normalize = "a")
-  )
-})
 
 test_that("is sensitive to `normalize`", {
   data <- market_share %>%
