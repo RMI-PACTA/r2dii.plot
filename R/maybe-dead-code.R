@@ -41,15 +41,7 @@ prep_trajectoryB <- function(data,
 }
 
 check_prep_trajectoryB <- function(data, value, normalize) {
-  crucial <- c(
-    "metric",
-    "region",
-    "scenario_source",
-    "sector",
-    "technology",
-    "year",
-    value
-  )
+  crucial <- c(some_crucial_market_share_columns(), value)
   abort_if_missing_names(data, crucial)
 
   abort_if_invalid_length(normalize)
