@@ -1,3 +1,26 @@
+test_that("works with 1 to max number of scenarios", {
+  data <- market_share %>%
+    filter(sector == first(sector), technology == first(technology))
+  count_metrics <- function(p) {
+    length(unique(p$layers[[2]]$data$metric))
+  }
+
+  n <- 3L
+  prep <- filter(data, metric %in% unique(metric)[1:n])
+  p <- plot_trajectory(prep)
+  expect_equal(count_metrics(p), n)
+
+  n <- 4L
+  prep <- filter(data, metric %in% unique(metric)[1:n])
+  p <- plot_trajectory(prep)
+  expect_equal(count_metrics(p), n)
+
+  n <- 5L
+  prep <- filter(data, metric %in% unique(metric)[1:n])
+  p <- plot_trajectory(prep)
+  expect_equal(count_metrics(p), n)
+})
+
 test_that("outputs the expected ggplot object", {
   mauro <- path.expand("~") == "/home/mauro"
   skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
