@@ -26,45 +26,6 @@ plot_timelineX <- function(data, extrapolate = FALSE) {
   plot_timelineB(prep)
 }
 
-#' Prepare the output of `r2dii.analysis::target_sda()` for `plot_timeline()`
-#'
-#' @param data Data frame like the output of `r2dii.analysis::target_sda()`.
-#' @param value String of length 1. The name of the column holding the value to
-#'   plot.
-#' @param metric String of length 1. The name of the column holding the metrics
-#'   to plot.
-#' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
-#'   furthest value in the data set.
-#' @inheritParams prep_techmixY
-#'
-#' @seealso [sda].
-#'
-#' @return Data frame with columns: year, line_name, value, extrapolated.
-#'
-#' @export
-#' @examples
-#' library(dplyr, warn.conflicts = FALSE)
-#'
-#' # Fails
-#' try(prep_timelineY(sda))
-#'
-#' # Works: meets `data` requirements
-#' prep_timelineY(sda, sector_filter = "cement")
-#'
-#' # Same
-#' sda %>%
-#'   filter(sector == "cement") %>%
-#'   prep_timelineY()
-#'
-#' prep_timelineY(sda, sector_filter = "cement", extrapolate = TRUE)
-#'
-#' data <- sda %>%
-#'   filter(sector == "cement") %>%
-#'   rename(
-#'     custom_value = "emission_factor_value",
-#'     custom_metric = "emission_factor_metric"
-#'   )
-#' prep_timelineY(data, value = "custom_value", metric = "custom_metric")
 prep_timelineY <- function(data,
                            value = "emission_factor_value",
                            metric = "emission_factor_metric",
