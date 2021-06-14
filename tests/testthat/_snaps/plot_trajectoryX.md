@@ -713,3 +713,7 @@
 
     `metric` must have between 1 and 4 scenarios, not 5: a, b, c, d, e
 
+# with too long `main_line` errors gracefully
+
+    `main_line` must be of length 1, not 2.
+

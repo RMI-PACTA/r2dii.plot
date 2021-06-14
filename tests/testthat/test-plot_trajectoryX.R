@@ -94,6 +94,13 @@ test_that("is sensitive to `main_line`", {
   expect_no_error(plot_trajectoryX(data, main_line = "corporate_economy"))
 })
 
+test_that("with too long `main_line` errors gracefully", {
+  data <- head(market_share, 1L)
+  expect_snapshot_error(
+    plot_trajectoryX(data, main_line = c("too", "long"))
+  )
+})
+
 # prep_trajectoryB() ----
 
 test_that("prep_trajectoryB() outputs the expected snapshot", {
@@ -199,38 +206,3 @@ test_that("integrates with plot_trajectory()", {
   expect_no_error(plot_trajectoryB(out))
 })
 
-# plot_trajectoryB() ----
-
-test_that("with wrong 'main_line' errors gracefully", {
-  data <- prep_trajectoryY(
-    market_share,
-    sector_filter = "power",
-    technology_filter = "oilcap",
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    value = "production",
-    end_year_filter = 2025,
-    normalize = TRUE
-  )
-  skip("Dead code")
-  expect_snapshot_error(
-    plot_trajectoryB(data, main_line = "bad")
-  )
-})
-
-test_that("with too long `main_line` errors gracefully", {
-  data <- prep_trajectoryY(
-    market_share,
-    sector_filter = "power",
-    technology_filter = "oilcap",
-    region_filter = "global",
-    scenario_source_filter = "demo_2020",
-    value = "production",
-    end_year_filter = 2025,
-    normalize = TRUE
-  )
-  skip("Dead code")
-  expect_snapshot_error(
-    plot_trajectoryB(data, main_line = c("too", "long"))
-  )
-})
