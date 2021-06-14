@@ -9,8 +9,3 @@ plot_timelineB <- function(data) {
 
   plot_timelineY(data = data, specs = specs)
 }
-
-plot_timelineC <- function(data, recode = TRUE) {
-  if (!is.null(recode)) data$line_name <- recode_lines(recode, data)
-  plot_timelineB(data)
-}
