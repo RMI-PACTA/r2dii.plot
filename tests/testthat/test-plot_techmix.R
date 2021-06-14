@@ -29,6 +29,14 @@ test_that("with cero-row data errors gracefully", {
   )
 })
 
+test_that("with more than one scenario errors gracefully", {
+  data <- market_share
+  prep <- filter(market_share, sector == first(sector))
+  expect_snapshot_error(
+    plot_techmix(prep)
+  )
+})
+
 test_that("with too many sectors errors gracefully", {
   bad_sector <- head(market_share, 2L)
   bad_sector$sector <- c("a", "b")
@@ -51,25 +59,11 @@ test_that("with too many scenario_source errors gracefully", {
   )
 })
 
-test_that("with too many scenarios errors gracefully", {
-  too_many <- head(market_share, 4L)
-  too_many$metric <- c("projected", "corporate_economy", "target_a", "target_b")
-
-  expect_error(
-    # class = "invalid_length",
-    plot_techmix(too_many),
-    "must be.*1.*not 2"
-  )
-})
-
 test_that("with too few scenarios errors gracefully", {
   too_few <- head(market_share, 2L)
   too_few$metric <- c("projected", "corporate_economy")
 
-  expect_error(
-    plot_techmix(too_few),
-    "Can't find.*scenarios"
-  )
+  expect_snapshot_error(plot_techmix(too_few))
 })
 
 test_that("outputs a ggplot", {

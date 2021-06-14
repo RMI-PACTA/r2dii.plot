@@ -53,8 +53,6 @@ recode_portfolio_benchmark_scenario <- function(x) {
 abort_if_bad_metric <- function(x) {
   has_projected <- "projected" %in% x
   if (!has_projected) abort("Can't find values to recode as 'portfolio'.")
-  has_scenarios <- any(startsWith(x, "target"))
-  if (!has_scenarios) abort("Can't find values to recode as scenarios.")
 
   invisible(x)
 }
@@ -177,4 +175,16 @@ abort_if_missing_names <- function(x, expected_names) {
   }
 
   invisible(x)
+}
+
+fmt_string <- function(x) {
+  toString(paste0("'", x, "'"))
+}
+
+fmt_vector <- function(x) {
+  paste0("c(", x, ")")
+}
+
+extract_scenarios <- function(x) {
+  unique(x[startsWith(x, "target_")])
 }

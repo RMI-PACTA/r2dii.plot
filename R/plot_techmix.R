@@ -39,6 +39,27 @@ plot_techmix <- function(data) {
   cols <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, cols)
 
+  abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
+    abort_if_missing_names(data, "metric")
+    .data <- deparse_1(substitute(data, env = env))
+
+    scenarios <- extract_scenarios(data$metric)
+    n <- length(scenarios)
+    if (n == 0L) {
+      abort(glue("`{.data}$metric` must have one scenario but has none."))
+    }
+
+    if (n != 1L) {
+      example <- c(setdiff(unique(data$metric), scenarios), first(scenarios))
+      abort(glue(
+        "`{.data}$metric` must have a single scenario not {n}: {toString(scenarios)}.
+        You may pick one scenario, e.g. '{first(scenarios)}' with:
+          subset({.data}, metric %in% {fmt_vector(fmt_string(example))})"
+      ))
+    }
+  }
+  abort_if_multiple_scenarios(data)
+
   prep <- prep_techmix(data)
 
   found_scenarios <- pull_scenarios(prep)

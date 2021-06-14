@@ -583,6 +583,12 @@
 
     `cero_row` must have some rows but has none.
 
+# with more than one scenario errors gracefully
+
+    `prep$metric` must have a single scenario not 3: target_cps, target_sds, target_sps.
+    You may pick one scenario, e.g. 'target_cps' with:
+      subset(prep, metric %in% c('projected', 'corporate_economy', 'target_cps'))
+
 # with too many sectors errors gracefully
 
     `bad_sector` must have a single value of `sector` but has: a, b.
@@ -600,4 +606,8 @@
     `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
     Pick one value, e.g. 'a', with:
       dplyr::filter(bad_scenario_source, scenario_source == 'a')
+
+# with too few scenarios errors gracefully
+
+    `too_few$metric` must have one scenario but has none.
 
