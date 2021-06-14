@@ -48,18 +48,11 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   } else {
     metric_includes_main_line <- main_line %in% tolower(data$metric)
     stopifnot(metric_includes_main_line)
-    main <- main_line
   }
 
   prep <- prep_trajectoryB(data, normalize = normalize)
 
   plot_trajectoryB(prep, main_line = main)
-}
-
-set_first <- function(x, first) {
-  stopifnot(first %in% x)
-  tail <- setdiff(unique(x), first)
-  c(first, tail)
 }
 
 #' @noRd
