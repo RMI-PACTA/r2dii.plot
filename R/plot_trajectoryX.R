@@ -54,50 +54,6 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   plot_trajectoryB(prep, main_line = main)
 }
 
-#' @noRd
-#' @description
-#' * `plot_trajectoryB()` derives the main and additional lines as well as
-#' scenario order from the data. The lines are plotted according to the order of
-#' the input data. The scenario order is inferred from the order of values on
-#' the last year. For the labels the `data` column `metric` is used. You may
-#' recode `metric` before passing the data with, for example, `dplyr::recode()`.
-#'
-#' @param main_line String of length 1. The `metric` to plot as the line with
-#'   the most visual salience (solid black line). `NULL` defaults to
-#'   "projected".
-#'
-#' @family plotting functions
-#'
-#' @examples
-#'
-#' # `plot_trajectoryB()` ------------------------------------------------------
-#' library(dplyr)
-#'
-#' data <- prep_trajectoryY(
-#'   market_share,
-#'   sector_filter = "power",
-#'   technology_filter = "renewablescap",
-#'   region_filter = "global",
-#'   scenario_source_filter = "demo_2020",
-#'   value = "production"
-#' )
-#'
-#' plot_trajectoryB(data, main_line = "projected")
-#'
-#' # You may recode `metric` with `dplyr::recode()`
-#' recoded <- data %>%
-#'   mutate(
-#'     metric = recode(
-#'       .data$metric,
-#'       "projected" = "Projected",
-#'       "corporate_economy" = "Corporate Economy",
-#'       "sds" = "SDS",
-#'       "sps" = "SPS",
-#'       "cps" = "CPS"
-#'     )
-#'   )
-#'
-#' plot_trajectoryB(recoded, main_line = "Projected")
 plot_trajectoryB <- function(data, main_line = NULL) {
   main_line <- main_line %||%
     (data %>%
