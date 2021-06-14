@@ -30,6 +30,7 @@ prep_timeline <- function(data,
                           value = "emission_factor_value",
                           metric = "emission_factor_metric",
                           extrapolate = FALSE) {
+  browser()
   check_prep_timeline(data, value, metric, extrapolate)
   abort_if_multiple(data, "sector")
 
@@ -90,7 +91,6 @@ get_common_start_year <- function(data, metric) {
 
 plot_timelineB <- function(data) {
   abort_if_missing_names(data, "line_name")
-
   specs <- tibble(line_name = unique(data$line_name), label = line_name) %>%
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
@@ -122,6 +122,7 @@ plot_timelineY <- function(data, specs) {
     theme_2dii()
 }
 
+# TODO: Is this dead code? How can we test it?
 abort_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   n_colours <- nrow(palette_colours)
