@@ -37,20 +37,11 @@ navbar:
 
 reference:
 
-  - title: Version X only
+  - title: Plot
     contents:
       - matches("plot_.*X")
-
-  - title: Version Y only
-    contents:
-      - matches("prep_.*Y")
-      - matches("plot_.*Y")
-
-  - title: Version X and Y (plot, helpers, datasets)
-    contents:
       - theme_2dii
-      - timeline_specs
+
+  - title: Datasets
+    contents:
       - has_concept("datasets")
-      - -matches("plot_.*X")
-      - -matches("prep_.*Y")
-      - -matches("plot_.*Y")

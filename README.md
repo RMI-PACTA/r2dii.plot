@@ -85,115 +85,155 @@ market_share
 ```
 
 r2dii.plot supports three kinds of plots – timeline, techmix, and
-trajectory. Each plot has specific requirements for the first argument
-`data`. To meet those requirements we currently provide two experimental
-sets of functions ([API](https://en.wikipedia.org/wiki/API)s) – X and Y.
+trajectory.
 
-Both APIs can help you get the same plots. The difference is not in what
-you can do but in how you can do it:
+### Timeline
 
-  - The X API has a simpler interface. It focuses exclusively on the
-    tasks you can’t easily achieve with other packages, and assumes you
-    can meet the `data` requirements and customize your plots with other
-    packages such as base R, dplyr, and ggplot2. It forces you to learn
-    or reuse your existing knowledge of other R packages and workflows.
-
-  - The Y API has a more complex but complete toolkit. It offers more
-    functions and arguments that wrap features from other packages to
-    help you meet the `data` requirements and customize your plots
-    directly with r2dii.plot. and ggplot2. It forces you to learn the
-    new r2dii.plot way of doing things but requires little knowledge of
-    other packages and workflows.
-
-These tables summarize the differences for users and developers of
-r2dii.plot:
-
-|                                                | X API               | Y API                                         |
-| :--------------------------------------------- | :------------------ | :-------------------------------------------- |
-| Interface                                      | Simpler             | More complex                                  |
-| Meet `data` requirements                       | With other packages | With r2dii.plot and optionally other packages |
-| Customize plots                                | With other packages | With r2dii.plot and optionally other packages |
-| Integrates with other R packages and workflows | More                | Less                                          |
-
-*The X and Y APIs compared from a user’s perspective.*
-
-|                  | X API | Y API |
-| :--------------- | :---- | :---- |
-| Easy to maintain | Less  | More  |
-| Easy to extend   | More  | Less  |
-
-*The X and Y APIs compared from a developer’s perspective.*
-
-To make the comparison concrete consider this small example of a
-trajectory plot (the other plot types you can find in the detailed [X
-API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
-and [Y
-API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html))
-articles. Notice the resulting plot is almost the same (except for the
-labels) but the toolkit is different.
-
-  - X API
-
-<!-- end list -->
+Use `plot_timelineX()` with `sda`-like data. You’ll need to pick the
+specific rows you want to plot. For details see the documented
+“Requirements” of the argument `data`, or try intuitively and let the
+error messages guide you.
 
 ``` r
-data <- market_share
+plot_timelineX(sda)
+#> Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+```
 
-prep <- filter(
-  data,
-  sector == "power",
-  technology == "renewablescap",
-  region == "global",
-  scenario_source == "demo_2020",
-  year <= 2025
-)
+The error message suggests you must first pick only one value of
+`sector`, for example “cement”.
 
-plot_trajectoryX(prep) + 
-  labs (title = "Trajectory plot with the thin 'X' API")
+``` r
+sda %>% 
+  filter(sector == "cement") %>% 
+  plot_timelineX()
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+Great! You can now polish your plot. Your options are limitless but
+these are some typical things you may do:
+
+-   Pick a narrower time range.
+-   Recode the legend.
+-   Extrapolate the timeline.
+-   Add a title.
+
+``` r
+to_title <- function(x) gsub("_", " ", tools::toTitleCase(x))
+
+sda %>% 
+  filter(sector == "cement", year >= 2020) %>% 
+  mutate(emission_factor_metric = to_title(emission_factor_metric)) %>% 
+  plot_timelineX(extrapolate = TRUE) + labs(title = "Timeline plot")
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+You can further customize your plot by adding a custom manual scale
+using `ggplot` function `scale_colour_manual()` with custom legend
+labels.
+
+``` r
+sda %>% 
+  filter(sector == "cement") %>% 
+  plot_timelineX(extrapolate = TRUE) +
+  scale_color_manual(
+    values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
+    labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)"))
+#> Scale for 'colour' is already present. Adding another scale for 'colour',
+#> which will replace the existing scale.
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - Y API
+### Techmix
 
-<!-- end list -->
+Use `plot_techmixX()` with `market_share`-like data. Again, learn which
+rows to pick by reading the documented “Requirements” of the argument
+`data`, or by trial and error.
 
 ``` r
-data <- market_share
+unique(market_share$metric)
+#> [1] "projected"         "corporate_economy" "target_cps"       
+#> [4] "target_sds"        "target_sps"
+chosen_metrics <- c("projected", "corporate_economy", "target_sds")
 
-prep <- prep_trajectoryY(
-  data,
-  sector_filter = "power",
-  technology_filter = "renewablescap",
-  region_filter = "global",
-  scenario_source_filter = "demo_2020",
-  value = "production"
-)
-
-scenario_specs <- dplyr::tibble(
-  scenario = c("sds", "sps", "cps"),
-  label = c("SDS", "STEPS", "CPS")
-)
-
-main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
-
-additional_line_metrics <- dplyr::tibble(
-  metric = "corporate_economy",
-  label = "Corporate Economy"
-)
-
-plot_trajectoryY(
-  prep,
-  scenario_specs_good_to_bad = scenario_specs,
-  main_line_metric = main_line_metric,
-  additional_line_metrics = additional_line_metrics
-) + 
-  labs (title = "Trajectory plot with the thick 'Y' API")
+market_share %>%
+  filter(
+    metric %in% chosen_metrics,
+    sector == "power",
+    region == "global"
+  ) %>% 
+  plot_techmixX() + labs(title = "Techmix plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-For full examples see the dedicated articles [r2dii.plot
-X](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
-and [r2dii.plot
-Y](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html).
+You may customize the plot further by:
+
+-   Setting custom colours and colour labels using `ggplot` function
+    `scale_color_manual()`.
+-   Picking the years to be plotted by filtering the data passed to
+    `plot_techmixX()` (by default the extreme years in the data are
+    plotted).
+
+At the moment the labels of the bars are derived from the data and it is
+not possible to change or remove them (as it is possible with [“Y”
+API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html)).
+
+``` r
+market_share %>%
+  filter(
+    metric %in% chosen_metrics,
+    sector == "power",
+    region == "global",
+    between(year, 2020, 2025)
+  ) %>% 
+  plot_techmixX() + 
+  scale_fill_manual(
+    values = c("black", "brown", "grey", "blue", "green4"),
+    labels = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Hydro Cap.", "Renewables Cap."))
+#> Scale for 'fill' is already present. Adding another scale for 'fill', which
+#> will replace the existing scale.
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+### Trajectory
+
+Use `plot_trajectoryX()` with `market_share`-like data. Again, learn
+which rows to pick by reading the documented “Requirements” of the
+argument `data`, or by trial and error.
+
+``` r
+data <- market_share %>% 
+  filter(
+    sector == "power", 
+    region == "global", 
+    technology == "renewablescap",
+    year <= 2025
+  )
+
+plot_trajectoryX(data) + labs(title = "Trajectory plot")
+```
+
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+Use `main_line` argument to indicate which trajectory line should be
+most visually salient (solid black line). Without the argument, the
+first ‘metric’ in data which is not a scenario is used as a main line.
+
+``` r
+plot_trajectoryX(data, main_line = "projected")
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+Use `normalize = FALSE` if you prefer not to normalize to the start
+year.
+
+``` r
+plot_trajectoryX(data, main_line = "projected", normalize = FALSE)
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
