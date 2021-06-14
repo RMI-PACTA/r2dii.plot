@@ -122,26 +122,6 @@ plot_timelineY <- function(data, specs) {
     theme_2dii()
 }
 
-fake_timeline_data <- function(year = NULL,
-                               line_name = NULL,
-                               value = NULL,
-                               extrapolated = NULL,
-                               sector = NULL,
-                               ...) {
-  out <- tibble(
-    year = year %||% 2002,
-    line_name = line_name %||% "projected",
-    value = value %||% 0.2,
-    extrapolated = extrapolated %||% FALSE,
-    sector = sector %||% "automotive",
-    ...
-  )
-
-  out$year <- lubridate::make_date(out$year)
-
-  out
-}
-
 timeline_specs <- function(data) {
   abort_if_missing_names(data, "line_name")
 
