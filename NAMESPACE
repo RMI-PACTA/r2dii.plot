@@ -2,12 +2,9 @@
 
 export("%>%")
 export(plot_techmixX)
-export(plot_techmixY)
 export(plot_timelineX)
-export(plot_timelineY)
 export(plot_trajectoryX)
 export(plot_trajectoryY)
-export(prep_trajectoryY)
 export(theme_2dii)
 import(ggplot2)
 importFrom(dplyr,across)

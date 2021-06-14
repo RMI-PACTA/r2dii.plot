@@ -1,35 +1,3 @@
-#' Create a techmix chart in a ggplot object
-#'
-#' The function returns a ggplot object containing a stacked bar chart showing a
-#' technology mix for different categories (portfolio, scenario, benchmark,
-#' etc.).
-#'
-#' @param data Filtered input data, with columns: technology, metric_type,
-#'   metric and value.
-#' @param metric_type_order Vector with the order of bars based on 'metric_type'
-#'   values.
-#' @param metric_type_labels Vector with labels for bars. Order must follow that
-#'   in 'metric type order'.
-#' @param tech_colours Data frame containing colours per technology, with
-#'   columns: technology, colour, label(optional).
-#'
-#' @family plotting functions
-#'
-#' @return An object of class "ggplot".
-#'
-#' @export
-#' @examples
-#' data <- prep_techmixY(
-#'   market_share,
-#'   sector_filter = "power",
-#'   years_filter = c(2020, 2025),
-#'   region_filter = "global",
-#'   scenario_source_filter = "demo_2020",
-#'   scenario_filter = "sds",
-#'   value = "technology_share"
-#' )
-#'
-#' plot_techmixY(data)
 plot_techmixY <- function(data,
                           metric_type_order = NULL,
                           metric_type_labels = NULL,

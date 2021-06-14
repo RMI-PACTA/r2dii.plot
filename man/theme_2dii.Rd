@@ -45,7 +45,6 @@ p
 }
 \seealso{
 Other plotting functions: 
-\code{\link{plot_techmixY}()},
 \code{\link{plot_trajectoryY}()}
 }
 \concept{plotting functions}

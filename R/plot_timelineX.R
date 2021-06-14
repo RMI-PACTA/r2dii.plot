@@ -3,6 +3,8 @@
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
+#' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
+#'   furthest value in the data set.
 #'
 #' @family functions with minimal arguments
 #' @seealso [sda].

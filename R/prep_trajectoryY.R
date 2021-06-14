@@ -1,23 +1,3 @@
-#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_trajectory()`
-#'
-#' @inheritParams prep_techmixY
-#' @param technology_filter String of length 1. Technology to pick from the
-#'   `data`.
-#' @param end_year_filter Numeric of length 1. Cut-off year for the plot.
-#' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
-#'
-#' @return A data frame.
-#'
-#' @export
-#' @examples
-#' prep_trajectoryY(
-#'   market_share,
-#'   sector_filter = "power",
-#'   technology_filter = "oilcap",
-#'   region_filter = "global",
-#'   scenario_source_filter = "demo_2020",
-#'   value = "production"
-#' )
 prep_trajectoryY <- function(data,
                              sector_filter,
                              technology_filter,
