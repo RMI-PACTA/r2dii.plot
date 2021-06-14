@@ -117,7 +117,7 @@ sda %>%
 
 ### Techmix
 
-Use `plot_techmixX()` with `market_share`-like data. Again, learn which rows to
+Use `plot_techmix()` with `market_share`-like data. Again, learn which rows to
 pick by reading the documented "Requirements" of the argument `data`, or by trial and error.
 
 ```{r error = TRUE}
@@ -130,13 +130,13 @@ market_share %>%
     sector == "power",
     region == "global"
   ) %>% 
-  plot_techmixX() + labs(title = "Techmix plot")
+  plot_techmix() + labs(title = "Techmix plot")
 ```
 
 You may customize the plot further by:
 
 * Setting custom colours and colour labels using `ggplot` function `scale_color_manual()`.
-* Picking the years to be plotted by filtering the data passed to `plot_techmixX()` (by default the extreme years in the data are plotted). 
+* Picking the years to be plotted by filtering the data passed to `plot_techmix()` (by default the extreme years in the data are plotted). 
 
 At the moment the labels of the bars are derived from the data and it is not possible to change or remove them (as it is possible with ["Y" API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html)).
 
@@ -148,7 +148,7 @@ market_share %>%
     region == "global",
     between(year, 2020, 2025)
   ) %>% 
-  plot_techmixX() + 
+  plot_techmix() + 
   scale_fill_manual(
     values = c("black", "brown", "grey", "blue", "green4"),
     labels = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Hydro Cap.", "Renewables Cap."))

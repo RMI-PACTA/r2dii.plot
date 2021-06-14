@@ -96,7 +96,9 @@ error messages guide you.
 
 ``` r
 plot_timeline(sda)
-#> Error: `sector` must have a single value. It has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+#> Error: `data` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+#> Pick one value, e.g. 'automotive', with:
+#>   dplyr::filter(data, sector == 'automotive')
 ```
 
 The error message suggests you must first pick only one value of
@@ -148,7 +150,7 @@ sda %>%
 
 ### Techmix
 
-Use `plot_techmixX()` with `market_share`-like data. Again, learn which
+Use `plot_techmix()` with `market_share`-like data. Again, learn which
 rows to pick by reading the documented “Requirements” of the argument
 `data`, or by trial and error.
 
@@ -164,7 +166,7 @@ market_share %>%
     sector == "power",
     region == "global"
   ) %>% 
-  plot_techmixX() + labs(title = "Techmix plot")
+  plot_techmix() + labs(title = "Techmix plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -174,7 +176,7 @@ You may customize the plot further by:
 -   Setting custom colours and colour labels using `ggplot` function
     `scale_color_manual()`.
 -   Picking the years to be plotted by filtering the data passed to
-    `plot_techmixX()` (by default the extreme years in the data are
+    `plot_techmix()` (by default the extreme years in the data are
     plotted).
 
 At the moment the labels of the bars are derived from the data and it is
@@ -189,7 +191,7 @@ market_share %>%
     region == "global",
     between(year, 2020, 2025)
   ) %>% 
-  plot_techmixX() + 
+  plot_techmix() + 
   scale_fill_manual(
     values = c("black", "brown", "grey", "blue", "green4"),
     labels = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Hydro Cap.", "Renewables Cap."))
