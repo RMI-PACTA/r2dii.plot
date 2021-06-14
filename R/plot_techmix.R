@@ -94,11 +94,6 @@ plot_techmixY <- function(data,
     filter(.data$sector == .env$sector) %>%
     select(.data$technology, .data$label, .data$hex)
 
-  if (!("label" %in% names(tech_colours))) {
-    tech_colours <- tech_colours %>%
-      mutate(label = guess_label_tech(.data$technology))
-  }
-
   data_colours <- dplyr::semi_join(tech_colours, data, by = "technology")
 
   data <- data %>%

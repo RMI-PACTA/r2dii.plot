@@ -9,3 +9,7 @@ test_that("outputs the expected snapshot", {
     technology_colours
   })
 })
+
+test_that("technology_colours has `label`", {
+  expect_true(rlang::has_name(technology_colours, "label"))
+})
