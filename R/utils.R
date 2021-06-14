@@ -127,7 +127,7 @@ format_plot_function_name <- function(.expr) {
   fun <- glue("plot_{fun}")
 }
 
-some_crucial_market_share_columns <- function() {
+common_crucial_market_share_columns <- function() {
   c(
     "metric",
     "region",
