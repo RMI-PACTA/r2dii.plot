@@ -43,9 +43,4 @@ plot_trajectory(data, normalize = FALSE)
 }
 \seealso{
 \link{market_share}.
-
-Other functions with minimal arguments: 
-\code{\link{plot_techmix}()},
-\code{\link{plot_timeline}()}
 }
-\concept{functions with minimal arguments}

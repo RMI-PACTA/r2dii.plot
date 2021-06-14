@@ -6,7 +6,6 @@
 #' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
 #'   furthest value in the data set.
 #'
-#' @family functions with minimal arguments
 #' @seealso [sda].
 #'
 #' @return An object of class "ggplot".

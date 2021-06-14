@@ -9,7 +9,6 @@
 #'   "projected".
 #' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
-#' @family functions with minimal arguments
 #' @seealso [market_share].
 #'
 #' @return An object of class "ggplot".

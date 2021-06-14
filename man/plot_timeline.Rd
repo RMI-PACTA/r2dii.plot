@@ -31,9 +31,4 @@ plot_timeline(data)
 }
 \seealso{
 \link{sda}.
-
-Other functions with minimal arguments: 
-\code{\link{plot_techmix}()},
-\code{\link{plot_trajectory}()}
 }
-\concept{functions with minimal arguments}
