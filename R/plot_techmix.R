@@ -133,12 +133,6 @@ plot_techmixY <- function(data) {
   p_techmix
 }
 
-guess_label_tech <- function(string) {
-  out <- to_title(string)
-  out <- gsub("cap$", " Capacity", out)
-  out
-}
-
 guess_sector <- function(sector) {
   sector <- case_when(
     grepl("(?i)power(?-i)", sector) ~ "power",
