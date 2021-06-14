@@ -1,6 +1,7 @@
 test_that("works with 1 to max number of scenarios", {
   data <- market_share %>%
     filter(sector == first(sector), technology == first(technology))
+
   count_metrics <- function(p) {
     length(unique(p$layers[[2]]$data$metric))
   }
@@ -18,6 +19,15 @@ test_that("works with 1 to max number of scenarios", {
   n <- 5L
   prep <- filter(data, metric %in% unique(metric)[1:n])
   p <- plot_trajectory(prep)
+  expect_equal(count_metrics(p), n)
+
+  n <- 6L
+  prep <- filter(data, metric %in% unique(metric)[1:n])
+  # Faking a new scenario to reach the maximum number of scenarios we support
+  xyz <- filter(prep, metric == "target_sds")
+  xyz$metric <- xyz$metric <- "target_xyz"
+  xyz <- rbind(prep, xyz)
+  p <- plot_trajectory(xyz)
   expect_equal(count_metrics(p), n)
 })
 
