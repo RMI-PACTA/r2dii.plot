@@ -112,13 +112,15 @@ sda %>%
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great! You can now polish your plot. Your options are limitless but
+Great\! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
--   Pick a narrower time range.
--   Recode the legend.
--   Extrapolate the timeline.
--   Add a title.
+  - Pick a narrower time range.
+  - Recode the legend.
+  - Extrapolate the timeline.
+  - Add a title.
+
+<!-- end list -->
 
 ``` r
 to_title <- function(x) gsub("_", " ", tools::toTitleCase(x))
@@ -173,9 +175,9 @@ market_share %>%
 
 You may customize the plot further by:
 
--   Setting custom colours and colour labels using `ggplot` function
+  - Setting custom colours and colour labels using `ggplot` function
     `scale_color_manual()`.
--   Picking the years to be plotted by filtering the data passed to
+  - Picking the years to be plotted by filtering the data passed to
     `plot_techmix()` (by default the extreme years in the data are
     plotted).
 
