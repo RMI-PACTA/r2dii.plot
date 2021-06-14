@@ -50,13 +50,6 @@ recode_portfolio_benchmark_scenario <- function(x) {
   )
 }
 
-abort_if_bad_metric <- function(x) {
-  has_projected <- "projected" %in% x
-  if (!has_projected) abort("Can't find values to recode as 'portfolio'.")
-
-  invisible(x)
-}
-
 abort_if_invalid_length <- function(x, valid = 1L) {
   .x <- deparse_1(substitute(x))
   if (!length(x) == valid) {
@@ -139,11 +132,6 @@ common_crucial_market_share_columns <- function() {
     "technology",
     "year"
   )
-}
-
-pull_scenarios <- function(data) {
-  scenarios <- filter(data, startsWith(.data$metric_type, "scenario"))$metric
-  unique(scenarios)
 }
 
 #' Check if a named object contains expected names

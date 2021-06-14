@@ -100,13 +100,8 @@ test_that("with too many scenarios errors gracefully", {
 })
 
 test_that("is sensitive to `main_line`", {
-  data <- market_share %>%
-    filter(
-      sector == first(sector),
-      technology == first(technology)
-    )
+  data <- example_market_share()
   plot_trajectory(data, main_line = "corporate_economy")
-
   expect_no_error(plot_trajectory(data, main_line = "corporate_economy"))
 })
 
@@ -117,9 +112,7 @@ test_that("with too long `main_line` errors gracefully", {
 
 test_that("is sensitive to `normalize`", {
   data <- filter(market_share, technology == first(technology))
-  pull_value <- function(p) {
-    p$layers[[1]]$data$value
-  }
+  pull_value <- function(p) p$layers[[1]]$data$value
 
   expect_false(
     identical(
