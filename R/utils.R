@@ -184,4 +184,3 @@ fmt_string <- function(x) {
 fmt_vector <- function(x) {
   paste0("c(", x, ")")
 }
-

@@ -299,9 +299,9 @@ abort_if_corrupt_scenario_colours <- function(data) {
   invisible(data)
 }
 prep_trajectory <- function(data,
-                             value = "production",
-                             metric = "metric",
-                             normalize = TRUE) {
+                            value = "production",
+                            metric = "metric",
+                            normalize = TRUE) {
   check_prep_trajectory(data, value, normalize)
   data <- recode_metric_and_metric_type(data, metric)
 
