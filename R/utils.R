@@ -71,18 +71,22 @@ abort_if_invalid_length <- function(x, valid = 1L) {
   invisible(x)
 }
 
-abort_if_multiple <- function(data, x) {
+abort_if_multiple <- function(data, x, env = parent.frame()) {
   # FIXME: Pretty labels must work beyond the top level. May need to pass `env`
-  .data <- deparse_1(substitute(data, env = parent.frame()))
+  .data <- deparse_1(substitute(data, env = env))
 
-  .x <- unique(data[[x]])
-  if (length(.x) > 1L) {
-    abort(glue(
-      "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
-      Pick one value, e.g. '{first(.x)}', with:
-        dplyr::filter({.data}, {x} == '{first(.x)}')"
-    ))
+  doit_once <- function(x) {
+    .x <- unique(data[[x]])
+    if (length(.x) > 1L) {
+      abort(glue(
+        "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
+        Pick one value, e.g. '{first(.x)}', with:
+          dplyr::filter({.data}, {x} == '{first(.x)}')"
+      ))
+    }
+    invisible(x)
   }
+  lapply(x, doit_once)
 
   invisible(data)
 }
