@@ -32,9 +32,9 @@ plot_techmixX <- function(data) {
     "metric",
     "region",
     "scenario_source",
-    "technology_share",
+    "sector",
     "technology",
-    "sector"
+    "technology_share"
   )
   hint_if_missing_names(abort_if_missing_names(data, crucial))
 

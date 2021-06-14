@@ -118,8 +118,6 @@ test_that("is sensitive to `normalize`", {
 })
 
 test_that("with missing crucial names errors gracefully", {
-  # crucial <- c("metric", "sector", "technology", "region", "year")
-
   data <- head(market_share)
 
   bad <- select(data, -metric)

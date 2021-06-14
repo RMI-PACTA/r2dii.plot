@@ -32,7 +32,14 @@
 #' plot_trajectoryX(data, normalize = FALSE)
 plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   stopifnot(is.data.frame(data))
-  crucial <- c("metric", single_value_columns(), "technology", "year")
+  crucial <- c(
+    "metric",
+    "region",
+    "scenario_source",
+    "sector",
+    "technology",
+    "year"
+  )
   hint_if_missing_names(abort_if_missing_names(data, crucial))
 
   if (is.null(main_line)) {
