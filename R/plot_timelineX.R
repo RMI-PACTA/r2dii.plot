@@ -21,17 +21,17 @@
 plot_timeline <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data))
   abort_if_has_cero_rows(data)
-  prep <- hint_if_missing_names(prep_timelineY(data, extrapolate = extrapolate))
+  prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
 
   plot_timelineB(prep)
 }
 
-prep_timelineY <- function(data,
+prep_timeline <- function(data,
                            value = "emission_factor_value",
                            metric = "emission_factor_metric",
                            sector_filter = NULL,
                            extrapolate = FALSE) {
-  check_prep_timelineY(data, value, metric, extrapolate)
+  check_prep_timeline(data, value, metric, extrapolate)
   if (!is.null(sector_filter)) {
     stopifnot(is.character(sector_filter))
     abort_if_invalid_length(sector_filter, 1L)
@@ -72,7 +72,7 @@ prep_timelineY <- function(data,
   out
 }
 
-check_prep_timelineY <- function(data, value, metric, extrapolate) {
+check_prep_timeline <- function(data, value, metric, extrapolate) {
   stopifnot(
     is.data.frame(data),
     is.character(value),
