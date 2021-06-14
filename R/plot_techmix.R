@@ -77,18 +77,14 @@ check_prep_techmix <- function(data, value) {
   invisible(data)
 }
 
-plot_techmixY <- function(data,
-                          metric_type_order = NULL,
-                          metric_type_labels = NULL) {
-  metric_type_order <- metric_type_order %||% unique(data$metric_type)
-  metric_type_labels <- metric_type_labels %||% to_title(metric_type_order)
+plot_techmixY <- function(data) {
+  metric_type_order <- unique(data$metric_type)
+  metric_type_labels <- to_title(metric_type_order)
 
   sector <- data %>%
     pull(.data$sector) %>%
     unique() %>%
     guess_sector()
-
-  check_plot_techmixY(data, metric_type_order, metric_type_labels, sector)
 
   tech_colours <- technology_colours %>%
     filter(.data$sector == .env$sector) %>%
@@ -135,34 +131,6 @@ plot_techmixY <- function(data,
     guides(fill = guide_legend(ncol = 3, byrow = TRUE))
 
   p_techmix
-}
-
-check_plot_techmixY <- function(data,
-                                metric_type_order,
-                                metric_type_labels,
-                                sector) {
-  if (!all(metric_type_order %in% unique(data$metric_type))) {
-    abort(glue(
-      "'metric_type_order' elements must be found in 'metric_type' column of input data.
-      * Possible 'metric_type' in data are: {toString(unique(data$metric_type))}.
-      * You submitted: {toString(metric_type_order)}."
-    ))
-  }
-
-  if (length(metric_type_order) != length(metric_type_labels)) {
-    abort(glue(
-      "'metric_type_labels' must be of the same length (and order) as 'metric_type_order'.
-      * 'metric_type_order' has length {length(metric_type_order)} and elements: {toString(metric_type_order)}.
-      * You submitted 'metric_type_labels' of legth {length(metric_type_labels)} and elements: {toString(metric_type_labels)}."
-    ))
-  }
-
-  if (length(sector) > 1) {
-    abort(glue(
-      "Input data must have only one 'sector'.
-      * You submitted data with {length(sector)} sectors: {toString(sector)}."
-    ))
-  }
 }
 
 guess_label_tech <- function(string) {
