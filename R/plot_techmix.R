@@ -26,22 +26,17 @@
 #' plot_techmix(data)
 plot_techmix <- function(data) {
   stopifnot(is.data.frame(data))
-
   hint_if_missing_names(
     abort_if_missing_names(
       data, c(common_crucial_market_share_columns(), "technology_share")
     )
   )
-
   abort_if_has_cero_rows(data)
-
   cols <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, cols)
-
   abort_if_multiple_scenarios(data)
 
   prep <- prep_techmix(data)
-
   plot_techmixY(prep)
 }
 
