@@ -171,9 +171,9 @@ check_plot_techmixY <- function(data,
 }
 
 guess_label_tech <- function(string) {
-  string <- to_title(string)
-  string <- gsub("cap$", " Capacity", string)
-  string
+  out <- to_title(string)
+  out <- gsub("cap$", " Capacity", out)
+  out
 }
 
 guess_sector <- function(sector) {
