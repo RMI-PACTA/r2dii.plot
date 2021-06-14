@@ -57,20 +57,6 @@ plot_techmixX <- function(data) {
   plot_techmixY(prep)
 }
 
-#' @noRd
-#' @examples
-#' library(dplyr)
-#'
-#' data <- market_share %>%
-#'   filter(
-#'     dplyr::between(year, 2020, 2025),
-#'     scenario_source == "demo_2020",
-#'     sector == "power",
-#'     region == "global",
-#'     metric %in% c("projected", "corporate_economy", "target_sds")
-#'   )
-#'
-#' prep <- prep_techmixB(data)
 prep_techmixB <- function(data, value = "technology_share", metric = "metric") {
   check_prep_techmixB(data, value)
 
