@@ -3,8 +3,6 @@
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
-#' @inheritParams prep_timelineY
-#' @inheritParams plot_timelineY
 #'
 #' @family functions with minimal arguments
 #' @seealso [sda].

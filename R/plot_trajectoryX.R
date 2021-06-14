@@ -7,8 +7,7 @@
 #' @param main_line String of length 1. The `metric` to plot as the line with
 #'   the most visual salience (solid black line). `NULL` defaults to
 #'   "projected".
-#' @inheritParams prep_trajectoryY
-#' @inheritParams prep_timelineY
+#' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
 #' @family functions with minimal arguments
 #' @seealso [market_share].

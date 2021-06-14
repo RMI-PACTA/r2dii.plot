@@ -12,9 +12,6 @@ plot_timelineX(data, extrapolate = FALSE)
 \item The structure must be like \link{sda}.
 \item The column \code{sector} must have a single value (e.g. "cement").
 }}
-
-\item{extrapolate}{Logical of length 1. \code{TRUE} extrapolates to match the
-furthest value in the data set.}
 }
 \value{
 An object of class "ggplot".

@@ -7,6 +7,5 @@ test_that("outputs the expected snapshot", {
     sector_colours
 
     technology_colours
-
   })
 })

@@ -1,27 +1,3 @@
-#' Prepare the output of `r2dii.analysis::target_market_share()` for `plot_techmixY()`
-#'
-#' @param data Data frame like the output of `r2dii.analysis::target_market_share()`.
-#' @param sector_filter String of length 1. Sector to pick from the `data`.
-#' @param years_filter Numeric vector of length 2. Range of years to plot.
-#' @param region_filter String of length 1. Region to pick from the `data`.
-#' @param scenario_source_filter String of length 1. Value of the column
-#'   `scenario_source` to pick from the `data`.
-#' @param scenario_filter String of length 1. Scenario to pick from the `data`.
-#' @inheritParams prep_timelineY
-#'
-#' @return An object of class "ggplot".
-#'
-#' @export
-#' @examples
-#' prep_techmixY(
-#'   market_share,
-#'   sector_filter = "power",
-#'   years_filter = c(2020, 2025),
-#'   region_filter = "global",
-#'   scenario_source_filter = "demo_2020",
-#'   scenario_filter = "sds",
-#'   value = "technology_share"
-#' )
 prep_techmixY <- function(data,
                           value = "technology_share",
                           metric = "metric",

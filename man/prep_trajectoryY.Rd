@@ -17,23 +17,8 @@ prep_trajectoryY(
 )
 }
 \arguments{
-\item{data}{Data frame like the output of \code{r2dii.analysis::target_market_share()}.}
-
-\item{sector_filter}{String of length 1. Sector to pick from the \code{data}.}
-
 \item{technology_filter}{String of length 1. Technology to pick from the
 \code{data}.}
-
-\item{region_filter}{String of length 1. Region to pick from the \code{data}.}
-
-\item{scenario_source_filter}{String of length 1. Value of the column
-\code{scenario_source} to pick from the \code{data}.}
-
-\item{value}{String of length 1. The name of the column holding the value to
-plot.}
-
-\item{metric}{String of length 1. The name of the column holding the metrics
-to plot.}
 
 \item{end_year_filter}{Numeric of length 1. Cut-off year for the plot.}
 
