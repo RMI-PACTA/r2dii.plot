@@ -41,12 +41,12 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   abort_if_multiple(data, "technology")
   abort_if_multiple(data, "region")
   abort_if_multiple(data, "scenario_source")
-
   if (is.null(main_line)) {
     stopifnot("projected" %in% tolower(data$metric))
     main <- "projected"
   } else {
     abort_if_invalid_main_line(data, main_line)
+    main <- main_line
   }
 
   prep <- prep_trajectoryB(data, normalize = normalize)
@@ -99,14 +99,13 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
 #'
 #' plot_trajectoryB(recoded, main_line = "Projected")
 plot_trajectoryB <- function(data, main_line = NULL) {
-  abort_if_invalid_scenarios_number(data)
-
   main_line <- main_line %||%
     (data %>%
       filter(.data$metric_type != "scenario") %>%
       slice_head(n = 1) %>%
       pull(.data$metric))
   abort_if_invalid_main_line(data, main_line)
+  abort_if_invalid_scenarios_number(data)
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specsB(data)
@@ -198,15 +197,16 @@ plot_trajectoryB <- function(data, main_line = NULL) {
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
+  abort_if_missing_names(data, "metric_type")
   unique_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     pull(.data$metric) %>%
     unique()
-
-  if (length(unique_scenarios) > 4) {
-    rlang::abort(glue(
-      "Scenario number for plotting must be between 1 and 4. \\
-      You provided {nrow(scenario_specs)} scenarios in 'scenario_specs'."
+  n <- length(unique_scenarios)
+  if (n < 1 || n > 4) {
+    abort(glue(
+      "`metric` must have between 1 and 4 scenarios, not {n}: \\
+      {toString(unique_scenarios)}"
     ))
   }
 
