@@ -111,7 +111,7 @@ hint_if_missing_names <- function(expr) {
     missing_names = function(e) {
       abort(glue(
         "{conditionMessage(e)}
-        Is your data `{kind}`-like? See `data` requirements at `?{fun}`."
+        Is your data `{kind}`-like?"
       ))
     }
   )

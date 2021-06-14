@@ -16,6 +16,11 @@ test_that("without a data frame errors gracefully", {
   expect_snapshot_error(plot_trajectoryX(1))
 })
 
+test_that("without market_share-like data errors gracefully", {
+  bad <- sda
+  expect_snapshot_error(plot_trajectoryX(bad))
+})
+
 test_that("outputs a ggplot", {
   data <- market_share %>%
     filter(

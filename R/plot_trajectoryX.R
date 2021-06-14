@@ -32,6 +32,16 @@
 #' plot_trajectoryX(data, normalize = FALSE)
 plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   stopifnot(is.data.frame(data))
+  single_value_columns <- function() {
+    c("region", "sector", "scenario_source")
+  }
+    crucial <- c(
+    "metric", single_value_columns(), "technology", "year"
+  )
+  hint_if_missing_names(abort_if_missing_names(data, crucial))
+
+
+  abort_if_missing_names(data, "metric")
 
   if (is.null(main_line)) {
     stopifnot("projected" %in% tolower(data$metric))

@@ -577,7 +577,7 @@
 
     Must have missing names:
     metric, region, scenario_source, technology_share
-    Is your data `market_share`-like? See `data` requirements at `?plot_techmix`.
+    Is your data `market_share`-like?
 
 # with too many sectors errors gracefully
 

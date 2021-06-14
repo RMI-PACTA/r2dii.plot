@@ -613,7 +613,7 @@
 
     Must have missing names:
     emission_factor_metric, emission_factor_value
-    Is your data `sda`-like? See `data` requirements at `?plot_timeline`.
+    Is your data `sda`-like?
 
 # with cero-row data errors gracefully
 
