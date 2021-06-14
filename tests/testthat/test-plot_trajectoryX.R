@@ -1,3 +1,17 @@
+test_that("outputs the expected ggplot object", {
+  mauro <- path.expand("~") == "/home/mauro"
+  skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
+
+  data <- market_share %>%
+    filter(
+      sector == first(sector),
+      technology == first(technology)
+    )
+  p <- plot_trajectoryX(data)
+  p$plot_env <- NULL
+  expect_snapshot(str(p))
+})
+
 test_that("outputs a ggplot", {
   data <- market_share %>%
     filter(
