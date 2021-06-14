@@ -90,7 +90,7 @@ date_metric_type <- function(data) {
 }
 
 check_prep_techmixB <- function(data, value) {
-  crucial <- c("metric", "year", "scenario_source", "region", value)
+  crucial <- c(some_crucial_market_share_columns(), value)
   abort_if_missing_names(data, crucial)
 
   cols <- c("scenario_source", "sector", "region")
