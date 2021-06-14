@@ -675,3 +675,7 @@
     metric, region, scenario_source, technology
     Is your data `market_share`-like?
 
+# with cero-row data errors gracefully
+
+    `cero_row` must have some rows but has none.
+

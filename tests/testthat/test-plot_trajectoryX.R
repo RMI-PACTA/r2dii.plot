@@ -21,6 +21,13 @@ test_that("without market_share-like data errors gracefully", {
   expect_snapshot_error(plot_trajectoryX(bad))
 })
 
+test_that("with cero-row data errors gracefully", {
+  cero_row <- market_share[0L, ]
+  expect_snapshot_error(
+    plot_trajectoryX(cero_row)
+  )
+})
+
 test_that("outputs a ggplot", {
   data <- market_share %>%
     filter(

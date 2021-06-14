@@ -22,6 +22,13 @@ test_that("without `market_share` data errors gracefully", {
   expect_snapshot_error(plot_techmixX(bad_kind))
 })
 
+test_that("with cero-row data errors gracefully", {
+  cero_row <- market_share[0L, ]
+  expect_snapshot_error(
+    plot_techmixX(cero_row)
+  )
+})
+
 test_that("with too many sectors errors gracefully", {
   bad_sector <- head(market_share, 2L)
   bad_sector$sector <- c("a", "b")
@@ -69,11 +76,4 @@ test_that("outputs a ggplot", {
   data <- head(market_share, 3)
   p <- plot_techmixX(data)
   expect_s3_class(p, "ggplot")
-})
-
-test_that("with cero-row data errors gracefully", {
-  cero_row <- market_share[0L, ]
-  expect_snapshot_error(
-    plot_techmixX(cero_row)
-  )
 })

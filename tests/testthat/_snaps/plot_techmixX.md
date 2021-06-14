@@ -579,6 +579,10 @@
     metric, region, scenario_source, technology, technology_share
     Is your data `market_share`-like?
 
+# with cero-row data errors gracefully
+
+    `cero_row` must have some rows but has none.
+
 # with too many sectors errors gracefully
 
     `bad_sector` must have a single value of `sector` but has: a, b.
@@ -596,8 +600,4 @@
     `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
     Pick one value, e.g. 'a', with:
       dplyr::filter(bad_scenario_source, scenario_source == 'a')
-
-# with cero-row data errors gracefully
-
-    `cero_row` must have some rows but has none.
 

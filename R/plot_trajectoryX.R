@@ -32,8 +32,10 @@
 #' plot_trajectoryX(data, normalize = FALSE)
 plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
   stopifnot(is.data.frame(data))
-  abort_if_missing_names(data, common_crucial_market_share_columns()) %>%
-    hint_if_missing_names()
+  hint_if_missing_names(
+    abort_if_missing_names(data, common_crucial_market_share_columns())
+  )
+  abort_if_has_cero_rows(data)
 
   if (is.null(main_line)) {
     stopifnot("projected" %in% tolower(data$metric))
