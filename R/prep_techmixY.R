@@ -54,11 +54,6 @@ prep_techmixY <- function(data,
   data_out
 }
 
-pull_scenarios <- function(data) {
-  scenarios <- filter(data, startsWith(.data$metric_type, "scenario"))$metric
-  unique(scenarios)
-}
-
 check_prep_techmixY <- function(data,
                                 years_filter,
                                 region_filter,

@@ -136,5 +136,9 @@ common_crucial_market_share_columns <- function() {
     "technology",
     "year"
   )
+}
 
+pull_scenarios <- function(data) {
+  scenarios <- filter(data, startsWith(.data$metric_type, "scenario"))$metric
+  unique(scenarios)
 }
