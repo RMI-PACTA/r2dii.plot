@@ -705,5 +705,7 @@
 
 # with inexistent `main_line` errors gracefully
 
-    metric_includes_main_line is not TRUE
+      `main_line` must be one of `metric`.
+      * Valid: projected.
+      * Provided: bad.
 

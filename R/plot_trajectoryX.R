@@ -46,8 +46,13 @@ plot_trajectoryX <- function(data, normalize = TRUE, main_line = NULL) {
     stopifnot("projected" %in% tolower(data$metric))
     main <- "projected"
   } else {
-    metric_includes_main_line <- main_line %in% tolower(data$metric)
-    stopifnot(metric_includes_main_line)
+    if (!main_line %in% tolower(data$metric)) {
+      abort(glue("
+        `main_line` must be one of `metric`.
+        * Valid: {toString(unique(data$metric))}.
+        * Provided: {main_line}.
+      "))
+    }
   }
 
   prep <- prep_trajectoryB(data, normalize = normalize)
