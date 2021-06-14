@@ -205,4 +205,3 @@ test_that("integrates with plot_trajectory()", {
   out <- prep_trajectoryB(data)
   expect_no_error(plot_trajectoryB(out))
 })
-
