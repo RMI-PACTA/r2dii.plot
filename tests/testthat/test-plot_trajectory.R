@@ -21,6 +21,19 @@ test_that("works with 1 to max number of scenarios", {
   expect_equal(count_metrics(p), n)
 })
 
+test_that("with corropt `scenario_colours` errors gracefully", {
+  prep <- market_share %>%
+    filter(sector == first(sector), technology == first(technology))
+
+  too_short <- 4L
+  corrupt <- head(scenario_colours, too_short)
+
+  op <- options("r2dii.plot.scenario_colours" = corrupt)
+  on.exit(options(op), add = TRUE)
+
+  expect_snapshot_error(plot_trajectory(prep))
+})
+
 test_that("outputs the expected ggplot object", {
   mauro <- path.expand("~") == "/home/mauro"
   skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")

@@ -30,7 +30,6 @@ prep_timeline <- function(data,
                           value = "emission_factor_value",
                           metric = "emission_factor_metric",
                           extrapolate = FALSE) {
-  browser()
   check_prep_timeline(data, value, metric, extrapolate)
   abort_if_multiple(data, "sector")
 

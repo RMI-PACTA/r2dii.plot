@@ -1,3 +1,7 @@
+# with corropt `scenario_colours` errors gracefully
+
+    `scenario_colours` must have 5 rows, not 4.
+
 # outputs the expected ggplot object
 
     Code

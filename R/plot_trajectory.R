@@ -274,20 +274,31 @@ reverse_rows <- function(x) {
 }
 
 get_ordered_scenario_colours <- function(n) {
+  scenario_colours <- abort_if_corrupt_scenario_colours(
+    # Allow testing with a potentially corrupt `scenario_colours`
+    getOption("r2dii.plot.scenario_colours") %||% scenario_colours
+  )
+
   pick <- function(cols) filter(scenario_colours, .data$label %in% cols)
+
   switch(as.character(n),
     "2" = pick(c("light_green", "red")),
     "3" = pick(c("light_green", "light_yellow", "red")),
     "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
-    "5" = assert_5_rows(scenario_colours)
+    "5" = scenario_colours
   )
 }
 
-assert_5_rows <- function(data) {
-  stopifnot(nrow(data) == 5L)
+abort_if_corrupt_scenario_colours <- function(data) {
+  if (nrow(data) != 5L) {
+    abort(
+      class = "corrupt_scenairo_colours",
+      glue("`scenario_colours` must have 5 rows, not {nrow(data)}.")
+    )
+  }
+
   invisible(data)
 }
-
 prep_trajectory <- function(data,
                              value = "production",
                              metric = "metric",
