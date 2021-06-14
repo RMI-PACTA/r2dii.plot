@@ -175,7 +175,7 @@ fmt_vector <- function(x) {
 }
 
 expect_no_error <- function(...) {
-  expect_error(..., NA)
+  testthat::expect_error(..., NA)
 }
 
 example_market_share <- function(...) {

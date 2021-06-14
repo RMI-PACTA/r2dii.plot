@@ -89,7 +89,9 @@ get_common_start_year <- function(data, metric) {
 
 plot_timelineB <- function(data) {
   abort_if_missing_names(data, "line_name")
-  specs <- tibble(line_name = unique(data$line_name), label = line_name) %>%
+
+  line_names <- unique(data$line_name)
+  specs <- tibble(line_name = line_names, label = line_names) %>%
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
