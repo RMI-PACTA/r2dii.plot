@@ -116,7 +116,8 @@ plot_timeline(data, extrapolate = TRUE) +
 ### Techmix
 
 Use `plot_techmix()` with `market_share`-like data. Again, learn which rows to
-pick by reading the documented "Requirements" of the argument `data`, or by trial and error.
+pick by reading the documented "Requirements" of the argument `data`, or by
+trial and error.
 
 ```{r error = TRUE}
 unique(market_share$metric)
@@ -176,11 +177,8 @@ plot_trajectory(data) +
 ```
 
 Use the `main_line` argument to indicate which trajectory line should be most
-visually salient (solid black line). Its defaults to "projected".
-
-```{r}
-plot_trajectory(data, main_line = "projected")
-```
+visually salient (solid black line) -- it's "projected" by default but the next
+plot sets it explicitly for demonstration.
 
 Use `normalize = FALSE` if you prefer not to normalize to the start year.
 

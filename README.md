@@ -220,13 +220,8 @@ plot_trajectory(data) +
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 Use the `main_line` argument to indicate which trajectory line should be
-most visually salient (solid black line). Its defaults to “projected”.
-
-``` r
-plot_trajectory(data, main_line = "projected")
-```
-
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+most visually salient (solid black line) – it’s “projected” by default
+but the next plot sets it explicitly for demonstration.
 
 Use `normalize = FALSE` if you prefer not to normalize to the start
 year.
@@ -235,4 +230,4 @@ year.
 plot_trajectory(data, main_line = "projected", normalize = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
