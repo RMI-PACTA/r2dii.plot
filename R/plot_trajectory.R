@@ -48,10 +48,10 @@ plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
 
   prep <- prep_trajectory(data, normalize = normalize)
 
-  plot_trajectoryB(prep, main_line = main)
+  plot_trajectory_impl(prep, main_line = main)
 }
 
-plot_trajectoryB <- function(data, main_line = NULL) {
+plot_trajectory_impl <- function(data, main_line = NULL) {
   main_line <- main_line %||%
     (data %>%
       filter(.data$metric_type != "scenario") %>%
