@@ -61,7 +61,7 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   abort_if_invalid_scenarios_number(data)
 
   # plot scenario areas
-  scenario_specs_areas <- get_ordered_scenario_specsB(data)
+  scenario_specs_areas <- get_ordered_scenario_specs(data)
   data_scenarios <- get_scenario_data(data, scenario_specs_areas)
   p_trajectory <- ggplot() +
     geom_ribbon(
@@ -79,7 +79,7 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   # plot trajectory and scenario lines
   scenario_specs_lines <- scenario_specs_areas %>%
     filter(.data$scenario != "worse")
-  data_lines <- order_for_trajectoryB(data, scenario_specs_lines, main_line)
+  data_lines <- order_for_trajectory(data, scenario_specs_lines, main_line)
 
   n_scenarios <- nrow(scenario_specs_lines)
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
@@ -110,7 +110,8 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   data_lines_end <- data_lines %>%
     filter(
       .data$year == last_year
-    )
+    ) %>%
+    add_pretty_labels()
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
@@ -118,7 +119,7 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$metric,
+        label = .data$label,
         segment.color = .data$metric
       ),
       direction = "y",
@@ -147,6 +148,17 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
     )
 
   p_trajectory
+}
+
+add_pretty_labels <- function(data) {
+  abort_if_missing_names(data, c("metric_type", "metric"))
+
+  data <- data %>%
+    mutate(label = case_when(
+        .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
+        TRUE ~ to_title(as.character(.data$metric)))
+    )
+  data
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
@@ -181,7 +193,7 @@ abort_if_invalid_main_line <- function(data, main_line) {
   invisible(data)
 }
 
-order_for_trajectoryB <- function(data, scenario_specs, main_line) {
+order_for_trajectory <- function(data, scenario_specs, main_line) {
   order_add_lines <- data %>%
     filter(
       .data$metric_type != "scenario",
@@ -238,7 +250,7 @@ get_area_borders <- function(data) {
   area_borders
 }
 
-get_ordered_scenario_specsB <- function(data) {
+get_ordered_scenario_specs <- function(data) {
   ordered_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     filter(.data$year == max(.data$year)) %>%
