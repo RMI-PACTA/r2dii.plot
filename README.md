@@ -116,17 +116,14 @@ Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
 -   Pick a narrower time range.
--   Recode the legend.
 -   Extrapolate the timeline.
 -   Add a title.
 
 ``` r
-to_title <- function(x) gsub("_", " ", tools::toTitleCase(x))
+data <- filter(sda, sector == "cement", year >= 2020)
 
-sda %>% 
-  filter(sector == "cement", year >= 2020) %>% 
-  mutate(emission_factor_metric = to_title(emission_factor_metric)) %>% 
-  plot_timeline(extrapolate = TRUE) + labs(title = "Timeline plot")
+plot_timeline(data, extrapolate = TRUE) + 
+  labs(title = "Timeline plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -136,12 +133,13 @@ using `ggplot` function `scale_colour_manual()` with custom legend
 labels.
 
 ``` r
-sda %>% 
-  filter(sector == "cement") %>% 
-  plot_timeline(extrapolate = TRUE) +
+data <- filter(sda, sector == "cement")
+
+plot_timeline(data, extrapolate = TRUE) +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
-    labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)"))
+    labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
+  )
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```
@@ -160,41 +158,40 @@ unique(market_share$metric)
 #> [4] "target_sds"        "target_sps"
 chosen_metrics <- c("projected", "corporate_economy", "target_sds")
 
-market_share %>%
+data <- market_share %>%
   filter(
     metric %in% chosen_metrics,
     sector == "power",
     region == "global"
-  ) %>% 
-  plot_techmix() + labs(title = "Techmix plot")
+  )
+
+plot_techmix(data) + 
+  labs(title = "Techmix plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 You may customize the plot further by:
 
--   Setting custom colours and colour labels using `ggplot` function
-    `scale_color_manual()`.
--   Picking the years to be plotted by filtering the data passed to
-    `plot_techmix()` (by default the extreme years in the data are
-    plotted).
-
-At the moment the labels of the bars are derived from the data and it is
-not possible to change or remove them (as it is possible with [“Y”
-API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html)).
+-   Setting custom colours and colour labels, using
+    `ggplot2::scale_color_manual()`.
+-   Picking the range of years to plot, by filtering the data passed to
+    `plot_techmix()` (instead of the full range by default).
 
 ``` r
-market_share %>%
+data <- market_share %>%
   filter(
     metric %in% chosen_metrics,
     sector == "power",
     region == "global",
     between(year, 2020, 2025)
-  ) %>% 
-  plot_techmix() + 
+  )
+
+plot_techmix(data) + 
   scale_fill_manual(
     values = c("black", "brown", "grey", "blue", "green4"),
-    labels = c("Coal Cap.", "Oil Cap.", "Gas Cap.", "Hydro Cap.", "Renewables Cap."))
+    labels = paste(c("Coal", "Oil", "Gas", "Hydro", "Renewables"), "Cap.")
+  )
 #> Scale for 'fill' is already present. Adding another scale for 'fill', which
 #> will replace the existing scale.
 ```
@@ -216,14 +213,14 @@ data <- market_share %>%
     year <= 2025
   )
 
-plot_trajectory(data) + labs(title = "Trajectory plot")
+plot_trajectory(data) + 
+  labs(title = "Trajectory plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Use `main_line` argument to indicate which trajectory line should be
-most visually salient (solid black line). Without the argument, the
-first ‘metric’ in data which is not a scenario is used as a main line.
+Use the `main_line` argument to indicate which trajectory line should be
+most visually salient (solid black line). Its defaults to “projected”.
 
 ``` r
 plot_trajectory(data, main_line = "projected")

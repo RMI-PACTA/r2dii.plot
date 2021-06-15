@@ -34,21 +34,13 @@ plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
     abort_if_missing_names(data, common_crucial_market_share_columns())
   )
   abort_if_has_cero_rows(data)
-
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols)
 
-  if (is.null(main_line)) {
-    stopifnot("projected" %in% tolower(data$metric))
-    main <- "projected"
-  } else {
-    abort_if_invalid_main_line(data, main_line)
-    main <- main_line
-  }
-
   prep <- prep_trajectory(data, normalize = normalize)
-
-  plot_trajectory_impl(prep, main_line = main)
+  main_line <- main_line %||% "projected" %>% tolower()
+  abort_if_invalid_main_line(data, main_line)
+  plot_trajectory_impl(prep, main_line = main_line)
 }
 
 plot_trajectory_impl <- function(data, main_line = NULL) {

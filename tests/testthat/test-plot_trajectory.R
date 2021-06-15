@@ -100,6 +100,13 @@ test_that("with too long `main_line` errors gracefully", {
   expect_snapshot_error(plot_trajectory(data, main_line = c("too", "long")))
 })
 
+test_that("`main_line` is insensitive to case", {
+  data <- example_market_share()
+
+  expect_no_error(plot_trajectory(data, main_line = "projected"))
+  expect_no_error(plot_trajectory(data, main_line = "Projected"))
+})
+
 test_that("is sensitive to `normalize`", {
   data <- filter(market_share, technology == first(technology))
   pull_value <- function(p) p$layers[[1]]$data$value
