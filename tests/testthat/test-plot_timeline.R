@@ -44,3 +44,11 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 
   expect_false(has_factors)
 })
+
+test_that("outputs pretty labels", {
+  data <- filter(sda, sector == "automotive")
+  p <- plot_timeline(data)
+
+  get_line_name <- function(p) unique(p$layers[[1]]$data$line_name)
+  expect_equal(get_line_name(p), c("Projected", "Corporate Economy"))
+})
