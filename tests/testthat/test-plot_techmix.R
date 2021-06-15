@@ -1,15 +1,3 @@
-test_that("outputs the expected ggplot object", {
-  mauro <- path.expand("~") == "/home/mauro"
-  skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
-
-  data <- example_market_share(
-    metric %in% c("projected", "corporate_economy", "target_sds")
-  )
-  p <- plot_techmix(data)
-  p$plot_env <- NULL
-  expect_snapshot(str(p))
-})
-
 test_that("without a `data` frame errors gracefully", {
   expect_error(plot_techmix(1), "data.frame.*not")
 })

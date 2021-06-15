@@ -1,20 +1,3 @@
-test_that("outputs the expected ggplot object", {
-  mauro <- path.expand("~") == "/home/mauro"
-  skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
-
-  data <- head(filter(sda, sector == "cement"))
-  p <- plot_timeline(data)
-  p$plot_env <- NULL
-
-  expect_snapshot(str(p))
-})
-
-test_that("outputs a ggplot", {
-  data <- head(filter(sda, sector == "cement"))
-  p <- plot_timeline(data)
-  expect_s3_class(p, "ggplot")
-})
-
 test_that("if `data` is not a data frame errors gracefully", {
   expect_snapshot_error(plot_timeline(1))
 })

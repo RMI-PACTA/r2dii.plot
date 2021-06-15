@@ -1,13 +1,3 @@
-test_that("outputs the expected ggplot object", {
-  mauro <- path.expand("~") == "/home/mauro"
-  skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
-
-  p <- plot_trajectory(example_market_share())
-  p$plot_env <- NULL
-
-  expect_snapshot(str(p))
-})
-
 test_that("works with up to 4 scenarios (+ 1 portfolio + 1 benchmark)", {
   data <- example_market_share()
   count_metrics <- function(p) length(unique(p$layers[[2]]$data$metric))
