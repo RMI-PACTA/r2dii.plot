@@ -37,7 +37,7 @@ plot_techmix <- function(data) {
   abort_if_multiple_scenarios(data)
 
   prep <- prep_techmix(data)
-  plot_techmixY(prep)
+  plot_techmix_impl(prep)
 }
 
 abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
@@ -91,7 +91,7 @@ check_prep_techmix <- function(data, value) {
   invisible(data)
 }
 
-plot_techmixY <- function(data) {
+plot_techmix_impl <- function(data) {
   metric_type_order <- unique(data$metric_type)
   metric_type_labels <- to_title(metric_type_order)
 
