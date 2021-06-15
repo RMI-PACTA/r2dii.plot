@@ -45,7 +45,6 @@ r2dii.plot:::scenario_colours
 r2dii.plot:::sector_colours
 
 r2dii.plot:::technology_colours
-
 }
 \keyword{datasets}
 \keyword{internal}

@@ -8,9 +8,10 @@
 NULL
 
 utils::globalVariables(c(
-  "where",
+  "market_share",
   "palette_colours",
   "scenario_colours",
   "sector_colours",
-  "technology_colours"
+  "technology_colours",
+  "where"
 ))
