@@ -146,11 +146,11 @@ test_that("works with brown technology", {
   )
 })
 
-
 test_that("outputs pretty labels", {
   data <- example_market_share()
   p <- plot_trajectory(data)
 
   get_metric <- function(p) as.character(unique(p$layers[[2]]$data$metric))
-  expect_true("Corporate Economy" %in% get_metric(p))
+  has_pretty_format <- all(c("Corporate Economy", "SDS") %in% get_metric(p))
+  expect_true(has_pretty_format)
 })
