@@ -54,35 +54,17 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/articles/r2dii-plot-X-versus-Y.html">r2dii.plot X versus Y</a>
-    </li>
-    <li>
-      <a href="articles/articles/r2dii-plot-X.html">r2dii.plot X</a>
-    </li>
-    <li>
-      <a href="articles/articles/r2dii-plot-Y.html">r2dii.plot Y</a>
-    </li>
-  </ul>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/MonikaFu">
-    <span class="fas fa-gavel"></span>
+    <span class="fa fa-gavel"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/2DegreesInvesting/r2dii.plot">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -157,123 +139,112 @@
 <span class="co">#&gt;  9 automotive electric    2021 global demo_2020       target_sds         160625.</span>
 <span class="co">#&gt; 10 automotive electric    2021 global demo_2020       target_sps         149016.</span>
 <span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
-<p>r2dii.plot supports three kinds of plots – timeline, techmix, and trajectory. Each plot has specific requirements for the first argument <code>data</code>. To meet those requirements we currently provide two experimental sets of functions (<a href="https://en.wikipedia.org/wiki/API">API</a>s) – X and Y.</p>
-<p>Both APIs can help you get the same plots. The difference is not in what you can do but in how you can do it:</p>
+<p>r2dii.plot supports three kinds of plots – timeline, techmix, and trajectory.</p>
+<div id="timeline" class="section level3">
+<h3 class="hasAnchor">
+<a href="#timeline" class="anchor"></a>Timeline</h3>
+<p>Use <code><a href="reference/plot_timeline.html">plot_timeline()</a></code> with <code>sda</code>-like data. You’ll need to pick the specific rows you want to plot. For details see the documented “Requirements” of the argument <code>data</code>, or try intuitively and let the error messages guide you.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_timeline.html">plot_timeline</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
+<span class="co">#&gt; Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span>
+<span class="co">#&gt; Pick one value, e.g. 'automotive', with:</span>
+<span class="co">#&gt;   dplyr::filter(sda, sector == 'automotive')</span></code></pre></div>
+<p>The error message suggests you must first pick only one value of <code>sector</code>, for example “cement”.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sda</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/plot_timeline.html">plot_timeline</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p>Great! You can now polish your plot. Your options are limitless but these are some typical things you may do:</p>
 <ul>
-<li><p>The X API has a simpler interface. It focuses exclusively on the tasks you can’t easily achieve with other packages, and assumes you can meet the <code>data</code> requirements and customize your plots with other packages such as base R, dplyr, and ggplot2. It forces you to learn or reuse your existing knowledge of other R packages and workflows.</p></li>
-<li><p>The Y API has a more complex but complete toolkit. It offers more functions and arguments that wrap features from other packages to help you meet the <code>data</code> requirements and customize your plots directly with r2dii.plot. and ggplot2. It forces you to learn the new r2dii.plot way of doing things but requires little knowledge of other packages and workflows.</p></li>
+<li>Pick a narrower time range.</li>
+<li>Extrapolate the timeline.</li>
+<li>Add a title.</li>
 </ul>
-<p>These tables summarize the differences for users and developers of r2dii.plot:</p>
-<table class="table">
-<colgroup>
-<col width="41%">
-<col width="17%">
-<col width="40%">
-</colgroup>
-<thead><tr class="header">
-<th align="left"></th>
-<th align="left">X API</th>
-<th align="left">Y API</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">Interface</td>
-<td align="left">Simpler</td>
-<td align="left">More complex</td>
-</tr>
-<tr class="even">
-<td align="left">Meet <code>data</code> requirements</td>
-<td align="left">With other packages</td>
-<td align="left">With r2dii.plot and optionally other packages</td>
-</tr>
-<tr class="odd">
-<td align="left">Customize plots</td>
-<td align="left">With other packages</td>
-<td align="left">With r2dii.plot and optionally other packages</td>
-</tr>
-<tr class="even">
-<td align="left">Integrates with other R packages and workflows</td>
-<td align="left">More</td>
-<td align="left">Less</td>
-</tr>
-</tbody>
-</table>
-<p><em>The X and Y APIs compared from a user’s perspective.</em></p>
-<table class="table">
-<thead><tr class="header">
-<th align="left"></th>
-<th align="left">X API</th>
-<th align="left">Y API</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">Easy to maintain</td>
-<td align="left">Less</td>
-<td align="left">More</td>
-</tr>
-<tr class="even">
-<td align="left">Easy to extend</td>
-<td align="left">More</td>
-<td align="left">Less</td>
-</tr>
-</tbody>
-</table>
-<p><em>The X and Y APIs compared from a developer’s perspective.</em></p>
-<p>To make the comparison concrete consider this small example of a trajectory plot (the other plot types you can find in the detailed <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html">X API</a> and <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html">Y API</a>) articles. Notice the resulting plot is almost the same (except for the labels) but the toolkit is different.</p>
-<ul>
-<li>X API</li>
-</ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span>, <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span>
 
-<span class="va">prep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
-  <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,
-  <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
-  <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
-  <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2025</span>
-<span class="op">)</span>
+<span class="fu"><a href="reference/plot_timeline.html">plot_timeline</a></span><span class="op">(</span><span class="va">data</span>, extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timeline plot"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p>You can further customize your plot by adding a custom manual scale using <code>ggplot</code> function <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual()</a></code> with custom legend labels.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span>
 
-<span class="fu"><a href="reference/plot_trajectoryX.html">plot_trajectoryX</a></span><span class="op">(</span><span class="va">prep</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span> <span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot with the thin 'X' API"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/plot_timeline.html">plot_timeline</a></span><span class="op">(</span><span class="va">data</span>, extrapolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>
+    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#4a5e54"</span>, <span class="st">"#a63d57"</span>, <span class="st">"#78c4d6"</span>, <span class="st">"#f2e06e"</span><span class="op">)</span>,
+    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Proj."</span>, <span class="st">"Corp. Economy"</span>, <span class="st">"Target (demo)"</span>, <span class="st">"Adj. Scenario (demo)"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<ul>
-<li>Y API</li>
-</ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span>
+</div>
+<div id="techmix" class="section level3">
+<h3 class="hasAnchor">
+<a href="#techmix" class="anchor"></a>Techmix</h3>
+<p>Use <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> with <code>market_share</code>-like data. Again, learn which rows to pick by reading the documented “Requirements” of the argument <code>data</code>, or by trial and error.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">market_share</span><span class="op">$</span><span class="va">metric</span><span class="op">)</span>
+<span class="co">#&gt; [1] "projected"         "corporate_economy" "target_cps"       </span>
+<span class="co">#&gt; [4] "target_sds"        "target_sps"</span>
+<span class="va">chosen_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>
 
-<span class="va">prep</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prep_trajectoryY.html">prep_trajectoryY</a></span><span class="op">(</span>
-  <span class="va">data</span>,
-  sector_filter <span class="op">=</span> <span class="st">"power"</span>,
-  technology_filter <span class="op">=</span> <span class="st">"renewablescap"</span>,
-  region_filter <span class="op">=</span> <span class="st">"global"</span>,
-  scenario_source_filter <span class="op">=</span> <span class="st">"demo_2020"</span>,
-  value <span class="op">=</span> <span class="st">"production"</span>
-<span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="va">metric</span> <span class="op">%in%</span> <span class="va">chosen_metrics</span>,
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>
+  <span class="op">)</span>
 
-<span class="va">scenario_specs</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  scenario <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sds"</span>, <span class="st">"sps"</span>, <span class="st">"cps"</span><span class="op">)</span>,
-  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SDS"</span>, <span class="st">"STEPS"</span>, <span class="st">"CPS"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">main_line_metric</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"projected"</span>, label <span class="op">=</span> <span class="st">"Portfolio"</span><span class="op">)</span>
-
-<span class="va">additional_line_metrics</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  metric <span class="op">=</span> <span class="st">"corporate_economy"</span>,
-  label <span class="op">=</span> <span class="st">"Corporate Economy"</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="reference/plot_trajectoryY.html">plot_trajectoryY</a></span><span class="op">(</span>
-  <span class="va">prep</span>,
-  scenario_specs_good_to_bad <span class="op">=</span> <span class="va">scenario_specs</span>,
-  main_line_metric <span class="op">=</span> <span class="va">main_line_metric</span>,
-  additional_line_metrics <span class="op">=</span> <span class="va">additional_line_metrics</span>
-<span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span> <span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot with the thick 'Y' API"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Techmix plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<p>For full examples see the dedicated articles <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html">r2dii.plot X</a> and <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html">r2dii.plot Y</a>.</p>
+<p>You may customize the plot further by:</p>
+<ul>
+<li>Setting custom colours and colour labels, using <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_color_manual()</a></code>.</li>
+<li>Picking the range of years to plot, by filtering the data passed to <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> (instead of the full range by default).</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="va">metric</span> <span class="op">%in%</span> <span class="va">chosen_metrics</span>,
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">2020</span>, <span class="fl">2025</span><span class="op">)</span>
+  <span class="op">)</span>
+
+<span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>
+    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"brown"</span>, <span class="st">"grey"</span>, <span class="st">"blue"</span>, <span class="st">"green4"</span><span class="op">)</span>,
+    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal"</span>, <span class="st">"Oil"</span>, <span class="st">"Gas"</span>, <span class="st">"Hydro"</span>, <span class="st">"Renewables"</span><span class="op">)</span>, <span class="st">"Cap."</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; Scale for 'fill' is already present. Adding another scale for 'fill', which</span>
+<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+</div>
+<div id="trajectory" class="section level3">
+<h3 class="hasAnchor">
+<a href="#trajectory" class="anchor"></a>Trajectory</h3>
+<p>Use <code><a href="reference/plot_trajectory.html">plot_trajectory()</a></code> with <code>market_share</code>-like data. Again, learn which rows to pick by reading the documented “Requirements” of the argument <code>data</code>, or by trial and error.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>, 
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>, 
+    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,
+    <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2025</span>
+  <span class="op">)</span>
+
+<span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p>Use the <code>main_line</code> argument to indicate which trajectory line should be most visually salient (solid black line) – it’s “projected” by default but the next plot sets it explicitly for demonstration.</p>
+<p>Use <code>normalize = FALSE</code> if you prefer not to normalize to the start year.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span>, main_line <span class="op">=</span> <span class="st">"projected"</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+</div>
 </div>
 </div>
   </div>

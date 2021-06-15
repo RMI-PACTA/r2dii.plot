@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creates a time line plot — plot_timeline • r2dii.plot.static</title>
+<title>Create a timeline plot — plot_timeline • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Creates a time line plot — plot_timeline" />
-<meta property="og:description" content="Creates a time line plot" />
+<meta property="og:title" content="Create a timeline plot — plot_timeline" />
+<meta property="og:description" content="Create a timeline plot" />
 
 
 
@@ -71,7 +71,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">r2dii.plot.static</a>
+        <a class="navbar-link" href="../index.html">r2dii.plot</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -91,13 +91,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/MonikaFu">
-    <span class="fas fa-gavel"></span>
+    <span class="fa fa-gavel"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/2DegreesInvesting/r2dii.plot.static">
-    <span class="fas fa-github"></span>
+  <a href="https://github.com/2DegreesInvesting/r2dii.plot">
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -117,29 +117,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Creates a time line plot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot.static/blob/master/R/plot_timeline.R'><code>R/plot_timeline.R</code></a></small>
+    <h1>Create a timeline plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/plot_timeline.R'><code>R/plot_timeline.R</code></a></small>
     <div class="hidden name"><code>plot_timeline.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates a time line plot</p>
+    <p>Create a timeline plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>data</span>, specs <span class='op'>=</span> <span class='fu'><a href='timeline_specs.html'>timeline_specs</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>data</span>, extrapolate <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Pre-processed data for the chart, with columns: year, value,
-line_name.</p></td>
+      <td><p>A data frame. Requirements:</p><ul>
+<li><p>The structure must be like <a href='sda.html'>sda</a>.</p></li>
+<li><p>The column <code>sector</code> must have a single value (e.g. "cement").</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>specs</th>
-      <td><p>Dataframe containing order of lines, their labels and colour
-names from the r2dii_colours palette.</p></td>
+      <th>extrapolate</th>
+      <td><p>Logical of length 1. <code>TRUE</code> extrapolates to match the
+furthest value in the data set.</p></td>
     </tr>
     </table>
 
@@ -148,62 +150,15 @@ names from the r2dii_colours palette.</p></td>
     <p>An object of class "ggplot".</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>timeline_specs</p></div>
+    <div class='dont-index'><p><a href='sda.html'>sda</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
-<span class='co'># Using default preparation and specs</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span><span class='va'>sda_target</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='co'># `data` must meet documented "Requirements"</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sda</span>, <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span><span class='op'>)</span>
 <span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_timeline-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Using custom preparation and specs</span>
-<span class='va'>cement_data</span> <span class='op'>&lt;-</span> <span class='va'>sda_target</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='prepare_for_timeline.html'>prepare_for_timeline</a></span><span class='op'>(</span>
-    sector_filter <span class='op'>=</span> <span class='st'>"cement"</span>,
-    year_start <span class='op'>=</span> <span class='fl'>2020</span>,
-    year_end <span class='op'>=</span> <span class='fl'>2050</span>,
-    column_line_names <span class='op'>=</span> <span class='st'>"emission_factor_metric"</span>,
-    value_to_plot <span class='op'>=</span> <span class='st'>"emission_factor_value"</span>,
-    extrapolate_missing_values <span class='op'>=</span> <span class='cn'>TRUE</span>
-  <span class='op'>)</span>
-
-<span class='co'># Combine `timeline_specs()` and `dput()` or `datapasta::tribble_paste()` to</span>
-<span class='co'># produce the default `specs`; then adapt it as you wish:</span>
-<span class='va'>custom_specs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
-  <span class='op'>~</span><span class='va'>line_name</span>, <span class='op'>~</span><span class='va'>label</span>, <span class='op'>~</span><span class='va'>colour_hex</span>,
-  <span class='st'>"projected"</span>, <span class='st'>"Proj."</span>, <span class='st'>"#1b324f"</span>,
-  <span class='st'>"corporate_economy"</span>, <span class='st'>"Corp. Economy"</span>, <span class='st'>"#00c082"</span>,
-  <span class='st'>"target_demo"</span>, <span class='st'>"Target"</span>, <span class='st'>"#ff9623"</span>,
-  <span class='st'>"adjusted_scenario_demo"</span>, <span class='st'>"Adj. Scenario"</span>, <span class='st'>"#d0d7e1"</span>
-<span class='op'>)</span>
-
-<span class='co'># For reference</span>
-<span class='fu'><a href='r2dii_palette_colours.html'>r2dii_palette_colours</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 x 2</span><span>
-#&gt;   label       colour_hex
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> dark_blue   #1b324f   
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> green       #00c082   
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> orange      #ff9623   
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> grey        #d0d7e1   
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> dark_purple #574099   
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> yellow      #f2e06e   
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> soft_blue   #78c4d6   
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span> ruby_red    #a63d57   
-#&gt; </span><span style='color: #BCBCBC;'>9</span><span> moss_green  #4a5e54   </div><div class='input'>
-<span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>cement_data</span>, specs <span class='op'>=</span> <span class='va'>custom_specs</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_timeline-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Customize as usual with ggplot2</span>
-<span class='fu'>plot_timeline</span><span class='op'>(</span><span class='va'>cement_data</span>, specs <span class='op'>=</span> <span class='va'>custom_specs</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Emission intensity trend for Cement"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_timeline-3.png' alt='' width='700' height='433' /></div></span></pre>
+</div><div class='img'><img src='plot_timeline-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

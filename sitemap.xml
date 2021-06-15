@@ -10,31 +10,13 @@
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmixX.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmix.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_techmixY.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timeline.html</loc>
   </url>
   <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timelineX.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_timelineY.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectoryX.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectoryY.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_techmixY.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_timelineY.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/prep_trajectoryY.html</loc>
+    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/plot_trajectory.html</loc>
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/r2dii.plot-package.html</loc>
@@ -47,17 +29,5 @@
   </url>
   <url>
     <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/theme_2dii.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//reference/timeline_specs.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//articles/articles/r2dii-plot-X-versus-Y.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//articles/articles/r2dii-plot-X.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/2DegreesInvesting/r2dii.plot//articles/articles/r2dii-plot-Y.html</loc>
   </url>
 </urlset>

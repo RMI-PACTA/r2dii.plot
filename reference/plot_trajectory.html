@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a trajectory alignment chart in a ggplot object — plot_trajectory • r2dii.plot</title>
+<title>Create a trajectory plot — plot_trajectory • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a trajectory alignment chart in a ggplot object — plot_trajectory" />
-<meta property="og:description" content="The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.)." />
+<meta property="og:title" content="Create a trajectory plot — plot_trajectory" />
+<meta property="og:description" content="Create a trajectory plot" />
 
 
 
@@ -93,13 +91,13 @@ etc.)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/MonikaFu">
-    <span class="fas fa-gavel"></span>
+    <span class="fa fa-gavel"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/2DegreesInvesting/r2dii.plot">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -119,88 +117,62 @@ etc.)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a trajectory alignment chart in a ggplot object</h1>
+    <h1>Create a trajectory plot</h1>
     <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/plot_trajectory.R'><code>R/plot_trajectory.R</code></a></small>
     <div class="hidden name"><code>plot_trajectory.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function returns a ggplot object containing a stacked bar chart showing a
-technology mix for different categories (portfolio, scenario, benchmark,
-etc.).</p>
+    <p>Create a trajectory plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_trajectory</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  <span class='va'>scenario_specs_good_to_bad</span>,
-  <span class='va'>main_line_metric</span>,
-  additional_line_metrics <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span>, normalize <span class='op'>=</span> <span class='cn'>TRUE</span>, main_line <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Filtered input data; with columns: year, metric_type, metric and
-value.</p></td>
+      <td><p>A data frame. Requirements:</p><ul>
+<li><p>The structure must be like <a href='market_share.html'>market_share</a>.</p></li>
+<li><p>The following columns must have a single value: <code>sector</code>, <code>technology</code>,
+<code>region</code>, <code>scenario_source</code>.</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>scenario_specs_good_to_bad</th>
-      <td><p>Dataframe containing scenario
-specifications like name label, ordered from the most to least sustainable;
-with columns: scenario, label.</p></td>
+      <th>normalize</th>
+      <td><p>Logical of length-1. <code>TRUE</code> normalizes to the start year.</p></td>
     </tr>
     <tr>
-      <th>main_line_metric</th>
-      <td><p>Dataframe containing information about metric that
-should be plotted as the main line; with columns: metric, label.</p></td>
-    </tr>
-    <tr>
-      <th>additional_line_metrics</th>
-      <td><p>Dataframe containing information about
-additional metrics that should be plotted as lines; with columns: metric,
-label).</p></td>
+      <th>main_line</th>
+      <td><p>String of length 1. The <code>metric</code> to plot as the line with
+the most visual salience (solid black line). <code>NULL</code> defaults to
+"projected".</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class "ggplot".</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other plotting functions: 
-<code><a href='plot_techmix.html'>plot_techmix</a>()</code>,
-<code><a href='plot_timelineA.html'>plot_timelineA</a>()</code>,
-<code><a href='theme_2dii.html'>theme_2dii</a>()</code></p></div>
+    <div class='dont-index'><p><a href='market_share.html'>market_share</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep_trajectory.html'>prep_trajectory</a></span><span class='op'>(</span>
-  <span class='va'>market_share</span>,
-  sector_filter <span class='op'>=</span> <span class='st'>"power"</span>,
-  technology_filter <span class='op'>=</span> <span class='st'>"renewablescap"</span>,
-  region_filter <span class='op'>=</span> <span class='st'>"global"</span>,
-  scenario_source_filter <span class='op'>=</span> <span class='st'>"demo_2020"</span>,
-  value_name <span class='op'>=</span> <span class='st'>"production"</span>
-<span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='va'>scenario_specs</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
-  scenario <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sds"</span>, <span class='st'>"sps"</span>, <span class='st'>"cps"</span><span class='op'>)</span>,
-  label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SDS"</span>, <span class='st'>"STEPS"</span>, <span class='st'>"CPS"</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='va'>main_line_metric</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>metric <span class='op'>=</span> <span class='st'>"projected"</span>, label <span class='op'>=</span> <span class='st'>"Portfolio"</span><span class='op'>)</span>
-
-<span class='va'>additional_line_metrics</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
-  metric <span class='op'>=</span> <span class='st'>"corporate_economy"</span>,
-  label <span class='op'>=</span> <span class='st'>"Corporate Economy"</span>
-<span class='op'>)</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span>,
-  scenario_specs_good_to_bad <span class='op'>=</span> <span class='va'>scenario_specs</span>,
-  main_line_metric <span class='op'>=</span> <span class='va'>main_line_metric</span>,
-  additional_line_metrics <span class='op'>=</span> <span class='va'>additional_line_metrics</span>
-<span class='op'>)</span>
-
-<span class='va'>p</span>
-</div><div class='img'><img src='plot_trajectory-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># `data` must meet documented "Requirements"</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>market_share</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span>
+    <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"power"</span>,
+    <span class='va'>technology</span> <span class='op'>==</span> <span class='st'>"renewablescap"</span>,
+    <span class='va'>region</span> <span class='op'>==</span> <span class='st'>"global"</span>,
+    <span class='va'>scenario_source</span> <span class='op'>==</span> <span class='st'>"demo_2020"</span>
+  <span class='op'>)</span>
+<span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_trajectory-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span>, normalize <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_trajectory-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
