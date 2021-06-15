@@ -33,7 +33,7 @@ plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
   hint_if_missing_names(
     abort_if_missing_names(data, common_crucial_market_share_columns())
   )
-  abort_if_has_cero_rows(data)
+  abort_if_has_zero_rows(data)
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols)
 

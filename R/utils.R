@@ -86,7 +86,7 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
   paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
 
-abort_if_has_cero_rows <- function(data) {
+abort_if_has_zero_rows <- function(data) {
   .data <- deparse_1(substitute(data, env = parent.frame()))
   if (nrow(data) == 0L) {
     abort(glue("`{.data}` must have some rows but has none."))

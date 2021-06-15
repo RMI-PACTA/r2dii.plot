@@ -24,7 +24,7 @@ plot_timeline <- function(data, extrapolate = FALSE) {
   )
   abort_if_missing_names(data, crucial)
   abort_if_multiple(data, "sector")
-  abort_if_has_cero_rows(data)
+  abort_if_has_zero_rows(data)
 
   data <- data %>%
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric))

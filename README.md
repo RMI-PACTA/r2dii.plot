@@ -112,14 +112,12 @@ sda %>%
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great\! You can now polish your plot. Your options are limitless but
+Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
-  - Pick a narrower time range.
-  - Extrapolate the timeline.
-  - Add a title.
-
-<!-- end list -->
+-   Pick a narrower time range.
+-   Extrapolate the timeline.
+-   Add a title.
 
 ``` r
 data <- filter(sda, sector == "cement", year >= 2020)
@@ -175,12 +173,10 @@ plot_techmix(data) +
 
 You may customize the plot further by:
 
-  - Setting custom colours and colour labels, using
+-   Setting custom colours and colour labels, using
     `ggplot2::scale_color_manual()`.
-  - Picking the range of years to plot, by filtering the data passed to
+-   Picking the range of years to plot, by filtering the data passed to
     `plot_techmix()` (instead of the full range by default).
-
-<!-- end list -->
 
 ``` r
 data <- market_share %>%

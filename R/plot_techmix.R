@@ -31,7 +31,7 @@ plot_techmix <- function(data) {
       data, c(common_crucial_market_share_columns(), "technology_share")
     )
   )
-  abort_if_has_cero_rows(data)
+  abort_if_has_zero_rows(data)
   cols <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, cols)
   abort_if_multiple_scenarios(data)

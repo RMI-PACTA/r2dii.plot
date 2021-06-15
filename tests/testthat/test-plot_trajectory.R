@@ -47,9 +47,9 @@ test_that("if `data` is not market_share-like errors gracefully", {
   expect_snapshot_error(plot_trajectory(bad))
 })
 
-test_that("with cero-row data errors gracefully", {
-  cero_row <- market_share[0L, ]
-  expect_snapshot_error(plot_trajectory(cero_row))
+test_that("with zero-row data errors gracefully", {
+  zero_row <- market_share[0L, ]
+  expect_snapshot_error(plot_trajectory(zero_row))
 })
 
 test_that("with too many sectors errors gracefully", {

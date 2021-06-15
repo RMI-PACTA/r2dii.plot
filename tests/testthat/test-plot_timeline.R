@@ -7,9 +7,9 @@ test_that("if `data` is not sda-like errors gracefully", {
   expect_snapshot_error(plot_timeline(bad))
 })
 
-test_that("if `data` has cero rows errors gracefully", {
-  cero_row <- sda[0L, ]
-  expect_snapshot_error(plot_timeline(cero_row))
+test_that("if `data` has zero rows errors gracefully", {
+  zero_row <- sda[0L, ]
+  expect_snapshot_error(plot_timeline(zero_row))
 })
 
 test_that("with too many sectors errors gracefully", {

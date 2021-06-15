@@ -7,9 +7,9 @@
     Must have missing names:
     emission_factor_metric, emission_factor_value
 
-# if `data` has cero rows errors gracefully
+# if `data` has zero rows errors gracefully
 
-    `cero_row` must have some rows but has none.
+    `zero_row` must have some rows but has none.
 
 # with too many sectors errors gracefully
 

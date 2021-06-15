@@ -7,10 +7,10 @@ test_that("without `market_share` data errors gracefully", {
   expect_snapshot_error(plot_techmix(bad_kind))
 })
 
-test_that("with cero-row data errors gracefully", {
-  cero_row <- market_share[0L, ]
+test_that("with zero-row data errors gracefully", {
+  zero_row <- market_share[0L, ]
   expect_snapshot_error(
-    plot_techmix(cero_row)
+    plot_techmix(zero_row)
   )
 })
 
