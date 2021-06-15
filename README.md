@@ -96,9 +96,9 @@ error messages guide you.
 
 ``` r
 plot_timeline(sda)
-#> Error: `data` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+#> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 #> Pick one value, e.g. 'automotive', with:
-#>   dplyr::filter(data, sector == 'automotive')
+#>   dplyr::filter(sda, sector == 'automotive')
 ```
 
 The error message suggests you must first pick only one value of
