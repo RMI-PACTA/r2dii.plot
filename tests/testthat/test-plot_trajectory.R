@@ -146,3 +146,12 @@ test_that("with missing crucial names errors gracefully", {
   bad <- select(data, -production)
   expect_error(class = "missing_names", prep_trajectory(bad))
 })
+
+test_that("works with brown technology", {
+  brown <- "oil"
+  data <- filter(market_share, technology == brown, region == first(region))
+  expect_warning(
+    regexp = NA,
+    plot_trajectory(data)
+  )
+})

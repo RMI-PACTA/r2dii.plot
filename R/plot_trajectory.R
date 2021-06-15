@@ -227,6 +227,7 @@ get_area_borders <- function(data) {
         start_value_portfolio - perc_distance_upper_border * value_span
       value_span <- upper_area_border - lower_area_border
     } else {
+      # TODO: Is this dead code? How can we test it?
       upper_area_border <-
         perc_distance_lower_border * value_span + start_value_portfolio
       value_span <- upper_area_border - lower_area_border
@@ -248,9 +249,11 @@ get_ordered_scenario_specsB <- function(data) {
   scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
   green_or_brown <- r2dii.data::green_or_brown
+  technologies <- abort_if_invalid_length(unique(data$technology))
   tech_green_or_brown <- green_or_brown %>%
-    filter(.data$technology == data$technology[1]) %>%
-    pull(.data$green_or_brown)
+    filter(.data$technology == technologies) %>%
+    pull(.data$green_or_brown) %>%
+    unique()
 
   if (tech_green_or_brown == "brown") {
     ordered_scenarios_good_to_bad <- tibble(
