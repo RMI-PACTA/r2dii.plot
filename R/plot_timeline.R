@@ -28,7 +28,7 @@ plot_timeline <- function(data, extrapolate = FALSE) {
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
-  plot_timelineY(prep, specs = specs)
+  plot_timeline_impl(prep, specs = specs)
 }
 
 prep_timeline <- function(data,
@@ -93,8 +93,7 @@ get_common_start_year <- function(data, metric) {
   year
 }
 
-plot_timelineY <- function(data, specs) {
-  abort_if_multiple(data, "sector")
+plot_timeline_impl <- function(data, specs) {
   data <- left_join(data, specs, by = "line_name")
 
   ggplot() +
