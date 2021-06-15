@@ -60,7 +60,6 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   abort_if_invalid_main_line(data, main_line)
   abort_if_invalid_scenarios_number(data)
 
-  data <- to_title_case(data, "metric")
   data <- mutate(data, metric = case_when(
     metric_type == "scenario" ~ toupper(.data$metric),
     TRUE ~ to_title(.data$metric)
