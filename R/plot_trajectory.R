@@ -60,10 +60,7 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   abort_if_invalid_main_line(data, main_line)
   abort_if_invalid_scenarios_number(data)
 
-  data <- mutate(data, metric = case_when(
-    metric_type == "scenario" ~ toupper(.data$metric),
-    TRUE ~ to_title(.data$metric)
-  ))
+  data <- mutate_pretty_labels(data, name = "metric")
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specs(data)
@@ -116,7 +113,7 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
     filter(
       .data$year == last_year
     ) %>%
-    add_pretty_labels()
+    mutate_pretty_labels(name = "label")
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
@@ -153,17 +150,6 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
     )
 
   p_trajectory
-}
-
-add_pretty_labels <- function(data) {
-  abort_if_missing_names(data, c("metric_type", "metric"))
-
-  data <- data %>%
-    mutate(label = case_when(
-      .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-      TRUE ~ to_title(as.character(.data$metric))
-    ))
-  data
 }
 
 abort_if_invalid_scenarios_number <- function(data) {

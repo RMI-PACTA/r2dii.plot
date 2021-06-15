@@ -6,15 +6,6 @@
   }
 }
 
-#' Convert to title case the values of a data frame column
-#' @examples
-#' data <- tibble(x = "a_value")
-#' to_title_case(data, "x")
-#' @noRd
-to_title_case <- function(data, name) {
-  mutate(data, "{name}" := to_title(.data[[name]]))
-}
-
 #' Convert a string to title case
 #'
 #' This function replaces a sequence of non alpha-numeric characters to a single
@@ -195,4 +186,30 @@ example_market_share <- function(...) {
 
 r_version_is_older_than <- function(major) {
   as.integer(R.version$major) < major
+}
+
+#' Mutate a data frame column (or add a new one) using pretty labels
+#'
+#' Pretty labels are "UPPERCASE" when they belong to scenarios, else they are
+#' "Title Case".
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' data <- tibble(
+#'   metric = c("corporate_economy", "sds"),
+#'   metric_type = c("benchmark", "scenario")
+#' )
+#' mutate_pretty_labels(data, "metric")
+#' mutate_pretty_labels(data, "new")
+#' @noRd
+mutate_pretty_labels <- function(data, name) {
+  abort_if_missing_names(data, c("metric_type", "metric"))
+
+  mutate(
+    data,
+    "{name}" := case_when(
+    data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
+    TRUE ~ to_title(as.character(.data$metric))
+  ))
 }
