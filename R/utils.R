@@ -209,7 +209,8 @@ mutate_pretty_labels <- function(data, name) {
   mutate(
     data,
     "{name}" := case_when(
-    data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-    TRUE ~ to_title(as.character(.data$metric))
-  ))
+      data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
+      TRUE ~ to_title(as.character(.data$metric))
+    )
+  )
 }
