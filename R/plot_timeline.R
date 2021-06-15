@@ -20,9 +20,15 @@
 plot_timeline <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data))
   abort_if_has_cero_rows(data)
+
   prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
 
-  plot_timelineB(prep)
+  line_names <- unique(prep$line_name)
+  specs <- tibble(line_name = line_names, label = line_names) %>%
+    abort_if_too_many_lines() %>%
+    add_r2dii_colours()
+
+  plot_timelineY(prep, specs = specs)
 }
 
 prep_timeline <- function(data,
@@ -85,17 +91,6 @@ get_common_start_year <- function(data, metric) {
       pull(.data$year)
   )
   year
-}
-
-plot_timelineB <- function(data) {
-  abort_if_missing_names(data, "line_name")
-
-  line_names <- unique(data$line_name)
-  specs <- tibble(line_name = line_names, label = line_names) %>%
-    abort_if_too_many_lines() %>%
-    add_r2dii_colours()
-
-  plot_timelineY(data = data, specs = specs)
 }
 
 plot_timelineY <- function(data, specs) {
