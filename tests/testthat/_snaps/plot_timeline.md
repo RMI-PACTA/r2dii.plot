@@ -6,7 +6,6 @@
 
     Must have missing names:
     emission_factor_metric, emission_factor_value
-    Is your data `sda`-like?
 
 # if `data` has cero rows errors gracefully
 

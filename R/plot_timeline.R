@@ -18,11 +18,17 @@
 #' data <- filter(sda, sector == "cement")
 #' plot_timeline(data)
 plot_timeline <- function(data, extrapolate = FALSE) {
-  stopifnot(is.data.frame(data))
+  stopifnot(is.data.frame(data), is.logical(extrapolate))
+  crucial <- c(
+    "sector", "year", "emission_factor_metric", "emission_factor_value"
+  )
+  abort_if_missing_names(data, crucial)
+  abort_if_multiple(data, "sector")
   abort_if_has_cero_rows(data)
 
-  prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
+  data <- to_title_case(data, "emission_factor_metric")
 
+  prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
     abort_if_too_many_lines() %>%
@@ -35,9 +41,6 @@ prep_timeline <- function(data,
                           value = "emission_factor_value",
                           metric = "emission_factor_metric",
                           extrapolate = FALSE) {
-  check_prep_timeline(data, value, metric, extrapolate)
-  abort_if_multiple(data, "sector")
-
   start_year <- get_common_start_year(data, metric)
   data <- filter(data, .data$year >= start_year)
 
@@ -69,18 +72,6 @@ prep_timeline <- function(data,
 
   out$year <- lubridate::make_date(out$year)
   out
-}
-
-check_prep_timeline <- function(data, value, metric, extrapolate) {
-  stopifnot(
-    is.data.frame(data),
-    is.character(value),
-    is.character(metric),
-    is.logical(extrapolate)
-  )
-  abort_if_missing_names(data, c("sector", "year", metric, value))
-
-  invisible(data)
 }
 
 get_common_start_year <- function(data, metric) {

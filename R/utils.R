@@ -6,6 +6,15 @@
   }
 }
 
+#' Convert to title case the values of a data frame column
+#' @examples
+#' data <- tibble(x = "a_value")
+#' to_title_case(data, "x")
+#' @noRd
+to_title_case <- function(data, name) {
+  mutate(data, "{name}" := to_title(.data[[name]]))
+}
+
 #' Convert a string to title case
 #'
 #' This function replaces a sequence of non alpha-numeric characters to a single
