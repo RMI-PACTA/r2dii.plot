@@ -39,8 +39,8 @@ reference:
 
   - title: Plot
     contents:
-      - matches("plot_.*X")
-      - theme_2dii
+      - starts_with("plot_")
+      - starts_with("theme_")
 
   - title: Datasets
     contents:
