@@ -60,6 +60,12 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   abort_if_invalid_main_line(data, main_line)
   abort_if_invalid_scenarios_number(data)
 
+  data <- to_title_case(data, "metric")
+  data <- mutate(data, metric = case_when(
+    metric_type == "scenario" ~ toupper(.data$metric),
+    TRUE ~ to_title(.data$metric)
+  ))
+
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specsB(data)
   data_scenarios <- get_scenario_data(data, scenario_specs_areas)
