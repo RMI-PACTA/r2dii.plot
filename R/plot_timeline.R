@@ -16,8 +16,8 @@
 #'
 #' # `data` must meet documented "Requirements"
 #' data <- filter(sda, sector == "cement")
-#' plot_timeline(data)
-plot_timeline <- function(data, extrapolate = FALSE) {
+#' plot_emission_intensity(data)
+plot_emission_intensity <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data), is.logical(extrapolate))
   crucial <- c(
     "sector", "year", "emission_factor_metric", "emission_factor_value"

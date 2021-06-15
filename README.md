@@ -89,13 +89,13 @@ trajectory.
 
 ### Timeline
 
-Use `plot_timeline()` with `sda`-like data. You’ll need to pick the
-specific rows you want to plot. For details see the documented
+Use `plot_emission_intensity()` with `sda`-like data. You’ll need to
+pick the specific rows you want to plot. For details see the documented
 “Requirements” of the argument `data`, or try intuitively and let the
 error messages guide you.
 
 ``` r
-plot_timeline(sda)
+plot_emission_intensity(sda)
 #> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 #> Pick one value, e.g. 'automotive', with:
 #>   dplyr::filter(sda, sector == 'automotive')
@@ -107,7 +107,7 @@ The error message suggests you must first pick only one value of
 ``` r
 sda %>% 
   filter(sector == "cement") %>% 
-  plot_timeline()
+  plot_emission_intensity()
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -122,7 +122,7 @@ these are some typical things you may do:
 ``` r
 data <- filter(sda, sector == "cement", year >= 2020)
 
-plot_timeline(data, extrapolate = TRUE) + 
+plot_emission_intensity(data, extrapolate = TRUE) + 
   labs(title = "Timeline plot")
 ```
 
@@ -135,7 +135,7 @@ labels.
 ``` r
 data <- filter(sda, sector == "cement")
 
-plot_timeline(data, extrapolate = TRUE) +
+plot_emission_intensity(data, extrapolate = TRUE) +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
