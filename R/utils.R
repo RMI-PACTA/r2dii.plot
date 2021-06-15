@@ -103,11 +103,13 @@ hint_if_missing_names <- function(expr) {
   rlang::with_handlers(
     expr,
     missing_names = function(e) {
-      abort(class = "hint_missing_names",
+      abort(
+        class = "hint_missing_names",
         glue(
-        "{conditionMessage(e)}
+          "{conditionMessage(e)}
         Is your data `{kind}`-like?"
-      ))
+        )
+      )
     }
   )
 

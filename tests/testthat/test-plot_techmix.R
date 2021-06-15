@@ -3,8 +3,8 @@ test_that("outputs the expected ggplot object", {
   skip_if_not(mauro, message = "Brittle test meant to run on mauro's pc only")
 
   data <- example_market_share(
-      metric %in% c("projected", "corporate_economy", "target_sds")
-    )
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
   p <- plot_techmix(data)
   p$plot_env <- NULL
   expect_snapshot(str(p))
