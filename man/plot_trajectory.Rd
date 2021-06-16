@@ -30,9 +30,9 @@ Create a trajectory plot
 # `data` must meet documented "Requirements"
 data <- subset(
   market_share,
-  sector == "power",
-  technology == "renewablescap",
-  region == "global",
+  sector == "power" &
+  technology == "renewablescap" &
+  region == "global" &
   scenario_source == "demo_2020"
 )
 
