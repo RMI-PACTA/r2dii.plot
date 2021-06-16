@@ -71,7 +71,7 @@ abort_if_multiple <- function(data, x, env = parent.frame()) {
       abort(glue(
         "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
         Pick one value, e.g. '{first(.x)}', with:
-          dplyr::filter({.data}, {x} == '{first(.x)}')"
+          subset({.data}, {x} == '{first(.x)}')"
       ))
     }
     invisible(x)
