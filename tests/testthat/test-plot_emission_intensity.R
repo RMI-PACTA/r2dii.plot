@@ -52,3 +52,13 @@ test_that("outputs pretty labels", {
   get_line_name <- function(p) unique(p$layers[[1]]$data$line_name)
   expect_equal(get_line_name(p), c("Projected", "Corporate Economy"))
 })
+
+test_that("with too many lines to plot errors gracefully", {
+  data <- filter(sda, sector == "cement") %>%
+    head(8)
+  data$emission_factor_metric <- c("a", "b", "c", "d", "e", "f", "g", "h")
+  p <- plot_emission_intensity(data)
+
+  get_line_name <- function(p) unique(p$layers[[1]]$data$line_name)
+  expect_equal(get_line_name(p), c("Projected", "Corporate Economy"))
+})
