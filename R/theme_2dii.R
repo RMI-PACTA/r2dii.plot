@@ -18,13 +18,6 @@
 #' p
 #'
 #' p + theme_2dii()
-#'
-#' # Or
-#' old <- theme_set(theme_2dii())
-#' p
-#'
-#' theme_set(old)
-#' p
 theme_2dii <- function(base_size = 12,
                        base_family = "Helvetica",
                        base_line_size = base_size / 22,
