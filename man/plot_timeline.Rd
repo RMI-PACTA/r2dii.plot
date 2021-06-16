@@ -23,10 +23,8 @@ An object of class "ggplot".
 Create a timeline plot
 }
 \examples{
-library(dplyr, warn.conflicts = FALSE)
-
 # `data` must meet documented "Requirements"
-data <- filter(sda, sector == "cement")
+data <- subset(sda, sector == "cement")
 plot_timeline(data)
 }
 \seealso{
