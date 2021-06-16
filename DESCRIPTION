@@ -2,10 +2,24 @@ Package: r2dii.plot
 Title: Visualize Climate Scenario Alignment of Financial Portfolios
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Monika",
-           family = "Furdyna",
-           role = c("aut", "cre"),
-           email = "monika.furdyna@gmail.com")
+    c(person(given = "Monika",
+             family = "Furdyna",
+             role = c("aut", "ctr", "cre"),
+             email = "monika.furdyna@gmail.com",
+             comment = c(ORCID = "0000-0002-3728-0646")),
+      person(given = "Mauro",
+             family = "Lepore",
+             role = c("aut", "ctr"),
+             email = "maurolepore@gmail.com",
+             comment = c(ORCID = "0000-0002-1986-7988")),
+      person(given = "Alex",
+             family = "Axthelm",
+             role = c("aut", "ctr"),
+             email = "alex@2degrees-investing.org",
+             comment = c(ORCID = "0000-0001-8579-8565")),
+      person(given = "2 Degrees Investing Initiative",
+             role = c("cph", "fnd"),
+             email = "contact@2degrees-investing.org"))
 Description: These tools help you to assess if a financial portfolio
     aligns with climate goals. They visualize key climate indicators
     attributed to the portfolio (e.g. production, emission factors), and
