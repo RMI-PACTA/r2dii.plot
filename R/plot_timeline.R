@@ -12,10 +12,8 @@
 #'
 #' @export
 #' @examples
-#' library(dplyr, warn.conflicts = FALSE)
-#'
 #' # `data` must meet documented "Requirements"
-#' data <- filter(sda, sector == "cement")
+#' data <- subset(sda, sector == "cement")
 #' plot_timeline(data)
 plot_timeline <- function(data, extrapolate = FALSE) {
   stopifnot(is.data.frame(data), is.logical(extrapolate))
