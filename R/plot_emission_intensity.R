@@ -24,9 +24,6 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
   abort_if_multiple(data, "sector")
   abort_if_has_zero_rows(data)
 
-  data <- data %>%
-    mutate(emission_factor_metric = to_title(.data$emission_factor_metric))
-
   prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
