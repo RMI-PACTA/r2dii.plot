@@ -106,14 +106,14 @@ plot_timeline_impl <- function(data, specs) {
     theme_2dii()
 }
 
-# TODO: Is this dead code? How can we test it?
 abort_if_too_many_lines <- function(data) {
   n_lines <- nrow(data)
   max_n_lines <- 7
   if (n_lines > max_n_lines) {
     abort(glue(
-      "Can't plot more than {max_n_lines} lines in one plot. Found {n_lines} lines:
-        {toString(data$line_name)}. Consider splitting over multiple plots."
+      "Can't plot more than {max_n_lines} lines in one plot.
+      Found {n_lines} lines: {toString(data$line_name)}.
+      Consider splitting the data over multiple plots."
     ))
   }
 
