@@ -59,7 +59,7 @@ test_that("with too many lines to plot errors gracefully", {
     min_year <- min(data$year)
     max_year <- max(data$year)
     for (i in 1:n) {
-      fake_data <- data.frame(
+      fake_data <- tibble(
         sector = rep(sector, 2),
         year = c(min_year, max_year),
         emission_factor_metric = as.character(i),
