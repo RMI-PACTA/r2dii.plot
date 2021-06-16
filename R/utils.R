@@ -214,3 +214,13 @@ mutate_pretty_labels <- function(data, name) {
     )
   )
 }
+
+#' The metric to plot most saliently
+#'
+#' The concept of "main line" is not obvious from the literal "projected" and
+#' we reuse it in multiple places, so it seems worth to capture the concept
+#' in this function's name.
+#' @examples
+#' main_line()
+#' @noRd
+main_line <- function() "projected"

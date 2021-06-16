@@ -157,7 +157,7 @@ plot_techmix(data) +
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-These are some customizations you may consider:
+These are some tweaks you may consider:
 
   - Subset a custom time range (instead of the default, full range in
     the data).
@@ -205,15 +205,11 @@ plot_trajectory(data) +
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Use the `main_line` argument to indicate which trajectory line should be
-most visually salient (solid black line) – it’s “projected” by default
-but the next plot sets it explicitly for demonstration.
-
 Use `normalize = FALSE` if you prefer not to normalize to the start
 year.
 
 ``` r
-plot_trajectory(data, main_line = "projected", normalize = FALSE)
+plot_trajectory(data, normalize = FALSE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />

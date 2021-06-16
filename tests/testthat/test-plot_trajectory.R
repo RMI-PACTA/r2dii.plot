@@ -76,35 +76,12 @@ test_that("with too many scenario_source errors gracefully", {
   expect_snapshot_error(plot_trajectory(bad_scenario_source))
 })
 
-test_that("with inexistent `main_line` errors gracefully", {
-  data <- head(market_share, 1L)
-  expect_snapshot_error(plot_trajectory(data, main_line = "bad"))
-})
-
 test_that("with too many scenarios errors gracefully", {
   data <- head(market_share, 7)
   data$metric <- c(
-    "projected", "corporate_economy", glue("target_{letters[1:5]}")
+    main_line(), "corporate_economy", glue("target_{letters[1:5]}")
   )
   expect_snapshot_error(plot_trajectory(data))
-})
-
-test_that("is sensitive to `main_line`", {
-  data <- example_market_share()
-  plot_trajectory(data, main_line = "corporate_economy")
-  expect_no_error(plot_trajectory(data, main_line = "corporate_economy"))
-})
-
-test_that("with too long `main_line` errors gracefully", {
-  data <- head(market_share, 1L)
-  expect_snapshot_error(plot_trajectory(data, main_line = c("too", "long")))
-})
-
-test_that("`main_line` is insensitive to case", {
-  data <- example_market_share()
-
-  expect_no_error(plot_trajectory(data, main_line = "projected"))
-  expect_no_error(plot_trajectory(data, main_line = "Projected"))
 })
 
 test_that("is sensitive to `normalize`", {

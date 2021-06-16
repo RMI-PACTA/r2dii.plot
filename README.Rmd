@@ -119,7 +119,7 @@ plot_techmix(data) +
   labs(title = "Techmix plot")
 ```
 
-These are some customizations you may consider:
+These are some tweaks you may consider:
 
 * Subset a custom time range (instead of the default, full range in the data).
 * Set custom colours and legend labels with `ggplot2::scale_color_manual()`.
@@ -157,12 +157,8 @@ plot_trajectory(data) +
   labs(title = "Trajectory plot")
 ```
 
-Use the `main_line` argument to indicate which trajectory line should be most
-visually salient (solid black line) -- it's "projected" by default but the next
-plot sets it explicitly for demonstration.
-
 Use `normalize = FALSE` if you prefer not to normalize to the start year.
 
 ```{r}
-plot_trajectory(data, main_line = "projected", normalize = FALSE)
+plot_trajectory(data, normalize = FALSE)
 ```
