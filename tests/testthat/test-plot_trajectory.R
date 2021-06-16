@@ -126,3 +126,10 @@ test_that("outputs pretty labels", {
   has_pretty_format <- all(c("Corporate Economy", "SDS") %in% get_metric(p))
   expect_true(has_pretty_format)
 })
+
+test_that("informs that values are normalized", {
+  data <- example_market_share()
+  op <- options(r2dii.plot.quiet = FALSE)
+  on.exit(op, add = TRUE)
+  expect_message(plot_trajectory(data), "[Nn]ormalizing")
+})
