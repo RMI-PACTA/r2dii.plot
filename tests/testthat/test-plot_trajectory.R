@@ -79,7 +79,7 @@ test_that("with too many scenario_source errors gracefully", {
 test_that("with too many scenarios errors gracefully", {
   data <- head(market_share, 7)
   data$metric <- c(
-    "projected", "corporate_economy", glue("target_{letters[1:5]}")
+    main_line(), "corporate_economy", glue("target_{letters[1:5]}")
   )
   expect_snapshot_error(plot_trajectory(data))
 })

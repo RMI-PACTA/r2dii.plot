@@ -39,7 +39,7 @@ test_that("with too many scenario_source errors gracefully", {
 
 test_that("with too few scenarios errors gracefully", {
   too_few <- head(market_share, 2L)
-  too_few$metric <- c("projected", "corporate_economy")
+  too_few$metric <- c(main_line(), "corporate_economy")
   expect_snapshot_error(plot_techmix(too_few))
 })
 
