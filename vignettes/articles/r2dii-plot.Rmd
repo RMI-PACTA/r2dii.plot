@@ -1,0 +1,57 @@
+---
+title: "r2dii.plot"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(r2dii.data)
+library(r2dii.match)
+library(r2dii.plot)
+library(r2dii.analysis)
+```
+
+```{r}
+# Example datasets from r2dii.data
+loanbook <- loanbook_demo
+# You may need to clean your data
+# ald <- subset(ald_demo, !is.na(emission_factor))
+ald <- ald_demo
+co2_scenario <- co2_intensity_scenario_demo
+
+# WARNING: Remember to validate matches (see `?prioritize`)
+matched <- prioritize(match_name(loanbook, ald))
+```
+
+Use `plot_timeline()` with `sda`-like data.
+
+```{r}
+sda <- target_sda(matched, ald, co2_intensity_scenario = co2_scenario)
+sda_subset <- subset(sda, sector == "cement")
+plot_timeline(sda_subset, extrapolate = TRUE)
+```
+
+Use `plot_techmix()` and `plot_trajectory()` with `sda`-like data.
+
+```{r}
+market_share <- target_market_share(
+  matched,
+  ald = ald,
+  scenario = scenario_demo_2020,
+  region_isos = region_isos_demo
+)
+
+market_share_subset <- subset(
+  market_share[1500:3000, ],
+  # market_share,
+  technology == "renewablescap" & region == "global"
+)
+
+plot_trajectory(market_share_subset)
+```
+
