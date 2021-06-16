@@ -192,7 +192,7 @@
 <span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Techmix plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<p>These are some customizations you may consider:</p>
+<p>These are some tweaks you may consider:</p>
 <ul>
 <li>Subset a custom time range (instead of the default, full range in the data).</li>
 <li>Set custom colours and legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_color_manual()</a></code>.</li>
@@ -231,10 +231,9 @@
 <span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<p>Use the <code>main_line</code> argument to indicate which trajectory line should be most visually salient (solid black line) – it’s “projected” by default but the next plot sets it explicitly for demonstration.</p>
 <p>Use <code>normalize = FALSE</code> if you prefer not to normalize to the start year.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span>, main_line <span class="op">=</span> <span class="st">"projected"</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 </div>
