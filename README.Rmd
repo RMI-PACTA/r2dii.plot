@@ -71,10 +71,10 @@ details see the documented "Requirements" of the argument `data` of each
 
 ### Timeline
 
-Use `plot_timeline()` with `sda`-like data. Try an intuitive, naive call.
+Use `plot_emission_intensity()` with `sda`-like data. Try an intuitive, naive call.
 
 ```{r error = TRUE}
-plot_timeline(sda)
+plot_emission_intensity(sda)
 ```
 
 The error message guides you to subset a single value of `sector`. Try "cement".
@@ -82,7 +82,7 @@ The error message guides you to subset a single value of `sector`. Try "cement".
 ```{r}
 data <- subset(sda, sector == "cement")
 
-plot_timeline(data)
+plot_emission_intensity(data)
 ```
 
 Great! You can now polish your plot. Your options are limitless but these are
@@ -95,7 +95,7 @@ some typical things you may do:
 ```{r}
 data <- subset(sda, sector == "cement")
 
-plot_timeline(data, extrapolate = TRUE) + 
+plot_emission_intensity(data, extrapolate = TRUE) + 
   labs(title = "Timeline plot") +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),

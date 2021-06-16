@@ -13,5 +13,6 @@ utils::globalVariables(c(
   "scenario_colours",
   "sector_colours",
   "technology_colours",
-  "where"
+  "where",
+  ":="
 ))

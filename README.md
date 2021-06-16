@@ -90,11 +90,11 @@ guide you.
 
 ### Timeline
 
-Use `plot_timeline()` with `sda`-like data. Try an intuitive, naive
-call.
+Use `plot_emission_intensity()` with `sda`-like data. Try an intuitive,
+naive call.
 
 ``` r
-plot_timeline(sda)
+plot_emission_intensity(sda)
 #> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 #> Pick one value, e.g. 'automotive', with:
 #>   subset(sda, sector == 'automotive')
@@ -106,24 +106,22 @@ The error message guides you to subset a single value of `sector`. Try
 ``` r
 data <- subset(sda, sector == "cement")
 
-plot_timeline(data)
+plot_emission_intensity(data)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great\! You can now polish your plot. Your options are limitless but
+Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
-  - Extrapolate the timeline.
-  - Add a title.
-  - Customize the legend labels with `ggplot2::scale_colour_manual()`.
-
-<!-- end list -->
+-   Extrapolate the timeline.
+-   Add a title.
+-   Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
 ``` r
 data <- subset(sda, sector == "cement")
 
-plot_timeline(data, extrapolate = TRUE) + 
+plot_emission_intensity(data, extrapolate = TRUE) + 
   labs(title = "Timeline plot") +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
@@ -155,12 +153,10 @@ plot_techmix(data) +
 
 These are some customizations you may consider:
 
-  - Subset a custom time range (instead of the default, full range in
+-   Subset a custom time range (instead of the default, full range in
     the data).
-  - Set custom colours and legend labels with
+-   Set custom colours and legend labels with
     `ggplot2::scale_color_manual()`.
-
-<!-- end list -->
 
 ``` r
 data <- subset(
