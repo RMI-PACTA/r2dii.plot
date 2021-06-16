@@ -32,13 +32,10 @@ packages –
 [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
 [r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
 [r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/).
-It also plays well with the popular packages
-[dplyr](https://www.tidyverse.org/) and
-[ggplot2](https://ggplot2.tidyverse.org/), which help you prepare your
-data and customize your plots.
+It also plays well with the [ggplot2](https://ggplot2.tidyverse.org/)
+package, which helps you customize your plots.
 
 ``` r
-library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
@@ -85,29 +82,31 @@ market_share
 ```
 
 r2dii.plot supports three kinds of plots – timeline, techmix, and
-trajectory.
+trajectory. For each kind, you’ll need to subset the specific rows you
+want to plot. For details see the documented “Requirements” of the
+argument `data` of each `plot_*()` function (e.g. see `?plot_timeline`).
+If you forget to meet the `data` requirements the error message should
+guide you.
 
 ### Timeline
 
-Use `plot_timeline()` with `sda`-like data. You’ll need to pick the
-specific rows you want to plot. For details see the documented
-“Requirements” of the argument `data`, or try intuitively and let the
-error messages guide you.
+Use `plot_timeline()` with `sda`-like data. Try an intuitive, naive
+call.
 
 ``` r
 plot_timeline(sda)
 #> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 #> Pick one value, e.g. 'automotive', with:
-#>   dplyr::filter(sda, sector == 'automotive')
+#>   subset(sda, sector == 'automotive')
 ```
 
-The error message suggests you must first pick only one value of
-`sector`, for example “cement”.
+The error message guides you to subset a single value of `sector`. Try
+“cement”.
 
 ``` r
-sda %>% 
-  filter(sector == "cement") %>% 
-  plot_timeline()
+data <- subset(sda, sector == "cement")
+
+plot_timeline(data)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -115,27 +114,15 @@ sda %>%
 Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
--   Pick a narrower time range.
 -   Extrapolate the timeline.
 -   Add a title.
+-   Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
 ``` r
-data <- filter(sda, sector == "cement", year >= 2020)
+data <- subset(sda, sector == "cement")
 
 plot_timeline(data, extrapolate = TRUE) + 
-  labs(title = "Timeline plot")
-```
-
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-
-You can further customize your plot by adding a custom manual scale
-using `ggplot` function `scale_colour_manual()` with custom legend
-labels.
-
-``` r
-data <- filter(sda, sector == "cement")
-
-plot_timeline(data, extrapolate = TRUE) +
+  labs(title = "Timeline plot") +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
@@ -144,47 +131,40 @@ plot_timeline(data, extrapolate = TRUE) +
 #> which will replace the existing scale.
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ### Techmix
 
-Use `plot_techmix()` with `market_share`-like data. Again, learn which
-rows to pick by reading the documented “Requirements” of the argument
-`data`, or by trial and error.
+Use `plot_techmix()` with `market_share`-like data.
 
 ``` r
-unique(market_share$metric)
-#> [1] "projected"         "corporate_economy" "target_cps"       
-#> [4] "target_sds"        "target_sps"
-chosen_metrics <- c("projected", "corporate_economy", "target_sds")
-
-data <- market_share %>%
-  filter(
-    metric %in% chosen_metrics,
-    sector == "power",
+data <- subset(
+  market_share, 
+  metric %in% c("projected", "corporate_economy", "target_sds") & 
+    sector == "power" &
     region == "global"
-  )
+)
 
 plot_techmix(data) + 
   labs(title = "Techmix plot")
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-You may customize the plot further by:
+These are some customizations you may consider:
 
--   Setting custom colours and colour labels, using
+-   Subset a custom time range (instead of the default, full range in
+    the data).
+-   Set custom colours and legend labels with
     `ggplot2::scale_color_manual()`.
--   Picking the range of years to plot, by filtering the data passed to
-    `plot_techmix()` (instead of the full range by default).
 
 ``` r
-data <- market_share %>%
-  filter(
-    metric %in% chosen_metrics,
-    sector == "power",
-    region == "global",
-    between(year, 2020, 2025)
+data <- subset(
+  market_share,
+  metric %in% c("projected", "corporate_economy", "target_sds") &
+    sector == "power" &
+    region == "global" &
+    year >= 2020 & year <= 2025  # custom time range
   )
 
 plot_techmix(data) + 
@@ -196,20 +176,18 @@ plot_techmix(data) +
 #> will replace the existing scale.
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 ### Trajectory
 
-Use `plot_trajectory()` with `market_share`-like data. Again, learn
-which rows to pick by reading the documented “Requirements” of the
-argument `data`, or by trial and error.
+Use `plot_trajectory()` with `market_share`-like data.
 
 ``` r
-data <- market_share %>% 
-  filter(
-    sector == "power", 
-    region == "global", 
-    technology == "renewablescap",
+data <- subset(
+  market_share,
+  sector == "power" &
+    region == "global" &
+    technology == "renewablescap" &
     year <= 2025
   )
 
@@ -217,7 +195,7 @@ plot_trajectory(data) +
   labs(title = "Trajectory plot")
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 Use the `main_line` argument to indicate which trajectory line should be
 most visually salient (solid black line) – it’s “projected” by default
@@ -230,4 +208,4 @@ year.
 plot_trajectory(data, main_line = "projected", normalize = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
