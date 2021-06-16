@@ -18,19 +18,19 @@
 
     `bad_sector` must have a single value of `sector` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_sector, sector == 'a')
+      subset(bad_sector, sector == 'a')
 
 # with too many regions errors gracefully
 
     `bad_region` must have a single value of `region` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_region, region == 'a')
+      subset(bad_region, region == 'a')
 
 # with too many scenario_source errors gracefully
 
     `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_scenario_source, scenario_source == 'a')
+      subset(bad_scenario_source, scenario_source == 'a')
 
 # with too few scenarios errors gracefully
 

@@ -15,7 +15,7 @@
 
     `data` must have a single value of `sector` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(data, sector == 'a')
+      subset(data, sector == 'a')
 
 # with bad `extrapolate` errors gracefully
 
