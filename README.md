@@ -107,20 +107,16 @@ The error message guides you to subset a single value of `sector`. Try
 data <- subset(sda, sector == "cement")
 
 plot_emission_intensity(data)
-#> Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
-#> "none")` instead.
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great\! You can now polish your plot. Your options are limitless but
+Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
-  - Extrapolate the timeline.
-  - Add a title.
-  - Customize the legend labels with `ggplot2::scale_colour_manual()`.
-
-<!-- end list -->
+-   Extrapolate the timeline.
+-   Add a title.
+-   Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
 ``` r
 data <- subset(sda, sector == "cement")
@@ -131,8 +127,6 @@ plot_emission_intensity(data, extrapolate = TRUE) +
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
   )
-#> Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
-#> "none")` instead.
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```
@@ -159,12 +153,10 @@ plot_techmix(data) +
 
 These are some tweaks you may consider:
 
-  - Subset a custom time range (instead of the default, full range in
+-   Subset a custom time range (instead of the default, full range in
     the data).
-  - Set custom colours and legend labels with
+-   Set custom colours and legend labels with
     `ggplot2::scale_color_manual()`.
-
-<!-- end list -->
 
 ``` r
 data <- subset(
@@ -204,12 +196,3 @@ plot_trajectory(data) +
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-
-Use `normalize = FALSE` if you prefer not to normalize to the start
-year.
-
-``` r
-plot_trajectory(data, normalize = FALSE)
-```
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />

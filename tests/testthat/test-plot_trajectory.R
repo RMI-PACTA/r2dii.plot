@@ -84,18 +84,6 @@ test_that("with too many scenarios errors gracefully", {
   expect_snapshot_error(plot_trajectory(data))
 })
 
-test_that("is sensitive to `normalize`", {
-  data <- filter(market_share, technology == first(technology))
-  pull_value <- function(p) p$layers[[1]]$data$value
-
-  expect_false(
-    identical(
-      pull_value(plot_trajectory(data, normalize = TRUE)),
-      pull_value(plot_trajectory(data, normalize = FALSE))
-    )
-  )
-})
-
 test_that("with missing crucial names errors gracefully", {
   data <- head(market_share)
 

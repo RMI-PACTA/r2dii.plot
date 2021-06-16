@@ -156,9 +156,3 @@ data <- subset(
 plot_trajectory(data) + 
   labs(title = "Trajectory plot")
 ```
-
-Use `normalize = FALSE` if you prefer not to normalize to the start year.
-
-```{r}
-plot_trajectory(data, normalize = FALSE)
-```
