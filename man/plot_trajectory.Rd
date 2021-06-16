@@ -4,7 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data, normalize = TRUE)
+plot_trajectory(data)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -13,8 +13,6 @@ plot_trajectory(data, normalize = TRUE)
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
 }}
-
-\item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
 }
 \value{
 An object of class "ggplot".
@@ -27,14 +25,12 @@ Create a trajectory plot
 data <- subset(
   market_share,
   sector == "power" &
-  technology == "renewablescap" &
-  region == "global" &
-  scenario_source == "demo_2020"
+    technology == "renewablescap" &
+    region == "global" &
+    scenario_source == "demo_2020"
 )
 
 plot_trajectory(data)
-
-plot_trajectory(data, normalize = FALSE)
 }
 \seealso{
 \link{market_share}.

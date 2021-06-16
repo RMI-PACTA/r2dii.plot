@@ -4,7 +4,6 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
-#' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
 #' @seealso [market_share].
 #'
@@ -22,9 +21,7 @@
 #' )
 #'
 #' plot_trajectory(data)
-#'
-#' plot_trajectory(data, normalize = FALSE)
-plot_trajectory <- function(data, normalize = TRUE) {
+plot_trajectory <- function(data) {
   stopifnot(is.data.frame(data))
   hint_if_missing_names(
     abort_if_missing_names(data, common_crucial_market_share_columns())
@@ -33,7 +30,7 @@ plot_trajectory <- function(data, normalize = TRUE) {
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols)
 
-  prep <- prep_trajectory(data, normalize = normalize)
+  prep <- prep_trajectory(data)
   plot_trajectory_impl(prep)
 }
 
@@ -268,9 +265,8 @@ abort_if_corrupt_scenario_colours <- function(data) {
 }
 prep_trajectory <- function(data,
                             value = "production",
-                            metric = "metric",
-                            normalize = TRUE) {
-  check_prep_trajectory(data, value, normalize)
+                            metric = "metric") {
+  check_prep_trajectory(data, value)
   data <- recode_metric_and_metric_type(data, metric)
 
   cols <- c("year", "metric_type", "metric", "technology", "value")
@@ -278,10 +274,9 @@ prep_trajectory <- function(data,
     mutate(value = .data[[value]]) %>%
     select(all_of(cols))
 
-  if (!normalize) {
-    return(out)
-  }
 
+  # TODO: Extract and move to r2dii.analysis
+  if (!quiet()) inform(glue("Normalizing `{value}` values to the start year."))
   left_join(
     out, filter(out, .data$year == min(.data$year)),
     by = c("metric_type", "metric")
@@ -294,12 +289,9 @@ prep_trajectory <- function(data,
     select(all_of(cols))
 }
 
-check_prep_trajectory <- function(data, value, normalize) {
+check_prep_trajectory <- function(data, value) {
   crucial <- c(common_crucial_market_share_columns(), value)
   abort_if_missing_names(data, crucial)
-
-  abort_if_invalid_length(normalize)
-  stopifnot(is.logical(normalize))
 
   cols <- c("sector", "technology", "region", "scenario_source")
   lapply(cols, function(x) abort_if_multiple(data, x))

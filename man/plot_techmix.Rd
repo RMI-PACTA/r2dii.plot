@@ -27,9 +27,9 @@ Create a techmix plot
 data <- subset(
   market_share,
   scenario_source == "demo_2020" &
-  sector == "power" &
-  region == "global" &
-  metric \%in\% c("projected", "corporate_economy", "target_sds")
+    sector == "power" &
+    region == "global" &
+    metric \%in\% c("projected", "corporate_economy", "target_sds")
 )
 
 plot_techmix(data)

@@ -84,18 +84,6 @@ test_that("with too many scenarios errors gracefully", {
   expect_snapshot_error(plot_trajectory(data))
 })
 
-test_that("is sensitive to `normalize`", {
-  data <- filter(market_share, technology == first(technology))
-  pull_value <- function(p) p$layers[[1]]$data$value
-
-  expect_false(
-    identical(
-      pull_value(plot_trajectory(data, normalize = TRUE)),
-      pull_value(plot_trajectory(data, normalize = FALSE))
-    )
-  )
-})
-
 test_that("with missing crucial names errors gracefully", {
   data <- head(market_share)
 
@@ -137,4 +125,11 @@ test_that("outputs pretty labels", {
   get_metric <- function(p) as.character(unique(p$layers[[2]]$data$metric))
   has_pretty_format <- all(c("Corporate Economy", "SDS") %in% get_metric(p))
   expect_true(has_pretty_format)
+})
+
+test_that("informs that values are normalized", {
+  data <- example_market_share()
+  op <- options(r2dii.plot.quiet = FALSE)
+  on.exit(op, add = TRUE)
+  expect_message(plot_trajectory(data), "[Nn]ormalizing")
 })

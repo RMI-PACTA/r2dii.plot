@@ -201,15 +201,7 @@ data <- subset(
 
 plot_trajectory(data) + 
   labs(title = "Trajectory plot")
+#> Normalizing `production` values to the start year.
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
-
-Use `normalize = FALSE` if you prefer not to normalize to the start
-year.
-
-``` r
-plot_trajectory(data, normalize = FALSE)
-```
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />

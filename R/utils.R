@@ -224,3 +224,11 @@ mutate_pretty_labels <- function(data, name) {
 #' main_line()
 #' @noRd
 main_line <- function() "projected"
+
+#' r2dii.plot options
+#'
+#' * `r2dii.plot.quiet`: `TRUE` suppresses user-facing messages.
+#'
+#' @noRd
+quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
+
