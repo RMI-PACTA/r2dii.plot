@@ -151,7 +151,7 @@ plot_techmix(data) +
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-These are some customizations you may consider:
+These are some tweaks you may consider:
 
 -   Subset a custom time range (instead of the default, full range in
     the data).

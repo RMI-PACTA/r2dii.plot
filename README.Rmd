@@ -119,7 +119,7 @@ plot_techmix(data) +
   labs(title = "Techmix plot")
 ```
 
-These are some customizations you may consider:
+These are some tweaks you may consider:
 
 * Subset a custom time range (instead of the default, full range in the data).
 * Set custom colours and legend labels with `ggplot2::scale_color_manual()`.
