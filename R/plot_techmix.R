@@ -92,7 +92,7 @@ check_prep_techmix <- function(data, value) {
 
 plot_techmix_impl <- function(data) {
   metric_type_order <- unique(data$metric_type)
-  metric_type_labels <- to_title(metric_type_order)
+  metric_type_labels <- metric_type_order
 
   sector <- data %>%
     pull(.data$sector) %>%

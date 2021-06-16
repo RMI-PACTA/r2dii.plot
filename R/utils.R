@@ -6,30 +6,6 @@
   }
 }
 
-#' Convert a string to title case
-#'
-#' This function replaces a sequence of non alpha-numeric characters to a single
-#' space, and applies title case to the remaining words.
-#'
-#' @param x A character vector.
-#'
-#' @return A character vector.
-#' @keywords internal
-#' @examples
-#' to_title(c("a.string", "ANOTHER_string"))
-#' to_title(c("a.string", "another_string", "b.STRING"))
-#' @noRd
-to_title <- function(x) {
-  to_title_one <- function(x) {
-    words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
-    # `toTitleCase()` with "a" returns "a", not "A" (a bug in this context)
-    words <- capitalize_single_letters(tools::toTitleCase(words))
-    paste(words, collapse = " ")
-  }
-
-  unlist(lapply(x, to_title_one))
-}
-
 capitalize_single_letters <- function(words) {
   out <- words
   out[which(nchar(out) == 1L)] <- toupper(out[which(nchar(out) == 1L)])
@@ -186,33 +162,6 @@ example_market_share <- function(...) {
 
 r_version_is_older_than <- function(major) {
   as.integer(R.version$major) < major
-}
-
-#' Mutate a data frame column (or add a new one) using pretty labels
-#'
-#' Pretty labels are "UPPERCASE" when they belong to scenarios, else they are
-#' "Title Case".
-#'
-#' @examples
-#' library(dplyr)
-#'
-#' data <- tibble(
-#'   metric = c("corporate_economy", "sds"),
-#'   metric_type = c("benchmark", "scenario")
-#' )
-#' mutate_pretty_labels(data, "metric")
-#' mutate_pretty_labels(data, "new")
-#' @noRd
-mutate_pretty_labels <- function(data, name) {
-  abort_if_missing_names(data, c("metric_type", "metric"))
-
-  mutate(
-    data,
-    "{name}" := case_when(
-      data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-      TRUE ~ to_title(as.character(.data$metric))
-    )
-  )
 }
 
 #' The metric to plot most saliently
