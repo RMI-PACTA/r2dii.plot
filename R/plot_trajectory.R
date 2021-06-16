@@ -16,9 +16,9 @@
 #' data <- subset(
 #'   market_share,
 #'   sector == "power" &
-#'   technology == "renewablescap" &
-#'   region == "global" &
-#'   scenario_source == "demo_2020"
+#'     technology == "renewablescap" &
+#'     region == "global" &
+#'     scenario_source == "demo_2020"
 #' )
 #'
 #' plot_trajectory(data)
