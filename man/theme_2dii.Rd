@@ -35,12 +35,5 @@ p <- ggplot(mtcars) +
 p
 
 p + theme_2dii()
-
-# Or
-old <- theme_set(theme_2dii())
-p
-
-theme_set(old)
-p
 }
 \concept{plotting functions}
