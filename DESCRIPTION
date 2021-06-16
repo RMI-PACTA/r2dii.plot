@@ -15,7 +15,8 @@ Authors@R:
       person(given = "Alex",
              family = "Axthelm",
              role = c("aut", "ctr"),
-             email = "alex@2degrees-investing.org"),
+             email = "alex@2degrees-investing.org",
+             comment = c(ORCID = "0000-0001-8579-8565"),
       person(given = "2 Degrees Investing Initiative",
              role = c("cph", "fnd"),
              email = "contact@2degrees-investing.org"))
