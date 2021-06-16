@@ -89,13 +89,13 @@ trajectory.
 
 ### Timeline
 
-Use `plot_timeline()` with `sda`-like data. You’ll need to pick the
-specific rows you want to plot. For details see the documented
+Use `plot_emission_intensity()` with `sda`-like data. You’ll need to
+pick the specific rows you want to plot. For details see the documented
 “Requirements” of the argument `data`, or try intuitively and let the
 error messages guide you.
 
 ``` r
-plot_timeline(sda)
+plot_emission_intensity(sda)
 #> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 #> Pick one value, e.g. 'automotive', with:
 #>   dplyr::filter(sda, sector == 'automotive')
@@ -107,22 +107,24 @@ The error message suggests you must first pick only one value of
 ``` r
 sda %>% 
   filter(sector == "cement") %>% 
-  plot_timeline()
+  plot_emission_intensity()
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great! You can now polish your plot. Your options are limitless but
+Great\! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
--   Pick a narrower time range.
--   Extrapolate the timeline.
--   Add a title.
+  - Pick a narrower time range.
+  - Extrapolate the timeline.
+  - Add a title.
+
+<!-- end list -->
 
 ``` r
 data <- filter(sda, sector == "cement", year >= 2020)
 
-plot_timeline(data, extrapolate = TRUE) + 
+plot_emission_intensity(data, extrapolate = TRUE) + 
   labs(title = "Timeline plot")
 ```
 
@@ -135,7 +137,7 @@ labels.
 ``` r
 data <- filter(sda, sector == "cement")
 
-plot_timeline(data, extrapolate = TRUE) +
+plot_emission_intensity(data, extrapolate = TRUE) +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
@@ -173,10 +175,12 @@ plot_techmix(data) +
 
 You may customize the plot further by:
 
--   Setting custom colours and colour labels, using
+  - Setting custom colours and colour labels, using
     `ggplot2::scale_color_manual()`.
--   Picking the range of years to plot, by filtering the data passed to
+  - Picking the range of years to plot, by filtering the data passed to
     `plot_techmix()` (instead of the full range by default).
+
+<!-- end list -->
 
 ``` r
 data <- market_share %>%
