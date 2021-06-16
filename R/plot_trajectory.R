@@ -4,9 +4,6 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
-#' @param main_line String of length 1. The `metric` to plot as the line with
-#'   the most visual salience (solid black line). `NULL` defaults to
-#'   "projected".
 #' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
 #' @seealso [market_share].
@@ -27,7 +24,8 @@
 #' plot_trajectory(data)
 #'
 #' plot_trajectory(data, normalize = FALSE)
-plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
+plot_trajectory <- function(data, normalize = TRUE) {
+  main_line <- NULL
   stopifnot(is.data.frame(data))
   hint_if_missing_names(
     abort_if_missing_names(data, common_crucial_market_share_columns())

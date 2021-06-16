@@ -157,12 +157,8 @@ plot_trajectory(data) +
   labs(title = "Trajectory plot")
 ```
 
-Use the `main_line` argument to indicate which trajectory line should be most
-visually salient (solid black line) -- it's "projected" by default but the next
-plot sets it explicitly for demonstration.
-
 Use `normalize = FALSE` if you prefer not to normalize to the start year.
 
 ```{r}
-plot_trajectory(data, main_line = "projected", normalize = FALSE)
+plot_trajectory(data, normalize = FALSE)
 ```

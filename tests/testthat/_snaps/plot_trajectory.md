@@ -40,17 +40,7 @@
     Pick one value, e.g. 'a', with:
       subset(bad_scenario_source, scenario_source == 'a')
 
-# with inexistent `main_line` errors gracefully
-
-    `main_line` must be one value of `data$metric`.
-    * Valid: projected.
-    * Provided: bad.
-
 # with too many scenarios errors gracefully
 
     `metric` must have between 1 and 4 scenarios, not 5: a, b, c, d, e
-
-# with too long `main_line` errors gracefully
-
-    `main_line` must be of length 1, not 2.
 
