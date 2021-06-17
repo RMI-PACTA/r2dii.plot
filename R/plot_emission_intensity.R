@@ -27,7 +27,7 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
   data <- data %>%
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric))
 
-  prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
+  prep <- hint_if_missing_names(prep_emission_intensity(data, extrapolate = extrapolate))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
     abort_if_too_many_lines() %>%
@@ -36,7 +36,7 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
   plot_timeline_impl(prep, specs = specs)
 }
 
-prep_timeline <- function(data,
+prep_emission_intensity <- function(data,
                           value = "emission_factor_value",
                           metric = "emission_factor_metric",
                           extrapolate = FALSE) {
