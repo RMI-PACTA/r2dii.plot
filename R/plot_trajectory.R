@@ -261,16 +261,14 @@ abort_if_corrupt_scenario_colours <- function(data) {
 prep_trajectory <- function(data,
                             value = "production",
                             metric = "metric") {
-  check_prep_trajectory(data, value)
-  data <- recode_metric_and_metric_type(data, metric)
-
-  data <- filter_to_metric_start_year(data, metric)
-
   cols <- c("year", "metric_type", "metric", "technology", "value")
+
   out <- data %>%
+    check_prep_trajectory(value) %>%
+    recode_metric_and_metric_type(metric) %>%
+    drop_before_start_year(metric) %>%
     mutate(value = .data[[value]]) %>%
     select(all_of(cols))
-
 
   # TODO: Extract and move to r2dii.analysis
   if (!quiet()) inform(glue("Normalizing `{value}` values to the start year."))

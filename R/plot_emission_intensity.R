@@ -37,17 +37,14 @@ plot_emission_intensity <- function(data) {
 prep_emission_intensity <- function(data,
                                     value = "emission_factor_value",
                                     metric = "emission_factor_metric") {
-  data <- filter_to_metric_start_year(data, metric)
-
-  out <- data %>%
+  data %>%
+    drop_before_start_year(metric) %>%
     mutate(
       line_name = .data[[metric]],
       value = .data[[value]],
-      extrapolated = FALSE
+      extrapolated = FALSE,
+      year = lubridate::make_date(.data$year)
     )
-
-  out$year <- lubridate::make_date(out$year)
-  out
 }
 
 plot_emission_intensity_impl <- function(data, specs) {
