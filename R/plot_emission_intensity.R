@@ -37,9 +37,9 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
 }
 
 prep_emission_intensity <- function(data,
-                          value = "emission_factor_value",
-                          metric = "emission_factor_metric",
-                          extrapolate = FALSE) {
+                                    value = "emission_factor_value",
+                                    metric = "emission_factor_metric",
+                                    extrapolate = FALSE) {
   data <- filter_to_metric_start_year(data, metric)
 
   out <- data %>%
