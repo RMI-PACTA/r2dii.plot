@@ -86,7 +86,7 @@ abort_if_has_zero_rows <- function(data) {
 hint_if_missing_names <- function(expr) {
   .expr <- deparse_1(substitute(expr))
   fun <- format_plot_function_name(.expr)
-  kind <- ifelse(grepl("timeline", fun), "sda", "market_share")
+  kind <- ifelse(grepl("emission_intensity", fun), "sda", "market_share")
 
   rlang::with_handlers(
     expr,

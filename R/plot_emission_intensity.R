@@ -1,4 +1,4 @@
-#' Create a timeline plot
+#' Create an emission intensity plot
 #'
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
@@ -33,7 +33,7 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
-  plot_timeline_impl(prep, specs = specs)
+  plot_emission_intensity_impl(prep, specs = specs)
 }
 
 prep_emission_intensity <- function(data,
@@ -72,7 +72,7 @@ prep_emission_intensity <- function(data,
   out
 }
 
-plot_timeline_impl <- function(data, specs) {
+plot_emission_intensity_impl <- function(data, specs) {
   data <- left_join(data, specs, by = "line_name")
 
   ggplot() +
