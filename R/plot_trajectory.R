@@ -37,6 +37,9 @@ plot_trajectory <- function(data) {
 plot_trajectory_impl <- function(data) {
   abort_if_invalid_scenarios_number(data)
 
+  data <- mutate_pretty_labels(data, name = "metric")
+
+  # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specs(data)
   data_scenarios <- get_scenario_data(data, scenario_specs_areas)
   p_trajectory <- ggplot() +
@@ -83,7 +86,11 @@ plot_trajectory_impl <- function(data) {
   # annotate trajectory and scenario lines
   last_year <- max(data$year)
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
-  data_lines_end <- filter(data_lines, .data$year == last_year)
+  data_lines_end <- data_lines %>%
+    filter(
+      .data$year == last_year
+    ) %>%
+    mutate_pretty_labels(name = "label")
 
   p_trajectory <- p_trajectory +
     ggrepel::geom_text_repel(
@@ -91,7 +98,7 @@ plot_trajectory_impl <- function(data) {
       aes(
         x = .data$year,
         y = .data$value,
-        label = .data$metric,
+        label = .data$label,
         segment.color = .data$metric
       ),
       direction = "y",

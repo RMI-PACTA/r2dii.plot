@@ -81,14 +81,14 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-r2dii.plot supports three kinds of plots – timeline, techmix, and
-trajectory. For each kind, you’ll need to subset the specific rows you
-want to plot. For details see the documented “Requirements” of the
-argument `data` of each `plot_*()` function (e.g. see `?plot_timeline`).
-If you forget to meet the `data` requirements the error message should
-guide you.
+r2dii.plot supports three kinds of plots – emission intensity, techmix,
+and trajectory. For each kind, you’ll need to subset the specific rows
+you want to plot. For details see the documented “Requirements” of the
+argument `data` of each `plot_*()` function (e.g. see
+`?plot_emission_intensity`). If you forget to meet the `data`
+requirements the error message should guide you.
 
-### Timeline
+### Emission intensity
 
 Use `plot_emission_intensity()` with `sda`-like data. Try an intuitive,
 naive call.
@@ -114,7 +114,7 @@ plot_emission_intensity(data)
 Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
--   Extrapolate the timeline.
+-   Extrapolate to match the furthest value in the data set.
 -   Add a title.
 -   Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
@@ -122,7 +122,7 @@ these are some typical things you may do:
 data <- subset(sda, sector == "cement")
 
 plot_emission_intensity(data, extrapolate = TRUE) + 
-  labs(title = "Timeline plot") +
+  labs(title = "Emission intensity plot") +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
