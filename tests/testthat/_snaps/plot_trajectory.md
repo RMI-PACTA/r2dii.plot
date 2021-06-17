@@ -44,3 +44,18 @@
 
     `metric` must have between 1 and 4 scenarios, not 8: cps, sds, sps, a, b, c, d, e
 
+# informs that values are normalized
+
+    Code
+      invisible(plot_trajectory(data))
+    Message <message>
+      Normalizing `production` values to the start year.
+
+# informs excluding data before start year of 'projected'
+
+    Code
+      invisible(plot_trajectory(bind_rows(data, to_exclude)))
+    Message <message>
+      Excluding data before start year of 'projected'.
+      Normalizing `production` values to the start year.
+

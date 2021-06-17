@@ -231,10 +231,9 @@ get_common_start_year <- function(data, metric) {
 }
 
 filter_to_metric_start_year <- function(data, metric) {
-    start_year <- get_common_start_year(data, metric)
-    if (min(data$year) < start_year) {
-      if (!quiet()) inform(glue("Filtering out the data before start year of 'projected'."))
-      data <- filter(data, .data$year >= start_year)
-    }
-    data
+  start_year <- get_common_start_year(data, metric)
+  if (!min(data$year) < start_year) return(data)
+
+  if (!quiet()) inform(glue("Excluding data before start year of 'projected'."))
+  filter(data, .data$year >= start_year)
 }
