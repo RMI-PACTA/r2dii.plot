@@ -4,10 +4,6 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
-#' @param main_line String of length 1. The `metric` to plot as the line with
-#'   the most visual salience (solid black line). `NULL` defaults to
-#'   "projected".
-#' @param normalize Logical of length-1. `TRUE` normalizes to the start year.
 #'
 #' @seealso [market_share].
 #'
@@ -15,20 +11,17 @@
 #'
 #' @export
 #' @examples
-#' library(dplyr, warn.conflicts = FALSE)
-#'
 #' # `data` must meet documented "Requirements"
-#' data <- market_share %>%
-#'   filter(
-#'     sector == "power",
-#'     technology == "renewablescap",
-#'     region == "global",
+#' data <- subset(
+#'   market_share,
+#'   sector == "power" &
+#'     technology == "renewablescap" &
+#'     region == "global" &
 #'     scenario_source == "demo_2020"
-#'   )
-#' plot_trajectory(data)
+#' )
 #'
-#' plot_trajectory(data, normalize = FALSE)
-plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
+#' plot_trajectory(data)
+plot_trajectory <- function(data) {
   stopifnot(is.data.frame(data))
   hint_if_missing_names(
     abort_if_missing_names(data, common_crucial_market_share_columns())
@@ -37,19 +30,11 @@ plot_trajectory <- function(data, normalize = TRUE, main_line = NULL) {
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols)
 
-  prep <- prep_trajectory(data, normalize = normalize)
-  main_line <- main_line %||% "projected" %>% tolower()
-  abort_if_invalid_main_line(data, main_line)
-  plot_trajectory_impl(prep, main_line = main_line)
+  prep <- prep_trajectory(data)
+  plot_trajectory_impl(prep)
 }
 
-plot_trajectory_impl <- function(data, main_line = NULL) {
-  main_line <- main_line %||%
-    (data %>%
-      filter(.data$metric_type != "scenario") %>%
-      slice_head(n = 1) %>%
-      pull(.data$metric))
-  abort_if_invalid_main_line(data, main_line)
+plot_trajectory_impl <- function(data) {
   abort_if_invalid_scenarios_number(data)
 
   data <- mutate_pretty_labels(data, name = "metric")
@@ -73,7 +58,7 @@ plot_trajectory_impl <- function(data, main_line = NULL) {
   # plot trajectory and scenario lines
   scenario_specs_lines <- scenario_specs_areas %>%
     filter(.data$scenario != "worse")
-  data_lines <- order_for_trajectory(data, scenario_specs_lines, main_line)
+  data_lines <- order_for_trajectory(data, scenario_specs_lines)
 
   n_scenarios <- nrow(scenario_specs_lines)
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
@@ -161,27 +146,9 @@ abort_if_invalid_scenarios_number <- function(data) {
   invisible(data)
 }
 
-abort_if_invalid_main_line <- function(data, main_line) {
-  abort_if_invalid_length(main_line)
-
-  metrics <- unique(data$metric)
-  if (!main_line %in% metrics) {
-    rlang::abort(glue(
-      "`main_line` must be one value of `data$metric`.
-      * Valid: {toString(metrics)}.
-      * Provided: {toString(main_line)}."
-    ))
-  }
-
-  invisible(data)
-}
-
-order_for_trajectory <- function(data, scenario_specs, main_line) {
+order_for_trajectory <- function(data, scenario_specs) {
   order_add_lines <- data %>%
-    filter(
-      .data$metric_type != "scenario",
-      .data$metric != .env$main_line
-    ) %>%
+    filter(.data$metric_type != "scenario", .data$metric != main_line()) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
@@ -191,7 +158,7 @@ order_for_trajectory <- function(data, scenario_specs, main_line) {
   data_ordered <- data %>%
     mutate(metric = factor(
       .data$metric,
-      levels = c(main_line, order_add_lines, order_scenarios)
+      levels = c(main_line(), order_add_lines, order_scenarios)
     )) %>%
     arrange(.data$year, .data$metric)
 
@@ -243,27 +210,22 @@ get_ordered_scenario_specs <- function(data) {
   num_scen_areas <- length(ordered_scenarios) + 1
   scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
-  green_or_brown <- r2dii.data::green_or_brown
-  technologies <- abort_if_invalid_length(unique(data$technology))
-  tech_green_or_brown <- green_or_brown %>%
-    filter(.data$technology == technologies) %>%
+  technology_kind <- r2dii.data::green_or_brown %>%
+    filter(.data$technology == unique(data$technology)) %>%
     pull(.data$green_or_brown) %>%
     unique()
 
-  if (tech_green_or_brown == "brown") {
-    ordered_scenarios_good_to_bad <- tibble(
-      scenario = rev(c("worse", ordered_scenarios)),
-      colour = scenario_colours$hex
-    )
-    scenario_specs <- ordered_scenarios_good_to_bad
-  } else if (tech_green_or_brown == "green") {
-    ordered_scenarios_good_to_bad <- tibble(
+  switch(technology_kind,
+    "green" = reverse_rows(tibble(
       scenario = c(ordered_scenarios, c("worse")),
       colour = scenario_colours$hex
-    )
-    scenario_specs <- reverse_rows(ordered_scenarios_good_to_bad)
-  }
-  scenario_specs
+    )),
+    "brown" = tibble(
+      scenario = rev(c("worse", ordered_scenarios)),
+      colour = scenario_colours$hex
+    ),
+    abort("The kind of technology must only be 'green' or 'brown'")
+  )
 }
 
 reverse_rows <- function(x) {
@@ -298,20 +260,18 @@ abort_if_corrupt_scenario_colours <- function(data) {
 }
 prep_trajectory <- function(data,
                             value = "production",
-                            metric = "metric",
-                            normalize = TRUE) {
-  check_prep_trajectory(data, value, normalize)
-  data <- recode_metric_and_metric_type(data, metric)
-
+                            metric = "metric") {
   cols <- c("year", "metric_type", "metric", "technology", "value")
+
   out <- data %>%
+    check_prep_trajectory(value) %>%
+    recode_metric_and_metric_type(metric) %>%
+    drop_before_start_year(metric) %>%
     mutate(value = .data[[value]]) %>%
     select(all_of(cols))
 
-  if (!normalize) {
-    return(out)
-  }
-
+  # TODO: Extract and move to r2dii.analysis
+  if (!quiet()) inform(glue("Normalizing `{value}` values to the start year."))
   left_join(
     out, filter(out, .data$year == min(.data$year)),
     by = c("metric_type", "metric")
@@ -324,12 +284,9 @@ prep_trajectory <- function(data,
     select(all_of(cols))
 }
 
-check_prep_trajectory <- function(data, value, normalize) {
+check_prep_trajectory <- function(data, value) {
   crucial <- c(common_crucial_market_share_columns(), value)
   abort_if_missing_names(data, crucial)
-
-  abort_if_invalid_length(normalize)
-  stopifnot(is.logical(normalize))
 
   cols <- c("sector", "technology", "region", "scenario_source")
   lapply(cols, function(x) abort_if_multiple(data, x))

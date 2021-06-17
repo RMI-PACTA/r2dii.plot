@@ -39,7 +39,7 @@ test_that("with too many scenario_source errors gracefully", {
 
 test_that("with too few scenarios errors gracefully", {
   too_few <- head(market_share, 2L)
-  too_few$metric <- c("projected", "corporate_economy")
+  too_few$metric <- c(main_line(), "corporate_economy")
   expect_snapshot_error(plot_techmix(too_few))
 })
 
@@ -63,4 +63,29 @@ test_that("with missing crucial names errors gracefully", {
 
   bad <- select(data, -scenario_source)
   expect_error(class = "hint_missing_names", plot_techmix(bad))
+})
+
+test_that("with input data before start year of 'projected' prep_techmix
+          outputs data with start year of 'projected'", {
+  data <- subset(
+    market_share,
+    sector == "power" &
+      region == "global" &
+      year <= 2025 &
+      metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  start_year <- min(subset(data, metric == "projected")$year)
+  early_row <- tibble(
+    sector = "power",
+    technology = "renewablescap",
+    year = start_year - 1,
+    region = "global",
+    scenario_source = "demo_2020",
+    metric = "corporate_economy",
+    production = 1,
+    technology_share = 0.1
+  )
+  data <- data %>%
+    rbind(early_row)
+  expect_equal(min(prep_techmix(data)$year), start_year)
 })

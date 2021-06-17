@@ -76,47 +76,40 @@ test_that("with too many scenario_source errors gracefully", {
   expect_snapshot_error(plot_trajectory(bad_scenario_source))
 })
 
-test_that("with inexistent `main_line` errors gracefully", {
-  data <- head(market_share, 1L)
-  expect_snapshot_error(plot_trajectory(data, main_line = "bad"))
-})
-
 test_that("with too many scenarios errors gracefully", {
-  data <- head(market_share, 7)
-  data$metric <- c(
-    "projected", "corporate_economy", glue("target_{letters[1:5]}")
-  )
+  add_fake_scenarios_market_share <- function(data, n) {
+    sector <- data$sector[1]
+    technology <- data$technology[1]
+    region <- data$region[1]
+    scenario_source <- data$scenario_source[1]
+    min_year <- min(data$year)
+    max_year <- max(data$year)
+    for (i in 1:n) {
+      fake_data <- tibble(
+        sector = rep(sector, 2),
+        technology = rep(technology, 2),
+        region = rep(region, 2),
+        scenario_source = rep(scenario_source, 2),
+        year = c(min_year, max_year),
+        metric = glue("target_{letters[i]}"),
+        production = 100,
+        technology_share = 0.1
+      )
+
+      data <- rbind(data, fake_data)
+    }
+    data
+  }
+  data <- subset(
+    market_share,
+    sector == "power" &
+      region == "global" &
+      technology == "renewablescap" &
+      year <= 2025
+  ) %>%
+    add_fake_scenarios_market_share(5)
+
   expect_snapshot_error(plot_trajectory(data))
-})
-
-test_that("is sensitive to `main_line`", {
-  data <- example_market_share()
-  plot_trajectory(data, main_line = "corporate_economy")
-  expect_no_error(plot_trajectory(data, main_line = "corporate_economy"))
-})
-
-test_that("with too long `main_line` errors gracefully", {
-  data <- head(market_share, 1L)
-  expect_snapshot_error(plot_trajectory(data, main_line = c("too", "long")))
-})
-
-test_that("`main_line` is insensitive to case", {
-  data <- example_market_share()
-
-  expect_no_error(plot_trajectory(data, main_line = "projected"))
-  expect_no_error(plot_trajectory(data, main_line = "Projected"))
-})
-
-test_that("is sensitive to `normalize`", {
-  data <- filter(market_share, technology == first(technology))
-  pull_value <- function(p) p$layers[[1]]$data$value
-
-  expect_false(
-    identical(
-      pull_value(plot_trajectory(data, normalize = TRUE)),
-      pull_value(plot_trajectory(data, normalize = FALSE))
-    )
-  )
 })
 
 test_that("with missing crucial names errors gracefully", {
@@ -160,4 +153,73 @@ test_that("outputs pretty labels", {
   get_metric <- function(p) as.character(unique(p$layers[[2]]$data$metric))
   has_pretty_format <- all(c("Corporate Economy", "SDS") %in% get_metric(p))
   expect_true(has_pretty_format)
+})
+
+test_that("works with example data", {
+  data <- subset(
+    market_share,
+    sector == "power" &
+      region == "global" &
+      technology == "renewablescap" &
+      year <= 2025
+  )
+
+  expect_no_error(plot_trajectory(data))
+})
+
+test_that("works with input data starting before start year of 'projected'", {
+  data <- subset(
+    market_share,
+    sector == "power" &
+      region == "global" &
+      technology == "renewablescap" &
+      year <= 2025
+  )
+  start_year <- min(subset(data, metric == "projected")$year)
+  to_exclude <- tibble(
+    sector = "power",
+    technology = "renewablescap",
+    year = start_year - 1,
+    region = "global",
+    scenario_source = "demo_2020",
+    metric = "corporate_economy",
+    production = 1,
+    technology_share = 0.1
+  )
+  data <- data %>%
+    rbind(to_exclude)
+  expect_no_error(plot_trajectory(data))
+})
+
+test_that("informs that values are normalized", {
+  data <- example_market_share()
+
+  restore <- options(r2dii.plot.quiet = FALSE)
+  expect_snapshot(invisible(plot_trajectory(data)))
+  options(restore)
+})
+
+test_that("informs excluding data before start year of 'projected'", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    technology == "renewablescap",
+    year <= 2025
+  )
+  start_year <- min(subset(data, metric == "projected")$year)
+  to_exclude <- tibble(
+    sector = "power",
+    technology = "renewablescap",
+    year = start_year - 1,
+    region = "global",
+    scenario_source = "demo_2020",
+    metric = "corporate_economy",
+    production = 1,
+    technology_share = 0.1
+  )
+
+  restore <- options(r2dii.plot.quiet = FALSE)
+  expect_snapshot(invisible(plot_trajectory(bind_rows(data, to_exclude))))
+  options(restore)
 })

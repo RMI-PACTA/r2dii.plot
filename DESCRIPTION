@@ -1,20 +1,32 @@
 Package: r2dii.plot
-Title: Visualize Climate Scenario Alignment of Financial Portfolios
+Title: Visualize the Climate Scenario Alignment of a Financial Portfolio
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Monika",
-           family = "Furdyna",
-           role = c("aut", "cre"),
-           email = "monika.furdyna@gmail.com")
-Description: These tools help you to assess if a financial portfolio
-    aligns with climate goals. They visualize key climate indicators
-    attributed to the portfolio (e.g. production, emission factors), and
-    calculate alignment targets based on climate scenarios.  They
-    implement in R the last step of the free software 'PACTA' (Paris
-    Agreement Capital Transition Assessment;
-    <https://2degrees-investing.org/>). Financial institutions use 'PACTA'
-    to study how their capital allocation decisions align with climate
-    change mitigation goals.
+    c(person(given = "Monika",
+             family = "Furdyna",
+             role = c("aut", "ctr", "cre"),
+             email = "monika.furdyna@gmail.com",
+             comment = c(ORCID = "0000-0002-3728-0646")),
+      person(given = "Mauro",
+             family = "Lepore",
+             role = c("aut", "ctr"),
+             email = "maurolepore@gmail.com",
+             comment = c(ORCID = "0000-0002-1986-7988")),
+      person(given = "Alex",
+             family = "Axthelm",
+             role = c("aut", "ctr"),
+             email = "alex@2degrees-investing.org",
+             comment = c(ORCID = "0000-0001-8579-8565")),
+      person(given = "2 Degrees Investing Initiative",
+             role = c("cph", "fnd"),
+             email = "contact@2degrees-investing.org"))
+Description: Create plots to visualize the alignment of a corporate
+    lending portfolio to climate change scenarios based on climate
+    indicators (production and emission intensities) across key climate
+    relevant sectors of the 'PACTA' methodology (Paris Agreement Capital
+    Transition Assessment; <https://2degrees-investing.org/>). Financial
+    institutions use 'PACTA' to study how their capital allocation
+    decisions align with climate change mitigation goals.
 License: MIT + file LICENSE
 URL: https://github.com/2DegreesInvesting/r2dii.plot
 BugReports: https://github.com/2DegreesInvesting/r2dii.plot/issues

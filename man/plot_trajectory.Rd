@@ -4,7 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data, normalize = TRUE, main_line = NULL)
+plot_trajectory(data)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -13,12 +13,6 @@ plot_trajectory(data, normalize = TRUE, main_line = NULL)
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
 }}
-
-\item{normalize}{Logical of length-1. \code{TRUE} normalizes to the start year.}
-
-\item{main_line}{String of length 1. The \code{metric} to plot as the line with
-the most visual salience (solid black line). \code{NULL} defaults to
-"projected".}
 }
 \value{
 An object of class "ggplot".
@@ -27,19 +21,16 @@ An object of class "ggplot".
 Create a trajectory plot
 }
 \examples{
-library(dplyr, warn.conflicts = FALSE)
-
 # `data` must meet documented "Requirements"
-data <- market_share \%>\%
-  filter(
-    sector == "power",
-    technology == "renewablescap",
-    region == "global",
+data <- subset(
+  market_share,
+  sector == "power" &
+    technology == "renewablescap" &
+    region == "global" &
     scenario_source == "demo_2020"
-  )
-plot_trajectory(data)
+)
 
-plot_trajectory(data, normalize = FALSE)
+plot_trajectory(data)
 }
 \seealso{
 \link{market_share}.

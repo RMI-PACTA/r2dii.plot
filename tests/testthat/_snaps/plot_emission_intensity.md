@@ -15,9 +15,11 @@
 
     `data` must have a single value of `sector` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(data, sector == 'a')
+      subset(data, sector == 'a')
 
-# with bad `extrapolate` errors gracefully
+# with too many lines to plot errors gracefully
 
-    is.logical(extrapolate) is not TRUE
+    Can't plot more than 7 lines in one plot.
+    Found 12 lines: Projected, Corporate Economy, Target Demo, Adjusted Scenario Demo, 1, 2, 3, 4, 5, 6, 7, 8.
+    Consider splitting the data over multiple plots.
 

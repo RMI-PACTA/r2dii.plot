@@ -20,37 +20,42 @@
 
     `bad_sector` must have a single value of `sector` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_sector, sector == 'a')
+      subset(bad_sector, sector == 'a')
 
 # with too many technologies errors gracefully
 
     `bad_tech` must have a single value of `technology` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_tech, technology == 'a')
+      subset(bad_tech, technology == 'a')
 
 # with too many regions errors gracefully
 
     `bad_region` must have a single value of `region` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_region, region == 'a')
+      subset(bad_region, region == 'a')
 
 # with too many scenario_source errors gracefully
 
     `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
     Pick one value, e.g. 'a', with:
-      dplyr::filter(bad_scenario_source, scenario_source == 'a')
-
-# with inexistent `main_line` errors gracefully
-
-    `main_line` must be one value of `data$metric`.
-    * Valid: projected.
-    * Provided: bad.
+      subset(bad_scenario_source, scenario_source == 'a')
 
 # with too many scenarios errors gracefully
 
-    `metric` must have between 1 and 4 scenarios, not 5: a, b, c, d, e
+    `metric` must have between 1 and 4 scenarios, not 8: cps, sds, sps, a, b, c, d, e
 
-# with too long `main_line` errors gracefully
+# informs that values are normalized
 
-    `main_line` must be of length 1, not 2.
+    Code
+      invisible(plot_trajectory(data))
+    Message <message>
+      Normalizing `production` values to the start year.
+
+# informs excluding data before start year of 'projected'
+
+    Code
+      invisible(plot_trajectory(bind_rows(data, to_exclude)))
+    Message <message>
+      Excluding data before start year of 'projected'.
+      Normalizing `production` values to the start year.
 

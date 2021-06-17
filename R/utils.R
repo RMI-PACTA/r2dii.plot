@@ -50,18 +50,6 @@ recode_portfolio_benchmark_scenario <- function(x) {
   )
 }
 
-abort_if_invalid_length <- function(x, valid = 1L) {
-  .x <- deparse_1(substitute(x))
-  if (!length(x) == valid) {
-    abort(
-      class = "invalid_length",
-      glue("`{.x}` must be of length {valid}, not {length(x)}.")
-    )
-  }
-
-  invisible(x)
-}
-
 abort_if_multiple <- function(data, x, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
@@ -71,7 +59,7 @@ abort_if_multiple <- function(data, x, env = parent.frame()) {
       abort(glue(
         "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
         Pick one value, e.g. '{first(.x)}', with:
-          dplyr::filter({.data}, {x} == '{first(.x)}')"
+          subset({.data}, {x} == '{first(.x)}')"
       ))
     }
     invisible(x)
@@ -98,7 +86,7 @@ abort_if_has_zero_rows <- function(data) {
 hint_if_missing_names <- function(expr) {
   .expr <- deparse_1(substitute(expr))
   fun <- format_plot_function_name(.expr)
-  kind <- ifelse(grepl("timeline", fun), "sda", "market_share")
+  kind <- ifelse(grepl("emission_intensity", fun), "sda", "market_share")
 
   rlang::with_handlers(
     expr,
@@ -213,4 +201,41 @@ mutate_pretty_labels <- function(data, name) {
       TRUE ~ to_title(as.character(.data$metric))
     )
   )
+}
+
+#' The metric to plot most saliently
+#'
+#' The concept of "main line" is not obvious from the literal "projected" and
+#' we reuse it in multiple places, so it seems worth to capture the concept
+#' in this function's name.
+#' @examples
+#' main_line()
+#' @noRd
+main_line <- function() "projected"
+
+#' r2dii.plot options
+#'
+#' * `r2dii.plot.quiet`: `TRUE` suppresses user-facing messages.
+#'
+#' @noRd
+quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
+
+get_common_start_year <- function(data, metric) {
+  year <- max(
+    data %>%
+      group_by(.data[[metric]]) %>%
+      summarise(year = min(.data$year)) %>%
+      pull(.data$year)
+  )
+  year
+}
+
+drop_before_start_year <- function(data, metric) {
+  start_year <- get_common_start_year(data, metric)
+  if (!min(data$year) < start_year) {
+    return(data)
+  }
+
+  if (!quiet()) inform(glue("Excluding data before start year of 'projected'."))
+  filter(data, .data$year >= start_year)
 }
