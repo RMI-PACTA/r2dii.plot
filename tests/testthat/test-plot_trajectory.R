@@ -175,7 +175,7 @@ test_that("works with input data starting before start year of 'projected'", {
   )
   start_year <- min(subset(data, metric == "projected")$year)
   early_row <- tibble(
-    sector =  "power",
+    sector = "power",
     technology = "renewablescap",
     year = start_year - 1,
     region = "global",

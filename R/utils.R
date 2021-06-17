@@ -190,4 +190,3 @@ get_common_start_year <- function(data, metric) {
   )
   year
 }
-
