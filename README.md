@@ -107,6 +107,7 @@ The error message guides you to subset a single value of `sector`. Try
 data <- subset(sda, sector == "cement")
 
 plot_emission_intensity(data)
+#> Excluding data before start year of 'projected'.
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -114,19 +115,19 @@ plot_emission_intensity(data)
 Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
--   Extrapolate to match the furthest value in the data set.
 -   Add a title.
 -   Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
 ``` r
 data <- subset(sda, sector == "cement")
 
-plot_emission_intensity(data, extrapolate = TRUE) + 
+plot_emission_intensity(data) + 
   labs(title = "Emission intensity plot") +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
   )
+#> Excluding data before start year of 'projected'.
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```

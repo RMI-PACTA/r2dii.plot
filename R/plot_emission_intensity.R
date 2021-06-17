@@ -3,8 +3,6 @@
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
-#' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
-#'   furthest value in the data set.
 #'
 #' @seealso [sda].
 #'
@@ -15,8 +13,8 @@
 #' # `data` must meet documented "Requirements"
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
-plot_emission_intensity <- function(data, extrapolate = FALSE) {
-  stopifnot(is.data.frame(data), is.logical(extrapolate))
+plot_emission_intensity <- function(data) {
+  stopifnot(is.data.frame(data))
   crucial <- c(
     "sector", "year", "emission_factor_metric", "emission_factor_value"
   )
@@ -27,7 +25,7 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
   data <- data %>%
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric))
 
-  prep <- hint_if_missing_names(prep_emission_intensity(data, extrapolate = extrapolate))
+  prep <- hint_if_missing_names(prep_emission_intensity(data))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
     abort_if_too_many_lines() %>%
@@ -38,8 +36,7 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
 
 prep_emission_intensity <- function(data,
                                     value = "emission_factor_value",
-                                    metric = "emission_factor_metric",
-                                    extrapolate = FALSE) {
+                                    metric = "emission_factor_metric") {
   data <- filter_to_metric_start_year(data, metric)
 
   out <- data %>%
@@ -48,25 +45,6 @@ prep_emission_intensity <- function(data,
       value = .data[[value]],
       extrapolated = FALSE
     )
-
-  if (extrapolate) {
-    max_year <- max(out$year, na.rm = TRUE)
-
-    to_extrapolate <- out %>%
-      group_by(.data$line_name) %>%
-      arrange(desc(.data$year)) %>%
-      dplyr::slice(1) %>%
-      filter(.data$year != max_year)
-
-    if (nrow(to_extrapolate) != 0) {
-      extrapolated <- to_extrapolate
-      extrapolated$year <- max_year
-      extrapolated <- bind_rows(to_extrapolate, extrapolated)
-      extrapolated$extrapolated <- TRUE
-
-      out <- bind_rows(out, extrapolated)
-    }
-  }
 
   out$year <- lubridate::make_date(out$year)
   out
