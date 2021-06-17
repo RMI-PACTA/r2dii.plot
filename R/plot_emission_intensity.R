@@ -42,7 +42,6 @@ prep_emission_intensity <- function(data,
     mutate(
       line_name = .data[[metric]],
       value = .data[[value]],
-      extrapolated = FALSE,
       year = lubridate::make_date(.data$year)
     )
 }
@@ -55,17 +54,14 @@ plot_emission_intensity_impl <- function(data, specs) {
       data = data, aes(
         x = .data$year,
         y = .data$value,
-        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value),
-        linetype = .data$extrapolated
+        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value)
       )
     ) +
     expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
-    scale_linetype_manual(
-      values = if (any(data$extrapolated)) c("solid", "dashed") else "solid"
-    ) +
+    scale_linetype_manual(values = "solid") +
     guides(linetype = FALSE) +
     theme_2dii()
 }
