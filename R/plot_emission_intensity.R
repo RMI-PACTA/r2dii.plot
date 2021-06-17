@@ -40,9 +40,8 @@ prep_emission_intensity <- function(data,
                                     value = "emission_factor_value",
                                     metric = "emission_factor_metric",
                                     extrapolate = FALSE) {
-  data <- filter_to_metric_start_year(data, metric)
-
   out <- data %>%
+    drop_before_start_year(metric) %>%
     mutate(
       line_name = .data[[metric]],
       value = .data[[value]],
