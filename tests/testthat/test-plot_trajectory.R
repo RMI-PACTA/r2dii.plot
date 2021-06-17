@@ -195,10 +195,7 @@ test_that("informs that values are normalized", {
   data <- example_market_share()
 
   restore <- options(r2dii.plot.quiet = FALSE)
-  expect_message(
-    class = "normalizing_to_start_year",
-    plot_trajectory(data)
-  )
+  expect_snapshot(invisible(plot_trajectory(data)))
   options(restore)
 })
 
@@ -223,11 +220,6 @@ test_that("informs excluding data before start year of 'projected'", {
   )
 
   restore <- options(r2dii.plot.quiet = FALSE)
-  suppressMessages(
-    expect_message(
-      class = "excluding_before_start_year",
-      plot_trajectory(bind_rows(data, to_exclude))
-    )
-  )
+  expect_snapshot(invisible(plot_trajectory(bind_rows(data, to_exclude))))
   options(restore)
 })
