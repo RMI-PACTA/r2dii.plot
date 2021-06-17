@@ -157,10 +157,12 @@ test_that("outputs pretty labels", {
 
 test_that("informs that values are normalized", {
   data <- example_market_share()
-  op <- options(r2dii.plot.quiet = FALSE)
-  on.exit(op, add = TRUE)
+
+  restore <- options(r2dii.plot.quiet = FALSE)
   expect_message(plot_trajectory(data), "[Nn]ormalizing")
+  options(restore)
 })
+
 test_that("works with example data", {
   data <- subset(
     market_share,
