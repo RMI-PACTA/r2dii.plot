@@ -70,16 +70,6 @@ prep_timeline <- function(data,
   out
 }
 
-get_common_start_year <- function(data, metric) {
-  year <- max(
-    data %>%
-      group_by(.data[[metric]]) %>%
-      summarise(year = min(.data$year)) %>%
-      pull(.data$year)
-  )
-  year
-}
-
 plot_timeline_impl <- function(data, specs) {
   data <- left_join(data, specs, by = "line_name")
 

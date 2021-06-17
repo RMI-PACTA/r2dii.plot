@@ -181,3 +181,13 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
+get_common_start_year <- function(data, metric) {
+  year <- max(
+    data %>%
+      group_by(.data[[metric]]) %>%
+      summarise(year = min(.data$year)) %>%
+      pull(.data$year)
+  )
+  year
+}
+
