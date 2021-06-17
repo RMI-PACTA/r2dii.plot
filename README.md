@@ -108,15 +108,19 @@ data <- subset(sda, sector == "cement")
 
 plot_emission_intensity(data)
 #> Excluding data before start year of 'projected'.
+#> Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
+#> "none")` instead.
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great! You can now polish your plot. Your options are limitless but
+Great\! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
--   Add a title.
--   Customize the legend labels with `ggplot2::scale_colour_manual()`.
+  - Add a title.
+  - Customize the legend labels with `ggplot2::scale_colour_manual()`.
+
+<!-- end list -->
 
 ``` r
 data <- subset(sda, sector == "cement")
@@ -128,6 +132,8 @@ plot_emission_intensity(data) +
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
   )
 #> Excluding data before start year of 'projected'.
+#> Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
+#> "none")` instead.
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```
@@ -154,10 +160,12 @@ plot_techmix(data) +
 
 These are some tweaks you may consider:
 
--   Subset a custom time range (instead of the default, full range in
+  - Subset a custom time range (instead of the default, full range in
     the data).
--   Set custom colours and legend labels with
+  - Set custom colours and legend labels with
     `ggplot2::scale_color_manual()`.
+
+<!-- end list -->
 
 ``` r
 data <- subset(
