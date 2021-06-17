@@ -1,0 +1,79 @@
+---
+title: "r2dii.plot"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The goal of r2dii.plot is to help you plot 2DII data in an informative,
+beautiful, and easy way. It is designed to work smoothly with other "r2dii"
+packages -- [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
+[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
+[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/). It also
+plays well with the [ggplot2](https://ggplot2.tidyverse.org/) package, which
+helps you customize your plots.
+
+```{r setup}
+library(ggplot2)
+library(r2dii.data)
+library(r2dii.match)
+library(r2dii.plot)
+library(r2dii.analysis)
+```
+
+Your data should have a structure similar to that of the demo datasets in the
+r2dii.data package.
+
+```{r}
+loanbook <- loanbook_demo
+ald <- ald_demo
+scenario <- co2_intensity_scenario_demo
+region <- region_isos_demo
+```
+
+Your workflow involves functions from the packages r2dii.match and
+r2dii.analysis.
+
+```{r}
+matched <- loanbook |>
+  match_name(ald) |>
+  prioritize()  # Remember to validate matches (see `?prioritize`)
+```
+
+* Use `plot_emission_intensity()` with `sda`-like data.
+
+```{r}
+matched |>
+  target_sda(ald, co2_intensity_scenario = scenario) |>
+  subset(sector == "cement") |>
+  plot_emission_intensity()
+```
+
+* Use `plot_trajectory()` with `market_share`-like data.
+
+```{r}
+matched |>
+  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) |>
+  subset(technology == "renewablescap" & region == "global") |>
+  plot_trajectory()
+```
+
+* Use `plot_techmix()` with `market_share`-like data.
+
+```{r}
+matched |>
+  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) |>
+  subset(
+    sector == "power" & 
+      region == "global" &
+      year >= 2020 &
+      year <= 2025 &
+      metric %in% c("projected", "corporate_economy", "target_sds")
+  ) |>
+  plot_techmix()
+```
+
