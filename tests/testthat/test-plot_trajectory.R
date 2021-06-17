@@ -100,12 +100,12 @@ test_that("with too many scenarios errors gracefully", {
     }
     data
   }
-  data <- subset(
+  data <- filter(
     market_share,
-    sector == "power" &
-      region == "global" &
-      technology == "renewablescap" &
-      year <= 2025
+    sector == "power",
+    region == "global",
+    technology == "renewablescap",
+    year <= 2025
   ) %>%
     add_fake_scenarios_market_share(5)
 
@@ -155,27 +155,15 @@ test_that("outputs pretty labels", {
   expect_true(has_pretty_format)
 })
 
-test_that("works with example data", {
-  data <- subset(
-    market_share,
-    sector == "power" &
-      region == "global" &
-      technology == "renewablescap" &
-      year <= 2025
-  )
-
-  expect_no_error(plot_trajectory(data))
-})
-
 test_that("works with input data starting before start year of 'projected'", {
-  data <- subset(
+  data <- filter(
     market_share,
-    sector == "power" &
-      region == "global" &
-      technology == "renewablescap" &
-      year <= 2025
+    sector == "power",
+    region == "global",
+    technology == "renewablescap",
+    year <= 2025
   )
-  start_year <- min(subset(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year)
   to_exclude <- tibble(
     sector = "power",
     technology = "renewablescap",
@@ -207,7 +195,7 @@ test_that("informs excluding data before start year of 'projected'", {
     technology == "renewablescap",
     year <= 2025
   )
-  start_year <- min(subset(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year)
   to_exclude <- tibble(
     sector = "power",
     technology = "renewablescap",
