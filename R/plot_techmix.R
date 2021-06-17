@@ -100,6 +100,7 @@ plot_techmix_impl <- function(data) {
     guess_sector()
 
   tech_colours <- technology_colours %>%
+    mutate(label = tolower(gsub(" ", "_", label))) %>%
     filter(.data$sector == .env$sector) %>%
     select(.data$technology, .data$label, .data$hex)
 
