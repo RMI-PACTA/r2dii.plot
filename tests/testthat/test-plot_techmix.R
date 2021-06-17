@@ -65,7 +65,8 @@ test_that("with missing crucial names errors gracefully", {
   expect_error(class = "hint_missing_names", plot_techmix(bad))
 })
 
-test_that("with input data before start year of 'projected' prep_techmix outputs data with start year of 'projected'", {
+test_that("with input data before start year of 'projected' prep_techmix
+          outputs data with start year of 'projected'", {
   data <- subset(
     market_share,
     sector == "power" &
