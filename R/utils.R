@@ -50,18 +50,6 @@ recode_portfolio_benchmark_scenario <- function(x) {
   )
 }
 
-abort_if_invalid_length <- function(x, valid = 1L) {
-  .x <- deparse_1(substitute(x))
-  if (!length(x) == valid) {
-    abort(
-      class = "invalid_length",
-      glue("`{.x}` must be of length {valid}, not {length(x)}.")
-    )
-  }
-
-  invisible(x)
-}
-
 abort_if_multiple <- function(data, x, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
