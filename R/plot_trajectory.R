@@ -210,10 +210,8 @@ get_ordered_scenario_specs <- function(data) {
   num_scen_areas <- length(ordered_scenarios) + 1
   scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
-  green_or_brown <- r2dii.data::green_or_brown
-  technologies <- abort_if_invalid_length(unique(data$technology))
-  tech_green_or_brown <- green_or_brown %>%
-    filter(.data$technology == technologies) %>%
+  tech_green_or_brown <- r2dii.data::green_or_brown %>%
+    filter(.data$technology == unique(data$technology)) %>%
     pull(.data$green_or_brown) %>%
     unique()
 
