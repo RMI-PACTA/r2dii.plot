@@ -210,25 +210,23 @@ get_ordered_scenario_specs <- function(data) {
   num_scen_areas <- length(ordered_scenarios) + 1
   scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
-  tech_green_or_brown <- r2dii.data::green_or_brown %>%
+  technology_kind <- r2dii.data::green_or_brown %>%
     filter(.data$technology == unique(data$technology)) %>%
     pull(.data$green_or_brown) %>%
     unique()
 
-  if (tech_green_or_brown == "brown") {
-    ordered_scenarios_good_to_bad <- tibble(
-      scenario = rev(c("worse", ordered_scenarios)),
-      colour = scenario_colours$hex
-    )
-    scenario_specs <- ordered_scenarios_good_to_bad
-  } else if (tech_green_or_brown == "green") {
-    ordered_scenarios_good_to_bad <- tibble(
+  switch(
+    technology_kind,
+    "green" = reverse_rows(tibble(
       scenario = c(ordered_scenarios, c("worse")),
       colour = scenario_colours$hex
-    )
-    scenario_specs <- reverse_rows(ordered_scenarios_good_to_bad)
-  }
-  scenario_specs
+    )),
+    "brown" = tibble(
+      scenario = rev(c("worse", ordered_scenarios)),
+      colour = scenario_colours$hex
+    ),
+    abort("The kind of technology must only be 'green' or 'brown'")
+  )
 }
 
 reverse_rows <- function(x) {
