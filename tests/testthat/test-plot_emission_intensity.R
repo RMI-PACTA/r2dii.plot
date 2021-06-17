@@ -18,22 +18,6 @@ test_that("with too many sectors errors gracefully", {
   expect_snapshot_error(plot_emission_intensity(data))
 })
 
-test_that("with bad `extrapolate` errors gracefully", {
-  data <- head(filter(sda, sector == "cement"))
-  expect_snapshot_error(plot_emission_intensity(data, extrapolate = 1))
-})
-
-test_that("is sensitive to extrapolate", {
-  data <- filter(sda, sector == "cement")
-  pull_extrapolated <- function(p) p$layers[[1]]$data$extrapolated
-
-  p <- plot_emission_intensity(data, extrapolate = TRUE)
-  expect_true(any(pull_extrapolated(p)))
-
-  q <- plot_emission_intensity(data, extrapolate = FALSE)
-  expect_false(any(pull_extrapolated(q)))
-})
-
 test_that("outputs an object with no factor-columns derived from `specs`", {
   data <- head(filter(sda, sector == "cement"))
 

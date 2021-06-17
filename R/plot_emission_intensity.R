@@ -3,8 +3,6 @@
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
-#' @param extrapolate Logical of length 1. `TRUE` extrapolates to match the
-#'   furthest value in the data set.
 #'
 #' @seealso [sda].
 #'
@@ -15,8 +13,8 @@
 #' # `data` must meet documented "Requirements"
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
-plot_emission_intensity <- function(data, extrapolate = FALSE) {
-  stopifnot(is.data.frame(data), is.logical(extrapolate))
+plot_emission_intensity <- function(data) {
+  stopifnot(is.data.frame(data))
   crucial <- c(
     "sector", "year", "emission_factor_metric", "emission_factor_value"
   )
@@ -27,7 +25,7 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
   data <- data %>%
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric))
 
-  prep <- hint_if_missing_names(prep_emission_intensity(data, extrapolate = extrapolate))
+  prep <- hint_if_missing_names(prep_emission_intensity(data))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
     abort_if_too_many_lines() %>%
@@ -38,37 +36,14 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
 
 prep_emission_intensity <- function(data,
                                     value = "emission_factor_value",
-                                    metric = "emission_factor_metric",
-                                    extrapolate = FALSE) {
-  out <- data %>%
+                                    metric = "emission_factor_metric") {
+  data %>%
     drop_before_start_year(metric) %>%
     mutate(
       line_name = .data[[metric]],
       value = .data[[value]],
-      extrapolated = FALSE
+      year = lubridate::make_date(.data$year)
     )
-
-  if (extrapolate) {
-    max_year <- max(out$year, na.rm = TRUE)
-
-    to_extrapolate <- out %>%
-      group_by(.data$line_name) %>%
-      arrange(desc(.data$year)) %>%
-      dplyr::slice(1) %>%
-      filter(.data$year != max_year)
-
-    if (nrow(to_extrapolate) != 0) {
-      extrapolated <- to_extrapolate
-      extrapolated$year <- max_year
-      extrapolated <- bind_rows(to_extrapolate, extrapolated)
-      extrapolated$extrapolated <- TRUE
-
-      out <- bind_rows(out, extrapolated)
-    }
-  }
-
-  out$year <- lubridate::make_date(out$year)
-  out
 }
 
 plot_emission_intensity_impl <- function(data, specs) {
@@ -79,17 +54,14 @@ plot_emission_intensity_impl <- function(data, specs) {
       data = data, aes(
         x = .data$year,
         y = .data$value,
-        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value),
-        linetype = .data$extrapolated
+        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value)
       )
     ) +
     expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
-    scale_linetype_manual(
-      values = if (any(data$extrapolated)) c("solid", "dashed") else "solid"
-    ) +
+    scale_linetype_manual(values = "solid") +
     guides(linetype = FALSE) +
     theme_2dii()
 }

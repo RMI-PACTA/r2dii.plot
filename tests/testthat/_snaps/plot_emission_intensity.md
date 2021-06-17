@@ -17,10 +17,6 @@
     Pick one value, e.g. 'a', with:
       subset(data, sector == 'a')
 
-# with bad `extrapolate` errors gracefully
-
-    is.logical(extrapolate) is not TRUE
-
 # with too many lines to plot errors gracefully
 
     Can't plot more than 7 lines in one plot.

@@ -4,7 +4,7 @@
 \alias{plot_emission_intensity}
 \title{Create an emission intensity plot}
 \usage{
-plot_emission_intensity(data, extrapolate = FALSE)
+plot_emission_intensity(data)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -12,9 +12,6 @@ plot_emission_intensity(data, extrapolate = FALSE)
 \item The structure must be like \link{sda}.
 \item The column \code{sector} must have a single value (e.g. "cement").
 }}
-
-\item{extrapolate}{Logical of length 1. \code{TRUE} extrapolates to match the
-furthest value in the data set.}
 }
 \value{
 An object of class "ggplot".
