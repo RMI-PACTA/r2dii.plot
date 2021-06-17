@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_emission_intensity.R
 \name{plot_emission_intensity}
 \alias{plot_emission_intensity}
-\title{Create a timeline plot}
+\title{Create an emission intensity plot}
 \usage{
 plot_emission_intensity(data, extrapolate = FALSE)
 }
@@ -20,7 +20,7 @@ furthest value in the data set.}
 An object of class "ggplot".
 }
 \description{
-Create a timeline plot
+Create an emission intensity plot
 }
 \examples{
 # `data` must meet documented "Requirements"

@@ -215,8 +215,7 @@ get_ordered_scenario_specs <- function(data) {
     pull(.data$green_or_brown) %>%
     unique()
 
-  switch(
-    technology_kind,
+  switch(technology_kind,
     "green" = reverse_rows(tibble(
       scenario = c(ordered_scenarios, c("worse")),
       colour = scenario_colours$hex
