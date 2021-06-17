@@ -155,14 +155,6 @@ test_that("outputs pretty labels", {
   expect_true(has_pretty_format)
 })
 
-test_that("informs that values are normalized", {
-  data <- example_market_share()
-
-  restore <- options(r2dii.plot.quiet = FALSE)
-  expect_message(plot_trajectory(data), "[Nn]ormalizing")
-  options(restore)
-})
-
 test_that("works with example data", {
   data <- subset(
     market_share,
@@ -184,7 +176,7 @@ test_that("works with input data starting before start year of 'projected'", {
       year <= 2025
   )
   start_year <- min(subset(data, metric == "projected")$year)
-  early_row <- tibble(
+  to_exclude <- tibble(
     sector = "power",
     technology = "renewablescap",
     year = start_year - 1,
@@ -195,6 +187,47 @@ test_that("works with input data starting before start year of 'projected'", {
     technology_share = 0.1
   )
   data <- data %>%
-    rbind(early_row)
+    rbind(to_exclude)
   expect_no_error(plot_trajectory(data))
+})
+
+test_that("informs that values are normalized", {
+  data <- example_market_share()
+
+  restore <- options(r2dii.plot.quiet = FALSE)
+  expect_message(
+    class = "normalizing_to_start_year",
+    plot_trajectory(data)
+  )
+  options(restore)
+})
+
+test_that("informs excluding data before start year of 'projected'", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    technology == "renewablescap",
+    year <= 2025
+  )
+  start_year <- min(subset(data, metric == "projected")$year)
+  to_exclude <- tibble(
+    sector = "power",
+    technology = "renewablescap",
+    year = start_year - 1,
+    region = "global",
+    scenario_source = "demo_2020",
+    metric = "corporate_economy",
+    production = 1,
+    technology_share = 0.1
+  )
+
+  restore <- options(r2dii.plot.quiet = FALSE)
+  suppressMessages(
+    expect_message(
+      class = "excluding_before_start_year",
+      plot_trajectory(bind_rows(data, to_exclude))
+    )
+  )
+  options(restore)
 })
