@@ -42,5 +42,5 @@
 
 # with too many scenarios errors gracefully
 
-    `metric` must have between 1 and 4 scenarios, not 5: a, b, c, d, e
+    `metric` must have between 1 and 4 scenarios, not 8: cps, sds, sps, a, b, c, d, e
 

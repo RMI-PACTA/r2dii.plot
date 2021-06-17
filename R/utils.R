@@ -232,3 +232,21 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
+get_common_start_year <- function(data, metric) {
+  year <- max(
+    data %>%
+      group_by(.data[[metric]]) %>%
+      summarise(year = min(.data$year)) %>%
+      pull(.data$year)
+  )
+  year
+}
+
+filter_to_metric_start_year <- function(data, metric) {
+    start_year <- get_common_start_year(data, metric)
+    if (min(data$year) < start_year) {
+      if (!quiet()) inform(glue("Filtering out the data before start year of 'projected'."))
+      data <- filter(data, .data$year >= start_year)
+    }
+    data
+}

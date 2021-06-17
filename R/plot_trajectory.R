@@ -269,6 +269,8 @@ prep_trajectory <- function(data,
   check_prep_trajectory(data, value)
   data <- recode_metric_and_metric_type(data, metric)
 
+  data <- filter_to_metric_start_year(data, metric)
+
   cols <- c("year", "metric_type", "metric", "technology", "value")
   out <- data %>%
     mutate(value = .data[[value]]) %>%
