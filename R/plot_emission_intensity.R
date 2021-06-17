@@ -37,8 +37,7 @@ prep_timeline <- function(data,
                           value = "emission_factor_value",
                           metric = "emission_factor_metric",
                           extrapolate = FALSE) {
-  start_year <- get_common_start_year(data, metric)
-  data <- filter(data, .data$year >= start_year)
+  data <- filter_to_metric_start_year(data, metric)
 
   out <- data %>%
     mutate(
