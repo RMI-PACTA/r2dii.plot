@@ -1,4 +1,4 @@
-#' Create a timeline plot
+#' Create an emission intensity plot
 #'
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
@@ -27,19 +27,19 @@ plot_emission_intensity <- function(data, extrapolate = FALSE) {
   data <- data %>%
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric))
 
-  prep <- hint_if_missing_names(prep_timeline(data, extrapolate = extrapolate))
+  prep <- hint_if_missing_names(prep_emission_intensity(data, extrapolate = extrapolate))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
     abort_if_too_many_lines() %>%
     add_r2dii_colours()
 
-  plot_timeline_impl(prep, specs = specs)
+  plot_emission_intensity_impl(prep, specs = specs)
 }
 
-prep_timeline <- function(data,
-                          value = "emission_factor_value",
-                          metric = "emission_factor_metric",
-                          extrapolate = FALSE) {
+prep_emission_intensity <- function(data,
+                                    value = "emission_factor_value",
+                                    metric = "emission_factor_metric",
+                                    extrapolate = FALSE) {
   data <- filter_to_metric_start_year(data, metric)
 
   out <- data %>%
@@ -72,7 +72,7 @@ prep_timeline <- function(data,
   out
 }
 
-plot_timeline_impl <- function(data, specs) {
+plot_emission_intensity_impl <- function(data, specs) {
   data <- left_join(data, specs, by = "line_name")
 
   ggplot() +

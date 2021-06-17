@@ -86,7 +86,7 @@ abort_if_has_zero_rows <- function(data) {
 hint_if_missing_names <- function(expr) {
   .expr <- deparse_1(substitute(expr))
   fun <- format_plot_function_name(.expr)
-  kind <- ifelse(grepl("timeline", fun), "sda", "market_share")
+  kind <- ifelse(grepl("emission_intensity", fun), "sda", "market_share")
 
   rlang::with_handlers(
     expr,
@@ -232,7 +232,9 @@ get_common_start_year <- function(data, metric) {
 
 filter_to_metric_start_year <- function(data, metric) {
   start_year <- get_common_start_year(data, metric)
-  if (!min(data$year) < start_year) return(data)
+  if (!min(data$year) < start_year) {
+    return(data)
+  }
 
   if (!quiet()) inform(glue("Excluding data before start year of 'projected'."))
   filter(data, .data$year >= start_year)
