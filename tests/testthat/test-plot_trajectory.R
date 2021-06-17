@@ -127,11 +127,11 @@ test_that("informs that values are normalized", {
 
 test_that("works with example data", {
   data <- subset(
-  market_share,
-  sector == "power" &
-    region == "global" &
-    technology == "renewablescap" &
-    year <= 2025
+    market_share,
+    sector == "power" &
+      region == "global" &
+      technology == "renewablescap" &
+      year <= 2025
   )
 
   expect_no_error(plot_trajectory(data))
