@@ -70,9 +70,9 @@ test_that("with input data before start year of 'projected' prep_techmix
   data <- filter(
     market_share,
     sector == "power",
-      region == "global",
-      year <= 2025,
-      metric %in% c("projected", "corporate_economy", "target_sds")
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
   )
   start_year <- min(filter(data, metric == "projected")$year)
   early_row <- tibble(
