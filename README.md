@@ -107,7 +107,7 @@ The error message guides you to subset a single value of `sector`. Try
 data <- subset(sda, sector == "cement")
 
 plot_emission_intensity(data)
-#> Excluding data before start year of 'projected'.
+#> Removing data before 2020 -- the start year of 'projected'.
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -127,7 +127,7 @@ plot_emission_intensity(data) +
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
     labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
   )
-#> Excluding data before start year of 'projected'.
+#> Removing data before 2020 -- the start year of 'projected'.
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```
@@ -194,7 +194,7 @@ data <- subset(
 
 plot_trajectory(data) + 
   labs(title = "Trajectory plot")
-#> Normalizing `production` values to the start year.
+#> Normalizing `production` values to 2020 -- the start year.
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
