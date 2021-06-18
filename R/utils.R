@@ -168,6 +168,10 @@ expect_no_error <- function(...) {
   testthat::expect_error(..., NA)
 }
 
+expect_no_message <- function(...) {
+  testthat::expect_message(..., NA)
+}
+
 example_market_share <- function(...) {
   filter(market_share, .data$technology == first(.data$technology), ...)
 }
@@ -221,13 +225,12 @@ main_line <- function() "projected"
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
 get_common_start_year <- function(data, metric) {
-  year <- max(
-    data %>%
-      group_by(.data[[metric]]) %>%
-      summarise(year = min(.data$year)) %>%
-      pull(.data$year)
-  )
-  year
+  data %>%
+    group_by(.data[[metric]]) %>%
+    summarise(year = min(.data$year)) %>%
+    pull(.data$year) %>%
+    max()
+
 }
 
 drop_before_start_year <- function(data, metric) {
@@ -236,6 +239,10 @@ drop_before_start_year <- function(data, metric) {
     return(data)
   }
 
-  if (!quiet()) inform(glue("Excluding data before start year of 'projected'."))
+  if (!quiet()) {
+    inform(glue(
+      "Removing data before {start_year} -- the start year of 'projected'."
+    ))
+  }
   filter(data, .data$year >= start_year)
 }

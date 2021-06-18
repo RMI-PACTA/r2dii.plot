@@ -270,10 +270,15 @@ prep_trajectory <- function(data,
     mutate(value = .data[[value]]) %>%
     select(all_of(cols))
 
+  start_year <- min(out$year)
   # TODO: Extract and move to r2dii.analysis
-  if (!quiet()) inform(glue("Normalizing `{value}` values to the start year."))
+  if (!quiet()) {
+    inform(glue(
+      "Normalizing `{value}` values to {start_year} -- the start year."
+    ))
+  }
   left_join(
-    out, filter(out, .data$year == min(.data$year)),
+    out, filter(out, .data$year == start_year),
     by = c("metric_type", "metric")
   ) %>%
     mutate(
