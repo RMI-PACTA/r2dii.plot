@@ -214,8 +214,8 @@ test_that("with no data to remove does not inform about removing rows", {
   restore <- options(r2dii.plot.quiet = FALSE)
   example_market_share() %>%
     plot_trajectory() %>%
-    expect_message("[Nn]ormalizing") %>%  # Irrelevant message
-    expect_no_message()  # No other message should bubble up
+    expect_message("[Nn]ormalizing") %>%
+    # Irrelevant message
+    expect_no_message() # No other message should bubble up
   options(restore)
 })
-
