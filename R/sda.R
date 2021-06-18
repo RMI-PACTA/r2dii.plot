@@ -1,7 +1,6 @@
-#' Dataset imitating the output of `r2dii.analysis::target_sda()`
+#' An example of an `sda`-like dataset
 #'
-#' Example data set of emission factors for different metric types: projected,
-#' benchmark and scenarios and different sectors.
+#' Dataset imitating the output of [r2dii.analysis::target_sda()].
 #'
 #' @seealso [r2dii.analysis::target_sda()].
 #' @family datasets

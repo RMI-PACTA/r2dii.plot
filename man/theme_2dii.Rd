@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme_2dii.R
 \name{theme_2dii}
 \alias{theme_2dii}
-\title{A theme to apply 2DII plotting aesthetics}
+\title{Complete theme}
 \usage{
 theme_2dii(
   base_size = 12,
@@ -30,10 +30,11 @@ plotting aesthetics.
 \examples{
 library(ggplot2, warn.conflicts = FALSE)
 
-p <- ggplot(mtcars) +
-  geom_histogram(aes(mpg), bins = 10)
-p
-
-p + theme_2dii()
+ggplot(mtcars) +
+  geom_histogram(aes(mpg), bins = 10) +
+  theme_2dii()
+}
+\seealso{
+\link[ggplot2:ggtheme]{ggplot2::theme_classic}.
 }
 \concept{plotting functions}
