@@ -27,15 +27,8 @@ test_that("works with up to 4 scenarios (+ 1 portfolio + 1 benchmark)", {
   expect_equal(count_metrics(p), n)
 })
 
-test_that("with corrupt `scenario_colours` errors gracefully", {
-  prep <- example_market_share()
-
-  too_short <- 4L
-  corrupt <- head(scenario_colours, too_short)
-  op <- options("r2dii.plot.scenario_colours" = corrupt)
-  on.exit(options(op), add = TRUE)
-
-  expect_snapshot_error(plot_trajectory(prep))
+test_that("scenario_colours has 5 rows", {
+  expect_equal(nrow(scenario_colours), 5L)
 })
 
 test_that("if `data` is not a data frame errors gracefully", {

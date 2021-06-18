@@ -23,11 +23,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Monika Furdyna \email{monika.furdyna@gmail.com} (\href{https://orcid.org/0000-0002-3728-0646}{ORCID}) [contractor]
+\strong{Maintainer}: Monika Furdyna \email{maurolepore@gmail.com} (\href{https://orcid.org/0000-0002-3728-0646}{ORCID}) [contractor]
 
 Authors:
 \itemize{
-  \item Mauro Lepore \email{maurolepore@gmail.com} (\href{https://orcid.org/0000-0002-1986-7988}{ORCID}) [contractor]
+  \item Mauro Lepore \email{FIXME@gmail.com} (\href{https://orcid.org/0000-0002-1986-7988}{ORCID}) [contractor]
   \item Alex Axthelm \email{alex@2degrees-investing.org} (\href{https://orcid.org/0000-0001-8579-8565}{ORCID}) [contractor]
 }
 

@@ -1,11 +1,3 @@
-`%||%` <- function(x, y) {
-  if (is.null(x)) {
-    y
-  } else {
-    x
-  }
-}
-
 #' Convert a string to title case
 #'
 #' This function replaces a sequence of non alpha-numeric characters to a single
