@@ -22,7 +22,12 @@ plot_emission_intensity <- function(data) {
   abort_with_hint_if_missing_names(data)
   abort_if_too_many_lines(data)
 
-  # TODO: Simplify
+  out <- prep_emission_intensity(data)
+  plot_emission_intensity_impl(out)
+}
+
+# TODO: Simplify
+prep_emission_intensity <- function(data) {
   prep <- data %>%
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric)) %>%
     drop_before_start_year("emission_factor_metric") %>%
@@ -31,8 +36,6 @@ plot_emission_intensity <- function(data) {
     distinct(.data$emission_factor_metric) %>%
     add_r2dii_colours()
   out <- left_join(prep, specs, by = "emission_factor_metric")
-
-  plot_emission_intensity_impl(out)
 }
 
 plot_emission_intensity_impl <- function(data) {
