@@ -14,4 +14,4 @@
 
 * To the best of our knowledge the best references describing the methods in
 this package is the one we provide in DESCRIPTION:
-<https://www.transitionmonitor.com/pacta-for-banks-2020/methodology-and-supporting-materials/>
+<https://www.transitionmonitor.com/pacta-for-banks-2020/methodology-and-supporting-materials/>.

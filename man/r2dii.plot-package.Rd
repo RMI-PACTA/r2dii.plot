@@ -10,9 +10,10 @@ Create plots to visualize the alignment of a corporate
     lending portfolio to climate change scenarios based on climate
     indicators (production and emission intensities) across key climate
     relevant sectors of the 'PACTA' methodology (Paris Agreement Capital
-    Transition Assessment; <https://2degrees-investing.org/>). Financial
-    institutions use 'PACTA' to study how their capital allocation
-    decisions align with climate change mitigation goals.
+    Transition Assessment;
+    <https://www.transitionmonitor.com/pacta-for-banks-2020/methodology-and-supporting-materials/>).
+    Financial institutions use 'PACTA' to study how their capital
+    allocation decisions align with climate change mitigation goals.
 }
 \seealso{
 Useful links:
