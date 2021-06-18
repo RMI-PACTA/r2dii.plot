@@ -56,6 +56,6 @@
     Code
       invisible(plot_trajectory(bind_rows(data, to_exclude)))
     Message <message>
-      Excluding data before start year of 'projected'.
+      Removing rows where `year` < 2020 (start year of 'projected').
       Normalizing `production` values to the start year.
 

@@ -236,6 +236,11 @@ drop_before_start_year <- function(data, metric) {
     return(data)
   }
 
-  if (!quiet()) inform(glue("Excluding data before start year of 'projected'."))
+  if (!quiet()) {
+    inform(glue(
+      "Removing rows where `year` < {start_year} (start year of 'projected')."
+    ))
+
+  }
   filter(data, .data$year >= start_year)
 }
