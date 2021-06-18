@@ -62,7 +62,7 @@ plot_emission_intensity_impl <- function(data, specs) {
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
     scale_linetype_manual(values = "solid") +
-    guides(linetype = FALSE) +
+    guides(linetype = "none") +
     theme_2dii()
 }
 

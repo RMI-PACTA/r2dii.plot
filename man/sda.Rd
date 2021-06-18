@@ -3,7 +3,7 @@
 \docType{data}
 \name{sda}
 \alias{sda}
-\title{Dataset imitating the output of \code{r2dii.analysis::target_sda()}}
+\title{An example of an \code{sda}-like dataset}
 \format{
 An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 208 rows and 4 columns.
 }
@@ -14,8 +14,7 @@ An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, 
 sda
 }
 \description{
-Example data set of emission factors for different metric types: projected,
-benchmark and scenarios and different sectors.
+Dataset imitating the output of \code{\link[r2dii.analysis:target_sda]{r2dii.analysis::target_sda()}}.
 }
 \examples{
 sda

@@ -3,7 +3,7 @@
 \docType{data}
 \name{market_share}
 \alias{market_share}
-\title{Dataset imitating the output of \code{r2dii.analysis::target_market_share()}}
+\title{An example of a \code{market_share}-like dataset}
 \format{
 An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1170 rows and 8 columns.
 }
@@ -11,7 +11,7 @@ An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, 
 market_share
 }
 \description{
-Dataset imitating the output of \code{r2dii.analysis::target_market_share()}
+Dataset imitating the output of \code{\link[r2dii.analysis:target_market_share]{r2dii.analysis::target_market_share()}}.
 }
 \examples{
 market_share
