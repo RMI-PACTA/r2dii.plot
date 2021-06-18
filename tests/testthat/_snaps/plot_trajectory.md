@@ -1,7 +1,3 @@
-# with corrupt `scenario_colours` errors gracefully
-
-    `scenario_colours` must have 5 rows, not 4.
-
 # if `data` is not a data frame errors gracefully
 
     is.data.frame(data) is not TRUE
