@@ -187,7 +187,7 @@ test_that("informs that values are normalized", {
   options(restore)
 })
 
-test_that("informs excluding data before start year of 'projected'", {
+test_that("informs if excluding data before start year of 'projected'", {
   data <- filter(
     market_share,
     sector == "power",
@@ -195,6 +195,7 @@ test_that("informs excluding data before start year of 'projected'", {
     technology == "renewablescap",
     year <= 2025
   )
+
   start_year <- min(filter(data, metric == "projected")$year)
   to_exclude <- tibble(
     sector = "power",
@@ -208,6 +209,20 @@ test_that("informs excluding data before start year of 'projected'", {
   )
 
   restore <- options(r2dii.plot.quiet = FALSE)
-  expect_snapshot(invisible(plot_trajectory(bind_rows(data, to_exclude))))
+  data %>%
+    bind_rows(to_exclude) %>%
+    plot_trajectory() %>%
+    expect_message("[Nn]ormalizing") %>%
+    expect_message("[Ex]cluding")
   options(restore)
 })
+
+test_that("with no data to remove does not inform about removing rows", {
+  restore <- options(r2dii.plot.quiet = FALSE)
+  example_market_share() %>%
+    plot_trajectory() %>%
+    expect_message("[Nn]ormalizing") %>%  # Irrelevant message
+    expect_no_message()  # No other message should bubble up
+  options(restore)
+})
+
