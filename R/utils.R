@@ -222,7 +222,6 @@ get_common_start_year <- function(data, metric) {
     summarise(year = min(.data$year)) %>%
     pull(.data$year) %>%
     max()
-
 }
 
 drop_before_start_year <- function(data, metric) {

@@ -21,7 +21,7 @@ theme_2dii(
 \item{base_rect_size}{base size for rect elements}
 }
 \value{
-An object of class theme, gg.
+An object of class "theme", "gg".
 }
 \description{
 A ggplot theme which can be applied to all graphs to appear according to 2DII

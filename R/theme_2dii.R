@@ -7,7 +7,7 @@
 #'
 #' @family plotting functions
 #'
-#' @return An object of class `r toString(class(theme_2dii()))`.
+#' @return An object of class "theme", "gg".
 #'
 #' @seealso [ggplot2::theme_classic].
 #'

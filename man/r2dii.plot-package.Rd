@@ -10,9 +10,10 @@ Create plots to visualize the alignment of a corporate
     lending portfolio to climate change scenarios based on climate
     indicators (production and emission intensities) across key climate
     relevant sectors of the 'PACTA' methodology (Paris Agreement Capital
-    Transition Assessment; <https://2degrees-investing.org/>). Financial
-    institutions use 'PACTA' to study how their capital allocation
-    decisions align with climate change mitigation goals.
+    Transition Assessment;
+    <https://www.transitionmonitor.com/pacta-for-banks-2020/methodology-and-supporting-materials/>).
+    Financial institutions use 'PACTA' to study how their capital
+    allocation decisions align with climate change mitigation goals.
 }
 \seealso{
 Useful links:
@@ -23,11 +24,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Monika Furdyna \email{maurolepore@gmail.com} (\href{https://orcid.org/0000-0002-3728-0646}{ORCID}) [contractor]
+\strong{Maintainer}: Monika Furdyna \email{monika.furdyna@gmail.com} (\href{https://orcid.org/0000-0002-3728-0646}{ORCID}) [contractor]
 
 Authors:
 \itemize{
-  \item Mauro Lepore \email{FIXME@gmail.com} (\href{https://orcid.org/0000-0002-1986-7988}{ORCID}) [contractor]
+  \item Mauro Lepore \email{maurolepore@gmail.com} (\href{https://orcid.org/0000-0002-1986-7988}{ORCID}) [contractor]
   \item Alex Axthelm \email{alex@2degrees-investing.org} (\href{https://orcid.org/0000-0001-8579-8565}{ORCID}) [contractor]
 }
 

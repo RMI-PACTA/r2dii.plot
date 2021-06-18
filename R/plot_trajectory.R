@@ -189,10 +189,10 @@ get_area_borders <- function(data) {
   # adjusting the area border to center the starting point of the lines
   delta_distance <- abs(perc_distance_upper_border - perc_distance_lower_border)
   if (delta_distance > max_delta_distance) {
-      lower_area_border <- lower_area_border -
-        max(0, perc_distance_upper_border - perc_distance_lower_border) * value_span
-      upper_area_border <- upper_area_border +
-        max(0, perc_distance_lower_border - perc_distance_lower_border) * value_span
+    lower_area_border <- lower_area_border -
+      max(0, perc_distance_upper_border - perc_distance_lower_border) * value_span
+    upper_area_border <- upper_area_border +
+      max(0, perc_distance_lower_border - perc_distance_lower_border) * value_span
   }
 
   area_borders <- list(lower = lower_area_border, upper = upper_area_border)
@@ -239,7 +239,7 @@ get_ordered_scenario_colours <- function(n) {
     "3" = pick(c("light_green", "light_yellow", "red")),
     "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
     "5" = scenario_colours,
-    abort("`n` must be between 2 and 5 not {n}.")  # nocov
+    abort("`n` must be between 2 and 5 not {n}.") # nocov
   )
 }
 
