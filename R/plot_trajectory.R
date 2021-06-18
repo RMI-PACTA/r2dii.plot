@@ -165,35 +165,34 @@ order_for_trajectory <- function(data, scenario_specs) {
   data_ordered
 }
 
-get_area_borders <- function(data) {
-  lower_area_border <- 0.9 * min(data$value)
-  upper_area_border <- 1.1 * max(data$value)
-  value_span <- upper_area_border - lower_area_border
-
+distance_from_start_value_portfolio <- function(data, value) {
   start_value_portfolio <- data %>%
     filter(.data$year == min(.data$year)) %>%
     filter(.data$metric_type == "portfolio") %>%
     pull(.data$value)
 
+  distance <- abs(value - start_value_portfolio)
+  distance
+}
+
+get_area_borders <- function(data) {
+  max_delta_distance <- 0.1
+  lower_area_border <- 0.9 * min(data$value)
+  upper_area_border <- 1.1 * max(data$value)
+  value_span <- upper_area_border - lower_area_border
+
   perc_distance_upper_border <-
-    (upper_area_border - start_value_portfolio) / value_span
+    distance_from_start_value_portfolio(data, upper_area_border) / value_span
   perc_distance_lower_border <-
-    (start_value_portfolio - lower_area_border) / value_span
+    distance_from_start_value_portfolio(data, lower_area_border) / value_span
 
   # adjusting the area border to center the starting point of the lines
-  max_delta_distance <- 0.1
   delta_distance <- abs(perc_distance_upper_border - perc_distance_lower_border)
   if (delta_distance > max_delta_distance) {
-    if (perc_distance_upper_border > perc_distance_lower_border) {
-      lower_area_border <-
-        start_value_portfolio - perc_distance_upper_border * value_span
-      value_span <- upper_area_border - lower_area_border
-    } else {
-      # TODO: Is this dead code? How can we test it?
-      upper_area_border <-
-        perc_distance_lower_border * value_span + start_value_portfolio
-      value_span <- upper_area_border - lower_area_border
-    }
+      lower_area_border <- lower_area_border -
+        max(0, perc_distance_upper_border - perc_distance_lower_border) * value_span
+      upper_area_border <- upper_area_border +
+        max(0, perc_distance_lower_border - perc_distance_lower_border) * value_span
   }
 
   area_borders <- list(lower = lower_area_border, upper = upper_area_border)
