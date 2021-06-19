@@ -49,10 +49,6 @@ prep_emission_intensity <- function(data) {
   left_join(prep, specs, by = "emission_factor_metric")
 }
 
-beautify <- function(data, x) {
-  mutate(data, "{x}" := to_title(.data[[x]]))
-}
-
 plot_emission_intensity_impl <- function(data) {
   ggplot() +
     geom_line(

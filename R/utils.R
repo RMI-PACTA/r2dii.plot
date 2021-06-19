@@ -1,3 +1,7 @@
+beautify <- function(data, x) {
+  mutate(data, "{x}" := to_title(.data[[x]]))
+}
+
 #' Convert a string to title case
 #'
 #' This function replaces a sequence of non alpha-numeric characters to a single
@@ -216,7 +220,9 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
-get_common_start_year <- function(data, metric) {
+get_common_start_year <- function(data) {
+  metric <- extract_names(data, metric())
+
   data %>%
     group_by(.data[[metric]]) %>%
     summarise(year = min(.data$year)) %>%
@@ -224,8 +230,36 @@ get_common_start_year <- function(data, metric) {
     max()
 }
 
+#' Names of columns holding metrics such as projected, corporate_economy
+#'
+#' The column holding metrics such as "projected" and "corporate_economy" may
+#' have a different name in different datasets. This function outputs all the
+#' possible names. Eventually the difference may disappear (r2dii.analysis#313)
+#' and this function should help make the transition smooth.
+#'
+#' @examples
+#' metric()
+#' @noRd
+metric <- function() c("metric", "emission_factor_metric")
+
+#' Extract names matching `possible_names`
+#'
+#' @examples
+#' extract_names(sda, metric())
+#' extract_names(market_share, metric())
+#' extract_names(mtcars, c("mpg", "bad", "disp"))
+#' @noRd
+extract_names <- function(data, possible_names) {
+  doit_once <- function(x) grep(x, names(data), value = TRUE)
+
+  x <- anchor(possible_names)
+  unlist(lapply(x, doit_once))
+}
+
+anchor <- function(x) paste0("^", x, "$")
+
 drop_rows_before_sart_year <- function(data, metric) {
-  start_year <- get_common_start_year(data, metric)
+  start_year <- get_common_start_year(data)
   if (!min(data$year) < start_year) {
     return(data)
   }
