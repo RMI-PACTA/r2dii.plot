@@ -29,15 +29,21 @@ plot_emission_intensity <- function(data) {
 # TODO: Simplify
 prep_emission_intensity <- function(data) {
   prep <- data %>%
-    mutate(emission_factor_metric = to_title(.data$emission_factor_metric)) %>%
+    beautify("emission_factor_metric") %>%
     drop_before_start_year("emission_factor_metric") %>%
     mutate(year = lubridate::make_date(.data$year))
 
-  specs <- prep %>%
-    distinct(.data$emission_factor_metric) %>%
-    add_r2dii_colours()
+  specs <- distinct(prep, .data$emission_factor_metric)
+  specs$label <- head(palette_colours$label, nrow(specs))
+  specs <- specs %>%
+    left_join(palette_colours, by = "label") %>%
+    select(-.data$label)
 
   left_join(prep, specs, by = "emission_factor_metric")
+}
+
+beautify <- function(data, x) {
+  mutate(data, "{x}" := to_title(.data[[x]]))
 }
 
 plot_emission_intensity_impl <- function(data) {
@@ -73,13 +79,4 @@ abort_if_too_many_lines <- function(data) {
   }
 
   invisible(data)
-}
-
-add_r2dii_colours <- function(specs) {
-  n <- seq_len(nrow(specs))
-  specs$r2dii_colour_name <- palette_colours$label[n]
-
-  specs %>%
-    left_join(palette_colours, by = c("r2dii_colour_name" = "label")) %>%
-    select(-.data$r2dii_colour_name)
 }
