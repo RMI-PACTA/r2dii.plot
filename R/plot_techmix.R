@@ -83,18 +83,11 @@ prep_techmix <- function(data) {
 plot_techmix_impl <- function(data) {
   colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
 
-  p_techmix <- ggplot() +
-    theme_2dii() +
-    xlab("") +
-    ylab("")
-
-
-  rev_metric_type <- rev(unique(.data$metric_type))
-  p_techmix <- p_techmix +
+  ggplot() +
     geom_bar(
       data = data,
       aes(
-        x = factor(.data$metric_type, levels = rev_metric_type),
+        x = factor(.data$metric_type, levels = rev(unique(.data$metric_type))),
         y = .data$value,
         fill = factor(.data$technology, levels = colours$technology)
       ),
@@ -107,20 +100,19 @@ plot_techmix_impl <- function(data) {
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = rev_metric_type) +
+    scale_x_discrete(labels = rev(unique(.data$metric_type))) +
     scale_fill_manual(
       labels = colours$label,
       values = colours$hex
     ) +
     coord_flip() +
+    guides(fill = guide_legend(ncol = 3, byrow = TRUE)) +
+    theme_2dii() +
     theme(axis.line.y = element_blank()) +
-    theme(axis.ticks.y = element_blank())
-
-  p_techmix <- p_techmix +
+    theme(axis.ticks.y = element_blank()) +
     theme(legend.position = "bottom") +
-    guides(fill = guide_legend(ncol = 3, byrow = TRUE))
-
-  p_techmix
+    xlab("") +
+    ylab("")
 }
 
 guess_sector <- function(sector) {
