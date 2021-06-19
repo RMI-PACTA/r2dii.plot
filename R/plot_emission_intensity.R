@@ -22,8 +22,9 @@ plot_emission_intensity <- function(data) {
   abort_with_hint_if_missing_names(data)
   abort_if_too_many_lines(data)
 
-  out <- prep_emission_intensity(data)
-  plot_emission_intensity_impl(out)
+  data %>%
+    prep_emission_intensity() %>%
+    plot_emission_intensity_impl()
 }
 
 # TODO: Simplify
@@ -33,9 +34,9 @@ prep_emission_intensity <- function(data) {
     drop_before_start_year("emission_factor_metric") %>%
     mutate(year = lubridate::make_date(.data$year))
 
-  specs <- distinct(prep, .data$emission_factor_metric)
-  cols <- head(palette_colours, nrow(specs))
-  specs <- dplyr::bind_cols(specs, cols) %>% select(-.data$label)
+  metrics <- distinct(prep, .data$emission_factor_metric)
+  colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
+  specs <- dplyr::bind_cols(metrics, colours)
 
   left_join(prep, specs, by = "emission_factor_metric")
 }
