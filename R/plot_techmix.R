@@ -68,13 +68,15 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 
 prep_techmix <- function(data) {
   data %>%
-    drop_rows_before_sart_year(metric(data)) %>%
+    drop_rows_before_sart_year(.data$metric) %>%
     filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
     mutate(
-      metric_type = to_metric_type(.data[[metric(data)]]),
-      metric_type = paste0(.data$metric_type, "_", .data$year),
-      metric_type = to_title(.data$metric_type),
-      metric = sub("target_", "", .data[[metric(data)]]),
+      metric = recode_metric(.data$metric),
+      metric = paste0(.data$metric, "_", .data$year),
+      metric = to_title(.data$metric),
+      metric = sub("target_", "", .data$metric)
+    ) %>%
+    mutate(
       value = .data$technology_share,
       sector = guess_sector(.data$sector)
     )
@@ -82,12 +84,12 @@ prep_techmix <- function(data) {
 
 plot_techmix_impl <- function(data) {
   colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
-
+  metrics <- rev(unique(data$metric))
   ggplot() +
     geom_bar(
       data = data,
       aes(
-        x = factor(.data$metric_type, levels = rev(unique(.data$metric_type))),
+        x = factor(.data$metric, levels = metrics),
         y = .data$value,
         fill = factor(.data$technology, levels = colours$technology)
       ),
@@ -100,7 +102,7 @@ plot_techmix_impl <- function(data) {
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = rev(unique(.data$metric_type))) +
+    scale_x_discrete(labels = metrics) +
     scale_fill_manual(
       labels = colours$label,
       values = colours$hex

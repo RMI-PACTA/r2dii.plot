@@ -252,7 +252,7 @@ prep_trajectory <- function(data,
     check_prep_trajectory(value) %>%
     drop_rows_before_sart_year(metric) %>%
     mutate(
-      metric_type = to_metric_type(.data[[metric(data)]]),
+      metric_type = recode_metric(.data[[metric(data)]]),
       metric = sub("target_", "", .data[[metric(data)]]),
       value = .data[[value]]
     ) %>%

@@ -89,17 +89,3 @@ test_that("with input data before start year of 'projected' prep_techmix
     rbind(early_row)
   expect_equal(min(prep_techmix(data)$year), start_year)
 })
-
-test_that("works with example", {
-  data <- subset(
-    market_share,
-    scenario_source == "demo_2020" &
-      sector == "power" &
-      region == "global" &
-      metric %in% c("projected", "corporate_economy", "target_sds")
-  )
-
-  expect_no_error(
-    plot_techmix(data)
-  )
-})

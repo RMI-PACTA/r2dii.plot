@@ -32,7 +32,7 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-to_metric_type <- function(x) {
+recode_metric <- function(x) {
   case_when(
     x == "projected" ~ "portfolio",
     startsWith(x, "target") ~ "scenario",
