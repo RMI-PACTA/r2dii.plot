@@ -60,4 +60,3 @@ test_that("with too many lines to plot errors gracefully", {
 
   expect_snapshot_error(plot_emission_intensity(data))
 })
-
