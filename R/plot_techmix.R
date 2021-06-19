@@ -24,19 +24,23 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(data) {
+  check_plot_techmix(data)
+
+  prep <- prep_techmix(data)
+  plot_techmix_impl(prep)
+}
+
+check_plot_techmix <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   hint_missing_names_with_hint(
     abort_if_missing_names(
       data, c(common_crucial_market_share_columns(), "technology_share")
     )
   )
-  abort_if_has_zero_rows(data)
+  abort_if_has_zero_rows(data, env = env)
   cols <- c("sector", "region", "scenario_source")
-  abort_if_multiple(data, cols)
-  abort_if_multiple_scenarios(data)
-
-  prep <- prep_techmix(data)
-  plot_techmix_impl(prep)
+  abort_if_multiple(data, cols, env = env)
+  abort_if_multiple_scenarios(data, env = env)
 }
 
 abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
