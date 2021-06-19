@@ -32,7 +32,9 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-recode_metric_and_metric_type <- function(data, metric) {
+recode_metric_and_metric_type <- function(data) {
+  metric <- extract_names(data, metric_names())
+
   data %>%
     mutate(metric_type = recode_portfolio_benchmark_scenario(.data[[metric]])) %>%
     mutate(metric = sub("target_", "", .data[[metric]]))
@@ -221,7 +223,7 @@ main_line <- function() "projected"
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
 get_common_start_year <- function(data) {
-  metric <- extract_names(data, metric())
+  metric <- extract_names(data, metric_names())
 
   data %>%
     group_by(.data[[metric]]) %>%
@@ -238,15 +240,15 @@ get_common_start_year <- function(data) {
 #' and this function should help make the transition smooth.
 #'
 #' @examples
-#' metric()
+#' metric_names()
 #' @noRd
-metric <- function() c("metric", "emission_factor_metric")
+metric_names <- function() c("metric", "emission_factor_metric")
 
 #' Extract names matching `possible_names`
 #'
 #' @examples
-#' extract_names(sda, metric())
-#' extract_names(market_share, metric())
+#' extract_names(sda, metric_names())
+#' extract_names(market_share, metric_names())
 #' extract_names(mtcars, c("mpg", "bad", "disp"))
 #' @noRd
 extract_names <- function(data, possible_names) {

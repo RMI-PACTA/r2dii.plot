@@ -66,7 +66,7 @@ prep_techmix <- function(data, value = "technology_share", metric = "metric") {
   data %>%
     check_prep_techmix(value) %>%
     drop_rows_before_sart_year(metric) %>%
-    recode_metric_and_metric_type(metric) %>%
+    recode_metric_and_metric_type() %>%
     pick_extreme_years() %>%
     date_metric_type() %>%
     mutate(value = .data[[value]])
