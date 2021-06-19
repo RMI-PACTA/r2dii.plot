@@ -33,14 +33,14 @@ capitalize_single_letters <- function(words) {
 }
 
 recode_metric_and_metric_type <- function(data) {
-  metric <- extract_names(data, metric_names())
-
-  data %>%
-    mutate(metric_type = recode_portfolio_benchmark_scenario(.data[[metric]])) %>%
-    mutate(metric = sub("target_", "", .data[[metric]]))
+    mutate(
+      data,
+      metric_type = to_metric_type(.data[[metric(data)]]),
+      metric = sub("target_", "", .data[[metric(data)]])
+    )
 }
 
-recode_portfolio_benchmark_scenario <- function(x) {
+to_metric_type <- function(x) {
   case_when(
     x == "projected" ~ "portfolio",
     startsWith(x, "target") ~ "scenario",
@@ -223,13 +223,21 @@ main_line <- function() "projected"
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
 get_common_start_year <- function(data) {
-  metric <- extract_names(data, metric_names())
-
   data %>%
-    group_by(.data[[metric]]) %>%
+    group_by(.data[[metric(data)]]) %>%
     summarise(year = min(.data$year)) %>%
     pull(.data$year) %>%
     max()
+}
+
+#' The name of the column holding metrics such as projected, corporate_economy
+#'
+#' @examples
+#' metric(sda)
+#' metric(market_share)
+#' @noRd
+metric <- function(data) {
+  extract_names(data, metric_names())
 }
 
 #' Names of columns holding metrics such as projected, corporate_economy

@@ -250,9 +250,12 @@ prep_trajectory <- function(data,
 
   out <- data %>%
     check_prep_trajectory(value) %>%
-    recode_metric_and_metric_type() %>%
     drop_rows_before_sart_year(metric) %>%
-    mutate(value = .data[[value]]) %>%
+    mutate(
+      metric_type = to_metric_type(.data[[metric(data)]]),
+      metric = sub("target_", "", .data[[metric(data)]]),
+      value = .data[[value]]
+    ) %>%
     select(all_of(cols))
 
   start_year <- min(out$year)
