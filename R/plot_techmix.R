@@ -41,10 +41,11 @@ check_plot_techmix <- function(data, env = parent.frame()) {
   cols <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, cols, env = env)
   abort_if_multiple_scenarios(data, env = env)
+
+  invisible(data)
 }
 
 abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
-  abort_if_missing_names(data, "metric")
   .data <- deparse_1(substitute(data, env = env))
 
   scen <- extract_scenarios(data$metric)
