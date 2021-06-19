@@ -78,7 +78,7 @@ prep_techmix <- function(data) {
     ) %>%
     mutate(
       value = .data$technology_share,
-      sector = guess_sector(.data$sector)
+      sector = recode_sector(.data$sector)
     )
 }
 
@@ -118,14 +118,14 @@ plot_techmix_impl <- function(data) {
     ylab("")
 }
 
-guess_sector <- function(sector) {
+recode_sector <- function(x) {
   # styler: off
   case_when(
-    grepl("(?i)power(?-i)", sector)             ~ "power",
-    grepl("(?i)auto(?-i)[a-zA-Z]+", sector)     ~ "automotive",
-    grepl("(?i)oil(?-i).*(?i)gas(?-i)", sector) ~ "oil&gas",
-    grepl("(?i)fossil(?-i)[a-zA-Z]+", sector)   ~ "fossil fuels",
-    TRUE ~ tolower(sector)
+    grepl("(?i)power(?-i)", x)             ~ "power",
+    grepl("(?i)auto(?-i)[a-zA-Z]+", x)     ~ "automotive",
+    grepl("(?i)oil(?-i).*(?i)gas(?-i)", x) ~ "oil&gas",
+    grepl("(?i)fossil(?-i)[a-zA-Z]+", x)   ~ "fossil fuels",
+    TRUE ~ tolower(x)
   )
   # styler: on
 }
