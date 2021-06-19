@@ -15,6 +15,7 @@
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
   check_emission_intensity(data)
+
   prep <- prep_emission_intensity(data)
   plot_emission_intensity_impl(prep)
 }
@@ -26,6 +27,7 @@ check_emission_intensity <- function(data, env = parent.frame()) {
   abort_if_multiple(data, "sector")
   abort_if_has_zero_rows(data, env = env)
   abort_if_too_many_lines(data)
+
   invisible(data)
 }
 
