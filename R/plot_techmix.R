@@ -70,7 +70,6 @@ prep_techmix <- function(data) {
   value <- "technology_share"
 
   data %>%
-    check_prep_techmix(value) %>%
     drop_rows_before_sart_year(metric(data)) %>%
     filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
     mutate(
@@ -79,16 +78,6 @@ prep_techmix <- function(data) {
       metric = sub("target_", "", .data[[metric(data)]]),
       value = .data[[value]]
     )
-}
-
-check_prep_techmix <- function(data, value) {
-  crucial <- c(common_crucial_market_share_columns(), value)
-  abort_if_missing_names(data, crucial)
-
-  cols <- c("scenario_source", "sector", "region")
-  lapply(cols, function(x) abort_if_multiple(data, x))
-
-  invisible(data)
 }
 
 plot_techmix_impl <- function(data) {
