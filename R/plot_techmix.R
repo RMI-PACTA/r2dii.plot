@@ -25,7 +25,7 @@
 #' plot_techmix(data)
 plot_techmix <- function(data) {
   stopifnot(is.data.frame(data))
-  abort_with_hint_if_missing_names(
+  hint_missing_names_with_hint(
     abort_if_missing_names(
       data, c(common_crucial_market_share_columns(), "technology_share")
     )

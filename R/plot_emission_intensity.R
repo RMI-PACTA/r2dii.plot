@@ -22,12 +22,16 @@ plot_emission_intensity <- function(data) {
 check_emission_intensity <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
-  abort_if_missing_names(data, crucial)
+  abort_if_missing_names_with_hint(data, crucial)
   abort_if_multiple(data, "sector")
   abort_if_has_zero_rows(data, env = env)
-  abort_with_hint_if_missing_names(data)
   abort_if_too_many_lines(data)
   invisible(data)
+}
+
+abort_if_missing_names_with_hint <- function(data, crucial) {
+  abort_if_missing_names(data, crucial)
+  hint_missing_names_with_hint(data)
 }
 
 prep_emission_intensity <- function(data) {
