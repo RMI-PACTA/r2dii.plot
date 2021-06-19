@@ -95,9 +95,9 @@ naive call.
 
 ``` r
 plot_emission_intensity(sda)
-#> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+#> Error: `data` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
 #> Pick one value, e.g. 'automotive', with:
-#>   subset(sda, sector == 'automotive')
+#>   subset(data, sector == 'automotive')
 ```
 
 The error message guides you to subset a single value of `sector`. Try
@@ -112,13 +112,11 @@ plot_emission_intensity(data)
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-Great\! You can now polish your plot. Your options are limitless but
+Great! You can now polish your plot. Your options are limitless but
 these are some typical things you may do:
 
-  - Add a title.
-  - Customize the legend labels with `ggplot2::scale_colour_manual()`.
-
-<!-- end list -->
+-   Add a title.
+-   Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
 ``` r
 data <- subset(sda, sector == "cement")
@@ -156,12 +154,10 @@ plot_techmix(data) +
 
 These are some tweaks you may consider:
 
-  - Subset a custom time range (instead of the default, full range in
+-   Subset a custom time range (instead of the default, full range in
     the data).
-  - Set custom colours and legend labels with
+-   Set custom colours and legend labels with
     `ggplot2::scale_color_manual()`.
-
-<!-- end list -->
 
 ``` r
 data <- subset(
