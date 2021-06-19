@@ -79,14 +79,12 @@ prep_techmix <- function(data) {
 }
 
 plot_techmix_impl <- function(data) {
-  sector <- data %>%
-    pull(unique(.data$sector)) %>%
-    guess_sector()
+  sector <- guess_sector(pull(data, unique(.data$sector)))
 
   data_colours <- technology_colours %>%
     filter(.data$sector == .env$sector) %>%
     select(.data$technology, .data$label, .data$hex) %>%
-    dplyr::semi_join(data, by = "technology")
+    semi_join(data, by = "technology")
 
 
   metric_type_order <- unique(data$metric_type)
