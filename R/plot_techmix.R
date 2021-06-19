@@ -62,10 +62,12 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-prep_techmix <- function(data, value = "technology_share", metric = "metric") {
+prep_techmix <- function(data) {
+  value <- "technology_share"
+
   data %>%
     check_prep_techmix(value) %>%
-    drop_rows_before_sart_year(metric) %>%
+    drop_rows_before_sart_year(metric(data)) %>%
     filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
     mutate(
       metric_type = to_metric_type(.data[[metric(data)]]),
