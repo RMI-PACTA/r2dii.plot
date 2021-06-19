@@ -32,10 +32,12 @@ prep_emission_intensity <- function(data) {
     mutate(emission_factor_metric = to_title(.data$emission_factor_metric)) %>%
     drop_before_start_year("emission_factor_metric") %>%
     mutate(year = lubridate::make_date(.data$year))
+
   specs <- prep %>%
     distinct(.data$emission_factor_metric) %>%
     add_r2dii_colours()
-  out <- left_join(prep, specs, by = "emission_factor_metric")
+
+  left_join(prep, specs, by = "emission_factor_metric")
 }
 
 plot_emission_intensity_impl <- function(data) {
