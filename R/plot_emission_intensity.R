@@ -39,7 +39,7 @@ abort_if_missing_names_with_hint <- function(data, crucial) {
 prep_emission_intensity <- function(data) {
   prep <- data %>%
     beautify("emission_factor_metric") %>%
-    drop_before_start_year("emission_factor_metric") %>%
+    drop_rows_before_sart_year("emission_factor_metric") %>%
     mutate(year = lubridate::make_date(.data$year))
 
   metrics <- distinct(prep, .data$emission_factor_metric)

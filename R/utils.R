@@ -224,7 +224,7 @@ get_common_start_year <- function(data, metric) {
     max()
 }
 
-drop_before_start_year <- function(data, metric) {
+drop_rows_before_sart_year <- function(data, metric) {
   start_year <- get_common_start_year(data, metric)
   if (!min(data$year) < start_year) {
     return(data)
