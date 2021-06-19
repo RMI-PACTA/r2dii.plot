@@ -32,14 +32,6 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-recode_metric_and_metric_type <- function(data) {
-    mutate(
-      data,
-      metric_type = to_metric_type(.data[[metric(data)]]),
-      metric = sub("target_", "", .data[[metric(data)]])
-    )
-}
-
 to_metric_type <- function(x) {
   case_when(
     x == "projected" ~ "portfolio",

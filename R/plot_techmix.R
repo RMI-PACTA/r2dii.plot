@@ -66,21 +66,13 @@ prep_techmix <- function(data, value = "technology_share", metric = "metric") {
   data %>%
     check_prep_techmix(value) %>%
     drop_rows_before_sart_year(metric) %>%
+    filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
     mutate(
       metric_type = to_metric_type(.data[[metric(data)]]),
+      metric_type = paste0(.data$metric_type, "_", .data$year),
       metric = sub("target_", "", .data[[metric(data)]]),
       value = .data[[value]]
-    ) %>%
-    pick_extreme_years() %>%
-    date_metric_type()
-}
-
-pick_extreme_years <- function(data) {
-  filter(data, .data$year %in% c(min(data$year), max(data$year)))
-}
-
-date_metric_type <- function(data) {
-  mutate(data, metric_type = paste0(.data$metric_type, "_", .data$year))
+    )
 }
 
 check_prep_techmix <- function(data, value) {
