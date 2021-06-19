@@ -27,7 +27,6 @@ plot_emission_intensity <- function(data) {
     plot_emission_intensity_impl()
 }
 
-# TODO: Simplify
 prep_emission_intensity <- function(data) {
   prep <- data %>%
     beautify("emission_factor_metric") %>%
