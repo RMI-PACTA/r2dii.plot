@@ -73,37 +73,30 @@ prep_techmix <- function(data) {
     mutate(
       metric_type = to_metric_type(.data[[metric(data)]]),
       metric_type = paste0(.data$metric_type, "_", .data$year),
+      metric_type = to_title(.data$metric_type),
       metric = sub("target_", "", .data[[metric(data)]]),
-      value = .data$technology_share
+      value = .data$technology_share,
+      sector = guess_sector(.data$sector)
     )
 }
 
 plot_techmix_impl <- function(data) {
-  sector <- guess_sector(pull(data, unique(.data$sector)))
-
-  data_colours <- technology_colours %>%
-    filter(.data$sector == .env$sector) %>%
-    select(.data$technology, .data$label, .data$hex) %>%
-    semi_join(data, by = "technology")
-
-
-  metric_type_order <- unique(data$metric_type)
-  metric_type_labels <- to_title(metric_type_order)
-  data <- data %>%
-    filter(.data$metric_type %in% metric_type_order)
+  colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
 
   p_techmix <- ggplot() +
     theme_2dii() +
     xlab("") +
     ylab("")
 
+
+  rev_metric_type <- rev(unique(.data$metric_type))
   p_techmix <- p_techmix +
     geom_bar(
       data = data,
       aes(
-        x = factor(.data$metric_type, levels = rev(metric_type_order)),
+        x = factor(.data$metric_type, levels = rev_metric_type),
         y = .data$value,
-        fill = factor(.data$technology, levels = data_colours$technology)
+        fill = factor(.data$technology, levels = colours$technology)
       ),
       position = "fill",
       stat = "identity",
@@ -114,10 +107,10 @@ plot_techmix_impl <- function(data) {
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = rev(metric_type_labels)) +
+    scale_x_discrete(labels = rev_metric_type) +
     scale_fill_manual(
-      labels = data_colours$label,
-      values = data_colours$hex
+      labels = colours$label,
+      values = colours$hex
     ) +
     coord_flip() +
     theme(axis.line.y = element_blank()) +

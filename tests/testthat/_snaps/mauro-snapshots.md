@@ -1149,7 +1149,7 @@
        $ labels     :List of 3
         ..$ y   : chr ""
         ..$ x   : chr ""
-        ..$ fill: chr "factor(technology, levels = data_colours$technology)"
+        ..$ fill: chr "factor(technology, levels = colours$technology)"
        $ guides     :List of 1
         ..$ fill:List of 21
         .. ..$ title         : list()
