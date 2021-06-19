@@ -33,7 +33,7 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
 
 abort_if_missing_names_with_hint <- function(data, crucial) {
   abort_if_missing_names(data, crucial)
-  hint_missing_names_with_hint(data)
+  with_hint_missing_names(data)
 }
 
 prep_emission_intensity <- function(data) {

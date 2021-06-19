@@ -73,7 +73,7 @@ abort_if_has_zero_rows <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-hint_missing_names_with_hint <- function(expr) {
+with_hint_missing_names <- function(expr) {
   .expr <- deparse_1(substitute(expr))
   fun <- format_plot_function_name(.expr)
   kind <- ifelse(grepl("emission_intensity", fun), "sda", "market_share")

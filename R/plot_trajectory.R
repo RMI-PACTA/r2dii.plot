@@ -30,7 +30,7 @@ plot_trajectory <- function(data) {
 
 check_plot_trajectory <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
-  hint_missing_names_with_hint(
+  with_hint_missing_names(
     abort_if_missing_names(data, common_crucial_market_share_columns())
   )
   abort_if_has_zero_rows(data, env = env)
