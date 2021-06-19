@@ -22,16 +22,22 @@
 #'
 #' plot_trajectory(data)
 plot_trajectory <- function(data) {
+  check_plot_trajectory(data)
+
+  prep <- prep_trajectory(data)
+  plot_trajectory_impl(prep)
+}
+
+check_plot_trajectory <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   hint_missing_names_with_hint(
     abort_if_missing_names(data, common_crucial_market_share_columns())
   )
-  abort_if_has_zero_rows(data)
+  abort_if_has_zero_rows(data, env = env)
   cols <- c("sector", "technology", "region", "scenario_source")
-  abort_if_multiple(data, cols)
+  abort_if_multiple(data, cols, env = env)
 
-  prep <- prep_trajectory(data)
-  plot_trajectory_impl(prep)
+  invisible(data)
 }
 
 plot_trajectory_impl <- function(data) {
