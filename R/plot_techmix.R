@@ -133,14 +133,15 @@ plot_techmix_impl <- function(data) {
 }
 
 guess_sector <- function(sector) {
-  sector <- case_when(
-    grepl("(?i)power(?-i)", sector) ~ "power",
-    grepl("(?i)auto(?-i)[a-zA-Z]+", sector) ~ "automotive",
+  # styler: off
+  case_when(
+    grepl("(?i)power(?-i)", sector)             ~ "power",
+    grepl("(?i)auto(?-i)[a-zA-Z]+", sector)     ~ "automotive",
     grepl("(?i)oil(?-i).*(?i)gas(?-i)", sector) ~ "oil&gas",
-    grepl("(?i)fossil(?-i)[a-zA-Z]+", sector) ~ "fossil fuels",
+    grepl("(?i)fossil(?-i)[a-zA-Z]+", sector)   ~ "fossil fuels",
     TRUE ~ tolower(sector)
   )
-  sector
+  # styler: on
 }
 
 extract_scenarios <- function(x) {
