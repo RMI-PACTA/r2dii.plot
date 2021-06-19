@@ -108,5 +108,6 @@ test_that("prep stays the same", {
     "cement",  2045, "adjusted_scenario_demo",      0.188974920506541,
     "cement",  2050, "adjusted_scenario_demo",     0.0944874602532704
     )
-  expect_snapshot(prep_emission_intensity(data))
+  out <- prep_emission_intensity(data)
+  expect_snapshot(out)
 })

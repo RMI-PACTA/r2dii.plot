@@ -26,7 +26,7 @@
 # prep stays the same
 
     Code
-      prep_emission_intensity(data)
+      out
     Output
       # A tibble: 29 x 5
          sector year       emission_factor_metric emission_factor_value hex    
