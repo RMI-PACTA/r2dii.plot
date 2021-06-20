@@ -47,18 +47,7 @@ plot_trajectory_impl <- function(data) {
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specs(data)
   data_scenarios <- get_scenario_data(data, scenario_specs_areas)
-  p_trajectory <- ggplot() +
-    geom_ribbon(
-      data = data_scenarios,
-      aes(
-        x = .data$year,
-        ymin = .data$value_low,
-        ymax = .data$value,
-        fill = .data$metric,
-        alpha = 0.9
-      )
-    ) +
-    scale_fill_manual(values = scenario_specs_areas$colour)
+
 
   # plot trajectory and scenario lines
   scenario_specs_lines <- scenario_specs_areas %>%
@@ -72,7 +61,25 @@ plot_trajectory_impl <- function(data) {
   line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", n_scenarios))
   line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_specs_lines$colour)
 
-  p_trajectory <- p_trajectory +
+  # annotate trajectory and scenario lines
+  last_year <-
+  value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
+  data_lines_end <- data_lines %>%
+    filter(.data$year == max(data$year)) %>%
+    mutate_pretty_labels(name = "label")
+
+  p_trajectory <- ggplot() +
+    geom_ribbon(
+      data = data_scenarios,
+      aes(
+        x = .data$year,
+        ymin = .data$value_low,
+        ymax = .data$value,
+        fill = .data$metric,
+        alpha = 0.9
+      )
+    ) +
+    scale_fill_manual(values = scenario_specs_areas$colour) +
     geom_line(
       data = data_lines,
       aes(
@@ -81,23 +88,10 @@ plot_trajectory_impl <- function(data) {
         linetype = .data$metric,
         color = .data$metric
       )
-    )
-
-  p_trajectory <- p_trajectory +
+    ) +
     coord_cartesian(expand = FALSE, clip = "off") +
     scale_linetype_manual(values = line_types) +
-    scale_color_manual(values = line_colours)
-
-  # annotate trajectory and scenario lines
-  last_year <- max(data$year)
-  value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
-  data_lines_end <- data_lines %>%
-    filter(
-      .data$year == last_year
-    ) %>%
-    mutate_pretty_labels(name = "label")
-
-  p_trajectory <- p_trajectory +
+    scale_color_manual(values = line_colours) +
     ggrepel::geom_text_repel(
       data = data_lines_end,
       aes(
@@ -114,7 +108,7 @@ plot_trajectory_impl <- function(data) {
       nudge_y = 0.01 * value_span,
       hjust = 0,
       segment.size = if_else(data_lines_end$metric_type == "scenario", 0.4, 0),
-      xlim = c(min(data$year), last_year + 6)
+      xlim = c(min(data$year), max(data$year) + 6)  # TODO why `+ 6`?
     ) +
     scale_fill_manual(aesthetics = "segment.color", values = line_colours) +
     theme_2dii() +
