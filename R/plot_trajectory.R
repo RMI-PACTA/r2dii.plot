@@ -43,6 +43,7 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 }
 
 plot_trajectory_impl <- function(data) {
+
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value)) +
     geom_ribbon(
       data = scenario(data),
@@ -53,13 +54,14 @@ plot_trajectory_impl <- function(data) {
         alpha = 0.9
       )
     )
-  p + geom_line(
+
+  p <- p + geom_line(
       data = order_trajectory(data),
       aes(linetype = .data$metric, color = .data$metric)
     )
 
   lines_end <- lines_end(data)
-  p + ggrepel::geom_text_repel(
+  p <- p + ggrepel::geom_text_repel(
     data = lines_end,
     aes(label = .data$label, segment.color = .data$metric),
     direction = "y",
@@ -71,7 +73,9 @@ plot_trajectory_impl <- function(data) {
     hjust = 0,
     segment.size = if_else(lines_end$metric_type == "scenario", 0.4, 0),
     xlim = c(min(data$year), max(data$year) + 6)  # TODO why `+ 6`?
-    ) +
+    )
+
+  p +
     coord_cartesian(expand = FALSE, clip = "off") +
     scale_fill_manual(values = scenario_colour(data)$colour) +
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
