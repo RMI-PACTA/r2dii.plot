@@ -47,7 +47,7 @@ plot_trajectory_impl <- function(data) {
 
   ggplot() +
     geom_ribbon(
-      data = scenario_data(data, scenario(data)),
+      data = scenario_data(data),
       aes(
         x = .data$year,
         ymin = .data$value_low,
@@ -56,7 +56,7 @@ plot_trajectory_impl <- function(data) {
         alpha = 0.9
       )
     ) +
-    scale_fill_manual(values = scenario(data)$colour) +
+    scale_fill_manual(values = scenario_colour(data)$colour) +
     geom_line(
       data = order_trajectory(data),
       aes(
@@ -119,7 +119,7 @@ lines_n <- function(data) {
 }
 
 scenario_lines <- function(data) {
-  filter(scenario(data), .data$scenario != "worse")
+  filter(scenario_colour(data), .data$scenario != "worse")
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
@@ -176,7 +176,8 @@ get_area_borders <- function(data) {
 
   perc_distance_upper_border <-
     distance_from_start_value_portfolio(data, upper_area_border) / value_span
-  perc_distance_lower_border <-
+  perc_distance_lower
+  _border <-
     distance_from_start_value_portfolio(data, lower_area_border) / value_span
 
   # adjusting the area border to center the starting point of the lines
@@ -192,7 +193,7 @@ get_area_borders <- function(data) {
   area_borders
 }
 
-scenario <- function(data) {
+scenario_colour <- function(data) {
   ordered_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     filter(.data$year == max(.data$year)) %>%
@@ -280,12 +281,12 @@ check_prep_trajectory <- function(data, value) {
   invisible(data)
 }
 
-scenario_data <- function(data, scenario_specs = NULL) {
-  scenario_specs <- scenario(data)
+scenario_data <- function(data) {
+  specs <- scenario_colour(data)
   area_borders <- get_area_borders(data)
 
   data_worse_than_scenarios <- tibble(year = unique(data$year))
-  if (scenario_specs$scenario[1] == "worse") {
+  if (specs$scenario[1] == "worse") {
     data_scenarios <- data %>%
       filter(.data$metric_type == "scenario") %>%
       select(.data$year, .data$metric, value_low = .data$value)
@@ -296,7 +297,7 @@ scenario_data <- function(data, scenario_specs = NULL) {
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
       mutate(metric = factor(.data$metric,
-        levels = scenario_specs$scenario
+        levels = specs$scenario
       )) %>%
       arrange(.data$year, .data$metric) %>%
       mutate(value = lead(.data$value_low,
@@ -314,7 +315,7 @@ scenario_data <- function(data, scenario_specs = NULL) {
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
       mutate(metric = factor(.data$metric,
-        levels = scenario_specs$scenario
+        levels = specs$scenario
       )) %>%
       arrange(.data$year, .data$metric) %>%
       mutate(value_low = lag(.data$value,
