@@ -24,7 +24,6 @@
 plot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
-  abort_if_invalid_scenarios_number(data)
   prep <- prep_trajectory(data)
   prep <- mutate_pretty_labels(prep, name = "metric")
   plot_trajectory_impl(prep)
@@ -38,6 +37,7 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
   abort_if_has_zero_rows(data, env = env)
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols, env = env)
+  abort_if_invalid_scenarios_number(data)
 
   invisible(data)
 }
