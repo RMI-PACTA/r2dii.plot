@@ -1183,9 +1183,36 @@
       str(p)
     Output
       List of 8
-       $ data       : list()
-        ..- attr(*, "class")= chr "waiver"
-       $ layers     :List of 3
+       $ data       : spec_tbl_df [35 x 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+        ..$ year       : int [1:35] 2020 2020 2020 2020 2020 2021 2021 2021 2021 2021 ...
+        ..$ metric_type: chr [1:35] "portfolio" "benchmark" "scenario" "scenario" ...
+        ..$ metric     : Factor w/ 6 levels "projected","Projected",..: 2 3 4 5 6 2 3 4 5 6 ...
+        ..$ technology : chr [1:35] "electric" "electric" "electric" "electric" ...
+        ..$ value      : num [1:35] 1 1 1 1 1 ...
+        ..- attr(*, "spec")=List of 3
+        .. ..$ cols   :List of 8
+        .. .. ..$ sector          : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+        .. .. ..$ technology      : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+        .. .. ..$ year            : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+        .. .. ..$ region          : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+        .. .. ..$ scenario_source : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+        .. .. ..$ metric          : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_character" "collector"
+        .. .. ..$ production      : list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+        .. .. ..$ technology_share: list()
+        .. .. .. ..- attr(*, "class")= chr [1:2] "collector_double" "collector"
+        .. ..$ default: list()
+        .. .. ..- attr(*, "class")= chr [1:2] "collector_guess" "collector"
+        .. ..$ delim  : chr "\t"
+        .. ..- attr(*, "class")= chr "col_spec"
+        ..- attr(*, "problems")=<externalptr> 
+       $ layers     :List of 2
         ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
           aes_params: list
           compute_aesthetics: function
@@ -1213,66 +1240,6 @@
               setup_params: function
               use_defaults: function
               super:  <ggproto object: Class Geom, gg>
-          geom_params: list
-          inherit.aes: TRUE
-          layer_data: function
-          map_statistic: function
-          mapping: uneval
-          position: <ggproto object: Class PositionIdentity, Position, gg>
-              compute_layer: function
-              compute_panel: function
-              required_aes: 
-              setup_data: function
-              setup_params: function
-              super:  <ggproto object: Class Position, gg>
-          print: function
-          setup_layer: function
-          show.legend: NA
-          stat: <ggproto object: Class StatIdentity, Stat, gg>
-              aesthetics: function
-              compute_group: function
-              compute_layer: function
-              compute_panel: function
-              default_aes: uneval
-              extra_params: na.rm
-              finish_layer: function
-              non_missing_aes: 
-              optional_aes: 
-              parameters: function
-              required_aes: 
-              retransform: TRUE
-              setup_data: function
-              setup_params: function
-              super:  <ggproto object: Class Stat, gg>
-          stat_params: list
-          super:  <ggproto object: Class Layer, gg> 
-        ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
-          aes_params: list
-          compute_aesthetics: function
-          compute_geom_1: function
-          compute_geom_2: function
-          compute_position: function
-          compute_statistic: function
-          data: spec_tbl_df, tbl_df, tbl, data.frame
-          draw_geom: function
-          finish_statistics: function
-          geom: <ggproto object: Class GeomLine, GeomPath, Geom, gg>
-              aesthetics: function
-              default_aes: uneval
-              draw_group: function
-              draw_key: function
-              draw_layer: function
-              draw_panel: function
-              extra_params: na.rm orientation
-              handle_na: function
-              non_missing_aes: 
-              optional_aes: 
-              parameters: function
-              required_aes: x y
-              setup_data: function
-              setup_params: function
-              use_defaults: function
-              super:  <ggproto object: Class GeomPath, Geom, gg>
           geom_params: list
           inherit.aes: TRUE
           layer_data: function
@@ -1379,7 +1346,11 @@
           non_position_scales: function
           scales: list
           super:  <ggproto object: Class ScalesList, gg> 
-       $ mapping    : Named list()
+       $ mapping    :List of 2
+        ..$ x: language ~.data$year
+        .. ..- attr(*, ".Environment")=<environment: 0x5617587521b0> 
+        ..$ y: language ~.data$value
+        .. ..- attr(*, ".Environment")=<environment: 0x5617587521b0> 
         ..- attr(*, "class")= chr "uneval"
        $ theme      :List of 93
         ..$ line                      :List of 6
@@ -1831,15 +1802,13 @@
           train_scales: function
           vars: function
           super:  <ggproto object: Class FacetNull, Facet, gg> 
-       $ labels     :List of 10
+       $ labels     :List of 8
         ..$ x             : chr "year"
+        ..$ y             : chr "value"
         ..$ ymin          : chr "value_low"
         ..$ ymax          : chr "value"
         ..$ fill          : chr "metric"
         ..$ alpha         : chr "alpha"
-        ..$ y             : chr "value"
-        ..$ linetype      : chr "metric"
-        ..$ colour        : chr "metric"
         ..$ label         : chr "label"
         ..$ segment.colour: chr "metric"
        - attr(*, "class")= chr [1:2] "gg" "ggplot"
