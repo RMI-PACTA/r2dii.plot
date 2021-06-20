@@ -68,7 +68,7 @@ plot_trajectory_impl <- function(data) {
     filter(.data$year == max(data$year)) %>%
     mutate_pretty_labels(name = "label")
 
-  p_trajectory <- ggplot() +
+  ggplot() +
     geom_ribbon(
       data = data_scenarios,
       aes(
