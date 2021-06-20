@@ -24,8 +24,8 @@
 plot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
+  abort_if_invalid_scenarios_number(data)
   prep <- prep_trajectory(data)
-  abort_if_invalid_scenarios_number(prep)
   prep <- mutate_pretty_labels(prep, name = "metric")
   plot_trajectory_impl(prep)
 }
@@ -119,16 +119,13 @@ scenario_lines <- function(data) {
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
-  unique_scenarios <- data %>%
-    filter(.data$metric_type == "scenario") %>%
-    pull(.data$metric) %>%
-    unique()
-  n <- length(unique_scenarios)
+  scenarios <- extract_scenarios(data$metric)
+  n <- length(scenarios)
 
   if (n < 1 || n > 4) {
     abort(glue(
       "`metric` must have between 1 and 4 scenarios, not {n}: \\
-      {toString(unique_scenarios)}"
+      {toString(scenarios)}"
     ))
   }
 
