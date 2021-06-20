@@ -43,11 +43,7 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 }
 
 plot_trajectory_impl <- function(data) {
-  # annotate trajectory and scenario lines
-  value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
-  data_lines_end <- order_trajectory(data) %>%
-    filter(.data$year == max(data$year)) %>%
-    mutate_pretty_labels(name = "label")
+  lines_end <- lines_end(data)
 
   ggplot() +
     geom_ribbon(
@@ -74,7 +70,7 @@ plot_trajectory_impl <- function(data) {
     scale_linetype_manual(values = line_types(data)) +
     scale_color_manual(values = line_colours(data)) +
     ggrepel::geom_text_repel(
-      data = data_lines_end,
+      data = lines_end,
       aes(
         x = .data$year,
         y = .data$value,
@@ -85,16 +81,27 @@ plot_trajectory_impl <- function(data) {
       color = "black",
       size = 3.5,
       alpha = 1,
-      nudge_x = if_else(data_lines_end$metric_type == "scenario", 0.6, 0.1),
-      nudge_y = 0.01 * value_span,
+      nudge_x = if_else(lines_end$metric_type == "scenario", 0.6, 0.1),
+      nudge_y = 0.01 * value_span(data),
       hjust = 0,
-      segment.size = if_else(data_lines_end$metric_type == "scenario", 0.4, 0),
+      segment.size = if_else(lines_end$metric_type == "scenario", 0.4, 0),
       xlim = c(min(data$year), max(data$year) + 6)  # TODO why `+ 6`?
     ) +
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
+}
+
+lines_end <- function(data) {
+  lines_end <- data %>%
+    order_trajectory() %>%
+    filter(.data$year == max(data$year)) %>%
+    mutate_pretty_labels(name = "label")
+}
+
+value_span <- function(data) {
+  value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
 }
 
 line_colours <- function(data) {
