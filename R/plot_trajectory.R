@@ -43,10 +43,6 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 }
 
 plot_trajectory_impl <- function(data) {
-  line_types <- line_types(data)
-  line_colours <- line_colours(data)
-
-
   # annotate trajectory and scenario lines
   value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
   data_lines_end <- order_trajectory(data) %>%
@@ -75,8 +71,8 @@ plot_trajectory_impl <- function(data) {
       )
     ) +
     coord_cartesian(expand = FALSE, clip = "off") +
-    scale_linetype_manual(values = line_types) +
-    scale_color_manual(values = line_colours) +
+    scale_linetype_manual(values = line_types(data)) +
+    scale_color_manual(values = line_colours(data)) +
     ggrepel::geom_text_repel(
       data = data_lines_end,
       aes(
