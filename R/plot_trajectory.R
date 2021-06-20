@@ -26,7 +26,7 @@ plot_trajectory <- function(data) {
 
   prep <- prep_trajectory(data)
   abort_if_invalid_scenarios_number(prep)
-  prep <-   mutate_pretty_labels(prep, name = "metric")
+  prep <- mutate_pretty_labels(prep, name = "metric")
   plot_trajectory_impl(prep)
 }
 
@@ -46,19 +46,19 @@ plot_trajectory_impl <- function(data) {
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
   p <- p + geom_ribbon(
-      data = scenario(data),
-      aes(
-        ymin = .data$value_low,
-        ymax = .data$value,
-        fill = .data$metric,
-        alpha = 0.9
-      )
+    data = scenario(data),
+    aes(
+      ymin = .data$value_low,
+      ymax = .data$value,
+      fill = .data$metric,
+      alpha = 0.9
     )
+  )
 
   p <- p + geom_line(
-      data = order_trajectory(data),
-      aes(linetype = .data$metric, color = .data$metric)
-    )
+    data = order_trajectory(data),
+    aes(linetype = .data$metric, color = .data$metric)
+  )
 
   lines_end <- lines_end(data)
   p <- p + ggrepel::geom_text_repel(
@@ -72,8 +72,8 @@ plot_trajectory_impl <- function(data) {
     nudge_y = 0.01 * value_span(data),
     hjust = 0,
     segment.size = if_else(lines_end$metric_type == "scenario", 0.4, 0),
-    xlim = c(min(data$year), max(data$year) + 6)  # TODO why `+ 6`?
-    )
+    xlim = c(min(data$year), max(data$year) + 6) # TODO why `+ 6`?
+  )
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
