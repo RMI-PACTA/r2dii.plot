@@ -45,15 +45,18 @@ plot_trajectory_impl <- function(data) {
   data <- mutate_pretty_labels(data, name = "metric")
 
   # plot trajectory and scenario lines
-  scenario_specs_lines <- filter(scenario(data), .data$scenario != "worse")
-  data_lines <- order_for_trajectory(data, scenario_specs_lines)
+  scenario_lines <- function(data) {
+    filter(scenario(data), .data$scenario != "worse")
+  }
+  scenario_lines <- scenario_lines(data)
+  data_lines <- order_for_trajectory(data, scenario_lines)
 
-  n_scenarios <- nrow(scenario_specs_lines)
+  n_scenarios <- nrow(scenario_lines)
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
   linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
   linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
   line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", n_scenarios))
-  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_specs_lines$colour)
+  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_lines$colour)
 
   # annotate trajectory and scenario lines
   value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
@@ -126,7 +129,7 @@ abort_if_invalid_scenarios_number <- function(data) {
   invisible(data)
 }
 
-order_for_trajectory <- function(data, scenario_specs) {
+order_for_trajectory <- function(data, scenario_specs = scenario_lines(data)) {
   order_add_lines <- data %>%
     filter(.data$metric_type != "scenario", .data$metric != main_line()) %>%
     pull(.data$metric) %>%
