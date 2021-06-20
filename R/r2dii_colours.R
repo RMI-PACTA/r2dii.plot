@@ -20,12 +20,3 @@
 #' r2dii.plot:::technology_colours
 #' @noRd
 NULL
-
-#' @rdname r2dii_colours
-"palette_colours"
-#' @rdname r2dii_colours
-"scenario_colours"
-#' @rdname r2dii_colours
-"sector_colours"
-#' @rdname r2dii_colours
-"technology_colours"
