@@ -44,11 +44,6 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 plot_trajectory_impl <- function(data) {
   data <- mutate_pretty_labels(data, name = "metric")
 
-  # plot scenario areas
-  scenario_specs_areas <- get_ordered_scenario_specs(data)
-  data_scenarios <- scenario_data(data)
-
-
   # plot trajectory and scenario lines
   scenario_specs_lines <- get_ordered_scenario_specs(data) %>%
     filter(.data$scenario != "worse")
