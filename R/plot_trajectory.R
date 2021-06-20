@@ -26,6 +26,7 @@ plot_trajectory <- function(data) {
 
   prep <- prep_trajectory(data)
   abort_if_invalid_scenarios_number(prep)
+  prep <-   mutate_pretty_labels(prep, name = "metric")
   plot_trajectory_impl(prep)
 }
 
@@ -42,8 +43,6 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 }
 
 plot_trajectory_impl <- function(data) {
-  data <- mutate_pretty_labels(data, name = "metric")
-
   line_types <- line_types(data)
   line_colours <- line_colours(data)
 
