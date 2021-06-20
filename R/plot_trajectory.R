@@ -44,15 +44,11 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 plot_trajectory_impl <- function(data) {
   data <- mutate_pretty_labels(data, name = "metric")
 
-  # plot trajectory and scenario lines
-  n_scenarios <- nrow(scenario_lines(data))
-  n_lines_traj <- length(unique(order_trajectory(data)$metric)) - nrow(scenario_lines(data))
-
   linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
-  line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", nrow(scenario_lines(data))))
+  line_types <- c(linetypes_trajectory[1:n_lines(data)], rep("solid", nrow(scenario_lines(data))))
 
   linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
-  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_lines(data)$colour)
+  line_colours <- c(linecolours_trajectory[1:n_lines(data)], scenario_lines(data)$colour)
 
 
   # annotate trajectory and scenario lines
@@ -107,6 +103,10 @@ plot_trajectory_impl <- function(data) {
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
+}
+
+n_lines <- function(data) {
+  n_lines_traj <- length(unique(order_trajectory(data)$metric)) - nrow(scenario_lines(data))
 }
 
 scenario_lines <- function(data) {
