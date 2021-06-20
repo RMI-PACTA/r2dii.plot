@@ -45,8 +45,7 @@ plot_trajectory_impl <- function(data) {
   data <- mutate_pretty_labels(data, name = "metric")
 
   # plot trajectory and scenario lines
-  scenario_specs_lines <- get_ordered_scenario_specs(data) %>%
-    filter(.data$scenario != "worse")
+  scenario_specs_lines <- filter(scenario(data), .data$scenario != "worse")
   data_lines <- order_for_trajectory(data, scenario_specs_lines)
 
   n_scenarios <- nrow(scenario_specs_lines)
@@ -64,7 +63,7 @@ plot_trajectory_impl <- function(data) {
 
   ggplot() +
     geom_ribbon(
-      data = scenario_data(data, get_ordered_scenario_specs(data)),
+      data = scenario_data(data, scenario(data)),
       aes(
         x = .data$year,
         ymin = .data$value_low,
@@ -73,7 +72,7 @@ plot_trajectory_impl <- function(data) {
         alpha = 0.9
       )
     ) +
-    scale_fill_manual(values = get_ordered_scenario_specs(data)$colour) +
+    scale_fill_manual(values = scenario(data)$colour) +
     geom_line(
       data = data_lines,
       aes(
@@ -180,7 +179,7 @@ get_area_borders <- function(data) {
   area_borders
 }
 
-get_ordered_scenario_specs <- function(data) {
+scenario <- function(data) {
   ordered_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     filter(.data$year == max(.data$year)) %>%
@@ -269,7 +268,7 @@ check_prep_trajectory <- function(data, value) {
 }
 
 scenario_data <- function(data, scenario_specs = NULL) {
-  scenario_specs <- get_ordered_scenario_specs(data)
+  scenario_specs <- scenario(data)
   area_borders <- get_area_borders(data)
 
   data_worse_than_scenarios <- tibble(year = unique(data$year))
