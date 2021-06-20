@@ -176,8 +176,7 @@ get_area_borders <- function(data) {
 
   perc_distance_upper_border <-
     distance_from_start_value_portfolio(data, upper_area_border) / value_span
-  perc_distance_lower
-  _border <-
+  perc_distance_lower_border <-
     distance_from_start_value_portfolio(data, lower_area_border) / value_span
 
   # adjusting the area border to center the starting point of the lines
