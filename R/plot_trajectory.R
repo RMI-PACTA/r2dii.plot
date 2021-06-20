@@ -25,6 +25,7 @@ plot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
   prep <- prep_trajectory(data)
+  abort_if_invalid_scenarios_number(prep)
   plot_trajectory_impl(prep)
 }
 
@@ -41,8 +42,6 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 }
 
 plot_trajectory_impl <- function(data) {
-  abort_if_invalid_scenarios_number(data)
-
   data <- mutate_pretty_labels(data, name = "metric")
 
   # plot scenario areas
@@ -117,22 +116,10 @@ plot_trajectory_impl <- function(data) {
       segment.size = if_else(data_lines_end$metric_type == "scenario", 0.4, 0),
       xlim = c(min(data$year), last_year + 6)
     ) +
-    scale_fill_manual(
-      aesthetics = "segment.color",
-      values = line_colours
-    )
-
-  p_trajectory <- p_trajectory +
+    scale_fill_manual(aesthetics = "segment.color", values = line_colours) +
     theme_2dii() +
-    theme(
-      axis.line = element_blank(),
-      legend.position = "none"
-    ) %+replace%
-    theme(
-      plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm")
-    )
-
-  p_trajectory
+    theme(axis.line = element_blank(), legend.position = "none") %+replace%
+    theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
