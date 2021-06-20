@@ -50,7 +50,7 @@ plot_trajectory_impl <- function(data) {
 
 
   # plot trajectory and scenario lines
-  scenario_specs_lines <- scenario_specs_areas %>%
+  scenario_specs_lines <- get_ordered_scenario_specs(data) %>%
     filter(.data$scenario != "worse")
   data_lines <- order_for_trajectory(data, scenario_specs_lines)
 
@@ -62,7 +62,6 @@ plot_trajectory_impl <- function(data) {
   line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_specs_lines$colour)
 
   # annotate trajectory and scenario lines
-  last_year <-
   value_span <- max(data_scenarios$value) - min(data_scenarios$value_low)
   data_lines_end <- data_lines %>%
     filter(.data$year == max(data$year)) %>%
@@ -70,7 +69,7 @@ plot_trajectory_impl <- function(data) {
 
   ggplot() +
     geom_ribbon(
-      data = data_scenarios,
+      data = get_scenario_data(data, get_ordered_scenario_specs(data)),
       aes(
         x = .data$year,
         ymin = .data$value_low,
@@ -79,7 +78,7 @@ plot_trajectory_impl <- function(data) {
         alpha = 0.9
       )
     ) +
-    scale_fill_manual(values = scenario_specs_areas$colour) +
+    scale_fill_manual(values = get_ordered_scenario_specs(data)$colour) +
     geom_line(
       data = data_lines,
       aes(
