@@ -25,7 +25,6 @@ plot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
   prep <- prep_trajectory(data)
-  # prep <- mutate_pretty_labels(prep, name = "metric")
   plot_trajectory_impl(prep)
 }
 
