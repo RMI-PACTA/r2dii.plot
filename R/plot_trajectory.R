@@ -47,7 +47,7 @@ plot_trajectory_impl <- function(data) {
 
   ggplot() +
     geom_ribbon(
-      data = scenario_data(data),
+      data = scenario(data),
       aes(
         x = .data$year,
         ymin = .data$value_low,
@@ -101,7 +101,8 @@ lines_end <- function(data) {
 }
 
 value_span <- function(data) {
-  value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
+  scen <- scenario(data)
+  max(scen$value) - min(scen$value_low)
 }
 
 line_colours <- function(data) {
@@ -280,7 +281,7 @@ check_prep_trajectory <- function(data, value) {
   invisible(data)
 }
 
-scenario_data <- function(data) {
+scenario <- function(data) {
   specs <- scenario_colour(data)
   area_borders <- get_area_borders(data)
 
