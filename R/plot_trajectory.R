@@ -45,18 +45,14 @@ plot_trajectory_impl <- function(data) {
   data <- mutate_pretty_labels(data, name = "metric")
 
   # plot trajectory and scenario lines
-  scenario_lines <- function(data) {
-    filter(scenario(data), .data$scenario != "worse")
-  }
-  scenario_lines <- scenario_lines(data)
-  data_lines <- order_for_trajectory(data, scenario_lines)
+  data_lines <- order_for_trajectory(data)
 
-  n_scenarios <- nrow(scenario_lines)
+  n_scenarios <- nrow(scenario_lines(data))
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
   linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
   linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
   line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", n_scenarios))
-  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_lines$colour)
+  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_lines(data)$colour)
 
   # annotate trajectory and scenario lines
   value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
@@ -77,7 +73,7 @@ plot_trajectory_impl <- function(data) {
     ) +
     scale_fill_manual(values = scenario(data)$colour) +
     geom_line(
-      data = data_lines,
+      data = order_for_trajectory(data),
       aes(
         x = .data$year,
         y = .data$value,
@@ -112,6 +108,10 @@ plot_trajectory_impl <- function(data) {
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
 }
 
+scenario_lines <- function(data) {
+  filter(scenario(data), .data$scenario != "worse")
+}
+
 abort_if_invalid_scenarios_number <- function(data) {
   abort_if_missing_names(data, "metric_type")
   unique_scenarios <- data %>%
@@ -129,14 +129,14 @@ abort_if_invalid_scenarios_number <- function(data) {
   invisible(data)
 }
 
-order_for_trajectory <- function(data, scenario_specs = scenario_lines(data)) {
+order_for_trajectory <- function(data) {
   order_add_lines <- data %>%
     filter(.data$metric_type != "scenario", .data$metric != main_line()) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
 
-  order_scenarios <- scenario_specs$scenario
+  order_scenarios <- scenario_lines(data)$scenario
 
   data_ordered <- data %>%
     mutate(metric = factor(
