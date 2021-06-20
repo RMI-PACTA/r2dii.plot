@@ -46,7 +46,7 @@ plot_trajectory_impl <- function(data) {
 
   # plot scenario areas
   scenario_specs_areas <- get_ordered_scenario_specs(data)
-  data_scenarios <- get_scenario_data(data, scenario_specs_areas)
+  data_scenarios <- get_scenario_data(data)
 
 
   # plot trajectory and scenario lines
@@ -273,7 +273,8 @@ check_prep_trajectory <- function(data, value) {
   invisible(data)
 }
 
-get_scenario_data <- function(data, scenario_specs) {
+get_scenario_data <- function(data, scenario_specs = NULL) {
+  scenario_specs <- get_ordered_scenario_specs(data)
   area_borders <- get_area_borders(data)
 
   data_worse_than_scenarios <- tibble(year = unique(data$year))
