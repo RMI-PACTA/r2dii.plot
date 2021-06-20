@@ -120,12 +120,12 @@ scenario_lines <- function(data) {
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
-  abort_if_missing_names(data, "metric_type")
   unique_scenarios <- data %>%
     filter(.data$metric_type == "scenario") %>%
     pull(.data$metric) %>%
     unique()
   n <- length(unique_scenarios)
+
   if (n < 1 || n > 4) {
     abort(glue(
       "`metric` must have between 1 and 4 scenarios, not {n}: \\
