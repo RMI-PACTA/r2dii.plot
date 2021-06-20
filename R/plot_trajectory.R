@@ -25,7 +25,7 @@ plot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
   prep <- prep_trajectory(data)
-  prep <- mutate_pretty_labels(prep, name = "metric")
+  # prep <- mutate_pretty_labels(prep, name = "metric")
   plot_trajectory_impl(prep)
 }
 
@@ -256,7 +256,8 @@ prep_trajectory <- function(data,
       year = .data$year.x,
       technology = .data$technology.x
     ) %>%
-    select(all_of(cols))
+    select(all_of(cols)) %>%
+    mutate_pretty_labels(name = "metric")
 }
 
 check_prep_trajectory <- function(data, value) {
