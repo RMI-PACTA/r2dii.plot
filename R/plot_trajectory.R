@@ -45,18 +45,19 @@ plot_trajectory_impl <- function(data) {
   data <- mutate_pretty_labels(data, name = "metric")
 
   # plot trajectory and scenario lines
-  data_lines <- order_for_trajectory(data)
-
   n_scenarios <- nrow(scenario_lines(data))
-  n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
+  n_lines_traj <- length(unique(order_trajectory(data)$metric)) - nrow(scenario_lines(data))
+
   linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
+  line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", nrow(scenario_lines(data))))
+
   linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
-  line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", n_scenarios))
   line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_lines(data)$colour)
+
 
   # annotate trajectory and scenario lines
   value_span <- max(scenario_data(data)$value) - min(scenario_data(data)$value_low)
-  data_lines_end <- data_lines %>%
+  data_lines_end <- order_trajectory(data) %>%
     filter(.data$year == max(data$year)) %>%
     mutate_pretty_labels(name = "label")
 
@@ -73,7 +74,7 @@ plot_trajectory_impl <- function(data) {
     ) +
     scale_fill_manual(values = scenario(data)$colour) +
     geom_line(
-      data = order_for_trajectory(data),
+      data = order_trajectory(data),
       aes(
         x = .data$year,
         y = .data$value,
@@ -129,7 +130,7 @@ abort_if_invalid_scenarios_number <- function(data) {
   invisible(data)
 }
 
-order_for_trajectory <- function(data) {
+order_trajectory <- function(data) {
   order_add_lines <- data %>%
     filter(.data$metric_type != "scenario", .data$metric != main_line()) %>%
     pull(.data$metric) %>%
