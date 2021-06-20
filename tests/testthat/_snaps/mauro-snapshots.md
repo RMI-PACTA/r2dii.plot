@@ -1212,7 +1212,7 @@
         .. ..$ delim  : chr "\t"
         .. ..- attr(*, "class")= chr "col_spec"
         ..- attr(*, "problems")=<externalptr> 
-       $ layers     :List of 2
+       $ layers     :List of 3
         ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
           aes_params: list
           compute_aesthetics: function
@@ -1240,6 +1240,66 @@
               setup_params: function
               use_defaults: function
               super:  <ggproto object: Class Geom, gg>
+          geom_params: list
+          inherit.aes: TRUE
+          layer_data: function
+          map_statistic: function
+          mapping: uneval
+          position: <ggproto object: Class PositionIdentity, Position, gg>
+              compute_layer: function
+              compute_panel: function
+              required_aes: 
+              setup_data: function
+              setup_params: function
+              super:  <ggproto object: Class Position, gg>
+          print: function
+          setup_layer: function
+          show.legend: NA
+          stat: <ggproto object: Class StatIdentity, Stat, gg>
+              aesthetics: function
+              compute_group: function
+              compute_layer: function
+              compute_panel: function
+              default_aes: uneval
+              extra_params: na.rm
+              finish_layer: function
+              non_missing_aes: 
+              optional_aes: 
+              parameters: function
+              required_aes: 
+              retransform: TRUE
+              setup_data: function
+              setup_params: function
+              super:  <ggproto object: Class Stat, gg>
+          stat_params: list
+          super:  <ggproto object: Class Layer, gg> 
+        ..$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>
+          aes_params: list
+          compute_aesthetics: function
+          compute_geom_1: function
+          compute_geom_2: function
+          compute_position: function
+          compute_statistic: function
+          data: spec_tbl_df, tbl_df, tbl, data.frame
+          draw_geom: function
+          finish_statistics: function
+          geom: <ggproto object: Class GeomLine, GeomPath, Geom, gg>
+              aesthetics: function
+              default_aes: uneval
+              draw_group: function
+              draw_key: function
+              draw_layer: function
+              draw_panel: function
+              extra_params: na.rm orientation
+              handle_na: function
+              non_missing_aes: 
+              optional_aes: 
+              parameters: function
+              required_aes: x y
+              setup_data: function
+              setup_params: function
+              use_defaults: function
+              super:  <ggproto object: Class GeomPath, Geom, gg>
           geom_params: list
           inherit.aes: TRUE
           layer_data: function
@@ -1346,11 +1406,7 @@
           non_position_scales: function
           scales: list
           super:  <ggproto object: Class ScalesList, gg> 
-       $ mapping    :List of 2
-        ..$ x: language ~.data$year
-        .. ..- attr(*, ".Environment")=<environment: 0x5617587521b0> 
-        ..$ y: language ~.data$value
-        .. ..- attr(*, ".Environment")=<environment: 0x5617587521b0> 
+       $ mapping    : Named list()
         ..- attr(*, "class")= chr "uneval"
        $ theme      :List of 93
         ..$ line                      :List of 6
@@ -1802,13 +1858,15 @@
           train_scales: function
           vars: function
           super:  <ggproto object: Class FacetNull, Facet, gg> 
-       $ labels     :List of 8
+       $ labels     :List of 10
         ..$ x             : chr "year"
         ..$ y             : chr "value"
         ..$ ymin          : chr "value_low"
         ..$ ymax          : chr "value"
         ..$ fill          : chr "metric"
         ..$ alpha         : chr "alpha"
+        ..$ linetype      : chr "metric"
+        ..$ colour        : chr "metric"
         ..$ label         : chr "label"
         ..$ segment.colour: chr "metric"
        - attr(*, "class")= chr [1:2] "gg" "ggplot"

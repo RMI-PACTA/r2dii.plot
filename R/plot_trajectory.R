@@ -43,9 +43,9 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 }
 
 plot_trajectory_impl <- function(data) {
+  p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
-  p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value)) +
-    geom_ribbon(
+  p <- p + geom_ribbon(
       data = scenario(data),
       aes(
         ymin = .data$value_low,
@@ -77,8 +77,10 @@ plot_trajectory_impl <- function(data) {
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
+    # FIXME: We call `value` twice. Is this intentional?
     scale_fill_manual(values = scenario_colour(data)$colour) +
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
+
     scale_linetype_manual(values = line_types(data)) +
     scale_color_manual(values = line_colours(data)) +
     theme_2dii() +

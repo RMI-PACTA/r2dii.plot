@@ -27,6 +27,8 @@ test_that("plot_trajectory outputs the expected ggplot object", {
 
   p <- plot_trajectory(example_market_share())
   p$plot_env <- NULL
+  p$mapping$x <- NULL
+  p$mapping$y <- NULL
 
   expect_snapshot(str(p))
 })
