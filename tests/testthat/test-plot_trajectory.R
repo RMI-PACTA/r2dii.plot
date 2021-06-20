@@ -219,3 +219,17 @@ test_that("with no data to remove does not inform about removing rows", {
     expect_no_message() # No other message should bubble up
   options(restore)
 })
+
+test_that("works with example", {
+  data <- subset(
+    market_share,
+    sector == "power" &
+      region == "global" &
+      technology == "renewablescap" &
+      year <= 2025
+  )
+
+  expect_no_error(
+    plot_trajectory(data)
+  )
+})

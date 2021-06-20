@@ -91,7 +91,7 @@ plot_trajectory_impl <- function(data) {
       segment.size = if_else(data_lines_end$metric_type == "scenario", 0.4, 0),
       xlim = c(min(data$year), max(data$year) + 6)  # TODO why `+ 6`?
     ) +
-    scale_fill_manual(aesthetics = "segment.color", values = line_colours) +
+    scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
