@@ -147,26 +147,22 @@ order_trajectory <- function(data) {
     unique() %>%
     as.character()
 
-  order_scenarios <- scenario_lines(data)$scenario
-
-  data_ordered <- data %>%
-    mutate(metric = factor(
-      .data$metric,
-      levels = c(main_line(), order_add_lines, order_scenarios)
-    )) %>%
+  data %>%
+    mutate(
+      metric = factor(
+        .data$metric,
+        levels = c(main_line(), order_add_lines, scenario_lines(data)$scenario)
+      )
+    ) %>%
     arrange(.data$year, .data$metric)
-
-  data_ordered
 }
 
 distance_from_start_value_portfolio <- function(data, value) {
   start_value_portfolio <- data %>%
-    filter(.data$year == min(.data$year)) %>%
-    filter(.data$metric_type == "portfolio") %>%
+    filter(.data$year == min(.data$year), .data$metric_type == "portfolio") %>%
     pull(.data$value)
 
-  distance <- abs(value - start_value_portfolio)
-  distance
+  abs(value - start_value_portfolio)
 }
 
 get_area_borders <- function(data) {
