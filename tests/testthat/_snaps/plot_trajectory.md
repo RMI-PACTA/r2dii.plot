@@ -5,7 +5,7 @@
 # if `data` is not market_share-like errors gracefully
 
     Must have missing names:
-    metric, region, scenario_source, technology
+    metric, production, region, scenario_source, technology
     Is your data `market_share`-like?
 
 # with zero-row data errors gracefully

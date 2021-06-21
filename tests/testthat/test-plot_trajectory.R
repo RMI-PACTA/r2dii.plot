@@ -121,13 +121,13 @@ test_that("with missing crucial names errors gracefully", {
   expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -year)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -scenario_source)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 
   bad <- select(data, -production)
-  expect_error(class = "missing_names", prep_trajectory(bad))
+  expect_error(class = "hint_missing_names", plot_trajectory(bad))
 })
 
 test_that("works with brown technology", {
