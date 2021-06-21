@@ -52,13 +52,13 @@
        4 power        nuclearcap    Nuclear Capacity             #fd8d3c
        5 power        hydrocap      Hydro Capacity               #fdbe85
        6 power        renewablescap Renewables Capacity          #ffd4ad
-       7 automotive   electric      Electric                     #548995
-       8 automotive   electric_hdv  Electric Heavy Duty Vehicles #609cab
-       9 automotive   fuelcell      FuelCell                     #6cb0c0
+       7 automotive   ice_hdv       ICE Heavy Duty Vehicles      #548995
+       8 automotive   ice           ICE                          #609cab
+       9 automotive   hybrid_hdv    Hybrid Heavy Duty Vehicles   #6cb0c0
       10 automotive   hybrid        Hybrid                       #78c4d6
-      11 automotive   hybrid_hdv    Hybrid Heavy Duty Vehicles   #93cfde
-      12 automotive   ice           ICE                          #aedbe6
-      13 automotive   ice_hdv       ICE Heavy Duty Vehicles      #c9e7ee
+      11 automotive   fuelcell      FuelCell                     #93cfde
+      12 automotive   electric_hdv  Electric Heavy Duty Vehicles #aedbe6
+      13 automotive   electric      Electric                     #c9e7ee
       14 oil&gas      gas           Gas                          #b9b5b0
       15 oil&gas      oil           Oil                          #181716
       16 fossil fuels gas           Gas                          #b9b5b0

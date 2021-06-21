@@ -141,7 +141,7 @@ plot_techmix_impl <- function(data) {
 
   p_techmix <- p_techmix +
     theme(legend.position = "bottom") +
-    guides(fill = guide_legend(ncol = 3, byrow = TRUE))
+    guides(fill = guide_legend(ncol = 3, byrow = TRUE, reverse = TRUE))
 
   p_techmix
 }
