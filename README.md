@@ -32,13 +32,10 @@ packages –
 [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
 [r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
 [r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/).
-It also plays well with the popular packages
-[dplyr](https://www.tidyverse.org/) and
-[ggplot2](https://ggplot2.tidyverse.org/), which help you prepare your
-data and customize your plots.
+It also plays well with the [ggplot2](https://ggplot2.tidyverse.org/)
+package, which helps you customize your plots.
 
 ``` r
-library(dplyr, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
@@ -84,116 +81,124 @@ market_share
 #> # … with 1,160 more rows, and 1 more variable: technology_share <dbl>
 ```
 
-r2dii.plot supports three kinds of plots – timeline, techmix, and
-trajectory. Each plot has specific requirements for the first argument
-`data`. To meet those requirements we currently provide two experimental
-sets of functions ([API](https://en.wikipedia.org/wiki/API)s) – X and Y.
+r2dii.plot supports three kinds of plots – emission intensity, techmix,
+and trajectory. For each kind, you’ll need to subset the specific rows
+you want to plot. For details see the documented “Requirements” of the
+argument `data` of each `plot_*()` function (e.g. see
+`?plot_emission_intensity`). If you forget to meet the `data`
+requirements the error message should guide you.
 
-Both APIs can help you get the same plots. The difference is not in what
-you can do but in how you can do it:
+### Emission intensity
 
-  - The X API has a simpler interface. It focuses exclusively on the
-    tasks you can’t easily achieve with other packages, and assumes you
-    can meet the `data` requirements and customize your plots with other
-    packages such as base R, dplyr, and ggplot2. It forces you to learn
-    or reuse your existing knowledge of other R packages and workflows.
+Use `plot_emission_intensity()` with `sda`-like data. Try an intuitive,
+naive call.
 
-  - The Y API has a more complex but complete toolkit. It offers more
-    functions and arguments that wrap features from other packages to
-    help you meet the `data` requirements and customize your plots
-    directly with r2dii.plot. and ggplot2. It forces you to learn the
-    new r2dii.plot way of doing things but requires little knowledge of
-    other packages and workflows.
+``` r
+plot_emission_intensity(sda)
+#> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+#> Pick one value, e.g. 'automotive', with:
+#>   subset(sda, sector == 'automotive')
+```
 
-These tables summarize the differences for users and developers of
-r2dii.plot:
+The error message guides you to subset a single value of `sector`. Try
+“cement”.
 
-|                                                | X API               | Y API                                         |
-| :--------------------------------------------- | :------------------ | :-------------------------------------------- |
-| Interface                                      | Simpler             | More complex                                  |
-| Meet `data` requirements                       | With other packages | With r2dii.plot and optionally other packages |
-| Customize plots                                | With other packages | With r2dii.plot and optionally other packages |
-| Integrates with other R packages and workflows | More                | Less                                          |
+``` r
+data <- subset(sda, sector == "cement")
 
-*The X and Y APIs compared from a user’s perspective.*
+plot_emission_intensity(data)
+#> Removing data before 2020 -- the start year of 'projected'.
+```
 
-|                  | X API | Y API |
-| :--------------- | :---- | :---- |
-| Easy to maintain | Less  | More  |
-| Easy to extend   | More  | Less  |
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-*The X and Y APIs compared from a developer’s perspective.*
+Great\! You can now polish your plot. Your options are limitless but
+these are some typical things you may do:
 
-To make the comparison concrete consider this small example of a
-trajectory plot (the other plot types you can find in the detailed [X
-API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
-and [Y
-API](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html))
-articles. Notice the resulting plot is almost the same (except for the
-labels) but the toolkit is different.
-
-  - X API
+  - Add a title.
+  - Customize the legend labels with `ggplot2::scale_colour_manual()`.
 
 <!-- end list -->
 
 ``` r
-data <- market_share
+data <- subset(sda, sector == "cement")
 
-prep <- filter(
-  data,
-  sector == "power",
-  technology == "renewablescap",
-  region == "global",
-  scenario_source == "demo_2020",
-  year <= 2025
+plot_emission_intensity(data) + 
+  labs(title = "Emission intensity plot") +
+  scale_color_manual(
+    values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
+    labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
+  )
+#> Removing data before 2020 -- the start year of 'projected'.
+#> Scale for 'colour' is already present. Adding another scale for 'colour',
+#> which will replace the existing scale.
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+### Techmix
+
+Use `plot_techmix()` with `market_share`-like data.
+
+``` r
+data <- subset(
+  market_share, 
+  metric %in% c("projected", "corporate_economy", "target_sds") & 
+    sector == "power" &
+    region == "global"
 )
 
-plot_trajectoryX(prep) + 
-  labs (title = "Trajectory plot with the thin 'X' API")
+plot_techmix(data) + 
+  labs(title = "Techmix plot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - Y API
+These are some tweaks you may consider:
+
+  - Subset a custom time range (instead of the default, full range in
+    the data).
+  - Set custom colours and legend labels with
+    `ggplot2::scale_color_manual()`.
 
 <!-- end list -->
 
 ``` r
-data <- market_share
+data <- subset(
+  market_share,
+  metric %in% c("projected", "corporate_economy", "target_sds") &
+    sector == "power" &
+    region == "global" &
+    year >= 2020 & year <= 2025  # custom time range
+  )
 
-prep <- prep_trajectoryY(
-  data,
-  sector_filter = "power",
-  technology_filter = "renewablescap",
-  region_filter = "global",
-  scenario_source_filter = "demo_2020",
-  value = "production"
-)
-
-scenario_specs <- dplyr::tibble(
-  scenario = c("sds", "sps", "cps"),
-  label = c("SDS", "STEPS", "CPS")
-)
-
-main_line_metric <- dplyr::tibble(metric = "projected", label = "Portfolio")
-
-additional_line_metrics <- dplyr::tibble(
-  metric = "corporate_economy",
-  label = "Corporate Economy"
-)
-
-plot_trajectoryY(
-  prep,
-  scenario_specs_good_to_bad = scenario_specs,
-  main_line_metric = main_line_metric,
-  additional_line_metrics = additional_line_metrics
-) + 
-  labs (title = "Trajectory plot with the thick 'Y' API")
+plot_techmix(data) + 
+  scale_fill_manual(
+    values = c("black", "brown", "grey", "blue", "green4"),
+    labels = paste(c("Coal", "Oil", "Gas", "Hydro", "Renewables"), "Cap.")
+  )
+#> Scale for 'fill' is already present. Adding another scale for 'fill', which
+#> will replace the existing scale.
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-For full examples see the dedicated articles [r2dii.plot
-X](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-X.html)
-and [r2dii.plot
-Y](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot-Y.html).
+### Trajectory
+
+Use `plot_trajectory()` with `market_share`-like data.
+
+``` r
+data <- subset(
+  market_share,
+  sector == "power" &
+    region == "global" &
+    technology == "renewablescap" &
+    year <= 2025
+  )
+
+plot_trajectory(data) + 
+  labs(title = "Trajectory plot")
+#> Normalizing `production` values to 2020 -- the start year.
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />

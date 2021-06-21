@@ -1,4 +1,4 @@
-#' A theme to apply 2DII plotting aesthetics
+#' Complete theme
 #'
 #' A ggplot theme which can be applied to all graphs to appear according to 2DII
 #' plotting aesthetics.
@@ -7,24 +7,17 @@
 #'
 #' @family plotting functions
 #'
-#' @return An object of class `r toString(class(theme_2dii()))`.
+#' @return An object of class "theme", "gg".
+#'
+#' @seealso [ggplot2::theme_classic].
 #'
 #' @export
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
-#' p <- ggplot(mtcars) +
-#'   geom_histogram(aes(mpg), bins = 10)
-#' p
-#'
-#' p + theme_2dii()
-#'
-#' # Or
-#' old <- theme_set(theme_2dii())
-#' p
-#'
-#' theme_set(old)
-#' p
+#' ggplot(mtcars) +
+#'   geom_histogram(aes(mpg), bins = 10) +
+#'   theme_2dii()
 theme_2dii <- function(base_size = 12,
                        base_family = "Helvetica",
                        base_line_size = base_size / 22,

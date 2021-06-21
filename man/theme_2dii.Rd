@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme_2dii.R
 \name{theme_2dii}
 \alias{theme_2dii}
-\title{A theme to apply 2DII plotting aesthetics}
+\title{Complete theme}
 \usage{
 theme_2dii(
   base_size = 12,
@@ -21,7 +21,7 @@ theme_2dii(
 \item{base_rect_size}{base size for rect elements}
 }
 \value{
-An object of class theme, gg.
+An object of class "theme", "gg".
 }
 \description{
 A ggplot theme which can be applied to all graphs to appear according to 2DII
@@ -30,22 +30,11 @@ plotting aesthetics.
 \examples{
 library(ggplot2, warn.conflicts = FALSE)
 
-p <- ggplot(mtcars) +
-  geom_histogram(aes(mpg), bins = 10)
-p
-
-p + theme_2dii()
-
-# Or
-old <- theme_set(theme_2dii())
-p
-
-theme_set(old)
-p
+ggplot(mtcars) +
+  geom_histogram(aes(mpg), bins = 10) +
+  theme_2dii()
 }
 \seealso{
-Other plotting functions: 
-\code{\link{plot_techmixY}()},
-\code{\link{plot_trajectoryY}()}
+\link[ggplot2:ggtheme]{ggplot2::theme_classic}.
 }
 \concept{plotting functions}
