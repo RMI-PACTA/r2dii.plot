@@ -36,9 +36,9 @@ plot_trajectory <- function(data) {
 
 summarise_max_year_by_metric <- function(data) {
   data %>%
-  filter(.data$metric_type != "scenario") %>%
-  group_by(.data$metric) %>%
-  summarise(year = max(.data$year))
+    filter(.data$metric_type != "scenario") %>%
+    group_by(.data$metric) %>%
+    summarise(year = max(.data$year))
 }
 
 plot_trajectory_impl <- function(data) {

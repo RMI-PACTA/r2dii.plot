@@ -1,7 +1,7 @@
 bind_fake_market_share_metrics <- function(data, n, prefix = "") {
   metrics <- glue("{prefix}{letters[seq_len(n)]}")
   fake <- metrics %>%
-    map_df(~fake_market_share(
+    map_df(~ fake_market_share(
       data,
       year = range(data$year),
       metric = .x
@@ -13,7 +13,7 @@ bind_fake_market_share_metrics <- function(data, n, prefix = "") {
 bind_fake_sda_metrics <- function(data, n) {
   metrics <- as.character(seq_len(n))
   fake <- metrics %>%
-    map_df(~fake_sda(
+    map_df(~ fake_sda(
       data,
       year = range(data$year),
       emission_factor_metric = .x
