@@ -18,7 +18,6 @@
 #' r2dii.plot:::sector_colours
 #'
 #' r2dii.plot:::technology_colours
-#' @noRd
 NULL
 
 #' @rdname r2dii_colours
