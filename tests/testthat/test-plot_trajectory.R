@@ -70,29 +70,6 @@ test_that("with too many scenario_source errors gracefully", {
 })
 
 test_that("with too many scenarios errors gracefully", {
-  add_fake_scenarios_market_share <- function(data, n) {
-    sector <- data$sector[1]
-    technology <- data$technology[1]
-    region <- data$region[1]
-    scenario_source <- data$scenario_source[1]
-    min_year <- min(data$year)
-    max_year <- max(data$year)
-    for (i in 1:n) {
-      fake_data <- tibble(
-        sector = rep(sector, 2),
-        technology = rep(technology, 2),
-        region = rep(region, 2),
-        scenario_source = rep(scenario_source, 2),
-        year = c(min_year, max_year),
-        metric = glue("target_{letters[i]}"),
-        production = 100,
-        technology_share = 0.1
-      )
-
-      data <- rbind(data, fake_data)
-    }
-    data
-  }
   data <- filter(
     market_share,
     sector == "power",
@@ -100,7 +77,20 @@ test_that("with too many scenarios errors gracefully", {
     technology == "renewablescap",
     year <= 2025
   ) %>%
-    add_fake_scenarios_market_share(5)
+    bind_fake_market_share_metrics(n = 5, prefix = "target_")
+
+  expect_snapshot_error(plot_trajectory(data))
+})
+
+test_that("with too many trajectory lines errors gracefully", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    technology == "renewablescap",
+    year <= 2025
+  ) %>%
+    bind_fake_market_share_metrics(6)
 
   expect_snapshot_error(plot_trajectory(data))
 })

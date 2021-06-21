@@ -156,14 +156,6 @@ fmt_vector <- function(x) {
   paste0("c(", x, ")")
 }
 
-expect_no_error <- function(...) {
-  testthat::expect_error(..., NA)
-}
-
-expect_no_message <- function(...) {
-  testthat::expect_message(..., NA)
-}
-
 example_market_share <- function(...) {
   filter(market_share, .data$technology == first(.data$technology), ...)
 }
@@ -236,4 +228,17 @@ drop_before_start_year <- function(data, metric) {
     ))
   }
   filter(data, .data$year >= start_year)
+}
+
+abort_if_too_many_lines <- function(data, max, col_name = "metric") {
+  n <- nrow(data)
+  if (n > max) {
+    abort(glue(
+      "Can't plot more than {max} lines in one plot.
+      Found {n} lines: {toString(data[[col_name]])}.
+      Consider splitting the data over multiple plots."
+    ))
+  }
+
+  invisible(data)
 }

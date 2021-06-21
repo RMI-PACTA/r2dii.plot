@@ -40,6 +40,12 @@
 
     `metric` must have between 1 and 4 scenarios, not 8: cps, sds, sps, a, b, c, d, e
 
+# with too many trajectory lines errors gracefully
+
+    Can't plot more than 5 lines in one plot.
+    Found 8 lines: a, b, c, corporate_economy, d, e, f, projected.
+    Consider splitting the data over multiple plots.
+
 # informs that values are normalized
 
     Code
