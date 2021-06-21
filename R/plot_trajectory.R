@@ -218,12 +218,12 @@ get_ordered_scenario_colours <- function(n) {
 }
 
 prep_trajectory <- function(data) {
-  cols <- c("year", "metric_type", "metric", "technology", "value")
+  # Store original values to detect metric type from metric
+  data$metric2 <- data$metric
 
   out <- data %>%
     drop_rows_before_sart_year("metric") %>%
     mutate(
-      metric2 = .data$metric,  # Store original values
       value = .data$production,
       metric_type = recode_metric(.data$metric),
       metric = sub("target_", "", .data$metric),
@@ -241,16 +241,17 @@ prep_trajectory <- function(data) {
     ))
   }
 
-  left_join(
-    out, filter(out, .data$year == start_year),
-    by = c("metric_type", "metric")
+  out <- left_join(
+    out, filter(out, .data$year == start_year), by = c("metric_type", "metric", "metric2")
   ) %>%
     mutate(
       value = .data$value.x / .data$value.y,
       year = .data$year.x,
       technology = .data$technology.x
-    ) %>%
-    select(all_of(cols))
+    )
+
+  cols <- c("year", "metric_type", "metric", "metric2", "technology", "value")
+  select(out, all_of(cols))
 }
 
 scenario <- function(data) {
