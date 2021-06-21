@@ -71,12 +71,14 @@ plot_trajectory_impl <- function(data) {
     nudge_y = 0.01 * value_span(data),
     hjust = 0,
     segment.size = if_else(lines_end$metric_type == "scenario", 0.4, 0),
-    xlim = c(min(data$year), max(data$year) + 6) # TODO why `+ 6`?
+    # ASK: Does `6` have a meaning? e.g. `some_space <- 6`. I changed the
+    # value to 1-30 and noticed no effect on the plot. Strange.
+    xlim = c(min(data$year), max(data$year) + 6)
   )
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
-    # FIXME: We call `value` twice. Is this intentional?
+    # ASK: We call `scale_fill_manual()` twice with `value`. I don't get it.
     scale_fill_manual(values = scenario_colour(data)$colour) +
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
 
