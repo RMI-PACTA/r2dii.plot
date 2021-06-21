@@ -240,6 +240,7 @@ prep_trajectory <- function(data) {
       "Normalizing `production` values to {start_year} -- the start year."
     ))
   }
+
   left_join(
     out, filter(out, .data$year == start_year),
     by = c("metric_type", "metric")
@@ -250,7 +251,6 @@ prep_trajectory <- function(data) {
       technology = .data$technology.x
     ) %>%
     select(all_of(cols))
-
 }
 
 scenario <- function(data) {
