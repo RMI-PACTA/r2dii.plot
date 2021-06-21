@@ -31,7 +31,7 @@ plot_trajectory <- function(data) {
 check_plot_trajectory <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
-  with_hint_missing_names(abort_if_missing_names(data, crucial))
+  hint_if_missing_names(abort_if_missing_names(data, crucial))
   abort_if_has_zero_rows(data, env = env)
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols, env = env)

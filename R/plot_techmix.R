@@ -32,7 +32,7 @@ plot_techmix <- function(data) {
 
 check_plot_techmix <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
-  with_hint_missing_names(
+  hint_if_missing_names(
     abort_if_missing_names(
       data, c(common_crucial_market_share_columns(), "technology_share")
     )
