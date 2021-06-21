@@ -28,7 +28,7 @@ plot_emission_intensity <- function(data) {
   prep <- hint_if_missing_names(prep_emission_intensity(data))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
-    abort_if_too_many_lines() %>%
+    abort_if_too_many_lines(max_n_lines = 7, col_name = "line_name") %>%
     add_r2dii_colours()
 
   plot_emission_intensity_impl(prep, specs = specs)
@@ -64,20 +64,6 @@ plot_emission_intensity_impl <- function(data, specs) {
     scale_linetype_manual(values = "solid") +
     guides(linetype = "none") +
     theme_2dii()
-}
-
-abort_if_too_many_lines <- function(data) {
-  n_lines <- nrow(data)
-  max_n_lines <- 7
-  if (n_lines > max_n_lines) {
-    abort(glue(
-      "Can't plot more than {max_n_lines} lines in one plot.
-      Found {n_lines} lines: {toString(data$line_name)}.
-      Consider splitting the data over multiple plots."
-    ))
-  }
-
-  invisible(data)
 }
 
 add_r2dii_colours <- function(specs) {

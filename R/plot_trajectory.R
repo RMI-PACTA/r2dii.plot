@@ -36,6 +36,12 @@ plot_trajectory <- function(data) {
 
 plot_trajectory_impl <- function(data) {
   abort_if_invalid_scenarios_number(data)
+  abort_if_too_many_lines(
+    data %>%
+      filter(.data$metric_type != "scenario") %>%
+      group_by(.data$metric) %>%
+      summarise(year = max(.data$year)),
+    max_n_lines = 5)
 
   data <- mutate_pretty_labels(data, name = "metric")
 
