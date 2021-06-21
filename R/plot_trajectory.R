@@ -66,10 +66,10 @@ plot_trajectory_impl <- function(data) {
     color = "black",
     size = 3.5,
     alpha = 1,
-    nudge_x = if_else(lines_end$metric_type == "scenario", 0.6, 0.1),
+    nudge_x = if_else(is_scenario(lines_end$metric2), 0.6, 0.1),
     nudge_y = 0.01 * value_span(data),
     hjust = 0,
-    segment.size = if_else(lines_end$metric_type == "scenario", 0.4, 0),
+    segment.size = if_else(is_scenario(lines_end$metric2), 0.4, 0),
     # ASK: Does `6` have a meaning? e.g. `some_space <- 6`. I changed the
     # value to 1-30 and noticed no effect on the plot. Strange.
     xlim = c(min(data$year), max(data$year) + 6)
@@ -144,7 +144,7 @@ order_trajectory <- function(data) {
 
 distance_from_start_value_portfolio <- function(data, value) {
   start_value_portfolio <- data %>%
-    filter(.data$year == min(.data$year), is_portfolio(.data$metric)) %>%
+    filter(.data$year == min(.data$year), is_portfolio(.data$metric2)) %>%
     pull(.data$value)
 
   abs(value - start_value_portfolio)
@@ -261,7 +261,7 @@ scenario <- function(data) {
   data_worse_than_scenarios <- tibble(year = unique(data$year))
   if (specs$scenario[1] == "worse") {
     data_scenarios <- data %>%
-      filter(is_scenario(.data$metric)) %>%
+      filter(is_scenario(.data$metric2)) %>%
       select(.data$year, .data$metric, value_low = .data$value)
 
     data_worse_than_scenarios$value_low <- area_borders$lower
@@ -282,7 +282,7 @@ scenario <- function(data) {
     data_worse_than_scenarios$metric <- "worse"
 
     data_scenarios <- data %>%
-      filter(is_scenario(.data$metric)) %>%
+      filter(is_scenario(.data$metric2)) %>%
       select(.data$year, .data$metric, .data$value)
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
