@@ -59,7 +59,7 @@ plot_trajectory_impl <- function(data) {
     aes(linetype = .data$metric, color = .data$metric)
   )
 
-  lines_end <- lines_end(data)
+  lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
   p <- p + ggrepel::geom_text_repel(
     data = lines_end,
     aes(label = .data$label, segment.color = .data$metric),
@@ -87,13 +87,6 @@ plot_trajectory_impl <- function(data) {
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
-}
-
-lines_end <- function(data) {
-  lines_end <- data %>%
-    order_trajectory() %>%
-    filter(.data$year == max(data$year)) %>%
-    mutate_pretty_labels(name = "label")
 }
 
 value_span <- function(data) {
