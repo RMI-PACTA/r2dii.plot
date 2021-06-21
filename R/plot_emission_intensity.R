@@ -28,7 +28,7 @@ plot_emission_intensity <- function(data) {
   prep <- hint_if_missing_names(prep_emission_intensity(data))
   line_names <- unique(prep$line_name)
   specs <- tibble(line_name = line_names, label = line_names) %>%
-    abort_if_too_many_lines(max_n_lines = 7, col_name = "line_name") %>%
+    abort_if_too_many_lines(max = 7, col_name = "line_name") %>%
     add_r2dii_colours()
 
   plot_emission_intensity_impl(prep, specs = specs)

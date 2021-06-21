@@ -41,7 +41,7 @@ plot_trajectory_impl <- function(data) {
       filter(.data$metric_type != "scenario") %>%
       group_by(.data$metric) %>%
       summarise(year = max(.data$year)),
-    max_n_lines = 5)
+    max = 5)
 
   data <- mutate_pretty_labels(data, name = "metric")
 
