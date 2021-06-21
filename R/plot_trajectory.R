@@ -219,18 +219,16 @@ get_ordered_scenario_colours <- function(n) {
   )
 }
 
-prep_trajectory <- function(data,
-                            value = "production",
-                            metric = "metric") {
+prep_trajectory <- function(data) {
   cols <- c("year", "metric_type", "metric", "technology", "value")
 
   out <- data %>%
-    check_prep_trajectory(value) %>%
-    drop_rows_before_sart_year(metric) %>%
+    check_prep_trajectory("production") %>%
+    drop_rows_before_sart_year("metric") %>%
     mutate(
-      value = .data[[value]],
-      metric_type = recode_metric(.data[[metric(data)]]),
-      metric = sub("target_", "", .data[[metric(data)]]),
+      value = .data$production,
+      metric_type = recode_metric(.data$metric),
+      metric = sub("target_", "", .data$metric),
       metric = case_when(
         .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
         TRUE                            ~ to_title(as.character(.data$metric))
@@ -241,7 +239,7 @@ prep_trajectory <- function(data,
   # TODO: Extract and move to r2dii.analysis
   if (!quiet()) {
     inform(glue(
-      "Normalizing `{value}` values to {start_year} -- the start year."
+      "Normalizing `production` values to {start_year} -- the start year."
     ))
   }
   left_join(
