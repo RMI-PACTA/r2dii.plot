@@ -94,17 +94,17 @@ value_span <- function(data) {
 }
 
 line_colours <- function(data) {
-  linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
-  line_colours <- c(linecolours_trajectory[1:lines_n(data)], scenario_lines(data)$colour)
+  linecolours <- c("black", "black", "gray", "grey46", "black")
+  c(linecolours[1:lines_n(data)], scenario_lines(data)$colour)
 }
 
 line_types <- function(data) {
-  linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
-  line_types <- c(linetypes_trajectory[1:lines_n(data)], rep("solid", nrow(scenario_lines(data))))
+  linetypes <- c("solid", "dashed", "solid", "solid", "twodash")
+  c(linetypes[1:lines_n(data)], rep("solid", nrow(scenario_lines(data))))
 }
 
 lines_n <- function(data) {
-  n_lines_traj <- length(unique(order_trajectory(data)$metric)) - nrow(scenario_lines(data))
+  length(unique(order_trajectory(data)$metric)) - nrow(scenario_lines(data))
 }
 
 scenario_lines <- function(data) {
