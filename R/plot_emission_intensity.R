@@ -38,7 +38,7 @@ prep_emission_intensity <- function(data,
                                     value = "emission_factor_value",
                                     metric = "emission_factor_metric") {
   data %>%
-    drop_before_start_year(metric) %>%
+    drop_before_start_year() %>%
     mutate(
       line_name = .data[[metric]],
       value = .data[[value]],

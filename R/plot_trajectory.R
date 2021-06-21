@@ -23,9 +23,8 @@
 #' plot_trajectory(data)
 plot_trajectory <- function(data) {
   stopifnot(is.data.frame(data))
-  hint_if_missing_names(
-    abort_if_missing_names(data, common_crucial_market_share_columns())
-  )
+  crucial <- common_crucial_market_share_columns()
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
   abort_if_has_zero_rows(data)
   cols <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, cols)
@@ -259,7 +258,7 @@ prep_trajectory <- function(data,
   out <- data %>%
     check_prep_trajectory(value) %>%
     recode_metric_and_metric_type(metric) %>%
-    drop_before_start_year(metric) %>%
+    drop_before_start_year() %>%
     mutate(value = .data[[value]]) %>%
     select(all_of(cols))
 

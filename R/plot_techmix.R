@@ -25,11 +25,8 @@
 #' plot_techmix(data)
 plot_techmix <- function(data) {
   stopifnot(is.data.frame(data))
-  hint_if_missing_names(
-    abort_if_missing_names(
-      data, c(common_crucial_market_share_columns(), "technology_share")
-    )
-  )
+  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
   abort_if_has_zero_rows(data)
   cols <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, cols)
@@ -65,7 +62,7 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 prep_techmix <- function(data, value = "technology_share", metric = "metric") {
   data %>%
     check_prep_techmix(value) %>%
-    drop_before_start_year(metric) %>%
+    drop_before_start_year() %>%
     recode_metric_and_metric_type(metric) %>%
     pick_extreme_years() %>%
     date_metric_type() %>%
