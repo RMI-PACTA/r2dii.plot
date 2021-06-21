@@ -144,7 +144,7 @@ order_trajectory <- function(data) {
 
 distance_from_start_value_portfolio <- function(data, value) {
   start_value_portfolio <- data %>%
-    filter(.data$year == min(.data$year), .data$metric_type == "portfolio") %>%
+    filter(.data$year == min(.data$year), is_portfolio(.data$metric)) %>%
     pull(.data$value)
 
   abs(value - start_value_portfolio)
@@ -223,6 +223,7 @@ prep_trajectory <- function(data) {
   out <- data %>%
     drop_rows_before_sart_year("metric") %>%
     mutate(
+      metric2 = .data$metric,  # Store original values
       value = .data$production,
       metric_type = recode_metric(.data$metric),
       metric = sub("target_", "", .data$metric),
@@ -295,5 +296,3 @@ scenario <- function(data) {
       ))
   }
 }
-
-is_scenario <- function(x) grepl("$target", x, ignore.case = TRUE)

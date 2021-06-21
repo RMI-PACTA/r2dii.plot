@@ -246,3 +246,7 @@ drop_rows_before_sart_year <- function(data, metric) {
   }
   filter(data, .data$year >= start_year)
 }
+
+is_scenario <- function(x) grepl("^target", x, ignore.case = TRUE)
+is_portfolio <- function(x) grepl("^projected", x, ignore.case = TRUE)
+is_benchmark <- function(x) !grepl("^projected|^target", x, ignore.case = TRUE)
