@@ -171,14 +171,13 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
-# TODO: Restore after solving merge conflicts
-# get_common_start_year <- function(data) {
-#   data %>%
-#     group_by(.data[[metric(data)]]) %>%
-#     summarise(year = min(.data$year)) %>%
-#     pull(.data$year) %>%
-#     max()
-# }
+get_common_start_year <- function(data) {
+  data %>%
+    group_by(.data[[metric(data)]]) %>%
+    summarise(year = min(.data$year)) %>%
+    pull(.data$year) %>%
+    max()
+}
 
 #' The name of the column holding metrics such as projected, corporate_economy
 #'

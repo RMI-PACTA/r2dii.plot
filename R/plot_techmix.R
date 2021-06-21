@@ -65,7 +65,7 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 prep_techmix <- function(data, value = "technology_share", metric = "metric") {
   data %>%
     check_prep_techmix(value) %>%
-    drop_before_start_year(metric) %>%
+    drop_before_start_year() %>%
     recode_metric_and_metric_type(metric) %>%
     pick_extreme_years() %>%
     date_metric_type() %>%

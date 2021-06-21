@@ -259,7 +259,7 @@ prep_trajectory <- function(data,
   out <- data %>%
     check_prep_trajectory(value) %>%
     recode_metric_and_metric_type(metric) %>%
-    drop_before_start_year(metric) %>%
+    drop_before_start_year() %>%
     mutate(value = .data[[value]]) %>%
     select(all_of(cols))
 
