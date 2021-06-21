@@ -127,7 +127,7 @@ abort_if_invalid_scenarios_number <- function(data) {
 
 order_trajectory <- function(data) {
   order_add_lines <- data %>%
-    filter(.data$metric_type != "scenario", .data$metric != main_line()) %>%
+    filter(!is_scenario(.data$metric2), .data$metric != main_line()) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
@@ -176,7 +176,7 @@ get_area_borders <- function(data) {
 
 scenario_colour <- function(data) {
   ordered_scenarios <- data %>%
-    filter(.data$metric_type == "scenario", .data$year == max(.data$year)) %>%
+    filter(is_scenario(.data$metric2), .data$year == max(.data$year)) %>%
     arrange(desc(.data$value)) %>%
     pull(.data$metric) %>%
     as.character()
@@ -228,8 +228,8 @@ prep_trajectory <- function(data) {
       metric_type = recode_metric(.data$metric),
       metric = sub("target_", "", .data$metric),
       metric = case_when(
-        .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-        TRUE                            ~ to_title(as.character(.data$metric))
+        is_scenario(.data$metric2) ~ toupper(as.character(.data$metric)),
+        TRUE                       ~ to_title(as.character(.data$metric))
       )
     )
 
