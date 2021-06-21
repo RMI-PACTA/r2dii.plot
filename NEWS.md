@@ -1,5 +1,7 @@
 # r2dii.plot (development version)
 
+* Error messages now more closely follow the tidyverse style guide (#324).  
+
 * `plot_trajectory()` now plots the main line on top of all other lines, so
 it's no longer hidden when it overlaps with other lines (#223).
 
