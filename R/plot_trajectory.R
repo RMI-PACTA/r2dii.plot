@@ -240,10 +240,8 @@ prep_trajectory <- function(data) {
       "Normalizing `production` values to {start_year} -- the start year."
     ))
   }
-
-  out <- left_join(
-    out, filter(out, .data$year == start_year), by = c("metric_type", "metric", "metric2")
-  ) %>%
+  by <- c("metric_type", "metric", "metric2")
+  out <- left_join(out, filter(out, .data$year == start_year), by = by) %>%
     mutate(
       value = .data$value.x / .data$value.y,
       year = .data$year.x,
