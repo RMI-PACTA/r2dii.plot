@@ -222,7 +222,6 @@ prep_trajectory <- function(data) {
   cols <- c("year", "metric_type", "metric", "technology", "value")
 
   out <- data %>%
-    check_prep_trajectory("production") %>%
     drop_rows_before_sart_year("metric") %>%
     mutate(
       value = .data$production,
@@ -252,16 +251,6 @@ prep_trajectory <- function(data) {
     ) %>%
     select(all_of(cols))
 
-}
-
-check_prep_trajectory <- function(data, value) {
-  crucial <- c(common_crucial_market_share_columns(), value)
-  abort_if_missing_names(data, crucial)
-
-  cols <- c("sector", "technology", "region", "scenario_source")
-  lapply(cols, function(x) abort_if_multiple(data, x))
-
-  invisible(data)
 }
 
 scenario <- function(data) {
