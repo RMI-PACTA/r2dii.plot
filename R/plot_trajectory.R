@@ -232,7 +232,12 @@ prep_trajectory <- function(data,
       metric = sub("target_", "", .data[[metric(data)]]),
       value = .data[[value]]
     ) %>%
-    select(all_of(cols))
+    mutate(
+      metric = case_when(
+        .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
+        TRUE                            ~ to_title(as.character(.data$metric))
+      )
+    )
 
   start_year <- min(out$year)
   # TODO: Extract and move to r2dii.analysis
@@ -250,13 +255,7 @@ prep_trajectory <- function(data,
       year = .data$year.x,
       technology = .data$technology.x
     ) %>%
-    select(all_of(cols)) %>%
-    mutate(
-      metric = case_when(
-        .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-        TRUE                            ~ to_title(as.character(.data$metric))
-      )
-    )
+    select(all_of(cols))
 
 }
 
