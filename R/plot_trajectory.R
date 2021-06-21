@@ -225,7 +225,6 @@ prep_trajectory <- function(data) {
     drop_rows_before_sart_year("metric") %>%
     mutate(
       value = .data$production,
-      metric_type = recode_metric(.data$metric),
       metric = sub("target_", "", .data$metric),
       metric = case_when(
         is_scenario(.data$metric2) ~ toupper(as.character(.data$metric)),
@@ -240,7 +239,7 @@ prep_trajectory <- function(data) {
       "Normalizing `production` values to {start_year} -- the start year."
     ))
   }
-  by <- c("metric_type", "metric", "metric2")
+  by <- c("metric", "metric2")
   out <- left_join(out, filter(out, .data$year == start_year), by = by) %>%
     mutate(
       value = .data$value.x / .data$value.y,
@@ -248,7 +247,7 @@ prep_trajectory <- function(data) {
       technology = .data$technology.x
     )
 
-  cols <- c("year", "metric_type", "metric", "metric2", "technology", "value")
+  cols <- c("year", "metric", "metric2", "technology", "value")
   select(out, all_of(cols))
 }
 
