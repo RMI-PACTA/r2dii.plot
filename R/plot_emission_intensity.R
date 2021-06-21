@@ -24,7 +24,8 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
   abort_if_missing_names_with_hint(data, crucial)
-  abort_if_multiple(data, "sector")
+  enforce_single_value <- "sector"
+  abort_if_multiple(data, enforce_single_value)
   abort_if_has_zero_rows(data, env = env)
   abort_if_too_many_lines(data)
 
