@@ -251,7 +251,13 @@ prep_trajectory <- function(data,
       technology = .data$technology.x
     ) %>%
     select(all_of(cols)) %>%
-    mutate_pretty_labels(name = "metric")
+    mutate(
+      metric = case_when(
+        .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
+        TRUE                            ~ to_title(as.character(.data$metric))
+      )
+    )
+
 }
 
 check_prep_trajectory <- function(data, value) {

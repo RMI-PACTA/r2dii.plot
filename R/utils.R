@@ -170,33 +170,6 @@ r_version_is_older_than <- function(major) {
   as.integer(R.version$major) < major
 }
 
-#' Mutate a data frame column (or add a new one) using pretty labels
-#'
-#' Pretty labels are "UPPERCASE" when they belong to scenarios, else they are
-#' "Title Case".
-#'
-#' @examples
-#' library(dplyr)
-#'
-#' data <- tibble(
-#'   metric = c("corporate_economy", "sds"),
-#'   metric_type = c("benchmark", "scenario")
-#' )
-#' mutate_pretty_labels(data, "metric")
-#' mutate_pretty_labels(data, "new")
-#' @noRd
-mutate_pretty_labels <- function(data, name) {
-  abort_if_missing_names(data, c("metric_type", "metric"))
-
-  mutate(
-    data,
-    "{name}" := case_when(
-      data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-      TRUE ~ to_title(as.character(.data$metric))
-    )
-  )
-}
-
 #' The metric to plot most saliently
 #'
 #' The concept of "main line" is not obvious from the literal "projected" and
