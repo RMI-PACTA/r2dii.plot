@@ -1,3 +1,7 @@
+beautify <- function(data, x) {
+  mutate(data, "{x}" := to_title(.data[[x]]))
+}
+
 #' Convert a string to title case
 #'
 #' This function replaces a sequence of non alpha-numeric characters to a single
@@ -28,13 +32,7 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-recode_metric_and_metric_type <- function(data, metric) {
-  data %>%
-    mutate(metric_type = recode_portfolio_benchmark_scenario(.data[[metric]])) %>%
-    mutate(metric = sub("target_", "", .data[[metric]]))
-}
-
-recode_portfolio_benchmark_scenario <- function(x) {
+recode_metric <- function(x) {
   case_when(
     x == "projected" ~ "portfolio",
     startsWith(x, "target") ~ "scenario",
@@ -48,10 +46,11 @@ abort_if_multiple <- function(data, x, env = parent.frame()) {
   do_it_once <- function(x) {
     .x <- unique(data[[x]])
     if (length(.x) > 1L) {
-      abort(glue(
-        "`{.data}` must have a single value of `{x}` but has: {toString(.x)}.
-        Pick one value, e.g. '{first(.x)}', with:
-          subset({.data}, {x} == '{first(.x)}')"
+      abort(c(
+        glue("`{.data}` must have a single value of `{x}`."),
+        x = glue("Provided: {toString(.x)}."),
+        i = glue("Pick one value, e.g. '{first(.x)}', with:
+          subset({.data}, {x} == '{first(.x)}')")
       ))
     }
     invisible(x)
@@ -66,43 +65,26 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
   paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
 
-abort_if_has_zero_rows <- function(data) {
-  .data <- deparse_1(substitute(data, env = parent.frame()))
+abort_if_has_zero_rows <- function(data, env = parent.frame()) {
+  .data <- deparse_1(substitute(data, env = env))
   if (nrow(data) == 0L) {
-    abort(glue("`{.data}` must have some rows but has none."))
+    abort(c(glue("`{.data}` must have some rows.", x = "It has none.")))
   }
 
   invisible(data)
 }
 
-hint_if_missing_names <- function(expr) {
-  .expr <- deparse_1(substitute(expr))
-  fun <- format_plot_function_name(.expr)
-  kind <- ifelse(grepl("emission_intensity", fun), "sda", "market_share")
-
+hint_if_missing_names <- function(expr, like) {
   rlang::with_handlers(
     expr,
-    missing_names = function(e) {
+    missing_names = function(err) {
       abort(
+        c(conditionMessage(err), i = glue("Is your data `{like}`-like?")),
         class = "hint_missing_names",
-        glue(
-          "{conditionMessage(e)}
-        Is your data `{kind}`-like?"
-        )
+        parent = err
       )
     }
   )
-
-  invisible(expr)
-}
-
-format_plot_function_name <- function(.expr) {
-  # "fun_name(...)" -> "fun_name"
-  fun <- gsub("(.*)\\(.*", "\\1", .expr)
-  # "fun_nameZ" -> "_name"
-  fun <- gsub(".*_(.*)[A-Z]", "\\1", fun)
-  fun <- glue("plot_{fun}")
-  fun
 }
 
 common_crucial_market_share_columns <- function() {
@@ -130,22 +112,21 @@ common_crucial_market_share_columns <- function() {
 #' abort_if_missing_names(x, "a")
 #' try(abort_if_missing_names(x, "bad"))
 #' @noRd
-abort_if_missing_names <- function(x, expected_names) {
-  stopifnot(rlang::is_named(x))
+abort_if_missing_names <- function(data, expected_names) {
+  stopifnot(rlang::is_named(data))
   stopifnot(is.character(expected_names))
 
-  if (!all(unique(expected_names) %in% names(x))) {
-    missing_names <- sort(setdiff(expected_names, names(x)))
-    abort(
-      class = "missing_names",
-      glue(
-        "Must have missing names:
-        {toString(missing_names)}"
-      )
+  if (!all(unique(expected_names) %in% names(data))) {
+    missing_names <- sort(setdiff(expected_names, names(data)))
+    abort(c(
+        "`data` must have all the expected names.",
+        x = glue("Missing names: {toString(missing_names)}.")
+      ),
+      class = "missing_names"
     )
   }
 
-  invisible(x)
+  invisible(data)
 }
 
 fmt_string <- function(x) {
@@ -172,33 +153,6 @@ r_version_is_older_than <- function(major) {
   as.integer(R.version$major) < major
 }
 
-#' Mutate a data frame column (or add a new one) using pretty labels
-#'
-#' Pretty labels are "UPPERCASE" when they belong to scenarios, else they are
-#' "Title Case".
-#'
-#' @examples
-#' library(dplyr)
-#'
-#' data <- tibble(
-#'   metric = c("corporate_economy", "sds"),
-#'   metric_type = c("benchmark", "scenario")
-#' )
-#' mutate_pretty_labels(data, "metric")
-#' mutate_pretty_labels(data, "new")
-#' @noRd
-mutate_pretty_labels <- function(data, name) {
-  abort_if_missing_names(data, c("metric_type", "metric"))
-
-  mutate(
-    data,
-    "{name}" := case_when(
-      data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-      TRUE ~ to_title(as.character(.data$metric))
-    )
-  )
-}
-
 #' The metric to plot most saliently
 #'
 #' The concept of "main line" is not obvious from the literal "projected" and
@@ -216,16 +170,54 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
-get_common_start_year <- function(data, metric) {
+get_common_start_year <- function(data) {
   data %>%
-    group_by(.data[[metric]]) %>%
+    group_by(.data[[metric(data)]]) %>%
     summarise(year = min(.data$year)) %>%
     pull(.data$year) %>%
     max()
 }
 
-drop_before_start_year <- function(data, metric) {
-  start_year <- get_common_start_year(data, metric)
+#' The name of the column holding metrics such as projected, corporate_economy
+#'
+#' @examples
+#' metric(sda)
+#' metric(market_share)
+#' @noRd
+metric <- function(data) {
+  extract_names(data, metric_names())
+}
+
+#' Names of columns holding metrics such as projected, corporate_economy
+#'
+#' The column holding metrics such as "projected" and "corporate_economy" may
+#' have a different name in different datasets. This function outputs all the
+#' possible names. Eventually the difference may disappear (r2dii.analysis#313)
+#' and this function should help make the transition smooth.
+#'
+#' @examples
+#' metric_names()
+#' @noRd
+metric_names <- function() c("metric", "emission_factor_metric")
+
+#' Extract names matching `possible_names`
+#'
+#' @examples
+#' extract_names(sda, metric_names())
+#' extract_names(market_share, metric_names())
+#' extract_names(mtcars, c("mpg", "bad", "disp"))
+#' @noRd
+extract_names <- function(data, possible_names) {
+  doit_once <- function(x) grep(x, names(data), value = TRUE)
+
+  x <- anchor(possible_names)
+  unlist(lapply(x, doit_once))
+}
+
+anchor <- function(x) paste0("^", x, "$")
+
+drop_rows_before_sart_year <- function(data, metric) {
+  start_year <- get_common_start_year(data)
   if (!min(data$year) < start_year) {
     return(data)
   }
@@ -237,3 +229,7 @@ drop_before_start_year <- function(data, metric) {
   }
   filter(data, .data$year >= start_year)
 }
+
+is_scenario <- function(x) grepl("^target", x, ignore.case = TRUE)
+is_portfolio <- function(x) grepl("^projected", x, ignore.case = TRUE)
+is_benchmark <- function(x) !grepl("^projected|^target", x, ignore.case = TRUE)

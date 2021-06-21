@@ -14,77 +14,72 @@
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
+  check_plot_emission_intensity(data)
+
+  prep <- prep_emission_intensity(data)
+  plot_emission_intensity_impl(prep)
+}
+
+check_plot_emission_intensity <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
-  crucial <- c(
-    "sector", "year", "emission_factor_metric", "emission_factor_value"
-  )
-  abort_if_missing_names(data, crucial)
-  abort_if_multiple(data, "sector")
-  abort_if_has_zero_rows(data)
+  crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
+  enforce_single_value <- "sector"
+  abort_if_multiple(data, enforce_single_value)
+  abort_if_has_zero_rows(data, env = env)
+  abort_if_too_many_lines(data)
 
-  data <- data %>%
-    mutate(emission_factor_metric = to_title(.data$emission_factor_metric))
-
-  prep <- hint_if_missing_names(prep_emission_intensity(data))
-  line_names <- unique(prep$line_name)
-  specs <- tibble(line_name = line_names, label = line_names) %>%
-    abort_if_too_many_lines() %>%
-    add_r2dii_colours()
-
-  plot_emission_intensity_impl(prep, specs = specs)
+  invisible(data)
 }
 
-prep_emission_intensity <- function(data,
-                                    value = "emission_factor_value",
-                                    metric = "emission_factor_metric") {
-  data %>%
-    drop_before_start_year(metric) %>%
-    mutate(
-      line_name = .data[[metric]],
-      value = .data[[value]],
-      year = lubridate::make_date(.data$year)
-    )
+prep_emission_intensity <- function(data) {
+  prep <- data %>%
+    beautify("emission_factor_metric") %>%
+    drop_rows_before_sart_year("emission_factor_metric") %>%
+    mutate(year = lubridate::make_date(.data$year))
+
+  metrics <- distinct(prep, .data$emission_factor_metric)
+  colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
+  specs <- dplyr::bind_cols(metrics, colours)
+
+  left_join(prep, specs, by = "emission_factor_metric")
 }
 
-plot_emission_intensity_impl <- function(data, specs) {
-  data <- left_join(data, specs, by = "line_name")
-
+plot_emission_intensity_impl <- function(data) {
   ggplot() +
     geom_line(
       data = data, aes(
         x = .data$year,
-        y = .data$value,
-        colour = forcats::fct_reorder2(.data$label, .data$year, .data$value)
+        y = .data$emission_factor_value,
+        colour = match_lines_order(data)
       )
     ) +
     expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
-    scale_linetype_manual(values = "solid") +
-    guides(linetype = "none") +
     theme_2dii()
 }
 
+match_lines_order <- function(data) {
+  forcats::fct_reorder2(
+    data$emission_factor_metric,
+    data$year,
+    data$emission_factor_value
+  )
+}
+
 abort_if_too_many_lines <- function(data) {
-  n_lines <- nrow(data)
-  max_n_lines <- 7
-  if (n_lines > max_n_lines) {
-    abort(glue(
-      "Can't plot more than {max_n_lines} lines in one plot.
-      Found {n_lines} lines: {toString(data$line_name)}.
-      Consider splitting the data over multiple plots."
+  lines <- unique(data$emission_factor_metric)
+  n <- length(lines)
+  max <- 7
+  if (n > max) {
+    abort(c(
+      glue("Can't plot more than {max} lines in one plot."),
+      x = glue("Found {n} lines: {toString(lines)}."),
+      i = "Do you need to split the data over multiple plots?"
     ))
   }
 
   invisible(data)
-}
-
-add_r2dii_colours <- function(specs) {
-  n <- seq_len(nrow(specs))
-  specs$r2dii_colour_name <- palette_colours$label[n]
-
-  specs %>%
-    left_join(palette_colours, by = c("r2dii_colour_name" = "label")) %>%
-    select(-.data$r2dii_colour_name)
 }

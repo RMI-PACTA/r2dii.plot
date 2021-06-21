@@ -4,7 +4,9 @@ test_that("if `data` is not a data frame errors gracefully", {
 
 test_that("if `data` is not sda-like errors gracefully", {
   bad <- head(market_share, 1L)
-  expect_snapshot_error(plot_emission_intensity(bad))
+  expect_snapshot_error(
+    plot_emission_intensity(bad)
+  )
 })
 
 test_that("if `data` has zero rows errors gracefully", {
@@ -23,7 +25,7 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 
   p <- plot_emission_intensity(data)
   p_data <- p$layers[[1]]$data
-  specs_cols <- c("line_name", "label", "hex")
+  specs_cols <- c("emission_factor_metric", "hex")
   has_factors <- any(unlist(lapply(p_data[specs_cols], is.factor)))
 
   expect_false(has_factors)
@@ -33,8 +35,8 @@ test_that("outputs pretty labels", {
   data <- filter(sda, sector == "automotive")
   p <- plot_emission_intensity(data)
 
-  get_line_name <- function(p) unique(p$layers[[1]]$data$line_name)
-  expect_equal(get_line_name(p), c("Projected", "Corporate Economy"))
+  get_emission_factor_metric <- function(p) unique(p$layers[[1]]$data$emission_factor_metric)
+  expect_equal(get_emission_factor_metric(p), c("Projected", "Corporate Economy"))
 })
 
 test_that("with too many lines to plot errors gracefully", {
