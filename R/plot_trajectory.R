@@ -260,7 +260,7 @@ scenario <- function(data) {
   data_worse_than_scenarios <- tibble(year = unique(data$year))
   if (specs$scenario[1] == "worse") {
     data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
+      filter(is_scenario(.data$metric)) %>%
       select(.data$year, .data$metric, value_low = .data$value)
 
     data_worse_than_scenarios$value_low <- area_borders$lower
@@ -281,7 +281,7 @@ scenario <- function(data) {
     data_worse_than_scenarios$metric <- "worse"
 
     data_scenarios <- data %>%
-      filter(.data$metric_type == "scenario") %>%
+      filter(is_scenario(.data$metric)) %>%
       select(.data$year, .data$metric, .data$value)
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
@@ -296,3 +296,5 @@ scenario <- function(data) {
       ))
   }
 }
+
+is_scenario <- function(x) grepl("$target", x, ignore.case = TRUE)
