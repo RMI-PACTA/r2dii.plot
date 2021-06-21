@@ -64,8 +64,8 @@ plot_trajectory_impl <- function(data) {
   n_lines_traj <- length(unique(data_lines$metric)) - n_scenarios
   linetypes_trajectory <- c("solid", "dashed", "solid", "solid", "twodash")
   linecolours_trajectory <- c("black", "black", "gray", "grey46", "black")
-  line_types <- c(linetypes_trajectory[1:n_lines_traj], rep("solid", n_scenarios))
-  line_colours <- c(linecolours_trajectory[1:n_lines_traj], scenario_specs_lines$colour)
+  line_types <- c(rep("solid", n_scenarios), rev(linetypes_trajectory[1:n_lines_traj]))
+  line_colours <- c(scenario_specs_lines$colour, rev(linecolours_trajectory[1:n_lines_traj]))
 
   p_trajectory <- p_trajectory +
     geom_line(
@@ -158,7 +158,7 @@ order_for_trajectory <- function(data, scenario_specs) {
   data_ordered <- data %>%
     mutate(metric = factor(
       .data$metric,
-      levels = c(main_line(), order_add_lines, order_scenarios)
+      levels = c(order_scenarios, order_add_lines, main_line())
     )) %>%
     arrange(.data$year, .data$metric)
 
