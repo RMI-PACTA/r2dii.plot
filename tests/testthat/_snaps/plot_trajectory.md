@@ -4,37 +4,41 @@
 
 # if `data` is not market_share-like errors gracefully
 
-    Must have missing names:
-    metric, region, scenario_source, technology
+    `data` must have all the expected names.
+    x Missing names: metric, region, scenario_source, technology.
     Is your data `market_share`-like?
 
 # with zero-row data errors gracefully
 
-    `zero_row` must have some rows but has none.
+    `zero_row` must have some rows.
 
 # with too many sectors errors gracefully
 
-    `bad_sector` must have a single value of `sector` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      subset(bad_sector, sector == 'a')
+    `bad_sector` must have a single value of `sector`.
+    x Provided: a, b.
+    i Pick one value, e.g. 'a', with:
+    subset(bad_sector, sector == 'a')
 
 # with too many technologies errors gracefully
 
-    `bad_tech` must have a single value of `technology` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      subset(bad_tech, technology == 'a')
+    `bad_tech` must have a single value of `technology`.
+    x Provided: a, b.
+    i Pick one value, e.g. 'a', with:
+    subset(bad_tech, technology == 'a')
 
 # with too many regions errors gracefully
 
-    `bad_region` must have a single value of `region` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      subset(bad_region, region == 'a')
+    `bad_region` must have a single value of `region`.
+    x Provided: a, b.
+    i Pick one value, e.g. 'a', with:
+    subset(bad_region, region == 'a')
 
 # with too many scenario_source errors gracefully
 
-    `bad_scenario_source` must have a single value of `scenario_source` but has: a, b.
-    Pick one value, e.g. 'a', with:
-      subset(bad_scenario_source, scenario_source == 'a')
+    `bad_scenario_source` must have a single value of `scenario_source`.
+    x Provided: a, b.
+    i Pick one value, e.g. 'a', with:
+    subset(bad_scenario_source, scenario_source == 'a')
 
 # with too many scenarios errors gracefully
 

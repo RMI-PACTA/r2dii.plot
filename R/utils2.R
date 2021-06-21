@@ -74,18 +74,19 @@ abort_if_has_zero_rows <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-hint_if_missing_names <- function(expr, like) {
-  rlang::with_handlers(
-    expr,
-    missing_names = function(err) {
-      abort(
-        c(conditionMessage(err), i = glue("Is your data `{like}`-like?")),
-        class = "hint_missing_names",
-        parent = err
-      )
-    }
-  )
-}
+# TODO: Restore after solving merge conflicts
+# hint_if_missing_names <- function(expr, like) {
+#   rlang::with_handlers(
+#     expr,
+#     missing_names = function(err) {
+#       abort(
+#         c(conditionMessage(err), i = glue("Is your data `{like}`-like?")),
+#         class = "hint_missing_names",
+#         parent = err
+#       )
+#     }
+#   )
+# }
 
 common_crucial_market_share_columns <- function() {
   c(
@@ -170,13 +171,14 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
-get_common_start_year <- function(data) {
-  data %>%
-    group_by(.data[[metric(data)]]) %>%
-    summarise(year = min(.data$year)) %>%
-    pull(.data$year) %>%
-    max()
-}
+# TODO: Restore after solving merge conflicts
+# get_common_start_year <- function(data) {
+#   data %>%
+#     group_by(.data[[metric(data)]]) %>%
+#     summarise(year = min(.data$year)) %>%
+#     pull(.data$year) %>%
+#     max()
+# }
 
 #' The name of the column holding metrics such as projected, corporate_economy
 #'
