@@ -176,8 +176,7 @@ get_area_borders <- function(data) {
 
 scenario_colour <- function(data) {
   ordered_scenarios <- data %>%
-    filter(.data$metric_type == "scenario") %>%
-    filter(.data$year == max(.data$year)) %>%
+    filter(.data$metric_type == "scenario", .data$year == max(.data$year)) %>%
     arrange(desc(.data$value)) %>%
     pull(.data$metric) %>%
     as.character()
