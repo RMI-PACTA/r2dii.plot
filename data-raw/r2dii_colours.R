@@ -43,13 +43,13 @@ technology_colours <- tribble(
         "power",    "nuclearcap",             "Nuclear Capacity", "#fd8d3c",
         "power",      "hydrocap",               "Hydro Capacity", "#fdbe85",
         "power", "renewablescap",          "Renewables Capacity", "#ffd4ad",
-   "automotive",      "electric",                     "Electric", "#548995",
-   "automotive",  "electric_hdv", "Electric Heavy Duty Vehicles", "#609cab",
-   "automotive",      "fuelcell",                     "FuelCell", "#6cb0c0",
+   "automotive",       "ice_hdv",      "ICE Heavy Duty Vehicles", "#548995",
+   "automotive",           "ice",                          "ICE", "#609cab",
+   "automotive",    "hybrid_hdv",   "Hybrid Heavy Duty Vehicles", "#6cb0c0",
    "automotive",        "hybrid",                       "Hybrid", "#78c4d6",
-   "automotive",    "hybrid_hdv",   "Hybrid Heavy Duty Vehicles", "#93cfde",
-   "automotive",           "ice",                          "ICE", "#aedbe6",
-   "automotive",       "ice_hdv",      "ICE Heavy Duty Vehicles", "#c9e7ee",
+   "automotive",      "fuelcell",                     "FuelCell", "#93cfde",
+   "automotive",  "electric_hdv", "Electric Heavy Duty Vehicles", "#aedbe6",
+   "automotive",      "electric",                     "Electric", "#c9e7ee",
       "oil&gas",           "gas",                          "Gas", "#b9b5b0",
       "oil&gas",           "oil",                          "Oil", "#181716",
  "fossil fuels",           "gas",                          "Gas", "#b9b5b0",
@@ -58,7 +58,7 @@ technology_colours <- tribble(
 )
 # styler: on
 
-use_data(
+usethis::use_data(
   palette_colours,
   scenario_colours,
   sector_colours,
