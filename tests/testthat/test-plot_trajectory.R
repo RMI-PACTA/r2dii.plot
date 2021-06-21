@@ -77,7 +77,7 @@ test_that("with too many scenarios errors gracefully", {
     technology == "renewablescap",
     year <= 2025
   ) %>%
-    add_fake_metrics_market_share(n = 5, prefix = "target_")
+    bind_fake_market_share_metrics(n = 5, prefix = "target_")
 
   expect_snapshot_error(plot_trajectory(data))
 })
@@ -90,7 +90,7 @@ test_that("with too many trajectory lines errors gracefully", {
     technology == "renewablescap",
     year <= 2025
   ) %>%
-    add_fake_metrics_market_share(6)
+    bind_fake_market_share_metrics(6)
 
   expect_snapshot_error(plot_trajectory(data))
 })

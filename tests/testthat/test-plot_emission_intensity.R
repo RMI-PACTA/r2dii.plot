@@ -38,25 +38,8 @@ test_that("outputs pretty labels", {
 })
 
 test_that("with too many lines to plot errors gracefully", {
-  add_fake_metrics_sda <- function(data, n) {
-    sector <- data$sector[1]
-    min_year <- min(data$year)
-    max_year <- max(data$year)
-    for (i in 1:n) {
-      fake_data <- tibble(
-        sector = rep(sector, 2),
-        year = c(min_year, max_year),
-        emission_factor_metric = as.character(i),
-        emission_factor_value = NA
-      )
-
-      data <- rbind(data, fake_data)
-    }
-    data
-  }
-
   data <- filter(sda, sector == "cement") %>%
-    add_fake_metrics_sda(8)
+    bind_fake_sda_metrics(8)
 
   expect_snapshot_error(plot_emission_intensity(data))
 })

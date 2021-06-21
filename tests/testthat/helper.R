@@ -1,25 +1,50 @@
-add_fake_metrics_market_share <- function(data, n, prefix = "") {
-  sector <- data$sector[1]
-  technology <- data$technology[1]
-  region <- data$region[1]
-  scenario_source <- data$scenario_source[1]
-  min_year <- min(data$year)
-  max_year <- max(data$year)
-  for (i in 1:n) {
-    fake_data <- tibble(
-      sector = rep(sector, 2),
-      technology = rep(technology, 2),
-      region = rep(region, 2),
-      scenario_source = rep(scenario_source, 2),
-      year = c(min_year, max_year),
-      metric = glue("{prefix}{letters[i]}"),
-      production = 100,
-      technology_share = 0.1
-    )
+bind_fake_market_share_metrics <- function(data, n, prefix = "") {
+  metrics <- glue("{prefix}{letters[seq_len(n)]}")
+  fake <- metrics %>%
+    map_df(~fake_market_share(
+      data,
+      year = range(data$year),
+      metric = .x
+    ))
 
-    data <- rbind(data, fake_data)
-  }
-  data
+  bind_rows(data, fake)
+}
+
+bind_fake_sda_metrics <- function(data, n) {
+  metrics <- as.character(seq_len(n))
+  fake <- metrics %>%
+    map_df(~fake_sda(
+      data,
+      year = range(data$year),
+      emission_factor_metric = .x
+    ))
+
+  bind_rows(data, fake)
+}
+
+fake_market_share <- function(data, ...) {
+  tibble(
+    sector = first(data$sector),
+    technology = first(data$technology),
+    region = first(data$region),
+    scenario_source = first(data$scenario_source),
+    production = 100,
+    technology_share = 0.1,
+    ...
+  )
+}
+
+fake_sda <- function(data, ...) {
+  tibble(
+    sector = first(data$sector),
+    emission_factor_value = NA_real_,
+    ...
+  )
+}
+
+map_df <- function(.x, .f, ...) {
+  .f <- rlang::as_function(.f)
+  Reduce(rbind, lapply(.x, .f, ...))
 }
 
 expect_no_error <- function(...) {
