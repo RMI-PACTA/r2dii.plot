@@ -228,11 +228,9 @@ prep_trajectory <- function(data,
     check_prep_trajectory(value) %>%
     drop_rows_before_sart_year(metric) %>%
     mutate(
+      value = .data[[value]],
       metric_type = recode_metric(.data[[metric(data)]]),
       metric = sub("target_", "", .data[[metric(data)]]),
-      value = .data[[value]]
-    ) %>%
-    mutate(
       metric = case_when(
         .data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
         TRUE                            ~ to_title(as.character(.data$metric))
