@@ -2,7 +2,7 @@
 
     `data` must have all the expected names.
     x Missing names: metric, region, scenario_source, technology, technology_share.
-    Is your data `market_share`-like?
+    i Is your data `market_share`-like?
 
 # with zero-row data errors gracefully
 

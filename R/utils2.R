@@ -75,18 +75,18 @@ abort_if_has_zero_rows <- function(data, env = parent.frame()) {
 }
 
 # TODO: Restore after solving merge conflicts
-# hint_if_missing_names <- function(expr, like) {
-#   rlang::with_handlers(
-#     expr,
-#     missing_names = function(err) {
-#       abort(
-#         c(conditionMessage(err), i = glue("Is your data `{like}`-like?")),
-#         class = "hint_missing_names",
-#         parent = err
-#       )
-#     }
-#   )
-# }
+hint_if_missing_names <- function(expr, like) {
+  rlang::with_handlers(
+    expr,
+    missing_names = function(err) {
+      abort(
+        c(conditionMessage(err), i = glue("Is your data `{like}`-like?")),
+        class = "hint_missing_names",
+        parent = err
+      )
+    }
+  )
+}
 
 common_crucial_market_share_columns <- function() {
   c(
