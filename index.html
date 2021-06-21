@@ -165,7 +165,7 @@
 <li>Add a title.</li>
 <li>Customize the legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_colour_manual()</a></code>.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
@@ -199,7 +199,7 @@
 <li>Subset a custom time range (instead of the default, full range in the data).</li>
 <li>Set custom colours and legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_color_manual()</a></code>.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span> <span class="op">&amp;</span>
