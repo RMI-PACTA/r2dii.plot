@@ -85,8 +85,7 @@ plot_trajectory_impl <- function(data) {
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
-    # ASK: We call `scale_fill_manual()` twice with `value`. I don't get it.
-    scale_fill_manual(values = scenario_colour(data)$colour) +
+    scale_fill_manual(aesthetics = "colour", values = scenario_colour(data)$colour) +
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
 
     scale_linetype_manual(values = line_types(data)) +
