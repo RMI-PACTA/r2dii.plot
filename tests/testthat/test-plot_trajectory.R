@@ -232,3 +232,11 @@ test_that("does not modify `metric`", {
   out <- sort(as.character(unique(p$layers[[2]]$data$metric)))
   expect_equal(out, metrics)
 })
+
+test_that("if `data` has no `label` we create it", {
+  data <- example_market_share()
+  expect_false(has_name(data, "label"))
+
+  p <- plot_trajectory(data)
+  expect_true(has_name(p$data, "label"))
+})

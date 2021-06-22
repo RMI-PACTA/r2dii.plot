@@ -235,9 +235,8 @@ prep_trajectory <- function(data) {
     drop_before_start_year() %>%
     mutate(value = .data$production)
 
-  if (!("label" %in% names(out))) {
-    out <- out %>%
-      mutate(label = .data$metric)
+  if (!has_name(out, "label")) {
+    out <- mutate(out, label = .data$metric)
   }
 
   start_year <- min(out$year)
