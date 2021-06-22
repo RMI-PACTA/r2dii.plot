@@ -11,7 +11,7 @@
 # with zero-row data errors gracefully
 
     `zero_row` must have some rows.
-    x `zero_row` has zero rows.
+    x `{.data}` has zero rows.
 
 # with too many sectors errors gracefully
 
