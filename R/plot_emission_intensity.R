@@ -37,9 +37,9 @@ prep_emission_intensity <- function(data) {
     common_prep() %>%
     mutate(year = lubridate::make_date(.data$year))
 
-  metrics <- distinct(prep, .data$emission_factor_metric)
-  colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
-  specs <- dplyr::bind_cols(metrics, colours)
+  labels <- distinct(prep, .data[[metric(prep)]])
+  colours <- palette_colours[seq_len(nrow(labels)), "hex", drop = FALSE]
+  specs <- dplyr::bind_cols(labels, colours)
 
   left_join(prep, specs, by = "emission_factor_metric")
 }
