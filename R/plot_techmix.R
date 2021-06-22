@@ -59,8 +59,9 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
     example <- c(setdiff(unique(data$metric), scen), first(scen))
     abort(c(
       glue("`{.data}$metric` must have a single scenario not {n}."),
-      i = glue("You may pick one scenario, e.g. '{first(scen)}' with:
-            subset({.data}, metric %in% {fmt_vector(fmt_string(example))})"),
+      i = glue(
+        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with:
+        subset({.data}, metric %in% {fmt_vector(fmt_string(example))})"),
       x = glue("Provided: {toString(scen)}.")
     ))
   }

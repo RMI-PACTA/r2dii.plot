@@ -36,9 +36,9 @@ abort_if_multiple <- function(data, x, env = parent.frame()) {
     if (length(.x) > 1L) {
       abort(c(
         glue("`{.data}` must have a single value of `{x}`."),
-        x = glue("Provided: {toString(.x)}."),
-        i = glue("Pick one value, e.g. '{first(.x)}', with:
-          subset({.data}, {x} == '{first(.x)}')")
+        i = glue("Do you need to pick one value? E.g. pick '{first(.x)}', with:
+                 subset({.data}, {x} == '{first(.x)}')"),
+        x = glue("Provided: {toString(.x)}.")
       ))
     }
     invisible(x)
@@ -56,7 +56,10 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
 abort_if_has_zero_rows <- function(data, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
   if (nrow(data) == 0L) {
-    abort(c(glue("`{.data}` must have some rows.", x = "It has none.")))
+    abort(c(
+      glue("`{.data}` must have some rows."),
+      x = "`{.data}` has zero rows."
+    ))
   }
 
   invisible(data)
@@ -215,7 +218,8 @@ abort_if_too_many_lines <- function(data, max) {
   n <- length(metrics)
   if (n > max) {
     abort(
-      c(glue("Can't plot more than {max} lines in one plot."),
+      # c(glue("Can't plot more than {max} lines in one plot."),
+      c(glue("The number of lines to plot must be {max} or less."),
         i = "Do you need to split the data over multiple plots?",
         x = glue("Found {n} lines: {toString(metrics)}.")
       )
