@@ -83,7 +83,8 @@ prep_techmix <- function(data) {
     mutate(
       value = .data$technology_share,
       sector = recode_sector(.data$sector)
-    )
+    ) %>%
+    ensure_label()
 }
 
 plot_techmix_impl <- function(data) {

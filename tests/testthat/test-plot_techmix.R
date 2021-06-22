@@ -89,3 +89,12 @@ test_that("with input data before start year of 'projected' prep_techmix
     rbind(early_row)
   expect_equal(min(prep_techmix(data)$year), start_year)
 })
+
+test_that("if `data` has no `label` we create it", {
+  data <- filter(example_market_share(), metric %in% unique(metric)[1:3])
+  expect_false(has_name(data, "label"))
+
+  p <- plot_techmix(data)
+  out <- p[["layers"]][[1]][["data"]]
+  expect_true(has_name(out, "label"))
+})
