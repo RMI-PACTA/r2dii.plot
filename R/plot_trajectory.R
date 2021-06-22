@@ -233,11 +233,8 @@ get_ordered_scenario_colours <- function(n) {
 prep_trajectory <- function(data) {
   out <- data %>%
     drop_before_start_year() %>%
-    mutate(value = .data$production)
-
-  if (!has_name(out, "label")) {
-    out <- mutate(out, label = .data$metric)
-  }
+    mutate(value = .data$production) %>%
+    ensure_label()
 
   start_year <- min(out$year)
   if (!quiet()) {

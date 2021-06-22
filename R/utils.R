@@ -245,3 +245,10 @@ recode_metric <- function(x) {
     TRUE ~ "benchmark"
   )
 }
+
+ensure_label <- function(data) {
+  if (has_name(data, "label")) return(data)
+
+  data$label <- data[[metric(data)]]
+  data
+}

@@ -59,3 +59,12 @@ test_that("orders lines as expected", {
 
   expect_equal(expected, actual)
 })
+
+test_that("if `data` has no `label` we create it", {
+  data <- filter(sda, sector == "cement")
+  expect_false(has_name(data, "label"))
+
+  p <- plot_emission_intensity(data)
+  out <- p[["layers"]][[1]][["data"]]
+  expect_true(has_name(out, "label"))
+})
