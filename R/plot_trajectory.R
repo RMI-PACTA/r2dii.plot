@@ -67,6 +67,7 @@ plot_trajectory_impl <- function(data) {
   )
 
   lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
+  issue_346 <- 6
   p <- p + ggrepel::geom_text_repel(
     data = lines_end,
     aes(label = .data$metric, segment.color = .data$metric),
@@ -78,16 +79,14 @@ plot_trajectory_impl <- function(data) {
     nudge_y = 0.01 * value_span(data),
     hjust = 0,
     segment.size = if_else(is_scenario(lines_end$metric0), 0.4, 0),
-    # ASK: Does `6` have a meaning? e.g. `some_space <- 6`. I changed the
-    # value to 1-30 and noticed no effect on the plot. Strange.
-    xlim = c(min(data$year), max(data$year) + 6)
+    xlim = c(min(data$year), max(data$year) + issue_346)
   )
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
-    scale_fill_manual(aesthetics = "colour", values = scenario_colour(data)$colour) +
+    scale_fill_manual(values = scenario_colour(data)$colour) +
+    # Calling `scale_fill_manual()` twice is intentional (https://git.io/JnDPc)
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
-
     scale_linetype_manual(values = line_types(data)) +
     scale_color_manual(values = line_colours(data)) +
     theme_2dii() +
