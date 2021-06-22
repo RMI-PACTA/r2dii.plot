@@ -165,25 +165,20 @@ get_common_start_year <- function(data) {
 
 #' The name of the column holding metrics such as projected, corporate_economy
 #'
+#' Prepare for https://github.com/2DegreesInvesting/r2dii.analysis/issues/313
+#'
 #' @examples
 #' metric(sda)
 #' metric(market_share)
 #' @noRd
 metric <- function(data) {
-  extract_names(data, metric_names())
+  extract_names(data, c("metric", "emission_factor_metric"))
 }
 
-#' Names of columns holding metrics such as projected, corporate_economy
-#'
-#' The column holding metrics such as "projected" and "corporate_economy" may
-#' have a different name in different datasets. This function outputs all the
-#' possible names. Eventually the difference may disappear (r2dii.analysis#313)
-#' and this function should help make the transition smooth.
-#'
-#' @examples
-#' metric_names()
-#' @noRd
-metric_names <- function() c("metric", "emission_factor_metric")
+# Prepare for https://github.com/2DegreesInvesting/r2dii.analysis/issues/313
+emission_factor <- function(data) {
+  extract_names(data, c("emission_factor", "emission_factor_value"))
+}
 
 #' Extract names matching `possible_names`
 #'

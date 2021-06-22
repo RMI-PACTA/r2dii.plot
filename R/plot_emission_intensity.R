@@ -49,7 +49,7 @@ plot_emission_intensity_impl <- function(data) {
     geom_line(
       data = data, aes(
         x = .data$year,
-        y = .data$emission_factor_value,
+        y = .data[[emission_factor(data)]],
         colour = match_lines_order(data)
       )
     ) +
@@ -62,8 +62,6 @@ plot_emission_intensity_impl <- function(data) {
 
 match_lines_order <- function(data) {
   forcats::fct_reorder2(
-    data$emission_factor_metric,
-    data$year,
-    data$emission_factor_value
+    data[[metric(data)]], data$year, data[[emission_factor(data)]]
   )
 }
