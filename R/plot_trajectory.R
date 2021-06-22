@@ -268,14 +268,9 @@ scenario <- function(data) {
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
-      mutate(metric = factor(.data$metric,
-        levels = specs$scenario
-      )) %>%
+      mutate(metric = factor(.data$metric, levels = specs$scenario)) %>%
       arrange(.data$year, .data$metric) %>%
-      mutate(value = lead(.data$value_low,
-        n = 1,
-        default = area_borders$upper
-      ))
+      mutate(value = lead(.data$value_low, n = 1, default = area_borders$upper))
   } else {
     data_worse_than_scenarios$value <- area_borders$upper
     data_worse_than_scenarios$metric <- "worse"
