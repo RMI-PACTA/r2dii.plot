@@ -6,6 +6,7 @@
 
     `data` must have all the expected names.
     x Missing names: emission_factor_metric, emission_factor_value.
+    i Is your data `sda`-like?
 
 # if `data` has zero rows errors gracefully
 
@@ -21,6 +22,6 @@
 # with too many lines to plot errors gracefully
 
     Can't plot more than 7 lines in one plot.
-    Found 12 lines: Projected, Corporate Economy, Target Demo, Adjusted Scenario Demo, 1, 2, 3, 4, 5, 6, 7, 8.
-    Consider splitting the data over multiple plots.
+    i Do you need to split the data over multiple plots?
+    x Found 12 lines: projected, corporate_economy, target_demo, adjusted_scenario_demo, 1, 2, 3, 4, 5, 6, 7, 8.
 

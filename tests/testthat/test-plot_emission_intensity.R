@@ -23,8 +23,7 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 
   p <- plot_emission_intensity(data)
   p_data <- p$layers[[1]]$data
-  specs_cols <- c("line_name", "label", "hex")
-  has_factors <- any(unlist(lapply(p_data[specs_cols], is.factor)))
+  has_factors <- any(unlist(lapply(p_data, is.factor)))
 
   expect_false(has_factors)
 })
@@ -33,13 +32,16 @@ test_that("outputs pretty labels", {
   data <- filter(sda, sector == "automotive")
   p <- plot_emission_intensity(data)
 
-  get_line_name <- function(p) unique(p$layers[[1]]$data$line_name)
-  expect_equal(get_line_name(p), c("Projected", "Corporate Economy"))
+  metrics <- unique(p$layers[[1]]$data$emission_factor_metric)
+  pretty <- c("Projected", "Corporate Economy")
+  expect_equal(pretty, metrics)
 })
 
 test_that("with too many lines to plot errors gracefully", {
   data <- filter(sda, sector == "cement") %>%
     bind_fake_sda_metrics(8)
-
-  expect_snapshot_error(plot_emission_intensity(data))
+  # TODO: Why this warning?
+  suppressWarnings(
+    expect_snapshot_error(plot_emission_intensity(data))
+  )
 })

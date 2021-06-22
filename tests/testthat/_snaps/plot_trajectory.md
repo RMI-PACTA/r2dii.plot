@@ -47,8 +47,8 @@
 # with too many trajectory lines errors gracefully
 
     Can't plot more than 5 lines in one plot.
-    Found 8 lines: a, b, c, corporate_economy, d, e, f, projected.
-    Consider splitting the data over multiple plots.
+    i Do you need to split the data over multiple plots?
+    x Found 8 lines: a, b, c, corporate_economy, d, e, f, projected.
 
 # informs that values are normalized
 
