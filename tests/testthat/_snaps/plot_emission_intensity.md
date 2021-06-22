@@ -16,7 +16,7 @@
 # with too many sectors errors gracefully
 
     `data` must have a single value of `sector`.
-    i Do you need to pick one value? E.g. pick 'a' with: `subset(data, sector == 'a')`
+    i Do you need to pick one value? E.g. pick 'a' with: `subset(data, sector == 'a')`.
     x Provided: a, b.
 
 # with too many lines to plot errors gracefully
