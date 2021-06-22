@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 <!-- badges: end -->
 
 The goal of r2dii.plot is to help you plot 2DII data in an informative,
@@ -17,8 +19,13 @@ beautiful, and easy way.
 
 ## Installation
 
-You can install the development version of r2dii.plot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
+You can install the released version of r2dii.plot from CRAN with:
+
+``` r
+install.packages("r2dii.plot")
+```
+
+And the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -96,9 +103,8 @@ naive call.
 ``` r
 plot_emission_intensity(sda)
 #> Error: `data` must have a single value of `sector`.
+#> ℹ Do you need to pick one value? E.g. pick 'automotive' with: `subset(data, sector == 'automotive')`.
 #> x Provided: automotive, aviation, cement, oil and gas, shipping, coal, steel.
-#> ℹ Pick one value, e.g. 'automotive', with:
-#> subset(data, sector == 'automotive')
 ```
 
 The error message guides you to subset a single value of `sector`. Try
