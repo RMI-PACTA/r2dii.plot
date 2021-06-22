@@ -213,7 +213,7 @@ test_that("with no data to remove does not inform about removing rows", {
   options(restore)
 })
 
-test_that("'metric' in plot data is a factor with 'projected' as last element",{
+test_that("'metric' in plot data is a factor with 'projected' as last element", {
   data <- example_market_share()
   plot <- plot_trajectory(data)
   expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")

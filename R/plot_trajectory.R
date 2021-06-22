@@ -231,7 +231,6 @@ get_ordered_scenario_colours <- function(n) {
 }
 
 prep_trajectory <- function(data) {
-
   out <- data %>%
     drop_before_start_year() %>%
     mutate(value = .data$production)
