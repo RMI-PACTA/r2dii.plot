@@ -98,8 +98,11 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of r2dii.plot from <a href="https://github.com/2DegreesInvesting/r2dii.plot">GitHub</a> with:</p>
+<p>You can install the released version of r2dii.plot from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"r2dii.plot"</span><span class="op">)</span></code></pre></div>
+<p>And the development version from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -107,11 +110,11 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://2degreesinvesting.github.io/r2dii.data/">r2dii.data</a>, <a href="https://2degreesinvesting.github.io/r2dii.match/">r2dii.match</a>, and <a href="https://2degreesinvesting.github.io/r2dii.analysis/">r2dii.analysis</a>. It also plays well with the <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package, which helps you customize your plots.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
 <p>Your data typically comes from the output of two functions in the r2dii.analysis package: <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html"><code>target_sda()</code></a> and <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html"><code>target_market_share()</code></a>. Here you’ll use two example datasets that come with r2dii.plot.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sda</span>
 <span class="co">#&gt; # A tibble: 208 x 4</span>
 <span class="co">#&gt;    sector      year emission_factor_metric emission_factor_value</span>
@@ -148,14 +151,13 @@
 <h3 class="hasAnchor">
 <a href="#emission-intensity" class="anchor"></a>Emission intensity</h3>
 <p>Use <code><a href="reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> with <code>sda</code>-like data. Try an intuitive, naive call.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
 <span class="co">#&gt; Error: `data` must have a single value of `sector`.</span>
-<span class="co">#&gt; x Provided: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span>
-<span class="co">#&gt; ℹ Pick one value, e.g. 'automotive', with:</span>
-<span class="co">#&gt; subset(data, sector == 'automotive')</span></code></pre></div>
+<span class="co">#&gt; ℹ Do you need to pick one value? E.g. pick 'automotive' with: `subset(data, sector == 'automotive')`.</span>
+<span class="co">#&gt; ✖ Provided: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span></code></pre></div>
 <p>The error message guides you to subset a single value of <code>sector</code>. Try “cement”.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
@@ -166,7 +168,7 @@
 <li>Add a title.</li>
 <li>Customize the legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_colour_manual()</a></code>.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
@@ -184,7 +186,7 @@
 <h3 class="hasAnchor">
 <a href="#techmix" class="anchor"></a>Techmix</h3>
 <p>Use <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> with <code>market_share</code>-like data.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
   <span class="va">market_share</span>, 
   <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span> <span class="op">&amp;</span> 
@@ -200,7 +202,7 @@
 <li>Subset a custom time range (instead of the default, full range in the data).</li>
 <li>Set custom colours and legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_color_manual()</a></code>.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span> <span class="op">&amp;</span>
@@ -222,7 +224,7 @@
 <h3 class="hasAnchor">
 <a href="#trajectory" class="anchor"></a>Trajectory</h3>
 <p>Use <code><a href="reference/plot_trajectory.html">plot_trajectory()</a></code> with <code>market_share</code>-like data.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
   <span class="va">market_share</span>,
   <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span> <span class="op">&amp;</span>
@@ -279,6 +281,7 @@
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master"><img src="https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://github.com/2DegreesInvesting/r2dii.plot/actions"><img src="https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=r2dii.plot"><img src="https://www.r-pkg.org/badges/version/r2dii.plot" alt="CRAN status"></a></li>
 </ul>
 </div>
 </div>
