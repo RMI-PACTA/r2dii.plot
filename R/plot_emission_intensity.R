@@ -66,6 +66,6 @@ plot_emission_intensity_impl <- function(data) {
 
 match_lines_order <- function(data) {
   forcats::fct_reorder2(
-    data[[metric(data)]], data$year, data[[emission_factor(data)]]
+    data$label, data$year, data[[emission_factor(data)]]
   )
 }

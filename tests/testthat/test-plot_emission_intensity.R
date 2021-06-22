@@ -47,10 +47,10 @@ test_that("with too many lines to plot errors gracefully", {
 })
 
 test_that("orders lines as expected", {
-  cement <- filter(sda, sector == "cement")
-  expected <- levels(match_lines_order(cement))
+  prep <- common_prep(filter(sda, sector == "cement"))
+  expected <- levels(match_lines_order(prep))
 
-  p <- plot_emission_intensity(cement)
+  p <- plot_emission_intensity(prep)
   layers <- p[["layers"]][[1]]
 
   expr <- rlang::quo_get_expr(layers$mapping$colour)
