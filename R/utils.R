@@ -247,7 +247,9 @@ recode_metric <- function(x) {
 }
 
 add_label_if_missing <- function(data) {
-  if (has_name(data, "label")) return(data)
+  if (has_name(data, "label")) {
+    return(data)
+  }
 
   data$label <- data[[metric(data)]]
   data

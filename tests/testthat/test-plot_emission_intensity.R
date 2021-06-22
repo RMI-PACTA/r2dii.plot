@@ -54,7 +54,7 @@ test_that("orders lines as expected", {
   layers <- p[["layers"]][[1]]
 
   expr <- rlang::quo_get_expr(layers$mapping$colour)
-  data <- layers$data  # Define `data`. `expr` is `match_lines_order(data)`
+  data <- layers$data # Define `data`. `expr` is `match_lines_order(data)`
   actual <- levels(rlang::eval_tidy(expr))
 
   expect_equal(expected, actual)
