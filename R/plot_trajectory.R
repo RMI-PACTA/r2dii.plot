@@ -234,7 +234,7 @@ prep_trajectory <- function(data) {
   out <- data %>%
     drop_before_start_year() %>%
     mutate(value = .data$production) %>%
-    ensure_label()
+    add_label_if_missing()
 
   start_year <- min(out$year)
   if (!quiet()) {

@@ -36,7 +36,7 @@ prep_emission_intensity <- function(data) {
   prep <- data %>%
     drop_before_start_year() %>%
     mutate(year = lubridate::make_date(.data$year)) %>%
-    ensure_label()
+    add_label_if_missing()
 
   metrics <- distinct(prep, .data$emission_factor_metric)
   colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
