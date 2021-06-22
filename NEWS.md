@@ -1,5 +1,7 @@
 # r2dii.plot (development version)
 
+* `plot_trajectory()` now plots legend labels from `metric` "as is" (#346).
+
 * Error messages now more closely follow the tidyverse style guide (#324).  
 
 * `plot_trajectory()` now plots the main line on top of all other lines, so
