@@ -5,7 +5,7 @@
 # if `data` is not market_share-like errors gracefully
 
     `data` must have all the expected names.
-    x Missing names: metric, region, scenario_source, technology.
+    x Missing names: metric, production, region, scenario_source, technology.
     i Is your data `market_share`-like?
 
 # with zero-row data errors gracefully
@@ -42,13 +42,8 @@
 
 # with too many scenarios errors gracefully
 
-    `metric` must have between 1 and 4 scenarios, not 8: cps, sds, sps, a, b, c, d, e
-
-# with too many trajectory lines errors gracefully
-
-    Can't plot more than 5 lines in one plot.
-    i Do you need to split the data over multiple plots?
-    x Found 8 lines: a, b, c, corporate_economy, d, e, f, projected.
+    `metric` must have between 1 and 4 scenarios, not 8.
+    x Provided: target_cps, target_sds, target_sps, target_a, target_b, target_c, target_d, target_e
 
 # informs that values are normalized
 

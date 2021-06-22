@@ -197,47 +197,6 @@ extract_names <- function(data, possible_names) {
 
 anchor <- function(x) paste0("^", x, "$")
 
-recode_metric_and_metric_type <- function(data, metric) {
-  data %>%
-    mutate(metric_type = recode_portfolio_benchmark_scenario(.data[[metric]])) %>%
-    mutate(metric = sub("target_", "", .data[[metric]]))
-}
-
-recode_portfolio_benchmark_scenario <- function(x) {
-  case_when(
-    x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
-    TRUE ~ "benchmark"
-  )
-}
-
-#' Mutate a data frame column (or add a new one) using pretty labels
-#'
-#' Pretty labels are "UPPERCASE" when they belong to scenarios, else they are
-#' "Title Case".
-#'
-#' @examples
-#' library(dplyr)
-#'
-#' data <- tibble(
-#'   metric = c("corporate_economy", "sds"),
-#'   metric_type = c("benchmark", "scenario")
-#' )
-#' mutate_pretty_labels(data, "metric")
-#' mutate_pretty_labels(data, "new")
-#' @noRd
-mutate_pretty_labels <- function(data, name) {
-  abort_if_missing_names(data, c("metric_type", "metric"))
-
-  mutate(
-    data,
-    "{name}" := case_when(
-      data$metric_type == "scenario" ~ toupper(as.character(.data$metric)),
-      TRUE ~ to_title(as.character(.data$metric))
-    )
-  )
-}
-
 drop_before_start_year <- function(data) {
   start_year <- get_common_start_year(data)
   if (!min(data$year) < start_year) {
@@ -256,12 +215,12 @@ abort_if_too_many_lines <- function(data, max) {
   metrics <- unique(data[[metric(data)]])
   n <- length(metrics)
   if (n > max) {
-    abort(c(glue(
-      "Can't plot more than {max} lines in one plot."
-    ),
-    i = "Do you need to split the data over multiple plots?",
-    x = glue("Found {n} lines: {toString(metrics)}.")
-    ))
+    abort(
+      c(glue("Can't plot more than {max} lines in one plot."),
+        i = "Do you need to split the data over multiple plots?",
+        x = glue("Found {n} lines: {toString(metrics)}.")
+      )
+    )
   }
 
   invisible(data)
@@ -269,7 +228,6 @@ abort_if_too_many_lines <- function(data, max) {
 
 is_scenario <- function(x) grepl("^target", x, ignore.case = TRUE)
 is_portfolio <- function(x) grepl("^projected", x, ignore.case = TRUE)
-is_benchmark <- function(x) !grepl("^projected|^target", x, ignore.case = TRUE)
 
 beautify <- function(data, x) {
   mutate(data, "{x}" := to_title(.data[[x]]))
