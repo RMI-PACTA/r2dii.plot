@@ -90,6 +90,15 @@ test_that("with input data before start year of 'projected' prep_techmix
   expect_equal(min(prep_techmix(data)$year), start_year)
 })
 
+test_that("does not modify `metric`", {
+  data <- filter(example_market_share(), metric %in% unique(metric)[1:3])
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_techmix(data)
+  out <- sort(unique(p[["layers"]][[1]][["data"]][["metric"]]))
+  expect_equal(out, metrics)
+})
+
 test_that("if `data` has no `label` we create it", {
   data <- filter(example_market_share(), metric %in% unique(metric)[1:3])
   expect_false(has_name(data, "label"))
