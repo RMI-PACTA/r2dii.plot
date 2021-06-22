@@ -72,7 +72,7 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 
 prep_techmix <- function(data) {
   data %>%
-    drop_before_start_year() %>%
+    common_prep() %>%
     filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
     mutate(
       metric = recode_metric(.data$metric),
@@ -83,8 +83,7 @@ prep_techmix <- function(data) {
     mutate(
       value = .data$technology_share,
       sector = recode_sector(.data$sector)
-    ) %>%
-    add_label_if_missing()
+    )
 }
 
 plot_techmix_impl <- function(data) {

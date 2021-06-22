@@ -254,3 +254,11 @@ add_label_if_missing <- function(data) {
   data$label <- data[[metric(data)]]
   data
 }
+
+#' A place to DRY common preparation steps
+#' @noRd
+common_prep <- function(data) {
+  data %>%
+    drop_before_start_year() %>%
+    add_label_if_missing()
+}
