@@ -65,6 +65,8 @@ plot_emission_intensity_impl <- function(data) {
 }
 
 match_lines_order <- function(data) {
+  # TODO: Ask if we should use data$metric instead. What would happen if `label`
+  # holds a lump version of `metric`? e.g. metric: a, b, c; label: a, other.
   forcats::fct_reorder2(
     data$label, data$year, data[[emission_factor(data)]]
   )
