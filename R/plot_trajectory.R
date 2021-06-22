@@ -103,12 +103,10 @@ value_span <- function(data) {
 
 line_colours <- function(data) {
   linecolours <- c("black", "black", "gray", "grey46", "black")
-  # TODO: Ask Monika to check this is what 5413f0b indented to do
   c(scenario_lines(data)$colour, linecolours[1:lines_n(data)])
 }
 
 line_types <- function(data) {
-  # TODO: Ask Monika to check this is what 5413f0b indented to do
   linetypes <- c("solid", "dashed", "solid", "solid", "twodash")
   c(rep("solid", nrow(scenario_lines(data))), linetypes[1:lines_n(data)])
 }
@@ -146,8 +144,7 @@ order_trajectory <- function(data) {
     mutate(
       metric = factor(
         .data$metric,
-        # TODO: Ask Monika to check this is what 5413f0b indented to do
-        levels = c(scenario_lines(data)$scenario, order_add_lines, main_line())
+              levels = c(scenario_lines(data)$scenario, order_add_lines, main_line())
       )
     ) %>%
     arrange(.data$year, .data$metric)
@@ -244,7 +241,6 @@ prep_trajectory <- function(data) {
     )
 
   start_year <- min(out$year)
-  # TODO: Extract and move to r2dii.analysis
   if (!quiet()) {
     inform(glue(
       "Normalizing `production` values to {start_year} -- the start year."

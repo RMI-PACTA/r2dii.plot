@@ -62,7 +62,6 @@ abort_if_has_zero_rows <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-# TODO: Restore after solving merge conflicts
 hint_if_missing_names <- function(expr, like) {
   rlang::with_handlers(
     expr,
