@@ -205,11 +205,12 @@ scenario_colour <- function(data) {
       scenario = rev(c("worse", ordered_scenarios)),
       colour = scenario_colours$hex
     ),
-    abort(  # nocov start
+    abort( # nocov start
       c("Each `technology` must only be either 'green' or 'brown'.",
-      i = "Is `r2dii.data::green_or_brown` as expected?",
-      x = glue("`technology` is {toString(technology_kind)}.")
-    ))  # nocov end
+        i = "Is `r2dii.data::green_or_brown` as expected?",
+        x = glue("`technology` is {toString(technology_kind)}.")
+      )
+    ) # nocov end
   )
 }
 
