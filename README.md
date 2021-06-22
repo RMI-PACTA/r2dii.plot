@@ -95,9 +95,10 @@ naive call.
 
 ``` r
 plot_emission_intensity(sda)
-#> Error: `sda` must have a single value of `sector` but has: automotive, aviation, cement, oil and gas, shipping, coal, steel.
-#> Pick one value, e.g. 'automotive', with:
-#>   subset(sda, sector == 'automotive')
+#> Error: `data` must have a single value of `sector`.
+#> x Provided: automotive, aviation, cement, oil and gas, shipping, coal, steel.
+#> ℹ Pick one value, e.g. 'automotive', with:
+#> subset(data, sector == 'automotive')
 ```
 
 The error message guides you to subset a single value of `sector`. Try

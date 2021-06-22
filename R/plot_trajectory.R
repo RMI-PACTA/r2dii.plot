@@ -103,12 +103,14 @@ value_span <- function(data) {
 
 line_colours <- function(data) {
   linecolours <- c("black", "black", "gray", "grey46", "black")
-  c(linecolours[1:lines_n(data)], scenario_lines(data)$colour)
+  # TODO: Ask Monika to check this is what 5413f0b indented to do
+  c(scenario_lines(data)$colour, linecolours[1:lines_n(data)])
 }
 
 line_types <- function(data) {
+  # TODO: Ask Monika to check this is what 5413f0b indented to do
   linetypes <- c("solid", "dashed", "solid", "solid", "twodash")
-  c(linetypes[1:lines_n(data)], rep("solid", nrow(scenario_lines(data))))
+  c(rep("solid", nrow(scenario_lines(data))), linetypes[1:lines_n(data)])
 }
 
 lines_n <- function(data) {
@@ -144,7 +146,8 @@ order_trajectory <- function(data) {
     mutate(
       metric = factor(
         .data$metric,
-        levels = c(main_line(), order_add_lines, scenario_lines(data)$scenario)
+        # TODO: Ask Monika to check this is what 5413f0b indented to do
+        levels = c(scenario_lines(data)$scenario, order_add_lines, main_line())
       )
     ) %>%
     arrange(.data$year, .data$metric)
