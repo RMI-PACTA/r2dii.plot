@@ -252,13 +252,15 @@ drop_before_start_year <- function(data) {
   filter(data, .data$year >= start_year)
 }
 
-abort_if_too_many_lines <- function(data, max, col_name = "metric") {
-  n <- nrow(data)
+abort_if_too_many_lines <- function(data, max) {
+  metrics <- unique(data[[metric(data)]])
+  n <- length(metrics)
   if (n > max) {
-    abort(glue(
-      "Can't plot more than {max} lines in one plot.
-      Found {n} lines: {toString(data[[col_name]])}.
-      Consider splitting the data over multiple plots."
+    abort(c(glue(
+      "Can't plot more than {max} lines in one plot."
+    ),
+    i = "Do you need to split the data over multiple plots?",
+    x = glue("Found {n} lines: {toString(metrics)}.")
     ))
   }
 
