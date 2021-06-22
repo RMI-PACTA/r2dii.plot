@@ -24,99 +24,79 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(data) {
-  stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "technology_share")
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data)
-  cols <- c("sector", "region", "scenario_source")
-  abort_if_multiple(data, cols)
-  abort_if_multiple_scenarios(data)
+  check_plot_techmix(data)
 
   prep <- prep_techmix(data)
   plot_techmix_impl(prep)
 }
 
+check_plot_techmix <- function(data, env = parent.frame()) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  abort_if_has_zero_rows(data, env = env)
+  enforce_single_value <- c("sector", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, env = env)
+  abort_if_multiple_scenarios(data, env = env)
+
+  invisible(data)
+}
+
 abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
-  abort_if_missing_names(data, "metric")
   .data <- deparse_1(substitute(data, env = env))
 
   scen <- extract_scenarios(data$metric)
   n <- length(scen)
 
   if (n == 0L) {
-    abort(glue("`{.data}$metric` must have one scenario but has none."))
+    abort(c(
+      glue("`{.data}$metric` must have one scenario."),
+      x = "It has none."
+    ))
   }
 
   if (n > 1L) {
     example <- c(setdiff(unique(data$metric), scen), first(scen))
-    abort(glue(
-      "`{.data}$metric` must have a single scenario not {n}: {toString(scen)}.
-        You may pick one scenario, e.g. '{first(scen)}' with:
-          subset({.data}, metric %in% {fmt_vector(fmt_string(example))})"
+    abort(c(
+      glue("`{.data}$metric` must have a single scenario not {n}."),
+      i = glue(
+        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
+        `subset({.data}, metric %in% {fmt_vector(fmt_string(example))})`."
+      ),
+      x = glue("Provided: {toString(scen)}.")
     ))
   }
 
   invisible(data)
 }
 
-prep_techmix <- function(data, value = "technology_share", metric = "metric") {
+prep_techmix <- function(data) {
   data %>%
-    check_prep_techmix(value) %>%
     drop_before_start_year() %>%
-    recode_metric_and_metric_type(metric) %>%
-    pick_extreme_years() %>%
-    date_metric_type() %>%
-    mutate(value = .data[[value]])
-}
-
-pick_extreme_years <- function(data) {
-  filter(data, .data$year %in% c(min(data$year), max(data$year)))
-}
-
-date_metric_type <- function(data) {
-  mutate(data, metric_type = paste0(.data$metric_type, "_", .data$year))
-}
-
-check_prep_techmix <- function(data, value) {
-  crucial <- c(common_crucial_market_share_columns(), value)
-  abort_if_missing_names(data, crucial)
-
-  cols <- c("scenario_source", "sector", "region")
-  lapply(cols, function(x) abort_if_multiple(data, x))
-
-  invisible(data)
+    filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
+    mutate(
+      metric = recode_metric(.data$metric),
+      metric = paste0(.data$metric, "_", .data$year),
+      metric = to_title(.data$metric),
+      metric = sub("target_", "", .data$metric)
+    ) %>%
+    mutate(
+      value = .data$technology_share,
+      sector = recode_sector(.data$sector)
+    )
 }
 
 plot_techmix_impl <- function(data) {
-  metric_type_order <- unique(data$metric_type)
-  metric_type_labels <- to_title(metric_type_order)
+  colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
+  metrics <- rev(unique(data$metric))
 
-  sector <- data %>%
-    pull(.data$sector) %>%
-    unique() %>%
-    guess_sector()
-
-  tech_colours <- technology_colours %>%
-    filter(.data$sector == .env$sector) %>%
-    select(.data$technology, .data$label, .data$hex)
-
-  data_colours <- dplyr::semi_join(tech_colours, data, by = "technology")
-
-  data <- data %>%
-    filter(.data$metric_type %in% metric_type_order)
-
-  p_techmix <- ggplot() +
-    theme_2dii() +
-    xlab("") +
-    ylab("")
-
-  p_techmix <- p_techmix +
+  ggplot() +
     geom_bar(
       data = data,
       aes(
-        x = factor(.data$metric_type, levels = rev(metric_type_order)),
+        x = factor(.data$metric, levels = metrics),
         y = .data$value,
-        fill = factor(.data$technology, levels = data_colours$technology)
+        fill = factor(.data$technology, levels = colours$technology)
       ),
       position = "fill",
       stat = "identity",
@@ -127,31 +107,31 @@ plot_techmix_impl <- function(data) {
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = rev(metric_type_labels)) +
+    scale_x_discrete(labels = metrics) +
     scale_fill_manual(
-      labels = data_colours$label,
-      values = data_colours$hex
+      labels = colours$label,
+      values = colours$hex
     ) +
     coord_flip() +
+    guides(fill = guide_legend(ncol = 3, byrow = TRUE, reverse = TRUE)) +
+    theme_2dii() +
     theme(axis.line.y = element_blank()) +
-    theme(axis.ticks.y = element_blank())
-
-  p_techmix <- p_techmix +
+    theme(axis.ticks.y = element_blank()) +
     theme(legend.position = "bottom") +
-    guides(fill = guide_legend(ncol = 3, byrow = TRUE, reverse = TRUE))
-
-  p_techmix
+    xlab("") +
+    ylab("")
 }
 
-guess_sector <- function(sector) {
-  sector <- case_when(
-    grepl("(?i)power(?-i)", sector) ~ "power",
-    grepl("(?i)auto(?-i)[a-zA-Z]+", sector) ~ "automotive",
-    grepl("(?i)oil(?-i).*(?i)gas(?-i)", sector) ~ "oil&gas",
-    grepl("(?i)fossil(?-i)[a-zA-Z]+", sector) ~ "fossil fuels",
-    TRUE ~ tolower(sector)
+recode_sector <- function(x) {
+  # styler: off
+  case_when(
+    grepl("(?i)power(?-i)", x)             ~ "power",
+    grepl("(?i)auto(?-i)[a-zA-Z]+", x)     ~ "automotive",
+    grepl("(?i)oil(?-i).*(?i)gas(?-i)", x) ~ "oil&gas",
+    grepl("(?i)fossil(?-i)[a-zA-Z]+", x)   ~ "fossil fuels",
+    TRUE ~ tolower(x)
   )
-  sector
+  # styler: on
 }
 
 extract_scenarios <- function(x) {
