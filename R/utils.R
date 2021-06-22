@@ -37,8 +37,8 @@ abort_if_multiple <- function(data, x, env = parent.frame()) {
       abort(c(
         glue("`{.data}` must have a single value of `{x}`."),
         i = glue(
-          "Do you need to pick one value? E.g. pick '{first(.x)}', with: \\
-          subset({.data}, {x} == '{first(.x)}')"
+          "Do you need to pick one value? E.g. pick '{first(.x)}' with: \\
+          `subset({.data}, {x} == '{first(.x)}')`"
         ),
         x = glue("Provided: {toString(.x)}.")
       ))
