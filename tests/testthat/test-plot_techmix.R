@@ -2,9 +2,9 @@ test_that("without a `data` frame errors gracefully", {
   expect_error(plot_techmix(1), "data.frame.*not")
 })
 
-test_that("without `market_share` data errors gracefully", {
-  bad_kind <- filter(sda, sector == first(sector))
-  expect_snapshot_error(plot_techmix(bad_kind))
+test_that("without `market_share`-like data errors gracefully", {
+  bad <- head(sda, 1L)
+  expect_snapshot_error(plot_techmix(bad))
 })
 
 test_that("with zero-row data errors gracefully", {
