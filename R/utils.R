@@ -28,14 +28,6 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-recode_metric <- function(x) {
-  case_when(
-    x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
-    TRUE ~ "benchmark"
-  )
-}
-
 abort_if_multiple <- function(data, x, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
@@ -134,14 +126,6 @@ fmt_vector <- function(x) {
   paste0("c(", x, ")")
 }
 
-expect_no_error <- function(...) {
-  testthat::expect_error(..., NA)
-}
-
-expect_no_message <- function(...) {
-  testthat::expect_message(..., NA)
-}
-
 example_market_share <- function(...) {
   filter(market_share, .data$technology == first(.data$technology), ...)
 }
@@ -213,28 +197,6 @@ extract_names <- function(data, possible_names) {
 
 anchor <- function(x) paste0("^", x, "$")
 
-drop_rows_before_sart_year <- function(data, metric) {
-  start_year <- get_common_start_year(data)
-  if (!min(data$year) < start_year) {
-    return(data)
-  }
-
-  if (!quiet()) {
-    inform(glue(
-      "Removing data before {start_year} -- the start year of 'projected'."
-    ))
-  }
-  filter(data, .data$year >= start_year)
-}
-
-is_scenario <- function(x) grepl("^target", x, ignore.case = TRUE)
-is_portfolio <- function(x) grepl("^projected", x, ignore.case = TRUE)
-is_benchmark <- function(x) !grepl("^projected|^target", x, ignore.case = TRUE)
-
-beautify <- function(data, x) {
-  mutate(data, "{x}" := to_title(.data[[x]]))
-}
-
 recode_metric_and_metric_type <- function(data, metric) {
   data %>%
     mutate(metric_type = recode_portfolio_benchmark_scenario(.data[[metric]])) %>%
@@ -247,15 +209,6 @@ recode_portfolio_benchmark_scenario <- function(x) {
     startsWith(x, "target") ~ "scenario",
     TRUE ~ "benchmark"
   )
-}
-
-format_plot_function_name <- function(.expr) {
-  # "fun_name(...)" -> "fun_name"
-  fun <- gsub("(.*)\\(.*", "\\1", .expr)
-  # "fun_nameZ" -> "_name"
-  fun <- gsub(".*_(.*)[A-Z]", "\\1", fun)
-  fun <- glue("plot_{fun}")
-  fun
 }
 
 #' Mutate a data frame column (or add a new one) using pretty labels
@@ -310,4 +263,12 @@ abort_if_too_many_lines <- function(data, max, col_name = "metric") {
   }
 
   invisible(data)
+}
+
+is_scenario <- function(x) grepl("^target", x, ignore.case = TRUE)
+is_portfolio <- function(x) grepl("^projected", x, ignore.case = TRUE)
+is_benchmark <- function(x) !grepl("^projected|^target", x, ignore.case = TRUE)
+
+beautify <- function(data, x) {
+  mutate(data, "{x}" := to_title(.data[[x]]))
 }
