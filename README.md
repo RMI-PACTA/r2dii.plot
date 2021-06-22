@@ -17,8 +17,13 @@ beautiful, and easy way.
 
 ## Installation
 
-You can install the development version of r2dii.plot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
+You can install the released version of r2dii.plot from CRAN with:
+
+``` r
+install.packages("r2dii.plot")
+```
+
+And the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -96,9 +101,8 @@ naive call.
 ``` r
 plot_emission_intensity(sda)
 #> Error: `data` must have a single value of `sector`.
+#> ℹ Do you need to pick one value? E.g. pick 'automotive' with: `subset(data, sector == 'automotive')`.
 #> x Provided: automotive, aviation, cement, oil and gas, shipping, coal, steel.
-#> ℹ Pick one value, e.g. 'automotive', with:
-#> subset(data, sector == 'automotive')
 ```
 
 The error message guides you to subset a single value of `sector`. Try

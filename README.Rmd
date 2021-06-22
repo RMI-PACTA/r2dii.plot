@@ -28,8 +28,13 @@ beautiful, and easy way.
 
 ## Installation
 
-You can install the development version of r2dii.plot from
-[GitHub](https://github.com/2DegreesInvesting/r2dii.plot) with:
+You can install the released version of r2dii.plot from CRAN with:
+
+```r
+install.packages("r2dii.plot")
+```
+
+And the development version from GitHub with:
 
 ```r
 # install.packages("devtools")
