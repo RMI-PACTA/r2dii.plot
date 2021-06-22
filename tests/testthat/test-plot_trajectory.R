@@ -212,3 +212,12 @@ test_that("with no data to remove does not inform about removing rows", {
     expect_no_message() # No other message should bubble up
   options(restore)
 })
+
+test_that("does not modify `metric`", {
+  data <- example_market_share()
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_trajectory(data)
+  out <- sort(as.character(unique(p$layers[[2]]$data$metric)))
+  expect_equal(out, metrics)
+})
