@@ -144,7 +144,7 @@ order_trajectory <- function(data) {
     mutate(
       metric = factor(
         .data$metric,
-              levels = c(scenario_lines(data)$scenario, order_add_lines, main_line())
+        levels = c(scenario_lines(data)$scenario, order_add_lines, main_line())
       )
     ) %>%
     arrange(.data$year, .data$metric)
