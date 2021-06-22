@@ -69,15 +69,15 @@ plot_trajectory_impl <- function(data) {
   lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
   p <- p + ggrepel::geom_text_repel(
     data = lines_end,
-    aes(label = .data$metric, segment.color = .data$metric),
+    aes(label = .data$label, segment.color = .data$metric),
     direction = "y",
     color = "black",
     size = 3.5,
     alpha = 1,
-    nudge_x = if_else(is_scenario(lines_end$metric0), 0.6, 0.1),
+    nudge_x = if_else(is_scenario(lines_end$metric), 0.6, 0.1),
     nudge_y = 0.01 * value_span(data),
     hjust = 0,
-    segment.size = if_else(is_scenario(lines_end$metric0), 0.4, 0),
+    segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
     # ASK: Does `6` have a meaning? e.g. `some_space <- 6`. I changed the
     # value to 1-30 and noticed no effect on the plot. Strange.
     xlim = c(min(data$year), max(data$year) + 6)
@@ -103,12 +103,12 @@ value_span <- function(data) {
 
 line_colours <- function(data) {
   linecolours <- c("black", "black", "gray", "grey46", "black")
-  c(scenario_lines(data)$colour, linecolours[1:lines_n(data)])
+  c(scenario_lines(data)$colour, rev(linecolours[1:lines_n(data)]))
 }
 
 line_types <- function(data) {
   linetypes <- c("solid", "dashed", "solid", "solid", "twodash")
-  c(rep("solid", nrow(scenario_lines(data))), linetypes[1:lines_n(data)])
+  c(rep("solid", nrow(scenario_lines(data))), rev(linetypes[1:lines_n(data)]))
 }
 
 lines_n <- function(data) {
@@ -135,7 +135,7 @@ abort_if_invalid_scenarios_number <- function(data) {
 
 order_trajectory <- function(data) {
   order_add_lines <- data %>%
-    filter(!is_scenario(.data$metric0), .data$metric != main_line()) %>%
+    filter(!is_scenario(.data$metric), .data$metric != main_line()) %>%
     pull(.data$metric) %>%
     unique() %>%
     as.character()
@@ -152,7 +152,7 @@ order_trajectory <- function(data) {
 
 distance_from_start_value_portfolio <- function(data, value) {
   start_value_portfolio <- data %>%
-    filter(.data$year == min(.data$year), is_portfolio(.data$metric0)) %>%
+    filter(.data$year == min(.data$year), is_portfolio(.data$metric)) %>%
     pull(.data$value)
 
   abs(value - start_value_portfolio)
@@ -184,7 +184,7 @@ get_area_borders <- function(data) {
 
 scenario_colour <- function(data) {
   ordered_scenarios <- data %>%
-    filter(is_scenario(.data$metric0), .data$year == max(.data$year)) %>%
+    filter(is_scenario(.data$metric), .data$year == max(.data$year)) %>%
     arrange(desc(.data$value)) %>%
     pull(.data$metric) %>%
     as.character()
@@ -231,19 +231,14 @@ get_ordered_scenario_colours <- function(n) {
 }
 
 prep_trajectory <- function(data) {
-  # Store original values to detect metric type from metric
-  data$metric0 <- data$metric
-
   out <- data %>%
     drop_before_start_year() %>%
-    mutate(
-      value = .data$production,
-      metric = sub("target_", "", .data$metric),
-      metric = case_when(
-        is_scenario(.data$metric0) ~ toupper(as.character(.data$metric)),
-        TRUE ~ to_title(as.character(.data$metric))
-      )
-    )
+    mutate(value = .data$production)
+
+  if (!("label" %in% names(out))) {
+    out <- out %>%
+      mutate(label = .data$metric)
+  }
 
   start_year <- min(out$year)
   if (!quiet()) {
@@ -251,7 +246,7 @@ prep_trajectory <- function(data) {
       "Normalizing `production` values to {start_year} -- the start year."
     ))
   }
-  by <- c("metric", "metric0")
+  by <- c("metric", "label")
   out <- left_join(out, filter(out, .data$year == start_year), by = by) %>%
     mutate(
       value = .data$value.x / .data$value.y,
@@ -259,7 +254,7 @@ prep_trajectory <- function(data) {
       technology = .data$technology.x
     )
 
-  cols <- c("year", "metric", "metric0", "technology", "value")
+  cols <- c("year", "metric", "label", "technology", "value")
   select(out, all_of(cols))
 }
 
@@ -270,7 +265,7 @@ scenario <- function(data) {
   data_worse_than_scenarios <- tibble(year = unique(data$year))
   if (specs$scenario[1] == "worse") {
     data_scenarios <- data %>%
-      filter(is_scenario(.data$metric0)) %>%
+      filter(is_scenario(.data$metric)) %>%
       select(.data$year, .data$metric, value_low = .data$value)
 
     data_worse_than_scenarios$value_low <- area_borders$lower
@@ -291,7 +286,7 @@ scenario <- function(data) {
     data_worse_than_scenarios$metric <- "worse"
 
     data_scenarios <- data %>%
-      filter(is_scenario(.data$metric0)) %>%
+      filter(is_scenario(.data$metric)) %>%
       select(.data$year, .data$metric, .data$value)
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%

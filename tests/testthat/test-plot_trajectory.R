@@ -139,15 +139,6 @@ test_that("works with brown technology", {
   )
 })
 
-test_that("outputs pretty labels", {
-  data <- example_market_share()
-  p <- plot_trajectory(data)
-
-  get_metric <- function(p) as.character(unique(p$layers[[2]]$data$metric))
-  has_pretty_format <- all(c("Corporate Economy", "SDS") %in% get_metric(p))
-  expect_true(has_pretty_format)
-})
-
 test_that("works with input data starting before start year of 'projected'", {
   data <- filter(
     market_share,
@@ -220,4 +211,24 @@ test_that("with no data to remove does not inform about removing rows", {
     # Irrelevant message
     expect_no_message() # No other message should bubble up
   options(restore)
+})
+
+test_that("'metric' in plot data is a factor with 'projected' as last element", {
+  data <- example_market_share()
+  plot <- plot_trajectory(data)
+  expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")
+
+  brown <- "oil"
+  data <- filter(market_share, technology == brown, region == first(region))
+  plot <- plot_trajectory(data)
+  expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")
+})
+
+test_that("does not modify `metric`", {
+  data <- example_market_share()
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_trajectory(data)
+  out <- sort(as.character(unique(p$layers[[2]]$data$metric)))
+  expect_equal(out, metrics)
 })
