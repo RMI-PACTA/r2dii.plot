@@ -223,3 +223,12 @@ test_that("'metric' in plot data is a factor with 'projected' as last element",{
   plot <- plot_trajectory(data)
   expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")
 })
+
+test_that("does not modify `metric`", {
+  data <- example_market_share()
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_trajectory(data)
+  out <- sort(as.character(unique(p$layers[[2]]$data$metric)))
+  expect_equal(out, metrics)
+})
