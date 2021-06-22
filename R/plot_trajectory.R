@@ -103,12 +103,12 @@ value_span <- function(data) {
 
 line_colours <- function(data) {
   linecolours <- c("black", "black", "gray", "grey46", "black")
-  c(scenario_lines(data)$colour, linecolours[1:lines_n(data)])
+  c(scenario_lines(data)$colour, rev(linecolours[1:lines_n(data)]))
 }
 
 line_types <- function(data) {
   linetypes <- c("solid", "dashed", "solid", "solid", "twodash")
-  c(rep("solid", nrow(scenario_lines(data))), linetypes[1:lines_n(data)])
+  c(rep("solid", nrow(scenario_lines(data))), rev(linetypes[1:lines_n(data)]))
 }
 
 lines_n <- function(data) {
