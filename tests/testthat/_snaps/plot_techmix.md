@@ -10,9 +10,10 @@
 
 # with more than one scenario errors gracefully
 
-    `prep$metric` must have a single scenario not 3: target_cps, target_sds, target_sps.
-    You may pick one scenario, e.g. 'target_cps' with:
-      subset(prep, metric %in% c('projected', 'corporate_economy', 'target_cps'))
+    `prep$metric` must have a single scenario not 3.
+    x Provided: target_cps, target_sds, target_sps.
+    i You may pick one scenario, e.g. 'target_cps' with:
+    subset(prep, metric %in% c('projected', 'corporate_economy', 'target_cps'))
 
 # with too many sectors errors gracefully
 
@@ -37,5 +38,6 @@
 
 # with too few scenarios errors gracefully
 
-    `too_few$metric` must have one scenario but has none.
+    `too_few$metric` must have one scenario.
+    x It has none.
 

@@ -274,3 +274,11 @@ is_benchmark <- function(x) !grepl("^projected|^target", x, ignore.case = TRUE)
 beautify <- function(data, x) {
   mutate(data, "{x}" := to_title(.data[[x]]))
 }
+
+recode_metric <- function(x) {
+  case_when(
+    x == "projected" ~ "portfolio",
+    startsWith(x, "target") ~ "scenario",
+    TRUE ~ "benchmark"
+  )
+}
