@@ -28,13 +28,13 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
   expect_false(has_factors)
 })
 
-test_that("outputs pretty labels", {
+test_that("does not modify `metric`", {
   data <- filter(sda, sector == "automotive")
   p <- plot_emission_intensity(data)
 
-  metrics <- unique(p$layers[[1]]$data$emission_factor_metric)
-  pretty <- c("Projected", "Corporate Economy")
-  expect_equal(pretty, metrics)
+  out <- sort(unique(data$emission_factor_metric))
+  metrics <- sort(unique(p$layers[[1]]$data$emission_factor_metric))
+  expect_equal(out, metrics)
 })
 
 test_that("with too many lines to plot errors gracefully", {
@@ -44,4 +44,18 @@ test_that("with too many lines to plot errors gracefully", {
   suppressWarnings(
     expect_snapshot_error(plot_emission_intensity(data))
   )
+})
+
+test_that("orders lines as expected", {
+  cement <- filter(sda, sector == "cement")
+  expected <- levels(match_lines_order(cement))
+
+  p <- plot_emission_intensity(cement)
+  layers <- p[["layers"]][[1]]
+
+  expr <- rlang::quo_get_expr(layers$mapping$colour)
+  data <- layers$data  # Define `data`. `expr` is `match_lines_order(data)`
+  actual <- levels(rlang::eval_tidy(expr))
+
+  expect_equal(expected, actual)
 })

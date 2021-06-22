@@ -34,7 +34,6 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
 
 prep_emission_intensity <- function(data) {
   prep <- data %>%
-    beautify("emission_factor_metric") %>%
     drop_before_start_year() %>%
     mutate(year = lubridate::make_date(.data$year))
 

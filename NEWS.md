@@ -1,6 +1,7 @@
 # r2dii.plot (development version)
 
-* `plot_trajectory()` now plots legend labels from `metric` "as is" (#346).
+* `plot_emisison_intensity()` and `plot_trajectory()` now plot legend labels
+from `metric` "as is" (#346).
 
 * Error messages now more closely follow the tidyverse style guide (#324).  
 
