@@ -2,7 +2,7 @@
 % Please edit documentation in R/qplot_trajectory.R
 \name{qplot_trajectory}
 \alias{qplot_trajectory}
-\title{Create a trajectory plot using default settings}
+\title{Create a trajectory plot}
 \usage{
 qplot_trajectory(data)
 }
@@ -18,7 +18,7 @@ qplot_trajectory(data)
 An object of class "ggplot".
 }
 \description{
-Create a trajectory plot using default settings
+Create a trajectory plot
 }
 \examples{
 # `data` must meet documented "Requirements"
@@ -33,5 +33,5 @@ data <- subset(
 qplot_trajectory(data)
 }
 \seealso{
-\link{market_share}.
+plot_trajectory
 }

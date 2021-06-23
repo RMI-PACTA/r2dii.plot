@@ -1,15 +1,6 @@
-#' Create a trajectory plot using default settings
-#'
-#' @param data A data frame. Requirements:
-#'   * The structure must be like [market_share].
-#'   * The following columns must have a single value: `sector`, `technology`,
-#'   `region`, `scenario_source`.
-#'
-#' @seealso [market_share].
-#'
-#' @return An object of class "ggplot".
+#' @inherit plot_trajectory
+#' @seealso plot_trajectory
 #' @export
-#'
 #' @examples
 #' # `data` must meet documented "Requirements"
 #' data <- subset(
