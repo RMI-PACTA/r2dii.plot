@@ -4,7 +4,7 @@
 \alias{plot_techmix}
 \title{Create a techmix plot}
 \usage{
-plot_techmix(data)
+plot_techmix(data, convert_label = recode_label)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -15,6 +15,10 @@ plot_techmix(data)
 \item The column \code{metric} must have a portfolio (e.g. "projected"), a benchmark
 (e.g. "corporate_economy"), and a single \code{scenario} (e.g. "target_sds").
 }}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+legend labels. For example, to convert labels to
+uppercase use \code{convert_label = toupper}.}
 }
 \value{
 An object of class "ggplot".

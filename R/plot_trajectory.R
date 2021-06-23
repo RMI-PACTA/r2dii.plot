@@ -4,6 +4,7 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
+#' @inheritParams plot_emission_intensity
 #'
 #' @seealso [market_share].
 #'
@@ -21,11 +22,8 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(data) {
-  check_plot_trajectory(data)
-
-  prep <- prep_trajectory(data)
-  plot_trajectory_impl(prep)
+plot_trajectory <- function(data, convert_label = format_label) {
+  ggplot_trajectory(data, convert_label = convert_label)
 }
 
 check_plot_trajectory <- function(data, env = parent.frame()) {
@@ -230,15 +228,11 @@ get_ordered_scenario_colours <- function(n) {
   )
 }
 
-prep_trajectory <- function(data) {
+prep_trajectory <- function(data, convert_label) {
   out <- data %>%
-    drop_before_start_year() %>%
-    mutate(value = .data$production)
-
-  if (!("label" %in% names(out))) {
-    out <- out %>%
-      mutate(label = .data$metric)
-  }
+    prep_common() %>%
+    mutate(value = .data$production) %>%
+    mutate(label = convert_label(.data$label))
 
   start_year <- min(out$year)
   if (!quiet()) {
@@ -273,14 +267,9 @@ scenario <- function(data) {
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
-      mutate(metric = factor(.data$metric,
-        levels = specs$scenario
-      )) %>%
+      mutate(metric = factor(.data$metric, levels = specs$scenario)) %>%
       arrange(.data$year, .data$metric) %>%
-      mutate(value = lead(.data$value_low,
-        n = 1,
-        default = area_borders$upper
-      ))
+      mutate(value = lead(.data$value_low, n = 1, default = area_borders$upper))
   } else {
     data_worse_than_scenarios$value <- area_borders$upper
     data_worse_than_scenarios$metric <- "worse"

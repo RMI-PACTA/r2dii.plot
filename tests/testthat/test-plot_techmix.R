@@ -2,9 +2,9 @@ test_that("without a `data` frame errors gracefully", {
   expect_error(plot_techmix(1), "data.frame.*not")
 })
 
-test_that("without `market_share` data errors gracefully", {
-  bad_kind <- filter(sda, sector == first(sector))
-  expect_snapshot_error(plot_techmix(bad_kind))
+test_that("without `market_share`-like data errors gracefully", {
+  bad <- head(sda, 1L)
+  expect_snapshot_error(plot_techmix(bad))
 })
 
 test_that("with zero-row data errors gracefully", {
@@ -85,7 +85,42 @@ test_that("with input data before start year of 'projected' prep_techmix
     production = 1,
     technology_share = 0.1
   )
-  data <- data %>%
-    rbind(early_row)
-  expect_equal(min(prep_techmix(data)$year), start_year)
+  data <- rbind(data, early_row)
+  prep <- prep_techmix(data, convert_label = identity)
+  expect_equal(min(prep$year), start_year)
+})
+
+test_that("does not modify `metric`", {
+  data <- filter(example_market_share(), metric %in% unique(metric)[1:3])
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_techmix(data)
+  out <- sort(unique(p[["layers"]][[1]][["data"]][["metric"]]))
+  expect_equal(out, metrics)
+})
+
+test_that("if `data` has no `label` we create it", {
+  data <- filter(example_market_share(), metric %in% unique(metric)[1:3])
+  expect_false(has_name(data, "label"))
+
+  p <- plot_techmix(data)
+  out <- p[["layers"]][[1]][["data"]]
+  expect_true(has_name(out, "label"))
+})
+
+test_that("outputs pretty labels", {
+  data <- filter(example_market_share(), metric %in% unique(metric)[1:3])
+  p <- plot_techmix(data)
+
+  pretty <- c(
+    "Benchmark_2020",
+    "Benchmark_2026",
+    "Portfolio_2020",
+    "Portfolio_2026",
+    "Scenario_2020",
+    "Scenario_2026"
+  )
+  labels <- sort(unique(p[["layers"]][[1]][["data"]][["label"]]))
+
+  expect_equal(labels, pretty)
 })

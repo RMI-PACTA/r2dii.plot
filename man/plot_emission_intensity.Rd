@@ -4,7 +4,7 @@
 \alias{plot_emission_intensity}
 \title{Create an emission intensity plot}
 \usage{
-plot_emission_intensity(data)
+plot_emission_intensity(data, convert_label = format_label)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -12,6 +12,10 @@ plot_emission_intensity(data)
 \item The structure must be like \link{sda}.
 \item The column \code{sector} must have a single value (e.g. "cement").
 }}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+legend labels. For example, to convert labels to
+uppercase use \code{convert_label = toupper}.}
 }
 \value{
 An object of class "ggplot".
@@ -23,6 +27,7 @@ Create an emission intensity plot
 # `data` must meet documented "Requirements"
 data <- subset(sda, sector == "cement")
 plot_emission_intensity(data)
+plot_emission_intensity(data, convert_label = toupper)
 }
 \seealso{
 \link{sda}.

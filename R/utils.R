@@ -1,33 +1,3 @@
-#' Convert a string to title case
-#'
-#' This function replaces a sequence of non alpha-numeric characters to a single
-#' space, and applies title case to the remaining words.
-#'
-#' @param x A character vector.
-#'
-#' @return A character vector.
-#' @keywords internal
-#' @examples
-#' to_title(c("a.string", "ANOTHER_string"))
-#' to_title(c("a.string", "another_string", "b.STRING"))
-#' @noRd
-to_title <- function(x) {
-  to_title_one <- function(x) {
-    words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
-    # `toTitleCase()` with "a" returns "a", not "A" (a bug in this context)
-    words <- capitalize_single_letters(tools::toTitleCase(words))
-    paste(words, collapse = " ")
-  }
-
-  unlist(lapply(x, to_title_one))
-}
-
-capitalize_single_letters <- function(words) {
-  out <- words
-  out[which(nchar(out) == 1L)] <- toupper(out[which(nchar(out) == 1L)])
-  out
-}
-
 abort_if_multiple <- function(data, x, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
@@ -165,25 +135,20 @@ get_common_start_year <- function(data) {
 
 #' The name of the column holding metrics such as projected, corporate_economy
 #'
+#' Prepare for https://github.com/2DegreesInvesting/r2dii.analysis/issues/313
+#'
 #' @examples
 #' metric(sda)
 #' metric(market_share)
 #' @noRd
 metric <- function(data) {
-  extract_names(data, metric_names())
+  extract_names(data, c("metric", "emission_factor_metric"))
 }
 
-#' Names of columns holding metrics such as projected, corporate_economy
-#'
-#' The column holding metrics such as "projected" and "corporate_economy" may
-#' have a different name in different datasets. This function outputs all the
-#' possible names. Eventually the difference may disappear (r2dii.analysis#313)
-#' and this function should help make the transition smooth.
-#'
-#' @examples
-#' metric_names()
-#' @noRd
-metric_names <- function() c("metric", "emission_factor_metric")
+# Prepare for https://github.com/2DegreesInvesting/r2dii.analysis/issues/313
+emission_factor <- function(data) {
+  extract_names(data, c("emission_factor", "emission_factor_value"))
+}
 
 #' Extract names matching `possible_names`
 #'
@@ -234,14 +199,19 @@ abort_if_too_many_lines <- function(data, max) {
 is_scenario <- function(x) grepl("^target", x, ignore.case = TRUE)
 is_portfolio <- function(x) grepl("^projected", x, ignore.case = TRUE)
 
-beautify <- function(data, x) {
-  mutate(data, "{x}" := to_title(.data[[x]]))
+add_label_if_missing <- function(data) {
+  if (has_name(data, "label")) {
+    return(data)
+  }
+
+  data$label <- data[[metric(data)]]
+  data
 }
 
-recode_metric <- function(x) {
-  case_when(
-    x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
-    TRUE ~ "benchmark"
-  )
+#' A place to DRY common preparation steps
+#' @noRd
+prep_common <- function(data) {
+  data %>%
+    drop_before_start_year() %>%
+    add_label_if_missing()
 }

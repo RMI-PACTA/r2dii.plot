@@ -45,3 +45,7 @@ reference:
   - title: Datasets
     contents:
       - has_concept("datasets")
+
+  - title: Helpers
+    contents:
+      - has_concept("helpers")

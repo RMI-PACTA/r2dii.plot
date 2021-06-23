@@ -3,7 +3,7 @@
 #' @importFrom dplyr select tribble summarise ungroup pull distinct right_join
 #' @importFrom dplyr desc lead tibble lag slice_head across bind_rows between
 #' @importFrom dplyr all_of rename first semi_join
-#' @importFrom rlang .env abort warn inform %||%
+#' @importFrom rlang .env abort warn inform %||% has_name
 #' @importFrom glue glue
 NULL
 
@@ -11,6 +11,7 @@ utils::globalVariables(c(
   "market_share",
   "palette_colours",
   "scenario_colours",
+  "sda",
   "sector_colours",
   "technology_colours",
   "where",

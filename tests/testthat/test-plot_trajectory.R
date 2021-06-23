@@ -224,11 +224,19 @@ test_that("'metric' in plot data is a factor with 'projected' as last element", 
   expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")
 })
 
-test_that("does not modify `metric`", {
+test_that("outputs pretty labels", {
   data <- example_market_share()
-  metrics <- sort(unique(data$metric))
+  p <- plot_trajectory(data)
+
+  labels <- sort(unique(p[["layers"]][[2]][["data"]][["label"]]))[1:3]
+  pretty <- c("CPS", "Corporate Economy", "Projected")
+  expect_equal(labels, pretty)
+})
+
+test_that("if `data` has no `label` we create it", {
+  data <- example_market_share()
+  expect_false(has_name(data, "label"))
 
   p <- plot_trajectory(data)
-  out <- sort(as.character(unique(p$layers[[2]]$data$metric)))
-  expect_equal(out, metrics)
+  expect_true(has_name(p$data, "label"))
 })

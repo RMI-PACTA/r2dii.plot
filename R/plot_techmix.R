@@ -6,6 +6,7 @@
 #'   `scenario_source`.
 #'   * The column `metric` must have a portfolio (e.g. "projected"), a benchmark
 #'   (e.g. "corporate_economy"), and a single `scenario` (e.g. "target_sds").
+#' @inheritParams plot_emission_intensity
 #'
 #' @seealso [market_share].
 #'
@@ -23,20 +24,21 @@
 #' )
 #'
 #' plot_techmix(data)
-plot_techmix <- function(data) {
-  check_plot_techmix(data)
-
-  prep <- prep_techmix(data)
-  plot_techmix_impl(prep)
+plot_techmix <- function(data, convert_label = recode_label) {
+  ggplot_techmix(data, convert_label = convert_label)
 }
 
 check_plot_techmix <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
+
   crucial <- c(common_crucial_market_share_columns(), "technology_share")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+
   abort_if_has_zero_rows(data, env = env)
+
   enforce_single_value <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
+
   abort_if_multiple_scenarios(data, env = env)
 
   invisible(data)
@@ -45,8 +47,8 @@ check_plot_techmix <- function(data, env = parent.frame()) {
 abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
-  scen <- extract_scenarios(data$metric)
-  n <- length(scen)
+  scenarios <- extract_scenarios(data$metric)
+  n <- length(scenarios)
 
   if (n == 0L) {
     abort(c(
@@ -56,45 +58,39 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
   }
 
   if (n > 1L) {
-    example <- c(setdiff(unique(data$metric), scen), first(scen))
+    example <- c(setdiff(unique(data$metric), scenarios), first(scenarios))
     abort(c(
       glue("`{.data}$metric` must have a single scenario not {n}."),
       i = glue(
-        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
+        "Do you need to pick one scenario? E.g. pick '{scenarios[[1]]}' with: \\
         `subset({.data}, metric %in% {fmt_vector(fmt_string(example))})`."
       ),
-      x = glue("Provided: {toString(scen)}.")
+      x = glue("Provided: {toString(scenarios)}.")
     ))
   }
 
   invisible(data)
 }
 
-prep_techmix <- function(data) {
+prep_techmix <- function(data, convert_label) {
   data %>%
-    drop_before_start_year() %>%
+    prep_common() %>%
     filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
-    mutate(
-      metric = recode_metric(.data$metric),
-      metric = paste0(.data$metric, "_", .data$year),
-      metric = to_title(.data$metric),
-      metric = sub("target_", "", .data$metric)
-    ) %>%
-    mutate(
-      value = .data$technology_share,
-      sector = recode_sector(.data$sector)
-    )
+    mutate(label = convert_label(.data$label)) %>%
+    # TODO: Should we instead facet by year?
+    mutate(label = paste0(.data$label, "_", .data$year)) %>%
+    mutate(value = .data$technology_share, sector = recode_sector(.data$sector))
 }
 
 plot_techmix_impl <- function(data) {
   colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
-  metrics <- rev(unique(data$metric))
+  labels <- rev(unique(data$label))
 
   ggplot() +
     geom_bar(
       data = data,
       aes(
-        x = factor(.data$metric, levels = metrics),
+        x = factor(.data$label, levels = labels),
         y = .data$value,
         fill = factor(.data$technology, levels = colours$technology)
       ),
@@ -107,7 +103,7 @@ plot_techmix_impl <- function(data) {
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = metrics) +
+    scale_x_discrete(labels = labels) +
     scale_fill_manual(
       labels = colours$label,
       values = colours$hex

@@ -4,7 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data)
+plot_trajectory(data, convert_label = format_label)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -13,6 +13,10 @@ plot_trajectory(data)
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
 }}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+legend labels. For example, to convert labels to
+uppercase use \code{convert_label = toupper}.}
 }
 \value{
 An object of class "ggplot".

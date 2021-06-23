@@ -1,4 +1,4 @@
-# without `market_share` data errors gracefully
+# without `market_share`-like data errors gracefully
 
     `data` must have all the expected names.
     x Missing names: metric, region, scenario_source, technology, technology_share.
