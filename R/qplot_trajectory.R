@@ -29,7 +29,7 @@ qplot_trajectory <- function(data) {
     restrict_to_5_years()
 
   min_year <- get_common_start_year(data)
-  base_size = 12
+  base_size <- 12
   plot_trajectory(data) +
     # TODO: move to theme_2dii()
     theme(
