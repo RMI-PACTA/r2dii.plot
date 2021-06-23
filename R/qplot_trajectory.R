@@ -28,17 +28,3 @@ qplot_trajectory <- function(data) {
       y = glue("Production rate (normalized to {min_year})")
     )
 }
-
-restrict_to_5_years <- function(data) {
-  min_year <- get_common_start_year(data)
-  PACTA_int <- 5 #PACTA results are conventionally shown over a time period of 5 years
-  data %>% filter(.data$year <= min_year + PACTA_int)
-
-  data
-}
-
-to_pretty_label <- function(technology) {
-  label <- to_title(technology)
-  label <- sub("cap$", " Capacity", label)
-  label <- sub("_hdv$", "Heavy Duty Vehicles", label)
-}
