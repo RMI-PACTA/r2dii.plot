@@ -1,8 +1,10 @@
 # r2dii.plot (development version)
 
-* New `to_title()` helps format labels.
+* All the `plot_*()` functions gain the argument `convert_label` with a
+convenient default that output nicely formatted labels.
 
-* `plot_trajectory()` now plots legend labels from `metric` "as is" (#346).
+* New `format_label()` and `recode_label()` help format labels.
+
 * Error messages now more closely follow the tidyverse style guide (#324).  
 
 * `plot_trajectory()` now plots the main line on top of all other lines, so
