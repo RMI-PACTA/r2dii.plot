@@ -39,10 +39,15 @@ qplot_trajectory <- function(data) {
       )
     ) +
     labs(
-      title = glue("Production trajectory of {to_pretty_label(data$technology[1])} technology
-                   in the {to_title(data$sector[1])} sector"),
-      subtitle = glue("The coloured areas indicate trajectories in reference to a scenario.
-                      The red area indicates trajectories not aligned with any sustainble scenario."),
+      title = glue(
+        "Production trajectory of {to_pretty_label(data$technology[1])} \\
+        technology in the {to_title(data$sector[1])} sector"
+      ),
+      subtitle = glue(
+        "The coloured areas indicate trajectories in reference to a scenario.
+        The red area indicates trajectories not aligned with any sustainble \\
+        scenario."
+      ),
       x = "Year",
       y = glue("Production rate (normalized to {min_year})")
     )
