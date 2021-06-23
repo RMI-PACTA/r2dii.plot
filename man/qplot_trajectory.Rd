@@ -22,12 +22,13 @@ Create a trajectory plot using default settings
 }
 \examples{
 # `data` must meet documented "Requirements"
-data <- market_share \%>\%
- filter(
-   sector == "power",
-   technology == "renewablescap",
-   region == "global",
+data <- subset(
+  market_share,
+  sector == "power" &
+   technology == "renewablescap" &
+   region == "global" &
    scenario_source == "demo_2020"
+   )
 
 qplot_trajectory(data)
 }
