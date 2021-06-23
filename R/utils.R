@@ -60,7 +60,7 @@ abort_if_has_zero_rows <- function(data, env = parent.frame()) {
   if (nrow(data) == 0L) {
     abort(c(
       glue("`{.data}` must have some rows."),
-      x = "`{.data}` has zero rows."
+      x = glue("`{.data}` has zero rows.")
     ))
   }
 
