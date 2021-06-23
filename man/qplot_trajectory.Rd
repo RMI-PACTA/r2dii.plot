@@ -18,7 +18,14 @@ qplot_trajectory(data)
 An object of class "ggplot".
 }
 \description{
-Create a trajectory plot
+Compared to \code{\link[=plot_trajectory]{plot_trajectory()}} this function:
+\itemize{
+\item is restricted to plotting only 5 years from the start year,
+\item outputs pretty legend labels, based on the column holding metrics,
+\item outputs a title,
+\item outputs a subtitle,
+\item outputs informative axis labels in sentence case.
+}
 }
 \examples{
 # `data` must meet documented "Requirements"

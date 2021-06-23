@@ -1,5 +1,14 @@
 #' @inherit plot_trajectory
 #' @seealso plot_trajectory
+#'
+#' @description
+#' Compared to [plot_trajectory()] this function:
+#' * is restricted to plotting only 5 years from the start year,
+#' * outputs pretty legend labels, based on the column holding metrics,
+#' * outputs a title,
+#' * outputs a subtitle,
+#' * outputs informative axis labels in sentence case.
+#'
 #' @export
 #' @examples
 #' # `data` must meet documented "Requirements"
