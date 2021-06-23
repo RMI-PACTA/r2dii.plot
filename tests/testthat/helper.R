@@ -22,6 +22,7 @@ bind_fake_sda_metrics <- function(data, n) {
   bind_rows(data, fake)
 }
 
+# FIXME: doesn't work if metric is not passed - rename or recode
 fake_market_share <- function(data, ...) {
   tibble(
     sector = first(data$sector),
