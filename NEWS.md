@@ -1,9 +1,9 @@
 # r2dii.plot (development version)
 
 * All the `plot_*()` functions gain the argument `convert_label` with a
-convenient default that output nicely formatted labels.
+convenient default that outputs nicely formatted labels.
 
-* New `format_label()` and `recode_label()` help format labels.
+* New `format_label()` and `recode_label()` help format and recode labels.
 
 * Error messages now more closely follow the tidyverse style guide (#324).  
 
