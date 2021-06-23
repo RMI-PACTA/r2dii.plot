@@ -1,3 +1,25 @@
+#' Create a trajectory plot using default settings
+#'
+#' @param data A data frame. Requirements:
+#'   * The structure must be like [market_share].
+#'   * The following columns must have a single value: `sector`, `technology`,
+#'   `region`, `scenario_source`.
+#'
+#' @seealso [market_share].
+#'
+#' @return An object of class "ggplot".
+#' @export
+#'
+#' @examples
+#' # `data` must meet documented "Requirements"
+#' data <- market_share %>%
+#'  filter(
+#'    sector == "power",
+#'    technology == "renewablescap",
+#'    region == "global",
+#'    scenario_source == "demo_2020"
+#'
+#' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
@@ -10,6 +32,7 @@ qplot_trajectory <- function(data) {
     ) %>%
     restrict_to_5_years()
 
+  min_year <- get_common_start_year(data)
   base_size = 12
   plot_trajectory(data) +
     # TODO: move to theme_2dii()
