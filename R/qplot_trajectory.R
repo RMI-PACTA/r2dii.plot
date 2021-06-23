@@ -16,12 +16,7 @@ qplot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
   data <- data %>%
-    mutate(label = sub("target_", "", .data$metric),
-      label = case_when(
-        is_scenario(.data$metric) ~ toupper(as.character(.data$label)),
-        TRUE ~ to_title(as.character(.data$label))
-      )
-    ) %>%
+    mutate(label = format_label(.data$metric)) %>%
     restrict_to_5_years()
 
   min_year <- get_common_start_year(data)
@@ -42,4 +37,15 @@ qplot_trajectory <- function(data) {
       x = "Year",
       y = glue("Production rate (normalized to {min_year})")
     )
+}
+
+#' @examples
+#' format_label(c("corporate_economy", "target_sds"))
+#' # Weird case
+#' format_label(c("corporate_._economy", "target_sds_abc"))
+#' @noRd
+format_label <- function(x) {
+  out <- sub("target_", "", x)
+  out <- to_title(out)
+  if_else(is_scenario(x), toupper(out), out)
 }
