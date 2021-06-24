@@ -29,11 +29,11 @@ plot_trajectory <- function(data) {
     plot_trajectory_impl()
 }
 
-# The `env` argument supports non-standard evaluation and helps print
-# informative error messages that mentions the symbol passed to `data` (e.g.
-# "my_data") rather than the name of the argument (i.e. `data`). Refactoring
-# (e.g. wrapping this function and moving it deeper into the caller stack) can
-# easily break this feature; tests should let you know.
+# The `env` argument supports non-standard evaluation to print informative error
+# messages that mention the symbol passed to `data` (e.g. "my_data") rather than
+# the name of the argument (i.e. `data`). Although tests should warn you,
+# breaking this functionality is easy, for example, by wrapping this function
+# and moving it deeper into the caller stack.
 check_plot_trajectory <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
