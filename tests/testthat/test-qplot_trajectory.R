@@ -72,12 +72,11 @@ test_that("with too many scenarios errors gracefully", {
   expect_snapshot_error(qplot_trajectory(data))
 })
 
-# FIXME
-test_that("with too many metrics does not throw an error", {
+test_that("with too many metrics errors gracefully", {
   data <- example_market_share() %>%
-    bind_fake_market_share_metrics(n = 8)
+    bind_fake_market_share_metrics(n = 6)
 
-  expect_no_error(qplot_trajectory(data))
+  expect_snapshot_error(qplot_trajectory(data))
 })
 
 test_that("with missing crucial names errors gracefully", {
