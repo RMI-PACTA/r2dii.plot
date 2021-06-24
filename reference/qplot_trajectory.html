@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • r2dii.plot</title>
+<title>Create a trajectory plot — qplot_trajectory • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,15 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Create a trajectory plot — qplot_trajectory" />
+<meta property="og:description" content="Compared to plot_trajectory() this function:
+is restricted to plotting only 5 years from the start year,
+outputs pretty legend labels, based on the column holding metrics,
+outputs a title,
+outputs a subtitle,
+outputs informative axis labels in sentence case.
+
+" />
 
 
 
@@ -58,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -122,38 +130,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Create a trajectory plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/qplot_trajectory.R'><code>R/qplot_trajectory.R</code></a></small>
+    <div class="hidden name"><code>qplot_trajectory.Rd</code></div>
     </div>
 
-    <div id="r2diiplot-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#r2diiplot-development-version" class="anchor"></a>r2dii.plot (development version)<small> Unreleased </small>
-</h1>
-<ul>
-<li><p>The new <code><a href="../reference/qplot_trajectory.html">qplot_trajectory()</a></code> outputs a polished plot.</p></li>
-<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> now outputs a more basic plot (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/346'>#346</a>).</p></li>
-<li><p>Error messages now more closely follow the tidyverse style guide (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/324'>#324</a>).</p></li>
-<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> now plots the main line on top of all other lines, so it’s no longer hidden when it overlaps with other lines (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/223'>#223</a>).</p></li>
-<li><p><code><a href="../reference/plot_techmix.html">plot_techmix()</a></code> for the “automotive” <code>sector</code> is now coloured so that the darkest colours corresponds to the least sustainable technology, i.e. consistently with other technologies. This pattern of decreasing sustainability is now also reflected in the order of the legend labels (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/328'>#328</a>).</p></li>
+    <div class="ref-description">
+    <p>Compared to <code><a href='plot_trajectory.html'>plot_trajectory()</a></code> this function:</p><ul>
+<li><p>is restricted to plotting only 5 years from the start year,</p></li>
+<li><p>outputs pretty legend labels, based on the column holding metrics,</p></li>
+<li><p>outputs a title,</p></li>
+<li><p>outputs a subtitle,</p></li>
+<li><p>outputs informative axis labels in sentence case.</p></li>
 </ul>
-</div>
-    <div id="r2diiplot-001" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1">
-<a href="#r2diiplot-001" class="anchor"></a>r2dii.plot 0.0.1<small> 2021-06-21 </small>
-</h1>
-<ul>
-<li>Initial release.</li>
-</ul>
-</div>
-  </div>
 
+    </div>
+
+    <pre class="usage"><span class='fu'>qplot_trajectory</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame. Requirements:</p><ul>
+<li><p>The structure must be like <a href='market_share.html'>market_share</a>.</p></li>
+<li><p>The following columns must have a single value: <code>sector</code>, <code>technology</code>,
+<code>region</code>, <code>scenario_source</code>.</p></li>
+</ul></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class "ggplot".</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>plot_trajectory</p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># `data` must meet documented "Requirements"</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span>
+  <span class='va'>market_share</span>,
+  <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"power"</span> <span class='op'>&amp;</span>
+    <span class='va'>technology</span> <span class='op'>==</span> <span class='st'>"renewablescap"</span> <span class='op'>&amp;</span>
+    <span class='va'>region</span> <span class='op'>==</span> <span class='st'>"global"</span> <span class='op'>&amp;</span>
+    <span class='va'>scenario_source</span> <span class='op'>==</span> <span class='st'>"demo_2020"</span>
+<span class='op'>)</span>
+
+<span class='fu'>qplot_trajectory</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Normalizing `production` values to 2020 -- the start year.</span></div><div class='img'><img src='qplot_trajectory-1.png' alt='' width='700' height='433' /></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
