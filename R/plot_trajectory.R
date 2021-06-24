@@ -174,8 +174,8 @@ abort_if_invalid_scenarios_number <- function(data) {
 
   if (n < 1 || n > 4) {
     abort(c(
-      glue("`metric` must have between 1 and 4 scenarios, not {n}."),
-      x = glue("Provided: {toString(scenarios)}")
+      glue("`metric` must have between 1 and 4 scenarios."),
+      x = glue("Provided {n} scenarios: {toString(scenarios)}")
     ))
   }
 
