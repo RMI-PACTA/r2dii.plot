@@ -216,6 +216,6 @@ test_that("Prints axis labels as expected", {
   expect_equal(p$labels$x, "Year")
   expect_snapshot_output(p$labels$x)
 
-  expect_match(p$label$y, "[Pp]roduction rate.*normalized")
-  expect_snapshot_output(p$label$y)
+  expect_match(p$labels$y, "[Pp]roduction rate.*normalized")
+  expect_snapshot_output(p$labels$y)
 })
