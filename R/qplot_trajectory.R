@@ -24,21 +24,10 @@
 qplot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
-  p <- data %>%
+  data %>%
     prep_trajectory(convert_label = format_label, span_5yr = TRUE) %>%
-    plot_trajectory_impl()
-
-  base_size <- 12
-  p <- p +
-    # TODO: move to theme_2dii()
-    theme(
-      plot.subtitle = element_text(
-        hjust = 0.5, vjust = 0.5,
-        size = base_size * 10 / 12
-      )
-    )
-
-  labs_trajectory(p)
+    plot_trajectory_impl() %>%
+    labs_trajectory()
 }
 
 #' @examples
