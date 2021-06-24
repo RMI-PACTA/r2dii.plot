@@ -247,7 +247,7 @@ recode_metric <- function(x) {
 }
 
 # PACTA results are conventionally shown over a time period of 5 years
-restrict_to_5_years <- function(data) {
+span_5yr <- function(data) {
   min_year <- get_common_start_year(data)
   filter(data, .data$year <= min_year + 5L)
 }

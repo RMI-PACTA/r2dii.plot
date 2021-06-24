@@ -219,3 +219,10 @@ test_that("Prints axis labels as expected", {
   expect_match(p$labels$y, "[Pp]roduction rate.*normalized")
   expect_snapshot_output(p$labels$y)
 })
+
+test_that("the errors message includes the name of the user's data", {
+  # Keep even if already tested in qplot_. Non-standard evaluation is fragile
+  bad_region <- head(market_share, 2L)
+  bad_region$region <- c("a", "b")
+  expect_error(qplot_trajectory(bad_region), "bad_region")
+})

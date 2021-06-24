@@ -24,33 +24,21 @@
 qplot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
-  data <- data %>%
-    mutate(label = format_label(.data$metric)) %>%
-    restrict_to_5_years()
+  p <- data %>%
+    prep_trajectory(convert_label = format_label, span_5yr = TRUE) %>%
+    plot_trajectory_impl()
 
-  min_year <- get_common_start_year(data)
   base_size <- 12
-  plot_trajectory(data) +
+  p <- p +
     # TODO: move to theme_2dii()
     theme(
       plot.subtitle = element_text(
         hjust = 0.5, vjust = 0.5,
         size = base_size * 10 / 12
       )
-    ) +
-    labs(
-      title = glue(
-        "Production trajectory of {to_pretty_label(data$technology[1])} \\
-        technology in the {to_title(data$sector[1])} sector"
-      ),
-      subtitle = glue(
-        "The coloured areas indicate trajectories in reference to a scenario.
-        The red area indicates trajectories not aligned with any sustainble \\
-        scenario."
-      ),
-      x = "Year",
-      y = glue("Production rate (normalized to {min_year})")
     )
+
+  labs_trajectory(p)
 }
 
 #' @examples
@@ -62,4 +50,24 @@ format_label <- function(x) {
   out <- sub("target_", "", x)
   out <- to_title(out)
   if_else(is_scenario(x), toupper(out), out)
+}
+
+labs_trajectory <- function(p) {
+  min_year <- min(p[["data"]][["year"]], na.rm = TRUE)
+  sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
+  tech <- tools::toTitleCase(p[["data"]][["technology"]][[1]])
+
+  p +
+    labs(
+      title = glue(
+        "Production trajectory of {tech} technology in the {sector} sector"
+      ),
+      subtitle = glue(
+        "The coloured areas indicate trajectories in reference to a scenario.
+        The red area indicates trajectories not aligned with any sustainble \\
+        scenario."
+      ),
+      x = "Year",
+      y = glue("Production rate (normalized to {min_year})")
+    )
 }

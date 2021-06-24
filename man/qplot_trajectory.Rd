@@ -32,10 +32,10 @@ Compared to \code{\link[=plot_trajectory]{plot_trajectory()}} this function:
 data <- subset(
   market_share,
   sector == "power" &
-   technology == "renewablescap" &
-   region == "global" &
-   scenario_source == "demo_2020"
-   )
+    technology == "renewablescap" &
+    region == "global" &
+    scenario_source == "demo_2020"
+)
 
 qplot_trajectory(data)
 }
