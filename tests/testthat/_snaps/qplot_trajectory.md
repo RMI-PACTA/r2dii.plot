@@ -39,8 +39,8 @@
 
 # with too many scenarios errors gracefully
 
-    `metric` must have between 1 and 4 scenarios, not 8.
-    x Provided: target_cps, target_sds, target_sps, target_a, target_b, target_c, target_d, target_e
+    `metric` must have between 1 and 4 scenarios.
+    x Provided 8 scenarios: target_cps, target_sds, target_sps, target_a, target_b, target_c, target_d, target_e
 
 # with too many metrics errors gracefully
 

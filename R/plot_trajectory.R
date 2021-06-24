@@ -29,11 +29,11 @@ plot_trajectory <- function(data) {
     plot_trajectory_impl()
 }
 
-# The `env` argument supports non-standard evaluation and helps print
-# informative error messages that mentions the symbol passed to `data` (e.g.
-# "my_data") rather than the name of the argument (i.e. `data`). Refactoring
-# (e.g. wrapping this function and moving it deeper into the caller stack) can
-# easily break this feature; tests should let you know.
+# The `env` argument supports non-standard evaluation to print informative error
+# messages that mention the symbol passed to `data` (e.g. "my_data") rather than
+# the name of the argument (i.e. `data`). Although tests should warn you,
+# breaking this functionality is easy, for example, by wrapping this function
+# and moving it deeper into the caller stack.
 check_plot_trajectory <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
@@ -174,8 +174,8 @@ abort_if_invalid_scenarios_number <- function(data) {
 
   if (n < 1 || n > 4) {
     abort(c(
-      glue("`metric` must have between 1 and 4 scenarios, not {n}."),
-      x = glue("Provided: {toString(scenarios)}")
+      glue("`metric` must have between 1 and 4 scenarios."),
+      x = glue("Provided {n} scenarios: {toString(scenarios)}")
     ))
   }
 
@@ -199,7 +199,7 @@ order_trajectory <- function(data) {
     arrange(.data$year, .data$metric)
 }
 
-distance_from_start_value_portfolio <- function(data, value) {
+distance_from_start_value <- function(data, value) {
   start_value_portfolio <- data %>%
     filter(.data$year == min(.data$year), is_portfolio(.data$metric)) %>%
     pull(.data$value)
@@ -208,27 +208,22 @@ distance_from_start_value_portfolio <- function(data, value) {
 }
 
 get_area_borders <- function(data) {
-  max_delta_distance <- 0.1
-  lower_area_border <- 0.9 * min(data$value)
-  upper_area_border <- 1.1 * max(data$value)
-  value_span <- upper_area_border - lower_area_border
+  lower <- 0.9 * min(data$value)
+  upper <- 1.1 * max(data$value)
+  span <- upper - lower
 
-  perc_distance_upper_border <-
-    distance_from_start_value_portfolio(data, upper_area_border) / value_span
-  perc_distance_lower_border <-
-    distance_from_start_value_portfolio(data, lower_area_border) / value_span
+  upper_distance <- distance_from_start_value(data, upper) / span
+  lower_distance <- distance_from_start_value(data, lower) / span
 
-  # adjusting the area border to center the starting point of the lines
-  delta_distance <- abs(perc_distance_upper_border - perc_distance_lower_border)
-  if (delta_distance > max_delta_distance) {
-    lower_area_border <- lower_area_border -
-      max(0, perc_distance_upper_border - perc_distance_lower_border) * value_span
-    upper_area_border <- upper_area_border +
-      max(0, perc_distance_lower_border - perc_distance_lower_border) * value_span
+  # Center the starting point of the lines
+  distance <- abs(upper_distance - lower_distance)
+  max_distance <- 0.1
+  if (distance > max_distance) {
+    lower <- lower - max(0, upper_distance - lower_distance) * span
+    upper <- upper + max(0, lower_distance - lower_distance) * span
   }
 
-  area_borders <- list(lower = lower_area_border, upper = upper_area_border)
-  area_borders
+  list(lower = lower, upper = upper)
 }
 
 scenario_colour <- function(data) {

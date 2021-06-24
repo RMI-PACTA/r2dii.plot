@@ -42,9 +42,9 @@ format_label <- function(x) {
 }
 
 labs_trajectory <- function(p) {
-  min_year <- min(p[["data"]][["year"]], na.rm = TRUE)
-  sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
   tech <- tools::toTitleCase(p[["data"]][["technology"]][[1]])
+  sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
+  min_year <- min(p[["data"]][["year"]], na.rm = TRUE)
 
   p +
     labs(
