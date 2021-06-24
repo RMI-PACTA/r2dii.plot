@@ -13,13 +13,6 @@ plot_trajectory(data)
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
 }}
-
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-legend labels. For example, to convert labels to
-uppercase use \code{convert_label = toupper}.}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year, or use \code{FALSE} to impose no restriction.}
 }
 \value{
 An object of class "ggplot".

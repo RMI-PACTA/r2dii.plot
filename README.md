@@ -188,7 +188,10 @@ plot_techmix(data) +
 
 ### Trajectory
 
-Use `plot_trajectory()` with `market_share`-like data.
+Trajectory plots use `market_share`-like data.
+
+-   `plot_trajectory()` outputs a basic plot that you may want to
+    polish, for example, by adding a title.
 
 ``` r
 data <- subset(
@@ -205,3 +208,13 @@ plot_trajectory(data) +
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
+-   `qplot_trajectory()` outputs a polished plot.
+
+``` r
+qplot_trajectory(data) + 
+  labs(title = "Trajectory plot")
+#> Normalizing `production` values to 2020 -- the start year.
+```
+
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
