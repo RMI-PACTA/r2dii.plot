@@ -42,7 +42,8 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
   abort_if_invalid_scenarios_number(data)
-  abort_if_too_many_lines(max = 5, summarise_max_year_by_metric(data))
+  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
+  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
 
   invisible(data)
 }
@@ -130,9 +131,16 @@ plot_trajectory_impl <- function(data) {
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
 }
 
-summarise_max_year_by_metric <- function(data) {
+summarise_max_year_by_scenario <- function(data) {
   data %>%
     filter(is_scenario(.data$metric)) %>%
+    group_by(.data$metric) %>%
+    summarise(year = max(.data$year))
+}
+
+summarise_max_year_by_traj_metric <- function(data) {
+  data %>%
+    filter(!is_scenario(.data$metric)) %>%
     group_by(.data$metric) %>%
     summarise(year = max(.data$year))
 }
