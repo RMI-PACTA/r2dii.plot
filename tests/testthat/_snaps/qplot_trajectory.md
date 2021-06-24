@@ -42,10 +42,33 @@
     `metric` must have between 1 and 4 scenarios, not 8.
     x Provided: target_cps, target_sds, target_sps, target_a, target_b, target_c, target_d, target_e
 
+# with too many metrics errors gracefully
+
+    The number of lines to plot must be 5 or less.
+    i Do you need to split the data over multiple plots?
+    x Found 8 lines: a, b, c, corporate_economy, d, e, f, projected.
+
 # informs that values are normalized
 
     Code
-      invisible(plot_trajectory(data))
+      invisible(qplot_trajectory(data))
     Message <message>
       Normalizing `production` values to 2020 -- the start year.
+
+# Wraps the title as expected
+
+    Production trajectory of Electric technology in the Automotive sector
+
+# Wraps the subtitle as expected
+
+    The coloured areas indicate trajectories in reference to a scenario.
+    The red area indicates trajectories not aligned with any sustainble scenario.
+
+# Prints axis labels as expected
+
+    [1] "Year"
+
+---
+
+    Production rate (normalized to 2020)
 

@@ -24,10 +24,16 @@
 plot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
-  prep <- prep_trajectory(data)
-  plot_trajectory_impl(prep)
+  data %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
+    plot_trajectory_impl()
 }
 
+# The `env` argument supports non-standard evaluation and helps print
+# informative error messages that mentions the symbol passed to `data` (e.g.
+# "my_data") rather than the name of the argument (i.e. `data`). Refactoring
+# (e.g. wrapping this function and moving it deeper into the caller stack) can
+# easily break this feature; tests should let you know.
 check_plot_trajectory <- function(data, env = parent.frame()) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
@@ -36,16 +42,47 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
   abort_if_invalid_scenarios_number(data)
-  abort_if_too_many_lines(max = 5, summarise_max_year_by_metric(data))
+  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
+  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
 
   invisible(data)
 }
 
-summarise_max_year_by_metric <- function(data) {
-  data %>%
-    filter(is_scenario(.data$metric)) %>%
-    group_by(.data$metric) %>%
-    summarise(year = max(.data$year))
+#' @param convert_label A symbol. The unquoted name of a function to apply to
+#'   legend labels. For example, to convert labels to
+#'   uppercase use `convert_label = toupper`.
+#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
+#'   the start year, or use `FALSE` to impose no restriction.
+#' @noRd
+prep_trajectory <- function(data,
+                            convert_label = identity,
+                            span_5yr = FALSE) {
+  out <- data %>%
+    prep_common() %>%
+    mutate(value = .data$production) %>%
+    mutate(label = convert_label(.data$label))
+
+  if (span_5yr) {
+    out <- span_5yr(out)
+  }
+
+  start_year <- min(out$year)
+  if (!quiet()) {
+    inform(glue(
+      "Normalizing `production` values to {start_year} -- the start year."
+    ))
+  }
+  by <- c("metric", "label")
+  out <- left_join(out, filter(out, .data$year == start_year), by = by) %>%
+    mutate(
+      value = .data$value.x / .data$value.y,
+      year = .data$year.x,
+      technology = .data$technology.x
+    ) %>%
+    rename(sector = .data$sector.x)
+
+  cols <- c("year", "metric", "label", "technology", "value", "sector")
+  select(out, all_of(cols))
 }
 
 plot_trajectory_impl <- function(data) {
@@ -92,6 +129,20 @@ plot_trajectory_impl <- function(data) {
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
+}
+
+summarise_max_year_by_scenario <- function(data) {
+  data %>%
+    filter(is_scenario(.data$metric)) %>%
+    group_by(.data$metric) %>%
+    summarise(year = max(.data$year))
+}
+
+summarise_max_year_by_traj_metric <- function(data) {
+  data %>%
+    filter(!is_scenario(.data$metric)) %>%
+    group_by(.data$metric) %>%
+    summarise(year = max(.data$year))
 }
 
 value_span <- function(data) {
@@ -228,33 +279,23 @@ get_ordered_scenario_colours <- function(n) {
   )
 }
 
-prep_trajectory <- function(data) {
-  out <- data %>%
-    drop_before_start_year() %>%
-    mutate(value = .data$production)
-
-  if (!("label" %in% names(out))) {
-    out <- out %>%
-      mutate(label = .data$metric)
+add_label_if_missing <- function(data) {
+  if (has_name(data, "label")) {
+    return(data)
   }
 
-  start_year <- min(out$year)
-  if (!quiet()) {
-    inform(glue(
-      "Normalizing `production` values to {start_year} -- the start year."
-    ))
-  }
-  by <- c("metric", "label")
-  out <- left_join(out, filter(out, .data$year == start_year), by = by) %>%
-    mutate(
-      value = .data$value.x / .data$value.y,
-      year = .data$year.x,
-      technology = .data$technology.x
-    )
-
-  cols <- c("year", "metric", "label", "technology", "value")
-  select(out, all_of(cols))
+  data$label <- data[[metric(data)]]
+  data
 }
+
+#' A place to DRY common preparation steps
+#' @noRd
+prep_common <- function(data) {
+  data %>%
+    drop_before_start_year() %>%
+    add_label_if_missing()
+}
+
 
 scenario <- function(data) {
   specs <- scenario_colour(data)

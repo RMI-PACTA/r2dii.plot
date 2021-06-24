@@ -245,3 +245,16 @@ recode_metric <- function(x) {
     TRUE ~ "benchmark"
   )
 }
+
+# PACTA results are conventionally shown over a time period of 5 years
+span_5yr <- function(data) {
+  min_year <- get_common_start_year(data)
+  filter(data, .data$year <= min_year + 5L)
+}
+
+to_pretty_label <- function(technology) {
+  label <- to_title(technology)
+  label <- sub("cap$", " Capacity", label)
+  label <- sub("_hdv$", "Heavy Duty Vehicles", label)
+  label
+}
