@@ -195,12 +195,34 @@ test_that("outputs pretty labels", {
   expect_equal(pretty, metrics)
 })
 
-test_that("Outputs plot with title and axis labels", {
+test_that("Wraps the title as expected", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
 
-  expect_true("title" %in% names(p$labels))
-  expect_true("subtitle" %in% names(p$labels))
+  expect_snapshot_output(p$labels$title)
+})
+
+test_that("Wraps the subtitle as expected", {
+  data <- example_market_share()
+  p <- qplot_trajectory(data)
+
+  expect_snapshot_output(p$labels$subtitle)
+})
+
+test_that("Prints axis labels as expected", {
+  data <- example_market_share()
+  p <- qplot_trajectory(data)
+
   expect_equal(p$labels$x, "Year")
-  expect_match(p$label$y, "[Pp]roduction rate.*normalized")
+  expect_snapshot_output(p$labels$x)
+
+  expect_match(p$labels$y, "[Pp]roduction rate.*normalized")
+  expect_snapshot_output(p$labels$y)
+})
+
+test_that("the errors message includes the name of the user's data", {
+  # Keep even if already tested in qplot_. Non-standard evaluation is fragile
+  bad_region <- head(market_share, 2L)
+  bad_region$region <- c("a", "b")
+  expect_error(qplot_trajectory(bad_region), "bad_region")
 })

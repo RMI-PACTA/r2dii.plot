@@ -2,7 +2,7 @@
 % Please edit documentation in R/qplot_trajectory.R
 \name{qplot_trajectory}
 \alias{qplot_trajectory}
-\title{Create a trajectory plot using default settings}
+\title{Create a trajectory plot}
 \usage{
 qplot_trajectory(data)
 }
@@ -18,20 +18,27 @@ qplot_trajectory(data)
 An object of class "ggplot".
 }
 \description{
-Create a trajectory plot using default settings
+Compared to \code{\link[=plot_trajectory]{plot_trajectory()}} this function:
+\itemize{
+\item is restricted to plotting only 5 years from the start year,
+\item outputs pretty legend labels, based on the column holding metrics,
+\item outputs a title,
+\item outputs a subtitle,
+\item outputs informative axis labels in sentence case.
+}
 }
 \examples{
 # `data` must meet documented "Requirements"
 data <- subset(
   market_share,
   sector == "power" &
-   technology == "renewablescap" &
-   region == "global" &
-   scenario_source == "demo_2020"
-   )
+    technology == "renewablescap" &
+    region == "global" &
+    scenario_source == "demo_2020"
+)
 
 qplot_trajectory(data)
 }
 \seealso{
-\link{market_share}.
+plot_trajectory
 }

@@ -1,6 +1,8 @@
 # r2dii.plot (development version)
 
-* `plot_trajectory()` now plots legend labels from `metric` "as is" (#346).
+* The new `qplot_trajectory()` outputs a polished plot.
+
+* `plot_trajectory()` now outputs a more basic plot (#346).
 
 * Error messages now more closely follow the tidyverse style guide (#324).  
 

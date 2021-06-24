@@ -246,11 +246,10 @@ recode_metric <- function(x) {
   )
 }
 
-restrict_to_5_years <- function(data) {
+# PACTA results are conventionally shown over a time period of 5 years
+span_5yr <- function(data) {
   min_year <- get_common_start_year(data)
-  PACTA_int <- 5 #PACTA results are conventionally shown over a time period of 5 years
-  data <- data %>% filter(.data$year <= min_year + PACTA_int)
-  data
+  filter(data, .data$year <= min_year + 5L)
 }
 
 to_pretty_label <- function(technology) {

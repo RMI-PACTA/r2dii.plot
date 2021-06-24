@@ -42,6 +42,11 @@ theme_2dii <- function(base_size = 12,
         hjust = 0.5, vjust = 0.5, face = "bold",
         size = base_size * 14 / 12,
         margin = margin(20, 2, 12, 2)
+      ),
+      plot.subtitle = element_text(
+        hjust = 0.5,
+        vjust = 0.5,
+        size = base_size * 10 / 12
       )
     )
 }

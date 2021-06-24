@@ -1,53 +1,61 @@
-#' Create a trajectory plot using default settings
+#' @inherit plot_trajectory
+#' @seealso plot_trajectory
 #'
-#' @param data A data frame. Requirements:
-#'   * The structure must be like [market_share].
-#'   * The following columns must have a single value: `sector`, `technology`,
-#'   `region`, `scenario_source`.
+#' @description
+#' Compared to [plot_trajectory()] this function:
+#' * is restricted to plotting only 5 years from the start year,
+#' * outputs pretty legend labels, based on the column holding metrics,
+#' * outputs a title,
+#' * outputs a subtitle,
+#' * outputs informative axis labels in sentence case.
 #'
-#' @seealso [market_share].
-#'
-#' @return An object of class "ggplot".
 #' @export
-#'
 #' @examples
 #' # `data` must meet documented "Requirements"
 #' data <- subset(
 #'   market_share,
 #'   sector == "power" &
-#'    technology == "renewablescap" &
-#'    region == "global" &
-#'    scenario_source == "demo_2020"
-#'    )
+#'     technology == "renewablescap" &
+#'     region == "global" &
+#'     scenario_source == "demo_2020"
+#' )
 #'
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
   check_plot_trajectory(data)
 
-  data <- data %>%
-    mutate(label = sub("target_", "", .data$metric),
-      label = case_when(
-        is_scenario(.data$metric) ~ toupper(as.character(.data$label)),
-        TRUE ~ to_title(as.character(.data$label))
-      )
-    ) %>%
-    restrict_to_5_years()
+  data %>%
+    prep_trajectory(convert_label = format_label, span_5yr = TRUE) %>%
+    plot_trajectory_impl() %>%
+    labs_trajectory()
+}
 
-  min_year <- get_common_start_year(data)
-  base_size = 12
-  plot_trajectory(data) +
-    # TODO: move to theme_2dii()
-    theme(
-      plot.subtitle = element_text(
-        hjust = 0.5, vjust = 0.5,
-        size = base_size * 10 / 12
-      )
-    ) +
+#' @examples
+#' format_label(c("corporate_economy", "target_sds"))
+#' # Weird case
+#' format_label(c("corporate_._economy", "target_sds_abc"))
+#' @noRd
+format_label <- function(x) {
+  out <- sub("target_", "", x)
+  out <- to_title(out)
+  if_else(is_scenario(x), toupper(out), out)
+}
+
+labs_trajectory <- function(p) {
+  min_year <- min(p[["data"]][["year"]], na.rm = TRUE)
+  sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
+  tech <- tools::toTitleCase(p[["data"]][["technology"]][[1]])
+
+  p +
     labs(
-      title = glue("Production trajectory of {to_pretty_label(data$technology[1])} technology
-                   in the {to_title(data$sector[1])} sector"),
-      subtitle = glue("The coloured areas indicate trajectories in reference to a scenario.
-                      The red area indicates trajectories not aligned with any sustainble scenario."),
+      title = glue(
+        "Production trajectory of {tech} technology in the {sector} sector"
+      ),
+      subtitle = glue(
+        "The coloured areas indicate trajectories in reference to a scenario.
+        The red area indicates trajectories not aligned with any sustainble \\
+        scenario."
+      ),
       x = "Year",
       y = glue("Production rate (normalized to {min_year})")
     )

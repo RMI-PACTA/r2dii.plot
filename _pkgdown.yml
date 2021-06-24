@@ -39,6 +39,7 @@ reference:
 
   - title: Plot
     contents:
+      - starts_with("qplot_")
       - starts_with("plot_")
       - starts_with("theme_")
 

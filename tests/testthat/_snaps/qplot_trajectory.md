@@ -49,3 +49,20 @@
     Message <message>
       Normalizing `production` values to 2020 -- the start year.
 
+# Wraps the title as expected
+
+    Production trajectory of Electric technology in the Automotive sector
+
+# Wraps the subtitle as expected
+
+    The coloured areas indicate trajectories in reference to a scenario.
+    The red area indicates trajectories not aligned with any sustainble scenario.
+
+# Prints axis labels as expected
+
+    [1] "Year"
+
+---
+
+    Production rate (normalized to 2020)
+
