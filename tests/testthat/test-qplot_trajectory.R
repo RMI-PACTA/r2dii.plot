@@ -182,16 +182,16 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
 
-  expect_true(max(p$data$year) - min(p$data$year) <= 5)
+  expect_true(max(p$data$year, na.rm = TRUE) - min(p$data$year, na.rm = TRUE) <= 5)
 })
 
-test_that("outputs pretty labels", {
+test_that("Outputs pretty labels", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
 
   metrics <- unique(p$layers[[3]]$data$label)
   pretty <- c("CPS", "SPS", "SDS", "Corporate Economy", "Projected")
-  expect_equal(pretty, metrics)
+  expect_equal(metrics, pretty)
 })
 
 test_that("Wraps the title as expected", {
@@ -215,7 +215,7 @@ test_that("Prints axis labels as expected", {
   expect_equal(p$labels$x, "Year")
   expect_snapshot_output(p$labels$x)
 
-  expect_match(p$labels$y, "[Pp]roduction rate.*normalized")
+  expect_match(p$labels$y, "[Pp]roduction [Rr]ate.*normalized.*")
   expect_snapshot_output(p$labels$y)
 })
 

@@ -57,7 +57,7 @@
 
 # Wraps the title as expected
 
-    Production trajectory of Electric technology in the Automotive sector
+    Production Trajectory of Technology: Electric in the Automotive Sector
 
 # Wraps the subtitle as expected
 
@@ -70,5 +70,5 @@
 
 ---
 
-    Production rate (normalized to 2020)
+    Production Rate (normalized to 2020)
 

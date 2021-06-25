@@ -252,8 +252,9 @@ span_5yr <- function(data) {
   filter(data, .data$year <= min_year + 5L)
 }
 
-to_pretty_label <- function(technology) {
+spell_out_technology <- function(technology) {
   label <- to_title(technology)
+  label <- sub("^(?i)ice", "ICE", label)
   label <- sub("cap$", " Capacity", label)
   label <- sub("_hdv$", "Heavy Duty Vehicles", label)
   label

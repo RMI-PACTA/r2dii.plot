@@ -70,34 +70,51 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-prep_techmix <- function(data) {
-  data %>%
-    drop_before_start_year() %>%
-    filter(.data$year %in% c(min(.data$year), max(.data$year))) %>%
-    mutate(
-      metric = recode_metric(.data$metric),
-      metric = paste0(.data$metric, "_", .data$year),
-      metric = to_title(.data$metric),
-      metric = sub("target_", "", .data$metric)
-    ) %>%
+prep_techmix <- function(data,
+                         convert_label = identity,
+                         span_5yr = FALSE,
+                         convert_tech_label = identity) {
+  out <- data %>%
+    prep_common() %>%
     mutate(
       value = .data$technology_share,
-      sector = recode_sector(.data$sector)
+      sector = recode_sector(.data$sector),
+      label = convert_label(.data$label),
+      label_tech = convert_tech_label(.data$technology)
     )
+
+  if (span_5yr) {
+    out <- span_5yr(out)
+  }
+
+  start_year <- min(out$year)
+  future_year <- max(out$year)
+  if (!quiet()) {
+    .data <- deparse_1(substitute(data, env = parent.frame()))
+    inform(glue(
+      "The `technology_share` values are plotted for extreme years.
+       Do you want to plot different years? E.g. filter {.data} with:\\
+       `subset({.data}, year %in% c(2020, 2030))`."
+    ))
+  }
+  out <- out %>%
+    filter(.data$year %in% c(start_year, future_year))
+  out
 }
 
 plot_techmix_impl <- function(data) {
-  colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
-  metrics <- rev(unique(data$metric))
+  colours <- get_technology_colours(data)
+  labels <- techmix_labels(data)
 
-  ggplot() +
+  ggplot(
+    data = data,
+    aes(
+      x = factor(.data$label, levels = labels),
+      y = .data$value,
+      fill = factor(.data$technology, levels = colours$technology)
+    )
+  ) +
     geom_bar(
-      data = data,
-      aes(
-        x = factor(.data$metric, levels = metrics),
-        y = .data$value,
-        fill = factor(.data$technology, levels = colours$technology)
-      ),
       position = "fill",
       stat = "identity",
       width = .5
@@ -107,9 +124,9 @@ plot_techmix_impl <- function(data) {
       expand = c(0, 0),
       sec.axis = dup_axis()
     ) +
-    scale_x_discrete(labels = metrics) +
+    scale_x_discrete(labels = labels) +
     scale_fill_manual(
-      labels = colours$label,
+      labels = colours$label_tech,
       values = colours$hex
     ) +
     coord_flip() +
@@ -119,7 +136,22 @@ plot_techmix_impl <- function(data) {
     theme(axis.ticks.y = element_blank()) +
     theme(legend.position = "bottom") +
     xlab("") +
-    ylab("")
+    ylab("") +
+    facet_wrap(~year, nrow = 2, strip.position = "right")
+}
+
+techmix_labels <- function(data) {
+  labels <- rev(unique(data$label))
+}
+
+get_technology_colours <- function(data) {
+  colours <- semi_join(technology_colours, data, by = c("sector", "technology")) %>%
+    left_join(
+      data %>%
+        select(.data$technology, .data$label_tech) %>%
+        unique(),
+      by = "technology"
+    )
 }
 
 recode_sector <- function(x) {
