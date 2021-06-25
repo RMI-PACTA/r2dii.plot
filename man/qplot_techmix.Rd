@@ -24,6 +24,7 @@ Compared to \code{\link[=plot_techmix]{plot_techmix()}} this function:
 \itemize{
 \item is restricted to plotting future as 5 years from the start year,
 \item outputs pretty bar labels, based on metric column,
+\item outputs pretty legend lables, based on technology column,
 \item outputs a title.
 }
 }
