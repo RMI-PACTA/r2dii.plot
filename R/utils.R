@@ -254,6 +254,7 @@ span_5yr <- function(data) {
 
 to_pretty_label <- function(technology) {
   label <- to_title(technology)
+  label <- sub("^(?i)ice", "ICE", label)
   label <- sub("cap$", " Capacity", label)
   label <- sub("_hdv$", "Heavy Duty Vehicles", label)
   label

@@ -139,7 +139,8 @@ plot_techmix_impl <- function(data) {
     theme(legend.position = "bottom") +
     xlab("") +
     ylab("") +
-    facet_wrap(~ year, nrow = 2)
+    facet_wrap(~ year, nrow = 2, strip.position = "right") +
+    theme(strip.text = element_text(angle = 90))
 }
 
 recode_sector <- function(x) {
