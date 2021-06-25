@@ -120,3 +120,59 @@ test_that("does not modify `metric`", {
   out <- sort(as.character(unique(p$data$metric)))
   expect_equal(out, metrics)
 })
+
+test_that("Outputs no title", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  expect_false("title" %in% names(p$labels))
+})
+
+test_that("Does not output pretty labels", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  metrics <- unique(p$data$label)
+  pretty <- c("projected", "corporate_economy", "target_sds")
+  expect_equal(pretty, metrics)
+})
+
+test_that("Doesn't output pretty legend labels", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  metrics <- unique(p$data$label_tech)
+  pretty <- c("coalcap", "gascap", "hydrocap")
+  expect_equal(pretty, metrics[1:3])
+
+  data <- filter(
+    market_share,
+    sector == "automotive",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  metrics <- unique(p$data$label_tech)
+  pretty <- c("electric", "hybrid", "ice")
+  expect_equal(pretty, metrics)
+})
