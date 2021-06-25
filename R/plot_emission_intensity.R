@@ -35,13 +35,16 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
 prep_emission_intensity <- function(data, convert_label = identity, span_5yr = FALSE) {
   out <- data %>%
     prep_common() %>%
-    mutate(
-      year = lubridate::make_date(.data$year),
-      label = convert_label(.data$label))
+    mutate(label = convert_label(.data$label))
 
   if (span_5yr) {
     out <- span_5yr(out)
   }
+
+  out <- out %>%
+    mutate(
+      year = lubridate::make_date(.data$year)
+    )
 
   metrics <- distinct(out, .data$emission_factor_metric)
   colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
@@ -68,7 +71,7 @@ plot_emission_intensity_impl <- function(data) {
 
 match_lines_order <- function(data) {
   forcats::fct_reorder2(
-    data$emission_factor_metric,
+    data$label,
     data$year,
     data$emission_factor_value
   )
