@@ -90,14 +90,13 @@ plot_techmix_impl <- function(data) {
   colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
   metrics <- rev(unique(data$metric))
 
-  ggplot() +
-    geom_bar(
-      data = data,
+  ggplot(data = data,
       aes(
         x = factor(.data$metric, levels = metrics),
         y = .data$value,
         fill = factor(.data$technology, levels = colours$technology)
-      ),
+      )) +
+    geom_bar(
       position = "fill",
       stat = "identity",
       width = .5
