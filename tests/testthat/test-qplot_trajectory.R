@@ -182,10 +182,10 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
 
-  expect_true(max(p$data$year) - min(p$data$year) <= 5)
+  expect_true(max(p$data$year, na.rm = TRUE) - min(p$data$year, na.rm = TRUE) <= 5)
 })
 
-test_that("outputs pretty labels", {
+test_that("Outputs pretty labels", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
 

@@ -8,7 +8,7 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
   )
   p <- qplot_techmix(data)
 
-  expect_true(max(p$data$year) - min(p$data$year) <= 5)
+  expect_true(max(p$data$year, na.rm = TRUE) - min(p$data$year, na.rm = TRUE) <= 5)
 })
 
 test_that("Outputs pretty labels", {
