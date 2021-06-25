@@ -5,7 +5,6 @@
 #' Compared to [plot_techmix()] this function:
 #' * is restricted to plotting future as 5 years from the start year,
 #' * outputs pretty bar labels, based on metric column,
-#' * outputs pretty legend labels, based on the technology column,
 #' * outputs a title.
 #'
 #' @export
