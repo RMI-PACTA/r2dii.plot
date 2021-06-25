@@ -70,13 +70,17 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-prep_techmix <- function(data, convert_label = identity, span_5yr = FALSE) {
+prep_techmix <- function(data,
+                         convert_label = identity,
+                         span_5yr = FALSE,
+                         convert_tech_label = identity) {
   out <- data %>%
     prep_common() %>%
     mutate(
       value = .data$technology_share,
       sector = recode_sector(.data$sector),
-      label = convert_label(.data$label)
+      label = convert_label(.data$label),
+      label_tech = convert_tech_label(.data$technology)
     )
 
   if (span_5yr) {
@@ -98,7 +102,12 @@ prep_techmix <- function(data, convert_label = identity, span_5yr = FALSE) {
 }
 
 plot_techmix_impl <- function(data) {
-  colours <- semi_join(technology_colours, data, by = c("sector", "technology"))
+  colours <- semi_join(technology_colours, data, by = c("sector", "technology")) %>%
+    left_join(
+      data %>%
+        select(.data$technology, .data$label_tech) %>%
+        unique(),
+      by = "technology")
   labels <- rev(unique(data$label))
 
   ggplot(data = data,
@@ -119,7 +128,7 @@ plot_techmix_impl <- function(data) {
     ) +
     scale_x_discrete(labels = labels) +
     scale_fill_manual(
-      labels = colours$label,
+      labels = colours$label_tech,
       values = colours$hex
     ) +
     coord_flip() +
