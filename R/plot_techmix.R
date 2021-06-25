@@ -107,15 +107,18 @@ plot_techmix_impl <- function(data) {
       data %>%
         select(.data$technology, .data$label_tech) %>%
         unique(),
-      by = "technology")
+      by = "technology"
+    )
   labels <- rev(unique(data$label))
 
-  ggplot(data = data,
-      aes(
-        x = factor(.data$label, levels = labels),
-        y = .data$value,
-        fill = factor(.data$technology, levels = colours$technology)
-      )) +
+  ggplot(
+    data = data,
+    aes(
+      x = factor(.data$label, levels = labels),
+      y = .data$value,
+      fill = factor(.data$technology, levels = colours$technology)
+    )
+  ) +
     geom_bar(
       position = "fill",
       stat = "identity",
@@ -139,7 +142,7 @@ plot_techmix_impl <- function(data) {
     theme(legend.position = "bottom") +
     xlab("") +
     ylab("") +
-    facet_wrap(~ year, nrow = 2, strip.position = "right")
+    facet_wrap(~year, nrow = 2, strip.position = "right")
 }
 
 recode_sector <- function(x) {
