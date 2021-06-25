@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • r2dii.plot</title>
+<title>Create an emission intensity plot — qplot_emission_intensity • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,14 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Create an emission intensity plot — qplot_emission_intensity" />
+<meta property="og:description" content="Compared to plot_emission_intensity() this function:
+is restricted to plotting future as 5 years from the start year,
+outputs pretty labels, based on emission metric column,
+outputs a title,
+outputs pretty axis labels.
+
+" />
 
 
 
@@ -58,7 +65,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -120,103 +127,51 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Create an emission intensity plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/qplot_emission_intensity.R'><code>R/qplot_emission_intensity.R</code></a></small>
+    <div class="hidden name"><code>qplot_emission_intensity.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Compared to <code><a href='plot_emission_intensity.html'>plot_emission_intensity()</a></code> this function:</p><ul>
+<li><p>is restricted to plotting future as 5 years from the start year,</p></li>
+<li><p>outputs pretty labels, based on emission metric column,</p></li>
+<li><p>outputs a title,</p></li>
+<li><p>outputs pretty axis labels.</p></li>
+</ul>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    </div>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-plot" class="hasAnchor"><a href="#section-plot" class="anchor"></a>Plot</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="qplot_emission_intensity.html">qplot_emission_intensity()</a></code> </p>
-        </td>
-        <td><p>Create an emission intensity plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="qplot_techmix.html">qplot_techmix()</a></code> </p>
-        </td>
-        <td><p>Create a techmix plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="qplot_trajectory.html">qplot_trajectory()</a></code> </p>
-        </td>
-        <td><p>Create a trajectory plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_emission_intensity.html">plot_emission_intensity()</a></code> </p>
-        </td>
-        <td><p>Create an emission intensity plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_techmix.html">plot_techmix()</a></code> </p>
-        </td>
-        <td><p>Create a techmix plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_trajectory.html">plot_trajectory()</a></code> </p>
-        </td>
-        <td><p>Create a trajectory plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="theme_2dii.html">theme_2dii()</a></code> </p>
-        </td>
-        <td><p>Complete theme</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="market_share.html">market_share</a></code> </p>
-        </td>
-        <td><p>An example of a <code>market_share</code>-like dataset</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sda.html">sda</a></code> </p>
-        </td>
-        <td><p>An example of an <code>sda</code>-like dataset</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>qplot_emission_intensity</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame. Requirements:</p><ul>
+<li><p>The structure must be like <a href='sda.html'>sda</a>.</p></li>
+<li><p>The column <code>sector</code> must have a single value (e.g. "cement").</p></li>
+</ul></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class "ggplot".</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>plot_emission_intensity</p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># `data` must meet documented "Requirements"</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>sda</span>, <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span><span class='op'>)</span>
+
+<span class='fu'>qplot_emission_intensity</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Removing data before 2020 -- the start year of 'projected'.</span></div><div class='img'><img src='qplot_emission_intensity-1.png' alt='' width='700' height='433' /></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
