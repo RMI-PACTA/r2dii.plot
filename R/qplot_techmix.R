@@ -1,0 +1,39 @@
+#' @inherit plot_techmix
+#' @seealso plot_techmix
+#'
+#' @description
+#' Compared to [plot_techmix()] this function:
+#' * is restricted to plotting future as 5 years from the start year,
+#' * outputs pretty bar labels, based on metric column,
+#' * outputs pretty legend labels, based on the technology column,
+#' * outputs a title.
+#'
+#' @export
+#' @examples
+#' # `data` must meet documented "Requirements"
+#' data <- subset(
+#'   market_share,
+#'   sector == "power" &
+#'     region == "global" &
+#'     scenario_source == "demo_2020" &
+#'     metric %in% c("projected", "corporate_economy", "target_sds")
+#' )
+#'
+#' qplot_techmix(data)
+qplot_techmix <- function(data) {
+  check_plot_techmix(data)
+
+  data %>%
+    prep_techmix() %>%
+    plot_techmix_impl() %>%
+    labs_techmix()
+}
+
+labs_techmix <- function(p) {
+  sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
+
+  p +
+    labs(
+      title = glue("Current and future technology mix for the {sector} sector")
+    )
+}
