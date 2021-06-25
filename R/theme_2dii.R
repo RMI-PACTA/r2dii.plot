@@ -48,6 +48,9 @@ theme_2dii <- function(base_size = 12,
         vjust = 0.5,
         size = base_size * 10 / 12,
         margin = margin(0, 2, 8, 6)
-      )
+      ),
+      strip.background = element_blank(),
+      strip.switch.pad.grid = unit(0.2, "cm"),
+      strip.text = element_text(size = base_size * 10 / 12, margin = margin)
     )
 }
