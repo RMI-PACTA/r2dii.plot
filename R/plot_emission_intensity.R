@@ -32,7 +32,7 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-prep_emission_intensity <- function(data, convert_label = identity, span_5yr = TRUE) {
+prep_emission_intensity <- function(data, convert_label = identity, span_5yr = FALSE) {
   out <- data %>%
     prep_common() %>%
     mutate(
