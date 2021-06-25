@@ -50,7 +50,7 @@ prep_emission_intensity <- function(data, convert_label = identity, span_5yr = F
   colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
   specs <- dplyr::bind_cols(metrics, colours)
 
-  left_join(out, specs, by = "emission_factor_metric")
+  left_join(out, specs, by = metric(data))
 }
 
 plot_emission_intensity_impl <- function(data) {
