@@ -38,3 +38,11 @@
     `too_few$metric` must have one scenario.
     x It has none.
 
+# informs that extreme years are used
+
+    Code
+      invisible(plot_techmix(data))
+    Message <message>
+      The `technology_share` values are plotted for extreme years.
+      Do you want to plot different years? E.g. filter the data with:`subset(data, year %in% c(2020, 2030))`.
+

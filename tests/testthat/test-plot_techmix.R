@@ -89,3 +89,34 @@ test_that("with input data before start year of 'projected' prep_techmix
     rbind(early_row)
   expect_equal(min(prep_techmix(data)$year), start_year)
 })
+
+test_that("informs that extreme years are used", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+
+  restore <- options(r2dii.plot.quiet = FALSE)
+  expect_snapshot(invisible(
+    plot_techmix(data)
+  ))
+  options(restore)
+})
+
+test_that("does not modify `metric`", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_techmix(data)
+  out <- sort(as.character(unique(p$data$metric)))
+  expect_equal(out, metrics)
+})
