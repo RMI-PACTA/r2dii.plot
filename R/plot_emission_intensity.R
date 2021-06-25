@@ -54,14 +54,14 @@ prep_emission_intensity <- function(data, convert_label = identity, span_5yr = F
 }
 
 plot_emission_intensity_impl <- function(data) {
-  ggplot() +
-    geom_line(
-      data = data, aes(
-        x = .data$year,
-        y = .data$emission_factor_value,
-        colour = match_lines_order(data)
-      )
-    ) +
+  ggplot(data = data,
+         aes(
+           x = .data$year,
+          y = .data$emission_factor_value,
+          colour = match_lines_order(data)
+        )
+      ) +
+    geom_line() +
     expand_limits(y = 0) +
     scale_x_date(expand = expansion(mult = c(0, 0.1))) +
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +

@@ -32,9 +32,9 @@ test_that("doesn't output pretty labels", {
   data <- filter(sda, sector == "automotive")
   p <- plot_emission_intensity(data)
 
-  metrics <- unique(p$layers[[1]]$data$emission_factor_metric)
-  pretty <- c("projected", "corporate_economy")
-  expect_equal(pretty, metrics)
+  metrics <- unique(p$data$label)
+  ugly <- c("projected", "corporate_economy")
+  expect_equal(ugly, metrics)
 })
 
 test_that("with too many lines to plot errors gracefully", {
