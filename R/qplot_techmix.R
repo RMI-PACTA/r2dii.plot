@@ -24,7 +24,7 @@ qplot_techmix <- function(data) {
   check_plot_techmix(data)
 
   data %>%
-    prep_techmix() %>%
+    prep_techmix(convert_label = format_label_techmix, span_5yr = TRUE) %>%
     plot_techmix_impl() %>%
     labs_techmix()
 }
@@ -36,4 +36,15 @@ labs_techmix <- function(p) {
     labs(
       title = glue("Current and future technology mix for the {sector} sector")
     )
+}
+
+#' @examples
+#' format_label_techmix(c("corporate_economy", "target_sds"))
+#' # Weird case
+#' format_label_techmix(c("corporate_._economy", "target_sds_abc"))
+#' @noRd
+format_label_techmix <- function(x) {
+  out <- recode_metric(x)
+  out <- to_title(out)
+  out
 }
