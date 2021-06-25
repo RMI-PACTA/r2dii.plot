@@ -90,10 +90,11 @@ prep_techmix <- function(data,
   start_year <- min(out$year)
   future_year <- max(out$year)
   if (!quiet()) {
+    .data <- deparse_1(substitute(data, env = parent.frame()))
     inform(glue(
       "The `technology_share` values are plotted for extreme years.
-       Do you want to plot different years? E.g. filter the data with:\\
-       `subset(data, year %in% c(2020, 2030))`."
+       Do you want to plot different years? E.g. filter {.data} with:\\
+       `subset({.data}, year %in% c(2020, 2030))`."
     ))
   }
   out <- out %>%
@@ -102,14 +103,8 @@ prep_techmix <- function(data,
 }
 
 plot_techmix_impl <- function(data) {
-  colours <- semi_join(technology_colours, data, by = c("sector", "technology")) %>%
-    left_join(
-      data %>%
-        select(.data$technology, .data$label_tech) %>%
-        unique(),
-      by = "technology"
-    )
-  labels <- rev(unique(data$label))
+  colours <- get_technology_colours(data)
+  labels <- techmix_labels(data)
 
   ggplot(
     data = data,
@@ -143,6 +138,20 @@ plot_techmix_impl <- function(data) {
     xlab("") +
     ylab("") +
     facet_wrap(~year, nrow = 2, strip.position = "right")
+}
+
+techmix_labels <- function(data) {
+  labels <- rev(unique(data$label))
+}
+
+get_technology_colours <- function(data) {
+  colours <- semi_join(technology_colours, data, by = c("sector", "technology")) %>%
+    left_join(
+      data %>%
+        select(.data$technology, .data$label_tech) %>%
+        unique(),
+      by = "technology"
+    )
 }
 
 recode_sector <- function(x) {
