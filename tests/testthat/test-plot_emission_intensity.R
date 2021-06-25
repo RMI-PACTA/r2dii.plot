@@ -28,12 +28,12 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
   expect_false(has_factors)
 })
 
-test_that("outputs pretty labels", {
+test_that("doesn't output pretty labels", {
   data <- filter(sda, sector == "automotive")
   p <- plot_emission_intensity(data)
 
   metrics <- unique(p$layers[[1]]$data$emission_factor_metric)
-  pretty <- c("Projected", "Corporate Economy")
+  pretty <- c("projected", "corporate_economy")
   expect_equal(pretty, metrics)
 })
 

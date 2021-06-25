@@ -32,17 +32,22 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-prep_emission_intensity <- function(data) {
-  prep <- data %>%
-    beautify("emission_factor_metric") %>%
-    drop_before_start_year() %>%
-    mutate(year = lubridate::make_date(.data$year))
+prep_emission_intensity <- function(data, convert_label = identity, span_5yr = TRUE) {
+  out <- data %>%
+    prep_common() %>%
+    mutate(
+      year = lubridate::make_date(.data$year),
+      label = convert_label(.data$label))
 
-  metrics <- distinct(prep, .data$emission_factor_metric)
+  if (span_5yr) {
+    out <- span_5yr(out)
+  }
+
+  metrics <- distinct(out, .data$emission_factor_metric)
   colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
   specs <- dplyr::bind_cols(metrics, colours)
 
-  left_join(prep, specs, by = "emission_factor_metric")
+  left_join(out, specs, by = "emission_factor_metric")
 }
 
 plot_emission_intensity_impl <- function(data) {
