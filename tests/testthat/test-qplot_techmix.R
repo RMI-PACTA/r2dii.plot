@@ -23,7 +23,7 @@ test_that("Outputs pretty labels", {
 
   metrics <- unique(p$data$label)
   pretty <- c("Portfolio", "Benchmark", "Scenario")
-  expect_equal(pretty, metrics)
+  expect_equal(metrics, pretty)
 })
 
 test_that("Has the title as expected", {
@@ -51,7 +51,7 @@ test_that("Outputs pretty legend labels", {
 
   metrics <- unique(p$data$label_tech)
   pretty <- c("Coal Capacity", "Gas Capacity", "Hydro Capacity")
-  expect_equal(pretty, metrics[1:3])
+  expect_equal(metrics[1:3], pretty)
 
   data <- filter(
     market_share,
@@ -64,5 +64,5 @@ test_that("Outputs pretty legend labels", {
 
   metrics <- unique(p$data$label_tech)
   pretty <- c("Electric", "Hybrid", "ICE")
-  expect_equal(pretty, metrics)
+  expect_equal(metrics, pretty)
 })

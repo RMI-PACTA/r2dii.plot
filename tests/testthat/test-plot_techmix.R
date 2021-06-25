@@ -145,8 +145,8 @@ test_that("Does not output pretty labels", {
   p <- plot_techmix(data)
 
   metrics <- unique(p$data$label)
-  pretty <- c("projected", "corporate_economy", "target_sds")
-  expect_equal(pretty, metrics)
+  ugly <- c("projected", "corporate_economy", "target_sds")
+  expect_equal(metrics, ugly)
 })
 
 test_that("Doesn't output pretty legend labels", {
@@ -160,8 +160,8 @@ test_that("Doesn't output pretty legend labels", {
   p <- plot_techmix(data)
 
   metrics <- unique(p$data$label_tech)
-  pretty <- c("coalcap", "gascap", "hydrocap")
-  expect_equal(pretty, metrics[1:3])
+  ugly <- c("coalcap", "gascap", "hydrocap")
+  expect_equal(metrics[1:3], ugly)
 
   data <- filter(
     market_share,
@@ -173,6 +173,6 @@ test_that("Doesn't output pretty legend labels", {
   p <- plot_techmix(data)
 
   metrics <- unique(p$data$label_tech)
-  pretty <- c("electric", "hybrid", "ice")
-  expect_equal(pretty, metrics)
+  ugly <- c("electric", "hybrid", "ice")
+  expect_equal(metrics, ugly)
 })

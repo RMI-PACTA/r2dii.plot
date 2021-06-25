@@ -27,18 +27,18 @@ qplot_techmix <- function(data) {
     prep_techmix(
       convert_label = format_label_techmix,
       span_5yr = TRUE,
-      convert_tech_label = to_pretty_label
+      convert_tech_label = spell_out_technology
     ) %>%
     plot_techmix_impl() %>%
     labs_techmix()
 }
 
 labs_techmix <- function(p) {
-  sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
+  sector <- to_title(p[["data"]][["sector"]][[1]])
 
   p +
     labs(
-      title = glue("Current and future technology mix for the {sector} sector")
+      title = glue("Current and Future Technology Mix for the {sector} Sector")
     )
 }
 

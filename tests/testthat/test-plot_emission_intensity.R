@@ -34,7 +34,7 @@ test_that("doesn't output pretty labels", {
 
   metrics <- unique(p$data$label)
   ugly <- c("projected", "corporate_economy")
-  expect_equal(ugly, metrics)
+  expect_equal(metrics, ugly)
 })
 
 test_that("with too many lines to plot errors gracefully", {

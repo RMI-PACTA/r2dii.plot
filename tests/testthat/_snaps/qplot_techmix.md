@@ -1,4 +1,4 @@
 # Has the title as expected
 
-    Current and future technology mix for the Power sector
+    Current and Future Technology Mix for the Power Sector
 

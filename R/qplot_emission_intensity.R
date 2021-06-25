@@ -27,8 +27,8 @@ labs_emission_intensity <- function(p) {
   sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
 
   p + labs(
-    title = glue("Emission intensity trend for {sector}"),
+    title = glue("Emission Intensity Trend for the {sector} Sector"),
     x = "Year",
-    y = "Tons of CO2 per ton"
+    y = "Tons of CO2 per Ton of Production Unit"
   )
 }

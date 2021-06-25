@@ -191,7 +191,7 @@ test_that("outputs pretty labels", {
 
   metrics <- unique(p$layers[[3]]$data$label)
   pretty <- c("CPS", "SPS", "SDS", "Corporate Economy", "Projected")
-  expect_equal(pretty, metrics)
+  expect_equal(metrics, pretty)
 })
 
 test_that("Wraps the title as expected", {
@@ -215,7 +215,7 @@ test_that("Prints axis labels as expected", {
   expect_equal(p$labels$x, "Year")
   expect_snapshot_output(p$labels$x)
 
-  expect_match(p$labels$y, "[Pp]roduction rate.*normalized")
+  expect_match(p$labels$y, "[Pp]roduction [Rr]ate.*normalized.*")
   expect_snapshot_output(p$labels$y)
 })
 

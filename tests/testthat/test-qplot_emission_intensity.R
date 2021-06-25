@@ -4,7 +4,7 @@ test_that("outputs pretty labels", {
 
   metrics <- unique(p$data$label)
   pretty <- c("Projected", "Corporate Economy")
-  expect_equal(pretty, metrics)
+  expect_equal(metrics, pretty)
 })
 
 test_that("Prints title as expected", {
@@ -21,7 +21,7 @@ test_that("Prints axis labels as expected", {
   expect_equal(p$labels$x, "Year")
   expect_snapshot_output(p$labels$x)
 
-  expect_match(p$labels$y, "[Tt]ons of CO2 per ton")
+  expect_equal(p$labels$y, "Tons of CO2 per Ton of Production Unit")
   expect_snapshot_output(p$labels$y)
 })
 
