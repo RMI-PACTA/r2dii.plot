@@ -274,24 +274,6 @@ get_ordered_scenario_colours <- function(n) {
   )
 }
 
-add_label_if_missing <- function(data) {
-  if (has_name(data, "label")) {
-    return(data)
-  }
-
-  data$label <- data[[metric(data)]]
-  data
-}
-
-#' A place to DRY common preparation steps
-#' @noRd
-prep_common <- function(data) {
-  data %>%
-    drop_before_start_year() %>%
-    add_label_if_missing()
-}
-
-
 scenario <- function(data) {
   specs <- scenario_colour(data)
   area_borders <- get_area_borders(data)

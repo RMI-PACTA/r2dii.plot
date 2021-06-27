@@ -259,3 +259,22 @@ spell_out_technology <- function(technology) {
   label <- sub("_hdv$", "Heavy Duty Vehicles", label)
   label
 }
+
+add_label_if_missing <- function(data) {
+  if (has_name(data, "label")) {
+    return(data)
+  }
+
+  data$label <- data[[metric(data)]]
+  data
+}
+
+#' A place to DRY common preparation steps
+#' @noRd
+prep_common <- function(data) {
+  data %>%
+    drop_before_start_year() %>%
+    add_label_if_missing()
+}
+
+
