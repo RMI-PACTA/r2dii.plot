@@ -44,38 +44,25 @@ matched <- loanbook |>
   prioritize()  # Remember to validate matches (see `?prioritize`)
 ```
 
-## 'Quick' plots
-
-Quick plots allow you to create a good looking plot without extensive knowledge 
-of other R packages. They are perfect to have a quick look into the data and for 
-users who are interested in standard PACTA outcomes. Their common characteristics
-are:
-
-* 5 year time span,
-* 'Pretty' labels,
-* Standard colour palette
-* 'Pretty' axis labels
-* Title (and subtitle)
-
-Use `qplot_emission_intensity()` with `sda`-like data.
+* Use `plot_emission_intensity()` with `sda`-like data.
 
 ```{r}
 matched |>
   target_sda(ald, co2_intensity_scenario = scenario) |>
   subset(sector == "cement") |>
-  qplot_emission_intensity()
+  plot_emission_intensity()
 ```
 
-Use `qplot_trajectory()` with `market_share`-like data.
+* Use `plot_trajectory()` with `market_share`-like data.
 
 ```{r}
 matched |>
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) |>
   subset(technology == "renewablescap" & region == "global") |>
-  qplot_trajectory()
+  plot_trajectory()
 ```
 
-Use `qplot_techmix()` with `market_share`-like data.
+* Use `plot_techmix()` with `market_share`-like data.
 
 ```{r}
 matched |>
@@ -83,9 +70,10 @@ matched |>
   subset(
     sector == "power" & 
       region == "global" &
+      year >= 2020 &
+      year <= 2025 &
       metric %in% c("projected", "corporate_economy", "target_sds")
   ) |>
-  qplot_techmix()
+  plot_techmix()
 ```
 
-## 
