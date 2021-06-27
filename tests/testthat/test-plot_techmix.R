@@ -176,3 +176,20 @@ test_that("Doesn't output pretty legend labels", {
   ugly <- c("electric", "hybrid", "ice")
   expect_equal(metrics, ugly)
 })
+
+test_that("When data has 'label_tech' it is used in the plot", {
+  data <- filter(
+    market_share,
+    sector == "automotive",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  ) %>%
+  mutate(label_tech = case_when(
+    technology == "ice" ~ "My custom label",
+    TRUE ~ .data$technology
+  ))
+  p <- plot_techmix(data)
+
+  expect_true("My custom label" %in% unique(p$data$label_tech))
+})
