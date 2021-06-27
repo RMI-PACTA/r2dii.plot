@@ -19,6 +19,7 @@ helps you customize your plots.
 
 ```{r setup}
 library(ggplot2)
+library(dplyr, warn.conflicts = FALSE)
 library(r2dii.data)
 library(r2dii.match)
 library(r2dii.plot)
@@ -39,53 +40,158 @@ Your workflow involves functions from the packages r2dii.match and
 r2dii.analysis.
 
 ```{r}
-matched <- loanbook |>
-  match_name(ald) |>
+matched <- loanbook %>%
+  match_name(ald) %>%
   prioritize()  # Remember to validate matches (see `?prioritize`)
 ```
+r2dii.plot supports three kinds of plots -- emission intensity, techmix, and
+trajectory and two types of functions: `qplot_*()` for standardized plotting and 
+`plot_*()`leaving more space for customization. 
+
+For each kind, you'll need to subset the specific rows you want to
+plot. For details see the documented "Requirements" of the argument `data` of
+each `plot_*()` or `qplot_*()` function (e.g. see `?plot_emission_intensity`). 
+If you forget to meet the `data` requirements the error message should guide you.
 
 ## 'Quick' plots
 
 Quick plots allow you to create a good looking plot without extensive knowledge 
 of other R packages. They are perfect to have a quick look into the data and for 
-users who are interested in standard PACTA outcomes. Their common characteristics
+users who are interested in standard PACTA visualizations. Their common characteristics
 are:
 
 * 5 year time span,
-* 'Pretty' labels,
-* Standard colour palette
+* 'Pretty' data labels,
 * 'Pretty' axis labels
 * Title (and subtitle)
 
 Use `qplot_emission_intensity()` with `sda`-like data.
 
 ```{r}
-matched |>
-  target_sda(ald, co2_intensity_scenario = scenario) |>
-  subset(sector == "cement") |>
+matched %>%
+  target_sda(ald, co2_intensity_scenario = scenario) %>%
+  subset(sector == "cement") %>%
   qplot_emission_intensity()
 ```
 
 Use `qplot_trajectory()` with `market_share`-like data.
 
 ```{r}
-matched |>
-  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) |>
-  subset(technology == "renewablescap" & region == "global") |>
+matched %>%
+  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
+  subset(technology == "renewablescap" & region == "global") %>%
   qplot_trajectory()
 ```
 
 Use `qplot_techmix()` with `market_share`-like data.
 
 ```{r}
-matched |>
-  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) |>
+matched %>%
+  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
   subset(
     sector == "power" & 
       region == "global" &
       metric %in% c("projected", "corporate_economy", "target_sds")
-  ) |>
+  ) %>%
   qplot_techmix()
 ```
 
-## 
+## Plots
+
+The `plot_*()` functions plot the data as they are and allow you to add your own customizations by modifying the input (for example by adding a column 'label' or
+'label_tech' for changing the data labels) or using `ggplot2` functions to change 
+elements of the plot.
+
+The basic output of `plot_emission_intensity()` looks rather unappealing.
+
+```{r}
+p <- matched %>%
+  target_sda(ald, co2_intensity_scenario = scenario) %>%
+  subset(sector == "cement") %>%
+  plot_emission_intensity()
+p
+```
+
+You can polish your plot by modifying the input and the `ggplot` object. 
+Your options are limitless but these are some typical things you may do:
+
+* Change the time span
+* Add custom labels by modifying the column 'metric' and technology of `market_share`-like data.
+* Add a title and a subtitle. 
+* Change x and y axis labels
+* Customize the colours and legend labels with `ggplot2::scale_colour_manual()`.
+
+```{r}
+data <- sda %>%
+  filter(
+    sector == "cement",
+    year <= 2030)
+  
+plot_emission_intensity(data) + 
+  labs(
+    title = "Emission intensity plot for cement",
+    x = "Time",
+    y = "Tons of CO2 per ton of cement produced"
+    ) +
+  scale_color_manual(
+    values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),
+    labels = c("Proj.", "Corp. Economy", "Target (demo)", "Adj. Scenario (demo)")
+  )
+```
+
+Example of customized `plot_trajectory()`.
+
+```{r}
+matched %>%
+  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
+  filter(
+    technology == "renewablescap",
+    region == "global",
+    year <= 2030
+    ) %>%
+  mutate(
+    label = case_when(
+      metric == "projected" ~ "Your Portfolio",
+      metric == "corporate_economy" ~ "Benchmark (Corp. Economy)",
+      metric == "target_sds" ~ "Sustainable Development Scen.",
+      metric == "target_sps" ~ "STEP Scen.",
+      metric == "target_cps" ~ "Current Policy Scen.",
+      TRUE ~ metric
+    )
+  ) %>%
+  plot_trajectory() +
+  scale_x_continuous(n.breaks = 3) +
+  labs(
+    title = "Portfolio Scenario Alignment for Renewables Technology",
+    x = "Year", 
+    y = "Production normalized to start year"
+  ) +
+  theme(
+    plot.margin = unit(c(0.5, 6, 0.5, 1), "cm")
+  )
+```
+
+Example of customized `plot_techmix()`.
+
+```{r}
+data <- market_share %>%
+  filter(
+    metric %in% c("projected", "corporate_economy", "target_sds"),
+    sector == "power",
+    region == "global",
+    year >= 2021,
+    year <= 2040  # custom time range
+  ) %>%
+  mutate(
+    label = case_when(
+      metric == "projected" ~ "Your Portfolio",
+      metric == "corporate_economy" ~ "Corporate Economy Benchmark",
+      metric == "target_sds" ~ "SDS Scenario"
+    ))
+
+plot_techmix(data) + 
+  scale_fill_manual(
+    values = c("black", "brown", "grey", "blue", "green4"),
+    labels = paste(c("Coal", "Oil", "Gas", "Hydro", "Renewables"), "Cap.")
+  )
+```
