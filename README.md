@@ -42,7 +42,7 @@ packages –
 It also plays well with the [ggplot2](https://ggplot2.tidyverse.org/)
 package, which helps you customize your plots. Here, we’ll use an
 example data set that comes with r2dii.plot and that resembles the
-output of
+output of the
 [`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html)
 function in the r2dii.analysis package.
 
@@ -54,17 +54,16 @@ library(r2dii.plot)
 
 ### Plot techmix chart
 
-  - Use `qplot_*()` to quickly get an output plot with standard titles
-    and labels.
-
-<!-- end list -->
+-   Use `qplot_*()` to quickly get a plot with standard titles and
+    labels.
 
 ``` r
 # `data` must meet documented "Requirements"
 data <- market_share %>%
-  filter(sector == "power",
+  filter(
+    sector == "power",
     region == "global",
-    scenario_source == "demo_2020", 
+    scenario_source == "demo_2020",
     metric %in% c("projected", "corporate_economy", "target_sds")
   )
 
@@ -75,19 +74,18 @@ qplot_techmix(data)
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - Use `plot_*()` for a more ‘bare’ plot that you can customize
+-   Use `plot_*()` for a more ‘bare’ plot that you can customize
     yourself by modifying the input data and applying `ggplot2`
     functions.
 
-<!-- end list -->
-
 ``` r
 data <- market_share %>%
-  filter(sector == "power",
-         region == "global",
-         scenario_source == "demo_2020",
-         metric %in% c("projected", "corporate_economy", "target_sds"),
-         year %in% c(2020, 2030)
+  filter(
+    sector == "power",
+    region == "global",
+    scenario_source == "demo_2020",
+    metric %in% c("projected", "corporate_economy", "target_sds"),
+    year %in% c(2020, 2030)
   ) %>%
   mutate(
     label = case_when(
