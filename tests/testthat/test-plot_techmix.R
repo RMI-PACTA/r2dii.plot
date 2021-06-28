@@ -193,3 +193,22 @@ test_that("When data has 'label_tech' it is used in the plot", {
 
   expect_true("My custom label" %in% unique(p$data$label_tech))
 })
+
+test_that("With random order of data ouputs plot with labels in the right order",{
+  data <- market_share %>%
+  filter(
+    year %in% c(2020, 2025),
+    scenario_source == "demo_2020",
+    sector == "power",
+    region == "global",
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  ) %>%
+  mutate(metric = factor(
+    .data$metric, levels = c("corporate_economy","projected","target_sds"))) %>%
+  arrange(.data$metric) %>%
+  mutate(metric = as.character(.data$metric))
+  p <- plot_techmix(data)
+
+  right_order <- c("target_sds", "corporate_economy", "projected")
+  expect_equal(p$plot_env$labels, right_order)
+})
