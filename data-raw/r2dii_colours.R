@@ -36,25 +36,25 @@ sector_colours <- tribble(
 )
 
 technology_colours <- tribble(
-        ~sector,     ~technology,                         ~label,      ~hex,
-        "power",       "coalcap",                "Coal Capacity", "#7A2701",
-        "power",        "oilcap",                 "Oil Capacity", "#a63603",
-        "power",        "gascap",                 "Gas Capacity", "#e6550d",
-        "power",    "nuclearcap",             "Nuclear Capacity", "#fd8d3c",
-        "power",      "hydrocap",               "Hydro Capacity", "#fdbe85",
-        "power", "renewablescap",          "Renewables Capacity", "#ffd4ad",
-   "automotive",       "ice_hdv",      "ICE Heavy Duty Vehicles", "#548995",
-   "automotive",           "ice",                          "ICE", "#609cab",
-   "automotive",    "hybrid_hdv",   "Hybrid Heavy Duty Vehicles", "#6cb0c0",
-   "automotive",        "hybrid",                       "Hybrid", "#78c4d6",
-   "automotive",      "fuelcell",                     "FuelCell", "#93cfde",
-   "automotive",  "electric_hdv", "Electric Heavy Duty Vehicles", "#aedbe6",
-   "automotive",      "electric",                     "Electric", "#c9e7ee",
-      "oil&gas",           "gas",                          "Gas", "#b9b5b0",
-      "oil&gas",           "oil",                          "Oil", "#181716",
- "fossil fuels",           "gas",                          "Gas", "#b9b5b0",
- "fossil fuels",           "oil",                          "Oil", "#181716",
- "fossil fuels",          "coal",                         "Coal", "#4e3b37"
+        ~sector,     ~technology,      ~hex,
+        "power",       "coalcap", "#7A2701",
+        "power",        "oilcap", "#a63603",
+        "power",        "gascap", "#e6550d",
+        "power",    "nuclearcap", "#fd8d3c",
+        "power",      "hydrocap", "#fdbe85",
+        "power", "renewablescap", "#ffd4ad",
+   "automotive",       "ice_hdv", "#548995",
+   "automotive",           "ice", "#609cab",
+   "automotive",    "hybrid_hdv", "#6cb0c0",
+   "automotive",        "hybrid", "#78c4d6",
+   "automotive",      "fuelcell", "#93cfde",
+   "automotive",  "electric_hdv", "#aedbe6",
+   "automotive",      "electric", "#c9e7ee",
+      "oil&gas",           "gas", "#b9b5b0",
+      "oil&gas",           "oil", "#181716",
+ "fossil fuels",           "gas", "#b9b5b0",
+ "fossil fuels",           "oil", "#181716",
+ "fossil fuels",          "coal", "#4e3b37"
 )
 # styler: on
 
