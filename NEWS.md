@@ -1,8 +1,13 @@
 # r2dii.plot (development version)
 
-* The new `qplot_trajectory()` outputs a polished plot.
+* Data labels can be now modified by adding a column 'label' and 'label_tech' to
+input data.
 
-* `plot_trajectory()` now outputs a more basic plot (#346).
+* The new `qplot_trajectory()`, `qplot_techmix()`, and `qplot_emission_intensity()`
+output polished plots.
+
+* `plot_trajectory()`, `plot_techmix()`, and `plot_emission_intensity()` now output 
+more basic plots.
 
 * Error messages now more closely follow the tidyverse style guide (#324).  
 
