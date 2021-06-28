@@ -204,11 +204,11 @@ test_that("With random order of data ouputs plot with labels in the right order"
     metric %in% c("projected", "corporate_economy", "target_sds")
   ) %>%
   mutate(metric = factor(
-    .data$metric, levels = c("target_sds", "corporate_economy","projected"))) %>%
+    .data$metric, levels = c("corporate_economy","projected","target_sds"))) %>%
   arrange(.data$metric) %>%
   mutate(metric = as.character(.data$metric))
   p <- plot_techmix(data)
 
-  right_order <- c("projected", "corporate_economy", "target_sds")
-  expect_equal(unique(p$data$metric), right_order)
+  right_order <- c("target_sds", "corporate_economy", "projected")
+  expect_equal(p$plot_env$labels, right_order)
 })
