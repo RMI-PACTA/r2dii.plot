@@ -49,7 +49,8 @@ labs_trajectory <- function(p) {
   p +
     labs(
       title = glue(
-        "Production Trajectory of Technology: {tech} in the {sector} Sector"
+        "Production Trajectory of Technology: {tech}
+        in the {sector} Sector"
       ),
       subtitle = glue(
         "The coloured areas indicate trajectories in reference to a scenario.
