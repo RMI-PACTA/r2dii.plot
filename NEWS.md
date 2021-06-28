@@ -3,10 +3,10 @@
 * Data labels can be now modified by adding a column 'label' and 'label_tech' to
 input data.
 
-* The new `qplot_trajectory()`, `qplot_techmix()`, `qplot_emission_intensity()`
+* The new `qplot_trajectory()`, `qplot_techmix()`, and `qplot_emission_intensity()`
 output polished plots.
 
-* `plot_trajectory()`, `plot_techmix()`, `plot_emission_intensity()` now output 
+* `plot_trajectory()`, `plot_techmix()`, and `plot_emission_intensity()` now output 
 more basic plots.
 
 * Error messages now more closely follow the tidyverse style guide (#324).  
