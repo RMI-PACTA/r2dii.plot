@@ -40,34 +40,31 @@ packages –
 [r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
 [r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/).
 It also plays well with the [ggplot2](https://ggplot2.tidyverse.org/)
-package, which helps you customize your plots. Here, we’ll use example
-dataset that comes with r2dii.plot and that resembles the output of
+package, which helps you customize your plots. Here, we’ll use an
+example data set that comes with r2dii.plot and that resembles the
+output of
 [`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html)
-function in the r2dii.analysis package. (For more examples of data sets
-and plots please visit [Get started with
-r2dii.plot](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html).)
+function in the r2dii.analysis package.
 
 ``` r
 library(ggplot2, warn.conflicts = FALSE)
+library(dplyr, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
 ### Plot techmix chart
 
-  - Use `qplot_*()` to quickly get an output plot with standard titles
+-   Use `qplot_*()` to quickly get an output plot with standard titles
     and labels.
-
-<!-- end list -->
 
 ``` r
 # `data` must meet documented "Requirements"
-data <- subset(
-  market_share,
-  sector == "power" &
-    region == "global" &
-    scenario_source == "demo_2020" &
+data <- market_share %>%
+  filter(sector == "power",
+    region == "global",
+    scenario_source == "demo_2020", 
     metric %in% c("projected", "corporate_economy", "target_sds")
-)
+  )
 
 qplot_techmix(data)
 #> The `technology_share` values are plotted for extreme years.
@@ -76,23 +73,11 @@ qplot_techmix(data)
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - Use `plot_*()` for a more ‘bare’ plot that you can customize
+-   Use `plot_*()` for a more ‘bare’ plot that you can customize
     yourself by modifying the input data and applying `ggplot2`
     functions.
 
-<!-- end list -->
-
 ``` r
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-
 data <- market_share %>%
   filter(sector == "power",
          region == "global",

@@ -45,25 +45,26 @@ matched <- loanbook %>%
   prioritize()  # Remember to validate matches (see `?prioritize`)
 ```
 r2dii.plot supports three kinds of plots -- emission intensity, techmix, and
-trajectory and two types of functions: `qplot_*()` for standardized plotting and 
-`plot_*()`leaving more space for customization. 
+trajectory and two types of functions: `qplot_*()` for standardized plots and 
+`plot_*()` for 'bare' plots leaving customization to the user. 
 
 For each kind, you'll need to subset the specific rows you want to
-plot. For details see the documented "Requirements" of the argument `data` of
-each `plot_*()` or `qplot_*()` function (e.g. see `?plot_emission_intensity`). 
-If you forget to meet the `data` requirements the error message should guide you.
+plot (for example with `subset()` or `dplyr:filter()`). For details see the 
+documented "Requirements" of the argument `data` of each `plot_*()` or 
+`qplot_*()` function (e.g. see `?plot_emission_intensity`). If you forget to 
+meet the `data` requirements the error message should guide you.
 
 ## 'Quick' plots
 
 Quick plots allow you to create a good looking plot without extensive knowledge 
 of other R packages. They are perfect to have a quick look into the data and for 
-users who are interested in standard PACTA visualizations. Their common characteristics
-are:
+users who are interested in standard PACTA visualizations. Their common 
+characteristics are:
 
 * 5 year time span,
-* 'Pretty' data labels,
-* 'Pretty' axis labels
-* Title (and subtitle)
+* Formatted data labels,
+* Formatted axis labels,
+* A title (and a subtitle).
 
 Use `qplot_emission_intensity()` with `sda`-like data.
 
@@ -98,9 +99,9 @@ matched %>%
 
 ## Plots
 
-The `plot_*()` functions plot the data as they are and allow you to add your own customizations by modifying the input (for example by adding a column 'label' or
-'label_tech' for changing the data labels) or using `ggplot2` functions to change 
-elements of the plot.
+The `plot_*()` functions show the data as they are and allow you to add your own customization by modifying the input (for example by adding a column 'label' or
+'label_tech' for changing the data labels) or using `ggplot2` functions to  
+modify elements of the plot.
 
 The basic output of `plot_emission_intensity()` looks rather unappealing.
 
@@ -112,13 +113,14 @@ p <- matched %>%
 p
 ```
 
-You can polish your plot by modifying the input and the `ggplot` object. 
+You can polish your plot by modifying the input and the output `ggplot` object. 
 Your options are limitless but these are some typical things you may do:
 
-* Change the time span
-* Add custom labels by modifying the column 'metric' and technology of `market_share`-like data.
+* Change the time span.
+* Add custom labels by modifying the column 'metric' and technology of 
+`market_share`-like data.
 * Add a title and a subtitle. 
-* Change x and y axis labels
+* Change x and y axis labels.
 * Customize the colours and legend labels with `ggplot2::scale_colour_manual()`.
 
 ```{r}
