@@ -109,147 +109,67 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://2degreesinvesting.github.io/r2dii.data/">r2dii.data</a>, <a href="https://2degreesinvesting.github.io/r2dii.match/">r2dii.match</a>, and <a href="https://2degreesinvesting.github.io/r2dii.analysis/">r2dii.analysis</a>. It also plays well with the <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package, which helps you customize your plots.</p>
+<p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://2degreesinvesting.github.io/r2dii.data/">r2dii.data</a>, <a href="https://2degreesinvesting.github.io/r2dii.match/">r2dii.match</a>, and <a href="https://2degreesinvesting.github.io/r2dii.analysis/">r2dii.analysis</a>. It also plays well with the <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package, which helps you customize your plots. Here, we’ll use an example data set that comes with r2dii.plot and that resembles the output of the <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html"><code>target_market_share()</code></a> function in the r2dii.analysis package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
-<p>Your data typically comes from the output of two functions in the r2dii.analysis package: <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_sda.html"><code>target_sda()</code></a> and <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html"><code>target_market_share()</code></a>. Here you’ll use two example datasets that come with r2dii.plot.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sda</span>
-<span class="co">#&gt; # A tibble: 208 x 4</span>
-<span class="co">#&gt;    sector      year emission_factor_metric emission_factor_value</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;                                  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automotive  2002 projected                              0.228</span>
-<span class="co">#&gt;  2 automotive  2003 projected                              0.226</span>
-<span class="co">#&gt;  3 automotive  2004 projected                              0.224</span>
-<span class="co">#&gt;  4 automotive  2005 projected                              0.222</span>
-<span class="co">#&gt;  5 automotive  2006 projected                              0.220</span>
-<span class="co">#&gt;  6 automotive  2007 projected                              0.218</span>
-<span class="co">#&gt;  7 automotive  2008 projected                              0.216</span>
-<span class="co">#&gt;  8 automotive  2009 projected                              0.214</span>
-<span class="co">#&gt;  9 automotive  2010 projected                              0.212</span>
-<span class="co">#&gt; 10 automotive  2011 projected                              0.210</span>
-<span class="co">#&gt; # … with 198 more rows</span>
-
-<span class="va">market_share</span>
-<span class="co">#&gt; # A tibble: 1,170 x 8</span>
-<span class="co">#&gt;    sector     technology  year region scenario_source metric          production</span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 automotive electric    2020 global demo_2020       projected          145942.</span>
-<span class="co">#&gt;  2 automotive electric    2020 global demo_2020       corporate_econ…   8134869.</span>
-<span class="co">#&gt;  3 automotive electric    2020 global demo_2020       target_cps         145942.</span>
-<span class="co">#&gt;  4 automotive electric    2020 global demo_2020       target_sds         145942.</span>
-<span class="co">#&gt;  5 automotive electric    2020 global demo_2020       target_sps         145942.</span>
-<span class="co">#&gt;  6 automotive electric    2021 global demo_2020       projected          148212.</span>
-<span class="co">#&gt;  7 automotive electric    2021 global demo_2020       corporate_econ…   8183411.</span>
-<span class="co">#&gt;  8 automotive electric    2021 global demo_2020       target_cps         148361.</span>
-<span class="co">#&gt;  9 automotive electric    2021 global demo_2020       target_sds         160625.</span>
-<span class="co">#&gt; 10 automotive electric    2021 global demo_2020       target_sps         149016.</span>
-<span class="co">#&gt; # … with 1,160 more rows, and 1 more variable: technology_share &lt;dbl&gt;</span></code></pre></div>
-<p>r2dii.plot supports three kinds of plots – emission intensity, techmix, and trajectory. For each kind, you’ll need to subset the specific rows you want to plot. For details see the documented “Requirements” of the argument <code>data</code> of each <code>plot_*()</code> function (e.g. see <code><a href="reference/plot_emission_intensity.html">?plot_emission_intensity</a></code>). If you forget to meet the <code>data</code> requirements the error message should guide you.</p>
-<div id="emission-intensity" class="section level3">
+<div id="plot-techmix-chart" class="section level3">
 <h3 class="hasAnchor">
-<a href="#emission-intensity" class="anchor"></a>Emission intensity</h3>
-<p>Use <code><a href="reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> with <code>sda</code>-like data. Try an intuitive, naive call.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">sda</span><span class="op">)</span>
-<span class="co">#&gt; Error: `data` must have a single value of `sector`.</span>
-<span class="co">#&gt; ℹ Do you need to pick one value? E.g. pick 'automotive' with: `subset(data, sector == 'automotive')`.</span>
-<span class="co">#&gt; ✖ Provided: automotive, aviation, cement, oil and gas, shipping, coal, steel.</span></code></pre></div>
-<p>The error message guides you to subset a single value of <code>sector</code>. Try “cement”.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; Removing data before 2020 -- the start year of 'projected'.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<p>Great! You can now polish your plot. Your options are limitless but these are some typical things you may do:</p>
+<a href="#plot-techmix-chart" class="anchor"></a>Plot techmix chart</h3>
 <ul>
-<li>Add a title.</li>
-<li>Customize the legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_colour_manual()</a></code>.</li>
+<li>Use <code>qplot_*()</code> to quickly get a plot with standard titles and labels.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sda</span>, <span class="va">sector</span> <span class="op">==</span> <span class="st">"cement"</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Emission intensity plot"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>
-    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#4a5e54"</span>, <span class="st">"#a63d57"</span>, <span class="st">"#78c4d6"</span>, <span class="st">"#f2e06e"</span><span class="op">)</span>,
-    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Proj."</span>, <span class="st">"Corp. Economy"</span>, <span class="st">"Target (demo)"</span>, <span class="st">"Adj. Scenario (demo)"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; Removing data before 2020 -- the start year of 'projected'.</span>
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-</div>
-<div id="techmix" class="section level3">
-<h3 class="hasAnchor">
-<a href="#techmix" class="anchor"></a>Techmix</h3>
-<p>Use <code><a href="reference/plot_techmix.html">plot_techmix()</a></code> with <code>market_share</code>-like data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
-  <span class="va">market_share</span>, 
-  <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span> <span class="op">&amp;</span> 
-    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span> <span class="op">&amp;</span>
-    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Techmix plot"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<p>These are some tweaks you may consider:</p>
-<ul>
-<li>Subset a custom time range (instead of the default, full range in the data).</li>
-<li>Set custom colours and legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">ggplot2::scale_color_manual()</a></code>.</li>
-</ul>
-<!-- end list --><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
-  <span class="va">market_share</span>,
-  <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span> <span class="op">&amp;</span>
-    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span> <span class="op">&amp;</span>
-    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span> <span class="op">&amp;</span>
-    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2025</span>  <span class="co"># custom time range</span>
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># `data` must meet documented "Requirements"</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
+    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
+    <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>
   <span class="op">)</span>
 
-<span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>
-    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"brown"</span>, <span class="st">"grey"</span>, <span class="st">"blue"</span>, <span class="st">"green4"</span><span class="op">)</span>,
-    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coal"</span>, <span class="st">"Oil"</span>, <span class="st">"Gas"</span>, <span class="st">"Hydro"</span>, <span class="st">"Renewables"</span><span class="op">)</span>, <span class="st">"Cap."</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; Scale for 'fill' is already present. Adding another scale for 'fill', which</span>
-<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-</div>
-<div id="trajectory" class="section level3">
-<h3 class="hasAnchor">
-<a href="#trajectory" class="anchor"></a>Trajectory</h3>
-<p>Trajectory plots use <code>market_share</code>-like data.</p>
+<span class="fu"><a href="reference/qplot_techmix.html">qplot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span>
+<span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
-<li>
-<code><a href="reference/plot_trajectory.html">plot_trajectory()</a></code> outputs a basic plot that you may want to polish, for example, by adding a title.</li>
+<li>Use <code>plot_*()</code> for a more ‘bare’ plot that you can customize yourself by modifying the input data and applying <code>ggplot2</code> functions.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>
-  <span class="va">market_share</span>,
-  <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span> <span class="op">&amp;</span>
-    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span> <span class="op">&amp;</span>
-    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span> <span class="op">&amp;</span>
-    <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2025</span>
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
+    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
+    <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>,
+    <span class="va">year</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">2030</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    label <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"projected"</span> <span class="op">~</span> <span class="st">"Your Portfolio"</span>,
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"corporate_economy"</span> <span class="op">~</span> <span class="st">"Corporate Economy Benchmark"</span>,
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sds"</span> <span class="op">~</span> <span class="st">"SDS Scenario"</span>
+    <span class="op">)</span>,
+    label_tech <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+      <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span> <span class="op">~</span> <span class="st">"Renewables Cap."</span>,
+      <span class="va">technology</span> <span class="op">==</span> <span class="st">"hydrocap"</span> <span class="op">~</span> <span class="st">"Hydro Cap."</span>,
+      <span class="va">technology</span> <span class="op">==</span> <span class="st">"gascap"</span> <span class="op">~</span> <span class="st">"Gas Cap."</span>,
+      <span class="va">technology</span> <span class="op">==</span> <span class="st">"oilcap"</span> <span class="op">~</span> <span class="st">"Oil Cap."</span>,
+      <span class="va">technology</span> <span class="op">==</span> <span class="st">"coalcap"</span> <span class="op">~</span> <span class="st">"Coal Cap."</span>
+    <span class="op">)</span>
   <span class="op">)</span>
 
-<span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span>
-<span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<ul>
-<li>
-<code><a href="reference/qplot_trajectory.html">qplot_trajectory()</a></code> outputs a polished plot.</li>
-</ul>
-<!-- end list --><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Trajectory plot"</span><span class="op">)</span>
-<span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Technology Mix for Sector: Power"</span>,
+    subtitle <span class="op">=</span> <span class="st">"For years 2020 and 2030."</span>
+  <span class="op">)</span>
+<span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span>
+<span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p>For examples of other plots and data sets please visit <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
 </div>
 </div>
 </div>
