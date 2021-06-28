@@ -162,7 +162,7 @@ matched %>%
       metric == "projected" ~ "Your Portfolio",
       metric == "corporate_economy" ~ "Benchmark (Corp. Economy)",
       metric == "target_sds" ~ "Sustainable Development Scen.",
-      metric == "target_sps" ~ "STEP Scen.",
+      metric == "target_sps" ~ "Stated Policies Scen.",
       metric == "target_cps" ~ "Current Policy Scen.",
       TRUE ~ metric
     )
