@@ -1,10 +1,10 @@
-# r2dii.plot (development version)
+# r2dii.plot 0.1.0
 
 * Data labels can be now modified by adding a column 'label' and 'label_tech' to
 input data.
 
 * The new `qplot_trajectory()`, `qplot_techmix()`, and `qplot_emission_intensity()`
-output polished plots.
+output polished plots (#264).
 
 * `plot_trajectory()`, `plot_techmix()`, and `plot_emission_intensity()` now output 
 more basic plots.
