@@ -104,19 +104,30 @@ plot_trajectory_impl <- function(data) {
   )
 
   lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
-  issue_346 <- 6
+  year_span <- max(data$year) - min(data$year)
   p <- p + ggrepel::geom_text_repel(
     data = lines_end,
-    aes(label = .data$label, segment.color = .data$metric),
+    aes(
+      y = .data$value,
+      label = .data$label,
+      segment.color = .data$metric),
     direction = "y",
     color = "black",
     size = 3.5,
     alpha = 1,
-    nudge_x = if_else(is_scenario(lines_end$metric), 0.6, 0.1),
-    nudge_y = 0.01 * value_span(data),
+    nudge_x = if_else(
+      is_scenario(lines_end$metric),
+      0.06 * year_span,
+      0.01 * year_span
+      ),
+    nudge_y = if_else(
+      is_scenario(lines_end$metric),
+      0.01 * value_span(data),
+      0
+      ),
     hjust = 0,
     segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
-    xlim = c(min(data$year), max(data$year) + issue_346)
+    xlim = c(min(data$year), max(data$year) + 0.7 * year_span)
   )
 
   p +
