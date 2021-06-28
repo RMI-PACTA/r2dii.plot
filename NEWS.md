@@ -1,5 +1,7 @@
 # r2dii.plot 0.1.0
 
+* `plot_techmix()` and `qplot_techmix()` always output the same bars' order (#365). 
+
 * Data labels can be now modified by adding a column 'label' and 'label_tech' to
 input data.
 
