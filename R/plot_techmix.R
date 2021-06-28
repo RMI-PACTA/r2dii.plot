@@ -76,11 +76,12 @@ prep_techmix <- function(data,
                          convert_tech_label = identity) {
   out <- data %>%
     prep_common() %>%
+    add_label_tech_if_missing() %>%
     mutate(
       value = .data$technology_share,
       sector = recode_sector(.data$sector),
       label = convert_label(.data$label),
-      label_tech = convert_tech_label(.data$technology)
+      label_tech = convert_tech_label(.data$label_tech)
     )
 
   if (span_5yr) {
@@ -168,4 +169,13 @@ recode_sector <- function(x) {
 
 extract_scenarios <- function(x) {
   unique(x[startsWith(x, "target_")])
+}
+
+add_label_tech_if_missing <- function(data) {
+  if (has_name(data, "label_tech")) {
+    return(data)
+  }
+
+  data$label_tech <- data$technology
+  data
 }

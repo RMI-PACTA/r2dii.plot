@@ -57,7 +57,8 @@
 
 # Wraps the title as expected
 
-    Production Trajectory of Technology: Electric in the Automotive Sector
+    Production Trajectory of Technology: Electric
+    in the Automotive Sector
 
 # Wraps the subtitle as expected
 
