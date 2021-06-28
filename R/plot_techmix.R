@@ -142,7 +142,24 @@ plot_techmix_impl <- function(data) {
 }
 
 techmix_labels <- function(data) {
-  labels <- rev(unique(data$label))
+  metrics_other <- data %>%
+    filter(
+      .data$metric != "projected",
+      !is_scenario(.data$metric)
+           ) %>%
+    pull(.data$metric) %>%
+    unique()
+  scenario <- data %>%
+    filter(is_scenario(.data$metric)) %>%
+    pull(.data$metric) %>%
+    unique()
+  metrics_order <- c("projected", metrics_other, scenario)
+
+  labels <- data %>%
+    arrange(factor(.data$metric, levels = metrics_order)) %>%
+    pull(.data$label) %>%
+    unique() %>%
+    rev()
 }
 
 get_technology_colours <- function(data) {
