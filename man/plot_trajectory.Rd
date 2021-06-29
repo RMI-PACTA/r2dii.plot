@@ -12,6 +12,7 @@ plot_trajectory(data)
 \item The structure must be like \link{market_share}.
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
+\item (Optional) If present, the column \code{label} is used for data labels.
 }}
 }
 \value{

@@ -3,6 +3,7 @@
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
+#'   * (Optional) If present, the column `label` is used for data labels.
 #'
 #' @seealso [sda].
 #'

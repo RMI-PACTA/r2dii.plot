@@ -2,7 +2,7 @@
 % Please edit documentation in R/qplot_trajectory.R
 \name{qplot_trajectory}
 \alias{qplot_trajectory}
-\title{Create a trajectory plot}
+\title{Create a quick trajectory plot}
 \usage{
 qplot_trajectory(data)
 }
@@ -12,6 +12,7 @@ qplot_trajectory(data)
 \item The structure must be like \link{market_share}.
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
+\item (Optional) If present, the column \code{label} is used for data labels.
 }}
 }
 \value{

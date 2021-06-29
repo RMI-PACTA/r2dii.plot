@@ -39,7 +39,6 @@ Imports:
     ggplot2,
     ggrepel,
     glue,
-    gridExtra,
     lubridate,
     magrittr,
     r2dii.data,

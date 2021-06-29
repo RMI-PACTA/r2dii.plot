@@ -14,6 +14,9 @@ plot_techmix(data)
 \code{scenario_source}.
 \item The column \code{metric} must have a portfolio (e.g. "projected"), a benchmark
 (e.g. "corporate_economy"), and a single \code{scenario} (e.g. "target_sds").
+\item (Optional) If present, the column \code{label} is used for data labels.
+\item (Optional) If present, the column \code{label_tech} is used for technology
+labels.
 }}
 }
 \value{

@@ -1,3 +1,5 @@
+#' Create a quick techmix plot
+#'
 #' @inherit plot_techmix
 #' @seealso plot_techmix
 #'
