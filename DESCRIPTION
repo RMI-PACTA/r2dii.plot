@@ -1,6 +1,6 @@
 Package: r2dii.plot
 Title: Visualize the Climate Scenario Alignment of a Financial Portfolio
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Monika",
              family = "Furdyna",
@@ -39,7 +39,6 @@ Imports:
     ggplot2,
     ggrepel,
     glue,
-    gridExtra,
     lubridate,
     magrittr,
     r2dii.data,
