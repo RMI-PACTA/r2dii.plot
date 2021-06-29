@@ -8,8 +8,4 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* Maintainer: ‘Monika Furdyna <monika.furdyna@gmail.com>’
-  
- Version contains large components (0.0.1.9000)
+0 errors | 0 warnings | 0 notes
