@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an emission intensity plot — qplot_emission_intensity • r2dii.plot</title>
+<title>Create a quick emission intensity plot — qplot_emission_intensity • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,12 @@
 
 
 
-<meta property="og:title" content="Create an emission intensity plot — qplot_emission_intensity" />
+<meta property="og:title" content="Create a quick emission intensity plot — qplot_emission_intensity" />
 <meta property="og:description" content="Compared to plot_emission_intensity() this function:
 is restricted to plotting future as 5 years from the start year,
-outputs pretty labels, based on emission metric column,
+outputs formatted labels, based on emission metric column,
 outputs a title,
-outputs pretty axis labels.
+outputs formatted axis labels.
 
 " />
 
@@ -129,7 +129,7 @@ outputs pretty axis labels.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an emission intensity plot</h1>
+    <h1>Create a quick emission intensity plot</h1>
     <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/qplot_emission_intensity.R'><code>R/qplot_emission_intensity.R</code></a></small>
     <div class="hidden name"><code>qplot_emission_intensity.Rd</code></div>
     </div>
@@ -137,9 +137,9 @@ outputs pretty axis labels.
     <div class="ref-description">
     <p>Compared to <code><a href='plot_emission_intensity.html'>plot_emission_intensity()</a></code> this function:</p><ul>
 <li><p>is restricted to plotting future as 5 years from the start year,</p></li>
-<li><p>outputs pretty labels, based on emission metric column,</p></li>
+<li><p>outputs formatted labels, based on emission metric column,</p></li>
 <li><p>outputs a title,</p></li>
-<li><p>outputs pretty axis labels.</p></li>
+<li><p>outputs formatted axis labels.</p></li>
 </ul>
 
     </div>
@@ -154,6 +154,7 @@ outputs pretty axis labels.
       <td><p>A data frame. Requirements:</p><ul>
 <li><p>The structure must be like <a href='sda.html'>sda</a>.</p></li>
 <li><p>The column <code>sector</code> must have a single value (e.g. "cement").</p></li>
+<li><p>(Optional) If present, the column <code>label</code> is used for data labels.</p></li>
 </ul></td>
     </tr>
     </table>
