@@ -6,6 +6,9 @@
 #'   `scenario_source`.
 #'   * The column `metric` must have a portfolio (e.g. "projected"), a benchmark
 #'   (e.g. "corporate_economy"), and a single `scenario` (e.g. "target_sds").
+#'   * (Optional) If present, the column `label` is used for data labels.
+#'   * (Optional) If present, the column `label_tech` is used for technology
+#'   labels.
 #'
 #' @seealso [market_share].
 #'

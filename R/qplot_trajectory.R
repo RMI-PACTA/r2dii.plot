@@ -1,3 +1,5 @@
+#' Create a quick trajectory plot
+#'
 #' @inherit plot_trajectory
 #' @seealso plot_trajectory
 #'

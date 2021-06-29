@@ -1,12 +1,14 @@
+#' Create a quick emission intensity plot
+#'
 #' @inherit plot_emission_intensity
 #' @seealso plot_emission_intensity
 #'
 #' @description
 #' Compared to [plot_emission_intensity()] this function:
 #' * is restricted to plotting future as 5 years from the start year,
-#' * outputs pretty labels, based on emission metric column,
+#' * outputs formatted labels, based on emission metric column,
 #' * outputs a title,
-#' * outputs pretty axis labels.
+#' * outputs formatted axis labels.
 #'
 #' @export
 #' @examples

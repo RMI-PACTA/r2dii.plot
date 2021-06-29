@@ -2,7 +2,7 @@
 % Please edit documentation in R/qplot_emission_intensity.R
 \name{qplot_emission_intensity}
 \alias{qplot_emission_intensity}
-\title{Create an emission intensity plot}
+\title{Create a quick emission intensity plot}
 \usage{
 qplot_emission_intensity(data)
 }
@@ -11,6 +11,7 @@ qplot_emission_intensity(data)
 \itemize{
 \item The structure must be like \link{sda}.
 \item The column \code{sector} must have a single value (e.g. "cement").
+\item (Optional) If present, the column \code{label} is used for data labels.
 }}
 }
 \value{
@@ -20,9 +21,9 @@ An object of class "ggplot".
 Compared to \code{\link[=plot_emission_intensity]{plot_emission_intensity()}} this function:
 \itemize{
 \item is restricted to plotting future as 5 years from the start year,
-\item outputs pretty labels, based on emission metric column,
+\item outputs formatted labels, based on emission metric column,
 \item outputs a title,
-\item outputs pretty axis labels.
+\item outputs formatted axis labels.
 }
 }
 \examples{

@@ -4,6 +4,7 @@
 #'   * The structure must be like [market_share].
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
+#'   * (Optional) If present, the column `label` is used for data labels.
 #'
 #' @seealso [market_share].
 #'
