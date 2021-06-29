@@ -89,3 +89,126 @@ test_that("with input data before start year of 'projected' prep_techmix
     rbind(early_row)
   expect_equal(min(prep_techmix(data)$year), start_year)
 })
+
+test_that("informs that extreme years are used", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+
+  restore <- options(r2dii.plot.quiet = FALSE)
+  expect_snapshot(invisible(
+    plot_techmix(data)
+  ))
+  options(restore)
+})
+
+test_that("does not modify `metric`", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  metrics <- sort(unique(data$metric))
+
+  p <- plot_techmix(data)
+  out <- sort(as.character(unique(p$data$metric)))
+  expect_equal(out, metrics)
+})
+
+test_that("Outputs no title", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  expect_false("title" %in% names(p$labels))
+})
+
+test_that("Does not output pretty labels", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  metrics <- unique(p$data$label)
+  ugly <- c("projected", "corporate_economy", "target_sds")
+  expect_equal(metrics, ugly)
+})
+
+test_that("Doesn't output pretty legend labels", {
+  data <- filter(
+    market_share,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  metrics <- unique(p$data$label_tech)
+  ugly <- c("coalcap", "gascap", "hydrocap")
+  expect_equal(metrics[1:3], ugly)
+
+  data <- filter(
+    market_share,
+    sector == "automotive",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  p <- plot_techmix(data)
+
+  metrics <- unique(p$data$label_tech)
+  ugly <- c("electric", "hybrid", "ice")
+  expect_equal(metrics, ugly)
+})
+
+test_that("When data has 'label_tech' it is used in the plot", {
+  data <- filter(
+    market_share,
+    sector == "automotive",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  ) %>%
+  mutate(label_tech = case_when(
+    technology == "ice" ~ "My custom label",
+    TRUE ~ .data$technology
+  ))
+  p <- plot_techmix(data)
+
+  expect_true("My custom label" %in% unique(p$data$label_tech))
+})
+
+test_that("With random order of data ouputs plot with labels in the right order",{
+  data <- market_share %>%
+  filter(
+    year %in% c(2020, 2025),
+    scenario_source == "demo_2020",
+    sector == "power",
+    region == "global",
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  ) %>%
+  mutate(metric = factor(
+    .data$metric, levels = c("corporate_economy","projected","target_sds"))) %>%
+  arrange(.data$metric) %>%
+  mutate(metric = as.character(.data$metric))
+  p <- plot_techmix(data)
+
+  right_order <- c("target_sds", "corporate_economy", "projected")
+  expect_equal(p$plot_env$labels, right_order)
+})

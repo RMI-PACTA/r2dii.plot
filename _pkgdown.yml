@@ -38,8 +38,14 @@ navbar:
 reference:
 
   - title: Plot
+  - subtitle: Quick plots
+    contents:
+      - starts_with("qplot_")
+  - subtitle: Plots
     contents:
       - starts_with("plot_")
+  - subtitle: Other
+    contents:
       - starts_with("theme_")
 
   - title: Datasets

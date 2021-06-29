@@ -11,6 +11,7 @@ plot_emission_intensity(data)
 \itemize{
 \item The structure must be like \link{sda}.
 \item The column \code{sector} must have a single value (e.g. "cement").
+\item (Optional) If present, the column \code{label} is used for data labels.
 }}
 }
 \value{
