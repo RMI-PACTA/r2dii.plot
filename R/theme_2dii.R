@@ -41,7 +41,16 @@ theme_2dii <- function(base_size = 12,
       plot.title = element_text(
         hjust = 0.5, vjust = 0.5, face = "bold",
         size = base_size * 14 / 12,
-        margin = margin(20, 2, 12, 2)
-      )
+        margin = margin(8, 2, 8, 6)
+      ),
+      plot.subtitle = element_text(
+        hjust = 0.5,
+        vjust = 0.5,
+        size = base_size * 10 / 12,
+        margin = margin(0, 2, 8, 6)
+      ),
+      strip.background = element_blank(),
+      strip.switch.pad.grid = unit(0.2, "cm"),
+      strip.text = element_text(size = base_size * 10 / 12, margin = margin)
     )
 }

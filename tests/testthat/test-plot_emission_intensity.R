@@ -23,40 +23,25 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 
   p <- plot_emission_intensity(data)
   p_data <- p$layers[[1]]$data
-  specs_cols <- c("line_name", "label", "hex")
-  has_factors <- any(unlist(lapply(p_data[specs_cols], is.factor)))
+  has_factors <- any(unlist(lapply(p_data, is.factor)))
 
   expect_false(has_factors)
 })
 
-test_that("outputs pretty labels", {
+test_that("doesn't output pretty labels", {
   data <- filter(sda, sector == "automotive")
   p <- plot_emission_intensity(data)
 
-  get_line_name <- function(p) unique(p$layers[[1]]$data$line_name)
-  expect_equal(get_line_name(p), c("Projected", "Corporate Economy"))
+  metrics <- unique(p$data$label)
+  ugly <- c("projected", "corporate_economy")
+  expect_equal(metrics, ugly)
 })
 
 test_that("with too many lines to plot errors gracefully", {
-  add_fake_metrics_sda <- function(data, n) {
-    sector <- data$sector[1]
-    min_year <- min(data$year)
-    max_year <- max(data$year)
-    for (i in 1:n) {
-      fake_data <- tibble(
-        sector = rep(sector, 2),
-        year = c(min_year, max_year),
-        emission_factor_metric = as.character(i),
-        emission_factor_value = NA
-      )
-
-      data <- rbind(data, fake_data)
-    }
-    data
-  }
-
   data <- filter(sda, sector == "cement") %>%
-    add_fake_metrics_sda(8)
-
-  expect_snapshot_error(plot_emission_intensity(data))
+    bind_fake_sda_metrics(8)
+  # TODO: Why this warning?
+  suppressWarnings(
+    expect_snapshot_error(plot_emission_intensity(data))
+  )
 })
