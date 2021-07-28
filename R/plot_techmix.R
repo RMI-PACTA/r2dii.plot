@@ -82,16 +82,16 @@ check_plot_techmix <- function(qs) {
   invisible(qs)
 }
 
-abort_if_multiple_scenarios <- function(data) {
-  data_ <- data_name(data)
-  data <- eval_tidy(data)
+abort_if_multiple_scenarios <- function(qs) {
+  data <- eval_tidy(qs)
 
   scen <- extract_scenarios(data$metric)
   n <- length(scen)
 
+  data_name <- data_name(qs)
   if (n == 0L) {
     abort(c(
-      glue("`{data_}$metric` must have one scenario."),
+      glue("`{data_name}$metric` must have one scenario."),
       x = "It has none."
     ))
   }
@@ -99,16 +99,16 @@ abort_if_multiple_scenarios <- function(data) {
   if (n > 1L) {
     example <- c(setdiff(unique(data$metric), scen), first(scen))
     abort(c(
-      glue("`{data_}$metric` must have a single scenario not {n}."),
+      glue("`{data_name}$metric` must have a single scenario not {n}."),
       i = glue(
         "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
-        `subset({data_}, metric %in% {fmt_vector(fmt_string(example))})`."
+        `subset({data_name}, metric %in% {fmt_vector(fmt_string(example))})`."
       ),
       x = glue("Provided: {toString(scen)}.")
     ))
   }
 
-  invisible(data)
+  invisible(qs)
 }
 
 plot_techmix_impl <- function(data) {
