@@ -35,10 +35,10 @@ abort_if_multiple <- function(qs, x) {
     .x <- unique(data[[x]])
     if (length(.x) > 1L) {
       abort(c(
-        glue("`{data_name(qs)}` must have a single value of `{x}`."),
+        glue("`{given_name(qs)}` must have a single value of `{x}`."),
         i = glue(
           "Do you need to pick one value? E.g. pick '{first(.x)}' with: \\
-          `subset({data_name(qs)}, {x} == '{first(.x)}')`."
+          `subset({given_name(qs)}, {x} == '{first(.x)}')`."
         ),
         x = glue("Provided: {toString(.x)}.")
       ))
@@ -60,8 +60,8 @@ abort_if_has_zero_rows <- function(qs) {
 
   if (nrow(data) == 0L) {
     abort(c(
-      glue("`{data_name(qs)}` must have some rows."),
-      x = glue("`{data_name(qs)}` has zero rows.")
+      glue("`{given_name(qs)}` must have some rows."),
+      x = glue("`{given_name(qs)}` has zero rows.")
     ))
   }
 
@@ -278,6 +278,6 @@ prep_common <- function(data) {
     add_label_if_missing()
 }
 
-data_name <- function(qs) {
+given_name <- function(qs) {
   expr_text(quo_get_expr(qs))
 }

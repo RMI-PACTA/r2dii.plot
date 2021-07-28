@@ -56,11 +56,11 @@ prep_techmix <- function(qs,
   start_year <- min(out$year)
   future_year <- max(out$year)
   if (!quiet()) {
-    data_name <- data_name(qs)
+    given_name <- given_name(qs)
     inform(glue(
       "The `technology_share` values are plotted for extreme years.
-       Do you want to plot different years? E.g. filter {data_name} with:\\
-       `subset({data_name}, year %in% c(2020, 2030))`."
+       Do you want to plot different years? E.g. filter {given_name} with:\\
+       `subset({given_name}, year %in% c(2020, 2030))`."
     ))
   }
   out <- out %>%
@@ -88,10 +88,10 @@ abort_if_multiple_scenarios <- function(qs) {
   scen <- extract_scenarios(data$metric)
   n <- length(scen)
 
-  data_name <- data_name(qs)
+  given_name <- given_name(qs)
   if (n == 0L) {
     abort(c(
-      glue("`{data_name}$metric` must have one scenario."),
+      glue("`{given_name}$metric` must have one scenario."),
       x = "It has none."
     ))
   }
@@ -99,10 +99,10 @@ abort_if_multiple_scenarios <- function(qs) {
   if (n > 1L) {
     example <- c(setdiff(unique(data$metric), scen), first(scen))
     abort(c(
-      glue("`{data_name}$metric` must have a single scenario not {n}."),
+      glue("`{given_name}$metric` must have a single scenario not {n}."),
       i = glue(
         "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
-        `subset({data_name}, metric %in% {fmt_vector(fmt_string(example))})`."
+        `subset({given_name}, metric %in% {fmt_vector(fmt_string(example))})`."
       ),
       x = glue("Provided: {toString(scen)}.")
     ))
