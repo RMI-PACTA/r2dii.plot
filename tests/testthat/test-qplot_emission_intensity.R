@@ -31,5 +31,6 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
 
   expect_true(
     lubridate::year(max(p$data$year, na.rm = TRUE)) -
-      lubridate::year(min(p$data$year, na.rm = TRUE)) <= 5)
+      lubridate::year(min(p$data$year, na.rm = TRUE)) <= 5
+  )
 })

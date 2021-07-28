@@ -27,56 +27,18 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(data) {
-  check_plot_techmix(data)
-
-  prep <- prep_techmix(data)
+  data_ <- expr_text(enexpr(data))
+  prep <- prep_techmix(data, data_ = data_)
   plot_techmix_impl(prep)
-}
-
-check_plot_techmix <- function(data, env = parent.frame()) {
-  stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "technology_share")
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data, env = env)
-  enforce_single_value <- c("sector", "region", "scenario_source")
-  abort_if_multiple(data, enforce_single_value, env = env)
-  abort_if_multiple_scenarios(data, env = env)
-
-  invisible(data)
-}
-
-abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
-  .data <- deparse_1(substitute(data, env = env))
-
-  scen <- extract_scenarios(data$metric)
-  n <- length(scen)
-
-  if (n == 0L) {
-    abort(c(
-      glue("`{.data}$metric` must have one scenario."),
-      x = "It has none."
-    ))
-  }
-
-  if (n > 1L) {
-    example <- c(setdiff(unique(data$metric), scen), first(scen))
-    abort(c(
-      glue("`{.data}$metric` must have a single scenario not {n}."),
-      i = glue(
-        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
-        `subset({.data}, metric %in% {fmt_vector(fmt_string(example))})`."
-      ),
-      x = glue("Provided: {toString(scen)}.")
-    ))
-  }
-
-  invisible(data)
 }
 
 prep_techmix <- function(data,
                          convert_label = identity,
                          span_5yr = FALSE,
-                         convert_tech_label = identity) {
+                         convert_tech_label = identity,
+                         data_ = NULL) {
+  check_plot_techmix(data, data_ = data_)
+
   out <- data %>%
     prep_common() %>%
     add_label_tech_if_missing() %>%
@@ -94,16 +56,53 @@ prep_techmix <- function(data,
   start_year <- min(out$year)
   future_year <- max(out$year)
   if (!quiet()) {
-    .data <- deparse_1(substitute(data, env = parent.frame()))
     inform(glue(
       "The `technology_share` values are plotted for extreme years.
-       Do you want to plot different years? E.g. filter {.data} with:\\
-       `subset({.data}, year %in% c(2020, 2030))`."
+       Do you want to plot different years? E.g. filter {data_} with:\\
+       `subset({data_}, year %in% c(2020, 2030))`."
     ))
   }
   out <- out %>%
     filter(.data$year %in% c(start_year, future_year))
   out
+}
+
+check_plot_techmix <- function(data, data_) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  abort_if_has_zero_rows(data, data_ = data_)
+  enforce_single_value <- c("sector", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, data_ = data_)
+  abort_if_multiple_scenarios(data, data_ = data_)
+
+  invisible(data)
+}
+
+abort_if_multiple_scenarios <- function(data, data_ = NULL) {
+  scen <- extract_scenarios(data$metric)
+  n <- length(scen)
+
+  if (n == 0L) {
+    abort(c(
+      glue("`{data_}$metric` must have one scenario."),
+      x = "It has none."
+    ))
+  }
+
+  if (n > 1L) {
+    example <- c(setdiff(unique(data$metric), scen), first(scen))
+    abort(c(
+      glue("`{data_}$metric` must have a single scenario not {n}."),
+      i = glue(
+        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
+        `subset({data_}, metric %in% {fmt_vector(fmt_string(example))})`."
+      ),
+      x = glue("Provided: {toString(scen)}.")
+    ))
+  }
+
+  invisible(data)
 }
 
 plot_techmix_impl <- function(data) {
@@ -149,7 +148,7 @@ techmix_labels <- function(data) {
     filter(
       .data$metric != "projected",
       !is_scenario(.data$metric)
-           ) %>%
+    ) %>%
     pull(.data$metric) %>%
     unique()
   scenario <- data %>%

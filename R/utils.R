@@ -28,17 +28,15 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-abort_if_multiple <- function(data, x, env = parent.frame()) {
-  .data <- deparse_1(substitute(data, env = env))
-
+abort_if_multiple <- function(data, x, data_ = NULL) {
   do_it_once <- function(x) {
     .x <- unique(data[[x]])
     if (length(.x) > 1L) {
       abort(c(
-        glue("`{.data}` must have a single value of `{x}`."),
+        glue("`{data_}` must have a single value of `{x}`."),
         i = glue(
           "Do you need to pick one value? E.g. pick '{first(.x)}' with: \\
-          `subset({.data}, {x} == '{first(.x)}')`."
+          `subset({data_}, {x} == '{first(.x)}')`."
         ),
         x = glue("Provided: {toString(.x)}.")
       ))
@@ -55,12 +53,11 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
   paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
 
-abort_if_has_zero_rows <- function(data, env = parent.frame()) {
-  .data <- deparse_1(substitute(data, env = env))
+abort_if_has_zero_rows <- function(data, data_ = NULL) {
   if (nrow(data) == 0L) {
     abort(c(
-      glue("`{.data}` must have some rows."),
-      x = glue("`{.data}` has zero rows.")
+      glue("`{data_}` must have some rows."),
+      x = glue("`{data_}` has zero rows.")
     ))
   }
 
@@ -276,5 +273,3 @@ prep_common <- function(data) {
     drop_before_start_year() %>%
     add_label_if_missing()
 }
-
-

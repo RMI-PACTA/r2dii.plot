@@ -23,30 +23,14 @@
 #'
 #' plot_trajectory(data)
 plot_trajectory <- function(data) {
-  check_plot_trajectory(data)
-
+  data_ <- expr_text(enexpr(data))
   data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
+    prep_trajectory(
+      convert_label = identity,
+      span_5yr = FALSE,
+      data_ = data_
+    ) %>%
     plot_trajectory_impl()
-}
-
-# The `env` argument supports non-standard evaluation to print informative error
-# messages that mention the symbol passed to `data` (e.g. "my_data") rather than
-# the name of the argument (i.e. `data`). Although tests should warn you,
-# breaking this functionality is easy, for example, by wrapping this function
-# and moving it deeper into the caller stack.
-check_plot_trajectory <- function(data, env = parent.frame()) {
-  stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "production")
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data, env = env)
-  enforce_single_value <- c("sector", "technology", "region", "scenario_source")
-  abort_if_multiple(data, enforce_single_value, env = env)
-  abort_if_invalid_scenarios_number(data)
-  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
-  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
-
-  invisible(data)
 }
 
 #' @param convert_label A symbol. The unquoted name of a function to apply to
@@ -57,7 +41,10 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 #' @noRd
 prep_trajectory <- function(data,
                             convert_label = identity,
-                            span_5yr = FALSE) {
+                            span_5yr = FALSE,
+                            data_ = NULL) {
+  check_plot_trajectory(data, data_)
+
   out <- data %>%
     prep_common() %>%
     mutate(value = .data$production) %>%
@@ -86,6 +73,20 @@ prep_trajectory <- function(data,
   select(out, all_of(cols))
 }
 
+check_plot_trajectory <- function(data, data_) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), "production")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  abort_if_has_zero_rows(data, data_ = data_)
+  enforce_single_value <- c("sector", "technology", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, data_ = data_)
+  abort_if_invalid_scenarios_number(data)
+  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
+  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
+
+  invisible(data)
+}
+
 plot_trajectory_impl <- function(data) {
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
@@ -111,7 +112,8 @@ plot_trajectory_impl <- function(data) {
     aes(
       y = .data$value,
       label = .data$label,
-      segment.color = .data$metric),
+      segment.color = .data$metric
+    ),
     direction = "y",
     color = "black",
     size = 3.5,
@@ -120,12 +122,12 @@ plot_trajectory_impl <- function(data) {
       is_scenario(lines_end$metric),
       0.06 * year_span,
       0.01 * year_span
-      ),
+    ),
     nudge_y = if_else(
       is_scenario(lines_end$metric),
       0.01 * value_span(data),
       0
-      ),
+    ),
     hjust = 0,
     segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
     xlim = c(min(data$year), max(data$year) + 0.7 * year_span)
