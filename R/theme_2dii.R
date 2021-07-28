@@ -26,6 +26,7 @@ theme_2dii <- function(base_size = 12,
   margin <- margin(5, 5, 5, 5)
 
   theme_classic(
+    base_size = base_size,
     base_family = base_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
