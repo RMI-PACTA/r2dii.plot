@@ -17,11 +17,8 @@
 #'
 #' qplot_emission_intensity(data)
 qplot_emission_intensity <- function(data) {
-  data_ <- expr_text(enexpr(data))
-  data %>%
-    prep_emission_intensity(
-      convert_label = to_title, span_5yr = TRUE, data_ = data_
-    ) %>%
+  enquo(data) %>%
+    prep_emission_intensity(convert_label = to_title, span_5yr = TRUE) %>%
     plot_emission_intensity_impl() %>%
     labs_emission_intensity()
 }

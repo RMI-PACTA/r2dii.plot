@@ -23,13 +23,8 @@
 #'
 #' plot_trajectory(data)
 plot_trajectory <- function(data) {
-  data_ <- expr_text(enexpr(data))
-  data %>%
-    prep_trajectory(
-      convert_label = identity,
-      span_5yr = FALSE,
-      data_ = data_
-    ) %>%
+  enquo(data) %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
     plot_trajectory_impl()
 }
 
@@ -39,11 +34,9 @@ plot_trajectory <- function(data) {
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year, or use `FALSE` to impose no restriction.
 #' @noRd
-prep_trajectory <- function(data,
-                            convert_label = identity,
-                            span_5yr = FALSE,
-                            data_ = NULL) {
-  check_plot_trajectory(data, data_)
+prep_trajectory <- function(qs, convert_label = identity, span_5yr = FALSE) {
+  check_plot_trajectory(qs)
+  data <- eval_tidy(qs)
 
   out <- data %>%
     prep_common() %>%
@@ -73,18 +66,20 @@ prep_trajectory <- function(data,
   select(out, all_of(cols))
 }
 
-check_plot_trajectory <- function(data, data_) {
+check_plot_trajectory <- function(qs) {
+  data <- eval_tidy(qs)
+
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data, data_ = data_)
+  abort_if_has_zero_rows(qs)
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
-  abort_if_multiple(data, enforce_single_value, data_ = data_)
+  abort_if_multiple(qs, enforce_single_value)
   abort_if_invalid_scenarios_number(data)
   abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
   abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
 
-  invisible(data)
+  invisible(qs)
 }
 
 plot_trajectory_impl <- function(data) {

@@ -15,16 +15,16 @@
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
-  data_ <- expr_text(enexpr(data))
-  prep <- prep_emission_intensity(data, data_ = data_)
-  plot_emission_intensity_impl(prep)
+  enquo(data) %>%
+    prep_emission_intensity() %>%
+    plot_emission_intensity_impl()
 }
 
-prep_emission_intensity <- function(data,
+prep_emission_intensity <- function(qs,
                                     convert_label = identity,
-                                    span_5yr = FALSE,
-                                    data_ = NULL) {
-  check_plot_emission_intensity(data, data_ = data_)
+                                    span_5yr = FALSE) {
+  check_plot_emission_intensity(qs)
+  data <- eval_tidy(qs)
 
   out <- data %>%
     prep_common() %>%
@@ -34,10 +34,7 @@ prep_emission_intensity <- function(data,
     out <- span_5yr(out)
   }
 
-  out <- out %>%
-    mutate(
-      year = lubridate::make_date(.data$year)
-    )
+  out <- mutate(out, year = lubridate::make_date(.data$year))
 
   metrics <- distinct(out, .data$emission_factor_metric)
   colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
@@ -46,16 +43,18 @@ prep_emission_intensity <- function(data,
   left_join(out, specs, by = metric(data))
 }
 
-check_plot_emission_intensity <- function(data, data_) {
+check_plot_emission_intensity <- function(qs) {
+  data <- eval_tidy(qs)
+
   stopifnot(is.data.frame(data))
   crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
   hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
-  enforce_single_value <- "sector"
-  abort_if_multiple(data, x = enforce_single_value, data_ = data_)
-  abort_if_has_zero_rows(data, data_ = data_)
   abort_if_too_many_lines(data, max = 7)
+  enforce_single_value <- "sector"
+  abort_if_multiple(qs, x = enforce_single_value)
+  abort_if_has_zero_rows(qs)
 
-  invisible(data)
+  invisible(qs)
 }
 
 plot_emission_intensity_impl <- function(data) {

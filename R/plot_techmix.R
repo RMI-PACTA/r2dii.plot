@@ -27,17 +27,17 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(data) {
-  data_ <- expr_text(enexpr(data))
-  prep <- prep_techmix(data, data_ = data_)
-  plot_techmix_impl(prep)
+  enquo(data) %>%
+    prep_techmix() %>%
+    plot_techmix_impl()
 }
 
-prep_techmix <- function(data,
+prep_techmix <- function(qs,
                          convert_label = identity,
                          span_5yr = FALSE,
-                         convert_tech_label = identity,
-                         data_ = NULL) {
-  check_plot_techmix(data, data_ = data_)
+                         convert_tech_label = identity) {
+  check_plot_techmix(qs)
+  data <- eval_tidy(qs)
 
   out <- data %>%
     prep_common() %>%
@@ -56,10 +56,11 @@ prep_techmix <- function(data,
   start_year <- min(out$year)
   future_year <- max(out$year)
   if (!quiet()) {
+    data_name <- data_name(qs)
     inform(glue(
       "The `technology_share` values are plotted for extreme years.
-       Do you want to plot different years? E.g. filter {data_} with:\\
-       `subset({data_}, year %in% c(2020, 2030))`."
+       Do you want to plot different years? E.g. filter {data_name} with:\\
+       `subset({data_name}, year %in% c(2020, 2030))`."
     ))
   }
   out <- out %>%
@@ -67,19 +68,24 @@ prep_techmix <- function(data,
   out
 }
 
-check_plot_techmix <- function(data, data_) {
+check_plot_techmix <- function(qs) {
+  data <- eval_tidy(qs)
+
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "technology_share")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data, data_ = data_)
+  abort_if_has_zero_rows(qs)
   enforce_single_value <- c("sector", "region", "scenario_source")
-  abort_if_multiple(data, enforce_single_value, data_ = data_)
-  abort_if_multiple_scenarios(data, data_ = data_)
+  abort_if_multiple(qs, enforce_single_value)
+  abort_if_multiple_scenarios(qs)
 
-  invisible(data)
+  invisible(qs)
 }
 
-abort_if_multiple_scenarios <- function(data, data_ = NULL) {
+abort_if_multiple_scenarios <- function(data) {
+  data_ <- data_name(data)
+  data <- eval_tidy(data)
+
   scen <- extract_scenarios(data$metric)
   n <- length(scen)
 

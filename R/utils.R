@@ -28,15 +28,17 @@ capitalize_single_letters <- function(words) {
   out
 }
 
-abort_if_multiple <- function(data, x, data_ = NULL) {
+abort_if_multiple <- function(qs, x) {
+  data <- eval_tidy(qs)
+
   do_it_once <- function(x) {
     .x <- unique(data[[x]])
     if (length(.x) > 1L) {
       abort(c(
-        glue("`{data_}` must have a single value of `{x}`."),
+        glue("`{data_name(qs)}` must have a single value of `{x}`."),
         i = glue(
           "Do you need to pick one value? E.g. pick '{first(.x)}' with: \\
-          `subset({data_}, {x} == '{first(.x)}')`."
+          `subset({data_name(qs)}, {x} == '{first(.x)}')`."
         ),
         x = glue("Provided: {toString(.x)}.")
       ))
@@ -45,7 +47,7 @@ abort_if_multiple <- function(data, x, data_ = NULL) {
   }
   lapply(x, do_it_once)
 
-  invisible(data)
+  invisible(qs)
 }
 
 # Backport `base::deparse1()` to R < 4.0.0
@@ -53,15 +55,17 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
   paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
 
-abort_if_has_zero_rows <- function(data, data_ = NULL) {
+abort_if_has_zero_rows <- function(qs) {
+  data <- eval_tidy(qs)
+
   if (nrow(data) == 0L) {
     abort(c(
-      glue("`{data_}` must have some rows."),
-      x = glue("`{data_}` has zero rows.")
+      glue("`{data_name(qs)}` must have some rows."),
+      x = glue("`{data_name(qs)}` has zero rows.")
     ))
   }
 
-  invisible(data)
+  invisible(qs)
 }
 
 hint_if_missing_names <- function(expr, like) {
@@ -272,4 +276,8 @@ prep_common <- function(data) {
   data %>%
     drop_before_start_year() %>%
     add_label_if_missing()
+}
+
+data_name <- function(qs) {
+  expr_text(quo_get_expr(qs))
 }

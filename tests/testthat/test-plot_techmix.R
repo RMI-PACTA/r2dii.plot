@@ -87,7 +87,7 @@ test_that("with input data before start year of 'projected' prep_techmix
   )
   data <- data %>%
     rbind(early_row)
-  expect_equal(min(prep_techmix(data)$year), start_year)
+  expect_equal(min(prep_techmix(enquo(data))$year), start_year)
 })
 
 test_that("informs that extreme years are used", {

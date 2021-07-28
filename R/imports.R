@@ -4,6 +4,7 @@
 #' @importFrom dplyr desc lead tibble lag slice_head across bind_rows between
 #' @importFrom dplyr all_of rename first semi_join
 #' @importFrom rlang .env abort warn inform %||% has_name expr_text enexpr
+#' @importFrom rlang quo_get_expr eval_tidy
 #' @importFrom glue glue
 NULL
 
