@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' # `data` must meet documented "Requirements"
-#' data <- subset(
+#' mydata <- subset(
 #'   market_share,
 #'   sector == "power" &
 #'     technology == "renewablescap" &
@@ -21,21 +21,16 @@
 #'     scenario_source == "demo_2020"
 #' )
 #'
-#' plot_trajectory(data)
+#' plot_trajectory(mydata)
 plot_trajectory <- function(data) {
-  check_plot_trajectory(data)
+  env <- list(data = substitute(data))
 
   data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE, env = env) %>%
     plot_trajectory_impl()
 }
 
-# The `env` argument supports non-standard evaluation to print informative error
-# messages that mention the symbol passed to `data` (e.g. "my_data") rather than
-# the name of the argument (i.e. `data`). Although tests should warn you,
-# breaking this functionality is easy, for example, by wrapping this function
-# and moving it deeper into the caller stack.
-check_plot_trajectory <- function(data, env = parent.frame()) {
+check_plot_trajectory <- function(data, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
@@ -57,7 +52,10 @@ check_plot_trajectory <- function(data, env = parent.frame()) {
 #' @noRd
 prep_trajectory <- function(data,
                             convert_label = identity,
-                            span_5yr = FALSE) {
+                            span_5yr = FALSE,
+                            env = NULL) {
+  check_plot_trajectory(data, env)
+
   out <- data %>%
     prep_common() %>%
     mutate(value = .data$production) %>%
