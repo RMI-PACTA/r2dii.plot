@@ -55,7 +55,7 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
   paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
 
-abort_if_has_zero_rows <- function(data, env = parent.frame()) {
+abort_if_has_zero_rows <- function(data, env) {
   .data <- deparse_1(substitute(data, env = env))
   if (nrow(data) == 0L) {
     abort(c(

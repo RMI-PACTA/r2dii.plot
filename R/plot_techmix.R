@@ -27,13 +27,14 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(data) {
-  check_plot_techmix(data)
+  env <- list(data = substitute(data))
+  check_plot_techmix(data, env = env)
 
-  prep <- prep_techmix(data)
+  prep <- prep_techmix(data, env = env)
   plot_techmix_impl(prep)
 }
 
-check_plot_techmix <- function(data, env = parent.frame()) {
+check_plot_techmix <- function(data, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "technology_share")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
@@ -76,7 +77,8 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 prep_techmix <- function(data,
                          convert_label = identity,
                          span_5yr = FALSE,
-                         convert_tech_label = identity) {
+                         convert_tech_label = identity,
+                         env = NULL) {
   out <- data %>%
     prep_common() %>%
     add_label_tech_if_missing() %>%
@@ -94,7 +96,7 @@ prep_techmix <- function(data,
   start_year <- min(out$year)
   future_year <- max(out$year)
   if (!quiet()) {
-    .data <- deparse_1(substitute(data, env = parent.frame()))
+    .data <- deparse_1(substitute(data, env = env))
     inform(glue(
       "The `technology_share` values are plotted for extreme years.
        Do you want to plot different years? E.g. filter {.data} with:\\

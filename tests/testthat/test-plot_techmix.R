@@ -91,7 +91,7 @@ test_that("with input data before start year of 'projected' prep_techmix
 })
 
 test_that("informs that extreme years are used", {
-  data <- filter(
+  mydata <- filter(
     market_share,
     sector == "power",
     region == "global",
@@ -101,7 +101,7 @@ test_that("informs that extreme years are used", {
 
   restore <- options(r2dii.plot.quiet = FALSE)
   expect_snapshot(invisible(
-    plot_techmix(data)
+    plot_techmix(mydata)
   ))
   options(restore)
 })

@@ -15,13 +15,13 @@
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
-  check_plot_emission_intensity(data)
+  check_plot_emission_intensity(data, env = list(data = substitute(data)))
 
   prep <- prep_emission_intensity(data)
   plot_emission_intensity_impl(prep)
 }
 
-check_plot_emission_intensity <- function(data, env = parent.frame()) {
+check_plot_emission_intensity <- function(data, env) {
   stopifnot(is.data.frame(data))
   crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
   hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
@@ -33,7 +33,9 @@ check_plot_emission_intensity <- function(data, env = parent.frame()) {
   invisible(data)
 }
 
-prep_emission_intensity <- function(data, convert_label = identity, span_5yr = FALSE) {
+prep_emission_intensity <- function(data,
+                                    convert_label = identity,
+                                    span_5yr = FALSE) {
   out <- data %>%
     prep_common() %>%
     mutate(label = convert_label(.data$label))

@@ -23,19 +23,14 @@
 #'
 #' plot_trajectory(data)
 plot_trajectory <- function(data) {
-  check_plot_trajectory(data)
+  check_plot_trajectory(data, env = list(data = substitute(data)))
 
   data %>%
     prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
     plot_trajectory_impl()
 }
 
-# The `env` argument supports non-standard evaluation to print informative error
-# messages that mention the symbol passed to `data` (e.g. "my_data") rather than
-# the name of the argument (i.e. `data`). Although tests should warn you,
-# breaking this functionality is easy, for example, by wrapping this function
-# and moving it deeper into the caller stack.
-check_plot_trajectory <- function(data, env = parent.frame()) {
+check_plot_trajectory <- function(data, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "production")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
@@ -111,7 +106,8 @@ plot_trajectory_impl <- function(data) {
     aes(
       y = .data$value,
       label = .data$label,
-      segment.color = .data$metric),
+      segment.color = .data$metric
+    ),
     direction = "y",
     color = "black",
     size = 3.5,
@@ -120,12 +116,12 @@ plot_trajectory_impl <- function(data) {
       is_scenario(lines_end$metric),
       0.06 * year_span,
       0.01 * year_span
-      ),
+    ),
     nudge_y = if_else(
       is_scenario(lines_end$metric),
       0.01 * value_span(data),
       0
-      ),
+    ),
     hjust = 0,
     segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
     xlim = c(min(data$year), max(data$year) + 0.7 * year_span)
