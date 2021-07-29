@@ -15,9 +15,9 @@
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
-  env <- list(data = substitute(data))
+  check_plot_emission_intensity(data, env = list(data = substitute(data)))
 
-  prep <- prep_emission_intensity(data, env = env)
+  prep <- prep_emission_intensity(data)
   plot_emission_intensity_impl(prep)
 }
 
@@ -35,9 +35,7 @@ check_plot_emission_intensity <- function(data, env) {
 
 prep_emission_intensity <- function(data,
                                     convert_label = identity,
-                                    span_5yr = FALSE,
-                                    env = NULL) {
-  check_plot_emission_intensity(data, env)
+                                    span_5yr = FALSE) {
   out <- data %>%
     prep_common() %>%
     mutate(label = convert_label(.data$label))

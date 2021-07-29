@@ -23,10 +23,10 @@
 #'
 #' plot_trajectory(data)
 plot_trajectory <- function(data) {
-  env <- list(data = substitute(data))
+  check_plot_trajectory(data, env = list(data = substitute(data)))
 
   data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE, env = env) %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
     plot_trajectory_impl()
 }
 
@@ -52,10 +52,7 @@ check_plot_trajectory <- function(data, env) {
 #' @noRd
 prep_trajectory <- function(data,
                             convert_label = identity,
-                            span_5yr = FALSE,
-                            env = NULL) {
-  check_plot_trajectory(data, env)
-
+                            span_5yr = FALSE) {
   out <- data %>%
     prep_common() %>%
     mutate(value = .data$production) %>%

@@ -27,7 +27,8 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(data) {
-  prep <- prep_techmix(data, env = list(data = substitute(data)))
+  check_plot_techmix(data, env = list(data = substitute(data)))
+  prep <- prep_techmix(data)
   plot_techmix_impl(prep)
 }
 
@@ -74,10 +75,7 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 prep_techmix <- function(data,
                          convert_label = identity,
                          span_5yr = FALSE,
-                         convert_tech_label = identity,
-                         env = NULL) {
-  check_plot_techmix(data, env = env)
-
+                         convert_tech_label = identity) {
   out <- data %>%
     prep_common() %>%
     add_label_tech_if_missing() %>%

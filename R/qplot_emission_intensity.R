@@ -17,12 +17,10 @@
 #'
 #' qplot_emission_intensity(data)
 qplot_emission_intensity <- function(data) {
-  env <- list(data = substitute(data))
+  check_plot_emission_intensity(data, env = list(data = substitute(data)))
 
   data %>%
-    prep_emission_intensity(
-      convert_label = to_title, span_5yr = TRUE, env = env
-    ) %>%
+    prep_emission_intensity(convert_label = to_title, span_5yr = TRUE) %>%
     plot_emission_intensity_impl() %>%
     labs_emission_intensity()
 }

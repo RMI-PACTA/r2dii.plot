@@ -24,10 +24,10 @@
 #'
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
-  env <- list(data = substitute(data))
+  check_plot_trajectory(data, env = list(data = substitute(data)))
 
   data %>%
-    prep_trajectory(convert_label = format_label, span_5yr = TRUE, env = env) %>%
+    prep_trajectory(convert_label = format_label, span_5yr = TRUE) %>%
     plot_trajectory_impl() %>%
     labs_trajectory()
 }

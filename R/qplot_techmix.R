@@ -23,12 +23,13 @@
 #'
 #' qplot_techmix(data)
 qplot_techmix <- function(data) {
+  check_plot_techmix(data, env = list(data = substitute(data)))
+
   data %>%
     prep_techmix(
       convert_label = format_label_techmix,
       span_5yr = TRUE,
-      convert_tech_label = spell_out_technology,
-      env = list(data = substitute(data))
+      convert_tech_label = spell_out_technology
     ) %>%
     plot_techmix_impl() %>%
     labs_techmix()
