@@ -276,5 +276,3 @@ prep_common <- function(data) {
     drop_before_start_year() %>%
     add_label_if_missing()
 }
-
-

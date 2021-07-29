@@ -151,7 +151,7 @@ techmix_labels <- function(data) {
     filter(
       .data$metric != "projected",
       !is_scenario(.data$metric)
-           ) %>%
+    ) %>%
     pull(.data$metric) %>%
     unique()
   scenario <- data %>%
