@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' # `data` must meet documented "Requirements"
-#' mydata <- subset(
+#' data <- subset(
 #'   market_share,
 #'   sector == "power" &
 #'     technology == "renewablescap" &
@@ -21,7 +21,7 @@
 #'     scenario_source == "demo_2020"
 #' )
 #'
-#' plot_trajectory(mydata)
+#' plot_trajectory(data)
 plot_trajectory <- function(data) {
   env <- list(data = substitute(data))
 
@@ -109,7 +109,8 @@ plot_trajectory_impl <- function(data) {
     aes(
       y = .data$value,
       label = .data$label,
-      segment.color = .data$metric),
+      segment.color = .data$metric
+    ),
     direction = "y",
     color = "black",
     size = 3.5,
@@ -118,12 +119,12 @@ plot_trajectory_impl <- function(data) {
       is_scenario(lines_end$metric),
       0.06 * year_span,
       0.01 * year_span
-      ),
+    ),
     nudge_y = if_else(
       is_scenario(lines_end$metric),
       0.01 * value_span(data),
       0
-      ),
+    ),
     hjust = 0,
     segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
     xlim = c(min(data$year), max(data$year) + 0.7 * year_span)
