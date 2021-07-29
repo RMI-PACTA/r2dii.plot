@@ -28,6 +28,7 @@
 #' plot_techmix(data)
 plot_techmix <- function(data) {
   check_plot_techmix(data, env = list(data = substitute(data)))
+
   prep <- prep_techmix(data)
   plot_techmix_impl(prep)
 }
