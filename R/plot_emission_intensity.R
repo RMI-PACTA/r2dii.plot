@@ -15,10 +15,12 @@
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
-  check_plot_emission_intensity(data, env = list(data = substitute(data)))
+  env <- list(data = substitute(data))
+  check_plot_emission_intensity(data, env = env)
 
-  prep <- prep_emission_intensity(data)
-  plot_emission_intensity_impl(prep)
+  data %>%
+    prep_emission_intensity() %>%
+    plot_emission_intensity_impl()
 }
 
 check_plot_emission_intensity <- function(data, env) {

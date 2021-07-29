@@ -24,7 +24,8 @@
 #'
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
-  check_plot_trajectory(data, env = list(data = substitute(data)))
+  env <- list(data = substitute(data))
+  check_plot_trajectory(data, env = env)
 
   data %>%
     prep_trajectory(convert_label = format_label, span_5yr = TRUE) %>%
