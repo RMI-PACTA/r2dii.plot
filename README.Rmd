@@ -76,7 +76,7 @@ data <- market_share %>%
 qplot_techmix(data)
 ```
 
-* Use `plot_*()` for a more 'bare' plot that you can customize yourself by 
+* Use `plot_*()` for a more "bare" plot that you can customize yourself by 
 modifying the input data and applying `ggplot2` functions. 
 
 ```{r}

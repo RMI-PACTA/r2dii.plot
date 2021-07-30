@@ -30,8 +30,9 @@ plot_techmix <- function(data) {
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
 
-  prep <- prep_techmix(data, env = env)
-  plot_techmix_impl(prep)
+  data %>%
+    prep_techmix(env = env) %>%
+    plot_techmix_impl()
 }
 
 check_plot_techmix <- function(data, env) {
@@ -151,7 +152,7 @@ techmix_labels <- function(data) {
     filter(
       .data$metric != "projected",
       !is_scenario(.data$metric)
-           ) %>%
+    ) %>%
     pull(.data$metric) %>%
     unique()
   scenario <- data %>%
