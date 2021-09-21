@@ -20,18 +20,12 @@ home:
   - text: Learn more
     href: https://2degrees-investing.org/
 
-
-
 navbar:
-
   type: default
 
   right:
     - icon: fa-gavel
       href: https://github.com/MonikaFu
-
-    - icon: fa-github
-      href: https://github.com/2DegreesInvesting/r2dii.plot
 
     - text: "Packages"
       menu:
@@ -43,8 +37,6 @@ navbar:
         href: https://2degreesinvesting.github.io/r2dii.analysis
       - text: "r2dii.plot"
         href: https://2degreesinvesting.github.io/r2dii.plot
-
-
     - icon: fa-github
       href: https://github.com/2DegreesInvesting/r2dii.plot
 
