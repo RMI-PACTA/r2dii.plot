@@ -33,7 +33,6 @@ navbar:
     - icon: fa-github
       href: https://github.com/2DegreesInvesting/r2dii.plot
 
-  right:
     - text: "Packages"
       menu:
       - text: "r2dii.data"
