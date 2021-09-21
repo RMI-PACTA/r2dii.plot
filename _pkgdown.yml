@@ -30,11 +30,6 @@ navbar:
     - icon: fa-github
       href: https://github.com/2DegreesInvesting/r2dii.plot
 
-    - text: r2dii
-      href: https://2degreesinvesting.github.io/r2dii/index.html
-
-
-
 reference:
 
   - title: Plot
