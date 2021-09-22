@@ -17,11 +17,21 @@ home:
   - text: Learn more
     href: https://2degrees-investing.org/
 
-
-
 navbar:
 
   type: default
+
+  left:
+  - text: "Reference"
+    href: reference/index.html
+
+  - text: "News"
+    menu:
+    - text: "r2dii blog posts"
+      href: https://2degreesinvesting.github.io/#category:r2dii
+    - text: "----------------------"
+    - text: "Change log"
+      href: news/index.html
 
   right:
     - icon: fa-gavel
@@ -32,8 +42,6 @@ navbar:
 
     - text: r2dii
       href: https://2degreesinvesting.github.io/r2dii/index.html
-
-
 
 reference:
 
