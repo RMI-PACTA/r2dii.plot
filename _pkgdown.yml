@@ -23,6 +23,18 @@ home:
 navbar:
   type: default
 
+  left:
+  - text: "Reference"
+    href: reference/index.html
+
+  - text: "News"
+    menu:
+    - text: "r2dii blog posts"
+      href: https://2degreesinvesting.github.io/#category:r2dii
+    - text: "----------------------"
+    - text: "Change log"
+      href: news/index.html
+
   right:
     - icon: fa-gavel
       href: https://github.com/MonikaFu
