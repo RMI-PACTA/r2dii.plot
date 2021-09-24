@@ -22,13 +22,13 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(data) {
+plot_trajectory <- function(data, center.y.axis = TRUE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)
 
   data %>%
     prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
-    plot_trajectory_impl()
+    plot_trajectory_impl(center.y.axis)
 }
 
 check_plot_trajectory <- function(data, env) {
@@ -82,11 +82,11 @@ prep_trajectory <- function(data,
   select(out, all_of(cols))
 }
 
-plot_trajectory_impl <- function(data) {
+plot_trajectory_impl <- function(data, center.y.axis = TRUE) {
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
   p <- p + geom_ribbon(
-    data = scenario(data),
+    data = scenario(data, center.y.axis),
     aes(
       ymin = .data$value_low,
       ymax = .data$value,
@@ -216,7 +216,7 @@ distance_from_start_value <- function(data, value) {
   abs(value - start_value_portfolio)
 }
 
-get_area_borders <- function(data) {
+get_area_borders <- function(data, center.y.axis = TRUE) {
   lower <- 0.9 * min(data$value)
   upper <- 1.1 * max(data$value)
   span <- upper - lower
@@ -224,14 +224,15 @@ get_area_borders <- function(data) {
   upper_distance <- distance_from_start_value(data, upper) / span
   lower_distance <- distance_from_start_value(data, lower) / span
 
-  # Center the starting point of the lines
-  distance <- abs(upper_distance - lower_distance)
-  max_distance <- 0.1
-  if (distance > max_distance) {
-    lower <- lower - max(0, upper_distance - lower_distance) * span
-    upper <- upper + max(0, lower_distance - lower_distance) * span
+  if (center.y.axis) {
+    # Center the starting point of the lines
+    distance <- abs(upper_distance - lower_distance)
+    max_distance <- 0.1
+    if (distance > max_distance) {
+      lower <- lower - max(0, upper_distance - lower_distance) * span
+      upper <- upper + max(0, lower_distance - lower_distance) * span
+    }
   }
-
   list(lower = lower, upper = upper)
 }
 
@@ -283,9 +284,9 @@ get_ordered_scenario_colours <- function(n) {
   )
 }
 
-scenario <- function(data) {
+scenario <- function(data, center.y.axis = TRUE) {
   specs <- scenario_colour(data)
-  area_borders <- get_area_borders(data)
+  area_borders <- get_area_borders(data, center.y.axis)
 
   data_worse_than_scenarios <- tibble(year = unique(data$year))
   if (specs$scenario[1] == "worse") {
