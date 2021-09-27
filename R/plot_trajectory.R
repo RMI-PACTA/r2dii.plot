@@ -174,7 +174,7 @@ lines_n <- function(data) {
 }
 
 scenario_lines <- function(data) {
-  filter(scenario_colour(data), .data$scenario != "worse")
+  filter(scenario_colour(data), .data$scenario != "target_worse")
 }
 
 abort_if_invalid_scenarios_number <- function(data) {
@@ -242,7 +242,7 @@ scenario_colour <- function(data) {
     arrange(desc(.data$value)) %>%
     pull(.data$metric) %>%
     as.character()
-  num_scen_areas <- length(ordered_scenarios) + 1
+  num_scen_areas <- length(ordered_scenarios)
   scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
   technology_kind <- r2dii.data::green_or_brown %>%
@@ -252,11 +252,11 @@ scenario_colour <- function(data) {
 
   switch(technology_kind,
     "green" = reverse_rows(tibble(
-      scenario = c(ordered_scenarios, c("worse")),
+      scenario = ordered_scenarios,
       colour = scenario_colours$hex
     )),
     "brown" = tibble(
-      scenario = rev(c("worse", ordered_scenarios)),
+      scenario = rev(ordered_scenarios),
       colour = scenario_colours$hex
     ),
     abort( # nocov start
@@ -289,13 +289,13 @@ scenario <- function(data, center.y.axis = TRUE) {
   area_borders <- get_area_borders(data, center.y.axis)
 
   data_worse_than_scenarios <- tibble(year = unique(data$year))
-  if (specs$scenario[1] == "worse") {
+  if (specs$scenario[1] == "target_worse") {
     data_scenarios <- data %>%
       filter(is_scenario(.data$metric)) %>%
       select(.data$year, .data$metric, value_low = .data$value)
 
     data_worse_than_scenarios$value_low <- area_borders$lower
-    data_worse_than_scenarios$metric <- "worse"
+    data_worse_than_scenarios$metric <- "target_worse"
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
       group_by(.data$year) %>%
@@ -309,7 +309,7 @@ scenario <- function(data, center.y.axis = TRUE) {
       ))
   } else {
     data_worse_than_scenarios$value <- area_borders$upper
-    data_worse_than_scenarios$metric <- "worse"
+    data_worse_than_scenarios$metric <- "target_worse"
 
     data_scenarios <- data %>%
       filter(is_scenario(.data$metric)) %>%
