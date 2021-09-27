@@ -290,17 +290,21 @@ scenario <- function(data, center.y.axis = TRUE) {
   specs <- scenario_colour(data)
   area_borders <- get_area_borders(data, center.y.axis)
 
-  data_worse_than_scenarios <- tibble(year = unique(data$year))
+  data_worse_than_scenarios <- tibble(
+    year = unique(data$year),
+    technology = unique(data$technology),
+    sector = unique(data$sector))
   if (specs$scenario[1] == "target_worse") {
     data_scenarios <- data %>%
       filter(is_scenario(.data$metric)) %>%
-      select(.data$year, .data$metric, value_low = .data$value)
+      rename(value_low = value)
 
     data_worse_than_scenarios$value_low <- area_borders$lower
     data_worse_than_scenarios$metric <- "target_worse"
+    data_worse_than_scenarios$label <- "target_worse"
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
+      group_by(.data$year, .data$technology, .data$sector) %>%
       mutate(metric = factor(.data$metric,
         levels = specs$scenario
       )) %>%
@@ -312,13 +316,13 @@ scenario <- function(data, center.y.axis = TRUE) {
   } else {
     data_worse_than_scenarios$value <- area_borders$upper
     data_worse_than_scenarios$metric <- "target_worse"
+    data_worse_than_scenarios$label <- "target_worse"
 
     data_scenarios <- data %>%
-      filter(is_scenario(.data$metric)) %>%
-      select(.data$year, .data$metric, .data$value)
+      filter(is_scenario(.data$metric))
 
     data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
-      group_by(.data$year) %>%
+      group_by(.data$year, .data$technology, .data$sector) %>%
       mutate(metric = factor(.data$metric, levels = specs$scenario)) %>%
       arrange(.data$year, .data$metric) %>%
       mutate(value_low = lag(.data$value, n = 1, default = area_borders$lower))
