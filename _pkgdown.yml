@@ -24,6 +24,9 @@ navbar:
   type: default
 
   left:
+  - text: "Get started"
+    href: articles/r2dii-match.html
+
   - text: "Reference"
     href: reference/index.html
 
