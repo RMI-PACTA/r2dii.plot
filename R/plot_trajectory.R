@@ -242,7 +242,7 @@ scenario_colour <- function(data) {
     arrange(desc(.data$value)) %>%
     pull(.data$metric) %>%
     as.character()
-  num_scen_areas <- length(ordered_scenarios)
+  num_scen_areas <- length(ordered_scenarios) + 1
   scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
   technology_kind <- r2dii.data::green_or_brown %>%
@@ -252,11 +252,11 @@ scenario_colour <- function(data) {
 
   switch(technology_kind,
     "green" = reverse_rows(tibble(
-      scenario = ordered_scenarios,
+      scenario = c(ordered_scenarios, c("target_worse")),
       colour = scenario_colours$hex
     )),
     "brown" = tibble(
-      scenario = rev(ordered_scenarios),
+      scenario = rev(c("target_worse", ordered_scenarios)),
       colour = scenario_colours$hex
     ),
     abort( # nocov start
