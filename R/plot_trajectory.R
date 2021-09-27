@@ -5,6 +5,8 @@
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
 #'   * (Optional) If present, the column `label` is used for data labels.
+#' @param center.y.axis Logical. Use `TRUE` to center the y-axis around start
+#' value, or use `FALSE` to not center.
 #'
 #' @seealso [market_share].
 #'

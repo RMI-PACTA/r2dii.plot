@@ -4,7 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data)
+plot_trajectory(data, center.y.axis = TRUE)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -14,6 +14,9 @@ plot_trajectory(data)
 \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
+
+\item{center.y.axis}{Logical. Use \code{TRUE} to center the y-axis around start
+value, or use \code{FALSE} to not center.}
 }
 \value{
 An object of class "ggplot".
