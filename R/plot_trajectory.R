@@ -6,13 +6,13 @@
 #'   column `label` is used for data labels.
 #' @param convert_label A symbol. The unquoted name of a function to apply to
 #'   legend labels. For example, to convert labels to uppercase use
-#'   `convert_label = toupper`. To get the default behaviour of
+#'   `convert_label = toupper`. To get the default behavior of
 #'   `qplot_trajectory()` use `convert_label = format_label`.
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
-#'   the start year (the default behaviour of `qplot_trajectory()`), or use
+#'   the start year (the default behavior of `qplot_trajectory()`), or use
 #'   `FALSE` to impose no restriction.
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
-#'   (the default behaviour of `qplot_trajectory()`), or use `FALSE` to not
+#'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.
 #'
 #' @seealso [market_share].
