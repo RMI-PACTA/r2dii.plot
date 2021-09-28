@@ -101,7 +101,7 @@ prep_trajectory <- function(data,
   not_scenarios <- out %>%
     filter(!is_scenario(.data$metric)) %>%
     mutate(value_low = .data$value)
-  rbind(scenarios, not_scenarios)
+  bind_rows(scenarios, not_scenarios)
 }
 
 plot_trajectory_impl <- function(data) {
