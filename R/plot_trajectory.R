@@ -1,10 +1,19 @@
 #' Create a trajectory plot
 #'
-#' @param data A data frame. Requirements:
-#'   * The structure must be like [market_share].
-#'   * The following columns must have a single value: `sector`, `technology`,
-#'   `region`, `scenario_source`.
-#'   * (Optional) If present, the column `label` is used for data labels.
+#' @param data A data frame. Requirements: * The structure must be like
+#'   [market_share]. * The following columns must have a single value: `sector`,
+#'   `technology`, `region`, `scenario_source`. * (Optional) If present, the
+#'   column `label` is used for data labels.
+#' @param convert_label A symbol. The unquoted name of a function to apply to
+#'   legend labels. For example, to convert labels to uppercase use
+#'   `convert_label = toupper`. To get the default behaviour of
+#'   `qplot_trajectory()` use `convert_label = format_label`.
+#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
+#'   the start year (the default behaviour of `qplot_trajectory()`), or use
+#'   `FALSE` to impose no restriction.
+#' @param center_y Logical. Use `TRUE` to center the y-axis around start value
+#'   (the default behaviour of `qplot_trajectory()`), or use `FALSE` to not
+#'   center.
 #'
 #' @seealso [market_share].
 #'
@@ -22,15 +31,15 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(data) {
+plot_trajectory <- function(data, convert_label = identity, span_5yr = FALSE, center_y = FALSE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)
 
   data %>%
     prep_trajectory(
-      convert_label = identity,
-      span_5yr = FALSE,
-      center_y = FALSE) %>%
+      convert_label,
+      span_5yr,
+      center_y) %>%
     plot_trajectory_impl()
 }
 

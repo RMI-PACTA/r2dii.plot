@@ -33,17 +33,6 @@ qplot_trajectory <- function(data) {
     labs_trajectory()
 }
 
-#' @examples
-#' format_label(c("corporate_economy", "target_sds"))
-#' # Weird case
-#' format_label(c("corporate_._economy", "target_sds_abc"))
-#' @noRd
-format_label <- function(x) {
-  out <- sub("target_", "", x)
-  out <- to_title(out)
-  if_else(is_scenario(x), toupper(out), out)
-}
-
 labs_trajectory <- function(p) {
   tech <- tools::toTitleCase(p[["data"]][["technology"]][[1]])
   sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
