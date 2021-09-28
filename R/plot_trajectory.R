@@ -5,8 +5,6 @@
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
 #'   * (Optional) If present, the column `label` is used for data labels.
-#' @param center.y.axis Logical. Use `TRUE` to center the y-axis around start
-#' value, or use `FALSE` to not center.
 #'
 #' @seealso [market_share].
 #'
@@ -24,13 +22,16 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(data, center.y.axis = TRUE) {
+plot_trajectory <- function(data) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)
 
   data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE) %>%
-    plot_trajectory_impl(center.y.axis)
+    prep_trajectory(
+      convert_label = identity,
+      span_5yr = FALSE,
+      center_y = FALSE) %>%
+    plot_trajectory_impl()
 }
 
 check_plot_trajectory <- function(data, env) {
@@ -52,10 +53,14 @@ check_plot_trajectory <- function(data, env) {
 #'   uppercase use `convert_label = toupper`.
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year, or use `FALSE` to impose no restriction.
+#' @param center_y Logical. Use `TRUE` to center the y-axis around start
+#' value, or use `FALSE` to not center.
+#'
 #' @noRd
 prep_trajectory <- function(data,
                             convert_label = identity,
-                            span_5yr = FALSE) {
+                            span_5yr = FALSE,
+                            center_y = FALSE) {
   out <- data %>%
     prep_common() %>%
     mutate(value = .data$production) %>%
@@ -81,18 +86,27 @@ prep_trajectory <- function(data,
     rename(sector = .data$sector.x)
 
   cols <- c("year", "metric", "label", "technology", "value", "sector")
-  select(out, all_of(cols))
+  out <- select(out, all_of(cols))
+
+  scenarios <- scenario(out, center_y)
+  not_scenarios <- out %>%
+    filter(!is_scenario(.data$metric)) %>%
+    mutate(value_low = .data$value)
+  rbind(scenarios, not_scenarios)
 }
 
-plot_trajectory_impl <- function(data, center.y.axis = TRUE) {
+plot_trajectory_impl <- function(data) {
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
   p <- p + geom_ribbon(
-    data = scenario(data, center.y.axis),
+    data = data %>% filter(is_scenario(metric)),
     aes(
       ymin = .data$value_low,
       ymax = .data$value,
-      fill = .data$metric,
+      fill = factor(
+        .data$metric,
+        levels = scenario_colour(data %>% filter(is_scenario(metric)))$scenario
+        ),
       alpha = 0.9
     )
   )
@@ -157,8 +171,7 @@ summarise_max_year_by_traj_metric <- function(data) {
 }
 
 value_span <- function(data) {
-  scen <- scenario(data)
-  max(scen$value) - min(scen$value_low)
+  max(data$value) - min(data$value_low)
 }
 
 line_colours <- function(data) {
@@ -200,25 +213,43 @@ order_trajectory <- function(data) {
     unique() %>%
     as.character()
 
-  data %>%
+  lines_ordered <- c(scenario_lines(data)$scenario, order_add_lines, main_line())
+
+  data <- data %>%
+    filter(
+      .data$metric %in% lines_ordered
+    ) %>%
     mutate(
       metric = factor(
         .data$metric,
-        levels = c(scenario_lines(data)$scenario, order_add_lines, main_line())
+        levels = lines_ordered
       )
     ) %>%
     arrange(.data$year, .data$metric)
+
+  technology_kind <- get_tech_kind(data)
+
+  if (technology_kind == "green") {
+    data <- data %>%
+      rename(
+        value = .data$value_low,
+        value_high = .data$value
+      )
+  }
+  data
+}
+
+start_value_portfolio <- function(data) {
+  start_value_portfolio <- data %>%
+    filter(.data$year == min(data$year), is_portfolio(.data$metric)) %>%
+    pull(.data$value)
 }
 
 distance_from_start_value <- function(data, value) {
-  start_value_portfolio <- data %>%
-    filter(.data$year == min(.data$year), is_portfolio(.data$metric)) %>%
-    pull(.data$value)
-
-  abs(value - start_value_portfolio)
+  abs(value - start_value_portfolio(data))
 }
 
-get_area_borders <- function(data, center.y.axis = TRUE) {
+get_area_borders <- function(data, center_y = FALSE) {
   lower <- 0.9 * min(data$value)
   upper <- 1.1 * max(data$value)
   span <- upper - lower
@@ -226,7 +257,7 @@ get_area_borders <- function(data, center.y.axis = TRUE) {
   upper_distance <- distance_from_start_value(data, upper) / span
   lower_distance <- distance_from_start_value(data, lower) / span
 
-  if (center.y.axis) {
+  if (center_y) {
     # Center the starting point of the lines
     distance <- abs(upper_distance - lower_distance)
     max_distance <- 0.1
@@ -238,27 +269,39 @@ get_area_borders <- function(data, center.y.axis = TRUE) {
   list(lower = lower, upper = upper)
 }
 
-scenario_colour <- function(data) {
+get_ordered_scenarios <- function(data) {
   ordered_scenarios <- data %>%
-    filter(is_scenario(.data$metric), .data$year == max(.data$year)) %>%
+    filter(is_scenario(.data$metric), .data$year == max(data$year)) %>%
     arrange(desc(.data$value)) %>%
     pull(.data$metric) %>%
     as.character()
-  num_scen_areas <- length(ordered_scenarios) + 1
-  scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
 
+  ordered_scenarios
+}
+
+get_tech_kind <- function(data) {
   technology_kind <- r2dii.data::green_or_brown %>%
     filter(.data$technology == unique(data$technology)) %>%
     pull(.data$green_or_brown) %>%
     unique()
 
+  technology_kind
+}
+
+scenario_colour <- function(data) {
+  ordered_scenarios <- get_ordered_scenarios(data)
+  num_scen_areas <- length(ordered_scenarios)
+  scenario_colours <- get_ordered_scenario_colours(num_scen_areas)
+
+  technology_kind <- get_tech_kind(data)
+
   switch(technology_kind,
     "green" = reverse_rows(tibble(
-      scenario = c(ordered_scenarios, c("target_worse")),
+      scenario = ordered_scenarios,
       colour = scenario_colours$hex
     )),
     "brown" = tibble(
-      scenario = rev(c("target_worse", ordered_scenarios)),
+      scenario = rev(ordered_scenarios),
       colour = scenario_colours$hex
     ),
     abort( # nocov start
@@ -286,29 +329,33 @@ get_ordered_scenario_colours <- function(n) {
   )
 }
 
-scenario <- function(data, center.y.axis = TRUE) {
-  specs <- scenario_colour(data)
-  area_borders <- get_area_borders(data, center.y.axis)
+scenario <- function(data, center_y = FALSE) {
+  area_borders <- get_area_borders(data, center_y)
 
   data_worse_than_scenarios <- tibble(
     year = unique(data$year),
     technology = unique(data$technology),
     sector = unique(data$sector))
-  if (specs$scenario[1] == "target_worse") {
-    data_scenarios <- data %>%
-      filter(is_scenario(.data$metric)) %>%
-      rename(value_low = value)
 
-    data_worse_than_scenarios$value_low <- area_borders$lower
+  technology_kind <- get_tech_kind(data)
+
+  if (technology_kind == "green") {
+    data_scenarios <- data %>%
+      filter(is_scenario(.data$metric))
+
+    data_worse_than_scenarios$value <- area_borders$lower
     data_worse_than_scenarios$metric <- "target_worse"
     data_worse_than_scenarios$label <- "target_worse"
 
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios)
+
+    data_scenarios <- data_scenarios %>%
       group_by(.data$year, .data$technology, .data$sector) %>%
       mutate(metric = factor(.data$metric,
-        levels = specs$scenario
+        levels = rev(get_ordered_scenarios(data_scenarios))
       )) %>%
       arrange(.data$year, .data$metric) %>%
+      rename(value_low = .data$value) %>%
       mutate(value = lead(.data$value_low,
         n = 1,
         default = area_borders$upper
@@ -321,9 +368,14 @@ scenario <- function(data, center.y.axis = TRUE) {
     data_scenarios <- data %>%
       filter(is_scenario(.data$metric))
 
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios) %>%
+    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios)
+
+    data_scenarios <- data_scenarios %>%
       group_by(.data$year, .data$technology, .data$sector) %>%
-      mutate(metric = factor(.data$metric, levels = specs$scenario)) %>%
+      mutate(
+        metric = factor(
+          .data$metric, levels = rev(get_ordered_scenarios(data_scenarios))
+          )) %>%
       arrange(.data$year, .data$metric) %>%
       mutate(value_low = lag(.data$value, n = 1, default = area_borders$lower))
   }
