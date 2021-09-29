@@ -356,7 +356,7 @@ scenario <- function(data, center_y = FALSE) {
     data_worse_than_scenarios$metric <- "target_worse"
     data_worse_than_scenarios$label <- "target_worse"
 
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios)
+    data_scenarios <- bind_rows(data_scenarios, data_worse_than_scenarios)
 
     data_scenarios <- data_scenarios %>%
       group_by(.data$year, .data$technology, .data$sector) %>%
@@ -377,7 +377,7 @@ scenario <- function(data, center_y = FALSE) {
     data_scenarios <- data %>%
       filter(is_scenario(.data$metric))
 
-    data_scenarios <- rbind(data_scenarios, data_worse_than_scenarios)
+    data_scenarios <- bind_rows(data_scenarios, data_worse_than_scenarios)
 
     data_scenarios <- data_scenarios %>%
       group_by(.data$year, .data$technology, .data$sector) %>%

@@ -86,7 +86,7 @@ test_that("with input data before start year of 'projected' prep_techmix
     technology_share = 0.1
   )
   data <- data %>%
-    rbind(early_row)
+    bind_rows(early_row)
   expect_equal(min(prep_techmix(data)$year), start_year)
 })
 

@@ -22,7 +22,7 @@ test_that("works with up to 4 scenarios (+ 1 portfolio + 1 benchmark)", {
   # Faking a new scenario to reach the maximum number of scenarios we support
   xyz <- filter(prep, metric == "target_sds")
   xyz$metric <- xyz$metric <- "target_xyz"
-  xyz <- rbind(prep, xyz)
+  xyz <- bind_rows(prep, xyz)
   p <- qplot_trajectory(xyz)
   expect_equal(count_metrics(p), n)
 })
@@ -119,7 +119,7 @@ test_that("works with input data starting before start year of 'projected'", {
   to_exclude <- data %>%
     fake_market_share(year = start_year - 1, metric = "corporate_economy")
   data <- data %>%
-    rbind(to_exclude)
+    bind_rows(to_exclude)
   expect_no_error(plot_trajectory(data))
 })
 
