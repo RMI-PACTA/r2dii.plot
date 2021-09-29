@@ -158,7 +158,7 @@ quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 get_common_start_year <- function(data) {
   data %>%
     group_by(.data[[metric(data)]]) %>%
-    summarise(year = min(.data$year)) %>%
+    summarise(year = min(.data$year, na.rm = TRUE)) %>%
     pull(.data$year) %>%
     max()
 }
@@ -203,7 +203,7 @@ anchor <- function(x) paste0("^", x, "$")
 
 drop_before_start_year <- function(data) {
   start_year <- get_common_start_year(data)
-  if (!min(data$year) < start_year) {
+  if (!min(data$year, na.rm = TRUE) < start_year) {
     return(data)
   }
 

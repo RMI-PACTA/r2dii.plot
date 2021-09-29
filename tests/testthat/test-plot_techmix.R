@@ -74,7 +74,7 @@ test_that("with input data before start year of 'projected' prep_techmix
     year <= 2025,
     metric %in% c("projected", "corporate_economy", "target_sds")
   )
-  start_year <- min(filter(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
   early_row <- tibble(
     sector = "power",
     technology = "renewablescap",
@@ -87,7 +87,7 @@ test_that("with input data before start year of 'projected' prep_techmix
   )
   data <- data %>%
     bind_rows(early_row)
-  expect_equal(min(prep_techmix(data)$year), start_year)
+  expect_equal(min(prep_techmix(data)$year, na.rm = TRUE), start_year)
 })
 
 test_that("informs that extreme years are used", {

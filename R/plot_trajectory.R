@@ -80,7 +80,7 @@ prep_trajectory <- function(data,
     out <- span_5yr(out)
   }
 
-  start_year <- min(out$year)
+  start_year <- min(out$year, na.rm = TRUE)
   if (!quiet()) {
     inform(glue(
       "Normalizing `production` values to {start_year} -- the start year."
@@ -127,7 +127,7 @@ plot_trajectory_impl <- function(data) {
   )
 
   lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
-  year_span <- max(data$year) - min(data$year)
+  year_span <- max(data$year, na.rm = TRUE) - min(data$year, na.rm = TRUE)
   p <- p + ggrepel::geom_text_repel(
     data = lines_end,
     aes(
@@ -151,7 +151,7 @@ plot_trajectory_impl <- function(data) {
     ),
     hjust = 0,
     segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
-    xlim = c(min(data$year), max(data$year) + 0.7 * year_span)
+    xlim = c(min(data$year, na.rm = TRUE), max(data$year, na.rm = TRUE) + 0.7 * year_span)
   )
 
   p +
@@ -181,7 +181,7 @@ summarise_max_year_by_traj_metric <- function(data) {
 }
 
 value_span <- function(data) {
-  max(data$value) - min(data$value_low)
+  max(data$value, na.rm = TRUE) - min(data$value_low, na.rm = TRUE)
 }
 
 line_colours <- function(data) {
@@ -251,7 +251,7 @@ order_trajectory <- function(data) {
 
 start_value_portfolio <- function(data) {
   start_value_portfolio <- data %>%
-    filter(.data$year == min(data$year), is_portfolio(.data$metric)) %>%
+    filter(.data$year == min(data$year, na.rm = TRUE), is_portfolio(.data$metric)) %>%
     pull(.data$value)
 }
 
@@ -260,8 +260,8 @@ distance_from_start_value <- function(data, value) {
 }
 
 get_area_borders <- function(data, center_y = FALSE) {
-  lower <- 0.9 * min(data$value)
-  upper <- 1.1 * max(data$value)
+  lower <- 0.9 * min(data$value, na.rm = TRUE)
+  upper <- 1.1 * max(data$value, na.rm = TRUE)
   span <- upper - lower
 
   upper_distance <- distance_from_start_value(data, upper) / span

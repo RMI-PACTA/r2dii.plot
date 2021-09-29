@@ -115,7 +115,7 @@ test_that("works with brown technology", {
 
 test_that("works with input data starting before start year of 'projected'", {
   data <- example_market_share()
-  start_year <- min(filter(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
   to_exclude <- data %>%
     fake_market_share(year = start_year - 1, metric = "corporate_economy")
   data <- data %>%
@@ -135,7 +135,7 @@ test_that("informs that values are normalized", {
 
 test_that("informs if excluding data before start year of 'projected'", {
   data <- example_market_share()
-  start_year <- min(filter(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
   to_exclude <- data %>%
     fake_market_share(year = start_year - 1, metric = "corporate_economy")
 
