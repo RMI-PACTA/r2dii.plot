@@ -1,9 +1,10 @@
 #' Create a trajectory plot
 #'
-#' @param data A data frame. Requirements: * The structure must be like
-#'   [market_share]. * The following columns must have a single value: `sector`,
-#'   `technology`, `region`, `scenario_source`. * (Optional) If present, the
-#'   column `label` is used for data labels.
+#' @param data A data frame. Requirements:
+#'   * The structure must be like [market_share].
+#'   * The following columns must have a single value: `sector`, `technology`,
+#'   `region`, `scenario_source`.
+#'   * (Optional) If present, the column `label` is used for data labels.
 #' @param convert_label A symbol. The unquoted name of a function to apply to
 #'   legend labels. For example, to convert labels to uppercase use
 #'   `convert_label = toupper`. To get the default behavior of

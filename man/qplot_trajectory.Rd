@@ -7,10 +7,13 @@
 qplot_trajectory(data)
 }
 \arguments{
-\item{data}{A data frame. Requirements: * The structure must be like
-\link{market_share}. * The following columns must have a single value: \code{sector},
-\code{technology}, \code{region}, \code{scenario_source}. * (Optional) If present, the
-column \code{label} is used for data labels.}
+\item{data}{A data frame. Requirements:
+\itemize{
+\item The structure must be like \link{market_share}.
+\item The following columns must have a single value: \code{sector}, \code{technology},
+\code{region}, \code{scenario_source}.
+\item (Optional) If present, the column \code{label} is used for data labels.
+}}
 }
 \value{
 An object of class "ggplot".
