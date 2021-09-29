@@ -5,6 +5,7 @@
 #' @importFrom dplyr all_of rename first semi_join
 #' @importFrom rlang .env abort warn inform %||% has_name
 #' @importFrom glue glue
+#' @importFrom scales manual_pal
 NULL
 
 utils::globalVariables(c(
