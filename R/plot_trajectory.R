@@ -38,9 +38,9 @@ plot_trajectory <- function(data, convert_label = identity, span_5yr = FALSE, ce
 
   data %>%
     prep_trajectory(
-      convert_label,
-      span_5yr,
-      center_y) %>%
+      convert_label = convert_label,
+      span_5yr = span_5yr,
+      center_y = center_y) %>%
     plot_trajectory_impl()
 }
 
