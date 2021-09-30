@@ -100,14 +100,15 @@ prep_trajectory <- function(data,
 plot_trajectory_impl <- function(data) {
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
+  scenarios <- data %>% filter(is_scenario(metric))
   p <- p + geom_ribbon(
-    data = data %>% filter(is_scenario(metric)),
+    data = scenarios,
     aes(
       ymin = .data$value_low,
       ymax = .data$value,
       fill = factor(
         .data$metric,
-        levels = scenario_colour(data %>% filter(is_scenario(metric)))$scenario
+        levels = scenario_colour(scenarios)$scenario
         ),
       alpha = 0.9
     )
