@@ -58,14 +58,6 @@ check_plot_trajectory <- function(data, env) {
   invisible(data)
 }
 
-#' @param convert_label A symbol. The unquoted name of a function to apply to
-#'   legend labels. For example, to convert labels to
-#'   uppercase use `convert_label = toupper`.
-#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
-#'   the start year, or use `FALSE` to impose no restriction.
-#' @param center_y Logical. Use `TRUE` to center the y-axis around start
-#' value, or use `FALSE` to not center.
-#'
 #' @noRd
 prep_trajectory <- function(data,
                             convert_label = identity,
