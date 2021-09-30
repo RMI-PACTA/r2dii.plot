@@ -94,8 +94,8 @@ prep_techmix <- function(data,
     out <- span_5yr(out)
   }
 
-  start_year <- min(out$year)
-  future_year <- max(out$year)
+  start_year <- min(out$year, na.rm = TRUE)
+  future_year <- max(out$year, na.rm = TRUE)
   if (!quiet()) {
     .data <- deparse_1(substitute(data, env = env))
     inform(glue(

@@ -4,7 +4,12 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data)
+plot_trajectory(
+  data,
+  convert_label = identity,
+  span_5yr = FALSE,
+  center_y = FALSE
+)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -14,6 +19,19 @@ plot_trajectory(data)
 \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+legend labels. For example, to convert labels to uppercase use
+\code{convert_label = toupper}. To get the default behavior of
+\code{qplot_trajectory()} use \code{convert_label = format_label}.}
+
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_trajectory()}), or use
+\code{FALSE} to impose no restriction.}
+
+\item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
+(the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
+center.}
 }
 \value{
 An object of class "ggplot".

@@ -158,7 +158,7 @@ quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 get_common_start_year <- function(data) {
   data %>%
     group_by(.data[[metric(data)]]) %>%
-    summarise(year = min(.data$year)) %>%
+    summarise(year = min(.data$year, na.rm = TRUE)) %>%
     pull(.data$year) %>%
     max()
 }
@@ -203,7 +203,7 @@ anchor <- function(x) paste0("^", x, "$")
 
 drop_before_start_year <- function(data) {
   start_year <- get_common_start_year(data)
-  if (!min(data$year) < start_year) {
+  if (!min(data$year, na.rm = TRUE) < start_year) {
     return(data)
   }
 
@@ -275,4 +275,15 @@ prep_common <- function(data) {
   data %>%
     drop_before_start_year() %>%
     add_label_if_missing()
+}
+
+#' @examples
+#' format_label(c("corporate_economy", "target_sds"))
+#' # Weird case
+#' format_label(c("corporate_._economy", "target_sds_abc"))
+#' @noRd
+format_label <- function(x) {
+  out <- sub("target_", "", x)
+  out <- to_title(out)
+  if_else(is_scenario(x), toupper(out), out)
 }
