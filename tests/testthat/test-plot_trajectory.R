@@ -44,3 +44,36 @@ test_that("the errors message includes the name of the user's data", {
   bad_region$region <- c("a", "b")
   expect_error(plot_trajectory(bad_region), "bad_region")
 })
+
+test_that("By default doesn't center the Y axis", {
+  data <- example_market_share()
+  data_prep <- data %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = FALSE)
+  start_val <- start_value_portfolio(data_prep)
+
+  p <- plot_trajectory(data)
+
+  lower_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]
+  upper_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[2]
+
+  expect_false(abs(start_val - lower_y_limit) == abs(start_val - upper_y_limit))
+})
+
+test_that("Is sensitive to `center_y`", {
+  data <- example_market_share()
+  data_prep <- data %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = FALSE)
+  start_val <- start_value_portfolio(data_prep)
+
+  p <- plot_trajectory(data, center_y = FALSE)
+  lower_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]
+  upper_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[2]
+
+  expect_false(abs(start_val - lower_y_limit) == abs(start_val - upper_y_limit))
+
+  p_centered <- plot_trajectory(data, center_y = TRUE)
+  lower_y_limit_centered <- ggplot_build(p_centered)$layout$panel_scales_y[[1]]$range$range[1]
+  upper_y_limit_centered <- ggplot_build(p_centered)$layout$panel_scales_y[[1]]$range$range[2]
+
+  expect_true(abs(start_val - lower_y_limit_centered) == abs(start_val - upper_y_limit_centered))
+})

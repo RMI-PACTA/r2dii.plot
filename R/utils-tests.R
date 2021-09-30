@@ -43,9 +43,10 @@ fake_sda <- function(data, ...) {
   )
 }
 
+# Like `purrr::map_df()`. Avoid using purrr just for this function.
 map_df <- function(.x, .f, ...) {
   .f <- rlang::as_function(.f)
-  Reduce(rbind, lapply(.x, .f, ...))
+  Reduce(bind_rows, lapply(.x, .f, ...))
 }
 
 expect_no_error <- function(...) {
