@@ -157,7 +157,12 @@
     <p>Create a trajectory plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_trajectory</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_trajectory</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  convert_label <span class='op'>=</span> <span class='va'>identity</span>,
+  span_5yr <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  center_y <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +175,25 @@
 <code>region</code>, <code>scenario_source</code>.</p></li>
 <li><p>(Optional) If present, the column <code>label</code> is used for data labels.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>convert_label</th>
+      <td><p>A symbol. The unquoted name of a function to apply to
+legend labels. For example, to convert labels to uppercase use
+<code>convert_label = toupper</code>. To get the default behavior of
+<code><a href='qplot_trajectory.html'>qplot_trajectory()</a></code> use <code>convert_label = format_label</code>.</p></td>
+    </tr>
+    <tr>
+      <th>span_5yr</th>
+      <td><p>Logical. Use <code>TRUE</code> to restrict the time span to 5 years from
+the start year (the default behavior of <code><a href='qplot_trajectory.html'>qplot_trajectory()</a></code>), or use
+<code>FALSE</code> to impose no restriction.</p></td>
+    </tr>
+    <tr>
+      <th>center_y</th>
+      <td><p>Logical. Use <code>TRUE</code> to center the y-axis around start value
+(the default behavior of <code><a href='qplot_trajectory.html'>qplot_trajectory()</a></code>), or use <code>FALSE</code> to not
+center.</p></td>
     </tr>
     </table>
 
