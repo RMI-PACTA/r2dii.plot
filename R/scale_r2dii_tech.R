@@ -15,6 +15,8 @@
 #' @return An object of class "ScaleDiscrete".
 #' @export
 #'
+#' @aliases scale_color_r2dii_tech
+#'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
@@ -30,9 +32,7 @@ scale_colour_r2dii_tech <- function(sector, technologies = NULL, ...) {
 }
 
 #' @rdname scale_colour_r2dii_tech
-scale_color_r2dii_tech <- scale_colour_r2dii_tech
-
-#' @rdname scale_colour_r2dii_tech
+#' @export
 scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
   discrete_scale("fill", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
 }

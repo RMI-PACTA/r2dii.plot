@@ -8,8 +8,6 @@
 \usage{
 scale_colour_r2dii_tech(sector, technologies = NULL, ...)
 
-scale_color_r2dii_tech(sector, technologies = NULL, ...)
-
 scale_fill_r2dii_tech(sector, technologies = NULL, ...)
 }
 \arguments{

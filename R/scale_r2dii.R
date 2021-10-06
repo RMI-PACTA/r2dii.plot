@@ -10,6 +10,8 @@
 #' @return An object of class "ScaleDiscrete".
 #' @export
 #'
+#' @aliases scale_color_r2dii
+#'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
@@ -25,9 +27,7 @@ scale_colour_r2dii <- function(labels = NULL, ...) {
 }
 
 #' @rdname scale_colour_r2dii
-scale_color_r2dii <- scale_colour_r2dii
-
-#' @rdname scale_colour_r2dii
+#' @export
 scale_fill_r2dii <- function(labels = NULL, ...) {
   discrete_scale("fill", "r2dii", r2dii_pal(labels), ...)
 }

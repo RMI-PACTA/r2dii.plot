@@ -8,8 +8,6 @@
 \usage{
 scale_colour_r2dii(labels = NULL, ...)
 
-scale_color_r2dii(labels = NULL, ...)
-
 scale_fill_r2dii(labels = NULL, ...)
 }
 \arguments{
