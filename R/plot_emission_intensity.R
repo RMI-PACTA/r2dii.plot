@@ -48,7 +48,7 @@ prep_emission_intensity <- function(data,
 
   out <- out %>%
     mutate(
-      year = lubridate::make_date(.data$year)
+      year = as.Date(ISOdate(year = .data$year, month = 1L, day = 1L))
     )
 
   metrics <- distinct(out, .data$emission_factor_metric)
