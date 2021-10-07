@@ -1,5 +1,9 @@
 # r2dii.plot (development version)
 
+* New `scale_colour_r2dii()`, `scale_fill_r2dii()`, `scale_colour_r2dii()`, 
+`scale_fill_r2dii_sector()`, `scale_colour_r2dii_tech()`, `scale_fill_r2dii_tech()` 
+for easy application of 2DII colour palettes to any chart (#28 @cjyetman).
+
 # r2dii.plot 0.1.0
 
 * `plot_techmix()` and `qplot_techmix()` always output the same bars' order (#365). 
