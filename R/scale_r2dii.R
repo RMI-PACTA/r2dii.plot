@@ -20,7 +20,7 @@
 #'  scale_colour_r2dii()
 #'
 #' ggplot(data = mpg) +
-#'  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge") +
+#'  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
 #'  scale_fill_r2dii()
 scale_colour_r2dii <- function(labels = NULL, ...) {
   discrete_scale("colour", "r2dii", r2dii_pal(labels), ...)
@@ -34,6 +34,8 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
 
 #' @noRd
 r2dii_pal <- function(labels = NULL) {
+  check_labels(labels)
+
   labels <- labels %||% palette_colours$label
   values <- tibble(label = labels) %>%
     inner_join(palette_colours, by = "label") %>%
@@ -42,4 +44,20 @@ r2dii_pal <- function(labels = NULL) {
   f <- manual_pal(values)
   attr(f, "max_n") <- max_n
   f
+}
+
+check_labels <- function(labels) {
+  available_labels <- unique(palette_colours$label)
+  if(!is.null(labels)) {
+    if (!all((labels %in% available_labels))) {
+      bad_labels <- sort(setdiff(labels, available_labels))
+      abort(
+        c(glue("`labels` must be in palette_colours data set."),
+          i = glue("Run `unique(r2dii.plot:::palette_colours$label)` to see all available labels:
+            {toString(available_labels)}."),
+          x = glue("You passed: {toString(bad_labels)}.")
+        )
+      )
+    }
+  }
 }

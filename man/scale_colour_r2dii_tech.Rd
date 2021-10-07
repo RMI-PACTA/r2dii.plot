@@ -37,6 +37,6 @@ ggplot(data = mpg) +
  scale_colour_r2dii_tech("automotive")
 
  ggplot(data = mpg) +
- geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge") +
+ geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
  scale_fill_r2dii_tech("automotive")
 }
