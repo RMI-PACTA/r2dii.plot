@@ -21,13 +21,13 @@
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
-#' ggplot(data = mpg) +
-#'  geom_point(mapping = aes(x = displ, y = hwy, color = class)) +
-#'  scale_colour_r2dii_tech("automotive")
+#' ggplot(mpg) +
+#'   geom_point(aes(displ, hwy, color = class)) +
+#'   scale_colour_r2dii_tech("automotive")
 #'
-#'  ggplot(data = mpg) +
-#'  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
-#'  scale_fill_r2dii_tech("automotive")
+#' ggplot(mpg) +
+#'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
+#'   scale_fill_r2dii_tech("automotive")
 scale_colour_r2dii_tech <- function(sector, technologies = NULL, ...) {
   discrete_scale("colour", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
 }
