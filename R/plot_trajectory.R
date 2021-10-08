@@ -32,7 +32,11 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(data, convert_label = identity, span_5yr = FALSE, center_y = FALSE) {
+plot_trajectory <- function(
+                            data,
+                            convert_label = identity,
+                            span_5yr = FALSE,
+                            center_y = FALSE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)
 
@@ -40,7 +44,8 @@ plot_trajectory <- function(data, convert_label = identity, span_5yr = FALSE, ce
     prep_trajectory(
       convert_label = convert_label,
       span_5yr = span_5yr,
-      center_y = center_y) %>%
+      center_y = center_y
+    ) %>%
     plot_trajectory_impl()
 }
 
@@ -109,7 +114,7 @@ plot_trajectory_impl <- function(data) {
       fill = factor(
         .data$metric,
         levels = scenario_colour(scenarios)$scenario
-        ),
+      ),
       alpha = 0.9
     )
   )
@@ -338,7 +343,8 @@ scenario <- function(data, center_y = FALSE) {
   data_worse_than_scenarios <- tibble(
     year = unique(data$year),
     technology = unique(data$technology),
-    sector = unique(data$sector))
+    sector = unique(data$sector)
+  )
 
   technology_kind <- get_tech_kind(data)
 
@@ -377,8 +383,10 @@ scenario <- function(data, center_y = FALSE) {
       group_by(.data$year, .data$technology, .data$sector) %>%
       mutate(
         metric = factor(
-          .data$metric, levels = rev(get_ordered_scenarios(data_scenarios))
-          )) %>%
+          .data$metric,
+          levels = rev(get_ordered_scenarios(data_scenarios))
+        )
+      ) %>%
       arrange(.data$year, .data$metric) %>%
       mutate(value_low = lag(.data$value, n = 1, default = area_borders$lower))
   }

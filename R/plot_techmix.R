@@ -38,11 +38,10 @@
 #'
 #' plot_techmix(data)
 plot_techmix <- function(
-  data,
-  convert_label = identity,
-  span_5yr = FALSE,
-  convert_tech_label = identity
-  ) {
+                         data,
+                         convert_label = identity,
+                         span_5yr = FALSE,
+                         convert_tech_label = identity) {
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
 
@@ -51,7 +50,8 @@ plot_techmix <- function(
       convert_label = convert_label,
       span_5yr = span_5yr,
       convert_tech_label = convert_tech_label,
-      env = env) %>%
+      env = env
+    ) %>%
     plot_techmix_impl()
 }
 
