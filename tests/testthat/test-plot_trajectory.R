@@ -77,3 +77,31 @@ test_that("Is sensitive to `center_y`", {
 
   expect_true(abs(start_val - lower_y_limit_centered) == abs(start_val - upper_y_limit_centered))
 })
+
+test_that("is sensitive to `convert_label`", {
+  data <- example_market_share()
+
+  p <- plot_trajectory(data)
+  g <- ggplot_build(p)
+  labels_def <- unique(g$plot$data$label)
+
+  p_mod <- plot_trajectory(data, convert_label = toupper)
+  g_mod <- ggplot_build(p_mod)
+  labels_mod <- unique(g_mod$plot$data$label)
+
+  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+})
+
+test_that("is sensitive to `span_5yr`", {
+  data <- example_market_share()
+
+  p_f <- plot_trajectory(data, span_5yr = FALSE)
+  min_year <- min(p_f$data$year, na.rm = TRUE)
+  max_year <- max(p_f$data$year, na.rm = TRUE)
+  expect_false(max_year - min_year == 5)
+
+  p_t <- plot_trajectory(data, span_5yr = TRUE)
+  min_year <- min(p_t$data$year, na.rm = TRUE)
+  max_year <- max(p_t$data$year, na.rm = TRUE)
+  expect_true(max_year - min_year == 5)
+})
