@@ -25,7 +25,7 @@ navbar:
 
   left:
   - text: "Get started"
-    href: articles/r2dii-match.html
+    href: articles/r2dii-plot.html
 
   - text: "Reference"
     href: reference/index.html

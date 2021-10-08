@@ -30,7 +30,7 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
   p <- qplot_emission_intensity(data)
 
   expect_true(
-    lubridate::year(max(p$data$year, na.rm = TRUE)) -
-      lubridate::year(min(p$data$year, na.rm = TRUE)) <= 5
+    as.integer(format(max(p$data$year, na.rm = TRUE), "%Y")) -
+      as.integer(format(min(p$data$year, na.rm = TRUE), "%Y")) <= 5
   )
 })
