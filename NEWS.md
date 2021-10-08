@@ -1,7 +1,7 @@
 # r2dii.plot (development version)
 
-* New functions for easy application of 2DII colour palettes to
-any chart (#28 @cjyetman):
+* New functions to easily apply 2DII colour palettes to any plot (#28
+@cjyetman):
 
     - `scale_colour_r2dii()`
     - `scale_colour_r2dii_sector()`
