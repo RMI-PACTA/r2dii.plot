@@ -204,3 +204,93 @@ plot_techmix(data) +
     labels = paste(c("Coal", "Oil", "Gas", "Hydro", "Renewables"), "Cap.")
   )
 ```
+
+## Styling functions
+
+On top of the plotting functions, the package also contains custom styling functions which allow you to use 2DII styling in any plot.
+
+* Use `theme_2dii()` to display non-data content in 2DII style.
+
+```{r}
+# plot change in production plans over the next 5 years for technologies in 'power' sector
+data <- market_share %>%
+  filter(
+    metric == "projected",
+    sector == "power",
+    region == "global",
+    year %in% c(2020, 2025)
+  )
+
+ggplot(data, aes(x = factor(year), y = production)) +
+  geom_col() +
+  facet_wrap(~technology) +
+  theme_2dii()
+  
+```
+
+* Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply 2DII colour palette to your chart
+
+```{r}
+
+# plot planned renewables technology production over time for portfolio ("projected") and scenarios
+data <- market_share %>%
+  filter(
+    metric != "corporate_economy",
+    sector == "power",
+    region == "global",
+    technology == "renewablescap"
+  )
+
+ggplot(data, aes(x = year, y = production, color = metric)) +
+  geom_line() +
+  scale_colour_r2dii(labels = c("dark_blue", "green", "orange", "ruby_red")) +
+  theme_2dii()
+
+```
+
+* `Use scale_colour_r2dii_sector()` and `scale_fill_r2dii_sector()` to apply 2DII sector colour palette to your chart
+
+```{r}
+# plot change in production plans over the next 5 years per sector
+data <- market_share %>%
+  filter(
+    metric == "projected",
+    region == "global",
+    year %in% c(2020, 2025)
+  ) %>% 
+  group_by(sector, year) %>%
+  summarise(production = sum(production))
+
+ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
+  geom_col() +
+  scale_fill_r2dii_sector(sectors = c("automotive", "oil&gas", "power")) +
+  theme_2dii() +
+  facet_wrap(~sector)
+
+```
+
+* Use `scale_colour_r2dii_fill()` and `scale_fill_r2dii_fill()` to apply 2DII technology colour palette to your chart
+
+```{r}
+# plot change in production plans over the next 5 years for technologies in 'power' sector
+data <- market_share %>%
+  filter(
+    metric == "projected",
+    sector == "power",
+    region == "global",
+    year %in% c(2020, 2025)
+  ) %>% 
+  mutate(
+    technology = factor(
+      technology,
+      levels = c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
+      )
+  ) %>%
+  arrange(technology)
+
+ggplot(data, aes(x = factor(year), y = production, fill = technology)) +
+  geom_col() +
+  scale_fill_r2dii_tech("power", technologies = c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")) +
+  facet_wrap(~technology) +
+  theme_2dii()
+```
