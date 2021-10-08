@@ -1,9 +1,14 @@
 # r2dii.plot (development version)
 
-* New `scale_colour_r2dii()`, `scale_fill_r2dii()`, `scale_colour_r2dii()`,
-`scale_fill_r2dii_sector()`, `scale_colour_r2dii_tech()`,
-`scale_fill_r2dii_tech()` for easy application of 2DII colour palettes to
-any chart (#28 @cjyetman).
+* New functions for easy application of 2DII colour palettes to
+any chart (#28 @cjyetman):
+
+    - `scale_colour_r2dii()`
+    - `scale_colour_r2dii_sector()`
+    - `scale_colour_r2dii_tech()`
+    - `scale_fill_r2dii()`
+    - `scale_fill_r2dii_sector()`
+    - `scale_fill_r2dii_tech()`
 
 # r2dii.plot 0.1.0
 
