@@ -139,9 +139,9 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
-<div id="plot-techmix-chart" class="section level3">
+<div id="plot-trajectory-chart" class="section level3">
 <h3 class="hasAnchor">
-<a href="#plot-techmix-chart" class="anchor"></a>Plot techmix chart</h3>
+<a href="#plot-trajectory-chart" class="anchor"></a>Plot trajectory chart</h3>
 <ul>
 <li>Use <code>qplot_*()</code> to quickly get a plot with standard titles and labels.</li>
 </ul>
@@ -150,14 +150,13 @@
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
     <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
-    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
-    <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>
+    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
   <span class="op">)</span>
 
-<span class="fu"><a href="reference/qplot_techmix.html">qplot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span>
-<span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></code></pre></div>
+<span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>Use <code>plot_*()</code> for a more “bare” plot that you can customize yourself by modifying the input data and applying <code>ggplot2</code> functions.</li>
@@ -166,33 +165,30 @@
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
     <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
+    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
-    <span class="va">metric</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>,
-    <span class="va">year</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">2030</span><span class="op">)</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">2020</span>, <span class="fl">2035</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     label <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
       <span class="va">metric</span> <span class="op">==</span> <span class="st">"projected"</span> <span class="op">~</span> <span class="st">"Your Portfolio"</span>,
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"corporate_economy"</span> <span class="op">~</span> <span class="st">"Corporate Economy Benchmark"</span>,
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sds"</span> <span class="op">~</span> <span class="st">"SDS Scenario"</span>
-    <span class="op">)</span>,
-    label_tech <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
-      <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span> <span class="op">~</span> <span class="st">"Renewables Cap."</span>,
-      <span class="va">technology</span> <span class="op">==</span> <span class="st">"hydrocap"</span> <span class="op">~</span> <span class="st">"Hydro Cap."</span>,
-      <span class="va">technology</span> <span class="op">==</span> <span class="st">"gascap"</span> <span class="op">~</span> <span class="st">"Gas Cap."</span>,
-      <span class="va">technology</span> <span class="op">==</span> <span class="st">"oilcap"</span> <span class="op">~</span> <span class="st">"Oil Cap."</span>,
-      <span class="va">technology</span> <span class="op">==</span> <span class="st">"coalcap"</span> <span class="op">~</span> <span class="st">"Coal Cap."</span>
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"corporate_economy"</span> <span class="op">~</span> <span class="st">"Benchmark (Corp. Econ.)"</span>,
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sds"</span> <span class="op">~</span> <span class="st">"SDS Scenario"</span>,
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sps"</span> <span class="op">~</span> <span class="st">"SPS Scenario"</span>,
+      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_cps"</span> <span class="op">~</span> <span class="st">"CPS Scenario"</span>,
+      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">metric</span>
     <span class="op">)</span>
   <span class="op">)</span>
 
-<span class="fu"><a href="reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
-    title <span class="op">=</span> <span class="st">"Technology Mix for Sector: Power"</span>,
-    subtitle <span class="op">=</span> <span class="st">"For years 2020 and 2030."</span>
+    title <span class="op">=</span> <span class="st">"Power production trajectory for Renewables"</span>,
+    subtitle <span class="op">=</span> <span class="st">"With reference to climate scenarios."</span>,
+    x <span class="op">=</span> <span class="st">"Year"</span>,
+    y <span class="op">=</span> <span class="st">"Production (normalized to 2020)"</span>
   <span class="op">)</span>
-<span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span>
-<span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></code></pre></div>
+<span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>For examples of other plots and data sets please visit <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
 </div>
