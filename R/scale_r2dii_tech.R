@@ -16,6 +16,7 @@
 #' @export
 #'
 #' @aliases scale_color_r2dii_tech
+#' @family r2dii scales
 #'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
@@ -37,7 +38,6 @@ scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
   discrete_scale("fill", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
 }
 
-#' @noRd
 r2dii_tech_pal <- function(sector, technologies = NULL) {
   check_sector(sector)
   check_technologies(sector, technologies)

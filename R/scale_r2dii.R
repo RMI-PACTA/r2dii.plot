@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @aliases scale_color_r2dii
+#' @family r2dii scales
 #'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
@@ -32,7 +33,6 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
   discrete_scale("fill", "r2dii", r2dii_pal(labels), ...)
 }
 
-#' @noRd
 r2dii_pal <- function(labels = NULL) {
   check_labels(labels)
 

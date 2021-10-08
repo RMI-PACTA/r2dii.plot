@@ -58,7 +58,6 @@ check_plot_trajectory <- function(data, env) {
   invisible(data)
 }
 
-#' @noRd
 prep_trajectory <- function(data,
                             convert_label = identity,
                             span_5yr = FALSE,

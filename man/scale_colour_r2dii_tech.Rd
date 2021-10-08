@@ -40,3 +40,9 @@ ggplot(data = mpg) +
  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
  scale_fill_r2dii_tech("automotive")
 }
+\seealso{
+Other r2dii scales: 
+\code{\link{scale_colour_r2dii_sector}()},
+\code{\link{scale_colour_r2dii}()}
+}
+\concept{r2dii scales}

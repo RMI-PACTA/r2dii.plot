@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @aliases scale_color_r2dii_sector
+#' @family r2dii scales
 #'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
@@ -33,7 +34,6 @@ scale_fill_r2dii_sector <- function(sectors = NULL, ...) {
   discrete_scale("fill", "r2dii_sector", r2dii_sec_pal(sectors), ...)
 }
 
-#' @noRd
 r2dii_sec_pal <- function(sectors = NULL) {
   check_sectors(sectors)
 
