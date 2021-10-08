@@ -39,8 +39,16 @@ scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
 
 #' @noRd
 r2dii_tech_pal <- function(sector, technologies = NULL) {
-  check_sector(sector)
-  check_technologies(sector, technologies)
+  abort_if_unknown_values(sector, technology_colours, "sector")
+
+  if (!is.null(technologies)) {
+    some_sector <- sector
+    abort_if_unknown_values(
+      technologies,
+      data = filter(technology_colours, .data$sector == some_sector),
+      column = "technology"
+    )
+  }
 
   technologies <- technologies %||%
     technology_colours$technology
@@ -54,33 +62,3 @@ r2dii_tech_pal <- function(sector, technologies = NULL) {
   attr(f, "max_n") <- max_n
   f
 }
-
-check_sector <- function(sector) {
-  available_sectors <- unique(technology_colours$sector)
-  if (!(sector %in% available_sectors)) {
-    abort(
-      c(glue("`sector` must be one of sectors in technology_colours data set."),
-        i = glue("Run `unique(r2dii.plot:::technology_colours$sector)` to see a list of available sectors:
-                 {toString(available_sectors)}."),
-        x = glue("You passed: {sector}.")
-      )
-    )
-  }
-}
-
-check_technologies <- function(sector, technologies) {
-  available_technologies <- unique(technology_colours[technology_colours$sector == sector,]$technology)
-  if(!is.null(technologies)) {
-    if (!all((technologies %in% available_technologies))) {
-      bad_technologies <- sort(setdiff(technologies, available_technologies))
-      abort(
-        c(glue("`technologies` must be technologies from technology_colours data set for the given `sector`."),
-          i = "Run `unique(r2dii.plot:::technology_colours$technology)` to see all available technologies.",
-          i = glue("Technologies for the {sector} are: {toString(available_technologies)}."),
-          x = glue("You passed: {toString(bad_technologies)}.")
-        )
-      )
-    }
-  }
-}
-

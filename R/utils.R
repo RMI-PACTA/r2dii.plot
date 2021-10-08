@@ -287,3 +287,21 @@ format_label <- function(x) {
   out <- to_title(out)
   if_else(is_scenario(x), toupper(out), out)
 }
+
+abort_if_unknown_values <- function(value, data, column) {
+  .value <- deparse_1(substitute(value))
+  .data <- deparse_1(substitute(data))
+  .column <- deparse_1(substitute(column))
+
+  valid <- unique(data[[column]])
+  if (!all(value %in% valid)) {
+    msg <- c(
+      glue("Each value of `{.value}` must be one of these:\n{toString(valid)}."),
+      x = glue("You passed: {toString(value)}."),
+      i = glue("Do you need to see valid values in this dataset?:\n{.data}")
+    )
+    abort(msg, class = "unknown_value")
+  }
+
+  invisible(value)
+}

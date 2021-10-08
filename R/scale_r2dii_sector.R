@@ -35,7 +35,9 @@ scale_fill_r2dii_sector <- function(sectors = NULL, ...) {
 
 #' @noRd
 r2dii_sec_pal <- function(sectors = NULL) {
-  check_sectors(sectors)
+  if(!is.null(sectors)) {
+     abort_if_unknown_values(sectors, data = sector_colours, column = "label")
+  }
 
   sectors <- sectors %||%
     sector_colours$label
@@ -49,20 +51,3 @@ r2dii_sec_pal <- function(sectors = NULL) {
   attr(f, "max_n") <- max_n
   f
 }
-
-check_sectors <- function(sectors) {
-  available_sectors <- unique(sector_colours$label)
-  if(!is.null(sectors)) {
-    if (!all((sectors %in% available_sectors))) {
-      bad_sectors <- sort(setdiff(sectors, available_sectors))
-      abort(
-        c(glue("`sectors` must be in sector_colours data set."),
-          i = glue("Run `unique(r2dii.plot:::sector_colours$label)` to see all available sectors:
-            {toString(available_sectors)}."),
-          x = glue("You passed: {toString(bad_sectors)}.")
-        )
-      )
-    }
-  }
-}
-
