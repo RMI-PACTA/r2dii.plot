@@ -36,18 +36,7 @@ scale_fill_r2dii_sector <- function(sectors = NULL, ...) {
 #' @noRd
 r2dii_sec_pal <- function(sectors = NULL) {
   check_sectors(sectors)
-
-  sectors <- sectors %||%
-    sector_colours$label
-  values <- tibble(label = sectors) %>%
-    inner_join(
-      sector_colours,
-      by = "label") %>%
-    pull(.data$hex)
-  max_n <- length(values)
-  f <- manual_pal(values)
-  attr(f, "max_n") <- max_n
-  f
+  r2dii_pal_impl(sectors, data = sector_colours, column = "label")
 }
 
 check_sectors <- function(sectors) {
