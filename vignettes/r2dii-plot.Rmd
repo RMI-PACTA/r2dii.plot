@@ -221,7 +221,7 @@ data <- market_share %>%
     year %in% c(2020, 2025)
   )
 
-ggplot(data, aes(x = factor(year), y = production)) +
+ggplot(data, aes(factor(year), production)) +
   geom_col() +
   facet_wrap(~technology) +
   theme_2dii()
@@ -241,7 +241,7 @@ data <- market_share %>%
     technology == "renewablescap"
   )
 
-ggplot(data, aes(x = year, y = production, color = metric)) +
+ggplot(data, aes(year, production, color = metric)) +
   geom_line() +
   scale_colour_r2dii(labels = c("dark_blue", "green", "orange", "ruby_red")) +
   theme_2dii()
@@ -261,7 +261,7 @@ data <- market_share %>%
   group_by(sector, year) %>%
   summarise(production = sum(production))
 
-ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
+ggplot(data, aes(factor(year), production, fill = sector)) +
   geom_col() +
   scale_fill_r2dii_sector(sectors = c("automotive", "oil&gas", "power")) +
   theme_2dii() +
@@ -288,7 +288,7 @@ data <- market_share %>%
   ) %>%
   arrange(technology)
 
-ggplot(data, aes(x = factor(year), y = production, fill = technology)) +
+ggplot(data, aes(factor(year), production, fill = technology)) +
   geom_col() +
   scale_fill_r2dii_tech("power", technologies = c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")) +
   facet_wrap(~technology) +
