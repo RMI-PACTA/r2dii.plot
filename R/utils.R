@@ -289,6 +289,8 @@ format_label <- function(x) {
 }
 
 abort_if_unknown_values <- function(value, data, column) {
+  if (is.null(value)) return(invisible(value))
+
   .value <- deparse_1(substitute(value))
   .data <- deparse_1(substitute(data))
   .column <- deparse_1(substitute(column))

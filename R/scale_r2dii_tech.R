@@ -41,14 +41,13 @@ scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
 r2dii_tech_pal <- function(sector, technologies = NULL) {
   abort_if_unknown_values(sector, technology_colours, "sector")
 
-  if (!is.null(technologies)) {
-    some_sector <- sector
-    abort_if_unknown_values(
-      technologies,
-      data = filter(technology_colours, .data$sector == some_sector),
-      column = "technology"
-    )
-  }
+  some_sector <- sector  # nudge users to replace `some_sector` with their own
+  abort_if_unknown_values(
+    technologies,
+    # This expression appears in the error message
+    data = filter(technology_colours, .data$sector == some_sector),
+    column = "technology"
+  )
 
   technologies <- technologies %||%
     technology_colours$technology

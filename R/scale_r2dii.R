@@ -34,10 +34,7 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
 
 #' @noRd
 r2dii_pal <- function(labels = NULL) {
-  if (!is.null(labels)) {
-    abort_if_unknown_values(labels, palette_colours, column = "label")
-  }
-
+  abort_if_unknown_values(labels, palette_colours, column = "label")
 
   labels <- labels %||% palette_colours$label
   values <- tibble(label = labels) %>%

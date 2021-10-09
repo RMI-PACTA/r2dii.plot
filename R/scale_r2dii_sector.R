@@ -35,9 +35,7 @@ scale_fill_r2dii_sector <- function(sectors = NULL, ...) {
 
 #' @noRd
 r2dii_sec_pal <- function(sectors = NULL) {
-  if(!is.null(sectors)) {
-     abort_if_unknown_values(sectors, data = sector_colours, column = "label")
-  }
+  abort_if_unknown_values(sectors, data = sector_colours, column = "label")
 
   sectors <- sectors %||%
     sector_colours$label
