@@ -11,7 +11,7 @@ test_that("if with bad `sectors` errors gracefully", {
 })
 
 test_that("changes the plot colours as expected", {
-  p <- ggplot(ggplot2::mpg) +
+  p <- ggplot(mpg) +
     geom_point(aes(displ, hwy, colour = class))
   g <- ggplot_build(p)
   colours_default <- unique(g$data[[1]]["colour"])
@@ -24,7 +24,7 @@ test_that("changes the plot colours as expected", {
 })
 
 test_that("changes the plot fill as expected", {
-  p <- ggplot(ggplot2::mpg) +
+  p <- ggplot(mpg) +
     geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5)
   g <- ggplot_build(p)
   colours_default <- unique(g$data[[1]]["fill"])
