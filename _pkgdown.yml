@@ -67,7 +67,7 @@ reference:
   - subtitle: Styling functions
     contents:
       - starts_with("theme_")
-      - starts_with("scale_")
+      - has_concept("r2dii scales")
 
   - title: Datasets
     contents:

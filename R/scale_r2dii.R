@@ -11,17 +11,18 @@
 #' @export
 #'
 #' @aliases scale_color_r2dii
+#' @family r2dii scales
 #'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
-#' ggplot(data = mpg) +
-#'  geom_point(mapping = aes(x = displ, y = hwy, color = class)) +
-#'  scale_colour_r2dii()
+#' ggplot(mpg) +
+#'   geom_point(aes(displ, hwy, color = class)) +
+#'   scale_colour_r2dii()
 #'
-#' ggplot(data = mpg) +
-#'  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
-#'  scale_fill_r2dii()
+#' ggplot(mpg) +
+#'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
+#'   scale_fill_r2dii()
 scale_colour_r2dii <- function(labels = NULL, ...) {
   discrete_scale("colour", "r2dii", r2dii_pal(labels), ...)
 }
@@ -32,16 +33,7 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
   discrete_scale("fill", "r2dii", r2dii_pal(labels), ...)
 }
 
-#' @noRd
 r2dii_pal <- function(labels = NULL) {
   abort_if_unknown_values(labels, palette_colours, column = "label")
-
-  labels <- labels %||% palette_colours$label
-  values <- tibble(label = labels) %>%
-    inner_join(palette_colours, by = "label") %>%
-    pull(.data$hex)
-  max_n <- length(values)
-  f <- manual_pal(values)
-  attr(f, "max_n") <- max_n
-  f
+  r2dii_pal_impl(labels, column = "label", data = palette_colours)
 }
