@@ -1,14 +1,16 @@
 # if with bad `labels` errors gracefully
 
-    `labels` must be in palette_colours data set.
-    i Run `unique(r2dii.plot:::palette_colours$label)` to see all available labels:
+    Each value of `labels` must be one of these:
     dark_blue, green, orange, grey, dark_purple, yellow, soft_blue, ruby_red, moss_green.
     x You passed: bad.
+    i Do you need to see valid values in this dataset?:
+    palette_colours
 
 ---
 
-    `labels` must be in palette_colours data set.
-    i Run `unique(r2dii.plot:::palette_colours$label)` to see all available labels:
+    Each value of `labels` must be one of these:
     dark_blue, green, orange, grey, dark_purple, yellow, soft_blue, ruby_red, moss_green.
     x You passed: bad.
+    i Do you need to see valid values in this dataset?:
+    palette_colours
 

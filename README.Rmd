@@ -60,7 +60,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-### Plot techmix chart
+### Plot trajectory chart
 
 * Use `qplot_*()` to quickly get a plot with standard titles and labels. 
 
@@ -69,12 +69,12 @@ library(r2dii.plot)
 data <- market_share %>%
   filter(
     sector == "power",
+    technology == "renewablescap",
     region == "global",
-    scenario_source == "demo_2020",
-    metric %in% c("projected", "corporate_economy", "target_sds")
+    scenario_source == "demo_2020"
   )
 
-qplot_techmix(data)
+qplot_trajectory(data)
 ```
 
 * Use `plot_*()` for a more "bare" plot that you can customize yourself by 
@@ -84,30 +84,28 @@ modifying the input data and applying `ggplot2` functions.
 data <- market_share %>%
   filter(
     sector == "power",
+    technology == "renewablescap",
     region == "global",
     scenario_source == "demo_2020",
-    metric %in% c("projected", "corporate_economy", "target_sds"),
-    year %in% c(2020, 2030)
+    between(year, 2020, 2035)
   ) %>%
   mutate(
     label = case_when(
       metric == "projected" ~ "Your Portfolio",
-      metric == "corporate_economy" ~ "Corporate Economy Benchmark",
-      metric == "target_sds" ~ "SDS Scenario"
-    ),
-    label_tech = case_when(
-      technology == "renewablescap" ~ "Renewables Cap.",
-      technology == "hydrocap" ~ "Hydro Cap.",
-      technology == "gascap" ~ "Gas Cap.",
-      technology == "oilcap" ~ "Oil Cap.",
-      technology == "coalcap" ~ "Coal Cap."
+      metric == "corporate_economy" ~ "Benchmark (Corp. Econ.)",
+      metric == "target_sds" ~ "SDS Scenario",
+      metric == "target_sps" ~ "SPS Scenario",
+      metric == "target_cps" ~ "CPS Scenario",
+      TRUE ~ metric
     )
   )
 
-plot_techmix(data) +
+plot_trajectory(data) +
   labs(
-    title = "Technology Mix for Sector: Power",
-    subtitle = "For years 2020 and 2030."
+    title = "Power production trajectory for Renewables",
+    subtitle = "With reference to climate scenarios.",
+    x = "Year",
+    y = "Production (normalized to 2020)"
   )
 ```
 

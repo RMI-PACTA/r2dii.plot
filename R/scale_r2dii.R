@@ -34,22 +34,6 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
 }
 
 r2dii_pal <- function(labels = NULL) {
-  check_labels(labels)
+  abort_if_unknown_values(labels, palette_colours, column = "label")
   r2dii_pal_impl(labels, column = "label", data = palette_colours)
-}
-
-check_labels <- function(labels) {
-  available_labels <- unique(palette_colours$label)
-  if(!is.null(labels)) {
-    if (!all((labels %in% available_labels))) {
-      bad_labels <- sort(setdiff(labels, available_labels))
-      abort(
-        c(glue("`labels` must be in palette_colours data set."),
-          i = glue("Run `unique(r2dii.plot:::palette_colours$label)` to see all available labels:
-            {toString(available_labels)}."),
-          x = glue("You passed: {toString(bad_labels)}.")
-        )
-      )
-    }
-  }
 }
