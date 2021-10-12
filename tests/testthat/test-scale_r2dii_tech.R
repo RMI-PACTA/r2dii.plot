@@ -12,8 +12,8 @@ test_that("if with bad `sector` errors gracefully", {
 })
 
 test_that("if with bad `technologies` errors gracefully", {
-  expect_snapshot_error(scale_colour_r2dii_tech(sector = "automotive", technologies = c("bad")))
-  expect_snapshot_error(scale_fill_r2dii_tech(sector = "automotive", technologies = c("bad")))
+  expect_snapshot_error(scale_colour_r2dii_tech("automotive", "bad"))
+  expect_snapshot_error(scale_fill_r2dii_tech("automotive", "bad"))
 })
 
 test_that("changes the plot colours as expected", {
