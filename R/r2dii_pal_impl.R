@@ -1,6 +1,6 @@
-r2dii_pal_impl <- function(thing, data, column) {
-  thing <- thing %||% data[[column]]
-  values <- tibble::as_tibble_col(thing, column) %>%
+r2dii_pal_impl <- function(x, data, column) {
+  x <- x %||% data[[column]]
+  values <- as_tibble_col(x, column) %>%
     inner_join(data, by = column) %>%
     pull(.data$hex)
   max_n <- length(values)
