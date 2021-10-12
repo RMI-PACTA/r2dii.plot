@@ -41,18 +41,8 @@ scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
 r2dii_tech_pal <- function(sector, technologies = NULL) {
   check_sector(sector)
   check_technologies(sector, technologies)
-
-  technologies <- technologies %||%
-    technology_colours$technology
-  values <- tibble(technology = technologies) %>%
-    inner_join(
-      technology_colours %>% filter(.data$sector == .env$sector),
-      by = "technology") %>%
-    pull(.data$hex)
-  max_n <- length(values)
-  f <- manual_pal(values)
-  attr(f, "max_n") <- max_n
-  f
+  data <- filter(technology_colours, .data$sector == .env$sector)
+  r2dii_pal_impl(technologies, data, column = "technology")
 }
 
 check_sector <- function(sector) {

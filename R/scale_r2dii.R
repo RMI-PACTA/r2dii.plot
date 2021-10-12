@@ -35,15 +35,7 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
 
 r2dii_pal <- function(labels = NULL) {
   check_labels(labels)
-
-  labels <- labels %||% palette_colours$label
-  values <- tibble(label = labels) %>%
-    inner_join(palette_colours, by = "label") %>%
-    pull(.data$hex)
-  max_n <- length(values)
-  f <- manual_pal(values)
-  attr(f, "max_n") <- max_n
-  f
+  r2dii_pal_impl(labels, column = "label", data = palette_colours)
 }
 
 check_labels <- function(labels) {
