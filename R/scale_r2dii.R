@@ -11,17 +11,18 @@
 #' @export
 #'
 #' @aliases scale_color_r2dii
+#' @family r2dii scales
 #'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
-#' ggplot(data = mpg) +
-#'  geom_point(mapping = aes(x = displ, y = hwy, color = class)) +
-#'  scale_colour_r2dii()
+#' ggplot(mpg) +
+#'   geom_point(aes(displ, hwy, color = class)) +
+#'   scale_colour_r2dii()
 #'
-#' ggplot(data = mpg) +
-#'  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
-#'  scale_fill_r2dii()
+#' ggplot(mpg) +
+#'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
+#'   scale_fill_r2dii()
 scale_colour_r2dii <- function(labels = NULL, ...) {
   discrete_scale("colour", "r2dii", r2dii_pal(labels), ...)
 }
@@ -32,7 +33,6 @@ scale_fill_r2dii <- function(labels = NULL, ...) {
   discrete_scale("fill", "r2dii", r2dii_pal(labels), ...)
 }
 
-#' @noRd
 r2dii_pal <- function(labels = NULL) {
   check_labels(labels)
 
