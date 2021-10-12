@@ -17,8 +17,8 @@ test_that("if with bad `technologies` errors gracefully", {
 })
 
 test_that("changes the plot colours as expected", {
-  p <- ggplot(data = ggplot2::mpg) +
-    geom_point(mapping = aes(x = displ, y = hwy, colour = class))
+  p <- ggplot(ggplot2::mpg) +
+    geom_point(aes(x = displ, y = hwy, colour = class))
   g <- ggplot_build(p)
   colours_default <- unique(g$data[[1]]["colour"])
 
@@ -30,8 +30,8 @@ test_that("changes the plot colours as expected", {
 })
 
 test_that("changes the plot fill as expected", {
-  p <- ggplot(data = ggplot2::mpg) +
-    geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5)
+  p <- ggplot(ggplot2::mpg) +
+    geom_histogram(aes(x = cyl, fill = class), position = "dodge", bins = 5)
   g <- ggplot_build(p)
   colours_default <- unique(g$data[[1]]["fill"])
 
