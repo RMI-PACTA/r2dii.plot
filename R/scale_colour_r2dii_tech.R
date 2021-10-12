@@ -16,17 +16,18 @@
 #' @export
 #'
 #' @aliases scale_color_r2dii_tech
+#' @family r2dii scales
 #'
 #' @examples
 #' library(ggplot2, warn.conflicts = FALSE)
 #'
-#' ggplot(data = mpg) +
-#'  geom_point(mapping = aes(x = displ, y = hwy, color = class)) +
-#'  scale_colour_r2dii_tech("automotive")
+#' ggplot(mpg) +
+#'   geom_point(aes(displ, hwy, color = class)) +
+#'   scale_colour_r2dii_tech("automotive")
 #'
-#'  ggplot(data = mpg) +
-#'  geom_histogram(mapping = aes(x = cyl, fill = class), position = "dodge", bins = 5) +
-#'  scale_fill_r2dii_tech("automotive")
+#' ggplot(mpg) +
+#'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
+#'   scale_fill_r2dii_tech("automotive")
 scale_colour_r2dii_tech <- function(sector, technologies = NULL, ...) {
   discrete_scale("colour", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
 }
@@ -37,50 +38,17 @@ scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
   discrete_scale("fill", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
 }
 
-#' @noRd
 r2dii_tech_pal <- function(sector, technologies = NULL) {
-  check_sector(sector)
-  check_technologies(sector, technologies)
+  abort_if_unknown_values(sector, technology_colours, "sector")
 
-  technologies <- technologies %||%
-    technology_colours$technology
-  values <- tibble(technology = technologies) %>%
-    inner_join(
-      technology_colours %>% filter(.data$sector == .env$sector),
-      by = "technology") %>%
-    pull(.data$hex)
-  max_n <- length(values)
-  f <- manual_pal(values)
-  attr(f, "max_n") <- max_n
-  f
+  some_sector <- sector  # nudge users to replace `some_sector` with their own
+  abort_if_unknown_values(
+    technologies,
+    # This expression appears in the error message
+    data = filter(technology_colours, .data$sector == some_sector),
+    column = "technology"
+  )
+
+  data <- filter(technology_colours, .data$sector == .env$sector)
+  r2dii_pal_impl(technologies, data, column = "technology")
 }
-
-check_sector <- function(sector) {
-  available_sectors <- unique(technology_colours$sector)
-  if (!(sector %in% available_sectors)) {
-    abort(
-      c(glue("`sector` must be one of sectors in technology_colours data set."),
-        i = glue("Run `unique(r2dii.plot:::technology_colours$sector)` to see a list of available sectors:
-                 {toString(available_sectors)}."),
-        x = glue("You passed: {sector}.")
-      )
-    )
-  }
-}
-
-check_technologies <- function(sector, technologies) {
-  available_technologies <- unique(technology_colours[technology_colours$sector == sector,]$technology)
-  if(!is.null(technologies)) {
-    if (!all((technologies %in% available_technologies))) {
-      bad_technologies <- sort(setdiff(technologies, available_technologies))
-      abort(
-        c(glue("`technologies` must be technologies from technology_colours data set for the given `sector`."),
-          i = "Run `unique(r2dii.plot:::technology_colours$technology)` to see all available technologies.",
-          i = glue("Technologies for the {sector} are: {toString(available_technologies)}."),
-          x = glue("You passed: {toString(bad_technologies)}.")
-        )
-      )
-    }
-  }
-}
-
