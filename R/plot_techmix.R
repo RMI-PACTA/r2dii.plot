@@ -17,7 +17,7 @@
 #'   `FALSE` to impose no restriction.
 #' @param convert_tech_label A symbol. The unquoted name of a function to apply
 #'   to technology legend labels. For example, to convert labels to uppercase
-#'   use `convert_label = toupper`. To get the default behavior of
+#'   use `convert_tech_label = toupper`. To get the default behavior of
 #'   `qplot_techmix()` use `convert_label = spell_out_technology`.
 #'
 #' @seealso [market_share].
