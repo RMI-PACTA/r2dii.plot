@@ -4,6 +4,13 @@
 #'   * The structure must be like [sda].
 #'   * The column `sector` must have a single value (e.g. "cement").
 #'   * (Optional) If present, the column `label` is used for data labels.
+#' @param convert_label A symbol. The unquoted name of a function to apply to
+#'  time line labels. For example, to convert labels to uppercase use
+#'   `convert_label = toupper`. To get the default behavior of
+#'   `qplot_emission_intensity()` use `convert_label = to_title`.
+#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
+#'   the start year (the default behavior of `qplot_emission_intensity()`), or use
+#'   `FALSE` to impose no restriction.
 #'
 #' @seealso [sda].
 #'
@@ -14,12 +21,19 @@
 #' # `data` must meet documented "Requirements"
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
-plot_emission_intensity <- function(data) {
+plot_emission_intensity <- function(
+  data,
+  convert_label = identity,
+  span_5yr = FALSE
+  ) {
   env <- list(data = substitute(data))
   check_plot_emission_intensity(data, env = env)
 
   data %>%
-    prep_emission_intensity() %>%
+    prep_emission_intensity(
+      convert_label = convert_label,
+      span_5yr = span_5yr
+      ) %>%
     plot_emission_intensity_impl()
 }
 

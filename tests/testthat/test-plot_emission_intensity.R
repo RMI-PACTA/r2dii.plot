@@ -45,3 +45,31 @@ test_that("with too many lines to plot errors gracefully", {
     expect_snapshot_error(plot_emission_intensity(data))
   )
 })
+
+test_that("is sensitive to `convert_label`", {
+  data <- filter(sda, sector == "cement")
+
+  p <- plot_emission_intensity(data)
+  g <- ggplot_build(p)
+  labels_def <- unique(g$plot$data$label)
+
+  p_mod <- plot_emission_intensity(data, convert_label = toupper)
+  g_mod <- ggplot_build(p_mod)
+  labels_mod <- unique(g_mod$plot$data$label)
+
+  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+})
+
+test_that("is sensitive to `span_5yr`", {
+  data <- filter(sda, sector == "cement")
+
+  p_f <- plot_emission_intensity(data, span_5yr = FALSE)
+  min_year <- min(as.numeric(format(p_f$data$year, format = "%Y")), na.rm = TRUE)
+  max_year <- max(as.numeric(format(p_f$data$year, format = "%Y")), na.rm = TRUE)
+  expect_false(max_year - min_year == 5)
+
+  p_t <- plot_emission_intensity(data, span_5yr = TRUE)
+  min_year <- min(as.numeric(format(p_t$data$year, format = "%Y")), na.rm = TRUE)
+  max_year <- max(as.numeric(format(p_t$data$year, format = "%Y")), na.rm = TRUE)
+  expect_true(max_year - min_year == 5)
+})
