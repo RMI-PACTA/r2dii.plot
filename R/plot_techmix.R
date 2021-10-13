@@ -19,6 +19,7 @@
 #'   to technology legend labels. For example, to convert labels to uppercase
 #'   use `convert_label = toupper`. To get the default behavior of
 #'   `qplot_techmix()` use `convert_label = spell_out_technology`.
+#'
 #' @seealso [market_share].
 #'
 #' @return An object of class "ggplot".
