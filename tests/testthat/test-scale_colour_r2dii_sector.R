@@ -13,12 +13,9 @@ test_that("if with bad `sectors` errors gracefully", {
 test_that("changes the plot colours as expected", {
   p <- ggplot(ggplot2::mpg) +
     geom_point(aes(x = displ, y = hwy, colour = class))
-  g <- ggplot_build(p)
-  colours_default <- unique(g$data[[1]]["colour"])
 
-  p_after <- p + scale_colour_r2dii_sector()
-  g_after <- ggplot_build(p_after)
-  colours_changed <- unique(g_after$data[[1]]["colour"])
+  colours_default <- unique_data1(p, "colour")
+  colours_changed <- unique_data1(p + scale_colour_r2dii_sector(), "colour")
 
   expect_false(identical(colours_default, colours_changed))
 })
@@ -26,12 +23,9 @@ test_that("changes the plot colours as expected", {
 test_that("changes the plot fill as expected", {
   p <- ggplot(ggplot2::mpg) +
     geom_histogram(aes(x = cyl, fill = class), position = "dodge", bins = 5)
-  g <- ggplot_build(p)
-  colours_default <- unique(g$data[[1]]["fill"])
 
-  p_after <- p + scale_fill_r2dii_sector()
-  g_after <- ggplot_build(p_after)
-  colours_changed <- unique(g_after$data[[1]]["fill"])
+  colours_default <- unique_data1(p, "fill")
+  colours_changed <- unique_data1(p + scale_fill_r2dii_sector(), "fill")
 
   expect_false(identical(colours_default, colours_changed))
 })
