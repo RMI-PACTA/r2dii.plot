@@ -100,9 +100,9 @@ matched %>%
 
 ## Plots
 
-The `plot_*()` functions show the data as they are and allow you to add your own customization by modifying the input (for example by adding a column 'label' or
-'label_tech' for changing the data labels) or using `ggplot2` functions to  
-modify elements of the plot.
+The `plot_*()` functions show the data as they are and allow you to add your own customization through their parameters, by modifying the input (for example, by 
+adding a column 'label' or 'label_tech' for changing the data labels) or by 
+using `ggplot2` functions to modify elements of the plot. 
 
 The basic output of `plot_emission_intensity()` looks rather unappealing.
 
@@ -114,6 +114,22 @@ p <- matched %>%
 p
 ```
 
+You can use the parameters of `plot_*()` function to retain some of the 
+properties of `qplot_*` and modify others (see the documentation of each function for details). For example, here is the output of `plot_emission_intensity()` with parameters replicating the behavior of `qplot_emission_intensity()`. (Note that the plot labels were added manually using the `ggplot2::labs()` function and not using function parameters.)
+
+```{r}
+p <- matched %>%
+  target_sda(ald, co2_intensity_scenario = scenario) %>%
+  subset(sector == "cement") %>%
+  plot_emission_intensity(convert_label = to_title, span_5yr = TRUE) +
+  labs(
+    title = glue("Emission Intensity Trend for the Cement Sector"),
+    x = "Year",
+    y = "Tons of CO2 per Ton of Production Unit"
+  )
+p
+```
+
 You can polish your plot by modifying the input and the output `ggplot` object. 
 Your options are limitless but these are some typical things you may do:
 
@@ -122,7 +138,9 @@ Your options are limitless but these are some typical things you may do:
 `market_share`-like data.
 * Add a title and a subtitle. 
 * Change x and y axis labels.
-* Customize the colours and legend labels with `ggplot2::scale_colour_manual()`.
+* Customize the colours and legend labels with `ggplot2::scale_colour_manual()` 
+or `r2dii.plot` `scale_*` function family (See 'Styling functions' section of 
+this document).
 
 For example, here is how you might customize each of the three kinds of plots:
 
