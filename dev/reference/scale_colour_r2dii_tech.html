@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • r2dii.plot</title>
+<title>Custom 2DII technology colour and fill scales — scale_colour_r2dii_tech • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Custom 2DII technology colour and fill scales — scale_colour_r2dii_tech" />
+<meta property="og:description" content="A custom discrete colour and fill scales with colours from 2DII technology
+palette." />
 
 
 <meta name="robots" content="noindex">
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -147,58 +149,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Custom 2DII technology colour and fill scales</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/scale_colour_r2dii_tech.R'><code>R/scale_colour_r2dii_tech.R</code></a></small>
+    <div class="hidden name"><code>scale_colour_r2dii_tech.Rd</code></div>
     </div>
 
-    <div id="r2diiplot-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#r2diiplot-development-version" class="anchor"></a>r2dii.plot (development version)<small> Unreleased </small>
-</h1>
-<ul>
-<li>
-<p>New functions to easily apply 2DII colour palettes to any plot (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/28'>#28</a> <a href='https://github.com/cjyetman'>@cjyetman</a>):</p>
-<ul>
-<li><code><a href="../reference/scale_colour_r2dii.html">scale_colour_r2dii()</a></code></li>
-<li><code><a href="../reference/scale_colour_r2dii_sector.html">scale_colour_r2dii_sector()</a></code></li>
-<li><code><a href="../reference/scale_colour_r2dii_tech.html">scale_colour_r2dii_tech()</a></code></li>
-<li><code><a href="../reference/scale_colour_r2dii.html">scale_fill_r2dii()</a></code></li>
-<li><code><a href="../reference/scale_colour_r2dii_sector.html">scale_fill_r2dii_sector()</a></code></li>
-<li><code><a href="../reference/scale_colour_r2dii_tech.html">scale_fill_r2dii_tech()</a></code></li>
-</ul>
-</li>
-</ul>
-</div>
-    <div id="r2diiplot-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#r2diiplot-010" class="anchor"></a>r2dii.plot 0.1.0<small> 2021-06-29 </small>
-</h1>
-<ul>
-<li><p><code><a href="../reference/plot_techmix.html">plot_techmix()</a></code> and <code><a href="../reference/qplot_techmix.html">qplot_techmix()</a></code> always output the same bars’ order (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/365'>#365</a>).</p></li>
-<li><p>Data labels can be now modified by adding a column ‘label’ and ‘label_tech’ to input data.</p></li>
-<li><p>The new <code><a href="../reference/qplot_trajectory.html">qplot_trajectory()</a></code>, <code><a href="../reference/qplot_techmix.html">qplot_techmix()</a></code>, and <code><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity()</a></code> output polished plots (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/264'>#264</a>).</p></li>
-<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code>, <code><a href="../reference/plot_techmix.html">plot_techmix()</a></code>, and <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> now output more basic plots.</p></li>
-<li><p>Error messages now more closely follow the tidyverse style guide (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/324'>#324</a>).</p></li>
-<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> now plots the main line on top of all other lines, so it’s no longer hidden when it overlaps with other lines (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/223'>#223</a>).</p></li>
-<li><p><code><a href="../reference/plot_techmix.html">plot_techmix()</a></code> for the “automotive” <code>sector</code> is now coloured so that the darkest colours corresponds to the least sustainable technology, i.e. consistently with other technologies. This pattern of decreasing sustainability is now also reflected in the order of the legend labels (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/328'>#328</a>).</p></li>
-</ul>
-</div>
-    <div id="r2diiplot-001" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1">
-<a href="#r2diiplot-001" class="anchor"></a>r2dii.plot 0.0.1<small> 2021-06-21 </small>
-</h1>
-<ul>
-<li>Initial release.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>A custom discrete colour and fill scales with colours from 2DII technology
+palette.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>scale_colour_r2dii_tech</span><span class='op'>(</span><span class='va'>sector</span>, technologies <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>scale_fill_r2dii_tech</span><span class='op'>(</span><span class='va'>sector</span>, technologies <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>sector</th>
+      <td><p>A string. Sector name specifying a colour palette. Run
+<code><a href='https://rdrr.io/r/base/unique.html'>unique(r2dii.plot:::technology_colours$sector)</a></code> to see available sectors.</p></td>
+    </tr>
+    <tr>
+      <th>technologies</th>
+      <td><p>A character vector. Specifies technologies to use as
+colours and their order. Run
+<code><a href='https://rdrr.io/r/base/unique.html'>unique(r2dii.plot:::technology_colours$technology)</a></code> to see available
+technologies (pay attention if they match the <code>sector</code>). Similar to <code>value</code>
+parameter in <code>ggplot::scale_colour_manual()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other parameters passed on to <code><a href='https://ggplot2.tidyverse.org/reference/discrete_scale.html'>ggplot2::discrete_scale()</a></code>.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class "ScaleDiscrete".</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other r2dii scales: 
+<code><a href='scale_colour_r2dii_sector.html'>scale_colour_r2dii_sector</a>()</code>,
+<code><a href='scale_colour_r2dii.html'>scale_colour_r2dii</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span>, color <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_colour_r2dii_tech</span><span class='op'>(</span><span class='st'>"automotive"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_colour_r2dii_tech-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, fill <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span>, bins <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_r2dii_tech</span><span class='op'>(</span><span class='st'>"automotive"</span><span class='op'>)</span>
+</div><div class='img'><img src='scale_colour_r2dii_tech-2.png' alt='' width='700' height='433' /></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
