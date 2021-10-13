@@ -148,6 +148,7 @@ plot_trajectory_impl <- function(data) {
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
+    scale_x_continuous(breaks = integer_breaks()) +
     scale_fill_manual(values = scenario_colour(data)$colour) +
     # Calling `scale_fill_manual()` twice is intentional (https://git.io/JnDPc)
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
