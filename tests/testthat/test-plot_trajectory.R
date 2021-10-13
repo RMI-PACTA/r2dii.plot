@@ -77,3 +77,20 @@ test_that("Is sensitive to `center_y`", {
 
   expect_true(abs(start_val - lower_y_limit_centered) == abs(start_val - upper_y_limit_centered))
 })
+
+test_that("Doesn't output plots with non-integer x-axis tick marks", {
+  data <- market_share %>%
+    filter(
+      sector == "power",
+      technology == "renewablescap",
+      region == "global",
+      scenario_source == "demo_2020",
+      between(year, 2020, 2030)
+    )
+
+  p <- plot_trajectory(data)
+  g <- ggplot_build(p)
+  x_axis_breaks <- g$layout$panel_params[[1]]$x$minor_breaks
+
+  expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
+})
