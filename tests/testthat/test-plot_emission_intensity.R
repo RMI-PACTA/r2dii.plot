@@ -49,13 +49,10 @@ test_that("with too many lines to plot errors gracefully", {
 test_that("is sensitive to `convert_label`", {
   data <- filter(sda, sector == "cement")
 
-  p <- plot_emission_intensity(data)
-  g <- ggplot_build(p)
-  labels_def <- unique(g$plot$data$label)
-
-  p_mod <- plot_emission_intensity(data, convert_label = toupper)
-  g_mod <- ggplot_build(p_mod)
-  labels_mod <- unique(g_mod$plot$data$label)
+  labels_def <- plot_emission_intensity(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_emission_intensity(data, convert_label = toupper) %>%
+    unique_plot_data("label")
 
   expect_false(isTRUE(all.equal(labels_def, labels_mod)))
 })

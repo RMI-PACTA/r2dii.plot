@@ -81,13 +81,10 @@ test_that("Is sensitive to `center_y`", {
 test_that("is sensitive to `convert_label`", {
   data <- example_market_share()
 
-  p <- plot_trajectory(data)
-  g <- ggplot_build(p)
-  labels_def <- unique(g$plot$data$label)
-
-  p_mod <- plot_trajectory(data, convert_label = toupper)
-  g_mod <- ggplot_build(p_mod)
-  labels_mod <- unique(g_mod$plot$data$label)
+  labels_def <- plot_trajectory(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_trajectory(data, convert_label = toupper) %>%
+    unique_plot_data("label")
 
   expect_false(isTRUE(all.equal(labels_def, labels_mod)))
 })

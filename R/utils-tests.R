@@ -56,3 +56,9 @@ expect_no_error <- function(...) {
 expect_no_message <- function(...) {
   testthat::expect_message(..., NA)
 }
+
+# Pull unique values of a ggplot-data element
+unique_plot_data <- function(p, name) {
+  g <- ggplot_build(p)
+  unique(g$plot$data[[name]])
+}
