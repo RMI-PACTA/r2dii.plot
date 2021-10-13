@@ -231,7 +231,7 @@ test_that("is sensitive to `convert_label`", {
   labels_mod <- plot_techmix(data, convert_label = toupper) %>%
     unique_plot_data("label")
 
-  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+  expect_true(difference_is_letter_case(labels_def, labels_mod))
 })
 
 test_that("is sensitive to `span_5yr`", {
@@ -265,5 +265,5 @@ test_that("is sensitive to `convert_tech_label`", {
   labels_mod <- plot_techmix(data, convert_tech_label = toupper) %>%
     unique_plot_data("label_tech")
 
-  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+  expect_true(difference_is_letter_case(labels_def, labels_mod))
 })

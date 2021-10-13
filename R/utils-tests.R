@@ -66,3 +66,7 @@ unique_plot_data <- function(p, name) {
 year_range <- function(p) {
   range(as.numeric(format(p$data$year, format = "%Y")), na.rm = TRUE)
 }
+
+difference_is_letter_case <- function(x, y) {
+  identical(tolower(x), tolower(y))
+}

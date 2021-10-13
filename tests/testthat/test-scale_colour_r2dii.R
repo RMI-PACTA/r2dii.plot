@@ -20,7 +20,7 @@ test_that("changes the plot colours as expected", {
   g_after <- ggplot_build(p_after)
   colours_changed <- unique(g_after$data[[1]]["colour"])
 
-  expect_false(isTRUE(all.equal(colours_default, colours_changed)))
+  expect_false(identical(colours_default, colours_changed))
 })
 
 test_that("changes the plot fill as expected", {
@@ -33,6 +33,6 @@ test_that("changes the plot fill as expected", {
   g_after <- ggplot_build(p_after)
   colours_changed <- unique(g_after$data[[1]]["fill"])
 
-  expect_false(isTRUE(all.equal(colours_default, colours_changed)))
+  expect_false(identical(colours_default, colours_changed))
 })
 
