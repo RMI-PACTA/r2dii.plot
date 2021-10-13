@@ -28,9 +28,5 @@ test_that("Prints axis labels as expected", {
 test_that("Plots a data set with maximum time horizon of 5 years", {
   data <- filter(sda, sector == "automotive")
   p <- qplot_emission_intensity(data)
-
-  expect_true(
-    as.integer(format(max(p$data$year, na.rm = TRUE), "%Y")) -
-      as.integer(format(min(p$data$year, na.rm = TRUE), "%Y")) <= 5
-  )
+  expect_true(diff(year_range(p)) <= 5)
 })
