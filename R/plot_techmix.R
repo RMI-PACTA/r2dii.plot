@@ -15,9 +15,10 @@
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_techmix()`), or use
 #'   `FALSE` to impose no restriction.
-#' @param convert_tech_label See `convert_label`. To get the default behavior of
+#' @param convert_tech_label A symbol. The unquoted name of a function to apply
+#'   to technology legend labels. For example, to convert labels to uppercase
+#'   use `convert_label = toupper`. To get the default behavior of
 #'   `qplot_techmix()` use `convert_label = spell_out_technology`.
-#'
 #' @seealso [market_share].
 #'
 #' @return An object of class "ggplot".

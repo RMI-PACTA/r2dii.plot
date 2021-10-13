@@ -36,7 +36,9 @@ y-axis labels. For example:
 the start year (the default behavior of \code{qplot_techmix()}), or use
 \code{FALSE} to impose no restriction.}
 
-\item{convert_tech_label}{See \code{convert_label}. To get the default behavior of
+\item{convert_tech_label}{A symbol. The unquoted name of a function to apply
+to technology legend labels. For example, to convert labels to uppercase
+use \code{convert_label = toupper}. To get the default behavior of
 \code{qplot_techmix()} use \code{convert_label = spell_out_technology}.}
 }
 \value{
