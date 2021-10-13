@@ -62,3 +62,7 @@ unique_plot_data <- function(p, name) {
   g <- ggplot_build(p)
   unique(g$plot$data[[name]])
 }
+
+year_range <- function(p) {
+  range(as.numeric(format(p$data$year, format = "%Y")), na.rm = TRUE)
+}

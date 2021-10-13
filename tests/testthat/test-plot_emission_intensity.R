@@ -61,12 +61,8 @@ test_that("is sensitive to `span_5yr`", {
   data <- filter(sda, sector == "cement")
 
   p_f <- plot_emission_intensity(data, span_5yr = FALSE)
-  min_year <- min(as.numeric(format(p_f$data$year, format = "%Y")), na.rm = TRUE)
-  max_year <- max(as.numeric(format(p_f$data$year, format = "%Y")), na.rm = TRUE)
-  expect_false(max_year - min_year == 5)
+  expect_false(diff(year_range(p_f)) == 5)
 
   p_t <- plot_emission_intensity(data, span_5yr = TRUE)
-  min_year <- min(as.numeric(format(p_t$data$year, format = "%Y")), na.rm = TRUE)
-  max_year <- max(as.numeric(format(p_t$data$year, format = "%Y")), na.rm = TRUE)
-  expect_true(max_year - min_year == 5)
+  expect_true(diff(year_range(p_t)) == 5)
 })

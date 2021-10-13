@@ -93,12 +93,8 @@ test_that("is sensitive to `span_5yr`", {
   data <- example_market_share()
 
   p_f <- plot_trajectory(data, span_5yr = FALSE)
-  min_year <- min(p_f$data$year, na.rm = TRUE)
-  max_year <- max(p_f$data$year, na.rm = TRUE)
-  expect_false(max_year - min_year == 5)
+  expect_false(diff(year_range(p_f)) == 5)
 
   p_t <- plot_trajectory(data, span_5yr = TRUE)
-  min_year <- min(p_t$data$year, na.rm = TRUE)
-  max_year <- max(p_t$data$year, na.rm = TRUE)
-  expect_true(max_year - min_year == 5)
+  expect_true(diff(year_range(p_t)) == 5)
 })
