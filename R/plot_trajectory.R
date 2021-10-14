@@ -152,6 +152,7 @@ plot_trajectory_impl <- function(data) {
 
   p +
     coord_cartesian(expand = FALSE, clip = "off") +
+    scale_x_continuous(breaks = integer_breaks()) +
     scale_fill_manual(values = scenario_colour(data)$colour) +
     # Calling `scale_fill_manual()` twice is intentional (https://git.io/JnDPc)
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
@@ -181,12 +182,12 @@ value_span <- function(data) {
 }
 
 line_colours <- function(data) {
-  linecolours <- c("black", "black", "gray", "grey46", "black")
+  linecolours <- c("black", "black", "grey46", "black", "grey46")
   c(scenario_lines(data)$colour, rev(linecolours[1:lines_n(data)]))
 }
 
 line_types <- function(data) {
-  linetypes <- c("solid", "dashed", "solid", "solid", "twodash")
+  linetypes <- c("solid", "dashed", "solid", "twodash", "longdash")
   c(rep("solid", nrow(scenario_lines(data))), rev(linetypes[1:lines_n(data)]))
 }
 

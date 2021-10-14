@@ -104,4 +104,20 @@ test_that("is sensitive to `span_5yr`", {
   min_year <- min(p_t$data$year, na.rm = TRUE)
   max_year <- max(p_t$data$year, na.rm = TRUE)
   expect_true(max_year - min_year == 5)
+  
+test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-decimals)", {
+  data <- market_share %>%
+    filter(
+      sector == "power",
+      technology == "renewablescap",
+      region == "global",
+      scenario_source == "demo_2020",
+      between(year, 2020, 2030)
+    )
+
+  p <- plot_trajectory(data)
+  g <- ggplot_build(p)
+  x_axis_breaks <- g$layout$panel_params[[1]]$x$minor_breaks
+
+  expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
 })
