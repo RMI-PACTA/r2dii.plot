@@ -72,3 +72,11 @@ unique_data1 <- function(p, name) {
 year_range <- function(p) {
   range(as.numeric(format(p$data$year, format = "%Y")), na.rm = TRUE)
 }
+
+abort_if_year_range_is_5yr_already <- function(data) {
+  if (diff(range(data$year)) == 5) {
+    stop("The default year range must not be 5.", call. = FALSE)
+  }
+
+  invisible(data)
+}

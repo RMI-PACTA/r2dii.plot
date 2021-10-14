@@ -59,6 +59,7 @@ test_that("is sensitive to `convert_label`", {
 
 test_that("is sensitive to `span_5yr`", {
   data <- filter(sda, sector == "cement")
+  abort_if_year_range_is_5yr_already(data)
 
   p_f <- plot_emission_intensity(data, span_5yr = FALSE)
   expect_false(diff(year_range(p_f)) == 5)
