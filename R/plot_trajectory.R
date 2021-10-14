@@ -33,8 +33,8 @@
 #' plot_trajectory(data)
 plot_trajectory <- function(
                             data,
-                            convert_label = identity,
                             span_5yr = FALSE,
+                            convert_label = identity,
                             center_y = FALSE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)

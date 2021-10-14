@@ -22,8 +22,8 @@
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(
   data,
-  convert_label = identity,
-  span_5yr = FALSE
+  span_5yr = FALSE,
+  convert_label = identity
   ) {
   env <- list(data = substitute(data))
   check_plot_emission_intensity(data, env = env)
