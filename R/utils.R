@@ -231,17 +231,6 @@ prep_common <- function(data) {
     add_label_if_missing()
 }
 
-#' @examples
-#' format_label(c("corporate_economy", "target_sds"))
-#' # Weird case
-#' format_label(c("corporate_._economy", "target_sds_abc"))
-#' @noRd
-format_label <- function(x) {
-  out <- sub("target_", "", x)
-  out <- to_title(out)
-  if_else(is_scenario(x), toupper(out), out)
-}
-
 abort_if_unknown_values <- function(value, data, column) {
   if (is.null(value)) {
     return(invisible(value))

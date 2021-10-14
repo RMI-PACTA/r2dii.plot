@@ -2,15 +2,18 @@
 % Please edit documentation in R/convert_label.R
 \name{to_title}
 \alias{to_title}
-\alias{spell_out_technology}
+\alias{format_label}
 \alias{format_label_techmix}
+\alias{spell_out_technology}
 \title{Functions to replicate labels produced with \verb{qplot_*()} functions}
 \usage{
 to_title(x)
 
-spell_out_technology(x)
+format_label(x)
 
 format_label_techmix(x)
+
+spell_out_technology(x)
 }
 \arguments{
 \item{x}{A character vector.}
@@ -20,24 +23,18 @@ A character vector.
 }
 \description{
 \itemize{
-\item \code{to_title()} converts a string to title case. It's similar to but not
-identical to \code{\link[tools:toTitleCase]{tools::toTitleCase()}}. It replaces a sequence of non
-alpha-numeric characters to a single space, and applies title case to the
-remaining words.
-\item \code{spell_out_technology()} replaces technology abbreviations with their
-spelled-out version.
-\item \code{format_label_techmix()} replaces "projected" with "portfolio",
-"targets*" (e.g. "target_sds") with "Scenario", and everything else with
-"Benchmark".
+\item \code{to_title()} converts labels like \code{\link[=qplot_emission_intensity]{qplot_emission_intensity()}}.
+\item \code{format_label()} converts labels like \code{\link[=qplot_trajectory]{qplot_trajectory()}}.
+\item \code{format_label_techmix()} converts labels like \code{\link[=qplot_techmix]{qplot_techmix()}}.
+\item \code{spell_out_technology()} converts technology labels like \code{\link[=qplot_techmix]{qplot_techmix()}}.
 }
 }
 \examples{
-to_title(c("a.string", "ANOTHER_string"))
 to_title(c("a.string", "another_string", "b.STRING"))
 
-spell_out_technology(c("FIXME_hdv", "FIXMEcap", "FIXMEice"))
+format_label(c("projected", "target_xyz", "whatever"))
 
 format_label_techmix(c("projected", "target_xyz", "whatever"))
-# Weird case
-format_label_techmix(c("corporate_._economy", "target_sds_abc"))
+
+spell_out_technology(c("FIXME_hdv", "FIXMEcap", "FIXMEice"))
 }
