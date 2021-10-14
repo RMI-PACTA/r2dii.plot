@@ -36,8 +36,7 @@
 #' )
 #'
 #' plot_techmix(data)
-plot_techmix <- function(
-                         data,
+plot_techmix <- function(data,
                          span_5yr = FALSE,
                          convert_label = identity,
                          convert_tech_label = identity) {

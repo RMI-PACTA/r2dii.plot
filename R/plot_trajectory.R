@@ -31,8 +31,7 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(
-                            data,
+plot_trajectory <- function(data,
                             span_5yr = FALSE,
                             convert_label = identity,
                             center_y = FALSE) {

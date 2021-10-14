@@ -15,7 +15,7 @@ test_that("changes the plot colours as expected", {
     geom_point(aes(x = displ, y = hwy, colour = class))
 
   colours_default <- unique_data1(p, "colour")
-  colours_changed <-  unique_data1(p + scale_colour_r2dii(), "colour")
+  colours_changed <- unique_data1(p + scale_colour_r2dii(), "colour")
 
   expect_false(identical(colours_default, colours_changed))
 })
@@ -29,4 +29,3 @@ test_that("changes the plot fill as expected", {
 
   expect_false(identical(colours_default, colours_changed))
 })
-

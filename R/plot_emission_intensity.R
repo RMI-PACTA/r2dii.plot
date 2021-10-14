@@ -20,11 +20,9 @@
 #' # `data` must meet documented "Requirements"
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
-plot_emission_intensity <- function(
-  data,
-  span_5yr = FALSE,
-  convert_label = identity
-  ) {
+plot_emission_intensity <- function(data,
+                                    span_5yr = FALSE,
+                                    convert_label = identity) {
   env <- list(data = substitute(data))
   check_plot_emission_intensity(data, env = env)
 
@@ -32,7 +30,7 @@ plot_emission_intensity <- function(
     prep_emission_intensity(
       convert_label = convert_label,
       span_5yr = span_5yr
-      ) %>%
+    ) %>%
     plot_emission_intensity_impl()
 }
 
