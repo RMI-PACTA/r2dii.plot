@@ -54,7 +54,7 @@ test_that("is sensitive to `convert_label`", {
   labels_mod <- plot_emission_intensity(data, convert_label = toupper) %>%
     unique_plot_data("label")
 
-  expect_true(difference_is_letter_case(labels_def, labels_mod))
+  expect_false(identical(labels_def, labels_mod))
 })
 
 test_that("is sensitive to `span_5yr`", {
