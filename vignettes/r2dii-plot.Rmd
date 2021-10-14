@@ -100,9 +100,10 @@ matched %>%
 
 ## Plots
 
-The `plot_*()` functions show the data as they are and allow you to add your own customization through their parameters, by modifying the input (for example, by 
-adding a column 'label' or 'label_tech' for changing the data labels) or by 
-using `ggplot2` functions to modify elements of the plot. 
+The `plot_*()` functions show the data as they are and allow you to add your own
+customization through their parameters, by modifying the input (for example, by
+adding a column 'label' or 'label_tech' for changing the data labels) or by
+using `ggplot2` functions to modify elements of the plot.
 
 The basic output of `plot_emission_intensity()` looks rather unappealing.
 
@@ -114,8 +115,12 @@ p <- matched %>%
 p
 ```
 
-You can use the parameters of `plot_*()` function to retain some of the 
-properties of `qplot_*` and modify others (see the documentation of each function for details). For example, here is the output of `plot_emission_intensity()` with parameters replicating the behavior of `qplot_emission_intensity()`. (Note that the plot labels were added manually using the `ggplot2::labs()` function and not using function parameters.)
+You can use the parameters of `plot_*()` function to retain some of the
+properties of `qplot_*` and modify others (see the documentation of each
+function for details). For example, here is the output of
+`plot_emission_intensity()` with parameters replicating the behavior of
+`qplot_emission_intensity()`. (Note that the plot labels were added manually
+using the `ggplot2::labs()` function and not using function parameters.)
 
 ```{r}
 p <- matched %>%
@@ -245,7 +250,6 @@ ggplot(data, aes(x = factor(year), y = production)) +
   geom_col() +
   facet_wrap(~technology) +
   theme_2dii()
-  
 ```
 
 * Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply 2DII colour
@@ -266,7 +270,6 @@ ggplot(data, aes(x = year, y = production, color = metric)) +
   geom_line() +
   scale_colour_r2dii(labels = c("dark_blue", "green", "orange", "ruby_red")) +
   theme_2dii()
-
 ```
 
 * `Use scale_colour_r2dii_sector()` and `scale_fill_r2dii_sector()` to apply
@@ -279,7 +282,7 @@ data <- market_share %>%
     metric == "projected",
     region == "global",
     year %in% c(2020, 2025)
-  ) %>% 
+  ) %>%
   group_by(sector, year) %>%
   summarise(production = sum(production))
 
@@ -288,7 +291,6 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
   scale_fill_r2dii_sector(sectors = c("automotive", "oil&gas", "power")) +
   theme_2dii() +
   facet_wrap(~sector)
-
 ```
 
 * Use `scale_colour_r2dii_fill()` and `scale_fill_r2dii_fill()` to apply 2DII
@@ -303,12 +305,12 @@ data <- market_share %>%
     sector == "power",
     region == "global",
     year %in% c(2020, 2025)
-  ) %>% 
+  ) %>%
   mutate(
     technology = factor(
       technology,
       levels = c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
-      )
+    )
   ) %>%
   arrange(technology)
 
