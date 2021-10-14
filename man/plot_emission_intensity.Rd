@@ -21,6 +21,10 @@ y-axis labels. For example:
 \item To get the default behavior of \code{qplot_emission_intensity()} use
 \code{convert_label = to_title}.
 }}
+
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_emission_intensity()}), or use
+\code{FALSE} to impose no restriction.}
 }
 \value{
 An object of class "ggplot".

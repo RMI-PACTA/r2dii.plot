@@ -28,6 +28,10 @@ y-axis labels. For example:
 \code{convert_label = format_label}.
 }}
 
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_trajectory()}), or use
+\code{FALSE} to impose no restriction.}
+
 \item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
 (the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
 center.}
