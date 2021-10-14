@@ -78,7 +78,7 @@ test_that("Is sensitive to `center_y`", {
   expect_true(abs(start_val - lower_y_limit_centered) == abs(start_val - upper_y_limit_centered))
 })
 
-test_that("Doesn't output plots with non-integer x-axis tick marks", {
+test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-decimals)", {
   data <- market_share %>%
     filter(
       sector == "power",
