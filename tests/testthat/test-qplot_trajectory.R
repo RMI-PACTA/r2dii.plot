@@ -181,8 +181,7 @@ test_that("does not modify `metric`", {
 test_that("Plots a data set with maximum time horizon of 5 years", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
-
-  expect_true(max(p$data$year, na.rm = TRUE) - min(p$data$year, na.rm = TRUE) <= 5)
+  expect_true(diff(year_range(p)) <= 5)
 })
 
 test_that("Outputs pretty labels", {

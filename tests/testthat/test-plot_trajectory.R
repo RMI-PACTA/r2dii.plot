@@ -81,27 +81,37 @@ test_that("Is sensitive to `center_y`", {
 test_that("is sensitive to `convert_label`", {
   data <- example_market_share()
 
-  p <- plot_trajectory(data)
-  g <- ggplot_build(p)
-  labels_def <- unique(g$plot$data$label)
+  labels_def <- plot_trajectory(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_trajectory(data, convert_label = toupper) %>%
+    unique_plot_data("label")
 
-  p_mod <- plot_trajectory(data, convert_label = toupper)
-  g_mod <- ggplot_build(p_mod)
-  labels_mod <- unique(g_mod$plot$data$label)
-
-  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+  expect_false(identical(labels_def, labels_mod))
 })
 
 test_that("is sensitive to `span_5yr`", {
   data <- example_market_share()
 
   p_f <- plot_trajectory(data, span_5yr = FALSE)
-  min_year <- min(p_f$data$year, na.rm = TRUE)
-  max_year <- max(p_f$data$year, na.rm = TRUE)
-  expect_false(max_year - min_year == 5)
+  expect_false(diff(year_range(p_f)) == 5)
 
   p_t <- plot_trajectory(data, span_5yr = TRUE)
-  min_year <- min(p_t$data$year, na.rm = TRUE)
-  max_year <- max(p_t$data$year, na.rm = TRUE)
-  expect_true(max_year - min_year == 5)
+  expect_true(diff(year_range(p_t)) == 5)
+})
+
+test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-decimals)", {
+  data <- market_share %>%
+    filter(
+      sector == "power",
+      technology == "renewablescap",
+      region == "global",
+      scenario_source == "demo_2020",
+      between(year, 2020, 2030)
+    )
+
+  p <- plot_trajectory(data)
+  g <- ggplot_build(p)
+  x_axis_breaks <- g$layout$panel_params[[1]]$x$minor_breaks
+
+  expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
 })

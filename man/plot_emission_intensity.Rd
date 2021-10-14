@@ -4,7 +4,7 @@
 \alias{plot_emission_intensity}
 \title{Create an emission intensity plot}
 \usage{
-plot_emission_intensity(data, convert_label = identity, span_5yr = FALSE)
+plot_emission_intensity(data, span_5yr = FALSE, convert_label = identity)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -14,14 +14,17 @@ plot_emission_intensity(data, convert_label = identity, span_5yr = FALSE)
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-time line labels. For example, to convert labels to uppercase use
-\code{convert_label = toupper}. To get the default behavior of
-\code{qplot_emission_intensity()} use \code{convert_label = to_title}.}
-
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
 the start year (the default behavior of \code{qplot_emission_intensity()}), or use
 \code{FALSE} to impose no restriction.}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+y-axis labels. For example:
+\itemize{
+\item To convert labels to uppercase use \code{convert_label = toupper}.
+\item To get the default behavior of \code{qplot_emission_intensity()} use
+\code{convert_label = to_title}.
+}}
 }
 \value{
 An object of class "ggplot".

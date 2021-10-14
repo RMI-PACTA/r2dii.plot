@@ -1,8 +1,10 @@
 # r2dii.plot (development version)
 
-* `plot_trajectory()` doesn't center the y-axis around the start value by default.
+* `plot_trajectory()` now defaults to not center the y-axis around the
+start value.
 
-* `plot_*()` functions gained new parameters that allow to replicate some of `qplot_*()` behaviors. 
+* `plot_*()` functions gaines new parameters to help replicate some of
+`qplot_*()` behaviors.
 
 * New functions to easily apply 2DII colour palettes to any plot (#28
 @cjyetman):
