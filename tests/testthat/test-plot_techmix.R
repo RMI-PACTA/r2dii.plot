@@ -226,15 +226,12 @@ test_that("is sensitive to `convert_label`", {
       metric %in% c("projected", "corporate_economy", "target_sds")
     )
 
-  p <- plot_techmix(data)
-  g <- ggplot_build(p)
-  labels_def <- unique(g$plot$data$label)
+  labels_def <- plot_techmix(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_techmix(data, convert_label = toupper) %>%
+    unique_plot_data("label")
 
-  p_mod <- plot_techmix(data, convert_label = toupper)
-  g_mod <- ggplot_build(p_mod)
-  labels_mod <- unique(g_mod$plot$data$label)
-
-  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+  expect_false(identical(labels_def, labels_mod))
 })
 
 test_that("is sensitive to `span_5yr`", {
@@ -247,14 +244,10 @@ test_that("is sensitive to `span_5yr`", {
     )
 
   p_f <- plot_techmix(data, span_5yr = FALSE)
-  min_year <- min(p_f$data$year, na.rm = TRUE)
-  max_year <- max(p_f$data$year, na.rm = TRUE)
-  expect_false(max_year - min_year == 5)
+  expect_false(diff(year_range(p_f)) == 5)
 
   p_t <- plot_techmix(data, span_5yr = TRUE)
-  min_year <- min(p_t$data$year, na.rm = TRUE)
-  max_year <- max(p_t$data$year, na.rm = TRUE)
-  expect_true(max_year - min_year == 5)
+  expect_true(diff(year_range(p_t)) == 5)
 })
 
 test_that("is sensitive to `convert_tech_label`", {
@@ -267,13 +260,10 @@ test_that("is sensitive to `convert_tech_label`", {
       metric %in% c("projected", "corporate_economy", "target_sds")
     )
 
-  p <- plot_techmix(data)
-  g <- ggplot_build(p)
-  labels_def <- unique(g$plot$data$label_tech)
+  labels_def <- plot_techmix(data) %>%
+    unique_plot_data("label_tech")
+  labels_mod <- plot_techmix(data, convert_tech_label = toupper) %>%
+    unique_plot_data("label_tech")
 
-  p_mod <- plot_techmix(data, convert_tech_label = toupper)
-  g_mod <- ggplot_build(p_mod)
-  labels_mod <- unique(g_mod$plot$data$label_tech)
-
-  expect_false(isTRUE(all.equal(labels_def, labels_mod)))
+  expect_false(identical(labels_def, labels_mod))
 })
