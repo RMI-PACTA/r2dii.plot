@@ -9,16 +9,15 @@
 #'   * (Optional) If present, the column `label` is used for data labels.
 #'   * (Optional) If present, the column `label_tech` is used for technology
 #'   labels.
-#' @param convert_label A symbol. The unquoted name of a function to apply to
-#'   y-axis labels. For example, to convert labels to uppercase use
-#'   `convert_label = toupper`. To get the default behavior of
-#'   `qplot_techmix()` use `convert_label = format_label_techmix`.
+#' @template convert_label
+#' @templateVar fun qplot_techmix
+#' @templateVar value format_label_techmix
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_techmix()`), or use
 #'   `FALSE` to impose no restriction.
-#' @param convert_tech_label A symbol. The unquoted name of a function to apply to
-#'   technology legend labels. For example, to convert labels to uppercase use
-#'   `convert_label = toupper`. To get the default behavior of
+#' @param convert_tech_label A symbol. The unquoted name of a function to apply
+#'   to technology legend labels. For example, to convert labels to uppercase
+#'   use `convert_tech_label = toupper`. To get the default behavior of
 #'   `qplot_techmix()` use `convert_label = spell_out_technology`.
 #'
 #' @seealso [market_share].
