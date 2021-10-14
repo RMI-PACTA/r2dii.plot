@@ -36,5 +36,5 @@ format_label(c("projected", "target_xyz", "whatever"))
 
 format_label_techmix(c("projected", "target_xyz", "whatever"))
 
-spell_out_technology(c("FIXME_hdv", "FIXMEcap", "FIXMEice"))
+spell_out_technology(c("gas", "coalcap"))
 }

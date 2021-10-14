@@ -17,7 +17,7 @@
 #'
 #' format_label_techmix(c("projected", "target_xyz", "whatever"))
 #'
-#' spell_out_technology(c("FIXME_hdv", "FIXMEcap", "FIXMEice"))
+#' spell_out_technology(c("gas", "coalcap"))
 to_title <- function(x) {
   to_title_one <- function(x) {
     words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
