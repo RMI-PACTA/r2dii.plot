@@ -318,3 +318,13 @@ r2dii_pal_impl <- function(x, data, column) {
   attr(f, "max_n") <- max_n
   f
 }
+
+# source: https://joshuacook.netlify.app/post/integer-values-ggplot-axis/
+integer_breaks <- function(n = 5, ...) {
+  fxn <- function(x) {
+    breaks <- floor(pretty(x, n, ...))
+    names(breaks) <- attr(breaks, "labels")
+    breaks
+  }
+  return(fxn)
+}
