@@ -6,8 +6,8 @@
 \usage{
 plot_trajectory(
   data,
-  convert_label = identity,
   span_5yr = FALSE,
+  convert_label = identity,
   center_y = FALSE
 )
 }
@@ -20,6 +20,10 @@ plot_trajectory(
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_trajectory()}), or use
+\code{FALSE} to impose no restriction.}
+
 \item{convert_label}{A symbol. The unquoted name of a function to apply to
 y-axis labels. For example:
 \itemize{
@@ -27,10 +31,6 @@ y-axis labels. For example:
 \item To get the default behavior of \code{qplot_trajectory()} use
 \code{convert_label = format_label}.
 }}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year (the default behavior of \code{qplot_trajectory()}), or use
-\code{FALSE} to impose no restriction.}
 
 \item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
 (the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not

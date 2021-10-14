@@ -104,7 +104,8 @@ test_that("is sensitive to `span_5yr`", {
   min_year <- min(p_t$data$year, na.rm = TRUE)
   max_year <- max(p_t$data$year, na.rm = TRUE)
   expect_true(max_year - min_year == 5)
-  
+})
+
 test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-decimals)", {
   data <- market_share %>%
     filter(

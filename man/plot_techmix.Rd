@@ -6,8 +6,8 @@
 \usage{
 plot_techmix(
   data,
-  convert_label = identity,
   span_5yr = FALSE,
+  convert_label = identity,
   convert_tech_label = identity
 )
 }
@@ -24,6 +24,10 @@ plot_techmix(
 labels.
 }}
 
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_techmix()}), or use
+\code{FALSE} to impose no restriction.}
+
 \item{convert_label}{A symbol. The unquoted name of a function to apply to
 y-axis labels. For example:
 \itemize{
@@ -31,10 +35,6 @@ y-axis labels. For example:
 \item To get the default behavior of \code{qplot_techmix()} use
 \code{convert_label = format_label_techmix}.
 }}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year (the default behavior of \code{qplot_techmix()}), or use
-\code{FALSE} to impose no restriction.}
 
 \item{convert_tech_label}{A symbol. The unquoted name of a function to apply
 to technology legend labels. For example, to convert labels to uppercase
