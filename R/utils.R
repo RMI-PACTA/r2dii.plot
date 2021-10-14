@@ -1,33 +1,3 @@
-#' Convert a string to title case
-#'
-#' This function replaces a sequence of non alpha-numeric characters to a single
-#' space, and applies title case to the remaining words.
-#'
-#' @param x A character vector.
-#'
-#' @return A character vector.
-#' @keywords internal
-#' @examples
-#' to_title(c("a.string", "ANOTHER_string"))
-#' to_title(c("a.string", "another_string", "b.STRING"))
-#' @noRd
-to_title <- function(x) {
-  to_title_one <- function(x) {
-    words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
-    # `toTitleCase()` with "a" returns "a", not "A" (a bug in this context)
-    words <- capitalize_single_letters(tools::toTitleCase(words))
-    paste(words, collapse = " ")
-  }
-
-  unlist(lapply(x, to_title_one))
-}
-
-capitalize_single_letters <- function(words) {
-  out <- words
-  out[which(nchar(out) == 1L)] <- toupper(out[which(nchar(out) == 1L)])
-  out
-}
-
 abort_if_multiple <- function(data, x, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
@@ -238,26 +208,10 @@ beautify <- function(data, x) {
   mutate(data, "{x}" := to_title(.data[[x]]))
 }
 
-recode_metric <- function(x) {
-  case_when(
-    x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
-    TRUE ~ "benchmark"
-  )
-}
-
 # PACTA results are conventionally shown over a time period of 5 years
 span_5yr <- function(data) {
   min_year <- get_common_start_year(data)
   filter(data, .data$year <= min_year + 5L)
-}
-
-spell_out_technology <- function(technology) {
-  label <- to_title(technology)
-  label <- sub("^(?i)ice", "ICE", label)
-  label <- sub("cap$", " Capacity", label)
-  label <- sub("_hdv$", "Heavy Duty Vehicles", label)
-  label
 }
 
 add_label_if_missing <- function(data) {
