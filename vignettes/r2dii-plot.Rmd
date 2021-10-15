@@ -73,7 +73,7 @@ Use `qplot_emission_intensity()` with `sda`-like data.
 ```{r}
 matched %>%
   target_sda(ald, co2_intensity_scenario = scenario) %>%
-  subset(sector == "cement") %>%
+  filter(sector == "cement") %>%
   qplot_emission_intensity()
 ```
 
@@ -82,7 +82,7 @@ Use `qplot_trajectory()` with `market_share`-like data.
 ```{r}
 matched %>%
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
-  subset(technology == "renewablescap" & region == "global") %>%
+  filter(technology == "renewablescap", region == "global") %>%
   qplot_trajectory()
 ```
 
@@ -91,10 +91,10 @@ Use `qplot_techmix()` with `market_share`-like data.
 ```{r}
 matched %>%
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
-  subset(
-    sector == "power" &
-      region == "global" &
-      metric %in% c("projected", "corporate_economy", "target_sds")
+  filter(
+    sector == "power",
+    region == "global",
+    metric %in% c("projected", "corporate_economy", "target_sds")
   ) %>%
   qplot_techmix()
 ```
@@ -111,7 +111,7 @@ The basic output of `plot_emission_intensity()` looks rather unappealing.
 ```{r}
 p <- matched %>%
   target_sda(ald, co2_intensity_scenario = scenario) %>%
-  subset(sector == "cement") %>%
+  filter(sector == "cement") %>%
   plot_emission_intensity()
 p
 ```
@@ -122,7 +122,7 @@ You can use parameters of `plot_emission_intensity()` to replicate features of
 ```{r}
 p <- matched %>%
   target_sda(ald, co2_intensity_scenario = scenario) %>%
-  subset(sector == "cement") %>%
+  filter(sector == "cement") %>%
   plot_emission_intensity(convert_label = to_title, span_5yr = TRUE) +
   labs(
     title = "Emission Intensity Trend for the Cement Sector",
