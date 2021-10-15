@@ -20,6 +20,11 @@
 #' # `data` must meet documented "Requirements"
 #' data <- subset(sda, sector == "cement")
 #' plot_emission_intensity(data)
+#'
+#' # plot with `qplot_emission_intensity()` parameters
+#' plot_emission_intensity(data,
+#' span_5yr = TRUE,
+#' convert_label = to_title)
 plot_emission_intensity <- function(data,
                                     span_5yr = FALSE,
                                     convert_label = identity) {
