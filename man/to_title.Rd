@@ -5,7 +5,7 @@
 \alias{format_metric}
 \alias{recode_metric_techmix}
 \alias{spell_out_technology}
-\title{Functions to replicate labels produced with \verb{qplot_*()} functions}
+\title{Replicate labels produced with \verb{qplot_*()} functions}
 \usage{
 to_title(x)
 
