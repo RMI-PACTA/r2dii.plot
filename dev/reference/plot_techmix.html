@@ -225,7 +225,8 @@ use <code>convert_tech_label = toupper</code>. To get the default behavior of
 </div><div class='output co'>#&gt; <span class='message'>The `technology_share` values are plotted for extreme years.</span>
 #&gt; <span class='message'>Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></div><div class='img'><img src='plot_techmix-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot with `qplot_techmix()` parameters</span>
-<span class='fu'>plot_techmix</span><span class='op'>(</span><span class='va'>data</span>,
+<span class='fu'>plot_techmix</span><span class='op'>(</span>
+  <span class='va'>data</span>,
   span_5yr <span class='op'>=</span> <span class='cn'>TRUE</span>,
   convert_label <span class='op'>=</span> <span class='va'>recode_metric_techmix</span>,
   convert_tech_label <span class='op'>=</span> <span class='va'>spell_out_technology</span>
