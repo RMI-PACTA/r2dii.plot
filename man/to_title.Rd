@@ -30,11 +30,12 @@ A character vector.
 }
 }
 \examples{
-to_title(c("a.string", "another_string", "b.STRING"))
+to_title(c("a.string", "another_STRING"))
 
-format_metric(c("projected", "target_xyz", "whatever"))
+metric <- c("projected", "corporate_economy", "target_xyz", "else")
+format_metric(metric)
 
-recode_metric_techmix(c("projected", "target_xyz", "whatever"))
+recode_metric_techmix(metric)
 
-spell_out_technology(c("gas", "coalcap"))
+spell_out_technology(c("gas", "ice", "coalcap", "hdv"))
 }
