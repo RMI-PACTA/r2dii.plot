@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a quick trajectory plot — qplot_trajectory • r2dii.plot</title>
+<title>Replicate labels produced with qplot_*() functions — to_title • r2dii.plot</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,13 @@
 
 
 
-<meta property="og:title" content="Create a quick trajectory plot — qplot_trajectory" />
-<meta property="og:description" content="Compared to plot_trajectory() this function:
-is restricted to plotting only 5 years from the start year,
-outputs pretty legend labels, based on the column holding metrics,
-outputs a title,
-outputs a subtitle,
-outputs informative axis labels in sentence case.
+<meta property="og:title" content="Replicate labels produced with qplot_*() functions — to_title" />
+<meta property="og:description" content="
+
+to_title() converts labels like qplot_emission_intensity().
+format_metric() converts labels like qplot_trajectory().
+recode_metric_techmix() converts labels like qplot_techmix().
+spell_out_technology() converts technology labels like qplot_techmix().
 
 " />
 
@@ -155,57 +155,55 @@ outputs informative axis labels in sentence case.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a quick trajectory plot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/qplot_trajectory.R'><code>R/qplot_trajectory.R</code></a></small>
-    <div class="hidden name"><code>qplot_trajectory.Rd</code></div>
+    <h1>Replicate labels produced with <code>qplot_*()</code> functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/2DegreesInvesting/r2dii.plot/blob/master/R/to_title.R'><code>R/to_title.R</code></a></small>
+    <div class="hidden name"><code>to_title.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compared to <code><a href='plot_trajectory.html'>plot_trajectory()</a></code> this function:</p><ul>
-<li><p>is restricted to plotting only 5 years from the start year,</p></li>
-<li><p>outputs pretty legend labels, based on the column holding metrics,</p></li>
-<li><p>outputs a title,</p></li>
-<li><p>outputs a subtitle,</p></li>
-<li><p>outputs informative axis labels in sentence case.</p></li>
+    
+<ul>
+<li><p><code>to_title()</code> converts labels like <code><a href='qplot_emission_intensity.html'>qplot_emission_intensity()</a></code>.</p></li>
+<li><p><code>format_metric()</code> converts labels like <code><a href='qplot_trajectory.html'>qplot_trajectory()</a></code>.</p></li>
+<li><p><code>recode_metric_techmix()</code> converts labels like <code><a href='qplot_techmix.html'>qplot_techmix()</a></code>.</p></li>
+<li><p><code>spell_out_technology()</code> converts technology labels like <code><a href='qplot_techmix.html'>qplot_techmix()</a></code>.</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>qplot_trajectory</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>to_title</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>format_metric</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>recode_metric_techmix</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>spell_out_technology</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>A data frame. Requirements:</p><ul>
-<li><p>The structure must be like <a href='market_share.html'>market_share</a>.</p></li>
-<li><p>The following columns must have a single value: <code>sector</code>, <code>technology</code>,
-<code>region</code>, <code>scenario_source</code>.</p></li>
-<li><p>(Optional) If present, the column <code>label</code> is used for data labels.</p></li>
-</ul></td>
+      <th>x</th>
+      <td><p>A character vector.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class "ggplot".</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>plot_trajectory</p></div>
+    <p>A character vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># `data` must meet documented "Requirements"</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span>
-  <span class='va'>market_share</span>,
-  <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"power"</span> <span class='op'>&amp;</span>
-    <span class='va'>technology</span> <span class='op'>==</span> <span class='st'>"renewablescap"</span> <span class='op'>&amp;</span>
-    <span class='va'>region</span> <span class='op'>==</span> <span class='st'>"global"</span> <span class='op'>&amp;</span>
-    <span class='va'>scenario_source</span> <span class='op'>==</span> <span class='st'>"demo_2020"</span>
-<span class='op'>)</span>
-
-<span class='fu'>qplot_trajectory</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Normalizing `production` values to 2020 -- the start year.</span></div><div class='img'><img src='qplot_trajectory-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>to_title</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a.string"</span>, <span class='st'>"another_STRING"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "A String"       "Another String"</div><div class='input'>
+<span class='va'>metric</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"projected"</span>, <span class='st'>"corporate_economy"</span>, <span class='st'>"target_xyz"</span>, <span class='st'>"else"</span><span class='op'>)</span>
+<span class='fu'>format_metric</span><span class='op'>(</span><span class='va'>metric</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Projected"         "Corporate Economy" "XYZ"              
+#&gt; [4] "Else"             </div><div class='input'>
+<span class='fu'>recode_metric_techmix</span><span class='op'>(</span><span class='va'>metric</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Portfolio" "Benchmark" "Scenario"  "Benchmark"</div><div class='input'>
+<span class='fu'>spell_out_technology</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gas"</span>, <span class='st'>"ice"</span>, <span class='st'>"coalcap"</span>, <span class='st'>"hdv"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Gas"                 "ICE"                 "Coal Capacity"      
+#&gt; [4] "Heavy Duty Vehicles"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

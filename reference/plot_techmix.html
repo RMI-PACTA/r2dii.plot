@@ -72,14 +72,14 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">r2dii.plot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/r2dii-match.html">Get started</a>
+  <a href="../articles/r2dii-plot.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -157,7 +157,12 @@
     <p>Create a techmix plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_techmix</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_techmix</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  span_5yr <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  convert_label <span class='op'>=</span> <span class='va'>identity</span>,
+  convert_tech_label <span class='op'>=</span> <span class='va'>identity</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,6 +179,28 @@
 <li><p>(Optional) If present, the column <code>label_tech</code> is used for technology
 labels.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>span_5yr</th>
+      <td><p>Logical. Use <code>TRUE</code> to restrict the time span to 5 years from
+the start year (the default behavior of <code><a href='qplot_techmix.html'>qplot_techmix()</a></code>), or use
+<code>FALSE</code> to impose no restriction.</p></td>
+    </tr>
+    <tr>
+      <th>convert_label</th>
+      <td><p>A symbol. The unquoted name of a function to apply to
+y-axis labels. For example:</p><ul>
+<li><p>To convert labels to uppercase use <code>convert_label = toupper</code>.</p></li>
+<li><p>To get the default behavior of <code><a href='qplot_techmix.html'>qplot_techmix()</a></code> use
+<code>convert_label = recode_metric_techmix</code>.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>convert_tech_label</th>
+      <td><p>A symbol. The unquoted name of a function to apply
+to technology legend labels. For example, to convert labels to uppercase
+use <code>convert_tech_label = toupper</code>. To get the default behavior of
+<code><a href='qplot_techmix.html'>qplot_techmix()</a></code> use <code>convert_tech_label = spell_out_technology</code>.</p></td>
     </tr>
     </table>
 
@@ -196,7 +223,16 @@ labels.</p></li>
 
 <span class='fu'>plot_techmix</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>The `technology_share` values are plotted for extreme years.</span>
-#&gt; <span class='message'>Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></div><div class='img'><img src='plot_techmix-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; <span class='message'>Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></div><div class='img'><img src='plot_techmix-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot with `qplot_techmix()` parameters</span>
+<span class='fu'>plot_techmix</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  span_5yr <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  convert_label <span class='op'>=</span> <span class='va'>recode_metric_techmix</span>,
+  convert_tech_label <span class='op'>=</span> <span class='va'>spell_out_technology</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The `technology_share` values are plotted for extreme years.</span>
+#&gt; <span class='message'>Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></div><div class='img'><img src='plot_techmix-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
