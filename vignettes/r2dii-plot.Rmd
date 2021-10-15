@@ -100,10 +100,11 @@ matched %>%
 
 ## Plots
 
-The `plot_*()` functions show the data as they are and allow you to add your own
-customization through their parameters, by modifying the input (for example, by
-adding a column 'label' or 'label_tech' for changing the data labels) or by
-using `ggplot2` functions to modify elements of the plot.
+The `plot_*()` functions show the data as they are and allow you to customize by:
+* using their parameters, 
+* modifying the input (for example, by adding a column 'label' or 'label_tech' 
+for changing the data labels) 
+* using `ggplot2` functions.
 
 The basic output of `plot_emission_intensity()` looks rather unappealing.
 
