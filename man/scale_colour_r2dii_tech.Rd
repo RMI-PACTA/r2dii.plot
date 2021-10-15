@@ -18,9 +18,9 @@ scale_fill_r2dii_tech(sector, technologies = NULL, ...)
 colours and their order. Run
 \code{unique(r2dii.plot:::technology_colours$technology)} to see available
 technologies (pay attention if they match the \code{sector}). Similar to \code{value}
-parameter in \code{ggplot::scale_colour_manual()}.}
+parameter in \code{\link[ggplot2:scale_manual]{ggplot2::scale_colour_manual()}}.}
 
-\item{...}{Other parameters passed on to \code{ggplot2::discrete_scale()}.}
+\item{...}{Other parameters passed on to \code{\link[ggplot2:discrete_scale]{ggplot2::discrete_scale()}}.}
 }
 \value{
 An object of class "ScaleDiscrete".
