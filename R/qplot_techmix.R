@@ -28,8 +28,7 @@ qplot_techmix <- function(data) {
 
   data %>%
     prep_techmix(
-      # convert_label = recode_metric_techmix,
-      convert_label = identity,
+      convert_label = recode_metric_techmix,
       span_5yr = TRUE,
       convert_tech_label = spell_out_technology,
       env = env
