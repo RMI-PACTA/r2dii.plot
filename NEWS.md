@@ -33,6 +33,8 @@ visibility (#389 @Antoine-Lalechere).
 
 * The website now links to the blog where we advertise exciting news.
 
+* The website now links to other r2dii packages.
+
 Bug fixes
 
 * `plot_trajectory()` now displays only integer years on the x-axis (#403).
