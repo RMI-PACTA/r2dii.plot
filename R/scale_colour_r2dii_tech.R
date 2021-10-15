@@ -41,7 +41,7 @@ scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
 r2dii_tech_pal <- function(sector, technologies = NULL) {
   abort_if_unknown_values(sector, technology_colours, "sector")
 
-  some_sector <- sector  # nudge users to replace `some_sector` with their own
+  some_sector <- sector # nudge users to replace `some_sector` with their own
   abort_if_unknown_values(
     technologies,
     # This expression appears in the error message

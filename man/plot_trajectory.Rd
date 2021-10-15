@@ -6,8 +6,8 @@
 \usage{
 plot_trajectory(
   data,
-  convert_label = identity,
   span_5yr = FALSE,
+  convert_label = identity,
   center_y = FALSE
 )
 }
@@ -20,14 +20,17 @@ plot_trajectory(
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-legend labels. For example, to convert labels to uppercase use
-\code{convert_label = toupper}. To get the default behavior of
-\code{qplot_trajectory()} use \code{convert_label = format_label}.}
-
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
 the start year (the default behavior of \code{qplot_trajectory()}), or use
 \code{FALSE} to impose no restriction.}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+y-axis labels. For example:
+\itemize{
+\item To convert labels to uppercase use \code{convert_label = toupper}.
+\item To get the default behavior of \code{qplot_trajectory()} use
+\code{convert_label = format_label}.
+}}
 
 \item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
 (the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
@@ -50,6 +53,12 @@ data <- subset(
 )
 
 plot_trajectory(data)
+
+# plot with `qplot_trajectory()` parameters
+plot_trajectory(data,
+  span_5yr = TRUE,
+  convert_label = format_label
+)
 }
 \seealso{
 \link{market_share}.

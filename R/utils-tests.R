@@ -56,3 +56,27 @@ expect_no_error <- function(...) {
 expect_no_message <- function(...) {
   testthat::expect_message(..., NA)
 }
+
+# Pull unique values from gg$plot$data
+unique_plot_data <- function(p, name) {
+  g <- ggplot_build(p)
+  unique(g$plot$data[[name]])
+}
+
+# Pull unique values from gg$data[[1]]
+unique_data1 <- function(p, name) {
+  g <- ggplot_build(p)
+  unique(g$data[[1]][[name]])
+}
+
+year_range <- function(p) {
+  range(as.numeric(format(p$data$year, format = "%Y")), na.rm = TRUE)
+}
+
+abort_if_year_range_is_5yr_already <- function(data) {
+  if (diff(range(data$year)) == 5) {
+    stop("The default year range must not be 5.", call. = FALSE)
+  }
+
+  invisible(data)
+}

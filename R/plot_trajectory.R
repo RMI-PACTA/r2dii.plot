@@ -5,13 +5,12 @@
 #'   * The following columns must have a single value: `sector`, `technology`,
 #'   `region`, `scenario_source`.
 #'   * (Optional) If present, the column `label` is used for data labels.
-#' @param convert_label A symbol. The unquoted name of a function to apply to
-#'   legend labels. For example, to convert labels to uppercase use
-#'   `convert_label = toupper`. To get the default behavior of
-#'   `qplot_trajectory()` use `convert_label = format_label`.
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_trajectory()`), or use
 #'   `FALSE` to impose no restriction.
+#' @template convert_label
+#' @templateVar fun qplot_trajectory
+#' @templateVar value format_label
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
 #'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.
@@ -32,7 +31,16 @@
 #' )
 #'
 #' plot_trajectory(data)
-plot_trajectory <- function(data, convert_label = identity, span_5yr = FALSE, center_y = FALSE) {
+#'
+#' # plot with `qplot_trajectory()` parameters
+#' plot_trajectory(data,
+#'   span_5yr = TRUE,
+#'   convert_label = format_label
+#' )
+plot_trajectory <- function(data,
+                            span_5yr = FALSE,
+                            convert_label = identity,
+                            center_y = FALSE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)
 
@@ -40,7 +48,8 @@ plot_trajectory <- function(data, convert_label = identity, span_5yr = FALSE, ce
     prep_trajectory(
       convert_label = convert_label,
       span_5yr = span_5yr,
-      center_y = center_y) %>%
+      center_y = center_y
+    ) %>%
     plot_trajectory_impl()
 }
 
@@ -108,7 +117,7 @@ plot_trajectory_impl <- function(data) {
       fill = factor(
         .data$metric,
         levels = scenario_colour(scenarios)$scenario
-        ),
+      ),
       alpha = 0.9
     )
   )
@@ -338,7 +347,8 @@ scenario <- function(data, center_y = FALSE) {
   data_worse_than_scenarios <- tibble(
     year = unique(data$year),
     technology = unique(data$technology),
-    sector = unique(data$sector))
+    sector = unique(data$sector)
+  )
 
   technology_kind <- get_tech_kind(data)
 
@@ -377,8 +387,10 @@ scenario <- function(data, center_y = FALSE) {
       group_by(.data$year, .data$technology, .data$sector) %>%
       mutate(
         metric = factor(
-          .data$metric, levels = rev(get_ordered_scenarios(data_scenarios))
-          )) %>%
+          .data$metric,
+          levels = rev(get_ordered_scenarios(data_scenarios))
+        )
+      ) %>%
       arrange(.data$year, .data$metric) %>%
       mutate(value_low = lag(.data$value, n = 1, default = area_borders$lower))
   }

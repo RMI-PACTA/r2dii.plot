@@ -45,14 +45,3 @@ labs_techmix <- function(p) {
       title = glue("Current and Future Technology Mix for the {sector} Sector")
     )
 }
-
-#' @examples
-#' format_label_techmix(c("corporate_economy", "target_sds"))
-#' # Weird case
-#' format_label_techmix(c("corporate_._economy", "target_sds_abc"))
-#' @noRd
-format_label_techmix <- function(x) {
-  out <- recode_metric(x)
-  out <- to_title(out)
-  out
-}

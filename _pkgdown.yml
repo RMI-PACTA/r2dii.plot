@@ -69,6 +69,10 @@ reference:
       - starts_with("theme_")
       - has_concept("r2dii scales")
 
+  - title: Convert labels
+    contents:
+      - to_title
+
   - title: Datasets
     contents:
       - has_concept("datasets")

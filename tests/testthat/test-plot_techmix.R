@@ -214,3 +214,57 @@ test_that("With random order of data ouputs plot with labels in the right order"
   right_order <- c("target_sds", "corporate_economy", "projected")
   expect_equal(p$plot_env$labels, right_order)
 })
+
+
+test_that("is sensitive to `convert_label`", {
+  data <- market_share %>%
+    filter(
+      year %in% c(2020, 2025),
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    )
+
+  labels_def <- plot_techmix(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_techmix(data, convert_label = toupper) %>%
+    unique_plot_data("label")
+
+  expect_false(identical(labels_def, labels_mod))
+})
+
+test_that("is sensitive to `span_5yr`", {
+  data <- market_share %>%
+    filter(
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    )
+  abort_if_year_range_is_5yr_already(data)
+
+  p_f <- plot_techmix(data, span_5yr = FALSE)
+  expect_false(diff(year_range(p_f)) == 5)
+
+  p_t <- plot_techmix(data, span_5yr = TRUE)
+  expect_true(diff(year_range(p_t)) == 5)
+})
+
+test_that("is sensitive to `convert_tech_label`", {
+  data <- market_share %>%
+    filter(
+      year %in% c(2020, 2025),
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    )
+
+  labels_def <- plot_techmix(data) %>%
+    unique_plot_data("label_tech")
+  labels_mod <- plot_techmix(data, convert_tech_label = toupper) %>%
+    unique_plot_data("label_tech")
+
+  expect_false(identical(labels_def, labels_mod))
+})

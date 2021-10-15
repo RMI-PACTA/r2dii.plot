@@ -19,6 +19,6 @@ utils::globalVariables(c(
 ))
 
 # Re-implement tibble::as_tibble_col to avoid adding tibble to Imports
-as_tibble_col <- function (x, column_name = "value") {
+as_tibble_col <- function(x, column_name = "value") {
   tibble(`:=`(!!column_name, x))
 }
