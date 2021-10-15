@@ -39,7 +39,7 @@ y-axis labels. For example:
 \item{convert_tech_label}{A symbol. The unquoted name of a function to apply
 to technology legend labels. For example, to convert labels to uppercase
 use \code{convert_tech_label = toupper}. To get the default behavior of
-\code{qplot_techmix()} use \code{convert_label = spell_out_technology}.}
+\code{qplot_techmix()} use \code{convert_tech_label = spell_out_technology}.}
 }
 \value{
 An object of class "ggplot".
@@ -58,6 +58,12 @@ data <- subset(
 )
 
 plot_techmix(data)
+
+# plot with `qplot_techmix()` parameters
+plot_techmix(data,
+span_5yr = TRUE,
+convert_label = format_label_techmix,
+convert_tech_label = spell_out_technology)
 }
 \seealso{
 \link{market_share}.
