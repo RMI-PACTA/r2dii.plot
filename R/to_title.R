@@ -1,4 +1,4 @@
-#' Functions to replicate labels produced with `qplot_*()` functions
+#' Replicate labels produced with `qplot_*()` functions
 #'
 #' * `to_title()` converts labels like [qplot_emission_intensity()].
 #' * `format_metric()` converts labels like [qplot_trajectory()].
