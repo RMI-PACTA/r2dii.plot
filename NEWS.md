@@ -1,5 +1,13 @@
 # r2dii.plot (development version)
 
+* New helpers to replicate with `plot_*()` functions the default labels of
+`qplot_*()` functions:
+
+    - `to_title()`
+    - `format_label()`
+    - `format_label_techmix()`
+    - `spell_out_technology()`
+
 * `plot_trajectory()` now defaults to not center the y-axis around the
 start value.
 
