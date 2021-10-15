@@ -28,7 +28,8 @@ qplot_trajectory <- function(data) {
   check_plot_trajectory(data, env = env)
 
   data %>%
-    prep_trajectory(convert_label = format_metric, span_5yr = TRUE, center_y = TRUE) %>%
+    # prep_trajectory(convert_label = format_metric, span_5yr = TRUE, center_y = TRUE) %>%
+    prep_trajectory(convert_label = identity, span_5yr = TRUE, center_y = TRUE) %>%
     plot_trajectory_impl() %>%
     labs_trajectory()
 }

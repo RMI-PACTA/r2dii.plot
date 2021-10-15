@@ -1,3 +1,16 @@
+test_that("format_metric() converts labels", {
+  data <- tribble(
+               ~input,             ~output,
+          "projected",         "Projected",
+  "corporate_economy", "Corporate Economy",
+         "target_cps",               "CPS",
+         "target_sds",               "SDS",
+         "target_sps",               "SPS"
+  )
+  helper <- format_metric
+  expect_equal(helper(data$input), data$output)
+})
+
 test_that("spell_out_technology() converts techmix labels", {
   data <- tribble(
              ~input,                   ~output,
@@ -6,7 +19,8 @@ test_that("spell_out_technology() converts techmix labels", {
           "coalcap",           "Coal Capacity",
           "xyz_hdv", "Xyz Heavy Duty Vehicles",
   )
-  expect_equal(spell_out_technology(data$input), data$output)
+  helper <- spell_out_technology
+  expect_equal(helper(data$input), data$output)
 })
 
 test_that("recode_metric_techmix() converts labels", {
@@ -20,5 +34,6 @@ test_that("recode_metric_techmix() converts labels", {
        ".target_", "Benchmark",
             "xyz", "Benchmark",
   )
-  expect_equal(recode_metric_techmix(data$input), data$output)
+  helper <- recode_metric_techmix
+  expect_equal(helper(data$input), data$output)
 })
