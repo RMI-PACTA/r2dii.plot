@@ -125,7 +125,7 @@ p <- matched %>%
   subset(sector == "cement") %>%
   plot_emission_intensity(convert_label = to_title, span_5yr = TRUE) +
   labs(
-    title = glue("Emission Intensity Trend for the Cement Sector"),
+    title = "Emission Intensity Trend for the Cement Sector",
     x = "Year",
     y = "Tons of CO2 per Ton of Production Unit"
   )
