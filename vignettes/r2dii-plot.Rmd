@@ -44,6 +44,7 @@ matched <- loanbook %>%
   match_name(ald) %>%
   prioritize() # Remember to validate matches (see `?prioritize`)
 ```
+
 r2dii.plot supports three kinds of plots -- emission intensity, techmix, and
 trajectory. Each plot can be created using two types of functions: `qplot_*()`
 for standardized plots and `plot_*()` for 'bare' plots leaving the customization 
@@ -100,11 +101,10 @@ matched %>%
 
 ## Plots
 
-The `plot_*()` functions show the data as they are and allow you to customize by:
-* using their parameters, 
-* modifying the input (for example, by adding a column 'label' or 'label_tech' 
-for changing the data labels) 
-* using `ggplot2` functions.
+Plots created with `plot_*()` functions show the data as they are. To customize
+these plots you can use three strategies: 1) Use parameters of `plot_*()`, 2)
+use `ggplot2` functions, and 3) Modify the input `data`. This section shows the
+three strategies applied to different functions of the `plot_*()` family.
 
 The basic output of `plot_emission_intensity()` looks rather unappealing.
 
@@ -116,12 +116,8 @@ p <- matched %>%
 p
 ```
 
-You can use the parameters of `plot_*()` function to retain some of the
-properties of `qplot_*` and modify others (see the documentation of each
-function for details). For example, here is the output of
-`plot_emission_intensity()` with parameters replicating the behavior of
-`qplot_emission_intensity()`. (Note that the plot labels were added manually
-using the `ggplot2::labs()` function and not using function parameters.)
+You can use parameters of `plot_emission_intensity()` to replicate features of
+`qplot_emission_intensity()`, and add plot labels with `ggplot2::labs()`.
 
 ```{r}
 p <- matched %>%
@@ -136,21 +132,20 @@ p <- matched %>%
 p
 ```
 
-You can polish your plot by modifying the input and the output `ggplot` object. 
-Your options are limitless but these are some typical things you may do:
+You can polish your plot by modifying the input `data` and output "ggplot"
+object. Your options are limitless but these are some typical things you may do:
 
 * Change the time span.
 * Add custom labels by modifying the column 'metric' and technology of 
 `market_share`-like data.
 * Add a title and a subtitle. 
 * Change x and y axis labels.
-* Customize the colours and legend labels with `ggplot2::scale_colour_manual()` 
-or `r2dii.plot` `scale_*` function family (See 'Styling functions' section of 
-this document).
+* Customize the colours and legend labels with `ggplot2::scale_colour_manual()`
+or `r2dii.plot::scale_*()` functions (see [Styling functions]).
 
 For example, here is how you might customize each of the three kinds of plots:
 
-* `plot_emission_intensity()`
+* `plot_emission_intensity()`.
 
 ```{r}
 data <- sda %>%
@@ -198,9 +193,7 @@ matched %>%
     x = "Year",
     y = "Production normalized to start year"
   ) +
-  theme(
-    plot.margin = unit(c(0.5, 6, 0.5, 1), "cm")
-  )
+  theme(plot.margin = unit(c(0.5, 6, 0.5, 1), "cm"))
 ```
 
 * `plot_techmix()`.
@@ -231,14 +224,13 @@ plot_techmix(data) +
 
 ## Styling functions
 
-On top of the plotting functions, the package also contains custom styling
-functions which allow you to use 2DII styling in any plot.
+A number of functions allow you to customize your plots using the 2DII style:
 
-* Use `theme_2dii()` to display non-data content in 2DII style.
+* Use `theme_2dii()` to display non-data content.
 
 ```{r}
-# plot change in production plans over the next 5 years for technologies in
-# 'power' sector
+# focus on production plans for technologies in the 'power', globally, for 5
+# years since 2020
 data <- market_share %>%
   filter(
     metric == "projected",
@@ -253,12 +245,12 @@ ggplot(data, aes(x = factor(year), y = production)) +
   theme_2dii()
 ```
 
-* Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply 2DII colour
-palette to your chart.
+* Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply the 2DII colour
+palette.
 
 ```{r}
-# plot planned renewables technology production over time for portfolio
-# ("projected") and scenarios
+# focus on planned production of renewable technologies, for portfolio
+# ("projected") and scenarios, over time
 data <- market_share %>%
   filter(
     metric != "corporate_economy",
@@ -273,11 +265,11 @@ ggplot(data, aes(x = year, y = production, color = metric)) +
   theme_2dii()
 ```
 
-* `Use scale_colour_r2dii_sector()` and `scale_fill_r2dii_sector()` to apply
-2DII sector colour palette to your chart.
+* Use `scale_colour_r2dii_sector()` and `scale_fill_r2dii_sector()` to apply
+the 2DII colour palette for sectors.
 
 ```{r}
-# plot change in production plans over the next 5 years per sector
+# focus on change in production plans, per sector, for 5 years since 2020
 data <- market_share %>%
   filter(
     metric == "projected",
@@ -294,12 +286,12 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
   facet_wrap(~sector)
 ```
 
-* Use `scale_colour_r2dii_fill()` and `scale_fill_r2dii_fill()` to apply 2DII
-technology colour palette to your chart.
+* Use `scale_colour_r2dii_fill()` and `scale_fill_r2dii_fill()` to apply the
+2DII colour palette for technologies.
 
 ```{r}
-# plot change in production plans over the next 5 years for technologies in
-# 'power' sector
+# plot change in production plans, for technologies in the 'power' sector, for 5
+# years since 2020
 data <- market_share %>%
   filter(
     metric == "projected",
