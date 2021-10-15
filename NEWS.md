@@ -41,14 +41,14 @@ Bug fixes
 
 * The 'Get started' section of the website works again.
 
-* `theme_2dii()` now correctly uses the 'base_size' argument.
+* `theme_2dii()` now correctly uses the `base_size` argument.
 
 # r2dii.plot 0.1.0
 
 * `plot_techmix()` and `qplot_techmix()` always output the same bars' order
 (#365).
 
-* Data labels can be now modified by adding a column 'label' and 'label_tech'
+* Data labels can be now modified by adding a column `label` and `label_tech`
 to input data.
 
 * The new `qplot_trajectory()`, `qplot_techmix()`, and
