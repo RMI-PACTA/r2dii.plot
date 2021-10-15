@@ -38,7 +38,8 @@
 #' plot_techmix(data)
 #'
 #' # plot with `qplot_techmix()` parameters
-#' plot_techmix(data,
+#' plot_techmix(
+#'   data,
 #'   span_5yr = TRUE,
 #'   convert_label = recode_metric_techmix,
 #'   convert_tech_label = spell_out_technology
