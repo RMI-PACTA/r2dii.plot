@@ -11,3 +11,4 @@
 ^\.Rproj\.user$
 ^Rplots\.pdf$
 ^vignettes/r2dii-plot\.Rmd$
+^man-roxygen$

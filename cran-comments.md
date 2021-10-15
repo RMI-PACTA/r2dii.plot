@@ -1,6 +1,6 @@
 ## Test environments
 
-* ubuntu 18.04 (local), R 4.1.0
+* ubuntu 18.04 (local), R-release
 * ubuntu 18.04 (github actions), R-oldrel, R-release, R-devel
 * macOS-latest (github actions), R-release
 * windows-latest (github actions), R-oldrel, R-release

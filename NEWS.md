@@ -1,9 +1,17 @@
 # r2dii.plot (development version)
 
+* New helpers to replicate with `plot_*()` functions the default labels of
+`qplot_*()` functions:
+
+    - `to_title()`
+    - `format_metric()`
+    - `recode_metric_techmix()`
+    - `spell_out_technology()`
+
 * `plot_trajectory()` now defaults to not center the y-axis around the
 start value.
 
-* `plot_*()` functions gaines new parameters to help replicate some of
+* `plot_*()` functions gains new parameters to help replicate some of
 `qplot_*()` behaviors.
 
 * New functions to easily apply 2DII colour palettes to any plot (#28
