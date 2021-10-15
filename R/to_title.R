@@ -1,8 +1,8 @@
 #' Functions to replicate labels produced with `qplot_*()` functions
 #'
 #' * `to_title()` converts labels like [qplot_emission_intensity()].
-#' * `format_metric()` converts labels like [qplot_trajectory()].
-#' * `recode_metric_techmix()` converts labels like [qplot_techmix()].
+#' * `format_label()` converts labels like [qplot_trajectory()].
+#' * `format_label_techmix()` converts labels like [qplot_techmix()].
 #' * `spell_out_technology()` converts technology labels like [qplot_techmix()].
 #'
 #' @param x A character vector.
@@ -13,9 +13,9 @@
 #' @examples
 #' to_title(c("a.string", "another_string", "b.STRING"))
 #'
-#' format_metric(c("projected", "target_xyz", "whatever"))
+#' format_label(c("projected", "target_xyz", "whatever"))
 #'
-#' recode_metric_techmix(c("projected", "target_xyz", "whatever"))
+#' format_label_techmix(c("projected", "target_xyz", "whatever"))
 #'
 #' spell_out_technology(c("gas", "coalcap"))
 to_title <- function(x) {
@@ -37,7 +37,7 @@ capitalize_single_letters <- function(words) {
 
 #' @rdname to_title
 #' @export
-format_metric <- function(x) {
+format_label <- function(x) {
   out <- sub("target_", "", x)
   out <- to_title(out)
   if_else(is_scenario(x), toupper(out), out)
@@ -45,7 +45,7 @@ format_metric <- function(x) {
 
 #' @rdname to_title
 #' @export
-recode_metric_techmix <- function(x) {
+format_label_techmix <- function(x) {
   out <- recode_metric(x)
   out <- to_title(out)
   out
@@ -65,6 +65,6 @@ spell_out_technology <- function(x) {
   label <- to_title(x)
   label <- sub("^(?i)ice", "ICE", label)
   label <- sub("cap$", " Capacity", label)
-  label <- sub("Hdv$", "Heavy Duty Vehicles", label)
+  label <- sub("_hdv$", "Heavy Duty Vehicles", label)
   label
 }

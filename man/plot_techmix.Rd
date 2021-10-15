@@ -33,7 +33,7 @@ y-axis labels. For example:
 \itemize{
 \item To convert labels to uppercase use \code{convert_label = toupper}.
 \item To get the default behavior of \code{qplot_techmix()} use
-\code{convert_label = recode_metric_techmix}.
+\code{convert_label = format_label_techmix}.
 }}
 
 \item{convert_tech_label}{A symbol. The unquoted name of a function to apply
@@ -62,7 +62,7 @@ plot_techmix(data)
 # plot with `qplot_techmix()` parameters
 plot_techmix(data,
   span_5yr = TRUE,
-  convert_label = recode_metric_techmix,
+  convert_label = format_label_techmix,
   convert_tech_label = spell_out_technology
 )
 }

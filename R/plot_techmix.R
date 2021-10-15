@@ -14,7 +14,7 @@
 #'   `FALSE` to impose no restriction.
 #' @template convert_label
 #' @templateVar fun qplot_techmix
-#' @templateVar value recode_metric_techmix
+#' @templateVar value format_label_techmix
 #' @param convert_tech_label A symbol. The unquoted name of a function to apply
 #'   to technology legend labels. For example, to convert labels to uppercase
 #'   use `convert_tech_label = toupper`. To get the default behavior of
@@ -40,7 +40,7 @@
 #' # plot with `qplot_techmix()` parameters
 #' plot_techmix(data,
 #'   span_5yr = TRUE,
-#'   convert_label = recode_metric_techmix,
+#'   convert_label = format_label_techmix,
 #'   convert_tech_label = spell_out_technology
 #' )
 plot_techmix <- function(data,
