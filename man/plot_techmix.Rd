@@ -61,9 +61,10 @@ plot_techmix(data)
 
 # plot with `qplot_techmix()` parameters
 plot_techmix(data,
-span_5yr = TRUE,
-convert_label = format_label_techmix,
-convert_tech_label = spell_out_technology)
+  span_5yr = TRUE,
+  convert_label = format_label_techmix,
+  convert_tech_label = spell_out_technology
+)
 }
 \seealso{
 \link{market_share}.

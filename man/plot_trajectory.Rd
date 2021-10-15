@@ -56,8 +56,9 @@ plot_trajectory(data)
 
 # plot with `qplot_trajectory()` parameters
 plot_trajectory(data,
-span_5yr = TRUE,
-convert_label = format_label)
+  span_5yr = TRUE,
+  convert_label = format_label
+)
 }
 \seealso{
 \link{market_share}.

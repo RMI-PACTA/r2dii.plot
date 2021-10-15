@@ -39,8 +39,9 @@ plot_emission_intensity(data)
 
 # plot with `qplot_emission_intensity()` parameters
 plot_emission_intensity(data,
-span_5yr = TRUE,
-convert_label = to_title)
+  span_5yr = TRUE,
+  convert_label = to_title
+)
 }
 \seealso{
 \link{sda}.
