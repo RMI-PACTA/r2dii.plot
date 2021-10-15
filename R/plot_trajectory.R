@@ -34,8 +34,9 @@
 #'
 #' # plot with `qplot_trajectory()` parameters
 #' plot_trajectory(data,
-#' span_5yr = TRUE,
-#' convert_label = format_label)
+#'   span_5yr = TRUE,
+#'   convert_label = format_label
+#' )
 plot_trajectory <- function(data,
                             span_5yr = FALSE,
                             convert_label = identity,

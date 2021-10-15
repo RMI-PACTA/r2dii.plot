@@ -39,9 +39,10 @@
 #'
 #' # plot with `qplot_techmix()` parameters
 #' plot_techmix(data,
-#' span_5yr = TRUE,
-#' convert_label = format_label_techmix,
-#' convert_tech_label = spell_out_technology)
+#'   span_5yr = TRUE,
+#'   convert_label = format_label_techmix,
+#'   convert_tech_label = spell_out_technology
+#' )
 plot_techmix <- function(data,
                          span_5yr = FALSE,
                          convert_label = identity,
