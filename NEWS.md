@@ -2,6 +2,9 @@
 
 New features
 
+* `plot_*()` functions gain new parameters to help replicate some of
+`qplot_*()` behaviors.
+
 * New helpers to replicate with `plot_*()` functions the default labels of
 `qplot_*()` functions:
 
@@ -9,9 +12,6 @@ New features
     - `format_metric()`
     - `recode_metric_techmix()`
     - `spell_out_technology()`
-
-* `plot_*()` functions gain new parameters to help replicate some of
-`qplot_*()` behaviors.
 
 * New functions to easily apply 2DII colour palettes to any plot (#28
 @cjyetman):
