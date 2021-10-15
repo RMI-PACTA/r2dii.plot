@@ -47,20 +47,20 @@ matched <- loanbook %>%
 
 r2dii.plot supports three kinds of plots -- emission intensity, techmix, and
 trajectory. Each plot can be created using two types of functions: `qplot_*()`
-for standardized plots and `plot_*()` for 'bare' plots leaving the customization 
-to the user. 
+for standardized plots and `plot_*()` for 'bare' plots leaving the customization
+to the user.
 
-For each kind, you'll need to subset the specific rows you want to
-plot (for example with `subset()` or `dplyr:filter()`). For details see the 
-documented "Requirements" of the argument `data` of each `plot_*()` or 
-`qplot_*()` function (e.g. see `?plot_emission_intensity`). If you forget to 
-meet the `data` requirements the error message should guide you.
+For each kind, you'll need to subset the specific rows you want to plot (for
+example with `subset()` or `dplyr:filter()`). For details see the documented
+"Requirements" of the argument `data` of each `plot_*()` or `qplot_*()` function
+(e.g. see `?plot_emission_intensity`). If you forget to meet the `data`
+requirements the error message should guide you.
 
 ## 'Quick' plots
 
-Quick plots allow you to create a good looking plot without extensive knowledge 
-of other R packages. They are perfect to have a quick look into the data and for 
-users who are interested in standard PACTA visualizations. Their common 
+Quick plots allow you to create a good looking plot without extensive knowledge
+of other R packages. They are perfect to have a quick look into the data and for
+users who are interested in standard PACTA visualizations. Their common
 characteristics are:
 
 * 5 year time span.
@@ -136,7 +136,7 @@ You can polish your plot by modifying the input `data` and output "ggplot"
 object. Your options are limitless but these are some typical things you may do:
 
 * Change the time span.
-* Add custom labels by modifying the column 'metric' and technology of 
+* Add custom labels by modifying the column 'metric' and technology of
 `market_share`-like data.
 * Add a title and a subtitle. 
 * Change x and y axis labels.
