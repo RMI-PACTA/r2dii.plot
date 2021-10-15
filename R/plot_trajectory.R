@@ -10,7 +10,7 @@
 #'   `FALSE` to impose no restriction.
 #' @template convert_label
 #' @templateVar fun qplot_trajectory
-#' @templateVar value format_label
+#' @templateVar value format_metric
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
 #'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.
@@ -35,7 +35,7 @@
 #' # plot with `qplot_trajectory()` parameters
 #' plot_trajectory(data,
 #'   span_5yr = TRUE,
-#'   convert_label = format_label
+#'   convert_label = format_metric
 #' )
 plot_trajectory <- function(data,
                             span_5yr = FALSE,
