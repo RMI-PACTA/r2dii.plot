@@ -155,7 +155,18 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#r2diiplot-development-version" class="anchor"></a>r2dii.plot (development version)<small> Unreleased </small>
 </h1>
+<p>New features</p>
 <ul>
+<li>
+<p>New helpers to replicate with <code>plot_*()</code> functions the default labels of <code>qplot_*()</code> functions:</p>
+<ul>
+<li><code><a href="../reference/to_title.html">to_title()</a></code></li>
+<li><code><a href="../reference/to_title.html">format_metric()</a></code></li>
+<li><code><a href="../reference/to_title.html">recode_metric_techmix()</a></code></li>
+<li><code><a href="../reference/to_title.html">spell_out_technology()</a></code></li>
+</ul>
+</li>
+<li><p><code>plot_*()</code> functions gain new parameters to help replicate some of <code>qplot_*()</code> behaviors.</p></li>
 <li>
 <p>New functions to easily apply 2DII colour palettes to any plot (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/28'>#28</a> <a href='https://github.com/cjyetman'>@cjyetman</a>):</p>
 <ul>
@@ -168,6 +179,19 @@
 </ul>
 </li>
 </ul>
+<p>Enhancements</p>
+<ul>
+<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> now defaults to not center the y-axis around the start value.</p></li>
+<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> now displays benchmark trajectory lines with improved visibility (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/389'>#389</a> <a href='https://github.com/Antoine-Lalechere'>@Antoine-Lalechere</a>).</p></li>
+<li><p>The website now links to the blog where we advertise exciting news.</p></li>
+<li><p>The website now links to other r2dii packages (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/381'>#381</a> <a href='https://github.com/georgeharris2deg'>@georgeharris2deg</a>).</p></li>
+</ul>
+<p>Bug fixes</p>
+<ul>
+<li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> now displays only integer years on the x-axis (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/403'>#403</a>).</p></li>
+<li><p>The ‘Get started’ section of the website works again.</p></li>
+<li><p><code><a href="../reference/theme_2dii.html">theme_2dii()</a></code> now correctly uses the <code>base_size</code> argument.</p></li>
+</ul>
 </div>
     <div id="r2diiplot-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
@@ -175,7 +199,7 @@
 </h1>
 <ul>
 <li><p><code><a href="../reference/plot_techmix.html">plot_techmix()</a></code> and <code><a href="../reference/qplot_techmix.html">qplot_techmix()</a></code> always output the same bars’ order (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/365'>#365</a>).</p></li>
-<li><p>Data labels can be now modified by adding a column ‘label’ and ‘label_tech’ to input data.</p></li>
+<li><p>Data labels can be now modified by adding a column <code>label</code> and <code>label_tech</code> to input data.</p></li>
 <li><p>The new <code><a href="../reference/qplot_trajectory.html">qplot_trajectory()</a></code>, <code><a href="../reference/qplot_techmix.html">qplot_techmix()</a></code>, and <code><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity()</a></code> output polished plots (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/264'>#264</a>).</p></li>
 <li><p><code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code>, <code><a href="../reference/plot_techmix.html">plot_techmix()</a></code>, and <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> now output more basic plots.</p></li>
 <li><p>Error messages now more closely follow the tidyverse style guide (<a href='https://github.com/2DegreesInvesting/r2dii.plot/issues/324'>#324</a>).</p></li>

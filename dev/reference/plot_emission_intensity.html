@@ -157,7 +157,7 @@
     <p>Create an emission intensity plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_emission_intensity</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_emission_intensity</span><span class='op'>(</span><span class='va'>data</span>, span_5yr <span class='op'>=</span> <span class='cn'>FALSE</span>, convert_label <span class='op'>=</span> <span class='va'>identity</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +168,21 @@
 <li><p>The structure must be like <a href='sda.html'>sda</a>.</p></li>
 <li><p>The column <code>sector</code> must have a single value (e.g. "cement").</p></li>
 <li><p>(Optional) If present, the column <code>label</code> is used for data labels.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>span_5yr</th>
+      <td><p>Logical. Use <code>TRUE</code> to restrict the time span to 5 years from
+the start year (the default behavior of <code><a href='qplot_emission_intensity.html'>qplot_emission_intensity()</a></code>), or use
+<code>FALSE</code> to impose no restriction.</p></td>
+    </tr>
+    <tr>
+      <th>convert_label</th>
+      <td><p>A symbol. The unquoted name of a function to apply to
+y-axis labels. For example:</p><ul>
+<li><p>To convert labels to uppercase use <code>convert_label = toupper</code>.</p></li>
+<li><p>To get the default behavior of <code><a href='qplot_emission_intensity.html'>qplot_emission_intensity()</a></code> use
+<code>convert_label = to_title</code>.</p></li>
 </ul></td>
     </tr>
     </table>
@@ -183,7 +198,13 @@
     <pre class="examples"><div class='input'><span class='co'># `data` must meet documented "Requirements"</span>
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>sda</span>, <span class='va'>sector</span> <span class='op'>==</span> <span class='st'>"cement"</span><span class='op'>)</span>
 <span class='fu'>plot_emission_intensity</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Removing data before 2020 -- the start year of 'projected'.</span></div><div class='img'><img src='plot_emission_intensity-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>Removing data before 2020 -- the start year of 'projected'.</span></div><div class='img'><img src='plot_emission_intensity-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot with `qplot_emission_intensity()` parameters</span>
+<span class='fu'>plot_emission_intensity</span><span class='op'>(</span><span class='va'>data</span>,
+  span_5yr <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  convert_label <span class='op'>=</span> <span class='va'>to_title</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Removing data before 2020 -- the start year of 'projected'.</span></div><div class='img'><img src='plot_emission_intensity-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
