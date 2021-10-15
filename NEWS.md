@@ -10,7 +10,7 @@ New features
     - `recode_metric_techmix()`
     - `spell_out_technology()`
 
-* `plot_*()` functions gains new parameters to help replicate some of
+* `plot_*()` functions gain new parameters to help replicate some of
 `qplot_*()` behaviors.
 
 * New functions to easily apply 2DII colour palettes to any plot (#28
@@ -31,13 +31,15 @@ start value.
 * `plot_trajectory()` now displays benchmark trajectory lines with improved 
 visibility (#389 @Antoine-Lalechere).
 
+* The website now links to the blog where we advertise exciting news.
+
 Bug fixes
 
 * `plot_trajectory()` now displays only integer years on the x-axis (#403).
 
 * The 'Get started' section of the website works again.
 
-* `theme_2dii()` correctly uses the 'base_size' argument now.
+* `theme_2dii()` now correctly uses the 'base_size' argument.
 
 # r2dii.plot 0.1.0
 
