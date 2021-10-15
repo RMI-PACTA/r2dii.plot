@@ -71,32 +71,35 @@ characteristics are:
 Use `qplot_emission_intensity()` with `sda`-like data.
 
 ```{r}
-matched %>%
+data <- matched %>%
   target_sda(ald, co2_intensity_scenario = scenario) %>%
-  filter(sector == "cement") %>%
-  qplot_emission_intensity()
+  filter(sector == "cement")
+
+qplot_emission_intensity(data)
 ```
 
 Use `qplot_trajectory()` with `market_share`-like data.
 
 ```{r}
-matched %>%
+data <- matched %>%
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
-  filter(technology == "renewablescap", region == "global") %>%
-  qplot_trajectory()
+  filter(technology == "renewablescap", region == "global")
+
+qplot_trajectory(data)
 ```
 
 Use `qplot_techmix()` with `market_share`-like data.
 
 ```{r}
-matched %>%
+data <- matched %>%
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
   filter(
     sector == "power",
     region == "global",
     metric %in% c("projected", "corporate_economy", "target_sds")
-  ) %>%
-  qplot_techmix()
+  )
+
+qplot_techmix(data)
 ```
 
 ## Plots
@@ -109,27 +112,27 @@ three strategies applied to different functions of the `plot_*()` family.
 The basic output of `plot_emission_intensity()` looks rather unappealing.
 
 ```{r}
-p <- matched %>%
+data <- matched %>%
   target_sda(ald, co2_intensity_scenario = scenario) %>%
-  filter(sector == "cement") %>%
-  plot_emission_intensity()
-p
+  filter(sector == "cement")
+
+plot_emission_intensity(data)
 ```
 
 You can use parameters of `plot_emission_intensity()` to replicate features of
 `qplot_emission_intensity()`, and add plot labels with `ggplot2::labs()`.
 
 ```{r}
-p <- matched %>%
+data <- matched %>%
   target_sda(ald, co2_intensity_scenario = scenario) %>%
-  filter(sector == "cement") %>%
-  plot_emission_intensity(convert_label = to_title, span_5yr = TRUE) +
+  filter(sector == "cement")
+
+plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
   labs(
     title = "Emission Intensity Trend for the Cement Sector",
     x = "Year",
     y = "Tons of CO2 per Ton of Production Unit"
   )
-p
 ```
 
 You can polish your plot by modifying the input `data` and output "ggplot"
@@ -169,7 +172,7 @@ plot_emission_intensity(data) +
 * `plot_trajectory()`.
 
 ```{r}
-matched %>%
+data <- matched %>%
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
   filter(
     technology == "renewablescap",
@@ -185,8 +188,9 @@ matched %>%
       metric == "target_cps" ~ "Current Policy Scen.",
       TRUE ~ metric
     )
-  ) %>%
-  plot_trajectory() +
+  )
+
+plot_trajectory(data) +
   scale_x_continuous(n.breaks = 3) +
   labs(
     title = "Portfolio Scenario Alignment for Renewables Technology",
@@ -285,6 +289,8 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
 2DII colour palette for technologies.
 
 ```{r}
+technologies <- c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
+
 data <- market_share %>%
   filter(
     metric == "projected",
@@ -292,15 +298,9 @@ data <- market_share %>%
     region == "global",
     year %in% c(2020, 2025)
   ) %>%
-  mutate(
-    technology = factor(
-      technology,
-      levels = c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
-    )
-  ) %>%
+  mutate(technology = factor(technology, levels = technologies)) %>%
   arrange(technology)
 
-technologies <- c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
 ggplot(data, aes(x = factor(year), y = production, fill = technology)) +
   geom_col() +
   scale_fill_r2dii_tech("power", technologies) +
