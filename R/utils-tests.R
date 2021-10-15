@@ -74,9 +74,12 @@ year_range <- function(p) {
 }
 
 abort_if_year_range_is_5yr_already <- function(data) {
+  # This is an assertion inside a test
+  # nocov start
   if (diff(range(data$year)) == 5) {
     stop("The default year range must not be 5.", call. = FALSE)
   }
+  # nocov end
 
   invisible(data)
 }
