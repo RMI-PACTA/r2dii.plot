@@ -242,6 +242,7 @@ test_that("is sensitive to `span_5yr`", {
       region == "global",
       metric %in% c("projected", "corporate_economy", "target_sds")
     )
+  abort_if_year_range_is_5yr_already(data)
 
   p_f <- plot_techmix(data, span_5yr = FALSE)
   expect_false(diff(year_range(p_f)) == 5)
