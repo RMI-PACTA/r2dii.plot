@@ -33,7 +33,7 @@ visibility (#389 @Antoine-Lalechere).
 
 * The website now links to the blog where we advertise exciting news.
 
-* The website now links to other r2dii packages.
+* The website now links to other r2dii packages (#381 @georgeharris2deg).
 
 Bug fixes
 
