@@ -65,6 +65,6 @@ spell_out_technology <- function(x) {
   label <- to_title(x)
   label <- sub("^(?i)ice", "ICE", label)
   label <- sub("cap$", " Capacity", label)
-  label <- sub("_hdv$", "Heavy Duty Vehicles", label)
+  label <- sub("Hdv$", "Heavy Duty Vehicles", label)
   label
 }
