@@ -229,8 +229,6 @@ A number of functions allow you to customize your plots using the 2DII style:
 * Use `theme_2dii()` to display non-data content.
 
 ```{r}
-# focus on production plans for technologies in the 'power', globally, for 5
-# years since 2020
 data <- market_share %>%
   filter(
     metric == "projected",
@@ -249,8 +247,6 @@ ggplot(data, aes(x = factor(year), y = production)) +
 palette.
 
 ```{r}
-# focus on planned production of renewable technologies, for portfolio
-# ("projected") and scenarios, over time
 data <- market_share %>%
   filter(
     metric != "corporate_economy",
@@ -269,7 +265,6 @@ ggplot(data, aes(x = year, y = production, color = metric)) +
 the 2DII colour palette for sectors.
 
 ```{r}
-# focus on change in production plans, per sector, for 5 years since 2020
 data <- market_share %>%
   filter(
     metric == "projected",
@@ -290,8 +285,6 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
 2DII colour palette for technologies.
 
 ```{r}
-# plot change in production plans, for technologies in the 'power' sector, for 5
-# years since 2020
 data <- market_share %>%
   filter(
     metric == "projected",
