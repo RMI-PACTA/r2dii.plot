@@ -4,8 +4,8 @@
 `qplot_*()` functions:
 
     - `to_title()`
-    - `format_label()`
-    - `format_label_techmix()`
+    - `format_metric()`
+    - `recode_metric_techmix()`
     - `spell_out_technology()`
 
 * `plot_trajectory()` now defaults to not center the y-axis around the
