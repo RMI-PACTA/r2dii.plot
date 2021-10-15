@@ -13,9 +13,9 @@ scale_fill_r2dii_sector(sectors = NULL, ...)
 \arguments{
 \item{sectors}{A character vector. Specifies sector colours to use and their
 order. Run \code{unique(r2dii.plot:::sector_colours$label)} to see available
-labels. Similar to \code{value} parameter in \code{ggplot::scale_colour_manual()}.}
+labels. Similar to \code{value} parameter in \code{\link[ggplot2:scale_manual]{ggplot2::scale_colour_manual()}}.}
 
-\item{...}{Other parameters passed on to \code{ggplot2::discrete_scale()}.}
+\item{...}{Other parameters passed on to \code{\link[ggplot2:discrete_scale]{ggplot2::discrete_scale()}}.}
 }
 \value{
 An object of class "ScaleDiscrete".

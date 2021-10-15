@@ -9,8 +9,8 @@
 #'   colours and their order. Run
 #'   `unique(r2dii.plot:::technology_colours$technology)` to see available
 #'   technologies (pay attention if they match the `sector`). Similar to `value`
-#'   parameter in `ggplot::scale_colour_manual()`.
-#' @param ... Other parameters passed on to `ggplot2::discrete_scale()`.
+#'   parameter in [ggplot2::scale_colour_manual()].
+#' @param ... Other parameters passed on to [ggplot2::discrete_scale()].
 #'
 #' @return An object of class "ScaleDiscrete".
 #' @export

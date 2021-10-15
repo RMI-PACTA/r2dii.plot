@@ -5,8 +5,8 @@
 #'
 #' @param sectors A character vector. Specifies sector colours to use and their
 #'   order. Run `unique(r2dii.plot:::sector_colours$label)` to see available
-#'   labels. Similar to `value` parameter in `ggplot::scale_colour_manual()`.
-#' @param ... Other parameters passed on to `ggplot2::discrete_scale()`.
+#'   labels. Similar to `value` parameter in [ggplot2::scale_colour_manual()].
+#' @param ... Other parameters passed on to [ggplot2::discrete_scale()].
 #'
 #' @return An object of class "ScaleDiscrete".
 #' @export
