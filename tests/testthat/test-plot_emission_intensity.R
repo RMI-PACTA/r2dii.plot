@@ -45,3 +45,25 @@ test_that("with too many lines to plot errors gracefully", {
     expect_snapshot_error(plot_emission_intensity(data))
   )
 })
+
+test_that("is sensitive to `convert_label`", {
+  data <- filter(sda, sector == "cement")
+
+  labels_def <- plot_emission_intensity(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_emission_intensity(data, convert_label = toupper) %>%
+    unique_plot_data("label")
+
+  expect_false(identical(labels_def, labels_mod))
+})
+
+test_that("is sensitive to `span_5yr`", {
+  data <- filter(sda, sector == "cement")
+  abort_if_year_range_is_5yr_already(data)
+
+  p_f <- plot_emission_intensity(data, span_5yr = FALSE)
+  expect_false(diff(year_range(p_f)) == 5)
+
+  p_t <- plot_emission_intensity(data, span_5yr = TRUE)
+  expect_true(diff(year_range(p_t)) == 5)
+})

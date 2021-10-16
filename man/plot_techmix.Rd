@@ -4,7 +4,12 @@
 \alias{plot_techmix}
 \title{Create a techmix plot}
 \usage{
-plot_techmix(data)
+plot_techmix(
+  data,
+  span_5yr = FALSE,
+  convert_label = identity,
+  convert_tech_label = identity
+)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -18,6 +23,23 @@ plot_techmix(data)
 \item (Optional) If present, the column \code{label_tech} is used for technology
 labels.
 }}
+
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_techmix()}), or use
+\code{FALSE} to impose no restriction.}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+y-axis labels. For example:
+\itemize{
+\item To convert labels to uppercase use \code{convert_label = toupper}.
+\item To get the default behavior of \code{qplot_techmix()} use
+\code{convert_label = recode_metric_techmix}.
+}}
+
+\item{convert_tech_label}{A symbol. The unquoted name of a function to apply
+to technology legend labels. For example, to convert labels to uppercase
+use \code{convert_tech_label = toupper}. To get the default behavior of
+\code{qplot_techmix()} use \code{convert_tech_label = spell_out_technology}.}
 }
 \value{
 An object of class "ggplot".
@@ -36,6 +58,14 @@ data <- subset(
 )
 
 plot_techmix(data)
+
+# plot with `qplot_techmix()` parameters
+plot_techmix(
+  data,
+  span_5yr = TRUE,
+  convert_label = recode_metric_techmix,
+  convert_tech_label = spell_out_technology
+)
 }
 \seealso{
 \link{market_share}.

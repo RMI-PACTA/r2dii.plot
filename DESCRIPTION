@@ -1,6 +1,6 @@
 Package: r2dii.plot
 Title: Visualize the Climate Scenario Alignment of a Financial Portfolio
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Monika",
              family = "Furdyna",
@@ -21,11 +21,10 @@ Authors@R:
              role = c("cph", "fnd"),
              email = "contact@2degrees-investing.org"))
 Description: Create plots to visualize the alignment of a corporate
-    lending portfolio to climate change scenarios based on climate
-    indicators (production and emission intensities) across key climate
-    relevant sectors of the 'PACTA' methodology (Paris Agreement Capital
-    Transition Assessment;
-    <https://www.transitionmonitor.com/pacta-for-banks-2020/methodology-and-supporting-materials/>).
+    lending financial portfolio to climate change scenarios based on
+    climate indicators (production and emission intensities) across key
+    climate relevant sectors of the 'PACTA' methodology (Paris Agreement
+    Capital Transition Assessment; <https://2degrees-investing.org/>).
     Financial institutions use 'PACTA' to study how their capital
     allocation decisions align with climate change mitigation goals.
 License: MIT + file LICENSE
@@ -39,7 +38,6 @@ Imports:
     ggplot2,
     ggrepel,
     glue,
-    lubridate,
     magrittr,
     r2dii.data,
     rlang,
@@ -56,4 +54,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

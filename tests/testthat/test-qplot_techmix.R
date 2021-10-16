@@ -7,8 +7,7 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
     metric %in% c("projected", "corporate_economy", "target_sds")
   )
   p <- qplot_techmix(data)
-
-  expect_true(max(p$data$year, na.rm = TRUE) - min(p$data$year, na.rm = TRUE) <= 5)
+  expect_true(diff(year_range(p)) <= 5)
 })
 
 test_that("Outputs pretty labels", {

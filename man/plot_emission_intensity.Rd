@@ -4,7 +4,7 @@
 \alias{plot_emission_intensity}
 \title{Create an emission intensity plot}
 \usage{
-plot_emission_intensity(data)
+plot_emission_intensity(data, span_5yr = FALSE, convert_label = identity)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -12,6 +12,18 @@ plot_emission_intensity(data)
 \item The structure must be like \link{sda}.
 \item The column \code{sector} must have a single value (e.g. "cement").
 \item (Optional) If present, the column \code{label} is used for data labels.
+}}
+
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_emission_intensity()}), or use
+\code{FALSE} to impose no restriction.}
+
+\item{convert_label}{A symbol. The unquoted name of a function to apply to
+y-axis labels. For example:
+\itemize{
+\item To convert labels to uppercase use \code{convert_label = toupper}.
+\item To get the default behavior of \code{qplot_emission_intensity()} use
+\code{convert_label = to_title}.
 }}
 }
 \value{
@@ -24,6 +36,13 @@ Create an emission intensity plot
 # `data` must meet documented "Requirements"
 data <- subset(sda, sector == "cement")
 plot_emission_intensity(data)
+
+# plot with `qplot_emission_intensity()` parameters
+plot_emission_intensity(
+  data,
+  span_5yr = TRUE,
+  convert_label = to_title
+)
 }
 \seealso{
 \link{sda}.

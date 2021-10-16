@@ -10,4 +10,5 @@
 ^README\.Rmd$
 ^\.Rproj\.user$
 ^Rplots\.pdf$
-^vignettes/articles$
+^vignettes/r2dii-plot\.Rmd$
+^man-roxygen$

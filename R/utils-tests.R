@@ -43,9 +43,10 @@ fake_sda <- function(data, ...) {
   )
 }
 
+# Like `purrr::map_df()`. Avoid using purrr just for this function.
 map_df <- function(.x, .f, ...) {
   .f <- rlang::as_function(.f)
-  Reduce(rbind, lapply(.x, .f, ...))
+  Reduce(bind_rows, lapply(.x, .f, ...))
 }
 
 expect_no_error <- function(...) {
@@ -54,4 +55,31 @@ expect_no_error <- function(...) {
 
 expect_no_message <- function(...) {
   testthat::expect_message(..., NA)
+}
+
+# Pull unique values from gg$plot$data
+unique_plot_data <- function(p, name) {
+  g <- ggplot_build(p)
+  unique(g$plot$data[[name]])
+}
+
+# Pull unique values from gg$data[[1]]
+unique_data1 <- function(p, name) {
+  g <- ggplot_build(p)
+  unique(g$data[[1]][[name]])
+}
+
+year_range <- function(p) {
+  range(as.numeric(format(p$data$year, format = "%Y")), na.rm = TRUE)
+}
+
+abort_if_year_range_is_5yr_already <- function(data) {
+  # This is an assertion inside a test
+  # nocov start
+  if (diff(range(data$year)) == 5) {
+    stop("The default year range must not be 5.", call. = FALSE)
+  }
+  # nocov end
+
+  invisible(data)
 }

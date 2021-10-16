@@ -1,5 +1,8 @@
 destination: docs
 
+development:
+  mode: auto
+
 template:
   params:
     bootswatch: flatly
@@ -17,23 +20,40 @@ home:
   - text: Learn more
     href: https://2degrees-investing.org/
 
-
-
 navbar:
-
   type: default
+
+  left:
+  - text: "Get started"
+    href: articles/r2dii-plot.html
+
+  - text: "Reference"
+    href: reference/index.html
+
+  - text: "News"
+    menu:
+    - text: "r2dii blog posts"
+      href: https://2degreesinvesting.github.io/#category:r2dii
+    - text: "----------------------"
+    - text: "Change log"
+      href: news/index.html
 
   right:
     - icon: fa-gavel
       href: https://github.com/MonikaFu
 
+    - text: "Packages"
+      menu:
+      - text: "r2dii.data"
+        href: https://2degreesinvesting.github.io/r2dii.data
+      - text: "r2dii.match"
+        href: https://2degreesinvesting.github.io/r2dii.match
+      - text: "r2dii.analysis"
+        href: https://2degreesinvesting.github.io/r2dii.analysis
+      - text: "r2dii.plot"
+        href: https://2degreesinvesting.github.io/r2dii.plot
     - icon: fa-github
       href: https://github.com/2DegreesInvesting/r2dii.plot
-
-    - text: r2dii
-      href: https://2degreesinvesting.github.io/r2dii/index.html
-
-
 
 reference:
 
@@ -44,9 +64,14 @@ reference:
   - subtitle: Plots
     contents:
       - starts_with("plot_")
-  - subtitle: Other
+  - subtitle: Styling functions
     contents:
       - starts_with("theme_")
+      - has_concept("r2dii scales")
+
+  - title: Convert labels
+    contents:
+      - to_title
 
   - title: Datasets
     contents:

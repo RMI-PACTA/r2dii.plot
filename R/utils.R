@@ -1,33 +1,3 @@
-#' Convert a string to title case
-#'
-#' This function replaces a sequence of non alpha-numeric characters to a single
-#' space, and applies title case to the remaining words.
-#'
-#' @param x A character vector.
-#'
-#' @return A character vector.
-#' @keywords internal
-#' @examples
-#' to_title(c("a.string", "ANOTHER_string"))
-#' to_title(c("a.string", "another_string", "b.STRING"))
-#' @noRd
-to_title <- function(x) {
-  to_title_one <- function(x) {
-    words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
-    # `toTitleCase()` with "a" returns "a", not "A" (a bug in this context)
-    words <- capitalize_single_letters(tools::toTitleCase(words))
-    paste(words, collapse = " ")
-  }
-
-  unlist(lapply(x, to_title_one))
-}
-
-capitalize_single_letters <- function(words) {
-  out <- words
-  out[which(nchar(out) == 1L)] <- toupper(out[which(nchar(out) == 1L)])
-  out
-}
-
 abort_if_multiple <- function(data, x, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
@@ -55,7 +25,7 @@ deparse_1 <- function(expr, collapse = " ", width.cutoff = 500L, ...) {
   paste(deparse(expr, width.cutoff, ...), collapse = collapse)
 }
 
-abort_if_has_zero_rows <- function(data, env = parent.frame()) {
+abort_if_has_zero_rows <- function(data, env) {
   .data <- deparse_1(substitute(data, env = env))
   if (nrow(data) == 0L) {
     abort(c(
@@ -158,7 +128,7 @@ quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 get_common_start_year <- function(data) {
   data %>%
     group_by(.data[[metric(data)]]) %>%
-    summarise(year = min(.data$year)) %>%
+    summarise(year = min(.data$year, na.rm = TRUE)) %>%
     pull(.data$year) %>%
     max()
 }
@@ -203,7 +173,7 @@ anchor <- function(x) paste0("^", x, "$")
 
 drop_before_start_year <- function(data) {
   start_year <- get_common_start_year(data)
-  if (!min(data$year) < start_year) {
+  if (!min(data$year, na.rm = TRUE) < start_year) {
     return(data)
   }
 
@@ -238,26 +208,10 @@ beautify <- function(data, x) {
   mutate(data, "{x}" := to_title(.data[[x]]))
 }
 
-recode_metric <- function(x) {
-  case_when(
-    x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
-    TRUE ~ "benchmark"
-  )
-}
-
 # PACTA results are conventionally shown over a time period of 5 years
 span_5yr <- function(data) {
   min_year <- get_common_start_year(data)
   filter(data, .data$year <= min_year + 5L)
-}
-
-spell_out_technology <- function(technology) {
-  label <- to_title(technology)
-  label <- sub("^(?i)ice", "ICE", label)
-  label <- sub("cap$", " Capacity", label)
-  label <- sub("_hdv$", "Heavy Duty Vehicles", label)
-  label
 }
 
 add_label_if_missing <- function(data) {
@@ -277,4 +231,45 @@ prep_common <- function(data) {
     add_label_if_missing()
 }
 
+abort_if_unknown_values <- function(value, data, column) {
+  if (is.null(value)) {
+    return(invisible(value))
+  }
 
+  .value <- deparse_1(substitute(value))
+  .data <- deparse_1(substitute(data))
+  .column <- deparse_1(substitute(column))
+
+  valid <- unique(data[[column]])
+  if (!all(value %in% valid)) {
+    msg <- c(
+      glue("Each value of `{.value}` must be one of these:\n{toString(valid)}."),
+      x = glue("You passed: {toString(value)}."),
+      i = glue("Do you need to see valid values in this dataset?:\n{.data}")
+    )
+    abort(msg, class = "unknown_value")
+  }
+
+  invisible(value)
+}
+
+r2dii_pal_impl <- function(x, data, column) {
+  x <- x %||% data[[column]]
+  values <- as_tibble_col(x, column) %>%
+    inner_join(data, by = column) %>%
+    pull(.data$hex)
+  max_n <- length(values)
+  f <- manual_pal(values)
+  attr(f, "max_n") <- max_n
+  f
+}
+
+# source: https://joshuacook.netlify.app/post/integer-values-ggplot-axis/
+integer_breaks <- function(n = 5, ...) {
+  fxn <- function(x) {
+    breaks <- floor(pretty(x, n, ...))
+    names(breaks) <- attr(breaks, "labels")
+    breaks
+  }
+  return(fxn)
+}

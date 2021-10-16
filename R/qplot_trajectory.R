@@ -24,23 +24,13 @@
 #'
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
-  check_plot_trajectory(data)
+  env <- list(data = substitute(data))
+  check_plot_trajectory(data, env = env)
 
   data %>%
-    prep_trajectory(convert_label = format_label, span_5yr = TRUE) %>%
+    prep_trajectory(convert_label = format_metric, span_5yr = TRUE, center_y = TRUE) %>%
     plot_trajectory_impl() %>%
     labs_trajectory()
-}
-
-#' @examples
-#' format_label(c("corporate_economy", "target_sds"))
-#' # Weird case
-#' format_label(c("corporate_._economy", "target_sds_abc"))
-#' @noRd
-format_label <- function(x) {
-  out <- sub("target_", "", x)
-  out <- to_title(out)
-  if_else(is_scenario(x), toupper(out), out)
 }
 
 labs_trajectory <- function(p) {
