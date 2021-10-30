@@ -113,6 +113,13 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
+<hr>
+<div id="output-github_document" class="section level2">
+<h2 class="hasAnchor">
+<a href="#output-github_document" class="anchor"></a>output: github_document</h2>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+</div>
 <div id="r2diiplot-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#r2diiplot-" class="anchor"></a>r2dii.plot <a href="https://github.com/2DegreesInvesting/r2dii.plot"><img src="https://imgur.com/A5ASZPE.png" align="right" height="43"></a>
@@ -145,7 +152,7 @@
 <ul>
 <li>Use <code>qplot_*()</code> to quickly get a plot with standard titles and labels.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># `data` must meet documented "Requirements"</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
@@ -157,11 +164,11 @@
 
 <span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>Use <code>plot_*()</code> for a more “bare” plot that you can customize yourself by modifying the input data and applying <code>ggplot2</code> functions.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
     <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
@@ -189,11 +196,12 @@
     y <span class="op">=</span> <span class="st">"Production (normalized to 2020)"</span>
   <span class="op">)</span>
 <span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>For examples of other plots and data sets please visit <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
 </div>
 </div>
 </div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -3,8 +3,8 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   r2dii-plot: r2dii-plot.html
-last_built: 2021-10-15T21:48Z
+last_built: 2021-10-30T19:07Z
 urls:
-  reference: https://github.com/2DegreesInvesting/r2dii.plot//reference
-  article: https://github.com/2DegreesInvesting/r2dii.plot//articles
+  reference: https://2degreesinvesting.github.io/r2dii.plot/reference
+  article: https://2degreesinvesting.github.io/r2dii.plot/articles
 
