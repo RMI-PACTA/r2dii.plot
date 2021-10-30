@@ -28,7 +28,8 @@ Description: Create plots to visualize the alignment of a corporate
     Financial institutions use 'PACTA' to study how their capital
     allocation decisions align with climate change mitigation goals.
 License: MIT + file LICENSE
-URL: https://github.com/2DegreesInvesting/r2dii.plot
+URL: https://github.com/2DegreesInvesting/r2dii.plot,
+    https://2degreesinvesting.github.io/r2dii.plot
 BugReports: https://github.com/2DegreesInvesting/r2dii.plot/issues
 Depends: 
     R (>= 3.4)
