@@ -169,13 +169,13 @@ palette.</p>
     <tr>
       <th>sector</th>
       <td><p>A string. Sector name specifying a colour palette. Run
-<code><a href='https://rdrr.io/r/base/unique.html'>unique(r2dii.plot:::technology_colours$sector)</a></code> to see available sectors.</p></td>
+<code>unique(r2dii.plot:::technology_colours$sector)</code> to see available sectors.</p></td>
     </tr>
     <tr>
       <th>technologies</th>
       <td><p>A character vector. Specifies technologies to use as
 colours and their order. Run
-<code><a href='https://rdrr.io/r/base/unique.html'>unique(r2dii.plot:::technology_colours$technology)</a></code> to see available
+<code>unique(r2dii.plot:::technology_colours$technology)</code> to see available
 technologies (pay attention if they match the <code>sector</code>). Similar to <code>value</code>
 parameter in <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_colour_manual()</a></code>.</p></td>
     </tr>
@@ -195,16 +195,18 @@ parameter in <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual
 <code><a href='scale_colour_r2dii.html'>scale_colour_r2dii</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span>, color <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_colour_r2dii_tech</span><span class='op'>(</span><span class='st'>"automotive"</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_r2dii_tech-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, fill <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span>, bins <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_r2dii_tech</span><span class='op'>(</span><span class='st'>"automotive"</span><span class='op'>)</span>
-</div><div class='img'><img src='scale_colour_r2dii_tech-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span>, color <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>scale_colour_r2dii_tech</span><span class='op'>(</span><span class='st'>"automotive"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='scale_colour_r2dii_tech-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>cyl</span>, fill <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span>, bins <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>scale_fill_r2dii_tech</span><span class='op'>(</span><span class='st'>"automotive"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='scale_colour_r2dii_tech-2.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
