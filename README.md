@@ -8,7 +8,7 @@
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test
-coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
+coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://app.codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
 [![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
@@ -52,7 +52,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(r2dii.plot)
 ```
 
-### Plot techmix chart
+### Plot trajectory chart
 
   - Use `qplot_*()` to quickly get a plot with standard titles and
     labels.
@@ -64,19 +64,18 @@ library(r2dii.plot)
 data <- market_share %>%
   filter(
     sector == "power",
+    technology == "renewablescap",
     region == "global",
-    scenario_source == "demo_2020",
-    metric %in% c("projected", "corporate_economy", "target_sds")
+    scenario_source == "demo_2020"
   )
 
-qplot_techmix(data)
-#> The `technology_share` values are plotted for extreme years.
-#> Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.
+qplot_trajectory(data)
+#> Normalizing `production` values to 2020 -- the start year.
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
-  - Use `plot_*()` for a more ‘bare’ plot that you can customize
+  - Use `plot_*()` for a more “bare” plot that you can customize
     yourself by modifying the input data and applying `ggplot2`
     functions.
 
@@ -86,33 +85,30 @@ qplot_techmix(data)
 data <- market_share %>%
   filter(
     sector == "power",
+    technology == "renewablescap",
     region == "global",
     scenario_source == "demo_2020",
-    metric %in% c("projected", "corporate_economy", "target_sds"),
-    year %in% c(2020, 2030)
+    between(year, 2020, 2035)
   ) %>%
   mutate(
     label = case_when(
       metric == "projected" ~ "Your Portfolio",
-      metric == "corporate_economy" ~ "Corporate Economy Benchmark",
-      metric == "target_sds" ~ "SDS Scenario"
-    ),
-    label_tech = case_when(
-      technology == "renewablescap" ~ "Renewables Cap.",
-      technology == "hydrocap" ~ "Hydro Cap.",
-      technology == "gascap" ~ "Gas Cap.",
-      technology == "oilcap" ~ "Oil Cap.",
-      technology == "coalcap" ~ "Coal Cap."
+      metric == "corporate_economy" ~ "Benchmark (Corp. Econ.)",
+      metric == "target_sds" ~ "SDS Scenario",
+      metric == "target_sps" ~ "SPS Scenario",
+      metric == "target_cps" ~ "CPS Scenario",
+      TRUE ~ metric
     )
   )
 
-plot_techmix(data) +
+plot_trajectory(data) +
   labs(
-    title = "Technology Mix for Sector: Power",
-    subtitle = "For years 2020 and 2030."
+    title = "Power production trajectory for Renewables",
+    subtitle = "With reference to climate scenarios.",
+    x = "Year",
+    y = "Production (normalized to 2020)"
   )
-#> The `technology_share` values are plotted for extreme years.
-#> Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.
+#> Normalizing `production` values to 2020 -- the start year.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />

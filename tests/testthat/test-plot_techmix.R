@@ -74,7 +74,7 @@ test_that("with input data before start year of 'projected' prep_techmix
     year <= 2025,
     metric %in% c("projected", "corporate_economy", "target_sds")
   )
-  start_year <- min(filter(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
   early_row <- tibble(
     sector = "power",
     technology = "renewablescap",
@@ -86,12 +86,12 @@ test_that("with input data before start year of 'projected' prep_techmix
     technology_share = 0.1
   )
   data <- data %>%
-    rbind(early_row)
-  expect_equal(min(prep_techmix(data)$year), start_year)
+    bind_rows(early_row)
+  expect_equal(min(prep_techmix(data)$year, na.rm = TRUE), start_year)
 })
 
 test_that("informs that extreme years are used", {
-  data <- filter(
+  mydata <- filter(
     market_share,
     sector == "power",
     region == "global",
@@ -101,7 +101,7 @@ test_that("informs that extreme years are used", {
 
   restore <- options(r2dii.plot.quiet = FALSE)
   expect_snapshot(invisible(
-    plot_techmix(data)
+    plot_techmix(mydata)
   ))
   options(restore)
 })
@@ -185,30 +185,86 @@ test_that("When data has 'label_tech' it is used in the plot", {
     year <= 2025,
     metric %in% c("projected", "corporate_economy", "target_sds")
   ) %>%
-  mutate(label_tech = case_when(
-    technology == "ice" ~ "My custom label",
-    TRUE ~ .data$technology
-  ))
+    mutate(label_tech = case_when(
+      technology == "ice" ~ "My custom label",
+      TRUE ~ .data$technology
+    ))
   p <- plot_techmix(data)
 
   expect_true("My custom label" %in% unique(p$data$label_tech))
 })
 
-test_that("With random order of data ouputs plot with labels in the right order",{
+test_that("With random order of data ouputs plot with labels in the right order", {
   data <- market_share %>%
-  filter(
-    year %in% c(2020, 2025),
-    scenario_source == "demo_2020",
-    sector == "power",
-    region == "global",
-    metric %in% c("projected", "corporate_economy", "target_sds")
-  ) %>%
-  mutate(metric = factor(
-    .data$metric, levels = c("corporate_economy","projected","target_sds"))) %>%
-  arrange(.data$metric) %>%
-  mutate(metric = as.character(.data$metric))
+    filter(
+      year %in% c(2020, 2025),
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    ) %>%
+    mutate(metric = factor(
+      .data$metric,
+      levels = c("corporate_economy", "projected", "target_sds")
+    )) %>%
+    arrange(.data$metric) %>%
+    mutate(metric = as.character(.data$metric))
   p <- plot_techmix(data)
 
   right_order <- c("target_sds", "corporate_economy", "projected")
   expect_equal(p$plot_env$labels, right_order)
+})
+
+
+test_that("is sensitive to `convert_label`", {
+  data <- market_share %>%
+    filter(
+      year %in% c(2020, 2025),
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    )
+
+  labels_def <- plot_techmix(data) %>%
+    unique_plot_data("label")
+  labels_mod <- plot_techmix(data, convert_label = toupper) %>%
+    unique_plot_data("label")
+
+  expect_false(identical(labels_def, labels_mod))
+})
+
+test_that("is sensitive to `span_5yr`", {
+  data <- market_share %>%
+    filter(
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    )
+  abort_if_year_range_is_5yr_already(data)
+
+  p_f <- plot_techmix(data, span_5yr = FALSE)
+  expect_false(diff(year_range(p_f)) == 5)
+
+  p_t <- plot_techmix(data, span_5yr = TRUE)
+  expect_true(diff(year_range(p_t)) == 5)
+})
+
+test_that("is sensitive to `convert_tech_label`", {
+  data <- market_share %>%
+    filter(
+      year %in% c(2020, 2025),
+      scenario_source == "demo_2020",
+      sector == "power",
+      region == "global",
+      metric %in% c("projected", "corporate_economy", "target_sds")
+    )
+
+  labels_def <- plot_techmix(data) %>%
+    unique_plot_data("label_tech")
+  labels_mod <- plot_techmix(data, convert_tech_label = toupper) %>%
+    unique_plot_data("label_tech")
+
+  expect_false(identical(labels_def, labels_mod))
 })

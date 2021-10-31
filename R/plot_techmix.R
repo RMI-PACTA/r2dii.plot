@@ -9,6 +9,16 @@
 #'   * (Optional) If present, the column `label` is used for data labels.
 #'   * (Optional) If present, the column `label_tech` is used for technology
 #'   labels.
+#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
+#'   the start year (the default behavior of `qplot_techmix()`), or use
+#'   `FALSE` to impose no restriction.
+#' @template convert_label
+#' @templateVar fun qplot_techmix
+#' @templateVar value recode_metric_techmix
+#' @param convert_tech_label A symbol. The unquoted name of a function to apply
+#'   to technology legend labels. For example, to convert labels to uppercase
+#'   use `convert_tech_label = toupper`. To get the default behavior of
+#'   `qplot_techmix()` use `convert_tech_label = spell_out_technology`.
 #'
 #' @seealso [market_share].
 #'
@@ -26,14 +36,32 @@
 #' )
 #'
 #' plot_techmix(data)
-plot_techmix <- function(data) {
-  check_plot_techmix(data)
+#'
+#' # plot with `qplot_techmix()` parameters
+#' plot_techmix(
+#'   data,
+#'   span_5yr = TRUE,
+#'   convert_label = recode_metric_techmix,
+#'   convert_tech_label = spell_out_technology
+#' )
+plot_techmix <- function(data,
+                         span_5yr = FALSE,
+                         convert_label = identity,
+                         convert_tech_label = identity) {
+  env <- list(data = substitute(data))
+  check_plot_techmix(data, env = env)
 
-  prep <- prep_techmix(data)
-  plot_techmix_impl(prep)
+  data %>%
+    prep_techmix(
+      convert_label = convert_label,
+      span_5yr = span_5yr,
+      convert_tech_label = convert_tech_label,
+      env = env
+    ) %>%
+    plot_techmix_impl()
 }
 
-check_plot_techmix <- function(data, env = parent.frame()) {
+check_plot_techmix <- function(data, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), "technology_share")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
@@ -76,7 +104,8 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
 prep_techmix <- function(data,
                          convert_label = identity,
                          span_5yr = FALSE,
-                         convert_tech_label = identity) {
+                         convert_tech_label = identity,
+                         env = NULL) {
   out <- data %>%
     prep_common() %>%
     add_label_tech_if_missing() %>%
@@ -91,10 +120,10 @@ prep_techmix <- function(data,
     out <- span_5yr(out)
   }
 
-  start_year <- min(out$year)
-  future_year <- max(out$year)
+  start_year <- min(out$year, na.rm = TRUE)
+  future_year <- max(out$year, na.rm = TRUE)
   if (!quiet()) {
-    .data <- deparse_1(substitute(data, env = parent.frame()))
+    .data <- deparse_1(substitute(data, env = env))
     inform(glue(
       "The `technology_share` values are plotted for extreme years.
        Do you want to plot different years? E.g. filter {.data} with:\\
@@ -149,7 +178,7 @@ techmix_labels <- function(data) {
     filter(
       .data$metric != "projected",
       !is_scenario(.data$metric)
-           ) %>%
+    ) %>%
     pull(.data$metric) %>%
     unique()
   scenario <- data %>%

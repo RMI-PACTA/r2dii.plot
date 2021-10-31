@@ -22,7 +22,7 @@ test_that("works with up to 4 scenarios (+ 1 portfolio + 1 benchmark)", {
   # Faking a new scenario to reach the maximum number of scenarios we support
   xyz <- filter(prep, metric == "target_sds")
   xyz$metric <- xyz$metric <- "target_xyz"
-  xyz <- rbind(prep, xyz)
+  xyz <- bind_rows(prep, xyz)
   p <- qplot_trajectory(xyz)
   expect_equal(count_metrics(p), n)
 })
@@ -115,11 +115,11 @@ test_that("works with brown technology", {
 
 test_that("works with input data starting before start year of 'projected'", {
   data <- example_market_share()
-  start_year <- min(filter(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
   to_exclude <- data %>%
     fake_market_share(year = start_year - 1, metric = "corporate_economy")
   data <- data %>%
-    rbind(to_exclude)
+    bind_rows(to_exclude)
   expect_no_error(plot_trajectory(data))
 })
 
@@ -135,7 +135,7 @@ test_that("informs that values are normalized", {
 
 test_that("informs if excluding data before start year of 'projected'", {
   data <- example_market_share()
-  start_year <- min(filter(data, metric == "projected")$year)
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
   to_exclude <- data %>%
     fake_market_share(year = start_year - 1, metric = "corporate_economy")
 
@@ -181,8 +181,7 @@ test_that("does not modify `metric`", {
 test_that("Plots a data set with maximum time horizon of 5 years", {
   data <- example_market_share()
   p <- qplot_trajectory(data)
-
-  expect_true(max(p$data$year, na.rm = TRUE) - min(p$data$year, na.rm = TRUE) <= 5)
+  expect_true(diff(year_range(p)) <= 5)
 })
 
 test_that("Outputs pretty labels", {
@@ -224,4 +223,18 @@ test_that("the errors message includes the name of the user's data", {
   bad_region <- head(market_share, 2L)
   bad_region$region <- c("a", "b")
   expect_error(qplot_trajectory(bad_region), "bad_region")
+})
+
+test_that("By defeault centers the Y axis", {
+  data <- example_market_share()
+  data_prep <- data %>%
+    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = TRUE)
+  start_val <- start_value_portfolio(data_prep)
+
+  p <- qplot_trajectory(data)
+
+  expect_equal(
+    abs(start_val - ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]),
+    abs(start_val - ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[2])
+  )
 })

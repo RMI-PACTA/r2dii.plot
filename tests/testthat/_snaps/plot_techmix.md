@@ -41,8 +41,8 @@
 # informs that extreme years are used
 
     Code
-      invisible(plot_techmix(data))
+      invisible(plot_techmix(mydata))
     Message <message>
       The `technology_share` values are plotted for extreme years.
-      Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.
+      Do you want to plot different years? E.g. filter mydata with:`subset(mydata, year %in% c(2020, 2030))`.
 
