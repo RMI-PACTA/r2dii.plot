@@ -28,7 +28,7 @@ to_title <- function(x) {
   }
 
   x_fctr <- factor(x)
-  levels(x_fctr) <- sapply(levels(x_fctr), to_title_one)
+  levels(x_fctr) <- vapply(levels(x_fctr), to_title_one, character(1))
   as.character(x_fctr)
 }
 
