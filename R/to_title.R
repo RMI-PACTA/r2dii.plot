@@ -27,7 +27,9 @@ to_title <- function(x) {
     paste(words, collapse = " ")
   }
 
-  unlist(lapply(x, to_title_one))
+  x_fctr <- factor(x)
+  levels(x_fctr) <- vapply(levels(x_fctr), to_title_one, character(1))
+  as.character(x_fctr)
 }
 
 capitalize_single_letters <- function(words) {
