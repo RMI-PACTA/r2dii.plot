@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# r2dii.plot <a href='https://github.com/2DegreesInvesting/r2dii.plot'><img src='https://imgur.com/A5ASZPE.png' align='right' height='43' /></a>
+# r2dii.plot
 
 <!-- badges: start -->
 [![Lifecycle:
