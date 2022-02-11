@@ -7,6 +7,9 @@
     `data` must have all the expected names.
     x Missing names: metric, production, region, scenario_source, technology.
     i Is your data `market_share`-like?
+    Caused by error in `abort_if_missing_names()`:
+    ! `data` must have all the expected names.
+    x Missing names: metric, production, region, scenario_source, technology.
 
 # with zero-row data errors gracefully
 
@@ -52,7 +55,7 @@
 
     Code
       invisible(qplot_trajectory(data))
-    Message <message>
+    Message <rlang_message>
       Normalizing `production` values to 2020 -- the start year.
 
 # Wraps the title as expected
