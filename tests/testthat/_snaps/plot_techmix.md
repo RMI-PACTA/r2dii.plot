@@ -3,6 +3,9 @@
     `data` must have all the expected names.
     x Missing names: metric, region, scenario_source, technology, technology_share.
     i Is your data `market_share`-like?
+    Caused by error in `abort_if_missing_names()`:
+    ! `data` must have all the expected names.
+    x Missing names: metric, region, scenario_source, technology, technology_share.
 
 # with zero-row data errors gracefully
 
@@ -42,7 +45,7 @@
 
     Code
       invisible(plot_techmix(mydata))
-    Message <message>
+    Message <rlang_message>
       The `technology_share` values are plotted for extreme years.
       Do you want to plot different years? E.g. filter mydata with:`subset(mydata, year %in% c(2020, 2030))`.
 
