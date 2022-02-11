@@ -7,6 +7,9 @@
     `data` must have all the expected names.
     x Missing names: emission_factor_metric, emission_factor_value.
     i Is your data `sda`-like?
+    Caused by error in `abort_if_missing_names()`:
+    ! `data` must have all the expected names.
+    x Missing names: emission_factor_metric, emission_factor_value.
 
 # if `data` has zero rows errors gracefully
 
