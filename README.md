@@ -6,7 +6,7 @@ output: github_document
 
 
 
-# r2dii.plot
+# r2dii.plot <img src="man/figures/logo.svg" align="right" width="120" />
 
 <!-- badges: start -->
 [![Lifecycle:
