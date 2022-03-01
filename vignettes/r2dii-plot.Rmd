@@ -115,16 +115,18 @@ Plots created with `plot_*()` functions show the data as they are. To customize
 these plots you can use three strategies: 
 
 1) Use parameters of `plot_*()` functions, 
-2) Use `ggplot2` functions,
-3) Modify the input `data`. 
+2) Modify the input `data`,
+3) Use `ggplot2` functions.
 
 The following sub sections show the three strategies applied to different functions 
 of the `plot_*()` family.
 
-### Plot customization strategies 1 and 2: parameters and ggplot2 functions
+### Plot customization strategies 1 and 3: parameters and ggplot2 functions
 
-We will show how you might customize a plot using strategy 3 and 2 based on `plot_emission_intensity()`. The basic output of the function looks rather 
-unappealing.
+We will show how you might customize a plot using strategy 1 and 3 based on 
+`plot_emission_intensity()`. 
+
+The basic output of the function looks rather unappealing.
 
 ```{r}
 data <- matched %>%
@@ -134,8 +136,9 @@ data <- matched %>%
 plot_emission_intensity(data)
 ```
 
-You can use parameters of `plot_emission_intensity()` to replicate features of `qplot_emission_intensity()`(strategy 1), and add plot labels with 
-`ggplot2::labs()` (strategy 2).
+You can use parameters of `plot_emission_intensity()` to replicate features of 
+`qplot_emission_intensity()`(strategy 1), and add plot labels with 
+`ggplot2::labs()` (strategy 3).
 
 ```{r}
 data <- matched %>%
@@ -150,16 +153,16 @@ plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
   )
 ```
 
-### Plot customization strategies 3 and 2: input data and ggplot2 functions
+### Plot customization strategies 2 and 3: input data and ggplot2 functions
 
-You can also polish your plot by modifying the input `data` (strategy 3), for 
+You can also polish your plot by modifying the input `data` (strategy 2), for 
 example: 
 
 * Changing the time span.
 * Adding custom labels by adding a column 'label' or 'label_tech' to
 `market_share`-like data.
 
-And by modifying output `ggplot` object (strategy 2), for example:
+And by modifying output `ggplot` object (strategy 3), for example:
 
 * Adding a title and a subtitle using `ggplot2::labs()`. 
 * Changing x and y axis labels using `ggplot2::labs()`.
@@ -167,7 +170,7 @@ And by modifying output `ggplot` object (strategy 2), for example:
 or `r2dii.plot::scale_*()` functions (see [Styling functions]).
 
 Here is how you might customize each of the three kinds of plots using strategy 
-3 and 2:
+2 and 3:
 
 * `plot_emission_intensity()` - add custom title and axis labels and modify 
 colours and legend labels.
