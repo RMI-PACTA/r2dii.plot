@@ -22,8 +22,8 @@ library(ggplot2)
 library(dplyr, warn.conflicts = FALSE)
 library(r2dii.data)
 library(r2dii.match)
-library(r2dii.plot)
 library(r2dii.analysis)
+library(r2dii.plot)
 ```
 
 Your data should have a structure similar to that of the demo datasets in the
@@ -45,9 +45,16 @@ matched <- loanbook %>%
   prioritize() # Remember to validate matches (see `?prioritize`)
 ```
 
-r2dii.plot supports three kinds of plots -- emission intensity, techmix, and
-trajectory. Each plot can be created using two types of functions: `qplot_*()`
-for standardized plots and `plot_*()` for 'bare' plots leaving the customization
+r2dii.plot supports three kinds of plots:
+
+* Emission intensity,
+* Techmix,
+* Volume trajectory.
+
+Each plot can be created using two types of functions: 
+
+* `qplot_*()` for standardized plots,
+* `plot_*()` for 'bare' plots leaving the customization
 to the user.
 
 For each kind, you'll need to subset the specific rows you want to plot (for
@@ -105,11 +112,21 @@ qplot_techmix(data)
 ## Plots
 
 Plots created with `plot_*()` functions show the data as they are. To customize
-these plots you can use three strategies: 1) Use parameters of `plot_*()`, 2)
-use `ggplot2` functions, and 3) Modify the input `data`. This section shows the
-three strategies applied to different functions of the `plot_*()` family.
+these plots you can use three strategies: 
 
-The basic output of `plot_emission_intensity()` looks rather unappealing.
+1) Use parameters of `plot_*()` functions, 
+2) Modify the input `data`,
+3) Use `ggplot2` functions.
+
+The following sub sections show the three strategies applied to different functions 
+of the `plot_*()` family.
+
+### Plot customization strategies 1 and 3: parameters and ggplot2 functions
+
+We will show how you might customize a plot using strategy 1 and 3 based on 
+`plot_emission_intensity()`. 
+
+The basic output of the function looks rather unappealing.
 
 ```{r}
 data <- matched %>%
@@ -119,8 +136,9 @@ data <- matched %>%
 plot_emission_intensity(data)
 ```
 
-You can use parameters of `plot_emission_intensity()` to replicate features of
-`qplot_emission_intensity()`, and add plot labels with `ggplot2::labs()`.
+You can use parameters of `plot_emission_intensity()` to replicate features of 
+`qplot_emission_intensity()`(strategy 1), and add plot labels with 
+`ggplot2::labs()` (strategy 3).
 
 ```{r}
 data <- matched %>%
@@ -135,20 +153,27 @@ plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
   )
 ```
 
-You can polish your plot by modifying the input `data` and output "ggplot"
-object. Your options are limitless but these are some typical things you may do:
+### Plot customization strategies 2 and 3: input data and ggplot2 functions
 
-* Change the time span.
-* Add custom labels by modifying the column 'metric' and technology of
+You can also polish your plot by modifying the input `data` (strategy 2), for 
+example: 
+
+* Changing the time span.
+* Adding custom labels by adding a column 'label' or 'label_tech' to
 `market_share`-like data.
-* Add a title and a subtitle. 
-* Change x and y axis labels.
-* Customize the colours and legend labels with `ggplot2::scale_colour_manual()`
+
+And by modifying output `ggplot` object (strategy 3), for example:
+
+* Adding a title and a subtitle using `ggplot2::labs()`. 
+* Changing x and y axis labels using `ggplot2::labs()`.
+* Customizing the colours and legend labels with `ggplot2::scale_colour_manual()`
 or `r2dii.plot::scale_*()` functions (see [Styling functions]).
 
-For example, here is how you might customize each of the three kinds of plots:
+Here is how you might customize each of the three kinds of plots using strategy 
+2 and 3:
 
-* `plot_emission_intensity()`.
+* `plot_emission_intensity()` - add custom title and axis labels and modify 
+colours and legend labels.
 
 ```{r}
 data <- sda %>%
@@ -169,7 +194,8 @@ plot_emission_intensity(data) +
   )
 ```
 
-* `plot_trajectory()`.
+* `plot_trajectory()` - change time span, add 'label' column and add custom 
+title and axis labels.
 
 ```{r}
 data <- matched %>%
@@ -197,10 +223,11 @@ plot_trajectory(data) +
     x = "Year",
     y = "Production normalized to start year"
   ) +
-  theme(plot.margin = unit(c(0.5, 6, 0.5, 1), "cm"))
+  theme(plot.margin = unit(c(0.5, 6, 0.5, 1), "cm")) #so the long labels fit
 ```
 
-* `plot_techmix()`.
+* `plot_techmix()` - change time span, add 'label' column, apply custom colours 
+and modify legend labels.
 
 ```{r}
 data <- market_share %>%
@@ -228,9 +255,9 @@ plot_techmix(data) +
 
 ## Styling functions
 
-A number of functions allow you to customize your plots using the 2DII style:
+A number of functions allow you to customize any of your plots using the 2DII style:
 
-* Use `theme_2dii()` to display non-data content.
+* Use `theme_2dii()` to change the display of non-data content.
 
 ```{r}
 data <- market_share %>%
@@ -248,7 +275,8 @@ ggplot(data, aes(x = factor(year), y = production)) +
 ```
 
 * Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply the 2DII colour
-palette.
+palette (see `?scale_colour_2dii()` to find out what are the available colour 
+labels).
 
 ```{r}
 data <- market_share %>%
@@ -266,7 +294,8 @@ ggplot(data, aes(x = year, y = production, color = metric)) +
 ```
 
 * Use `scale_colour_r2dii_sector()` and `scale_fill_r2dii_sector()` to apply
-the 2DII colour palette for sectors.
+the 2DII colour palette for sectors (see `?scale_colour_2dii_sector()` to find 
+out what are the available colour labels).
 
 ```{r}
 data <- market_share %>%
@@ -285,8 +314,9 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
   facet_wrap(~sector)
 ```
 
-* Use `scale_colour_r2dii_fill()` and `scale_fill_r2dii_fill()` to apply the
-2DII colour palette for technologies.
+* Use `scale_colour_r2dii_tech()` and `scale_fill_r2dii_tech()` to apply the
+2DII colour palette for technologies (see `?scale_colour_2dii_tech()` to find 
+out what are the available colour labels).
 
 ```{r}
 technologies <- c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
