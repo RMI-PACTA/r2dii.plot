@@ -110,8 +110,8 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://2degreesinvesting.github.io/r2dii.data/" class="external-link">r2dii.data</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://2degreesinvesting.github.io/r2dii.match/" class="external-link">r2dii.match</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot" class="external-link">r2dii.plot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.analysis" class="external-link">r2dii.analysis</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.analysis" class="external-link">r2dii.analysis</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot" class="external-link">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
 <p>Your data should have a structure similar to that of the demo datasets in the r2dii.data package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loanbook</span> <span class="op">&lt;-</span> <span class="va">loanbook_demo</span>
@@ -123,7 +123,19 @@
 <code class="sourceCode R"><span class="va">matched</span> <span class="op">&lt;-</span> <span class="va">loanbook</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://github.com/2DegreesInvesting/r2dii.match//reference/match_name.html" class="external-link">match_name</a></span><span class="op">(</span><span class="va">ald</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://github.com/2DegreesInvesting/r2dii.match//reference/prioritize.html" class="external-link">prioritize</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Remember to validate matches (see `?prioritize`)</span></code></pre></div>
-<p>r2dii.plot supports three kinds of plots – emission intensity, techmix, and trajectory. Each plot can be created using two types of functions: <code>qplot_*()</code> for standardized plots and <code>plot_*()</code> for ‘bare’ plots leaving the customization to the user.</p>
+<p>r2dii.plot supports three kinds of plots:</p>
+<ul>
+<li>Emission intensity,</li>
+<li>Techmix,</li>
+<li>Volume trajectory.</li>
+</ul>
+<p>Each plot can be created using two types of functions:</p>
+<ul>
+<li>
+<code>qplot_*()</code> for standardized plots,</li>
+<li>
+<code>plot_*()</code> for ‘bare’ plots leaving the customization to the user.</li>
+</ul>
 <p>For each kind, you’ll need to subset the specific rows you want to plot (for example with <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> or <code>dplyr:filter()</code>). For details see the documented “Requirements” of the argument <code>data</code> of each <code>plot_*()</code> or <code>qplot_*()</code> function (e.g. see <code><a href="../reference/plot_emission_intensity.html">?plot_emission_intensity</a></code>). If you forget to meet the <code>data</code> requirements the error message should guide you.</p>
 <div class="section level2">
 <h2 id="quick-plots">‘Quick’ plots<a class="anchor" aria-label="anchor" href="#quick-plots"></a>
@@ -174,8 +186,18 @@
 <div class="section level2">
 <h2 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>
 </h2>
-<p>Plots created with <code>plot_*()</code> functions show the data as they are. To customize these plots you can use three strategies: 1) Use parameters of <code>plot_*()</code>, 2) use <code>ggplot2</code> functions, and 3) Modify the input <code>data</code>. This section shows the three strategies applied to different functions of the <code>plot_*()</code> family.</p>
-<p>The basic output of <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> looks rather unappealing.</p>
+<p>Plots created with <code>plot_*()</code> functions show the data as they are. To customize these plots you can use three strategies:</p>
+<ol style="list-style-type: decimal">
+<li>Use parameters of <code>plot_*()</code> functions,</li>
+<li>Modify the input <code>data</code>,</li>
+<li>Use <code>ggplot2</code> functions.</li>
+</ol>
+<p>The following sub sections show the three strategies applied to different functions of the <code>plot_*()</code> family.</p>
+<div class="section level3">
+<h3 id="plot-customization-strategies-1-and-3-parameters-and-ggplot2-functions">Plot customization strategies 1 and 3: parameters and ggplot2 functions<a class="anchor" aria-label="anchor" href="#plot-customization-strategies-1-and-3-parameters-and-ggplot2-functions"></a>
+</h3>
+<p>We will show how you might customize a plot using strategy 1 and 3 based on <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code>.</p>
+<p>The basic output of the function looks rather unappealing.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">matched</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/r2dii.analysis/man/target_sda.html" class="external-link">target_sda</a></span><span class="op">(</span><span class="va">ald</span>, co2_intensity_scenario <span class="op">=</span> <span class="va">scenario</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -185,7 +207,7 @@
 <span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; Removing data before 2020 -- the start year of 'projected'.</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<p>You can use parameters of <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> to replicate features of <code><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity()</a></code>, and add plot labels with <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs()</a></code>.</p>
+<p>You can use parameters of <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> to replicate features of <code><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity()</a></code>(strategy 1), and add plot labels with <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs()</a></code> (strategy 3).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">matched</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/r2dii.analysis/man/target_sda.html" class="external-link">target_sda</a></span><span class="op">(</span><span class="va">ald</span>, co2_intensity_scenario <span class="op">=</span> <span class="va">scenario</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -200,18 +222,25 @@
   <span class="op">)</span>
 <span class="co">#&gt; Removing data before 2020 -- the start year of 'projected'.</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>You can polish your plot by modifying the input <code>data</code> and output “ggplot” object. Your options are limitless but these are some typical things you may do:</p>
+</div>
+<div class="section level3">
+<h3 id="plot-customization-strategies-2-and-3-input-data-and-ggplot2-functions">Plot customization strategies 2 and 3: input data and ggplot2 functions<a class="anchor" aria-label="anchor" href="#plot-customization-strategies-2-and-3-input-data-and-ggplot2-functions"></a>
+</h3>
+<p>You can also polish your plot by modifying the input <code>data</code> (strategy 2), for example:</p>
 <ul>
-<li>Change the time span.</li>
-<li>Add custom labels by modifying the column ‘metric’ and technology of <code>market_share</code>-like data.</li>
-<li>Add a title and a subtitle.</li>
-<li>Change x and y axis labels.</li>
-<li>Customize the colours and legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_colour_manual()</a></code> or <code>r2dii.plot::scale_*()</code> functions (see <a href="#styling-functions">Styling functions</a>).</li>
+<li>Changing the time span.</li>
+<li>Adding custom labels by adding a column ‘label’ or ‘label_tech’ to <code>market_share</code>-like data.</li>
 </ul>
-<p>For example, here is how you might customize each of the three kinds of plots:</p>
+<p>And by modifying output <code>ggplot</code> object (strategy 3), for example:</p>
+<ul>
+<li>Adding a title and a subtitle using <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs()</a></code>.</li>
+<li>Changing x and y axis labels using <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs()</a></code>.</li>
+<li>Customizing the colours and legend labels with <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_colour_manual()</a></code> or <code>r2dii.plot::scale_*()</code> functions (see <a href="#styling-functions">Styling functions</a>).</li>
+</ul>
+<p>Here is how you might customize each of the three kinds of plots using strategy 2 and 3:</p>
 <ul>
 <li>
-<code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code>.</li>
+<code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> - add custom title and axis labels and modify colours and legend labels.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">sda</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -236,7 +265,7 @@
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <ul>
 <li>
-<code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code>.</li>
+<code><a href="../reference/plot_trajectory.html">plot_trajectory()</a></code> - change time span, add ‘label’ column and add custom title and axis labels.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">matched</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -264,7 +293,7 @@
     x <span class="op">=</span> <span class="st">"Year"</span>,
     y <span class="op">=</span> <span class="st">"Production normalized to start year"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">6</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">6</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span> <span class="co">#so the long labels fit</span>
 <span class="co">#&gt; Removing data before 2020 -- the start year of 'projected'.</span>
 <span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span>
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which will</span>
@@ -272,7 +301,7 @@
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <ul>
 <li>
-<code><a href="../reference/plot_techmix.html">plot_techmix()</a></code>.</li>
+<code><a href="../reference/plot_techmix.html">plot_techmix()</a></code> - change time span, add ‘label’ column, apply custom colours and modify legend labels.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -302,12 +331,13 @@
 <span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
+</div>
 <div class="section level2">
 <h2 id="styling-functions">Styling functions<a class="anchor" aria-label="anchor" href="#styling-functions"></a>
 </h2>
-<p>A number of functions allow you to customize your plots using the 2DII style:</p>
+<p>A number of functions allow you to customize any of your plots using the 2DII style:</p>
 <ul>
-<li>Use <code><a href="../reference/theme_2dii.html">theme_2dii()</a></code> to display non-data content.</li>
+<li>Use <code><a href="../reference/theme_2dii.html">theme_2dii()</a></code> to change the display of non-data content.</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -324,7 +354,7 @@
   <span class="fu"><a href="../reference/theme_2dii.html">theme_2dii</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <ul>
-<li>Use <code><a href="../reference/scale_colour_r2dii.html">scale_colour_r2dii()</a></code> and <code><a href="../reference/scale_colour_r2dii.html">scale_fill_r2dii()</a></code> to apply the 2DII colour palette.</li>
+<li>Use <code><a href="../reference/scale_colour_r2dii.html">scale_colour_r2dii()</a></code> and <code><a href="../reference/scale_colour_r2dii.html">scale_fill_r2dii()</a></code> to apply the 2DII colour palette (see <code>?scale_colour_2dii()</code> to find out what are the available colour labels).</li>
 </ul>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -341,7 +371,7 @@
   <span class="fu"><a href="../reference/theme_2dii.html">theme_2dii</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <ul>
-<li>Use <code><a href="../reference/scale_colour_r2dii_sector.html">scale_colour_r2dii_sector()</a></code> and <code><a href="../reference/scale_colour_r2dii_sector.html">scale_fill_r2dii_sector()</a></code> to apply the 2DII colour palette for sectors.</li>
+<li>Use <code><a href="../reference/scale_colour_r2dii_sector.html">scale_colour_r2dii_sector()</a></code> and <code><a href="../reference/scale_colour_r2dii_sector.html">scale_fill_r2dii_sector()</a></code> to apply the 2DII colour palette for sectors (see <code>?scale_colour_2dii_sector()</code> to find out what are the available colour labels).</li>
 </ul>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -362,7 +392,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">sector</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <ul>
-<li>Use <code>scale_colour_r2dii_fill()</code> and <code>scale_fill_r2dii_fill()</code> to apply the 2DII colour palette for technologies.</li>
+<li>Use <code><a href="../reference/scale_colour_r2dii_tech.html">scale_colour_r2dii_tech()</a></code> and <code><a href="../reference/scale_colour_r2dii_tech.html">scale_fill_r2dii_tech()</a></code> to apply the 2DII colour palette for technologies (see <code>?scale_colour_2dii_tech()</code> to find out what are the available colour labels).</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">technologies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span>
