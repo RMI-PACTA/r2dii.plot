@@ -22,8 +22,8 @@ library(ggplot2)
 library(dplyr, warn.conflicts = FALSE)
 library(r2dii.data)
 library(r2dii.match)
-library(r2dii.plot)
 library(r2dii.analysis)
+library(r2dii.plot)
 ```
 
 Your data should have a structure similar to that of the demo datasets in the
