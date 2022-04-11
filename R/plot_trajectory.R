@@ -82,19 +82,6 @@ prep_trajectory <- function(data,
   }
 
   start_year <- min(out$year, na.rm = TRUE)
-  if (!quiet()) {
-    inform(glue(
-      "Normalizing `production` values to {start_year} -- the start year."
-    ))
-  }
-  by <- c("metric", "label")
-  out <- left_join(out, filter(out, .data$year == start_year), by = by) %>%
-    mutate(
-      value = .data$value.x / .data$value.y,
-      year = .data$year.x,
-      technology = .data$technology.x
-    ) %>%
-    rename(sector = .data$sector.x)
 
   cols <- c("year", "metric", "label", "technology", "value", "sector")
   out <- select(out, all_of(cols))

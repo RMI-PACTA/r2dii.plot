@@ -123,16 +123,6 @@ test_that("works with input data starting before start year of 'projected'", {
   expect_no_error(plot_trajectory(data))
 })
 
-test_that("informs that values are normalized", {
-  data <- example_market_share()
-
-  restore <- options(r2dii.plot.quiet = FALSE)
-  expect_snapshot(invisible(
-    qplot_trajectory(data)
-  ))
-  options(restore)
-})
-
 test_that("informs if excluding data before start year of 'projected'", {
   data <- example_market_share()
   start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
@@ -143,7 +133,6 @@ test_that("informs if excluding data before start year of 'projected'", {
   data %>%
     bind_rows(to_exclude) %>%
     qplot_trajectory() %>%
-    expect_message("[Nn]ormalizing") %>%
     expect_message("[Rr]emoving")
   options(restore)
 })
@@ -152,8 +141,6 @@ test_that("with no data to remove does not inform about removing rows", {
   restore <- options(r2dii.plot.quiet = FALSE)
   example_market_share() %>%
     qplot_trajectory() %>%
-    expect_message("[Nn]ormalizing") %>%
-    # Irrelevant message
     expect_no_message() # No other message should bubble up
   options(restore)
 })
