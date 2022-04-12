@@ -8,17 +8,15 @@ plot_trajectory(
   data,
   span_5yr = FALSE,
   convert_label = identity,
-  center_y = FALSE
+  center_y = FALSE,
+  value_col = "percentage_of_initial_production_by_scope"
 )
 }
 \arguments{
-\item{data}{A data frame. Requirements:
-\itemize{
-\item The structure must be like \link{market_share}.
-\item The following columns must have a single value: \code{sector}, \code{technology},
-\code{region}, \code{scenario_source}.
-\item (Optional) If present, the column \code{label} is used for data labels.
-}}
+\item{data}{A data frame. Requirements: * The structure must be like
+\link{market_share}. * The following columns must have a single value: \code{sector},
+\code{technology}, \code{region}, \code{scenario_source}. * (Optional) If present, the
+column \code{label} is used for data labels.}
 
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
 the start year (the default behavior of \code{qplot_trajectory()}), or use
@@ -35,6 +33,9 @@ y-axis labels. For example:
 \item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
 (the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
 center.}
+
+\item{value_col}{Character. Name of the column to be used as a value to be
+plotted.}
 }
 \value{
 An object of class "ggplot".

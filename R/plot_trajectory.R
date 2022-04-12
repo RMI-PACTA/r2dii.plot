@@ -1,10 +1,9 @@
 #' Create a trajectory plot
 #'
-#' @param data A data frame. Requirements:
-#'   * The structure must be like [market_share].
-#'   * The following columns must have a single value: `sector`, `technology`,
-#'   `region`, `scenario_source`.
-#'   * (Optional) If present, the column `label` is used for data labels.
+#' @param data A data frame. Requirements: * The structure must be like
+#'   [market_share]. * The following columns must have a single value: `sector`,
+#'   `technology`, `region`, `scenario_source`. * (Optional) If present, the
+#'   column `label` is used for data labels.
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_trajectory()`), or use
 #'   `FALSE` to impose no restriction.
@@ -14,6 +13,8 @@
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
 #'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.
+#' @param value_col Character. Name of the column to be used as a value to be
+#'   plotted.
 #'
 #' @seealso [market_share].
 #'
@@ -41,22 +42,26 @@
 plot_trajectory <- function(data,
                             span_5yr = FALSE,
                             convert_label = identity,
-                            center_y = FALSE) {
+                            center_y = FALSE,
+                            value_col = "percentage_of_initial_production_by_scope") {
   env <- list(data = substitute(data))
-  check_plot_trajectory(data, env = env)
+  check_plot_trajectory(data, value_col = value_col, env = env)
 
   data %>%
     prep_trajectory(
       convert_label = convert_label,
       span_5yr = span_5yr,
-      center_y = center_y
+      center_y = center_y,
+      value_col = value_col
     ) %>%
     plot_trajectory_impl()
 }
 
-check_plot_trajectory <- function(data, env) {
+check_plot_trajectory <- function(data,
+                                  value_col = "percentage_of_initial_production_by_scope",
+                                  env) {
   stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "production")
+  crucial <- c(common_crucial_market_share_columns(), value_col)
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
   abort_if_has_zero_rows(data, env = env)
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
@@ -71,10 +76,11 @@ check_plot_trajectory <- function(data, env) {
 prep_trajectory <- function(data,
                             convert_label = identity,
                             span_5yr = FALSE,
-                            center_y = FALSE) {
+                            center_y = FALSE,
+                            value_col = "percentage_of_initial_production_by_scope") {
   out <- data %>%
     prep_common() %>%
-    mutate(value = .data$production) %>%
+    mutate(value = !!as.name(value_col)) %>%
     mutate(label = convert_label(.data$label))
 
   if (span_5yr) {

@@ -100,7 +100,7 @@ test_that("with missing crucial names errors gracefully", {
   bad <- select(data, -scenario_source)
   expect_error(class = "hint_missing_names", qplot_trajectory(bad))
 
-  bad <- select(data, -production)
+  bad <- select(data, -percentage_of_initial_production_by_scope)
   expect_error(class = "hint_missing_names", qplot_trajectory(bad))
 })
 

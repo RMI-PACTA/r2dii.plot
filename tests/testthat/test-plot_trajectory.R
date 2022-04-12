@@ -116,3 +116,12 @@ test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-dec
 
   expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
 })
+
+test_that("is sensitive to `value_col`", {
+  data <- example_market_share() %>%
+    mutate(
+      different_value = .data$percentage_of_initial_production_by_scope
+    )
+
+  expect_snapshot_output(plot_trajectory(data, value_col = "different_value"))
+})

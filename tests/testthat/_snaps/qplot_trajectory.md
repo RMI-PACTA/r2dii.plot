@@ -5,11 +5,11 @@
 # if `data` is not market_share-like errors gracefully
 
     `data` must have all the expected names.
-    x Missing names: metric, production, region, scenario_source, technology.
+    x Missing names: metric, percentage_of_initial_production_by_scope, region, scenario_source, technology.
     i Is your data `market_share`-like?
     Caused by error in `abort_if_missing_names()`:
     ! `data` must have all the expected names.
-    x Missing names: metric, production, region, scenario_source, technology.
+    x Missing names: metric, percentage_of_initial_production_by_scope, region, scenario_source, technology.
 
 # with zero-row data errors gracefully
 
@@ -50,13 +50,6 @@
     The number of lines to plot must be 5 or less.
     i Do you need to split the data over multiple plots?
     x Found 8 lines: a, b, c, corporate_economy, d, e, f, projected.
-
-# informs that values are normalized
-
-    Code
-      invisible(qplot_trajectory(data))
-    Message <rlang_message>
-      Normalizing `production` values to 2020 -- the start year.
 
 # Wraps the title as expected
 
