@@ -57,9 +57,7 @@ plot_trajectory <- function(data,
     plot_trajectory_impl()
 }
 
-check_plot_trajectory <- function(data,
-                                  value_col = "percentage_of_initial_production_by_scope",
-                                  env) {
+check_plot_trajectory <- function(data, value_col, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), value_col)
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")

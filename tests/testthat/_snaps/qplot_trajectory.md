@@ -5,11 +5,11 @@
 # if `data` is not market_share-like errors gracefully
 
     `data` must have all the expected names.
-    x Missing names: metric, percentage_of_initial_production_by_scope, region, scenario_source, technology.
+    x Missing names: metric, percentage_of_initial_production_by_scope, region, scenario_source, scope, technology.
     i Is your data `market_share`-like?
     Caused by error in `abort_if_missing_names()`:
     ! `data` must have all the expected names.
-    x Missing names: metric, percentage_of_initial_production_by_scope, region, scenario_source, technology.
+    x Missing names: metric, percentage_of_initial_production_by_scope, region, scenario_source, scope, technology.
 
 # with zero-row data errors gracefully
 
@@ -53,13 +53,13 @@
 
 # Wraps the title as expected
 
-    Production Trajectory of Technology: Electric
+    Production Trajectory of Electric Technology
     in the Automotive Sector
 
 # Wraps the subtitle as expected
 
     The coloured areas indicate trajectories in reference to a scenario.
-    The red area indicates trajectories not aligned with any sustainble scenario.
+    The red area indicates trajectories not aligned with any sustainable scenario.
 
 # Prints axis labels as expected
 
@@ -67,5 +67,6 @@
 
 ---
 
-    Production Rate (normalized to 2020)
+    Change in production relative to the
+    total initial production of Automotive sector (%)
 
