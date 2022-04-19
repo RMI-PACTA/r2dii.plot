@@ -41,7 +41,7 @@ qplot_trajectory <- function(data) {
 }
 
 labs_trajectory <- function(p, data) {
-  technology <- tools::toTitleCase(p[["data"]][["technology"]][[1]])
+  technology <- spell_out_technology(p[["data"]][["technology"]][[1]])
   sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
   min_year <- min(p[["data"]][["year"]], na.rm = TRUE)
   scope <- data$scope[1]
@@ -58,7 +58,7 @@ labs_trajectory <- function(p, data) {
         scenario."
       ),
       x = "Year",
-      y = glue("Change in production relative to the\ntotal initial production of {eval(parse(text = scope))} {scope} (%)")
+      y = glue("Change in production relative to the total\ninitial production of {eval(parse(text = scope))} {scope} (%)")
 
     )
 }
