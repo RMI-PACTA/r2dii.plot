@@ -63,7 +63,7 @@ library(r2dii.plot)
 data <- market_share %>%
   filter(
     sector == "power",
-    technology == "oilcap",
+    technology == "renewablescap",
     region == "global",
     scenario_source == "demo_2020"
   )
