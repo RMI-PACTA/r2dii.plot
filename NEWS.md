@@ -1,5 +1,22 @@
 # r2dii.plot (development version)
 
+New features
+
+* `plot_trajectory()` gains new parameters: `value_col` to indicate which column 
+contains the value to be plotted, and `perc_y_scale` to control whether y-axis 
+should be scaled as percentage.
+
+* `qplot_trajectory()` now plots the column 
+'percentage_of_initial_production_by_scope' by default and uses a percentage 
+y-scale.
+
+Enhancements
+
+* Package is updated to align with the newest version of `r2dii.analysis` 
+(v 0.1.12.9000).
+
+* `qplot_trajectory()` has new labels.
+
 # r2dii.plot 0.2.0
 
 New features
