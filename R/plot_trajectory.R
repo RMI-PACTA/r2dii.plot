@@ -15,6 +15,8 @@
 #'   center.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
+#' @param perc_y_scale Logical. Use `TRUE` to convert labels on y-axis to
+#'   percentage (using `scales::percent`). Use `FALSE` for no label conversion.
 #'
 #' @seealso [market_share].
 #'
@@ -43,7 +45,8 @@ plot_trajectory <- function(data,
                             span_5yr = FALSE,
                             convert_label = identity,
                             center_y = FALSE,
-                            value_col = "percentage_of_initial_production_by_scope") {
+                            value_col = "percentage_of_initial_production_by_scope",
+                            perc_y_scale = TRUE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, value_col = value_col, env = env)
 
@@ -54,7 +57,7 @@ plot_trajectory <- function(data,
       center_y = center_y,
       value_col = value_col
     ) %>%
-    plot_trajectory_impl()
+    plot_trajectory_impl(perc_y_scale)
 }
 
 check_plot_trajectory <- function(data, value_col, env) {
@@ -97,7 +100,8 @@ prep_trajectory <- function(data,
   bind_rows(scenarios, not_scenarios)
 }
 
-plot_trajectory_impl <- function(data) {
+plot_trajectory_impl <- function(data, perc_y_scale = TRUE) {
+  check_y_scale_parameter(perc_y_scale)
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
   scenarios <- data %>% filter(is_scenario(metric))
@@ -147,17 +151,31 @@ plot_trajectory_impl <- function(data) {
     xlim = c(min(data$year, na.rm = TRUE), max(data$year, na.rm = TRUE) + 0.7 * year_span)
   )
 
-  p +
+  p <- p +
     coord_cartesian(expand = FALSE, clip = "off") +
     scale_x_continuous(breaks = integer_breaks()) +
     scale_fill_manual(values = scenario_colour(data)$colour) +
     # Calling `scale_fill_manual()` twice is intentional (https://git.io/JnDPc)
     scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
     scale_linetype_manual(values = line_types(data)) +
-    scale_color_manual(values = line_colours(data)) +
+    scale_color_manual(values = line_colours(data))
+
+  if (perc_y_scale) {
+    p <- p +
+      scale_y_continuous(labels = percent)
+  }
+
+  p +
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
+}
+
+check_y_scale_parameter <- function(value) {
+  if (!is.logical(value)) {
+    abort(c("`perc_y_scale` must be of type logical.",
+            x = glue("You passed a {typeof(value)}.")))
+  }
 }
 
 summarise_max_year_by_scenario <- function(data) {

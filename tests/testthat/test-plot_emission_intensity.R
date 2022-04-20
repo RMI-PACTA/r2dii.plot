@@ -29,11 +29,11 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 })
 
 test_that("doesn't output pretty labels", {
-  data <- filter(sda, sector == "automotive")
+  data <- filter(sda, sector == "cement")
   p <- plot_emission_intensity(data)
 
   metrics <- unique(p$data$label)
-  ugly <- c("projected", "corporate_economy")
+  ugly <- c("projected", "corporate_economy", "target_demo", "adjusted_scenario_demo")
   expect_equal(metrics, ugly)
 })
 

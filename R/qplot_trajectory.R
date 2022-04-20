@@ -36,7 +36,7 @@ qplot_trajectory <- function(data) {
       span_5yr = TRUE,
       center_y = TRUE,
       value_col = "percentage_of_initial_production_by_scope") %>%
-    plot_trajectory_impl() %>%
+    plot_trajectory_impl(perc_y_scale = TRUE) %>%
     labs_trajectory(data)
 }
 

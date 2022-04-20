@@ -3,18 +3,18 @@
     Code
       sda
     Output
-      # A tibble: 208 x 4
-         sector      year emission_factor_metric emission_factor_value
-         <chr>      <dbl> <chr>                                  <dbl>
-       1 automotive  2002 projected                              0.228
-       2 automotive  2003 projected                              0.226
-       3 automotive  2004 projected                              0.224
-       4 automotive  2005 projected                              0.222
-       5 automotive  2006 projected                              0.220
-       6 automotive  2007 projected                              0.218
-       7 automotive  2008 projected                              0.216
-       8 automotive  2009 projected                              0.214
-       9 automotive  2010 projected                              0.212
-      10 automotive  2011 projected                              0.210
-      # ... with 198 more rows
+      # A tibble: 293 x 6
+         sector  year region         scenario_source emission_factor~ emission_factor~
+         <chr>  <dbl> <chr>          <chr>           <chr>                       <dbl>
+       1 cement  2013 advanced econ~ demo_2020       projected                  0.0217
+       2 cement  2013 developing as~ demo_2020       projected                  0.0606
+       3 cement  2013 global         demo_2020       projected                  0.658 
+       4 cement  2014 advanced econ~ demo_2020       projected                  0.0219
+       5 cement  2014 developing as~ demo_2020       projected                  0.0604
+       6 cement  2014 global         demo_2020       projected                  0.659 
+       7 cement  2015 advanced econ~ demo_2020       projected                  0.0221
+       8 cement  2015 developing as~ demo_2020       projected                  0.0603
+       9 cement  2015 global         demo_2020       projected                  0.660 
+      10 cement  2016 advanced econ~ demo_2020       projected                  0.0223
+      # ... with 283 more rows
 
