@@ -212,7 +212,7 @@ test_that("the errors message includes the name of the user's data", {
   expect_error(qplot_trajectory(bad_region), "bad_region")
 })
 
-test_that("By defeault centers the Y axis", {
+test_that("by defeault centers the Y axis", {
   data <- example_market_share()
   data_prep <- data %>%
     prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = TRUE)
@@ -224,4 +224,15 @@ test_that("By defeault centers the Y axis", {
     abs(start_val - ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]),
     abs(start_val - ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[2])
   )
+})
+
+test_that("by default uses percentage y-axis scale", {
+  data <- example_market_share()
+
+  p <- qplot_trajectory(data)
+
+  expected <- c(NA, "-2.0%", "0.0%",  "2.0%",  NA)
+  actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
+
+  expect_equal(actual, expected)
 })

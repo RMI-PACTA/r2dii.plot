@@ -46,7 +46,7 @@ plot_trajectory <- function(data,
                             convert_label = identity,
                             center_y = FALSE,
                             value_col = "percentage_of_initial_production_by_scope",
-                            perc_y_scale = TRUE) {
+                            perc_y_scale = FALSE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, value_col = value_col, env = env)
 
@@ -100,7 +100,7 @@ prep_trajectory <- function(data,
   bind_rows(scenarios, not_scenarios)
 }
 
-plot_trajectory_impl <- function(data, perc_y_scale = TRUE) {
+plot_trajectory_impl <- function(data, perc_y_scale = FALSE) {
   check_y_scale_parameter(perc_y_scale)
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 

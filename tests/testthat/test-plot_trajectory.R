@@ -125,3 +125,28 @@ test_that("is sensitive to `value_col`", {
 
   expect_snapshot_output(plot_trajectory(data, value_col = "different_value"))
 })
+
+test_that("is sensitive to `perc_y_scale`", {
+  data <- example_market_share()
+
+  p <- plot_trajectory(data, perc_y_scale = TRUE)
+  expected <- c("0.0%", "1.0%", "2.0%", "3.0%", "4.0%")
+  actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
+  expect_equal(actual, expected)
+
+  p_no_percent <- plot_trajectory(data, perc_y_scale = FALSE)
+  expected <- c("0.00", "0.01", "0.02", "0.03", "0.04")
+  actual <- ggplot_build(p_no_percent)$layout$panel_params[[1]]$y$get_labels()
+  expect_equal(actual, expected)
+})
+
+test_that("by default doesn't convert y-axis scale to percentage", {
+  data <- example_market_share()
+
+  p <- plot_trajectory(data)
+
+  expected <- c("0.00", "0.01", "0.02",  "0.03",  "0.04")
+  actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
+
+  expect_equal(actual, expected)
+})

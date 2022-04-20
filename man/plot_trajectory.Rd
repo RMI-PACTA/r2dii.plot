@@ -10,7 +10,7 @@ plot_trajectory(
   convert_label = identity,
   center_y = FALSE,
   value_col = "percentage_of_initial_production_by_scope",
-  perc_y_scale = TRUE
+  perc_y_scale = FALSE
 )
 }
 \arguments{
