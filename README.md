@@ -63,13 +63,12 @@ library(r2dii.plot)
 data <- market_share %>%
   filter(
     sector == "power",
-    technology == "renewablescap",
+    technology == "oilcap",
     region == "global",
     scenario_source == "demo_2020"
   )
 
 qplot_trajectory(data)
-#> Normalizing `production` values to 2020 -- the start year.
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -105,7 +104,6 @@ plot_trajectory(data) +
     x = "Year",
     y = "Production (normalized to 2020)"
   )
-#> Normalizing `production` values to 2020 -- the start year.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
