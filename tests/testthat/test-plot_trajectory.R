@@ -150,3 +150,8 @@ test_that("by default doesn't convert y-axis scale to percentage", {
 
   expect_equal(actual, expected)
 })
+
+test_that("with bad `perc_y_scale` errors gracefully", {
+  data <- example_market_share()
+  expect_snapshot_error(plot_trajectory(data, perc_y_scale = "bad"))
+})

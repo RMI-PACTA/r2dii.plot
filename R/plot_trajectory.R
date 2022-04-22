@@ -103,7 +103,8 @@ prep_trajectory <- function(data,
 }
 
 plot_trajectory_impl <- function(data, perc_y_scale = FALSE) {
-  check_y_scale_parameter(perc_y_scale)
+  stopifnot(is.logical(perc_y_scale))
+
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 
   scenarios <- data %>% filter(is_scenario(metric))
@@ -171,14 +172,6 @@ plot_trajectory_impl <- function(data, perc_y_scale = FALSE) {
     theme_2dii() +
     theme(axis.line = element_blank(), legend.position = "none") %+replace%
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
-}
-
-check_y_scale_parameter <- function(value) {
-  if (!is.logical(value)) {
-    abort(c("`perc_y_scale` must be of type logical.",
-      x = glue("You passed a {typeof(value)}.")
-    ))
-  }
 }
 
 summarise_max_year_by_scenario <- function(data) {
