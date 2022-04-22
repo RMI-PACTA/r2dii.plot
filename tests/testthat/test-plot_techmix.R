@@ -144,8 +144,8 @@ test_that("Does not output pretty labels", {
   )
   p <- plot_techmix(data)
 
-  metrics <- unique(p$data$label)
-  ugly <- c("projected", "target_sds", "corporate_economy")
+  metrics <- sort(unique(p$data$label))
+  ugly <- sort(c("projected", "target_sds", "corporate_economy"))
   expect_equal(metrics, ugly)
 })
 
