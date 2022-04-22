@@ -129,6 +129,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.0.5</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot" class="external-link">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
 <div class="section level3">
 <h3 id="plot-trajectory-chart">Plot trajectory chart<a class="anchor" aria-label="anchor" href="#plot-trajectory-chart"></a>
@@ -146,9 +147,8 @@
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
   <span class="op">)</span>
 
-<span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+<span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <ul>
 <li>Use <code>plot_*()</code> for a more “bare” plot that you can customize yourself by modifying the input data and applying <code>ggplot2</code> functions.</li>
 </ul>
@@ -178,11 +178,15 @@
     subtitle <span class="op">=</span> <span class="st">"With reference to climate scenarios."</span>,
     x <span class="op">=</span> <span class="st">"Year"</span>,
     y <span class="op">=</span> <span class="st">"Production (normalized to 2020)"</span>
-  <span class="op">)</span>
-<span class="co">#&gt; Normalizing `production` values to 2020 -- the start year.</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="100%" style="display: block; margin: auto auto auto 0;"></p>
+  <span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>For examples of other plots and data sets please visit <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="funding">Funding<a class="anchor" aria-label="anchor" href="#funding"></a>
+</h2>
+<p>This project has received funding from the <a href="https://wayback.archive-it.org/12090/20210412123959/https://ec.europa.eu/easme/en/" class="external-link">European Union LIFE program</a> and the <a href="https://www.international-climate-initiative.com/en/details/project/measuring-paris-agreement-alignment-and-financial-risk-in-financial-markets-18_I_351-2982" class="external-link">International Climate Initiative (IKI)</a>. The Federal Ministry for the Environment, Nature Conservation and Nuclear Safety (BMU) supports this initiative on the basis of a decision adopted by the German Bundestag. The views expressed are the sole responsibility of the authors and do not necessarily reflect the views of the funders. The funders are not responsible for any use that may be made of the information it contains.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
