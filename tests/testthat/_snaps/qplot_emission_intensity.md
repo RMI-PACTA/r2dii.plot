@@ -1,6 +1,6 @@
 # Prints title as expected
 
-    Emission Intensity Trend for the Automotive Sector
+    Emission Intensity Trend for the Cement Sector
 
 # Prints axis labels as expected
 

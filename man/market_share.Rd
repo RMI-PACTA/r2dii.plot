@@ -5,7 +5,7 @@
 \alias{market_share}
 \title{An example of a \code{market_share}-like dataset}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1170 rows and 8 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 802 rows and 10 columns.
 }
 \usage{
 market_share

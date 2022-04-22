@@ -116,3 +116,42 @@ test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-dec
 
   expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
 })
+
+test_that("is sensitive to `value_col`", {
+  data <- example_market_share() %>%
+    mutate(
+      different_value = .data$percentage_of_initial_production_by_scope
+    )
+
+  expect_snapshot_output(plot_trajectory(data, value_col = "different_value"))
+})
+
+test_that("is sensitive to `perc_y_scale`", {
+  data <- example_market_share()
+
+  p <- plot_trajectory(data, perc_y_scale = TRUE)
+  expected <- c("0%", "1%", "2%", "3%", "4%")
+  actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
+  expect_equal(actual, expected)
+
+  p_no_percent <- plot_trajectory(data, perc_y_scale = FALSE)
+  expected <- c("0.00", "0.01", "0.02", "0.03", "0.04")
+  actual <- ggplot_build(p_no_percent)$layout$panel_params[[1]]$y$get_labels()
+  expect_equal(actual, expected)
+})
+
+test_that("by default doesn't convert y-axis scale to percentage", {
+  data <- example_market_share()
+
+  p <- plot_trajectory(data)
+
+  expected <- c("0.00", "0.01", "0.02", "0.03", "0.04")
+  actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
+
+  expect_equal(actual, expected)
+})
+
+test_that("with bad `perc_y_scale` errors gracefully", {
+  data <- example_market_share()
+  expect_snapshot_error(plot_trajectory(data, perc_y_scale = "bad"))
+})

@@ -104,6 +104,12 @@ example_market_share <- function(...) {
   filter(market_share, .data$technology == first(.data$technology), ...)
 }
 
+example_tech_mix <- function(...) {
+  out <- filter(market_share, .data$sector == first(.data$sector), ...)
+
+  filter(out, .data$metric %in% c("projected", "target_sds", "corporate_economy"))
+}
+
 r_version_is_older_than <- function(major) {
   as.integer(R.version$major) < major
 }

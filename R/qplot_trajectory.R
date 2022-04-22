@@ -25,31 +25,41 @@
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
   env <- list(data = substitute(data))
-  check_plot_trajectory(data, env = env)
+  check_plot_trajectory(
+    data,
+    value_col = c("percentage_of_initial_production_by_scope", "scope"),
+    env = env
+  )
 
   data %>%
-    prep_trajectory(convert_label = format_metric, span_5yr = TRUE, center_y = TRUE) %>%
-    plot_trajectory_impl() %>%
-    labs_trajectory()
+    prep_trajectory(
+      convert_label = format_metric,
+      span_5yr = TRUE,
+      center_y = TRUE,
+      value_col = "percentage_of_initial_production_by_scope"
+    ) %>%
+    plot_trajectory_impl(perc_y_scale = TRUE) %>%
+    labs_trajectory(data)
 }
 
-labs_trajectory <- function(p) {
-  tech <- tools::toTitleCase(p[["data"]][["technology"]][[1]])
+labs_trajectory <- function(p, data) {
+  technology <- spell_out_technology(p[["data"]][["technology"]][[1]])
   sector <- tools::toTitleCase(p[["data"]][["sector"]][[1]])
   min_year <- min(p[["data"]][["year"]], na.rm = TRUE)
+  scope <- data$scope[1]
 
   p +
     labs(
       title = glue(
-        "Production Trajectory of Technology: {tech}
+        "Production Trajectory of {technology} Technology
         in the {sector} Sector"
       ),
       subtitle = glue(
         "The coloured areas indicate trajectories in reference to a scenario.
-        The red area indicates trajectories not aligned with any sustainble \\
+        The red area indicates trajectories not aligned with any sustainable \\
         scenario."
       ),
       x = "Year",
-      y = glue("Production Rate (normalized to {min_year})")
+      y = glue("Change in production relative to the total\ninitial production of {eval(parse(text = scope))} {scope} (%)")
     )
 }

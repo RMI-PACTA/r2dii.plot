@@ -5,7 +5,7 @@
 \alias{sda}
 \title{An example of an \code{sda}-like dataset}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 208 rows and 4 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 293 rows and 6 columns.
 }
 \source{
 \url{https://github.com/2DegreesInvesting/r2dii.plot/issues/55}.

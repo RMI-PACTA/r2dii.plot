@@ -5,9 +5,11 @@ test_that("outputs a data.frame", {
 test_that("has the expected type of columns", {
   expected <- c(
     metric = "character",
+    percentage_of_initial_production_by_scope = "double",
     production = "double",
     region = "character",
     scenario_source = "character",
+    scope = "character",
     sector = "character",
     technology = "character",
     technology_share = "double",

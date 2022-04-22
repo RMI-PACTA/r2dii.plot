@@ -44,7 +44,7 @@ test_that("with too few scenarios errors gracefully", {
 })
 
 test_that("outputs a ggplot", {
-  data <- head(market_share, 3)
+  data <- example_tech_mix()
   p <- plot_techmix(data)
   expect_s3_class(p, "ggplot")
 })
@@ -144,8 +144,8 @@ test_that("Does not output pretty labels", {
   )
   p <- plot_techmix(data)
 
-  metrics <- unique(p$data$label)
-  ugly <- c("projected", "corporate_economy", "target_sds")
+  metrics <- sort(unique(p$data$label))
+  ugly <- sort(c("projected", "target_sds", "corporate_economy"))
   expect_equal(metrics, ugly)
 })
 
@@ -173,7 +173,7 @@ test_that("Doesn't output pretty legend labels", {
   p <- plot_techmix(data)
 
   metrics <- unique(p$data$label_tech)
-  ugly <- c("electric", "hybrid", "ice")
+  ugly <- c("electric", "hybrid", "ice", "fuelcell")
   expect_equal(metrics, ugly)
 })
 

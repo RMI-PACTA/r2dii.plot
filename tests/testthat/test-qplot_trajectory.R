@@ -100,7 +100,7 @@ test_that("with missing crucial names errors gracefully", {
   bad <- select(data, -scenario_source)
   expect_error(class = "hint_missing_names", qplot_trajectory(bad))
 
-  bad <- select(data, -production)
+  bad <- select(data, -percentage_of_initial_production_by_scope)
   expect_error(class = "hint_missing_names", qplot_trajectory(bad))
 })
 
@@ -123,16 +123,6 @@ test_that("works with input data starting before start year of 'projected'", {
   expect_no_error(plot_trajectory(data))
 })
 
-test_that("informs that values are normalized", {
-  data <- example_market_share()
-
-  restore <- options(r2dii.plot.quiet = FALSE)
-  expect_snapshot(invisible(
-    qplot_trajectory(data)
-  ))
-  options(restore)
-})
-
 test_that("informs if excluding data before start year of 'projected'", {
   data <- example_market_share()
   start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
@@ -143,7 +133,6 @@ test_that("informs if excluding data before start year of 'projected'", {
   data %>%
     bind_rows(to_exclude) %>%
     qplot_trajectory() %>%
-    expect_message("[Nn]ormalizing") %>%
     expect_message("[Rr]emoving")
   options(restore)
 })
@@ -152,8 +141,6 @@ test_that("with no data to remove does not inform about removing rows", {
   restore <- options(r2dii.plot.quiet = FALSE)
   example_market_share() %>%
     qplot_trajectory() %>%
-    expect_message("[Nn]ormalizing") %>%
-    # Irrelevant message
     expect_no_message() # No other message should bubble up
   options(restore)
 })
@@ -214,7 +201,7 @@ test_that("Prints axis labels as expected", {
   expect_equal(p$labels$x, "Year")
   expect_snapshot_output(p$labels$x)
 
-  expect_match(p$labels$y, "[Pp]roduction [Rr]ate.*normalized.*")
+  expect_match(p$labels$y, "[Cc]hange in production relative.*initial.*%.*")
   expect_snapshot_output(p$labels$y)
 })
 
@@ -225,7 +212,7 @@ test_that("the errors message includes the name of the user's data", {
   expect_error(qplot_trajectory(bad_region), "bad_region")
 })
 
-test_that("By defeault centers the Y axis", {
+test_that("by defeault centers the Y axis", {
   data <- example_market_share()
   data_prep <- data %>%
     prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = TRUE)
@@ -237,4 +224,15 @@ test_that("By defeault centers the Y axis", {
     abs(start_val - ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]),
     abs(start_val - ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[2])
   )
+})
+
+test_that("by default uses percentage y-axis scale", {
+  data <- example_market_share()
+
+  p <- qplot_trajectory(data)
+
+  expected <- c(NA, "-2%", "0%", "2%", NA)
+  actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
+
+  expect_equal(actual, expected)
 })
