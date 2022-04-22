@@ -130,7 +130,7 @@ test_that("is sensitive to `perc_y_scale`", {
   data <- example_market_share()
 
   p <- plot_trajectory(data, perc_y_scale = TRUE)
-  expected <- c("0.0%", "1.0%", "2.0%", "3.0%", "4.0%")
+  expected <- c("0%", "1%", "2%", "3%", "4%")
   actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
   expect_equal(actual, expected)
 
