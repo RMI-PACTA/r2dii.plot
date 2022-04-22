@@ -1,9 +1,10 @@
 #' Create a trajectory plot
 #'
-#' @param data A data frame. Requirements: * The structure must be like
-#'   [market_share]. * The following columns must have a single value: `sector`,
-#'   `technology`, `region`, `scenario_source`. * (Optional) If present, the
-#'   column `label` is used for data labels.
+#' @param data A data frame. Requirements:
+#' * The structure must be like [market_share].
+#' * The following columns must have a single value: `sector`, `technology`,
+#' `region`, `scenario_source`.
+#' * (Optional) If present, the column `label` is used for data labels.
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_trajectory()`), or use
 #'   `FALSE` to impose no restriction.
