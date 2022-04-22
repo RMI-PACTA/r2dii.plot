@@ -28,14 +28,16 @@ qplot_trajectory <- function(data) {
   check_plot_trajectory(
     data,
     value_col = c("percentage_of_initial_production_by_scope", "scope"),
-    env = env)
+    env = env
+  )
 
   data %>%
     prep_trajectory(
       convert_label = format_metric,
       span_5yr = TRUE,
       center_y = TRUE,
-      value_col = "percentage_of_initial_production_by_scope") %>%
+      value_col = "percentage_of_initial_production_by_scope"
+    ) %>%
     plot_trajectory_impl(perc_y_scale = TRUE) %>%
     labs_trajectory(data)
 }
@@ -59,6 +61,5 @@ labs_trajectory <- function(p, data) {
       ),
       x = "Year",
       y = glue("Change in production relative to the total\ninitial production of {eval(parse(text = scope))} {scope} (%)")
-
     )
 }

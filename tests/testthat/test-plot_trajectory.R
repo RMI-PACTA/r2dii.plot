@@ -145,7 +145,7 @@ test_that("by default doesn't convert y-axis scale to percentage", {
 
   p <- plot_trajectory(data)
 
-  expected <- c("0.00", "0.01", "0.02",  "0.03",  "0.04")
+  expected <- c("0.00", "0.01", "0.02", "0.03", "0.04")
   actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
 
   expect_equal(actual, expected)

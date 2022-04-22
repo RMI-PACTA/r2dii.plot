@@ -27,7 +27,8 @@ test_that("outputs like r2dii.analysis::target_sda()", {
     r2dii.analysis::target_sda(
       ald,
       co2_intensity_scenario = scenario,
-      region_isos = region_isos) %>%
+      region_isos = region_isos
+    ) %>%
     sort_df() %>%
     vapply(typeof, character(1))
   actual <- sda %>%

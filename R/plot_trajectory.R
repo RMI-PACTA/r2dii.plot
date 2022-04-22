@@ -174,7 +174,8 @@ plot_trajectory_impl <- function(data, perc_y_scale = FALSE) {
 check_y_scale_parameter <- function(value) {
   if (!is.logical(value)) {
     abort(c("`perc_y_scale` must be of type logical.",
-            x = glue("You passed a {typeof(value)}.")))
+      x = glue("You passed a {typeof(value)}.")
+    ))
   }
 }
 

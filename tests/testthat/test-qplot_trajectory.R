@@ -231,7 +231,7 @@ test_that("by default uses percentage y-axis scale", {
 
   p <- qplot_trajectory(data)
 
-  expected <- c(NA, "-2%", "0%",  "2%",  NA)
+  expected <- c(NA, "-2%", "0%", "2%", NA)
   actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
 
   expect_equal(actual, expected)
