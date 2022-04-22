@@ -16,8 +16,9 @@
 #'   center.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
-#' @param perc_y_scale Logical. Use `TRUE` to convert labels on y-axis to
-#'   percentage (using `scales::percent`). Use `FALSE` for no label conversion.
+#' @param perc_y_scale Logical. `FALSE` defaults to using no label conversion.
+#'   Use `TRUE` to convert labels on y-axis to percentage using
+#'   `scales::percent` (the default behavior of `qplot_trajectory()`).
 #'
 #' @seealso [market_share].
 #'
