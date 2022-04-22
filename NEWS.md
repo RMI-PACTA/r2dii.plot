@@ -13,7 +13,7 @@ y-scale.
 Enhancements
 
 * Package is updated to align with the newest version of `r2dii.analysis` 
-(v 0.1.12.9000).
+(v 0.1.13).
 
 * `qplot_trajectory()` has new labels.
 
