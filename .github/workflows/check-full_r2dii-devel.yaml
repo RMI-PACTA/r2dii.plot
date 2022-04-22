@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [develop, main, master]
 
-name: R-CMD-check
+name: R-CMD-check r2dii-devel
 
 jobs:
   R-CMD-check:
@@ -29,12 +29,7 @@ jobs:
           - {os: windows-latest, r: '3.6'}
 
           # Use older ubuntu to maximise backward compatibility
-          - {os: ubuntu-18.04,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-18.04,   r: 'release'}
-          - {os: ubuntu-18.04,   r: 'oldrel-1'}
-          - {os: ubuntu-18.04,   r: 'oldrel-2'}
-          - {os: ubuntu-18.04,   r: 'oldrel-3'}
-          - {os: ubuntu-18.04,   r: 'oldrel-4'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -54,5 +49,12 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
+
+      - name: Install devel version of other r2dii packages
+        run: |
+          pak::pkg_install("2DegreesInvesting/r2dii.data")
+          pak::pkg_install("2DegreesInvesting/r2dii.match")
+          pak::pkg_install("2DegreesInvesting/r2dii.analysis")
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v1
