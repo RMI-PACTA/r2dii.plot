@@ -79,7 +79,7 @@ Use `qplot_emission_intensity()` with `sda`-like data.
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario) %>%
+  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(sector == "cement")
 
 qplot_emission_intensity(data)
@@ -130,7 +130,7 @@ The basic output of the function looks rather unappealing.
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario) %>%
+  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(sector == "cement")
 
 plot_emission_intensity(data)
@@ -142,7 +142,7 @@ You can use parameters of `plot_emission_intensity()` to replicate features of
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario) %>%
+  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(sector == "cement")
 
 plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
@@ -248,8 +248,8 @@ data <- market_share %>%
 
 plot_techmix(data) +
   scale_fill_manual(
-    values = c("black", "brown", "grey", "blue", "green4"),
-    labels = paste(c("Coal", "Oil", "Gas", "Hydro", "Renewables"), "Cap.")
+    values = c("black", "brown", "grey", "yellow", "blue", "green4"),
+    labels = paste(c("Coal", "Oil", "Gas", "Nuclear", "Hydro", "Renewables"), "Cap.")
   )
 ```
 
