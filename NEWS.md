@@ -17,6 +17,12 @@ Enhancements
 
 * `qplot_trajectory()` has new labels.
 
+Bug fixes
+
+* All plots now start at the start year of 'projected' instead of first common 
+year for all metrics. This allows for bar removal from 
+techmix plots (#390 @Antoine-Lalechere).
+
 # r2dii.plot 0.2.0
 
 New features
