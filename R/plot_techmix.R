@@ -139,18 +139,28 @@ plot_techmix_impl <- function(data) {
   colours <- get_technology_colours(data)
   labels <- techmix_labels(data)
 
+  data <- data %>%
+    group_by(.data$year) %>%
+    mutate(
+      n_datapoints = n()
+    ) %>%
+    ungroup() %>%
+    mutate(
+      scaling_factor = .data$n_datapoints/max(.data$n_datapoints)
+    )
+
   ggplot(
     data = data,
     aes(
       x = factor(.data$label, levels = labels),
       y = .data$value,
-      fill = factor(.data$technology, levels = colours$technology)
+      fill = factor(.data$technology, levels = colours$technology),
+      width = .data$scaling_factor * 0.6
     )
   ) +
     geom_bar(
       position = "fill",
-      stat = "identity",
-      width = .5
+      stat = "identity"
     ) +
     scale_y_continuous(
       labels = scales::percent_format(),
@@ -170,7 +180,7 @@ plot_techmix_impl <- function(data) {
     theme(legend.position = "bottom") +
     xlab("") +
     ylab("") +
-    facet_wrap(~year, nrow = 2, strip.position = "right")
+    facet_wrap(~year, nrow = 2, strip.position = "right", scales = "free_y")
 }
 
 techmix_labels <- function(data) {
@@ -192,6 +202,9 @@ techmix_labels <- function(data) {
     pull(.data$label) %>%
     unique() %>%
     rev()
+
+  names(labels) <- rev(metrics_order)
+  labels
 }
 
 get_technology_colours <- function(data) {

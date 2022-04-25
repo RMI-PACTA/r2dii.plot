@@ -40,10 +40,7 @@ test_that("doesn't output pretty labels", {
 test_that("with too many lines to plot errors gracefully", {
   data <- filter(sda, sector == "cement") %>%
     bind_fake_sda_metrics(8)
-  # TODO: Why this warning?
-  suppressWarnings(
     expect_snapshot_error(plot_emission_intensity(data))
-  )
 })
 
 test_that("is sensitive to `convert_label`", {
@@ -66,4 +63,15 @@ test_that("is sensitive to `span_5yr`", {
 
   p_t <- plot_emission_intensity(data, span_5yr = TRUE)
   expect_true(diff(year_range(p_t)) == 5)
+})
+
+test_that("with n metrics in input outputs n lines",{
+  data <- filter(sda, sector == "cement", year >= 2020, region == "global")
+  n_metrics <- length(unique(data$emission_factor_metric))
+
+  n_labels <- plot_emission_intensity(data) %>%
+    unique_plot_data("label") %>%
+    length()
+
+  expect_equal(n_metrics, n_labels)
 })

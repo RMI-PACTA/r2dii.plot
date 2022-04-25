@@ -49,3 +49,7 @@
       The `technology_share` values are plotted for extreme years.
       Do you want to plot different years? E.g. filter mydata with:`subset(mydata, year %in% c(2020, 2030))`.
 
+# with no scenario for start year of 'projected' doesn't plot scenario bar
+
+    
+

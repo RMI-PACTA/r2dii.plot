@@ -131,12 +131,13 @@ main_line <- function() "projected"
 #' @noRd
 quiet <- function() getOption("r2dii.plot.quiet") %||% FALSE
 
-get_common_start_year <- function(data) {
+get_projected_start_year <- function(data) {
   data %>%
-    group_by(.data[[metric(data)]]) %>%
-    summarise(year = min(.data$year, na.rm = TRUE)) %>%
+    filter(
+      !!(as.name(metric(data))) == main_line()
+    ) %>%
     pull(.data$year) %>%
-    max()
+    min()
 }
 
 #' The name of the column holding metrics such as projected, corporate_economy
@@ -177,8 +178,8 @@ extract_names <- function(data, possible_names) {
 
 anchor <- function(x) paste0("^", x, "$")
 
-drop_before_start_year <- function(data) {
-  start_year <- get_common_start_year(data)
+drop_before_projected_start_year <- function(data) {
+  start_year <- get_projected_start_year(data)
   if (!min(data$year, na.rm = TRUE) < start_year) {
     return(data)
   }
@@ -216,7 +217,7 @@ beautify <- function(data, x) {
 
 # PACTA results are conventionally shown over a time period of 5 years
 span_5yr <- function(data) {
-  min_year <- get_common_start_year(data)
+  min_year <- get_projected_start_year(data)
   filter(data, .data$year <= min_year + 5L)
 }
 
@@ -233,7 +234,7 @@ add_label_if_missing <- function(data) {
 #' @noRd
 prep_common <- function(data) {
   data %>%
-    drop_before_start_year() %>%
+    drop_before_projected_start_year() %>%
     add_label_if_missing()
 }
 
