@@ -253,6 +253,22 @@ plot_techmix(data) +
   )
 ```
 
+* `plot_techmix()` - remove scenario data for start year.
+
+```{r}
+data <- market_share %>%
+  filter(
+    metric %in% c("projected", "corporate_economy", "target_sds"),
+    sector == "power",
+    region == "global"
+  ) %>%
+  filter(
+    !((metric == "target_sds") & (year == 2020))
+  )
+
+plot_techmix(data)
+```
+
 ## Styling functions
 
 A number of functions allow you to customize any of your plots using the 2DII style:
