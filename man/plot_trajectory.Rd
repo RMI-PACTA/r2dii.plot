@@ -4,42 +4,19 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(
-  data,
-  span_5yr = FALSE,
-  convert_label = identity,
-  center_y = FALSE,
-  value_col = "percentage_of_initial_production_by_scope",
-  perc_y_scale = FALSE
-)
+plot_trajectory(data, perc_y_scale = FALSE)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
 \itemize{
-\item The structure must be like \link{market_share}.
-\item The following columns must have a single value: \code{sector}, \code{technology},
+\item Must have columns: \code{value}, \code{metric}, \code{year}, \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
+\item depending on technology must have a \code{value_low} (brown) and \code{value_high}
+column (see \code{r2dii.data::green_or_brown} for a classification)
+\item The following columns must be present and have a single value: \code{sector},
+\code{technology}, \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year (the default behavior of \code{qplot_trajectory()}), or use
-\code{FALSE} to impose no restriction.}
-
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-y-axis labels. For example:
-\itemize{
-\item To convert labels to uppercase use \code{convert_label = toupper}.
-\item To get the default behavior of \code{qplot_trajectory()} use
-\code{convert_label = format_metric}.
-}}
-
-\item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
-(the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
-center.}
-
-\item{value_col}{Character. Name of the column to be used as a value to be
-plotted.}
 
 \item{perc_y_scale}{Logical. \code{FALSE} defaults to using no label conversion.
 Use \code{TRUE} to convert labels on y-axis to percentage using
@@ -52,7 +29,7 @@ An object of class "ggplot".
 Create a trajectory plot
 }
 \examples{
-# `data` must meet documented "Requirements"
+# `data` must meet "Requirements" documented in `prep_trajectory`
 data <- subset(
   market_share,
   sector == "power" &
@@ -61,15 +38,9 @@ data <- subset(
     scenario_source == "demo_2020"
 )
 
-plot_trajectory(data)
-
-# plot with `qplot_trajectory()` parameters
-plot_trajectory(
-  data,
-  span_5yr = TRUE,
-  convert_label = format_metric
-)
+prep_trajectory(data) \%>\%
+plot_trajectory()
 }
 \seealso{
-\link{market_share}.
+\link{prep_trajectory}.
 }

@@ -5,6 +5,7 @@
 #'
 #' @description
 #' Compared to [plot_trajectory()] this function:
+#' * prepares data with assumed `prep_trajectory()` parameters,
 #' * is restricted to plotting only 5 years from the start year,
 #' * outputs pretty legend labels, based on the column holding metrics,
 #' * outputs a title,
@@ -25,7 +26,7 @@
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
   env <- list(data = substitute(data))
-  check_plot_trajectory(
+  check_prep_trajectory(
     data,
     value_col = c("percentage_of_initial_production_by_scope", "scope"),
     env = env
@@ -38,7 +39,7 @@ qplot_trajectory <- function(data) {
       center_y = TRUE,
       value_col = "percentage_of_initial_production_by_scope"
     ) %>%
-    plot_trajectory_impl(perc_y_scale = TRUE) %>%
+    plot_trajectory(perc_y_scale = TRUE) %>%
     labs_trajectory(data)
 }
 

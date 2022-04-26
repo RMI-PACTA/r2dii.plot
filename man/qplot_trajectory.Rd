@@ -9,9 +9,12 @@ qplot_trajectory(data)
 \arguments{
 \item{data}{A data frame. Requirements:
 \itemize{
-\item The structure must be like \link{market_share}.
-\item The following columns must have a single value: \code{sector}, \code{technology},
+\item Must have columns: \code{value}, \code{metric}, \code{year}, \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
+\item depending on technology must have a \code{value_low} (brown) and \code{value_high}
+column (see \code{r2dii.data::green_or_brown} for a classification)
+\item The following columns must be present and have a single value: \code{sector},
+\code{technology}, \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 }
@@ -21,6 +24,7 @@ An object of class "ggplot".
 \description{
 Compared to \code{\link[=plot_trajectory]{plot_trajectory()}} this function:
 \itemize{
+\item prepares data with assumed \code{prep_trajectory()} parameters,
 \item is restricted to plotting only 5 years from the start year,
 \item outputs pretty legend labels, based on the column holding metrics,
 \item outputs a title,
