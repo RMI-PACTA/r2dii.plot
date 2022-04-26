@@ -120,7 +120,7 @@ test_that("works with input data starting before start year of 'projected'", {
     fake_market_share(year = start_year - 1, metric = "corporate_economy")
   data <- data %>%
     bind_rows(to_exclude)
-  expect_no_error(plot_trajectory(data))
+  expect_no_error(qplot_trajectory(data))
 })
 
 test_that("informs if excluding data before start year of 'projected'", {
