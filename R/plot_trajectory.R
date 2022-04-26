@@ -268,9 +268,11 @@ distance_from_start_value <- function(data, value) {
 }
 
 get_area_borders <- function(data, center_y = FALSE) {
-  lower <- 0.9 * min(data$value, na.rm = TRUE)
-  upper <- 1.1 * max(data$value, na.rm = TRUE)
+  lower <- min(data$value, na.rm = TRUE)
+  upper <- max(data$value, na.rm = TRUE)
   span <- upper - lower
+  lower <- lower - 0.1 * span
+  upper <- upper + 0.1 * span
 
   upper_distance <- distance_from_start_value(data, upper) / span
   lower_distance <- distance_from_start_value(data, lower) / span
