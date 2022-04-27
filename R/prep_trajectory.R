@@ -13,6 +13,7 @@
 #' @templateVar value format_metric
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
+#' @param ... Other parameters passed on to the function.
 #'
 #' @return A data frame.
 #' @export
@@ -39,8 +40,12 @@ prep_trajectory <- function(data,
                             convert_label = identity,
                             span_5yr = FALSE,
                             value_col = "percentage_of_initial_production_by_scope",
-                            env = NULL) {
-  env <- env %||% list(data = substitute(data))
+                            ...) {
+  if (is.null(list(...)$env)) {
+    env <- list(data = substitute(data))
+  } else {
+    env <- list(...)$env
+  }
 
   stopifnot(
     typeof(convert_label) == "closure",

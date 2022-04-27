@@ -4,7 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data, center_y = FALSE, perc_y_scale = FALSE, env = NULL)
+plot_trajectory(data, center_y = FALSE, perc_y_scale = FALSE, ...)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
@@ -23,6 +23,8 @@ center.}
 \item{perc_y_scale}{Logical. \code{FALSE} defaults to using no label conversion.
 Use \code{TRUE} to convert labels on y-axis to percentage using
 \code{scales::percent} (the default behavior of \code{qplot_trajectory()}).}
+
+\item{...}{Other parameters passed on to the function.}
 }
 \value{
 An object of class "ggplot".

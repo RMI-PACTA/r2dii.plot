@@ -12,6 +12,7 @@
 #' @param perc_y_scale Logical. `FALSE` defaults to using no label conversion.
 #'   Use `TRUE` to convert labels on y-axis to percentage using
 #'   `scales::percent` (the default behavior of `qplot_trajectory()`).
+#' @param ... Other parameters passed on to the function.
 #'
 #' @seealso [prep_trajectory].
 #'
@@ -34,9 +35,13 @@ plot_trajectory <- function(
   data,
   center_y = FALSE,
   perc_y_scale = FALSE,
-  env = NULL) {
+  ...) {
 
-  env <- env %||% list(data = substitute(data))
+  if (is.null(list(...)$env)) {
+    env <- list(data = substitute(data))
+  } else {
+    env <- list(...)$env
+  }
 
   check_plot_trajectory(data, env = env)
   stopifnot(

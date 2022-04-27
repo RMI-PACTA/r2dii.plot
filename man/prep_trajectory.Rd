@@ -9,7 +9,7 @@ prep_trajectory(
   convert_label = identity,
   span_5yr = FALSE,
   value_col = "percentage_of_initial_production_by_scope",
-  env = NULL
+  ...
 )
 }
 \arguments{
@@ -35,6 +35,8 @@ the start year (the default behavior of \code{qplot_trajectory()}), or use
 
 \item{value_col}{Character. Name of the column to be used as a value to be
 plotted.}
+
+\item{...}{Other parameters passed on to the function.}
 }
 \value{
 A data frame.
