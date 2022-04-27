@@ -1,6 +1,6 @@
 #' Create a quick trajectory plot
 #'
-#' @seealso plot_trajectory
+#' @seealso [plot_trajectory], [market_share]
 #'
 #' @param data A data frame. Requirements:
 #' * Must have columns: `percentage_of_initial_production_by_scope`, `metric`,
@@ -11,7 +11,7 @@
 #'
 #' @description
 #' Compared to [plot_trajectory()] this function:
-#' * accepts [market-share]-like data directly as input,
+#' * accepts [market_share]-like data directly as input,
 #' * prepares data with fixed `prep_trajectory()` parameters,
 #' * is restricted to plotting only 5 years from the start year,
 #' * outputs pretty legend labels, based on the column holding metrics,

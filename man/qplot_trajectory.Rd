@@ -22,7 +22,7 @@ An object of class "ggplot".
 \description{
 Compared to \code{\link[=plot_trajectory]{plot_trajectory()}} this function:
 \itemize{
-\item accepts \link{market-share}-like data directly as input,
+\item accepts \link{market_share}-like data directly as input,
 \item prepares data with fixed \code{prep_trajectory()} parameters,
 \item is restricted to plotting only 5 years from the start year,
 \item outputs pretty legend labels, based on the column holding metrics,
@@ -44,5 +44,5 @@ data <- subset(
 qplot_trajectory(data)
 }
 \seealso{
-plot_trajectory
+\link{plot_trajectory}, \link{market_share}
 }
