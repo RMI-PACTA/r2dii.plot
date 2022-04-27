@@ -78,28 +78,6 @@ test_that("Is sensitive to `center_y`", {
   expect_true(abs(start_val - lower_y_limit_centered) == abs(start_val - upper_y_limit_centered))
 })
 
-test_that("is sensitive to `convert_label`", {
-  data <- example_market_share()
-
-  labels_def <- plot_trajectory(data) %>%
-    unique_plot_data("label")
-  labels_mod <- plot_trajectory(data, convert_label = toupper) %>%
-    unique_plot_data("label")
-
-  expect_false(identical(labels_def, labels_mod))
-})
-
-test_that("is sensitive to `span_5yr`", {
-  data <- example_market_share()
-  abort_if_year_range_is_5yr_already(data)
-
-  p_f <- plot_trajectory(data, span_5yr = FALSE)
-  expect_false(diff(year_range(p_f)) == 5)
-
-  p_t <- plot_trajectory(data, span_5yr = TRUE)
-  expect_true(diff(year_range(p_t)) == 5)
-})
-
 test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-decimals)", {
   data <- market_share %>%
     filter(
@@ -115,15 +93,6 @@ test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-dec
   x_axis_breaks <- g$layout$panel_params[[1]]$x$minor_breaks
 
   expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
-})
-
-test_that("is sensitive to `value_col`", {
-  data <- example_market_share() %>%
-    mutate(
-      different_value = .data$percentage_of_initial_production_by_scope
-    )
-
-  expect_snapshot_output(plot_trajectory(data, value_col = "different_value"))
 })
 
 test_that("is sensitive to `perc_y_scale`", {

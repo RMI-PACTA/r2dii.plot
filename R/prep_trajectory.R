@@ -40,6 +40,11 @@ prep_trajectory <- function(data,
                             span_5yr = FALSE,
                             value_col = "percentage_of_initial_production_by_scope") {
   env <- list(data = substitute(data))
+  stopifnot(
+    typeof(convert_label) == "closure",
+    is.logical(span_5yr),
+    is.character(value_col)
+    )
   check_prep_trajectory(data, value_col = value_col, env = env)
 
   out <- data %>%

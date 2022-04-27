@@ -31,6 +31,9 @@
 #' prep_trajectory(data) %>%
 #' plot_trajectory()
 plot_trajectory <- function(data, center_y = FALSE, perc_y_scale = FALSE) {
+  stopifnot(is.logical(center_y, perc_y_scale))
+  check_plot_trajectory(data, env = env)
+
   scenarios <- scenario(data, center_y)
   not_scenarios <- data %>%
     filter(!is_scenario(.data$metric)) %>%
@@ -106,8 +109,7 @@ plot_trajectory <- function(data, center_y = FALSE, perc_y_scale = FALSE) {
     theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
 }
 
-check_plot_trajectory <- function(data, perc_y_scale, env) {
-  stopifnot(is.logical(perc_y_scale))
+check_plot_trajectory <- function(data, env) {
   check_common_trajectory(data, env)
   crucial <- c(common_crucial_market_share_columns(), "value")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
