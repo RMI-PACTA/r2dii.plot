@@ -1,16 +1,25 @@
 #' Create a quick trajectory plot
 #'
-#' @inherit plot_trajectory
 #' @seealso plot_trajectory
+#'
+#' @param data A data frame. Requirements:
+#' * Must have columns: `percentage_of_initial_production_by_scope`, `metric`,
+#' `year`, `sector`, `technology`, `region`, `scenario_source`, `scope`.
+#' * The following columns must be present and have a single value: `sector`,
+#' `technology`, `region`, `scenario_source`.
+#' * (Optional) If present, the column `label` is used for data labels.
 #'
 #' @description
 #' Compared to [plot_trajectory()] this function:
+#' * accepts [market-share]-like data directly as input,
 #' * prepares data with fixed `prep_trajectory()` parameters,
 #' * is restricted to plotting only 5 years from the start year,
 #' * outputs pretty legend labels, based on the column holding metrics,
 #' * outputs a title,
 #' * outputs a subtitle,
 #' * outputs informative axis labels in sentence case.
+#'
+#' @return An object of class "ggplot".
 #'
 #' @export
 #' @examples
