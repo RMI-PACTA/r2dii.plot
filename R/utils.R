@@ -280,3 +280,13 @@ integer_breaks <- function(n = 5, ...) {
   }
   return(fxn)
 }
+
+check_common_trajectory <- function(data, env) {
+  stopifnot(is.data.frame(data))
+  abort_if_has_zero_rows(data, env = env)
+  enforce_single_value <- c("sector", "technology", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, env = env)
+  abort_if_invalid_scenarios_number(data)
+  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
+  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
+}

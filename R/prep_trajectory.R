@@ -58,15 +58,9 @@ prep_trajectory <- function(data,
 }
 
 check_prep_trajectory <- function(data, value_col, env) {
-  stopifnot(is.data.frame(data))
+  check_common_trajectory(data, env)
   crucial <- c(common_crucial_market_share_columns(), value_col)
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data, env = env)
-  enforce_single_value <- c("sector", "technology", "region", "scenario_source")
-  abort_if_multiple(data, enforce_single_value, env = env)
-  abort_if_invalid_scenarios_number(data)
-  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
-  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
 
   invisible(data)
 }
