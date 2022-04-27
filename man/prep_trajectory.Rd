@@ -8,7 +8,8 @@ prep_trajectory(
   data,
   convert_label = identity,
   span_5yr = FALSE,
-  value_col = "percentage_of_initial_production_by_scope"
+  value_col = "percentage_of_initial_production_by_scope",
+  env = NULL
 )
 }
 \arguments{

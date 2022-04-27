@@ -32,7 +32,7 @@ test_that("if `data` is not a data frame errors gracefully", {
 })
 
 test_that("if `data` is not market_share-like errors gracefully", {
-  bad <- head(sda)
+  bad <- head(sda %>% filter(region == "global"))
   expect_snapshot_error(qplot_trajectory(bad))
 })
 
@@ -212,10 +212,10 @@ test_that("the errors message includes the name of the user's data", {
   expect_error(qplot_trajectory(bad_region), "bad_region")
 })
 
-test_that("by defeault centers the Y axis", {
+test_that("by default centers the Y axis", {
   data <- example_market_share()
   data_prep <- data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = TRUE)
+    prep_trajectory()
   start_val <- start_value_portfolio(data_prep)
 
   p <- qplot_trajectory(data)

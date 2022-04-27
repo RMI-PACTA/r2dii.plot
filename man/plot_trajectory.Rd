@@ -4,7 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data, center_y = FALSE, perc_y_scale = FALSE)
+plot_trajectory(data, center_y = FALSE, perc_y_scale = FALSE, env = NULL)
 }
 \arguments{
 \item{data}{A data frame. Requirements:

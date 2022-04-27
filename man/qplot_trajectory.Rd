@@ -22,7 +22,7 @@ An object of class "ggplot".
 \description{
 Compared to \code{\link[=plot_trajectory]{plot_trajectory()}} this function:
 \itemize{
-\item prepares data with assumed \code{prep_trajectory()} parameters,
+\item prepares data with fixed \code{prep_trajectory()} parameters,
 \item is restricted to plotting only 5 years from the start year,
 \item outputs pretty legend labels, based on the column holding metrics,
 \item outputs a title,

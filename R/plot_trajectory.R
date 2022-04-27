@@ -30,8 +30,13 @@
 #'
 #' prep_trajectory(data) %>%
 #' plot_trajectory()
-plot_trajectory <- function(data, center_y = FALSE, perc_y_scale = FALSE) {
-  env <- list(data = substitute(data))
+plot_trajectory <- function(
+  data,
+  center_y = FALSE,
+  perc_y_scale = FALSE,
+  env = NULL) {
+
+  env <- env %||% list(data = substitute(data))
 
   check_plot_trajectory(data, env = env)
   stopifnot(

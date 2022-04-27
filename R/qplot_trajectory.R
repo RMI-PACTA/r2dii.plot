@@ -5,7 +5,7 @@
 #'
 #' @description
 #' Compared to [plot_trajectory()] this function:
-#' * prepares data with assumed `prep_trajectory()` parameters,
+#' * prepares data with fixed `prep_trajectory()` parameters,
 #' * is restricted to plotting only 5 years from the start year,
 #' * outputs pretty legend labels, based on the column holding metrics,
 #' * outputs a title,
@@ -25,21 +25,21 @@
 #'
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
-  env <- list(data = substitute(data))
-  check_prep_trajectory(
+  check_qplot_trajectory(
     data,
-    value_col = c("percentage_of_initial_production_by_scope", "scope"),
-    env = env
+    value_col = c("percentage_of_initial_production_by_scope", "scope")
   )
+
+  env <- list(data = substitute(data))
 
   data %>%
     prep_trajectory(
       convert_label = format_metric,
       span_5yr = TRUE,
-      center_y = TRUE,
-      value_col = "percentage_of_initial_production_by_scope"
+      value_col = "percentage_of_initial_production_by_scope",
+      env = env
     ) %>%
-    plot_trajectory(perc_y_scale = TRUE) %>%
+    plot_trajectory(center_y = TRUE, perc_y_scale = TRUE, env = env) %>%
     labs_trajectory(data)
 }
 
@@ -63,4 +63,11 @@ labs_trajectory <- function(p, data) {
       x = "Year",
       y = glue("Change in production relative to the total\ninitial production of {eval(parse(text = scope))} {scope} (%)")
     )
+}
+
+check_qplot_trajectory <- function(data, value_col) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), value_col)
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  invisible(data)
 }
