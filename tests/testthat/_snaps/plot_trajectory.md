@@ -1,8 +1,12 @@
-# is sensitive to `value_col`
+# with bad input parameters errors gracefully
 
-    
+    is.data.frame(data) is not TRUE
 
-# with bad `perc_y_scale` errors gracefully
+---
+
+    is.logical(center_y) is not TRUE
+
+---
 
     is.logical(perc_y_scale) is not TRUE
 

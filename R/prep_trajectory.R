@@ -58,7 +58,8 @@ prep_trajectory <- function(data,
 
   start_year <- min(out$year, na.rm = TRUE)
 
-  cols <- c("year", "metric", "label", "technology", "value", "sector")
+  cols <- c("year", "metric", "label", "technology", "value", "sector",
+            "region", "scenario_source")
   select(out, all_of(cols))
 }
 

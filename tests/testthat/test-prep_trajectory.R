@@ -12,6 +12,8 @@ test_that("the errors message includes the name of the user's data", {
 
 test_that("with bad input parameters errors gracefully", {
   bad <- "bad"
+  expect_snapshot_error(prep_trajectory(data = bad))
+
   data <- example_market_share()
 
   expect_snapshot_error(data %>% prep_trajectory(convert_label = bad))

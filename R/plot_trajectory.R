@@ -31,8 +31,13 @@
 #' prep_trajectory(data) %>%
 #' plot_trajectory()
 plot_trajectory <- function(data, center_y = FALSE, perc_y_scale = FALSE) {
-  stopifnot(is.logical(center_y, perc_y_scale))
+  env <- list(data = substitute(data))
+
   check_plot_trajectory(data, env = env)
+  stopifnot(
+    is.logical(center_y),
+    is.logical(perc_y_scale)
+    )
 
   scenarios <- scenario(data, center_y)
   not_scenarios <- data %>%

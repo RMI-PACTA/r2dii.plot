@@ -1,5 +1,9 @@
 # with bad input parameters errors gracefully
 
+    is.data.frame(data) is not TRUE
+
+---
+
     typeof(convert_label) == "closure" is not TRUE
 
 ---

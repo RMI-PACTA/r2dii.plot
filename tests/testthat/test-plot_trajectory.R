@@ -1,5 +1,15 @@
+test_that("with bad input parameters errors gracefully", {
+  bad <- "bad"
+  expect_snapshot_error(plot_trajectory(data = bad))
+
+  data <- example_market_share() %>% prep_trajectory()
+
+  expect_snapshot_error(plot_trajectory(data, center_y = bad))
+  expect_snapshot_error(plot_trajectory(data, perc_y_scale = bad))
+})
+
 test_that("isn't restricted to plotting only 5 years", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
   expect_true(diff(range(data$year)) > 5L)
 
   p <- plot_trajectory(data)
@@ -7,7 +17,7 @@ test_that("isn't restricted to plotting only 5 years", {
 })
 
 test_that("outputs verbatim labels", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
 
   verbatim <- sort(unique(data$metric))
   p <- plot_trajectory(data)
@@ -17,21 +27,21 @@ test_that("outputs verbatim labels", {
 })
 
 test_that("outputs no title", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
   p <- plot_trajectory(data)
 
   expect_false("title" %in% names(p$labels))
 })
 
 test_that("outputs no subtitle", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
   p <- plot_trajectory(data)
 
   expect_false("subtitle" %in% names(p$labels))
 })
 
 test_that("outputs default axis labels", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
   p <- plot_trajectory(data)
 
   expect_equal(p$labels$x, "year")
@@ -40,16 +50,14 @@ test_that("outputs default axis labels", {
 
 test_that("the errors message includes the name of the user's data", {
   # Keep even if already tested in qplot_. Non-standard evaluation is fragile
-  bad_region <- head(market_share, 2L)
+  bad_region <- head(market_share, 2L) %>% prep_trajectory()
   bad_region$region <- c("a", "b")
   expect_error(plot_trajectory(bad_region), "bad_region")
 })
 
 test_that("By default doesn't center the Y axis", {
-  data <- example_market_share()
-  data_prep <- data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = FALSE)
-  start_val <- start_value_portfolio(data_prep)
+  data <- example_market_share() %>% prep_trajectory()
+  start_val <- start_value_portfolio(data)
 
   p <- plot_trajectory(data)
 
@@ -60,10 +68,8 @@ test_that("By default doesn't center the Y axis", {
 })
 
 test_that("Is sensitive to `center_y`", {
-  data <- example_market_share()
-  data_prep <- data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = FALSE)
-  start_val <- start_value_portfolio(data_prep)
+  data <- example_market_share() %>% prep_trajectory()
+  start_val <- start_value_portfolio(data)
 
   p <- plot_trajectory(data, center_y = FALSE)
   lower_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]
@@ -86,7 +92,7 @@ test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-dec
       region == "global",
       scenario_source == "demo_2020",
       between(year, 2020, 2030)
-    )
+    ) %>% prep_trajectory()
 
   p <- plot_trajectory(data)
   g <- ggplot_build(p)
@@ -96,7 +102,7 @@ test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-dec
 })
 
 test_that("is sensitive to `perc_y_scale`", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
 
   p <- plot_trajectory(data, perc_y_scale = TRUE)
   expected <- c("0%", "1%", "2%", "3%", "4%")
@@ -110,7 +116,7 @@ test_that("is sensitive to `perc_y_scale`", {
 })
 
 test_that("by default doesn't convert y-axis scale to percentage", {
-  data <- example_market_share()
+  data <- example_market_share() %>% prep_trajectory()
 
   p <- plot_trajectory(data)
 
@@ -118,9 +124,4 @@ test_that("by default doesn't convert y-axis scale to percentage", {
   actual <- ggplot_build(p)$layout$panel_params[[1]]$y$get_labels()
 
   expect_equal(actual, expected)
-})
-
-test_that("with bad `perc_y_scale` errors gracefully", {
-  data <- example_market_share()
-  expect_snapshot_error(plot_trajectory(data, perc_y_scale = "bad"))
 })
