@@ -4,19 +4,21 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data, perc_y_scale = FALSE)
+plot_trajectory(data, center_y = FALSE, perc_y_scale = FALSE)
 }
 \arguments{
 \item{data}{A data frame. Requirements:
 \itemize{
 \item Must have columns: \code{value}, \code{metric}, \code{year}, \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
-\item depending on technology must have a \code{value_low} (brown) and \code{value_high}
-column (see \code{r2dii.data::green_or_brown} for a classification)
 \item The following columns must be present and have a single value: \code{sector},
 \code{technology}, \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
+
+\item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
+(the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
+center.}
 
 \item{perc_y_scale}{Logical. \code{FALSE} defaults to using no label conversion.
 Use \code{TRUE} to convert labels on y-axis to percentage using

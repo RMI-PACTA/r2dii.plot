@@ -11,8 +11,6 @@ qplot_trajectory(data)
 \itemize{
 \item Must have columns: \code{value}, \code{metric}, \code{year}, \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
-\item depending on technology must have a \code{value_low} (brown) and \code{value_high}
-column (see \code{r2dii.data::green_or_brown} for a classification)
 \item The following columns must be present and have a single value: \code{sector},
 \code{technology}, \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.

@@ -3,11 +3,12 @@
 #' @param data A data frame. Requirements:
 #' * Must have columns: `value`, `metric`, `year`, `sector`, `technology`,
 #' `region`, `scenario_source`.
-#' * depending on technology must have a `value_low` (brown) and `value_high`
-#' column (see `r2dii.data::green_or_brown` for a classification)
 #' * The following columns must be present and have a single value: `sector`,
 #' `technology`, `region`, `scenario_source`.
 #' * (Optional) If present, the column `label` is used for data labels.
+#' @param center_y Logical. Use `TRUE` to center the y-axis around start value
+#'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
+#'   center.
 #' @param perc_y_scale Logical. `FALSE` defaults to using no label conversion.
 #'   Use `TRUE` to convert labels on y-axis to percentage using
 #'   `scales::percent` (the default behavior of `qplot_trajectory()`).
@@ -29,8 +30,14 @@
 #'
 #' prep_trajectory(data) %>%
 #' plot_trajectory()
-plot_trajectory <- function(data, perc_y_scale = FALSE) {
+plot_trajectory <- function(data, center_y = FALSE, perc_y_scale = FALSE) {
   stopifnot(is.logical(perc_y_scale))
+
+  scenarios <- scenario(data, center_y)
+  not_scenarios <- data %>%
+    filter(!is_scenario(.data$metric)) %>%
+    mutate(value_low = .data$value)
+  data <- bind_rows(scenarios, not_scenarios)
 
   p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
 

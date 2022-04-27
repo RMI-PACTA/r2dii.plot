@@ -11,9 +11,6 @@
 #' @template convert_label
 #' @templateVar fun qplot_trajectory
 #' @templateVar value format_metric
-#' @param center_y Logical. Use `TRUE` to center the y-axis around start value
-#'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
-#'   center.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
 #'
@@ -41,7 +38,6 @@
 prep_trajectory <- function(data,
                             convert_label = identity,
                             span_5yr = FALSE,
-                            center_y = FALSE,
                             value_col = "percentage_of_initial_production_by_scope") {
   env <- list(data = substitute(data))
   check_prep_trajectory(data, value_col = value_col, env = env)
@@ -58,13 +54,7 @@ prep_trajectory <- function(data,
   start_year <- min(out$year, na.rm = TRUE)
 
   cols <- c("year", "metric", "label", "technology", "value", "sector")
-  out <- select(out, all_of(cols))
-
-  scenarios <- scenario(out, center_y)
-  not_scenarios <- out %>%
-    filter(!is_scenario(.data$metric)) %>%
-    mutate(value_low = .data$value)
-  bind_rows(scenarios, not_scenarios)
+  select(out, all_of(cols))
 }
 
 check_prep_trajectory <- function(data, value_col, env) {
