@@ -50,14 +50,19 @@ format_metric <- function(x) {
 #' @export
 recode_metric_techmix <- function(x) {
   out <- recode_metric(x)
-  out <- to_title(out)
-  out
+  to_title(out)
+}
+
+recode_scenario <- function(x) {
+  out <- sub("target_", "", x)
+  out <- toupper(out)
+  glue("{out} scenario")
 }
 
 recode_metric <- function(x) {
   case_when(
     x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
+    startsWith(x, "target") ~ recode_scenario(x),
     TRUE ~ "benchmark"
   )
 }
