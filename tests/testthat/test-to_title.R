@@ -4,7 +4,7 @@ test_that("to_title() converts labels correctly", {
               ~input,          ~output,
           "a.string",       "A String",
     "another_string", "Another String",
-          "b.STRING",       "B String"
+          "b.STRING",       "B STRING"
   )
   # styler: on
   helper <- to_title
@@ -29,14 +29,14 @@ test_that("format_metric() converts labels correctly", {
 test_that("recode_metric_techmix() converts labels correctly", {
   # styler: off
   data <- tribble(
-           ~input,     ~output,
-      "projected", "Portfolio",
-        "target_",  "Scenario",
-  "anything else", "Benchmark",
-      # Edge cases
-      "Projected", "Benchmark",
-       ".target_", "Benchmark",
-            "xyz", "Benchmark"
+           ~input,        ~output,
+      "projected",    "Portfolio",
+        "target_",    " Scenario",
+     "target_sds", "SDS Scenario",
+  "anything else",    "Benchmark",
+      "Projected",    "Benchmark",
+       ".target_",    "Benchmark",
+            "xyz",    "Benchmark"
   )
   # styler: on
   helper <- recode_metric_techmix

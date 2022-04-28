@@ -21,7 +21,8 @@
 #' spell_out_technology(c("gas", "ice", "coalcap", "hdv"))
 to_title <- function(x) {
   to_title_one <- function(x) {
-    words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
+    words <- unlist(strsplit(x, "[^[:alnum:]]+"))
+    words <- tolower_unless_all_uppercase(words)
     # `toTitleCase()` with "a" returns "a", not "A" (a bug in this context)
     words <- capitalize_single_letters(tools::toTitleCase(words))
     paste(words, collapse = " ")
@@ -30,6 +31,11 @@ to_title <- function(x) {
   x_fctr <- factor(x)
   levels(x_fctr) <- vapply(levels(x_fctr), to_title_one, character(1))
   as.character(x_fctr)
+}
+
+tolower_unless_all_uppercase <- function(x) {
+  out <- if_else(stringr::str_count(x, "[A-Z]") < length(x), tolower(x), x)
+  out
 }
 
 capitalize_single_letters <- function(words) {
@@ -56,7 +62,7 @@ recode_metric_techmix <- function(x) {
 recode_scenario <- function(x) {
   out <- sub("target_", "", x)
   out <- toupper(out)
-  out <- paste(out, " scenario")
+  out <- paste(out, "scenario", sep = " ")
   out
 }
 
