@@ -155,3 +155,43 @@ test_that("with bad `perc_y_scale` errors gracefully", {
   data <- example_market_share()
   expect_snapshot_error(plot_trajectory(data, perc_y_scale = "bad"))
 })
+
+test_that("with 0 as extreme value plots areas correctly", {
+  data <- market_share %>%
+    filter(
+      sector == "power",
+      technology == "oilcap",
+      region == "global",
+      scenario_source == "demo_2020"
+    )  %>%
+    mutate(
+      percentage_of_initial_production_by_scope = if_else(
+        percentage_of_initial_production_by_scope >= 0,
+        0,
+        percentage_of_initial_production_by_scope
+      )
+    )
+
+  p <- plot_trajectory(data)
+
+  expect_true(min(p$data$value_low) <= min(p$data$value))
+
+  data <- market_share %>%
+    filter(
+      sector == "power",
+      technology == "renewablescap",
+      region == "global",
+      scenario_source == "demo_2020"
+    )  %>%
+    mutate(
+      percentage_of_initial_production_by_scope = if_else(
+        percentage_of_initial_production_by_scope <= 0,
+        0,
+        percentage_of_initial_production_by_scope
+      )
+    )
+
+  p <- plot_trajectory(data)
+
+  expect_true(max(p$data$value_high) >= max(p$data$value))
+})
