@@ -42,6 +42,7 @@ Imports:
     magrittr,
     r2dii.data,
     rlang,
+    stringr,
     scales
 Suggests: 
     covr,

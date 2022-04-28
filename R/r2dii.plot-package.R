@@ -6,5 +6,6 @@
 ## usethis namespace: start
 #' @importFrom dplyr n
 #' @importFrom scales percent
+#' @importFrom stringr str_count
 ## usethis namespace: end
 NULL

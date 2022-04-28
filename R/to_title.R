@@ -21,7 +21,8 @@
 #' spell_out_technology(c("gas", "ice", "coalcap", "hdv"))
 to_title <- function(x) {
   to_title_one <- function(x) {
-    words <- tolower(unlist(strsplit(x, "[^[:alnum:]]+")))
+    words <- unlist(strsplit(x, "[^[:alnum:]]+"))
+    words <- tolower_unless_all_uppercase(words)
     # `toTitleCase()` with "a" returns "a", not "A" (a bug in this context)
     words <- capitalize_single_letters(tools::toTitleCase(words))
     paste(words, collapse = " ")
@@ -30,6 +31,11 @@ to_title <- function(x) {
   x_fctr <- factor(x)
   levels(x_fctr) <- vapply(levels(x_fctr), to_title_one, character(1))
   as.character(x_fctr)
+}
+
+tolower_unless_all_uppercase <- function(x) {
+  out <- if_else(stringr::str_count(x, "[A-Z]") < length(x), tolower(x), x)
+  out
 }
 
 capitalize_single_letters <- function(words) {
@@ -50,14 +56,20 @@ format_metric <- function(x) {
 #' @export
 recode_metric_techmix <- function(x) {
   out <- recode_metric(x)
-  out <- to_title(out)
+  to_title(out)
+}
+
+recode_scenario <- function(x) {
+  out <- sub("target_", "", x)
+  out <- toupper(out)
+  out <- paste(out, "scenario", sep = " ")
   out
 }
 
 recode_metric <- function(x) {
   case_when(
     x == "projected" ~ "portfolio",
-    startsWith(x, "target") ~ "scenario",
+    startsWith(x, "target") ~ recode_scenario(x),
     TRUE ~ "benchmark"
   )
 }

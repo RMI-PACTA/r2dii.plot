@@ -146,7 +146,7 @@ plot_techmix_impl <- function(data) {
     ) %>%
     ungroup() %>%
     mutate(
-      scaling_factor = .data$n_datapoints/max(.data$n_datapoints)
+      scaling_factor = .data$n_datapoints / max(.data$n_datapoints)
     )
 
   ggplot(
