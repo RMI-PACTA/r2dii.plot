@@ -56,7 +56,8 @@ recode_metric_techmix <- function(x) {
 recode_scenario <- function(x) {
   out <- sub("target_", "", x)
   out <- toupper(out)
-  glue("{out} scenario")
+  out <- paste(out, " scenario")
+  out
 }
 
 recode_metric <- function(x) {
