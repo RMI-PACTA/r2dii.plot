@@ -11,18 +11,18 @@ test_that("to_title() converts labels correctly", {
   expect_equal(helper(data$input), data$output)
 })
 
-test_that("format_metric() converts labels correctly", {
+test_that("recode_metric_trajectory() converts labels correctly", {
   # styler: off
   data <- tribble(
                ~input,             ~output,
-          "projected",         "Projected",
+          "projected",         "Portfolio",
   "corporate_economy", "Corporate Economy",
          "target_cps",               "CPS",
          "target_sds",               "SDS",
          "target_sps",               "SPS"
   )
   # styler: on
-  helper <- format_metric
+  helper <- recode_metric_trajectory
   expect_equal(helper(data$input), data$output)
 })
 
