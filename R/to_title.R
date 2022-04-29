@@ -48,7 +48,7 @@ capitalize_single_letters <- function(words) {
 #' @export
 recode_metric_techmix <- function(x) {
   out <- case_when(
-    x == "projected" ~ "portfolio",
+    tolower(x) == "projected" ~ "portfolio",
     startsWith(x, "target") ~ recode_scenario(x),
     TRUE ~ "benchmark"
   )
@@ -59,7 +59,7 @@ recode_metric_techmix <- function(x) {
 #' @export
 recode_metric_trajectory <- function(x) {
   out <- case_when(
-    x == "projected" ~ "portfolio",
+    tolower(x) == "projected" ~ "portfolio",
     startsWith(x, "target") ~ recode_scenario(x),
     TRUE ~ x
   )
