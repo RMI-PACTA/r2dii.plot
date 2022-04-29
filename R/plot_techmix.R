@@ -52,7 +52,7 @@ plot_techmix <- function(data,
       when = "0.4.0",
       what = "plot_techmix(data = 'must be prepped already')",
       details = c(
-        glue("From the next release the call to the plot functions will change to:
+        glue("From the next release the call to the plot function will change to:
              data %>% r2dii.plot::prep_techmix() %>% r2dii.plot::plot_techmix()."),
         "Custom data preparation will also become possible."
       )
