@@ -5,6 +5,7 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom dplyr n
+#' @importFrom lifecycle deprecate_soft
 #' @importFrom scales percent
 #' @importFrom stringr str_count
 ## usethis namespace: end
