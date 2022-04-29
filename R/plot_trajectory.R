@@ -10,7 +10,7 @@
 #'   `FALSE` to impose no restriction.
 #' @template convert_label
 #' @templateVar fun qplot_trajectory
-#' @templateVar value format_metric
+#' @templateVar value recode_metric_trajectory
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
 #'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.
@@ -41,7 +41,10 @@
 #' plot_trajectory(
 #'   data,
 #'   span_5yr = TRUE,
-#'   convert_label = format_metric
+#'   convert_label = recode_metric_trajectory,
+#'   center_y = TRUE,
+#'   value_col = "percentage_of_initial_production_by_scope",
+#'   perc_y_scale = TRUE
 #' )
 plot_trajectory <- function(data,
                             span_5yr = FALSE,
@@ -268,9 +271,11 @@ distance_from_start_value <- function(data, value) {
 }
 
 get_area_borders <- function(data, center_y = FALSE) {
-  lower <- 0.9 * min(data$value, na.rm = TRUE)
-  upper <- 1.1 * max(data$value, na.rm = TRUE)
+  lower <- min(data$value, na.rm = TRUE)
+  upper <- max(data$value, na.rm = TRUE)
   span <- upper - lower
+  lower <- lower - 0.1 * span
+  upper <- upper + 0.1 * span
 
   upper_distance <- distance_from_start_value(data, upper) / span
   lower_distance <- distance_from_start_value(data, lower) / span

@@ -33,7 +33,7 @@ qplot_trajectory <- function(data) {
 
   data %>%
     prep_trajectory(
-      convert_label = format_metric,
+      convert_label = recode_metric_trajectory,
       span_5yr = TRUE,
       center_y = TRUE,
       value_col = "percentage_of_initial_production_by_scope"

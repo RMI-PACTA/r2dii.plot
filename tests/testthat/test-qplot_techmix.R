@@ -21,7 +21,7 @@ test_that("Outputs pretty labels", {
   p <- qplot_techmix(data)
 
   metrics <- unique(p$data$label)
-  pretty <- c("Portfolio", "Scenario", "Benchmark")
+  pretty <- c("Portfolio", "SDS Scenario", "Benchmark")
   expect_equal(metrics, pretty)
 })
 

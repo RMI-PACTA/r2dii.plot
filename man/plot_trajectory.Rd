@@ -31,7 +31,7 @@ y-axis labels. For example:
 \itemize{
 \item To convert labels to uppercase use \code{convert_label = toupper}.
 \item To get the default behavior of \code{qplot_trajectory()} use
-\code{convert_label = format_metric}.
+\code{convert_label = recode_metric_trajectory}.
 }}
 
 \item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
@@ -67,7 +67,10 @@ plot_trajectory(data)
 plot_trajectory(
   data,
   span_5yr = TRUE,
-  convert_label = format_metric
+  convert_label = recode_metric_trajectory,
+  center_y = TRUE,
+  value_col = "percentage_of_initial_production_by_scope",
+  perc_y_scale = TRUE
 )
 }
 \seealso{

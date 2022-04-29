@@ -2,16 +2,16 @@
 % Please edit documentation in R/to_title.R
 \name{to_title}
 \alias{to_title}
-\alias{format_metric}
 \alias{recode_metric_techmix}
+\alias{recode_metric_trajectory}
 \alias{spell_out_technology}
 \title{Replicate labels produced with \verb{qplot_*()} functions}
 \usage{
 to_title(x)
 
-format_metric(x)
-
 recode_metric_techmix(x)
+
+recode_metric_trajectory(x)
 
 spell_out_technology(x)
 }
@@ -24,7 +24,7 @@ A character vector.
 \description{
 \itemize{
 \item \code{to_title()} converts labels like \code{\link[=qplot_emission_intensity]{qplot_emission_intensity()}}.
-\item \code{format_metric()} converts labels like \code{\link[=qplot_trajectory]{qplot_trajectory()}}.
+\item \code{recode_metric_trajectory()} converts labels like \code{\link[=qplot_trajectory]{qplot_trajectory()}}.
 \item \code{recode_metric_techmix()} converts labels like \code{\link[=qplot_techmix]{qplot_techmix()}}.
 \item \code{spell_out_technology()} converts technology labels like \code{\link[=qplot_techmix]{qplot_techmix()}}.
 }
@@ -33,7 +33,7 @@ A character vector.
 to_title(c("a.string", "another_STRING"))
 
 metric <- c("projected", "corporate_economy", "target_xyz", "else")
-format_metric(metric)
+recode_metric_trajectory(metric)
 
 recode_metric_techmix(metric)
 

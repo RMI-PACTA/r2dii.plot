@@ -270,7 +270,7 @@ test_that("is sensitive to `convert_tech_label`", {
   expect_false(identical(labels_def, labels_mod))
 })
 
-test_that("with no scenario for start year of 'projected' doesn't plot scenario bar",{
+test_that("with no scenario for start year of 'projected' doesn't plot scenario bar", {
   data <- market_share %>%
     filter(
       year %in% c(2020, 2025),
