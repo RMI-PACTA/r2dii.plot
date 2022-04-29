@@ -34,7 +34,7 @@ test_that("recode_metric_techmix() converts labels correctly", {
         "target_",    " Scenario",
      "target_sds", "SDS Scenario",
   "anything else",    "Benchmark",
-      "Projected",    "Benchmark",
+      "Projected",    "Portfolio",
        ".target_",    "Benchmark",
             "xyz",    "Benchmark"
   )
