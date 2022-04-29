@@ -48,6 +48,15 @@ plot_techmix <- function(data,
                          span_5yr = FALSE,
                          convert_label = identity,
                          convert_tech_label = identity) {
+  lifecycle::deprecate_soft(
+      when = "0.4.0",
+      what = "plot_techmix(data = 'must be prepped already')",
+      details = c(
+        glue("From the next release the call to the plot functions will change to:
+             data %>% r2dii.plot::prep_techmix() %>% r2dii.plot::plot_techmix()."),
+        "Custom data preparation will also become possible."
+      )
+  )
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
 

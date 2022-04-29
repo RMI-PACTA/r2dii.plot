@@ -1,3 +1,5 @@
+options(warn = -1)
+
 test_that("without a `data` frame errors gracefully", {
   expect_error(plot_techmix(1), "data.frame.*not")
 })
@@ -286,4 +288,12 @@ test_that("with no scenario for start year of 'projected' doesn't plot scenario 
     )
 
   expect_snapshot_output(plot_techmix(data_no_scenario_start_year))
+})
+
+options(warn = 0)
+
+test_that("throws expected warning about API change",{
+  expect_snapshot_error(
+    plot_techmix(example_tech_mix()), class = "warning"
+    )
 })

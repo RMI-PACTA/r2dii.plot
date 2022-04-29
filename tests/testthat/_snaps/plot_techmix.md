@@ -53,3 +53,10 @@
 
     
 
+# throws expected warning about API change
+
+    The `data` argument of `plot_techmix()` must be prepped already as of r2dii.plot 0.4.0.
+    * From the next release the call to the plot functions will change to:
+    data %>% r2dii.plot::prep_techmix() %>% r2dii.plot::plot_techmix().
+    * Custom data preparation will also become possible.
+
