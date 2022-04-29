@@ -52,6 +52,15 @@ plot_trajectory <- function(data,
                             center_y = FALSE,
                             value_col = "percentage_of_initial_production_by_scope",
                             perc_y_scale = FALSE) {
+  lifecycle::deprecate_soft(
+      when = "0.4.0",
+      what = "plot_trajectory(data = 'must be prepped already')",
+      details = c(
+        glue("From the next release the call to the plot functions will change to:
+             data %>% r2dii.plot::prep_trajectory() %>% r2dii.plot::plot_trajectory()."),
+        "Custom data preparation will also become possible."
+      )
+  )
   env <- list(data = substitute(data))
   check_plot_trajectory(data, value_col = value_col, env = env)
 
