@@ -3,7 +3,9 @@ test_that("outputs pretty labels", {
   p <- qplot_emission_intensity(data)
 
   metrics <- sort(unique(p$data$label))
-  pretty <- sort(c("Projected", "Corporate Economy"))
+  pretty <- sort(
+    c("Projected", "Corporate Economy", "Adjusted Scenario Demo", "Target Demo")
+    )
   expect_equal(metrics, pretty)
 })
 
