@@ -55,11 +55,7 @@ plot_trajectory <- function(data,
   lifecycle::deprecate_soft(
       when = "0.4.0",
       what = "plot_trajectory(data = 'must be prepped already')",
-      details = c(
-        glue("From the next release the call to the plot function will change to:
-             data %>% r2dii.plot::prep_trajectory() %>% r2dii.plot::plot_trajectory()."),
-        "Custom data preparation will also become possible."
-      )
+      details = api_warning_details("plot_trajectory")
   )
   env <- list(data = substitute(data))
   check_plot_trajectory(data, value_col = value_col, env = env)

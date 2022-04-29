@@ -31,7 +31,7 @@
 # throws expected warning about API change
 
     The `data` argument of `plot_emission_intensity()` must be prepped already as of r2dii.plot 0.4.0.
-    * From the next release the call to the plot function will change to:
-    data %>% r2dii.plot::prep_emission_intensity() %>% r2dii.plot::plot_emission_intensity().
-    * Custom data preparation will also become possible.
+    * From the next release you will need to call `r2dii.plot::plot_emission_intensity(data)`
+    prior to calling `r2dii.plot::plot_emission_intensity()`.
+    * Alternatively custom data preparation will also become possible.
 
