@@ -30,6 +30,15 @@
 plot_emission_intensity <- function(data,
                                     span_5yr = FALSE,
                                     convert_label = identity) {
+  lifecycle::deprecate_soft(
+      when = "0.4.0",
+      what = "plot_emission_intensity(data = 'must be prepped already')",
+      details = c(
+        glue("From the next release the call to the plot function will change to:
+             data %>% r2dii.plot::prep_emission_intensity() %>% r2dii.plot::plot_emission_intensity()."),
+        "Custom data preparation will also become possible."
+      )
+  )
   env <- list(data = substitute(data))
   check_plot_emission_intensity(data, env = env)
 

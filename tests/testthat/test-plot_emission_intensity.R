@@ -1,3 +1,5 @@
+options(warn = -1)
+
 test_that("if `data` is not a data frame errors gracefully", {
   expect_snapshot_error(plot_emission_intensity(1))
 })
@@ -74,4 +76,13 @@ test_that("with n metrics in input outputs n lines", {
     length()
 
   expect_equal(n_metrics, n_labels)
+})
+
+options(warn = 0)
+
+test_that("throws expected warning about API change",{
+  data <- head(filter(sda, sector == "cement"))
+  expect_snapshot_error(
+    plot_emission_intensity(data), class = "warning"
+    )
 })
