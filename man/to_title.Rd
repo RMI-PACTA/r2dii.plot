@@ -4,6 +4,7 @@
 \alias{to_title}
 \alias{format_metric}
 \alias{recode_metric_techmix}
+\alias{recode_metric_trajectory}
 \alias{spell_out_technology}
 \title{Replicate labels produced with \verb{qplot_*()} functions}
 \usage{
@@ -12,6 +13,8 @@ to_title(x)
 format_metric(x)
 
 recode_metric_techmix(x)
+
+recode_metric_trajectory(x)
 
 spell_out_technology(x)
 }

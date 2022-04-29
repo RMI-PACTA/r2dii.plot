@@ -67,7 +67,10 @@ plot_trajectory(data)
 plot_trajectory(
   data,
   span_5yr = TRUE,
-  convert_label = format_metric
+  convert_label = recode_metric_trajectory,
+  center_y = TRUE,
+  value_col = "percentage_of_initial_production_by_scope",
+  perc_y_scale = TRUE
 )
 }
 \seealso{

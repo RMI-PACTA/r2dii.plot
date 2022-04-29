@@ -176,7 +176,7 @@ test_that("Outputs pretty labels", {
   p <- qplot_trajectory(data)
 
   metrics <- unique(p$layers[[3]]$data$label)
-  pretty <- c("CPS", "SPS", "SDS", "Corporate Economy", "Projected")
+  pretty <- c("CPS", "SPS", "SDS", "Corporate Economy", "Portfolio")
   expect_equal(metrics, pretty)
 })
 

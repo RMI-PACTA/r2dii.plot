@@ -59,6 +59,19 @@ recode_metric_techmix <- function(x) {
   to_title(out)
 }
 
+#' @rdname to_title
+#' @export
+recode_metric_trajectory <- function(x) {
+  out <- case_when(
+    x == "projected" ~ "portfolio",
+    startsWith(x, "target") ~ recode_scenario(x),
+    TRUE ~ x
+  )
+  out <- sub("scenario", "", out)
+  out <- trimws(out)
+  to_title(out)
+}
+
 recode_scenario <- function(x) {
   out <- sub("target_", "", x)
   out <- toupper(out)
