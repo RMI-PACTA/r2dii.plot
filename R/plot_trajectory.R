@@ -10,7 +10,7 @@
 #'   `FALSE` to impose no restriction.
 #' @template convert_label
 #' @templateVar fun qplot_trajectory
-#' @templateVar value format_metric
+#' @templateVar value recode_metric_trajectory
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
 #'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.

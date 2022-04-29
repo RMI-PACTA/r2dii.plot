@@ -1,7 +1,7 @@
 #' Replicate labels produced with `qplot_*()` functions
 #'
 #' * `to_title()` converts labels like [qplot_emission_intensity()].
-#' * `format_metric()` converts labels like [qplot_trajectory()].
+#' * `recode_metric_trajectory()` converts labels like [qplot_trajectory()].
 #' * `recode_metric_techmix()` converts labels like [qplot_techmix()].
 #' * `spell_out_technology()` converts technology labels like [qplot_techmix()].
 #'
@@ -14,7 +14,7 @@
 #' to_title(c("a.string", "another_STRING"))
 #'
 #' metric <- c("projected", "corporate_economy", "target_xyz", "else")
-#' format_metric(metric)
+#' recode_metric_trajectory(metric)
 #'
 #' recode_metric_techmix(metric)
 #'
@@ -42,14 +42,6 @@ capitalize_single_letters <- function(words) {
   out <- words
   out[which(nchar(out) == 1L)] <- toupper(out[which(nchar(out) == 1L)])
   out
-}
-
-#' @rdname to_title
-#' @export
-format_metric <- function(x) {
-  out <- sub("target_", "", x)
-  out <- to_title(out)
-  if_else(is_scenario(x), toupper(out), out)
 }
 
 #' @rdname to_title
