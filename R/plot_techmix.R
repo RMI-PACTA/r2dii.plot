@@ -48,6 +48,11 @@ plot_techmix <- function(data,
                          span_5yr = FALSE,
                          convert_label = identity,
                          convert_tech_label = identity) {
+  lifecycle::deprecate_soft(
+      when = "0.4.0",
+      what = "plot_techmix(data = 'must be prepped already')",
+      details = api_warning_details("plot_techmix")
+  )
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
 

@@ -1,3 +1,5 @@
+options(warn = -1)
+
 test_that("isn't restricted to plotting only 5 years", {
   data <- example_market_share()
   expect_true(diff(range(data$year)) > 5L)
@@ -194,4 +196,12 @@ test_that("with 0 as extreme value plots areas correctly", {
   p <- plot_trajectory(data)
 
   expect_true(max(p$data$value_high) >= max(p$data$value))
+})
+
+options(warn = 0)
+
+test_that("throws expected warning about API change",{
+  expect_snapshot_error(
+    plot_trajectory(example_market_share()), class = "warning"
+    )
 })

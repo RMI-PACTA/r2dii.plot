@@ -28,3 +28,10 @@
     i Do you need to split the data over multiple plots?
     x Found 12 lines: projected, corporate_economy, target_demo, adjusted_scenario_demo, 1, 2, 3, 4, 5, 6, 7, 8.
 
+# throws expected warning about API change
+
+    The `data` argument of `plot_emission_intensity()` must be prepped already as of r2dii.plot 0.4.0.
+    * From the next release you will need to call `r2dii.plot::plot_emission_intensity(data)`
+    prior to calling `r2dii.plot::plot_emission_intensity()`.
+    * Alternatively custom data preparation will also become possible.
+

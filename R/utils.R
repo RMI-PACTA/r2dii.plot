@@ -280,3 +280,11 @@ integer_breaks <- function(n = 5, ...) {
   }
   return(fxn)
 }
+
+api_warning_details <- function(function_name) {
+  c(
+    glue("From the next release you will need to call `r2dii.plot::{function_name}(data)`
+             prior to calling `r2dii.plot::{function_name}()`."),
+    "Alternatively custom data preparation will also become possible."
+  )
+}

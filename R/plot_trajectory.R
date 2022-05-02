@@ -52,6 +52,11 @@ plot_trajectory <- function(data,
                             center_y = FALSE,
                             value_col = "percentage_of_initial_production_by_scope",
                             perc_y_scale = FALSE) {
+  lifecycle::deprecate_soft(
+      when = "0.4.0",
+      what = "plot_trajectory(data = 'must be prepped already')",
+      details = api_warning_details("plot_trajectory")
+  )
   env <- list(data = substitute(data))
   check_plot_trajectory(data, value_col = value_col, env = env)
 
