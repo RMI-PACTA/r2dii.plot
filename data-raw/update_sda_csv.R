@@ -11,4 +11,9 @@ out <- r2dii.match::match_name(
     region_isos = r2dii.data::region_isos_demo
   )
 
+out <- out %>%
+  filter(
+    year >= 2020
+  )
+
 readr::write_csv(out, here::here("data-raw", "sda.csv"))

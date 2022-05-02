@@ -72,15 +72,19 @@ characteristics are:
 
 * 5 year time span.
 * Formatted data labels.
-* Formatted axis labels.
+* Formatted axis labels and scales.
 * A title (and a subtitle).
 
 Use `qplot_emission_intensity()` with `sda`-like data.
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario) %>%
-  filter(sector == "cement")
+  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
+  filter(
+    sector == "cement",
+    region == "global",
+    scenario_source == "demo_2020"
+  )
 
 qplot_emission_intensity(data)
 ```
@@ -90,7 +94,11 @@ Use `qplot_trajectory()` with `market_share`-like data.
 ```{r}
 data <- matched %>%
   target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
-  filter(technology == "renewablescap", region == "global")
+  filter(
+    technology == "renewablescap", 
+    region == "global", 
+    scenario_source == "demo_2020"
+  )
 
 qplot_trajectory(data)
 ```
@@ -103,6 +111,7 @@ data <- matched %>%
   filter(
     sector == "power",
     region == "global",
+    scenario_source == "demo_2020",
     metric %in% c("projected", "corporate_economy", "target_sds")
   )
 
@@ -130,8 +139,12 @@ The basic output of the function looks rather unappealing.
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario) %>%
-  filter(sector == "cement")
+  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
+  filter(
+    sector == "cement",
+    region == "global", 
+    scenario_source == "demo_2020"
+  )
 
 plot_emission_intensity(data)
 ```
@@ -142,8 +155,12 @@ You can use parameters of `plot_emission_intensity()` to replicate features of
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario) %>%
-  filter(sector == "cement")
+  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
+  filter(
+    sector == "cement",
+    region == "global", 
+    scenario_source == "demo_2020"
+    )
 
 plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
   labs(
@@ -179,6 +196,8 @@ colours and legend labels.
 data <- sda %>%
   filter(
     sector == "cement",
+    region == "global", 
+    scenario_source == "demo_2020",
     year <= 2030
   )
 
@@ -203,6 +222,7 @@ data <- matched %>%
   filter(
     technology == "renewablescap",
     region == "global",
+    scenario_source == "demo_2020",
     year <= 2030
   ) %>%
   mutate(
@@ -234,6 +254,7 @@ data <- market_share %>%
   filter(
     metric %in% c("projected", "corporate_economy", "target_sds"),
     sector == "power",
+    scenario_source == "demo_2020",
     region == "global",
     year >= 2021,
     year <= 2040 # custom time range
@@ -248,9 +269,26 @@ data <- market_share %>%
 
 plot_techmix(data) +
   scale_fill_manual(
-    values = c("black", "brown", "grey", "blue", "green4"),
-    labels = paste(c("Coal", "Oil", "Gas", "Hydro", "Renewables"), "Cap.")
+    values = c("black", "brown", "grey", "yellow", "blue", "green4"),
+    labels = paste(c("Coal", "Oil", "Gas", "Nuclear", "Hydro", "Renewables"), "Cap.")
   )
+```
+
+* `plot_techmix()` - remove scenario data for start year.
+
+```{r}
+data <- market_share %>%
+  filter(
+    metric %in% c("projected", "corporate_economy", "target_sds"),
+    sector == "power",
+    region == "global",
+    scenario_source == "demo_2020"
+  ) %>%
+  filter(
+    !((metric == "target_sds") & (year == 2020))
+  )
+
+plot_techmix(data)
 ```
 
 ## Styling functions

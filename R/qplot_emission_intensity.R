@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' # `data` must meet documented "Requirements"
-#' data <- subset(sda, sector == "cement")
+#' data <- subset(sda, sector == "cement" & region == "global")
 #'
 #' qplot_emission_intensity(data)
 qplot_emission_intensity <- function(data) {

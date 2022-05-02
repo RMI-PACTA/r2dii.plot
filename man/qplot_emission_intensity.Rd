@@ -28,7 +28,7 @@ Compared to \code{\link[=plot_emission_intensity]{plot_emission_intensity()}} th
 }
 \examples{
 # `data` must meet documented "Requirements"
-data <- subset(sda, sector == "cement")
+data <- subset(sda, sector == "cement" & region == "global")
 
 qplot_emission_intensity(data)
 }
