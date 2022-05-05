@@ -12,7 +12,7 @@ Create plots to visualize the alignment of a corporate lending financial portfol
 Useful links:
 \itemize{
   \item \url{https://github.com/2DegreesInvesting/r2dii.plot}
-  \item \url{https://2degreesinvesting.github.io/r2dii.plot}
+  \item \url{https://2degreesinvesting.github.io/r2dii.plot/}
   \item Report bugs at \url{https://github.com/2DegreesInvesting/r2dii.plot/issues}
 }
 

@@ -49,7 +49,6 @@ function in the r2dii.analysis package.
 ``` r
 library(ggplot2, warn.conflicts = FALSE)
 library(dplyr, warn.conflicts = FALSE)
-#> Warning: package 'dplyr' was built under R version 4.0.5
 library(r2dii.plot)
 ```
 
@@ -104,6 +103,10 @@ plot_trajectory(data) +
     x = "Year",
     y = "Production (normalized to 2020)"
   )
+#> Warning: The `data` argument of `plot_trajectory()` must be prepped already as of r2dii.plot 0.4.0.
+#> • From the next release you will need to call `r2dii.plot::plot_trajectory(data)`
+#> prior to calling `r2dii.plot::plot_trajectory()`.
+#> • Alternatively custom data preparation will also become possible.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
@@ -116,7 +119,7 @@ r2dii.plot](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2d
 This project has received funding from the [European Union LIFE
 program](https://wayback.archive-it.org/12090/20210412123959/https://ec.europa.eu/easme/en/)
 and the [International Climate Initiative
-(IKI)](https://www.international-climate-initiative.com/en/details/project/measuring-paris-agreement-alignment-and-financial-risk-in-financial-markets-18_I_351-2982).
+(IKI)](https://www.international-climate-initiative.com/en/search-project/).
 The Federal Ministry for the Environment, Nature Conservation and
 Nuclear Safety (BMU) supports this initiative on the basis of a decision
 adopted by the German Bundestag. The views expressed are the sole
