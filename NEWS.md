@@ -30,7 +30,7 @@ techmix plots (#390 @Antoine-Lalechere).
 
 # r2dii.plot 0.2.0
 
-New features
+## New features
 
 * `plot_*()` functions gain new parameters to help replicate some of
 `qplot_*()` behaviors.
@@ -53,7 +53,7 @@ New features
     - `scale_fill_r2dii_sector()`
     - `scale_fill_r2dii_tech()`
     
-Enhancements
+## Enhancements
 
 * `plot_trajectory()` now defaults to not center the y-axis around the
 start value.
@@ -65,7 +65,7 @@ visibility (#389 @Antoine-Lalechere).
 
 * The website now links to other r2dii packages (#381 @georgeharris2deg).
 
-Bug fixes
+## Bug fixes
 
 * `plot_trajectory()` now displays only integer years on the x-axis (#403).
 
