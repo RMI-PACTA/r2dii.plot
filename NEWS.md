@@ -1,5 +1,7 @@
 # r2dii.plot 0.3.0
 
+# r2dii.plot 0.2.0
+
 ## Breaking changes
 
 * Package is updated to align with the newest version of `r2dii.analysis` 
