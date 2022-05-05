@@ -1,23 +1,28 @@
-# r2dii.plot (development version)
+# r2dii.plot 0.3.0
 
-New features
+## Breaking changes
 
-* `plot_trajectory()` gains new parameters: `value_col` to indicate which column 
-contains the value to be plotted, and `perc_y_scale` to control whether y-axis 
-should be scaled as percentage.
+* Package is updated to align with the newest version of `r2dii.analysis` 
+(v 0.1.13).
 
 * `qplot_trajectory()` now plots the column 
 'percentage_of_initial_production_by_scope' by default and uses a percentage 
 y-scale.
 
-Enhancements
+## New features
 
-* Package is updated to align with the newest version of `r2dii.analysis` 
-(v 0.1.13).
+* `plot_trajectory()` gains new parameters: `value_col` to indicate which column 
+contains the value to be plotted, and `perc_y_scale` to control whether y-axis 
+should be scaled as percentage.
+
+## Bug fixes and minor enhancements
+
+* `to_title()` keeps the word unchanged if all letters are uppercase, for 
+example: `to_title("SDS") = "SDS"`.
 
 * `qplot_trajectory()` has new labels.
 
-Bug fixes
+* `qplot_techmix()` has scenario name in label now (#476).
 
 * All plots now start at the start year of 'projected' instead of first common 
 year for all metrics. This allows for bar removal from 
