@@ -49,7 +49,6 @@ function in the r2dii.analysis package.
 ``` r
 library(ggplot2, warn.conflicts = FALSE)
 library(dplyr, warn.conflicts = FALSE)
-#> Warning: package 'dplyr' was built under R version 4.0.5
 library(r2dii.plot)
 ```
 
@@ -104,6 +103,10 @@ plot_trajectory(data) +
     x = "Year",
     y = "Production (normalized to 2020)"
   )
+#> Warning: The `data` argument of `plot_trajectory()` must be prepped already as of r2dii.plot 0.4.0.
+#> • From the next release you will need to call `r2dii.plot::plot_trajectory(data)`
+#> prior to calling `r2dii.plot::plot_trajectory()`.
+#> • Alternatively custom data preparation will also become possible.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
