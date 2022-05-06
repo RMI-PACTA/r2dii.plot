@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">r2dii.plot</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,7 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://2degreesinvesting.github.io/r2dii.data//" class="external-link">r2dii.data</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://2degreesinvesting.github.io/r2dii.match/" class="external-link">r2dii.match</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://2degreesinvesting.github.io/r2dii.match//" class="external-link">r2dii.match</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.analysis" class="external-link">r2dii.analysis</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot" class="external-link">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
 <p>Your data should have a structure similar to that of the demo datasets in the r2dii.data package.</p>
@@ -160,10 +160,6 @@
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
   <span class="op">)</span>
-<span class="co">#&gt; Warning: Column `name_ald` is deprecated as of r2dii.match 0.1.0, please use</span>
-<span class="co">#&gt; `name_abcd` instead.</span>
-<span class="co">#&gt; Warning: Column `sector_ald` is deprecated as of r2dii.analysis 0.2.0, please use</span>
-<span class="co">#&gt; `sector_abcd` instead.</span>
 <span class="co">#&gt; Warning: Removing abcd rows where `emission_factor` is NA</span>
 
 <span class="fu"><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
@@ -177,10 +173,6 @@
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>, 
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
   <span class="op">)</span>
-<span class="co">#&gt; Warning: Column `name_ald` is deprecated as of r2dii.match 0.1.0, please use</span>
-<span class="co">#&gt; `name_abcd` instead.</span>
-<span class="co">#&gt; Warning: Column `sector_ald` is deprecated as of r2dii.analysis 0.2.0, please use</span>
-<span class="co">#&gt; `sector_abcd` instead.</span>
 
 <span class="fu"><a href="../reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
@@ -194,10 +186,6 @@
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
     <span class="va">metric</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projected"</span>, <span class="st">"corporate_economy"</span>, <span class="st">"target_sds"</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; Warning: Column `name_ald` is deprecated as of r2dii.match 0.1.0, please use</span>
-<span class="co">#&gt; `name_abcd` instead.</span>
-<span class="co">#&gt; Warning: Column `sector_ald` is deprecated as of r2dii.analysis 0.2.0, please use</span>
-<span class="co">#&gt; `sector_abcd` instead.</span>
 
 <span class="fu"><a href="../reference/qplot_techmix.html">qplot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span>
@@ -227,10 +215,6 @@
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>, 
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
   <span class="op">)</span>
-<span class="co">#&gt; Warning: Column `name_ald` is deprecated as of r2dii.match 0.1.0, please use</span>
-<span class="co">#&gt; `name_abcd` instead.</span>
-<span class="co">#&gt; Warning: Column `sector_ald` is deprecated as of r2dii.analysis 0.2.0, please use</span>
-<span class="co">#&gt; `sector_abcd` instead.</span>
 <span class="co">#&gt; Warning: Removing abcd rows where `emission_factor` is NA</span>
 
 <span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
@@ -248,10 +232,6 @@
     <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>, 
     <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
     <span class="op">)</span>
-<span class="co">#&gt; Warning: Column `name_ald` is deprecated as of r2dii.match 0.1.0, please use</span>
-<span class="co">#&gt; `name_abcd` instead.</span>
-<span class="co">#&gt; Warning: Column `sector_ald` is deprecated as of r2dii.analysis 0.2.0, please use</span>
-<span class="co">#&gt; `sector_abcd` instead.</span>
 <span class="co">#&gt; Warning: Removing abcd rows where `emission_factor` is NA</span>
 
 <span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span>, convert_label <span class="op">=</span> <span class="va">to_title</span>, span_5yr <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
@@ -334,10 +314,6 @@
       <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">metric</span>
     <span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; Warning: Column `name_ald` is deprecated as of r2dii.match 0.1.0, please use</span>
-<span class="co">#&gt; `name_abcd` instead.</span>
-<span class="co">#&gt; Warning: Column `sector_ald` is deprecated as of r2dii.analysis 0.2.0, please use</span>
-<span class="co">#&gt; `sector_abcd` instead.</span>
 
 <span class="fu"><a href="../reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
