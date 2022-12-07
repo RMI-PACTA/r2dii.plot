@@ -35,15 +35,13 @@ devtools::install_github("RMI-PACTA/r2dii.plot")
 ## Example
 
 The r2dii.plot package is designed to work smoothly with other “r2dii”
-packages –
-[r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
-[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
-[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/).
-It also plays well with the [ggplot2](https://ggplot2.tidyverse.org/)
-package, which helps you customize your plots. Here, we’ll use an
-example data set that comes with r2dii.plot and that resembles the
-output of the
-[`target_market_share()`](https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html)
+packages – [r2dii.data](https://rmi-pacta.github.io/r2dii.data/),
+[r2dii.match](https://rmi-pacta.github.io/r2dii.match/), and
+[r2dii.analysis](https://rmi-pacta.github.io/r2dii.analysis/). It also
+plays well with the [ggplot2](https://ggplot2.tidyverse.org/) package,
+which helps you customize your plots. Here, we’ll use an example data
+set that comes with r2dii.plot and that resembles the output of the
+[`target_market_share()`](https://rmi-pacta.github.io/r2dii.analysis/reference/target_market_share.html)
 function in the r2dii.analysis package.
 
 ``` r
@@ -112,7 +110,7 @@ plot_trajectory(data) +
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
 For examples of other plots and data sets please visit [Get started with
-r2dii.plot](https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html).
+r2dii.plot](https://rmi-pacta.github.io/r2dii.plot/articles/articles/r2dii-plot.html).
 
 ## Funding
 
