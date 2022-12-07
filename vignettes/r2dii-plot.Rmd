@@ -11,9 +11,9 @@ knitr::opts_chunk$set(
 
 The goal of r2dii.plot is to help you plot 2DII data in an informative,
 beautiful, and easy way. It is designed to work smoothly with other "r2dii"
-packages -- [r2dii.data](https://2degreesinvesting.github.io/r2dii.data/),
-[r2dii.match](https://2degreesinvesting.github.io/r2dii.match/), and
-[r2dii.analysis](https://2degreesinvesting.github.io/r2dii.analysis/). It also
+packages -- [r2dii.data](https://rmi-pacta.github.io/r2dii.data/),
+[r2dii.match](https://rmi-pacta.github.io/r2dii.match/), and
+[r2dii.analysis](https://rmi-pacta.github.io/r2dii.analysis/). It also
 plays well with the [ggplot2](https://ggplot2.tidyverse.org/) package, which
 helps you customize your plots.
 
