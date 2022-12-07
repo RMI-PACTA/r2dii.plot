@@ -9,12 +9,12 @@ url: https://rmi-pacta.github.io/r2dii.plot
 authors:
   Monika Furdyna:
     href: https://github.com/MonikaFu/
-  2 Degrees Investing Initiative:
-    href: https://2degrees-investing.org/
+  Rocky Mountain Institute:
+    href: https://rmi.org/
 home:
   links:
   - text: Learn more
-    href: https://2degrees-investing.org/
+    href: https://rmi.org/
 navbar:
   type: default
   left:
