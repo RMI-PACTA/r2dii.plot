@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# r2dii.plot <img src="man/figures/logo.svg" align="right" width="120" />
+# r2dii.plot <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 
