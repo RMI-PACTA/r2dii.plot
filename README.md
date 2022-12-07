@@ -8,8 +8,8 @@
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test
-coverage](https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg)](https://app.codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master)
-[![R-CMD-check](https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/2DegreesInvesting/r2dii.plot/actions)
+coverage](https://codecov.io/gh/RMI-PACTA/r2dii.plot/branch/master/graph/badge.svg)](https://app.codecov.io/gh/RMI-PACTA/r2dii.plot?branch=master)
+[![R-CMD-check](https://github.com/RMI-PACTA/r2dii.plot/workflows/R-CMD-check/badge.svg)](https://github.com/RMI-PACTA/r2dii.plot/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 <!-- badges: end -->
@@ -29,7 +29,7 @@ And the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("2DegreesInvesting/r2dii.plot")
+devtools::install_github("RMI-PACTA/r2dii.plot")
 ```
 
 ## Example
@@ -54,8 +54,7 @@ library(r2dii.plot)
 
 ### Plot trajectory chart
 
--   Use `qplot_*()` to quickly get a plot with standard titles and
-    labels.
+- Use `qplot_*()` to quickly get a plot with standard titles and labels.
 
 ``` r
 # `data` must meet documented "Requirements"
@@ -72,9 +71,8 @@ qplot_trajectory(data)
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   Use `plot_*()` for a more “bare” plot that you can customize
-    yourself by modifying the input data and applying `ggplot2`
-    functions.
+- Use `plot_*()` for a more “bare” plot that you can customize yourself
+  by modifying the input data and applying `ggplot2` functions.
 
 ``` r
 data <- market_share %>%
@@ -103,10 +101,12 @@ plot_trajectory(data) +
     x = "Year",
     y = "Production (normalized to 2020)"
   )
-#> Warning: The `data` argument of `plot_trajectory()` must be prepped already as of r2dii.plot 0.4.0.
-#> • From the next release you will need to call `r2dii.plot::plot_trajectory(data)`
-#> prior to calling `r2dii.plot::plot_trajectory()`.
-#> • Alternatively custom data preparation will also become possible.
+#> Warning: The `data` argument of `plot_trajectory()` must be prepped already as of
+#> r2dii.plot 0.4.0.
+#> ℹ From the next release you will need to call
+#>   `r2dii.plot::plot_trajectory(data)` prior to calling
+#>   `r2dii.plot::plot_trajectory()`.
+#> ℹ Alternatively custom data preparation will also become possible.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
