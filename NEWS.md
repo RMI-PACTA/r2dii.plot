@@ -1,5 +1,8 @@
 # r2dii.plot (development version)
 
+* `r2dii.plot` has transferred to a new organization: 
+https://github.com/RMI-PACTA/.
+
 # r2dii.plot 0.3.0
 
 ## Breaking changes
