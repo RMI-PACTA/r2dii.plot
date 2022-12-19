@@ -41,12 +41,12 @@ test_that("outputs like r2dii.analysis::target_market_share()", {
 
   # The style `namespace::fun()` highlights this is an integration test
   lbk <- r2dii.data::loanbook_demo[1:10, ]
-  ald <- r2dii.data::ald_demo[795:800, ]
-  matched <- r2dii.match::prioritize(r2dii.match::match_name(lbk, ald))
+  abcd <- r2dii.data::abcd_demo[795:800, ]
+  matched <- r2dii.match::prioritize(r2dii.match::match_name(lbk, abcd))
 
   scenario <- r2dii.data::scenario_demo_2020
   region <- r2dii.data::region_isos_demo
-  exp_df <- r2dii.analysis::target_market_share(matched, ald, scenario, region)
+  exp_df <- r2dii.analysis::target_market_share(matched, abcd, scenario, region)
   expected <- vapply(sort_df(exp_df), typeof, character(1))
 
   act_df <- market_share

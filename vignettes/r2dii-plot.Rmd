@@ -31,7 +31,7 @@ r2dii.data package.
 
 ```{r}
 loanbook <- loanbook_demo
-ald <- ald_demo
+abcd <- abcd_demo
 scenario <- co2_intensity_scenario_demo
 region <- region_isos_demo
 ```
@@ -41,7 +41,7 @@ r2dii.analysis.
 
 ```{r}
 matched <- loanbook %>%
-  match_name(ald) %>%
+  match_name(abcd) %>%
   prioritize() # Remember to validate matches (see `?prioritize`)
 ```
 
@@ -79,7 +79,7 @@ Use `qplot_emission_intensity()` with `sda`-like data.
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
+  target_sda(abcd, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(
     sector == "cement",
     region == "global",
@@ -93,7 +93,7 @@ Use `qplot_trajectory()` with `market_share`-like data.
 
 ```{r}
 data <- matched %>%
-  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
+  target_market_share(abcd, scenario = scenario_demo_2020, region_isos = region) %>%
   filter(
     technology == "renewablescap", 
     region == "global", 
@@ -107,7 +107,7 @@ Use `qplot_techmix()` with `market_share`-like data.
 
 ```{r}
 data <- matched %>%
-  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
+  target_market_share(abcd, scenario = scenario_demo_2020, region_isos = region) %>%
   filter(
     sector == "power",
     region == "global",
@@ -139,7 +139,7 @@ The basic output of the function looks rather unappealing.
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
+  target_sda(abcd, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(
     sector == "cement",
     region == "global", 
@@ -155,7 +155,7 @@ You can use parameters of `plot_emission_intensity()` to replicate features of
 
 ```{r}
 data <- matched %>%
-  target_sda(ald, co2_intensity_scenario = scenario, region_isos = region) %>%
+  target_sda(abcd, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(
     sector == "cement",
     region == "global", 
@@ -218,7 +218,7 @@ title and axis labels.
 
 ```{r}
 data <- matched %>%
-  target_market_share(ald, scenario = scenario_demo_2020, region_isos = region) %>%
+  target_market_share(abcd, scenario = scenario_demo_2020, region_isos = region) %>%
   filter(
     technology == "renewablescap",
     region == "global",
