@@ -258,8 +258,8 @@ order_trajectory <- function(data) {
   if (technology_kind == "green") {
     data <- data %>%
       rename(
-        value = .data$value_low,
-        value_high = .data$value
+        value = "value_low",
+        value_high = "value"
       )
   }
   data
@@ -384,7 +384,7 @@ scenario <- function(data, center_y = FALSE) {
         levels = rev(get_ordered_scenarios(data_scenarios))
       )) %>%
       arrange(.data$year, .data$metric) %>%
-      rename(value_low = .data$value) %>%
+      rename(value_low = "value") %>%
       mutate(value = lead(.data$value_low,
         n = 1,
         default = area_borders$upper
