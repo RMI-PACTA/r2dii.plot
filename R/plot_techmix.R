@@ -216,7 +216,7 @@ get_technology_colours <- function(data) {
   colours <- semi_join(technology_colours, data, by = c("sector", "technology")) %>%
     left_join(
       data %>%
-        select(.data$technology, .data$label_tech) %>%
+        select("technology", "label_tech") %>%
         unique(),
       by = "technology"
     )
