@@ -38,7 +38,7 @@ abort_if_has_zero_rows <- function(data, env) {
 }
 
 hint_if_missing_names <- function(expr, like) {
-  rlang::with_handlers(
+  withCallingHandlers(
     expr,
     missing_names = function(err) {
       abort(
