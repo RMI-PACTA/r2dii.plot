@@ -5,7 +5,7 @@ test_that("outputs pretty labels", {
   metrics <- sort(unique(p$data$label))
   pretty <- sort(
     c("Projected", "Corporate Economy", "Adjusted Scenario Demo", "Target Demo")
-    )
+  )
   expect_equal(metrics, pretty)
 })
 

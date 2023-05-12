@@ -80,9 +80,10 @@ test_that("with n metrics in input outputs n lines", {
 
 options(warn = 0)
 
-test_that("throws expected warning about API change",{
+test_that("throws expected warning about API change", {
   data <- head(filter(sda, sector == "cement"))
   expect_snapshot_error(
-    plot_emission_intensity(data), class = "warning"
-    )
+    plot_emission_intensity(data),
+    class = "warning"
+  )
 })

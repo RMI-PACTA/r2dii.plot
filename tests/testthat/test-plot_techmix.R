@@ -292,8 +292,9 @@ test_that("with no scenario for start year of 'projected' doesn't plot scenario 
 
 options(warn = 0)
 
-test_that("throws expected warning about API change",{
+test_that("throws expected warning about API change", {
   expect_snapshot_error(
-    plot_techmix(example_tech_mix()), class = "warning"
-    )
+    plot_techmix(example_tech_mix()),
+    class = "warning"
+  )
 })

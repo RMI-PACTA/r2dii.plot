@@ -165,7 +165,7 @@ test_that("with 0 as extreme value plots areas correctly", {
       technology == "oilcap",
       region == "global",
       scenario_source == "demo_2020"
-    )  %>%
+    ) %>%
     mutate(
       percentage_of_initial_production_by_scope = if_else(
         percentage_of_initial_production_by_scope >= 0,
@@ -184,7 +184,7 @@ test_that("with 0 as extreme value plots areas correctly", {
       technology == "renewablescap",
       region == "global",
       scenario_source == "demo_2020"
-    )  %>%
+    ) %>%
     mutate(
       percentage_of_initial_production_by_scope = if_else(
         percentage_of_initial_production_by_scope <= 0,
@@ -200,8 +200,9 @@ test_that("with 0 as extreme value plots areas correctly", {
 
 options(warn = 0)
 
-test_that("throws expected warning about API change",{
+test_that("throws expected warning about API change", {
   expect_snapshot_error(
-    plot_trajectory(example_market_share()), class = "warning"
-    )
+    plot_trajectory(example_market_share()),
+    class = "warning"
+  )
 })
