@@ -95,8 +95,8 @@ Use `qplot_trajectory()` with `market_share`-like data.
 data <- matched %>%
   target_market_share(abcd, scenario = scenario_demo_2020, region_isos = region) %>%
   filter(
-    technology == "renewablescap", 
-    region == "global", 
+    technology == "renewablescap",
+    region == "global",
     scenario_source == "demo_2020"
   )
 
@@ -142,7 +142,7 @@ data <- matched %>%
   target_sda(abcd, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(
     sector == "cement",
-    region == "global", 
+    region == "global",
     scenario_source == "demo_2020"
   )
 
@@ -158,9 +158,9 @@ data <- matched %>%
   target_sda(abcd, co2_intensity_scenario = scenario, region_isos = region) %>%
   filter(
     sector == "cement",
-    region == "global", 
+    region == "global",
     scenario_source == "demo_2020"
-    )
+  )
 
 plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
   labs(
@@ -196,7 +196,7 @@ colours and legend labels.
 data <- sda %>%
   filter(
     sector == "cement",
-    region == "global", 
+    region == "global",
     scenario_source == "demo_2020",
     year <= 2030
   )
@@ -243,7 +243,7 @@ plot_trajectory(data) +
     x = "Year",
     y = "Production normalized to start year"
   ) +
-  theme(plot.margin = unit(c(0.5, 6, 0.5, 1), "cm")) #so the long labels fit
+  theme(plot.margin = unit(c(0.5, 6, 0.5, 1), "cm")) # so the long labels fit
 ```
 
 * `plot_techmix()` - change time span, add 'label' column, apply custom colours 

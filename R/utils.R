@@ -38,7 +38,7 @@ abort_if_has_zero_rows <- function(data, env) {
 }
 
 hint_if_missing_names <- function(expr, like) {
-  rlang::with_handlers(
+  withCallingHandlers(
     expr,
     missing_names = function(err) {
       abort(
@@ -81,11 +81,12 @@ abort_if_missing_names <- function(data, expected_names) {
 
   if (!all(unique(expected_names) %in% names(data))) {
     missing_names <- sort(setdiff(expected_names, names(data)))
-    abort(c(
-      "`data` must have all the expected names.",
-      x = glue("Missing names: {toString(missing_names)}.")
-    ),
-    class = "missing_names"
+    abort(
+      c(
+        "`data` must have all the expected names.",
+        x = glue("Missing names: {toString(missing_names)}.")
+      ),
+      class = "missing_names"
     )
   }
 
