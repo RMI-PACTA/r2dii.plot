@@ -38,13 +38,18 @@ In \code{scenario_colours}, colours are ordered from red to green to be used in
 trajectory charts.
 }
 \examples{
-r2dii.plot:::palette_colours
+palette_colours
 
-r2dii.plot:::scenario_colours
+scenario_colours
 
-r2dii.plot:::sector_colours
+sector_colours
 
-r2dii.plot:::technology_colours
+technology_colours
 }
+\seealso{
+Other datasets: 
+\code{\link{market_share}},
+\code{\link{sda}}
+}
+\concept{datasets}
 \keyword{datasets}
-\keyword{internal}

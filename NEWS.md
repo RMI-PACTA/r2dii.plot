@@ -1,5 +1,11 @@
 # r2dii.plot (development version)
 
+* Gains new datasets: 
+  - `palette_colours` contains PACTA brand colours (hex codes), 
+  - `scenario_colours` contains colours used for climate scenarios (hex codes), 
+  - `sector_colours` contains PACTA sector colours (hex codes), 
+  - `technology_colours` contains PACTA technology colours (hex codes).
+
 * `r2dii.plot` has transferred to a new organization: 
 https://github.com/RMI-PACTA/.
 

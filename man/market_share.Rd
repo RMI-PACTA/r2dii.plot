@@ -20,6 +20,7 @@ market_share
 \code{\link[r2dii.analysis:target_market_share]{r2dii.analysis::target_market_share()}}.
 
 Other datasets: 
+\code{\link{r2dii_colours}},
 \code{\link{sda}}
 }
 \concept{datasets}
