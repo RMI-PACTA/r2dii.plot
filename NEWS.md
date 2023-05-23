@@ -1,4 +1,4 @@
-# r2dii.plot (development version)
+# r2dii.plot 0.3.1
 
 * Gains new datasets: 
   - `palette_colours` contains PACTA brand colours (hex codes), 
