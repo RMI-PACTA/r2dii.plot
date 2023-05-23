@@ -121,11 +121,10 @@ r2dii.plot](https://rmi-pacta.github.io/r2dii.plot/articles/r2dii-plot.html).
 
 This project has received funding from the [European Union LIFE
 program](https://wayback.archive-it.org/12090/20210412123959/https://ec.europa.eu/easme/en/)
-and the [International Climate Initiative
-(IKI)](https://www.international-climate-initiative.com/en/). The
-Federal Ministry for the Environment, Nature Conservation and Nuclear
-Safety (BMU) supports this initiative on the basis of a decision adopted
-by the German Bundestag. The views expressed are the sole responsibility
-of the authors and do not necessarily reflect the views of the funders.
-The funders are not responsible for any use that may be made of the
+and the International Climate Initiative (IKI). The Federal Ministry for
+the Environment, Nature Conservation and Nuclear Safety (BMU) supports
+this initiative on the basis of a decision adopted by the German
+Bundestag. The views expressed are the sole responsibility of the
+authors and do not necessarily reflect the views of the funders. The
+funders are not responsible for any use that may be made of the
 information it contains.
