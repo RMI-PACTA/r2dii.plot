@@ -8,6 +8,7 @@
 #' trajectory charts.
 #'
 #' @name r2dii_colours
+#' @family datasets
 #'
 #' @examples
 #' palette_colours
