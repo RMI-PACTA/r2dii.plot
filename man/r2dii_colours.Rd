@@ -46,4 +46,10 @@ sector_colours
 
 technology_colours
 }
+\seealso{
+Other datasets: 
+\code{\link{market_share}},
+\code{\link{sda}}
+}
+\concept{datasets}
 \keyword{datasets}
