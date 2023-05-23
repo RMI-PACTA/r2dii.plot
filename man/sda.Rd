@@ -8,7 +8,7 @@
 An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 110 rows and 6 columns.
 }
 \source{
-\url{https://github.com/2DegreesInvesting/r2dii.plot/issues/55}.
+\url{https://github.com/RMI-PACTA/r2dii.plot/issues/55}.
 }
 \usage{
 sda
@@ -23,7 +23,8 @@ sda
 \code{\link[r2dii.analysis:target_sda]{r2dii.analysis::target_sda()}}.
 
 Other datasets: 
-\code{\link{market_share}}
+\code{\link{market_share}},
+\code{\link{r2dii_colours}}
 }
 \concept{datasets}
 \keyword{datasets}
