@@ -8,16 +8,15 @@
 #' trajectory charts.
 #'
 #' @name r2dii_colours
-#' @keywords internal
 #'
 #' @examples
-#' r2dii.plot:::palette_colours
+#' palette_colours
 #'
-#' r2dii.plot:::scenario_colours
+#' scenario_colours
 #'
-#' r2dii.plot:::sector_colours
+#' sector_colours
 #'
-#' r2dii.plot:::technology_colours
+#' technology_colours
 NULL
 
 #' @rdname r2dii_colours
