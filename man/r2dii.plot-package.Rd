@@ -6,14 +6,16 @@
 \alias{r2dii.plot-package}
 \title{r2dii.plot: Visualize the Climate Scenario Alignment of a Financial Portfolio}
 \description{
-Create plots to visualize the alignment of a corporate lending financial portfolio to climate change scenarios based on climate indicators (production and emission intensities) across key climate relevant sectors of the 'PACTA' methodology (Paris Agreement Capital Transition Assessment; <https://2degrees-investing.org/>). Financial institutions use 'PACTA' to study how their capital allocation decisions align with climate change mitigation goals.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Create plots to visualize the alignment of a corporate lending financial portfolio to climate change scenarios based on climate indicators (production and emission intensities) across key climate relevant sectors of the 'PACTA' methodology (Paris Agreement Capital Transition Assessment; \url{https://www.transitionmonitor.com/}). Financial institutions use 'PACTA' to study how their capital allocation decisions align with climate change mitigation goals.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/2DegreesInvesting/r2dii.plot}
-  \item \url{https://2degreesinvesting.github.io/r2dii.plot/}
-  \item Report bugs at \url{https://github.com/2DegreesInvesting/r2dii.plot/issues}
+  \item \url{https://github.com/RMI-PACTA/r2dii.plot}
+  \item \url{https://rmi-pacta.github.io/r2dii.plot/}
+  \item Report bugs at \url{https://github.com/RMI-PACTA/r2dii.plot/issues}
 }
 
 }
@@ -28,7 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item 2 Degrees Investing Initiative \email{contact@2degrees-investing.org} [copyright holder, funder]
+  \item Rocky Mountain Institute \email{PACTA4banks@rmi.org} [copyright holder, funder]
 }
 
 }
