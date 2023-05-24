@@ -1,10 +1,10 @@
-pandoc: 2.7.3
-pkgdown: 2.0.3
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   r2dii-plot: r2dii-plot.html
-last_built: 2022-05-06T13:32Z
+last_built: 2023-05-24T10:32Z
 urls:
-  reference: https://2degreesinvesting.github.io/r2dii.plot/reference
-  article: https://2degreesinvesting.github.io/r2dii.plot/articles
+  reference: https://rmi-pacta.github.io/r2dii.plot/reference
+  article: https://rmi-pacta.github.io/r2dii.plot/articles
 

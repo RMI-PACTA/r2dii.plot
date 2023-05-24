@@ -8,8 +8,8 @@
 <meta name="description" content="Create plots to visualize the alignment of a corporate
     lending financial portfolio to climate change scenarios based on
     climate indicators (production and emission intensities) across key
-    climate relevant sectors of the PACTA methodology (Paris Agreement
-    Capital Transition Assessment; &lt;https://2degrees-investing.org/&gt;).
+    climate relevant sectors of the PACTA methodology (Paris Agreement Capital 
+    Transition Assessment; &lt;https://www.transitionmonitor.com/&gt;).
     Financial institutions use PACTA to study how their capital
     allocation decisions align with climate change mitigation goals.">
 <title>Visualize the Climate Scenario Alignment of a Financial Portfolio • r2dii.plot</title>
@@ -20,18 +20,18 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Visualize the Climate Scenario Alignment of a Financial Portfolio">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Visualize the Climate Scenario Alignment of a Financial Portfolio">
 <meta property="og:description" content="Create plots to visualize the alignment of a corporate
     lending financial portfolio to climate change scenarios based on
     climate indicators (production and emission intensities) across key
-    climate relevant sectors of the PACTA methodology (Paris Agreement
-    Capital Transition Assessment; &lt;https://2degrees-investing.org/&gt;).
+    climate relevant sectors of the PACTA methodology (Paris Agreement Capital 
+    Transition Assessment; &lt;https://www.transitionmonitor.com/&gt;).
     Financial institutions use PACTA to study how their capital
     allocation decisions align with climate change mitigation goals.">
-<meta property="og:image" content="https://2degreesinvesting.github.io/r2dii.plot/logo.svg">
+<meta property="og:image" content="https://rmi-pacta.github.io/r2dii.plot/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -45,7 +45,7 @@
     
     <a class="navbar-brand me-2" href="index.html">r2dii.plot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
-    <a class="external-link dropdown-item" href="https://2degreesinvesting.github.io/#category:r2dii">r2dii blog posts</a>
+    <a class="external-link dropdown-item" href="https://rmi-pacta.github.io/#category:r2dii">r2dii blog posts</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="news/index.html">Change log</a>
   </div>
@@ -83,14 +83,14 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-packages">Packages</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-packages">
-    <a class="external-link dropdown-item" href="https://2degreesinvesting.github.io/r2dii.data">r2dii.data</a>
-    <a class="external-link dropdown-item" href="https://2degreesinvesting.github.io/r2dii.match">r2dii.match</a>
-    <a class="external-link dropdown-item" href="https://2degreesinvesting.github.io/r2dii.analysis">r2dii.analysis</a>
-    <a class="dropdown-item" href="https://2degreesinvesting.github.io/r2dii.plot">r2dii.plot</a>
+    <a class="external-link dropdown-item" href="https://rmi-pacta.github.io/r2dii.data">r2dii.data</a>
+    <a class="external-link dropdown-item" href="https://rmi-pacta.github.io/r2dii.match">r2dii.match</a>
+    <a class="external-link dropdown-item" href="https://rmi-pacta.github.io/r2dii.analysis">r2dii.analysis</a>
+    <a class="dropdown-item" href="https://rmi-pacta.github.io/r2dii.plot">r2dii.plot</a>
   </div>
 </li>
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/2DegreesInvesting/r2dii.plot">
+  <a class="external-link nav-link" href="https://github.com/RMI-PACTA/r2dii.plot">
     <span class="fa fa-github"></span>
      
   </a>
@@ -104,95 +104,105 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.svg" class="logo" alt=""><h1 id="r2diiplot-">r2dii.plot <a class="anchor" aria-label="anchor" href="#r2diiplot-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="r2diiplot-">r2dii.plot <a class="anchor" aria-label="anchor" href="#r2diiplot-"></a>
 </h1>
 </div>
 <!-- badges: start -->
+
 <p>The goal of r2dii.plot is to help you plot 2DII data in an informative, beautiful, and easy way.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the released version of r2dii.plot from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"r2dii.plot"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"r2dii.plot"</span><span class="op">)</span></span></code></pre></div>
 <p>And the development version from GitHub with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"2DegreesInvesting/r2dii.plot"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"RMI-PACTA/r2dii.plot"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://2degreesinvesting.github.io/r2dii.data/" class="external-link">r2dii.data</a>, <a href="https://2degreesinvesting.github.io/r2dii.match/" class="external-link">r2dii.match</a>, and <a href="https://2degreesinvesting.github.io/r2dii.analysis/" class="external-link">r2dii.analysis</a>. It also plays well with the <a href="https://ggplot2.tidyverse.org/" class="external-link">ggplot2</a> package, which helps you customize your plots. Here, we’ll use an example data set that comes with r2dii.plot and that resembles the output of the <a href="https://2degreesinvesting.github.io/r2dii.analysis/reference/target_market_share.html" class="external-link"><code>target_market_share()</code></a> function in the r2dii.analysis package.</p>
+<p>The r2dii.plot package is designed to work smoothly with other “r2dii” packages – <a href="https://rmi-pacta.github.io/r2dii.data/" class="external-link">r2dii.data</a>, <a href="https://rmi-pacta.github.io/r2dii.match/" class="external-link">r2dii.match</a>, and <a href="https://rmi-pacta.github.io/r2dii.analysis/" class="external-link">r2dii.analysis</a>. It also plays well with the <a href="https://ggplot2.tidyverse.org/" class="external-link">ggplot2</a> package, which helps you customize your plots. Here, we’ll use an example data set that comes with r2dii.plot and that resembles the output of the <a href="https://rmi-pacta.github.io/r2dii.analysis/reference/target_market_share.html" class="external-link"><code>target_market_share()</code></a> function in the r2dii.analysis package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/2DegreesInvesting/r2dii.plot" class="external-link">r2dii.plot</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RMI-PACTA/r2dii.plot" class="external-link">r2dii.plot</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="plot-trajectory-chart">Plot trajectory chart<a class="anchor" aria-label="anchor" href="#plot-trajectory-chart"></a>
 </h3>
-<ul><li>Use <code>qplot_*()</code> to quickly get a plot with standard titles and labels.</li></ul>
+<ul>
+<li>Use <code>qplot_*()</code> to quickly get a plot with standard titles and labels.</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># `data` must meet documented "Requirements"</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span>
-    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
-    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,
-    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
-    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>
-  <span class="op">)</span>
-
-<span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># `data` must meet documented "Requirements"</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,</span>
+<span>    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,</span>
+<span>    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,</span>
+<span>    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/qplot_trajectory.html">qplot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<ul><li>Use <code>plot_*()</code> for a more “bare” plot that you can customize yourself by modifying the input data and applying <code>ggplot2</code> functions.</li></ul>
+<ul>
+<li>Use <code>plot_*()</code> for a more “bare” plot that you can customize yourself by modifying the input data and applying <code>ggplot2</code> functions.</li>
+</ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span>
-    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,
-    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,
-    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,
-    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">2020</span>, <span class="fl">2035</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    label <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"projected"</span> <span class="op">~</span> <span class="st">"Your Portfolio"</span>,
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"corporate_economy"</span> <span class="op">~</span> <span class="st">"Benchmark (Corp. Econ.)"</span>,
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sds"</span> <span class="op">~</span> <span class="st">"SDS Scenario"</span>,
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sps"</span> <span class="op">~</span> <span class="st">"SPS Scenario"</span>,
-      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_cps"</span> <span class="op">~</span> <span class="st">"CPS Scenario"</span>,
-      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">metric</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-
-<span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>
-    title <span class="op">=</span> <span class="st">"Power production trajectory for Renewables"</span>,
-    subtitle <span class="op">=</span> <span class="st">"With reference to climate scenarios."</span>,
-    x <span class="op">=</span> <span class="st">"Year"</span>,
-    y <span class="op">=</span> <span class="st">"Production (normalized to 2020)"</span>
-  <span class="op">)</span>
-<span class="co">#&gt; Warning: The `data` argument of `plot_trajectory()` must be prepped already as of r2dii.plot 0.4.0.</span>
-<span class="co">#&gt; • From the next release you will need to call `r2dii.plot::plot_trajectory(data)`</span>
-<span class="co">#&gt; prior to calling `r2dii.plot::plot_trajectory()`.</span>
-<span class="co">#&gt; • Alternatively custom data preparation will also become possible.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">sector</span> <span class="op">==</span> <span class="st">"power"</span>,</span>
+<span>    <span class="va">technology</span> <span class="op">==</span> <span class="st">"renewablescap"</span>,</span>
+<span>    <span class="va">region</span> <span class="op">==</span> <span class="st">"global"</span>,</span>
+<span>    <span class="va">scenario_source</span> <span class="op">==</span> <span class="st">"demo_2020"</span>,</span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html" class="external-link">between</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">2020</span>, <span class="fl">2035</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="va">metric</span> <span class="op">==</span> <span class="st">"projected"</span> <span class="op">~</span> <span class="st">"Your Portfolio"</span>,</span>
+<span>      <span class="va">metric</span> <span class="op">==</span> <span class="st">"corporate_economy"</span> <span class="op">~</span> <span class="st">"Benchmark (Corp. Econ.)"</span>,</span>
+<span>      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sds"</span> <span class="op">~</span> <span class="st">"SDS Scenario"</span>,</span>
+<span>      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sps"</span> <span class="op">~</span> <span class="st">"SPS Scenario"</span>,</span>
+<span>      <span class="va">metric</span> <span class="op">==</span> <span class="st">"target_cps"</span> <span class="op">~</span> <span class="st">"CPS Scenario"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">metric</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Power production trajectory for Renewables"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"With reference to climate scenarios."</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Production (normalized to 2020)"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `data` argument of `plot_trajectory()` must be prepped already as of</span></span>
+<span><span class="co">#&gt; r2dii.plot 0.4.0.</span></span>
+<span><span class="co">#&gt; ℹ From the next release you will need to call</span></span>
+<span><span class="co">#&gt;   `r2dii.plot::plot_trajectory(data)` prior to calling</span></span>
+<span><span class="co">#&gt;   `r2dii.plot::plot_trajectory()`.</span></span>
+<span><span class="co">#&gt; ℹ Alternatively custom data preparation will also become possible.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span><span class="co">#&gt; generated.</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
-<p>For examples of other plots and data sets please visit <a href="https://2degreesinvesting.github.io/r2dii.plot/articles/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
+<p>For examples of other plots and data sets please visit <a href="https://rmi-pacta.github.io/r2dii.plot/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="funding">Funding<a class="anchor" aria-label="anchor" href="#funding"></a>
 </h2>
-<p>This project has received funding from the <a href="https://wayback.archive-it.org/12090/20210412123959/https://ec.europa.eu/easme/en/" class="external-link">European Union LIFE program</a> and the <a href="https://www.international-climate-initiative.com/en/search-project/" class="external-link">International Climate Initiative (IKI)</a>. The Federal Ministry for the Environment, Nature Conservation and Nuclear Safety (BMU) supports this initiative on the basis of a decision adopted by the German Bundestag. The views expressed are the sole responsibility of the authors and do not necessarily reflect the views of the funders. The funders are not responsible for any use that may be made of the information it contains.</p>
+<p>This project has received funding from the <a href="https://wayback.archive-it.org/12090/20210412123959/https://ec.europa.eu/easme/en/" class="external-link">European Union LIFE program</a> and the International Climate Initiative (IKI). The Federal Ministry for the Environment, Nature Conservation and Nuclear Safety (BMU) supports this initiative on the basis of a decision adopted by the German Bundestag. The views expressed are the sole responsibility of the authors and do not necessarily reflect the views of the funders. The funders are not responsible for any use that may be made of the information it contains.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=r2dii.plot" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/2DegreesInvesting/r2dii.plot/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/2DegreesInvesting/r2dii.plot/issues" class="external-link">Report a bug</a></li>
-<li><a href="https://2degrees-investing.org/" class="external-link">Learn more</a></li>
+<li><a href="https://github.com/RMI-PACTA/r2dii.plot/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/RMI-PACTA/r2dii.plot/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://rmi.org/" class="external-link">Learn more</a></li>
 </ul>
 </div>
 
@@ -220,19 +230,11 @@
 <li>Mauro Lepore <br><small class="roles"> Author, contractor </small> <a href="https://orcid.org/0000-0002-1986-7988" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Alex Axthelm <br><small class="roles"> Author, contractor </small> <a href="https://orcid.org/0000-0001-8579-8565" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
-<a href="https://2degrees-investing.org/" class="external-link">2 Degrees Investing Initiative</a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="https://rmi.org/" class="external-link">Rocky Mountain Institute</a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://app.codecov.io/gh/2DegreesInvesting/r2dii.plot?branch=master" class="external-link"><img src="https://codecov.io/gh/2DegreesInvesting/r2dii.plot/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/2DegreesInvesting/r2dii.plot/actions" class="external-link"><img src="https://github.com/2DegreesInvesting/r2dii.plot/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://CRAN.R-project.org/package=r2dii.plot" class="external-link"><img src="https://www.r-pkg.org/badges/version/r2dii.plot" alt="CRAN status"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
@@ -240,12 +242,12 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/MonikaFu/" class="external-link">Monika Furdyna</a>, Mauro Lepore, Alex Axthelm, <a href="https://2degrees-investing.org/" class="external-link">2 Degrees Investing Initiative</a>.</p>
+<p>Developed by <a href="https://github.com/MonikaFu/" class="external-link">Monika Furdyna</a>, Mauro Lepore, Alex Axthelm, <a href="https://rmi.org/" class="external-link">Rocky Mountain Institute</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
     </footer>
