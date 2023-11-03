@@ -40,8 +40,8 @@ test_that("outputs like r2dii.analysis::target_market_share()", {
   sort_df <- function(data) data[sort(names(data))]
 
   # The style `namespace::fun()` highlights this is an integration test
-  lbk <- r2dii.data::loanbook_demo[1:10, ]
-  abcd <- r2dii.data::abcd_demo[795:800, ]
+  lbk <- r2dii.data::loanbook_demo
+  abcd <- r2dii.data::abcd_demo
   matched <- r2dii.match::prioritize(r2dii.match::match_name(lbk, abcd))
 
   scenario <- r2dii.data::scenario_demo_2020
