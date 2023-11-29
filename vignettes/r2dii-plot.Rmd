@@ -357,7 +357,7 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
 out what are the available colour labels).
 
 ```{r}
-technologies <- c("coalcap", "oilcap", "gascap", "hydrocap", "renewablescap")
+technologies <- c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap")
 
 data <- market_share %>%
   filter(
