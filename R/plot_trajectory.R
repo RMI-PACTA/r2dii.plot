@@ -255,7 +255,7 @@ order_trajectory <- function(data) {
 
   technology_kind <- get_tech_kind(data)
 
-  if (technology_kind == "green") {
+  if (technology_kind == "increasing") {
     data <- data %>%
       rename(
         value = "value_low",
@@ -308,9 +308,9 @@ get_ordered_scenarios <- function(data) {
 }
 
 get_tech_kind <- function(data) {
-  technology_kind <- r2dii.data::green_or_brown %>%
+  technology_kind <- r2dii.data::increasing_or_decreasing %>%
     filter(.data$technology == unique(data$technology)) %>%
-    pull(.data$green_or_brown) %>%
+    pull(.data$increasing_or_decreasing) %>%
     unique()
 
   technology_kind
@@ -324,11 +324,11 @@ scenario_colour <- function(data) {
   technology_kind <- get_tech_kind(data)
 
   switch(technology_kind,
-    "green" = reverse_rows(tibble(
+    "increasing" = reverse_rows(tibble(
       scenario = ordered_scenarios,
       colour = scenario_colours$hex
     )),
-    "brown" = tibble(
+    "decreasing" = tibble(
       scenario = rev(ordered_scenarios),
       colour = scenario_colours$hex
     ),
@@ -368,7 +368,7 @@ scenario <- function(data, center_y = FALSE) {
 
   technology_kind <- get_tech_kind(data)
 
-  if (technology_kind == "green") {
+  if (technology_kind == "increasing") {
     data_scenarios <- data %>%
       filter(is_scenario(.data$metric))
 
