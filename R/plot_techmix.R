@@ -136,7 +136,8 @@ prep_techmix <- function(data,
     ))
   }
   out <- out %>%
-    filter(.data$year %in% c(start_year, future_year))
+    filter(.data$year %in% c(start_year, future_year)) %>%
+    filter(!(is_scenario(.data$metric) & (.data$year == start_year)))
   out
 }
 
