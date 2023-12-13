@@ -1,5 +1,9 @@
 # r2dii.plot (development version)
 
+## New features
+
+* techmix plot does not show the start year scenario bar anymore. (#513)
+
 # r2dii.plot 0.3.1
 
 * Gains new datasets: 
