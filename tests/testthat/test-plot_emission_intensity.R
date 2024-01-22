@@ -90,8 +90,7 @@ test_that("throws expected warning about API change", {
 
 test_that("works well with `scale_colour_r2dii`", {
   #TODO: Check if this belongs here or in `test-scale_colour_r2dii.R`
-  data <- sda %>%
-    filter(region == "global")
+  data <- filter(sda, sector == "cement", region == "global")
 
   input_levels <- c(
     "projected",
