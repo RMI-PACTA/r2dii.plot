@@ -97,15 +97,14 @@ test_that("works well with `scale_colour_r2dii`", {
     "corporate_economy",
     "target_demo",
     "adjusted_scenario_demo"
-    )
+  )
 
-  input_color_scale <-
-    c(
+  input_color_scale <- c(
     "dark_blue",
     "green",
     "grey",
     "ruby_red"
-    )
+  )
 
   input_color_scale_hex <- data.frame(label = input_color_scale) %>%
     left_join(palette_colours, by = "label") %>%
@@ -116,15 +115,16 @@ test_that("works well with `scale_colour_r2dii`", {
     hex = input_color_scale_hex
   )
 
-  p <- data %>%
+  data <- data %>%
     dplyr::mutate(
       emission_factor_metric = factor(
         .data$emission_factor_metric,
         levels = input_levels
       )
-    ) %>%
-    plot_emission_intensity() +
-    scale_colour_r2dii(
+    )
+
+  p <- plot_emission_intensity(data)
+  p <- p + scale_colour_r2dii(
       labels = input_color_scale
     )
 
@@ -134,7 +134,7 @@ test_that("works well with `scale_colour_r2dii`", {
   # print the actual colour scales of the plot
   ordered_output_colour_scale <- p$scales$get_scales("colour")$palette(
     length(ordered_output_levels)
-    )
+  )
 
   plot_output <- data.frame(
     levels = ordered_output_levels,
@@ -146,7 +146,7 @@ test_that("works well with `scale_colour_r2dii`", {
     expected_output,
     by = "levels",
     suffix = c("_out", "_expected")
-    ) %>%
+  ) %>%
     split(.$levels)
 
   expect_equal(out$projected$hex_out, out$projected$hex_expected)
