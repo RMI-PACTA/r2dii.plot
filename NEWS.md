@@ -1,5 +1,12 @@
 # r2dii.plot (development version)
 
+## Breaking change
+* `scale_colour_r2dii` has argument renamed from `labels` to `colour_labels` (#527).
+
+## Bug fixes
+* `scale_colour_r2dii`, with input colours and levels, now outputs line plot 
+  with correctly coloured lines (#527). 
+
 ## New features
 
 * techmix plot does not show the start year scenario bar anymore. (#513)

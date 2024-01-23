@@ -87,7 +87,7 @@ plot_emission_intensity_impl <- function(data) {
     aes(
       x = .data$year,
       y = .data$emission_factor_value,
-      colour = match_lines_order(data)
+      colour = .data$label
     )
   ) +
     geom_line() +
@@ -96,12 +96,4 @@ plot_emission_intensity_impl <- function(data) {
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
     theme_2dii()
-}
-
-match_lines_order <- function(data) {
-  forcats::fct_reorder2(
-    data$label,
-    data$year,
-    data$emission_factor_value
-  )
 }
