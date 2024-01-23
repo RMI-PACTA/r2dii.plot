@@ -6,8 +6,8 @@ test_that("outputs a gg ScaleDiscrete", {
 })
 
 test_that("if with bad `labels` errors gracefully", {
-  expect_snapshot_error(scale_colour_r2dii(labels = c("bad")))
-  expect_snapshot_error(scale_fill_r2dii(labels = c("bad")))
+  expect_snapshot_error(scale_colour_r2dii(colour_labels = c("bad")))
+  expect_snapshot_error(scale_fill_r2dii(colour_labels = c("bad")))
 })
 
 test_that("changes the plot colours as expected", {
@@ -67,7 +67,8 @@ test_that("with data having specific level factors, scales colours as expected
 
   p <- plot_emission_intensity(data)
   p <- p + scale_colour_r2dii(
-    labels = input_color_scale
+     colour_labels = input_color_scale,
+     labels = input_levels
   )
 
   # print the levels that colours are applied to

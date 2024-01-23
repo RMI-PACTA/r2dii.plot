@@ -6,14 +6,14 @@
 \alias{scale_fill_r2dii}
 \title{Custom 2DII colour and fill scales}
 \usage{
-scale_colour_r2dii(labels = NULL, ...)
+scale_colour_r2dii(colour_labels = NULL, ...)
 
-scale_fill_r2dii(labels = NULL, ...)
+scale_fill_r2dii(colour_labels = NULL, ...)
 }
 \arguments{
-\item{labels}{A character vector. Specifies colour labels to use and their
+\item{colour_labels}{A character vector. Specifies colour labels to use and their
 order. Run \code{unique(r2dii.plot:::palette_colours$label)} to see available
-labels. Similar to \code{value} parameter in \code{\link[ggplot2:scale_manual]{ggplot2::scale_colour_manual()}}.}
+colours. Similar to \code{value} parameter in \code{\link[ggplot2:scale_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{...}{Other parameters passed on to \code{\link[ggplot2:discrete_scale]{ggplot2::discrete_scale()}}.}
 }
