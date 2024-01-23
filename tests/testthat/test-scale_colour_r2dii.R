@@ -32,6 +32,8 @@ test_that("changes the plot fill as expected", {
 
 test_that("with data having specific level factors, scales colours as expected
           (#527)", {
+
+  skip_if(r_version_is_older_than(4))
   data <- filter(sda, sector == "cement", region == "global")
 
   input_levels <- c(
