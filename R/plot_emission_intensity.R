@@ -33,7 +33,10 @@ plot_emission_intensity <- function(data,
   lifecycle::deprecate_soft(
     when = "0.4.0",
     what = "plot_emission_intensity(data = 'must be prepped already')",
-    details = api_warning_details("plot_emission_intensity")
+    details = api_warning_details(
+      "prep_emission_intensity",
+      "plot_emission_intensity"
+      )
   )
   env <- list(data = substitute(data))
   check_plot_emission_intensity(data, env = env)
