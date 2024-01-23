@@ -65,7 +65,10 @@ test_that("with data having specific level factors, scales colours as expected
       )
     )
 
-  p <- plot_emission_intensity(data)
+  p <- suppressWarnings(
+    plot_emission_intensity(data),
+    classes = "lifecycle_warning_deprecated"
+  )
   p <- p + scale_colour_r2dii(
      colour_labels = input_color_scale,
      labels = input_levels
