@@ -52,8 +52,7 @@ library(r2dii.plot)
 
 ### Plot trajectory chart
 
--   Use `qplot_*()` to quickly get a plot with standard titles and
-    labels.
+- Use `qplot_*()` to quickly get a plot with standard titles and labels.
 
 ``` r
 # `data` must meet documented "Requirements"
@@ -70,9 +69,8 @@ qplot_trajectory(data)
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
 
--   Use `plot_*()` for a more “bare” plot that you can customize
-    yourself by modifying the input data and applying `ggplot2`
-    functions.
+- Use `plot_*()` for a more “bare” plot that you can customize yourself
+  by modifying the input data and applying `ggplot2` functions.
 
 ``` r
 data <- market_share %>%
