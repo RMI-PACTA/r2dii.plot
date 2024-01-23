@@ -72,7 +72,7 @@ test_that("with data having specific level factors, scales colours as expected
   )
 
   # print the levels that colours are applied to
-  ordered_output_levels <- levels(match_lines_order(p$data))
+  ordered_output_levels <- levels(p$data$emission_factor_metric)
 
   # print the actual colour scales of the plot
   ordered_output_colour_scale <- p$scales$get_scales("colour")$palette(
