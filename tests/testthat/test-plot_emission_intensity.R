@@ -87,3 +87,69 @@ test_that("throws expected warning about API change", {
     class = "warning"
   )
 })
+
+test_that("with data with `label` column, outputs custom colour scale with expected order (#535)", {
+
+  input_levels <- c(
+    "projected",
+    "corporate_economy",
+    "target_demo",
+    "adjusted_scenario_demo"
+  )
+
+  data <- filter(sda, sector == "cement", region == "global") %>%
+    dplyr::mutate(
+      emission_factor_metric = factor(
+        .data$emission_factor_metric,
+        levels = input_levels
+      ),
+      label = to_title(.data$emission_factor_metric)
+    )
+
+  input_colour_scale <- c(
+    "dark_blue",
+    "green",
+    "grey",
+    "ruby_red"
+  )
+
+  expected_output <- data.frame(
+    levels = input_levels,
+    colour_name = input_colour_scale
+  ) %>% left_join(palette_colours, by = c(colour_name = "label"))
+
+  p <- suppressWarnings(
+    plot_emission_intensity(data),
+    classes = "lifecycle_warning_deprecated"
+  )
+
+  p <- p + scale_colour_r2dii(
+    colour_labels = input_colour_scale,
+  )
+
+  plot_output <- distinct(p$data, label, hex)
+
+  expected_output <- split(expected_output, expected_output$levels)
+  plot_output <- split(plot_output, plot_output$label)
+
+  expect_equal(
+    expected_output$projected$hex,
+    plot_output$`Projected`$hex
+  )
+
+  expect_equal(
+    expected_output$corporate_economy$hex,
+    plot_output$`Corporate Economy`$hex
+  )
+
+  expect_equal(
+    expected_output$target_demo$hex,
+    plot_output$`Target Demo`$hex
+  )
+
+  expect_equal(
+    expected_output$adjusted_scenario_demo$hex,
+    plot_output$`Adjusted Scenario Demo`$hex
+  )
+
+})
