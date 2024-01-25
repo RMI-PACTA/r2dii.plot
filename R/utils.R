@@ -224,6 +224,20 @@ span_5yr <- function(data) {
 
 add_label_if_missing <- function(data) {
   if (has_name(data, "label")) {
+
+    if (is.factor(data[[metric(data)]])) {
+
+      arranged_factors <- arrange(
+        unique(data[c(metric(data), "label")])
+        )
+
+      data$label <- factor(
+        data$label,
+        levels = arranged_factors$label,
+        ordered = TRUE
+        )
+    }
+
     return(data)
   }
 
