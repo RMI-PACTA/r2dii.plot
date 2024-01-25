@@ -116,7 +116,8 @@ test_that("with data with `label` column, outputs custom colour scale with expec
   expected_output <- data.frame(
     levels = input_levels,
     colour_name = input_colour_scale
-  ) %>% left_join(palette_colours, by = c(colour_name = "label"))
+  ) %>%
+    left_join(palette_colours, by = c(colour_name = "label"))
 
   p <- suppressWarnings(
     plot_emission_intensity(data),
