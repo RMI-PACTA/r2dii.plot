@@ -128,10 +128,20 @@ test_that("with data with `label` column, outputs custom colour scale with expec
     colour_labels = input_colour_scale,
   )
 
-  plot_output <- distinct(p$data, label, hex)
+  g <- ggplot_build(p)
+
+  plot_output_labels <- g$plot$scales$scales[[3]]$get_labels()
+  plot_output_colours <- g$plot$scales$scales[[3]]$palette(
+    length(plot_output_labels)
+    )
+
+  plot_output <- data.frame(
+    labels = plot_output_labels,
+    hex = plot_output_colours
+  )
 
   expected_output <- split(expected_output, expected_output$levels)
-  plot_output <- split(plot_output, plot_output$label)
+  plot_output <- split(plot_output, plot_output$labels)
 
   expect_equal(
     expected_output$projected$hex,
