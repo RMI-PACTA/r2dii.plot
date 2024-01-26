@@ -234,7 +234,7 @@ add_label_if_missing <- function(data) {
 #' A place to DRY common preparation steps
 #' @noRd
 prep_common <- function(data) {
-  data <- data %>%
+  data %>%
     drop_before_projected_start_year() %>%
     add_label_if_missing() %>%
     factor_label_if_factored_metric()
