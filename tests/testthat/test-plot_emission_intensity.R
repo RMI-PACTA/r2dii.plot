@@ -88,7 +88,8 @@ test_that("throws expected warning about API change", {
   )
 })
 
-test_that("with data with `label` column, outputs custom colour scale with expected order (#535)", {
+test_that("with data with `label` column and with `scale_colour_r2dii()`,
+          outputs expected labels and colours (#535)", {
 
   input_levels <- c(
     "projected",
