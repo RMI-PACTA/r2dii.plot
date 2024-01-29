@@ -206,3 +206,17 @@ test_that("throws expected warning about API change", {
     class = "warning"
   )
 })
+
+test_that("leaves `metric` untouched (#357).", {
+  data <- example_market_share()
+  p <- plot_trajectory(data)
+
+  untouched <- sort(unique(data$metric))
+  metrics <- sort(unique(p[["layers"]][[2]][["data"]][["metric"]]))
+
+  # Passes
+  expect_equal(sort(levels(metrics)), untouched)
+
+  # Fails
+  expect_equal(metrics, untouched)
+})
