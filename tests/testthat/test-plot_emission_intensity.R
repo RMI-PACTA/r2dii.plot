@@ -87,15 +87,6 @@ test_that("throws expected warning about API change", {
     class = "warning"
   )
 })
-<<<<<<< HEAD
-
-test_that("throws expected warning about API change", {
-  data <- head(filter(sda, sector == "cement"))
-  expect_snapshot_error(
-    plot_emission_intensity(data),
-    class = "warning"
-  )
-})
 
 test_that("with data with `label` column and with `scale_colour_r2dii()`,
           outputs expected labels and colours (#535)", {
