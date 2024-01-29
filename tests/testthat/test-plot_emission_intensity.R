@@ -166,7 +166,10 @@ test_that("with data with `label` column and with `scale_colour_r2dii()`,
 
           })
 
-test_that("with `convert_label = to_title`, outputs custom colour scale with expected order (#536)", {
+test_that("with `convert_label = to_title`, outputs custom colour scale with
+          expected order (#536)", {
+
+  skip_if(r_version_is_older_than(4))
 
   input_levels <- c(
     "projected",
