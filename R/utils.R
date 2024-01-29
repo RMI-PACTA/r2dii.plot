@@ -253,6 +253,8 @@ factor_label_if_factored_metric <- function(data) {
       ordered = TRUE
     )
   }
+
+  data
 }
 
 abort_if_unknown_values <- function(value, data, column) {
