@@ -196,6 +196,7 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with exp
   ) %>%
     left_join(palette_colours, by = c(colour_name = "label"))
 
+
   p <- suppressWarnings(
     plot_emission_intensity(data, convert_label = to_title),
     classes = "lifecycle_warning_deprecated"
@@ -239,5 +240,6 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with exp
     expected_output$adjusted_scenario_demo$hex,
     plot_output$`Adjusted Scenario Demo`$hex
   )
+
 
 })
