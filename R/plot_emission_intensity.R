@@ -65,8 +65,16 @@ prep_emission_intensity <- function(data,
                                     convert_label = identity,
                                     span_5yr = FALSE) {
   out <- data %>%
-    prep_common() %>%
-    mutate(label = convert_label(.data$label))
+    prep_common()
+
+  if (is.factor(out$label)) {
+    out$label <- factor(
+      convert_label(out$label),
+      levels = convert_label(levels(out$label))
+      )
+  } else {
+    out$label <- convert_label(out$label)
+  }
 
   if (span_5yr) {
     out <- span_5yr(out)
