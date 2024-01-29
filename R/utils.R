@@ -236,7 +236,25 @@ add_label_if_missing <- function(data) {
 prep_common <- function(data) {
   data %>%
     drop_before_projected_start_year() %>%
-    add_label_if_missing()
+    add_label_if_missing() %>%
+    factor_label_if_factored_metric()
+}
+
+factor_label_if_factored_metric <- function(data) {
+  if (is.factor(data[[metric(data)]])) {
+
+    arranged_factors <- arrange(
+      unique(data[c(metric(data), "label")])
+    )
+
+    data$label <- factor(
+      data$label,
+      levels = arranged_factors$label,
+      ordered = TRUE
+    )
+  }
+
+  data
 }
 
 abort_if_unknown_values <- function(value, data, column) {
