@@ -17,7 +17,7 @@
 #'
 #' @seealso [market_share].
 #'
-#' @return A data frame ready to be plot using `plot_trajectory()`.
+#' @return A data-frame ready to be plotted using `plot_trajectory()`.
 #' @export
 #'
 #' @examples
