@@ -1,4 +1,4 @@
-#' Title
+#' Prepare data for a emission intensity plot
 #'
 #' @param data A data frame. Requirements:
 #'   * The structure must be like [sda].
