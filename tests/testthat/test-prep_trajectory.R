@@ -26,6 +26,7 @@ test_that("handles span_5yr correctly", {
 })
 
 test_that("handles center_y correctly", {
+  # FIXME: Test this behaviour
   # This test depends on the implementation details of `scenario`
   # and how it affects the 'value' when `center_y` is TRUE
 })
