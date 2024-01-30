@@ -87,32 +87,6 @@ check_plot_trajectory <- function(data, value_col, env) {
   invisible(data)
 }
 
-prep_trajectory <- function(data,
-                            convert_label = identity,
-                            span_5yr = FALSE,
-                            center_y = FALSE,
-                            value_col = "percentage_of_initial_production_by_scope") {
-  out <- data %>%
-    prep_common() %>%
-    mutate(value = !!as.name(value_col)) %>%
-    mutate(label = convert_label(.data$label))
-
-  if (span_5yr) {
-    out <- span_5yr(out)
-  }
-
-  start_year <- min(out$year, na.rm = TRUE)
-
-  cols <- c("year", "metric", "label", "technology", "value", "sector")
-  out <- select(out, all_of(cols))
-
-  scenarios <- scenario(out, center_y)
-  not_scenarios <- out %>%
-    filter(!is_scenario(.data$metric)) %>%
-    mutate(value_low = .data$value)
-  bind_rows(scenarios, not_scenarios)
-}
-
 plot_trajectory_impl <- function(data, perc_y_scale = FALSE) {
   stopifnot(is.logical(perc_y_scale))
 
