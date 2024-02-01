@@ -31,9 +31,3 @@ test_that("handles convert_label correctly", {
   result <- prep_emission_intensity(test_data_nonfactor, convert_label = mock_convert_label)
   expect_true(all(grepl("Converted_", result$label)))
 })
-
-# Test for correct merging with color specifications
-test_that("merges data correctly", {
-  # This test depends on how 'palette_colours' and 'metric' function are defined
-  # FIXME: Add test here
-})
