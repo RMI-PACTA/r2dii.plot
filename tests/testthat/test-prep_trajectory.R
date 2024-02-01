@@ -32,6 +32,13 @@ test_that("handles center_y correctly", {
 })
 
 test_that("handles value_col correctly", {
-# FIXME: There's no way to test what value of `value_col` has been used, just by
-# looking at the output.
+
+  test_data_dif_value_col <- test_data %>%
+    rename(new_column = percentage_of_initial_production_by_scope)
+
+  result <- prep_trajectory(test_data)
+  result_dif_col <- prep_trajectory(test_data_dif_value_col, value_col = "new_column")
+
+  expect_identical(result, result_dif_col)
+
 })
