@@ -56,6 +56,7 @@ plot_techmix <- function(data,
       "plot_techmix"
       )
   )
+
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
 
@@ -63,8 +64,7 @@ plot_techmix <- function(data,
     prep_techmix(
       convert_label = convert_label,
       span_5yr = span_5yr,
-      convert_tech_label = convert_tech_label,
-      env = env
+      convert_tech_label = convert_tech_label
     ) %>%
     plot_techmix_impl()
 }
@@ -107,41 +107,6 @@ abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
   }
 
   invisible(data)
-}
-
-prep_techmix <- function(data,
-                         convert_label = identity,
-                         span_5yr = FALSE,
-                         convert_tech_label = identity,
-                         env = NULL) {
-  out <- data %>%
-    prep_common() %>%
-    add_label_tech_if_missing() %>%
-    mutate(
-      value = .data$technology_share,
-      sector = recode_sector(.data$sector),
-      label = convert_label(.data$label),
-      label_tech = convert_tech_label(.data$label_tech)
-    )
-
-  if (span_5yr) {
-    out <- span_5yr(out)
-  }
-
-  start_year <- min(out$year, na.rm = TRUE)
-  future_year <- max(out$year, na.rm = TRUE)
-  if (!quiet()) {
-    .data <- deparse_1(substitute(data, env = env))
-    inform(glue(
-      "The `technology_share` values are plotted for extreme years.
-       Do you want to plot different years? E.g. filter {.data} with:\\
-       `subset({.data}, year %in% c(2020, 2030))`."
-    ))
-  }
-  out <- out %>%
-    filter(.data$year %in% c(start_year, future_year)) %>%
-    filter(!(is_scenario(.data$metric) & (.data$year == start_year)))
-  out
 }
 
 plot_techmix_impl <- function(data) {
