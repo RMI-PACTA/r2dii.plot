@@ -26,7 +26,7 @@ test_that("handles span_5yr correctly", {
 })
 
 test_that("handles center_y correctly", {
-  normal_result <- prep_trajectory(test_data, center_y = FALSE)
+  result <- prep_trajectory(test_data, center_y = TRUE)
 
   expect_equal(abs(min(result$value_low)), abs(max(result$value)))
 })
