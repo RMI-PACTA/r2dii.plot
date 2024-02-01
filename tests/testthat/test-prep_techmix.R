@@ -39,9 +39,3 @@ test_that("prep_techmix filters years correctly", {
   result <- prep_techmix(test_data)
   expect_true(all(result$year %in% c(start_year, future_year)))
 })
-
-# Test for correct handling of scenarios in metric column
-test_that("prep_techmix filters scenarios correctly", {
-  #FIXME: Add test here
-  # This test depends on the implementation details of is_scenario function
-})
