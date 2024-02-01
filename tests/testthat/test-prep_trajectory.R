@@ -26,9 +26,9 @@ test_that("handles span_5yr correctly", {
 })
 
 test_that("handles center_y correctly", {
-  # FIXME: Test this behaviour
-  # This test depends on the implementation details of `scenario`
-  # and how it affects the 'value' when `center_y` is TRUE
+  normal_result <- prep_trajectory(test_data, center_y = FALSE)
+
+  expect_equal(abs(min(result$value_low)), abs(max(result$value)))
 })
 
 test_that("handles value_col correctly", {
