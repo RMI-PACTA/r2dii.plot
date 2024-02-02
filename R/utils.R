@@ -307,3 +307,13 @@ api_warning_details <- function(prep_fn_name, plot_fn_name) {
     "Alternatively custom data preparation will also become possible."
   )
 }
+
+get_ordered_scenarios <- function(data) {
+  ordered_scenarios <- data %>%
+    filter(is_scenario(.data$metric), .data$year == max(data$year)) %>%
+    arrange(desc(.data$value)) %>%
+    pull(.data$metric) %>%
+    as.character()
+
+  ordered_scenarios
+}

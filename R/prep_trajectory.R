@@ -56,3 +56,101 @@ prep_trajectory <- function(data,
     mutate(value_low = .data$value)
   bind_rows(scenarios, not_scenarios)
 }
+
+scenario <- function(data, center_y = FALSE) {
+  area_borders <- get_area_borders(data, center_y)
+
+  data_worse_than_scenarios <- tibble(
+    year = unique(data$year),
+    technology = unique(data$technology),
+    sector = unique(data$sector)
+  )
+
+  technology_kind <- get_tech_kind(data)
+
+  if (technology_kind == "increasing") {
+    data_scenarios <- data %>%
+      filter(is_scenario(.data$metric))
+
+    data_worse_than_scenarios$value <- area_borders$lower
+    data_worse_than_scenarios$metric <- "target_worse"
+    data_worse_than_scenarios$label <- "target_worse"
+
+    data_scenarios <- bind_rows(data_scenarios, data_worse_than_scenarios)
+
+    data_scenarios <- data_scenarios %>%
+      group_by(.data$year, .data$technology, .data$sector) %>%
+      mutate(metric = factor(.data$metric,
+                             levels = rev(get_ordered_scenarios(data_scenarios))
+      )) %>%
+      arrange(.data$year, .data$metric) %>%
+      rename(value_low = "value") %>%
+      mutate(value = lead(.data$value_low,
+                          n = 1,
+                          default = area_borders$upper
+      ))
+  } else {
+    data_worse_than_scenarios$value <- area_borders$upper
+    data_worse_than_scenarios$metric <- "target_worse"
+    data_worse_than_scenarios$label <- "target_worse"
+
+    data_scenarios <- data %>%
+      filter(is_scenario(.data$metric))
+
+    data_scenarios <- bind_rows(data_scenarios, data_worse_than_scenarios)
+
+    data_scenarios <- data_scenarios %>%
+      group_by(.data$year, .data$technology, .data$sector) %>%
+      mutate(
+        metric = factor(
+          .data$metric,
+          levels = rev(get_ordered_scenarios(data_scenarios))
+        )
+      ) %>%
+      arrange(.data$year, .data$metric) %>%
+      mutate(value_low = lag(.data$value, n = 1, default = area_borders$lower))
+  }
+
+  data_scenarios
+}
+
+get_area_borders <- function(data, center_y = FALSE) {
+  lower <- min(data$value, na.rm = TRUE)
+  upper <- max(data$value, na.rm = TRUE)
+  span <- upper - lower
+  lower <- lower - 0.1 * span
+  upper <- upper + 0.1 * span
+
+  upper_distance <- distance_from_start_value(data, upper) / span
+  lower_distance <- distance_from_start_value(data, lower) / span
+
+  if (center_y) {
+    # Center the starting point of the lines
+    distance <- abs(upper_distance - lower_distance)
+    max_distance <- 0.1
+    if (distance > max_distance) {
+      lower <- lower - max(0, upper_distance - lower_distance) * span
+      upper <- upper + max(0, lower_distance - lower_distance) * span
+    }
+  }
+  list(lower = lower, upper = upper)
+}
+
+get_tech_kind <- function(data) {
+  technology_kind <- r2dii.data::increasing_or_decreasing %>%
+    filter(.data$technology == unique(data$technology)) %>%
+    pull(.data$increasing_or_decreasing) %>%
+    unique()
+
+  technology_kind
+}
+
+distance_from_start_value <- function(data, value) {
+  abs(value - start_value_portfolio(data))
+}
+
+start_value_portfolio <- function(data) {
+  data %>%
+    filter(.data$year == min(data$year, na.rm = TRUE), is_portfolio(.data$metric)) %>%
+    pull(.data$value)
+}
