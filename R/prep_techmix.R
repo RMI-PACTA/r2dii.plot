@@ -43,6 +43,7 @@ prep_techmix <- function(data,
                          convert_tech_label = identity) {
 
   env <- list(data = substitute(data))
+  check_prep_techmix(data, env = env)
 
   out <- data %>%
     prep_common() %>%
@@ -72,4 +73,28 @@ prep_techmix <- function(data,
     filter(.data$year %in% c(start_year, future_year)) %>%
     filter(!(is_scenario(.data$metric) & (.data$year == start_year)))
   out
+}
+
+recode_sector <- function(x) {
+  # styler: off
+  case_when(
+    grepl("(?i)power(?-i)", x)             ~ "power",
+    grepl("(?i)auto(?-i)[a-zA-Z]+", x)     ~ "automotive",
+    grepl("(?i)oil(?-i).*(?i)gas(?-i)", x) ~ "oil&gas",
+    grepl("(?i)fossil(?-i)[a-zA-Z]+", x)   ~ "fossil fuels",
+    TRUE ~ tolower(x)
+  )
+  # styler: on
+}
+
+check_prep_techmix <- function(data, env) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  abort_if_has_zero_rows(data, env = env)
+  enforce_single_value <- c("sector", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, env = env)
+  abort_if_multiple_scenarios(data, env = env)
+
+  invisible(data)
 }

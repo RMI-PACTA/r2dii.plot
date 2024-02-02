@@ -1,24 +1,6 @@
 #' Create a techmix plot
 #'
-#' @param data A data frame. Requirements:
-#'   * The structure must be like [market_share].
-#'   * The following columns must have a single value: `sector`, `region`,
-#'   `scenario_source`.
-#'   * The column `metric` must have a portfolio (e.g. "projected"), a benchmark
-#'   (e.g. "corporate_economy"), and a single `scenario` (e.g. "target_sds").
-#'   * (Optional) If present, the column `label` is used for data labels.
-#'   * (Optional) If present, the column `label_tech` is used for technology
-#'   labels.
-#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
-#'   the start year (the default behavior of `qplot_techmix()`), or use
-#'   `FALSE` to impose no restriction.
-#' @template convert_label
-#' @templateVar fun qplot_techmix
-#' @templateVar value recode_metric_techmix
-#' @param convert_tech_label A symbol. The unquoted name of a function to apply
-#'   to technology legend labels. For example, to convert labels to uppercase
-#'   use `convert_tech_label = toupper`. To get the default behavior of
-#'   `qplot_techmix()` use `convert_tech_label = spell_out_technology`.
+#' @param data A data frame like the output of `prep_techmix()`.
 #'
 #' @seealso [market_share].
 #'
@@ -26,47 +8,25 @@
 #'
 #' @export
 #' @examples
-#' # `data` must meet documented "Requirements"
+#' # plot with `qplot_techmix()` parameters
 #' data <- subset(
 #'   market_share,
 #'   scenario_source == "demo_2020" &
 #'     sector == "power" &
 #'     region == "global" &
 #'     metric %in% c("projected", "corporate_economy", "target_sds")
-#' )
-#'
-#' plot_techmix(data)
-#'
-#' # plot with `qplot_techmix()` parameters
-#' plot_techmix(
-#'   data,
+#' ) %>%
+#' prep_techmix(
 #'   span_5yr = TRUE,
 #'   convert_label = recode_metric_techmix,
 #'   convert_tech_label = spell_out_technology
-#' )
-plot_techmix <- function(data,
-                         span_5yr = FALSE,
-                         convert_label = identity,
-                         convert_tech_label = identity) {
-  lifecycle::deprecate_soft(
-    when = "0.4.0",
-    what = "plot_techmix(data = 'must be prepped already')",
-    details = api_warning_details(
-      "prep_techmix",
-      "plot_techmix"
-      )
-  )
-
+#'   )
+#'
+#' plot_techmix(data)
+plot_techmix <- function(data) {
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
-
-  data %>%
-    prep_techmix(
-      convert_label = convert_label,
-      span_5yr = span_5yr,
-      convert_tech_label = convert_tech_label
-    ) %>%
-    plot_techmix_impl()
+  plot_techmix_impl(data)
 }
 
 check_plot_techmix <- function(data, env) {
@@ -189,22 +149,6 @@ get_technology_colours <- function(data) {
         unique(),
       by = "technology"
     )
-}
-
-recode_sector <- function(x) {
-  # styler: off
-  case_when(
-    grepl("(?i)power(?-i)", x)             ~ "power",
-    grepl("(?i)auto(?-i)[a-zA-Z]+", x)     ~ "automotive",
-    grepl("(?i)oil(?-i).*(?i)gas(?-i)", x) ~ "oil&gas",
-    grepl("(?i)fossil(?-i)[a-zA-Z]+", x)   ~ "fossil fuels",
-    TRUE ~ tolower(x)
-  )
-  # styler: on
-}
-
-extract_scenarios <- function(x) {
-  unique(x[startsWith(x, "target_")])
 }
 
 add_label_tech_if_missing <- function(data) {
