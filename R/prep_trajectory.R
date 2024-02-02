@@ -14,6 +14,7 @@
 #'   center.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
+#' @param ... Other parameters passed on to the function.
 #'
 #' @seealso [market_share].
 #'
@@ -36,6 +37,11 @@ prep_trajectory <- function(data,
                             span_5yr = FALSE,
                             center_y = FALSE,
                             value_col = "percentage_of_initial_production_by_scope") {
+
+  env <- list(data = substitute(data))
+
+  check_prep_trajectory(data, value_col = value_col, env = env)
+
   out <- data %>%
     prep_common() %>%
     mutate(value = !!as.name(value_col)) %>%
@@ -55,6 +61,15 @@ prep_trajectory <- function(data,
     filter(!is_scenario(.data$metric)) %>%
     mutate(value_low = .data$value)
   bind_rows(scenarios, not_scenarios)
+}
+
+check_prep_trajectory <- function(data, value_col, env) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), value_col)
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+
+
+  invisible(data)
 }
 
 scenario <- function(data, center_y = FALSE) {

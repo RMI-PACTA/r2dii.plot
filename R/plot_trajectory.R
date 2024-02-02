@@ -1,9 +1,6 @@
 #' Create a trajectory plot
 #'
-#' @param data A data frame. Requirements:
-#' * The structure must be like [market_share].
-#' * The following columns must have a single value: `sector`, `technology`,
-#' `region`, `scenario_source`.
+#' @param data A data frame like the outputs of `prep_trajectory()`.
 #' * (Optional) If present, the column `label` is used for data labels.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
@@ -17,17 +14,15 @@
 #'
 #' @export
 #' @examples
-#' # `data` must meet documented "Requirements"
+#' # plot with `qplot_trajectory()` parameters
 #' data <- subset(
 #'   market_share,
 #'   sector == "power" &
 #'     technology == "renewablescap" &
 #'     region == "global" &
 #'     scenario_source == "demo_2020"
-#' )
-#'
-#' # plot with `qplot_trajectory()` parameters
-#' prepped_data <- prep_trajectory(data, center_y = TRUE)
+#' ) %>%
+#'   prep_trajectory(center_y = TRUE)
 #'
 #' plot_trajectory(
 #'   prepped_data,
@@ -37,24 +32,14 @@
 plot_trajectory <- function(data,
                             value_col = "percentage_of_initial_production_by_scope",
                             perc_y_scale = FALSE) {
-  lifecycle::deprecate_soft(
-    when = "0.4.0",
-    what = "plot_trajectory(data = 'must be prepped already')",
-    details = api_warning_details(
-      "prep_trajectory",
-      "plot_trajectory"
-      )
-  )
   env <- list(data = substitute(data))
   check_plot_trajectory(data, value_col = value_col, env = env)
-
   plot_trajectory_impl(data, perc_y_scale)
 }
 
 check_plot_trajectory <- function(data, value_col, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), value_col)
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
   abort_if_has_zero_rows(data, env = env)
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
