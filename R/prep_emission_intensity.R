@@ -23,6 +23,8 @@
 prep_emission_intensity <- function(data,
                                     convert_label = identity,
                                     span_5yr = FALSE) {
+
+  check_emission_intensity(data, env = list(data = substitute(data)))
   out <- data %>%
     prep_common()
 
