@@ -7,12 +7,7 @@
 qplot_emission_intensity(data)
 }
 \arguments{
-\item{data}{A data frame. Requirements:
-\itemize{
-\item The structure must be like \link{sda}.
-\item The column \code{sector} must have a single value (e.g. "cement").
-\item (Optional) If present, the column \code{label} is used for data labels.
-}}
+\item{data}{A data frame like the output of \code{prep_emission_intensity()}.}
 }
 \value{
 An object of class "ggplot".

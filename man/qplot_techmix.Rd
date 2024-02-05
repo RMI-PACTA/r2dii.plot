@@ -7,17 +7,7 @@
 qplot_techmix(data)
 }
 \arguments{
-\item{data}{A data frame. Requirements:
-\itemize{
-\item The structure must be like \link{market_share}.
-\item The following columns must have a single value: \code{sector}, \code{region},
-\code{scenario_source}.
-\item The column \code{metric} must have a portfolio (e.g. "projected"), a benchmark
-(e.g. "corporate_economy"), and a single \code{scenario} (e.g. "target_sds").
-\item (Optional) If present, the column \code{label} is used for data labels.
-\item (Optional) If present, the column \code{label_tech} is used for technology
-labels.
-}}
+\item{data}{A data frame like the output of \code{prep_techmix()}.}
 }
 \value{
 An object of class "ggplot".
