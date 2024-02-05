@@ -25,7 +25,7 @@
 #'   prep_trajectory(center_y = TRUE)
 #'
 #' plot_trajectory(
-#'   prepped_data,
+#'   data,
 #'   value_col = "percentage_of_initial_production_by_scope",
 #'   perc_y_scale = TRUE
 #' )
