@@ -14,7 +14,6 @@
 #'   center.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
-#' @param ... Other parameters passed on to the function.
 #'
 #' @seealso [market_share].
 #'

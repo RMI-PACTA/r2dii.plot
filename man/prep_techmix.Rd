@@ -40,8 +40,6 @@ the start year (the default behavior of \code{qplot_techmix()}), or use
 to technology legend labels. For example, to convert labels to uppercase
 use \code{convert_tech_label = toupper}. To get the default behavior of
 \code{qplot_techmix()} use \code{convert_tech_label = spell_out_technology}.}
-
-\item{env}{}
 }
 \value{
 A data-frame ready to be plotted using \code{plot_techmix()}.

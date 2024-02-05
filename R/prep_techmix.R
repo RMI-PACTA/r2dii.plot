@@ -21,7 +21,6 @@
 #'   `qplot_techmix()` use `convert_tech_label = spell_out_technology`.
 #'
 #' @seealso [market_share].
-#' @param env
 #'
 #' @return A data-frame ready to be plotted using `plot_techmix()`.
 #' @export

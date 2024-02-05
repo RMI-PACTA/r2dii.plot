@@ -38,8 +38,6 @@ center.}
 
 \item{value_col}{Character. Name of the column to be used as a value to be
 plotted.}
-
-\item{...}{Other parameters passed on to the function.}
 }
 \value{
 A data-frame ready to be plotted using \code{plot_trajectory()}.
