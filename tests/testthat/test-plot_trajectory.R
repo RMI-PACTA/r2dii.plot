@@ -9,14 +9,14 @@ test_that("isn't restricted to plotting only 5 years", {
 })
 
 test_that("outputs verbatim labels", {
-  #FIXME: Figure out this test
-  # data <- prep_trajectory(example_market_share())
-  #
-  # verbatim <- sort(unique(data$metric))
-  # p <- plot_trajectory(data)
-  # labels <- sort(unique(p$layers[[3]]$data$label))
-  #
-  # expect_equal(labels, verbatim)
+  data <- example_market_share()
+  prepped_data <- prep_trajectory(example_market_share())
+
+  verbatim <- sort(unique(data$metric))
+  p <- plot_trajectory(prepped_data)
+  labels <- sort(unique(p$layers[[3]]$data$label))
+
+  expect_equal(labels, verbatim)
 })
 
 test_that("outputs no title", {
