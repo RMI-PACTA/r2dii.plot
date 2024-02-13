@@ -7,8 +7,6 @@
 prep_trajectory(
   data,
   convert_label = identity,
-  span_5yr = FALSE,
-  center_y = FALSE,
   value_col = "percentage_of_initial_production_by_scope"
 )
 }
@@ -27,14 +25,6 @@ y-axis labels. For example:
 \item To convert labels to uppercase use \code{convert_label = toupper}.
 \item To get the default behavior of `
 }}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year (the default behavior of \code{qplot_trajectory()}), or use
-\code{FALSE} to impose no restriction.}
-
-\item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
-(the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
-center.}
 
 \item{value_col}{Character. Name of the column to be used as a value to be
 plotted.}

@@ -4,11 +4,7 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(
-  data,
-  value_col = "percentage_of_initial_production_by_scope",
-  perc_y_scale = FALSE
-)
+plot_trajectory(data, span_5yr = FALSE, center_y = FALSE, perc_y_scale = FALSE)
 }
 \arguments{
 \item{data}{A data frame like the outputs of \code{prep_trajectory()}.
@@ -16,8 +12,13 @@ plot_trajectory(
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 
-\item{value_col}{Character. Name of the column to be used as a value to be
-plotted.}
+\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
+the start year (the default behavior of \code{qplot_trajectory()}), or use
+\code{FALSE} to impose no restriction.}
+
+\item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
+(the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
+center.}
 
 \item{perc_y_scale}{Logical. \code{FALSE} defaults to using no label conversion.
 Use \code{TRUE} to convert labels on y-axis to percentage using
@@ -38,11 +39,11 @@ data <- subset(
     region == "global" &
     scenario_source == "demo_2020"
 ) \%>\%
-  prep_trajectory(center_y = TRUE)
+  prep_trajectory()
 
 plot_trajectory(
   data,
-  value_col = "percentage_of_initial_production_by_scope",
+  center_y = TRUE,
   perc_y_scale = TRUE
 )
 }

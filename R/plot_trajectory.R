@@ -2,8 +2,12 @@
 #'
 #' @param data A data frame like the outputs of `prep_trajectory()`.
 #' * (Optional) If present, the column `label` is used for data labels.
-#' @param value_col Character. Name of the column to be used as a value to be
-#'   plotted.
+#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
+#'   the start year (the default behavior of `qplot_trajectory()`), or use
+#'   `FALSE` to impose no restriction.
+#' @param center_y Logical. Use `TRUE` to center the y-axis around start value
+#'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
+#'   center.
 #' @param perc_y_scale Logical. `FALSE` defaults to using no label conversion.
 #'   Use `TRUE` to convert labels on y-axis to percentage using
 #'   `scales::percent` (the default behavior of `qplot_trajectory()`).
@@ -22,24 +26,139 @@
 #'     region == "global" &
 #'     scenario_source == "demo_2020"
 #' ) %>%
-#'   prep_trajectory(center_y = TRUE)
+#'   prep_trajectory()
 #'
 #' plot_trajectory(
 #'   data,
-#'   value_col = "percentage_of_initial_production_by_scope",
+#'   center_y = TRUE,
 #'   perc_y_scale = TRUE
 #' )
 plot_trajectory <- function(data,
-                            value_col = "percentage_of_initial_production_by_scope",
+                            span_5yr = FALSE,
+                            center_y = FALSE,
                             perc_y_scale = FALSE) {
   env <- list(data = substitute(data))
-  check_plot_trajectory(data, value_col = value_col, env = env)
+  check_plot_trajectory(data, env = env)
+
+  if (span_5yr) {
+    data <- span_5yr(data)
+  }
+
+  start_year <- min(data$year, na.rm = TRUE)
+
+  cols <- c("year", "metric", "label", "technology", "value", "sector")
+  data <- select(data, all_of(cols))
+
+  scenarios <- scenario(data, center_y)
+  not_scenarios <- data %>%
+    filter(!is_scenario(.data$metric)) %>%
+    mutate(value_low = .data$value)
+
+  data <- bind_rows(scenarios, not_scenarios)
+
   plot_trajectory_impl(data, perc_y_scale)
 }
 
-check_plot_trajectory <- function(data, value_col, env) {
+scenario <- function(data, center_y = FALSE) {
+  area_borders <- get_area_borders(data, center_y)
+
+  data_worse_than_scenarios <- tibble(
+    year = unique(data$year),
+    technology = unique(data$technology),
+    sector = unique(data$sector)
+  )
+
+  technology_kind <- get_tech_kind(data)
+
+  if (technology_kind == "increasing") {
+    data_scenarios <- data %>%
+      filter(is_scenario(.data$metric))
+
+    data_worse_than_scenarios$value <- area_borders$lower
+    data_worse_than_scenarios$metric <- "target_worse"
+    data_worse_than_scenarios$label <- "target_worse"
+
+    data_scenarios <- bind_rows(data_scenarios, data_worse_than_scenarios)
+
+    data_scenarios <- data_scenarios %>%
+      group_by(.data$year, .data$technology, .data$sector) %>%
+      mutate(metric = factor(.data$metric,
+                             levels = rev(get_ordered_scenarios(data_scenarios))
+      )) %>%
+      arrange(.data$year, .data$metric) %>%
+      rename(value_low = "value") %>%
+      mutate(value = lead(.data$value_low,
+                          n = 1,
+                          default = area_borders$upper
+      ))
+  } else {
+    data_worse_than_scenarios$value <- area_borders$upper
+    data_worse_than_scenarios$metric <- "target_worse"
+    data_worse_than_scenarios$label <- "target_worse"
+
+    data_scenarios <- data %>%
+      filter(is_scenario(.data$metric))
+
+    data_scenarios <- bind_rows(data_scenarios, data_worse_than_scenarios)
+
+    data_scenarios <- data_scenarios %>%
+      group_by(.data$year, .data$technology, .data$sector) %>%
+      mutate(
+        metric = factor(
+          .data$metric,
+          levels = rev(get_ordered_scenarios(data_scenarios))
+        )
+      ) %>%
+      arrange(.data$year, .data$metric) %>%
+      mutate(value_low = lag(.data$value, n = 1, default = area_borders$lower))
+  }
+
+  data_scenarios
+}
+
+get_area_borders <- function(data, center_y = FALSE) {
+  lower <- min(data$value, na.rm = TRUE)
+  upper <- max(data$value, na.rm = TRUE)
+  span <- upper - lower
+  lower <- lower - 0.1 * span
+  upper <- upper + 0.1 * span
+
+  upper_distance <- distance_from_start_value(data, upper) / span
+  lower_distance <- distance_from_start_value(data, lower) / span
+
+  if (center_y) {
+    # Center the starting point of the lines
+    distance <- abs(upper_distance - lower_distance)
+    max_distance <- 0.1
+    if (distance > max_distance) {
+      lower <- lower - max(0, upper_distance - lower_distance) * span
+      upper <- upper + max(0, lower_distance - lower_distance) * span
+    }
+  }
+  list(lower = lower, upper = upper)
+}
+
+get_tech_kind <- function(data) {
+  technology_kind <- r2dii.data::increasing_or_decreasing %>%
+    filter(.data$technology == unique(data$technology)) %>%
+    pull(.data$increasing_or_decreasing) %>%
+    unique()
+
+  technology_kind
+}
+
+distance_from_start_value <- function(data, value) {
+  abs(value - start_value_portfolio(data))
+}
+
+start_value_portfolio <- function(data) {
+  data %>%
+    filter(.data$year == min(data$year, na.rm = TRUE), is_portfolio(.data$metric)) %>%
+    pull(.data$value)
+}
+
+check_plot_trajectory <- function(data, env) {
   stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), value_col)
   abort_if_has_zero_rows(data, env = env)
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)

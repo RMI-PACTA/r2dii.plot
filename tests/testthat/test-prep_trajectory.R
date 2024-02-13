@@ -20,17 +20,6 @@ test_that("returns expected columns", {
   )
 })
 
-test_that("handles span_5yr correctly", {
-  result <- prep_trajectory(test_data, span_5yr = TRUE)
-  expect_true(all(result$year <= min(test_data$year) + 5))
-})
-
-test_that("handles center_y correctly", {
-  result <- prep_trajectory(test_data, center_y = TRUE)
-
-  expect_equal(abs(min(result$value_low)), abs(max(result$value)))
-})
-
 test_that("handles value_col correctly", {
 
   test_data_dif_value_col <- test_data %>%
@@ -39,6 +28,14 @@ test_that("handles value_col correctly", {
   result <- prep_trajectory(test_data)
   result_dif_col <- prep_trajectory(test_data_dif_value_col, value_col = "new_column")
 
-  expect_identical(result, result_dif_col)
+  expect_equal(
+    setdiff(names(result), names(result_dif_col)),
+    "percentage_of_initial_production_by_scope"
+    )
+
+  expect_equal(
+    setdiff(names(result_dif_col), names(result)),
+    "new_column"
+  )
 
 })

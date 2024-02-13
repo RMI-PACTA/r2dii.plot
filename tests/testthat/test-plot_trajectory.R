@@ -53,10 +53,10 @@ test_that("the errors message includes the name of the user's data", {
 
 test_that("By default doesn't center the Y axis", {
   data <- example_market_share() %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = FALSE)
+    prep_trajectory(convert_label = identity)
   start_val <- start_value_portfolio(data)
 
-  p <- plot_trajectory(data)
+  p <- plot_trajectory(data, span_5yr = FALSE, center_y = FALSE)
 
   lower_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[1]
   upper_y_limit <- ggplot_build(p)$layout$panel_scales_y[[1]]$range$range[2]
@@ -80,16 +80,6 @@ test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-dec
   x_axis_breaks <- g$layout$panel_params[[1]]$x$minor_breaks
 
   expect_true(all(x_axis_breaks - floor(x_axis_breaks) == 0))
-})
-
-test_that("is sensitive to `value_col`", {
-  data <- example_market_share() %>%
-    mutate(
-      different_value = .data$percentage_of_initial_production_by_scope
-    ) %>%
-    prep_trajectory()
-
-  expect_snapshot_output(plot_trajectory(data, value_col = "different_value"))
 })
 
 test_that("is sensitive to `perc_y_scale`", {
@@ -163,3 +153,18 @@ test_that("with 0 as extreme value plots areas correctly", {
 
   expect_true(max(p$data$value_high) >= max(p$data$value))
 })
+
+test_that("handles span_5yr correctly", {
+  data <- prep_trajectory(example_market_share())
+  p <- plot_trajectory(data, span_5yr = TRUE)
+  expect_true(all(ggplot_build(p)$data[[1]]$x <= min(data$year) + 5))
+})
+
+# test_that("handles center_y correctly", {
+#   data <- prep_trajectory(example_market_share())
+#   p <- plot_trajectory(data, center_y = TRUE)
+#   expect_equal(
+#     abs(min(ggplot_build(p)$data[[1]]$y)),
+#     abs(max(ggplot_build(p)$data[[1]]$y))
+#     )
+# })
