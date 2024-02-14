@@ -31,10 +31,3 @@ test_that("handles convert_label correctly", {
   result <- prep_emission_intensity(test_data_nonfactor, convert_label = mock_convert_label)
   expect_true(all(grepl("Converted_", result$label)))
 })
-
-test_that("with too many lines to plot errors gracefully", {
-  data <- filter(sda, sector == "cement") %>%
-    bind_fake_sda_metrics(8)
-
-  expect_snapshot_error(prep_emission_intensity(data))
-})

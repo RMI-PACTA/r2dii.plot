@@ -321,15 +321,3 @@ get_ordered_scenarios <- function(data) {
 extract_scenarios <- function(x) {
   unique(x[startsWith(x, "target_")])
 }
-
-check_emission_intensity <- function(data, env) {
-  stopifnot(is.data.frame(data))
-  crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
-  enforce_single_value <- "sector"
-  abort_if_multiple(data, enforce_single_value)
-  abort_if_has_zero_rows(data, env = env)
-  abort_if_too_many_lines(data, max = 7)
-
-  invisible(data)
-}

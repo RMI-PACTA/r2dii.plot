@@ -216,3 +216,11 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with
 
 
 })
+
+test_that("with too many lines to plot errors gracefully", {
+  data <- filter(sda, sector == "cement") %>%
+    bind_fake_sda_metrics(8) |>
+    prep_emission_intensity()
+
+  expect_snapshot_error(plot_emission_intensity(data))
+})

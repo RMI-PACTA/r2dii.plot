@@ -14,8 +14,7 @@
 #'
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
-  env <- list(data = substitute(data))
-  check_emission_intensity(data, env = env)
+  check_plot_emission_intensity(data, env = list(data = substitute(data)))
 
   metrics <- distinct(data, .data$emission_factor_metric)
   colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
@@ -37,4 +36,11 @@ plot_emission_intensity <- function(data) {
     scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
     scale_colour_manual(values = unique(data$hex)) +
     theme_2dii()
+}
+
+check_plot_emission_intensity <- function(data, env) {
+  check_prep_emission_intensity(data, env)
+  stopifnot(is.data.frame(data))
+  abort_if_too_many_lines(data, max = 7)
+  invisible(data)
 }

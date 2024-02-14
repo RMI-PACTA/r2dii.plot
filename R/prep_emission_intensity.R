@@ -24,7 +24,7 @@ prep_emission_intensity <- function(data,
                                     convert_label = identity,
                                     span_5yr = FALSE) {
 
-  check_emission_intensity(data, env = list(data = substitute(data)))
+  check_prep_emission_intensity(data, env = list(data = substitute(data)))
   out <- data %>%
     prep_common()
 
@@ -45,4 +45,15 @@ prep_emission_intensity <- function(data,
     mutate(
       year = as.Date(ISOdate(year = .data$year, month = 1L, day = 1L))
     )
+}
+
+check_prep_emission_intensity <- function(data, env) {
+  stopifnot(is.data.frame(data))
+  crucial <- c("sector", "year", glue("emission_factor_{c('metric', 'value')}"))
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
+  enforce_single_value <- "sector"
+  abort_if_multiple(data, enforce_single_value)
+  abort_if_has_zero_rows(data, env = env)
+
+  invisible(data)
 }
