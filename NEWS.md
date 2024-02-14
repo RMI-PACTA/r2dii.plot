@@ -1,7 +1,7 @@
 # r2dii.plot (development version)
 
 ## Breaking change
-* All `plot_*()` functions have had the data preparation step extracted as 
+* All `plot_*()` functions have had the data preparation step extracted into 
 `prep_*()` functions (#465).
 * `scale_colour_r2dii` has argument renamed from `labels` to `colour_labels` (#527).
 
