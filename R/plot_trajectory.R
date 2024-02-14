@@ -56,7 +56,75 @@ plot_trajectory <- function(data,
 
   data <- bind_rows(scenarios, not_scenarios)
 
-  plot_trajectory_impl(data, perc_y_scale)
+  stopifnot(is.logical(perc_y_scale))
+
+  p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
+
+  scenarios <- data %>% filter(is_scenario(metric))
+  p <- p + geom_ribbon(
+    data = scenarios,
+    aes(
+      ymin = .data$value_low,
+      ymax = .data$value,
+      fill = factor(
+        .data$metric,
+        levels = scenario_colour(scenarios)$scenario
+      ),
+      alpha = 0.9
+    )
+  )
+
+  p <- p + geom_line(
+    data = order_trajectory(data),
+    aes(linetype = .data$metric, color = .data$metric)
+  )
+
+  lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
+  year_span <- max(data$year, na.rm = TRUE) - min(data$year, na.rm = TRUE)
+  p <- p + ggrepel::geom_text_repel(
+    data = lines_end,
+    aes(
+      y = .data$value,
+      label = .data$label,
+      segment.color = .data$metric
+    ),
+    direction = "y",
+    color = "black",
+    size = 3.5,
+    alpha = 1,
+    nudge_x = if_else(
+      is_scenario(lines_end$metric),
+      0.06 * year_span,
+      0.01 * year_span
+    ),
+    nudge_y = if_else(
+      is_scenario(lines_end$metric),
+      0.01 * value_span(data),
+      0
+    ),
+    hjust = 0,
+    segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
+    xlim = c(min(data$year, na.rm = TRUE), max(data$year, na.rm = TRUE) + 0.7 * year_span)
+  )
+
+  p <- p +
+    coord_cartesian(expand = FALSE, clip = "off") +
+    scale_x_continuous(breaks = integer_breaks()) +
+    scale_fill_manual(values = scenario_colour(data)$colour) +
+    # Calling `scale_fill_manual()` twice is intentional (https://git.io/JnDPc)
+    scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
+    scale_linetype_manual(values = line_types(data)) +
+    scale_color_manual(values = line_colours(data))
+
+  if (perc_y_scale) {
+    p <- p +
+      scale_y_continuous(labels = percent)
+  }
+
+  p +
+    theme_2dii() +
+    theme(axis.line = element_blank(), legend.position = "none") %+replace%
+    theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
 }
 
 scenario <- function(data, center_y = FALSE) {
@@ -167,78 +235,6 @@ check_plot_trajectory <- function(data, env) {
   abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
 
   invisible(data)
-}
-
-plot_trajectory_impl <- function(data, perc_y_scale = FALSE) {
-  stopifnot(is.logical(perc_y_scale))
-
-  p <- ggplot(order_trajectory(data), aes(x = .data$year, y = .data$value))
-
-  scenarios <- data %>% filter(is_scenario(metric))
-  p <- p + geom_ribbon(
-    data = scenarios,
-    aes(
-      ymin = .data$value_low,
-      ymax = .data$value,
-      fill = factor(
-        .data$metric,
-        levels = scenario_colour(scenarios)$scenario
-      ),
-      alpha = 0.9
-    )
-  )
-
-  p <- p + geom_line(
-    data = order_trajectory(data),
-    aes(linetype = .data$metric, color = .data$metric)
-  )
-
-  lines_end <- filter(order_trajectory(data), .data$year == max(data$year))
-  year_span <- max(data$year, na.rm = TRUE) - min(data$year, na.rm = TRUE)
-  p <- p + ggrepel::geom_text_repel(
-    data = lines_end,
-    aes(
-      y = .data$value,
-      label = .data$label,
-      segment.color = .data$metric
-    ),
-    direction = "y",
-    color = "black",
-    size = 3.5,
-    alpha = 1,
-    nudge_x = if_else(
-      is_scenario(lines_end$metric),
-      0.06 * year_span,
-      0.01 * year_span
-    ),
-    nudge_y = if_else(
-      is_scenario(lines_end$metric),
-      0.01 * value_span(data),
-      0
-    ),
-    hjust = 0,
-    segment.size = if_else(is_scenario(lines_end$metric), 0.4, 0),
-    xlim = c(min(data$year, na.rm = TRUE), max(data$year, na.rm = TRUE) + 0.7 * year_span)
-  )
-
-  p <- p +
-    coord_cartesian(expand = FALSE, clip = "off") +
-    scale_x_continuous(breaks = integer_breaks()) +
-    scale_fill_manual(values = scenario_colour(data)$colour) +
-    # Calling `scale_fill_manual()` twice is intentional (https://git.io/JnDPc)
-    scale_fill_manual(aesthetics = "segment.color", values = line_colours(data)) +
-    scale_linetype_manual(values = line_types(data)) +
-    scale_color_manual(values = line_colours(data))
-
-  if (perc_y_scale) {
-    p <- p +
-      scale_y_continuous(labels = percent)
-  }
-
-  p +
-    theme_2dii() +
-    theme(axis.line = element_blank(), legend.position = "none") %+replace%
-    theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "cm"))
 }
 
 summarise_max_year_by_scenario <- function(data) {

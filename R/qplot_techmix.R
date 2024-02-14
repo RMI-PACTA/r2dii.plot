@@ -32,7 +32,7 @@ qplot_techmix <- function(data) {
       span_5yr = TRUE,
       convert_tech_label = spell_out_technology
     ) %>%
-    plot_techmix_impl() %>%
+    plot_techmix() %>%
     labs_techmix()
 }
 

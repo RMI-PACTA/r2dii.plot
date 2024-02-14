@@ -26,50 +26,6 @@
 plot_techmix <- function(data) {
   env <- list(data = substitute(data))
   check_plot_techmix(data, env = env)
-  plot_techmix_impl(data)
-}
-
-check_plot_techmix <- function(data, env) {
-  stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "technology_share")
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
-  abort_if_has_zero_rows(data, env = env)
-  enforce_single_value <- c("sector", "region", "scenario_source")
-  abort_if_multiple(data, enforce_single_value, env = env)
-  abort_if_multiple_scenarios(data, env = env)
-
-  invisible(data)
-}
-
-abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
-  .data <- deparse_1(substitute(data, env = env))
-
-  scen <- extract_scenarios(data$metric)
-  n <- length(scen)
-
-  if (n == 0L) {
-    abort(c(
-      glue("`{.data}$metric` must have one scenario."),
-      x = "It has none."
-    ))
-  }
-
-  if (n > 1L) {
-    example <- c(setdiff(unique(data$metric), scen), first(scen))
-    abort(c(
-      glue("`{.data}$metric` must have a single scenario not {n}."),
-      i = glue(
-        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
-        `subset({.data}, metric %in% {fmt_vector(fmt_string(example))})`."
-      ),
-      x = glue("Provided: {toString(scen)}.")
-    ))
-  }
-
-  invisible(data)
-}
-
-plot_techmix_impl <- function(data) {
   colours <- get_technology_colours(data)
   labels <- techmix_labels(data)
 
@@ -115,6 +71,46 @@ plot_techmix_impl <- function(data) {
     xlab("") +
     ylab("") +
     facet_wrap(~year, nrow = 2, strip.position = "right", scales = "free_y")
+}
+
+check_plot_techmix <- function(data, env) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  abort_if_has_zero_rows(data, env = env)
+  enforce_single_value <- c("sector", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, env = env)
+  abort_if_multiple_scenarios(data, env = env)
+
+  invisible(data)
+}
+
+abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
+  .data <- deparse_1(substitute(data, env = env))
+
+  scen <- extract_scenarios(data$metric)
+  n <- length(scen)
+
+  if (n == 0L) {
+    abort(c(
+      glue("`{.data}$metric` must have one scenario."),
+      x = "It has none."
+    ))
+  }
+
+  if (n > 1L) {
+    example <- c(setdiff(unique(data$metric), scen), first(scen))
+    abort(c(
+      glue("`{.data}$metric` must have a single scenario not {n}."),
+      i = glue(
+        "Do you need to pick one scenario? E.g. pick '{first(scen)}' with: \\
+        `subset({.data}, metric %in% {fmt_vector(fmt_string(example))})`."
+      ),
+      x = glue("Provided: {toString(scen)}.")
+    ))
+  }
+
+  invisible(data)
 }
 
 techmix_labels <- function(data) {

@@ -16,10 +16,6 @@
 plot_emission_intensity <- function(data) {
   env <- list(data = substitute(data))
   check_emission_intensity(data, env = env)
-  plot_emission_intensity_impl(data)
-}
-
-plot_emission_intensity_impl <- function(data) {
   ggplot(
     data = data,
     aes(
