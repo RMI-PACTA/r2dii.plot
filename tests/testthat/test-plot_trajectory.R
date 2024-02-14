@@ -42,13 +42,12 @@ test_that("outputs default axis labels", {
 })
 
 test_that("the errors message includes the name of the user's data", {
-  #FIXME: Figure out this test
-  # # Keep even if already tested in qplot_. Non-standard evaluation is fragile
-  # bad_region <- head(market_share, 2L) %>%
-  #   mutate(region = c("a", "b")) %>%
-  #   prep_trajectory()
-  #
-  # expect_error(plot_trajectory(bad_region), "bad_region")
+  # Keep even if already tested in qplot_. Non-standard evaluation is fragile
+  bad_region <- head(market_share, 2L) %>%
+    mutate(region = c("a", "b")) %>%
+    prep_trajectory()
+
+  expect_error(plot_trajectory(bad_region), "bad_region")
 })
 
 test_that("By default doesn't center the Y axis", {
