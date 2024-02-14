@@ -41,14 +41,8 @@ prep_emission_intensity <- function(data,
     out <- span_5yr(out)
   }
 
-  out <- out %>%
+  out %>%
     mutate(
       year = as.Date(ISOdate(year = .data$year, month = 1L, day = 1L))
     )
-
-  metrics <- distinct(out, .data$emission_factor_metric)
-  colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
-  specs <- dplyr::bind_cols(metrics, colours)
-
-  left_join(out, specs, by = metric(data))
 }

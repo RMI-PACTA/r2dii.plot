@@ -16,6 +16,13 @@
 plot_emission_intensity <- function(data) {
   env <- list(data = substitute(data))
   check_emission_intensity(data, env = env)
+
+  metrics <- distinct(data, .data$emission_factor_metric)
+  colours <- palette_colours[seq_len(nrow(metrics)), "hex", drop = FALSE]
+  specs <- dplyr::bind_cols(metrics, colours)
+
+  data <- left_join(data, specs, by = metric(data))
+
   ggplot(
     data = data,
     aes(
