@@ -50,6 +50,8 @@ reference:
   contents: starts_with("qplot_")
 - subtitle: Plots
   contents: starts_with("plot_")
+- subtitle: Preparing data
+  contents: starts_with("prep_")
 - subtitle: Styling functions
   contents:
   - starts_with("theme_")
