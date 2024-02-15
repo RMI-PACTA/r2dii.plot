@@ -153,12 +153,17 @@ test_that("with 0 as extreme value plots areas correctly", {
   expect_true(max(p$data$value_high) >= max(p$data$value))
 })
 
-# FIXME
-# test_that("handles center_y correctly", {
-#   data <- prep_trajectory(example_market_share())
-#   p <- plot_trajectory(data, center_y = TRUE)
-#   expect_equal(
-#     abs(min(ggplot_build(p)$data[[1]]$y)),
-#     abs(max(ggplot_build(p)$data[[1]]$y))
-#     )
-# })
+test_that("handles center_y correctly", {
+  data <- prep_trajectory(example_market_share())
+  p <- plot_trajectory(data, center_y = TRUE)
+  out <- ggplot_build(p)$data
+  label_groups <- as.data.frame(out[[3]])
+  label_groups <- select(label_groups, label, group)
+  out <- as.data.frame(out[[1]])
+  out <- left_join(out, label_groups, by = "group")
+
+  out <- dplyr::filter(out, x == min(.data$x))
+  out <- dplyr::filter(out, label %in% c("projected", "corporate_economy"))
+
+  expect_equal(abs(min(out$y)), abs(max(out$y)))
+})
