@@ -4,17 +4,13 @@
 \alias{plot_trajectory}
 \title{Create a trajectory plot}
 \usage{
-plot_trajectory(data, span_5yr = FALSE, center_y = FALSE, perc_y_scale = FALSE)
+plot_trajectory(data, center_y = FALSE, perc_y_scale = FALSE)
 }
 \arguments{
 \item{data}{A data frame like the outputs of \code{prep_trajectory()}.
 \itemize{
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year (the default behavior of \code{qplot_trajectory()}), or use
-\code{FALSE} to impose no restriction.}
 
 \item{center_y}{Logical. Use \code{TRUE} to center the y-axis around start value
 (the default behavior of \code{qplot_trajectory()}), or use \code{FALSE} to not
