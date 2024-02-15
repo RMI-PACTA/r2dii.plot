@@ -6,6 +6,9 @@
 #' `region`, `scenario_source`.
 #' * (Optional) If present, the column `label` is used for data labels.
 #' @template convert_label
+#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
+#'   the start year (the default behavior of `qplot_trajectory()`), or use
+#'   `FALSE` to impose no restriction.
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
 #'
@@ -27,16 +30,23 @@
 #' prep_trajectory(data)
 prep_trajectory <- function(data,
                             convert_label = identity,
+                            span_5yr = FALSE,
                             value_col = "percentage_of_initial_production_by_scope") {
 
   env <- list(data = substitute(data))
 
   check_prep_trajectory(data, value_col = value_col, env = env)
 
-  out <- data %>%
+  data <- data %>%
     prep_common() %>%
     mutate(value = !!as.name(value_col)) %>%
     mutate(label = convert_label(.data$label))
+
+  if (span_5yr) {
+    data <- span_5yr(data)
+  }
+
+  data
 }
 
 check_prep_trajectory <- function(data, value_col, env) {

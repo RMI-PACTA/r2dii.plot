@@ -39,3 +39,8 @@ test_that("handles value_col correctly", {
   )
 
 })
+
+test_that("handles span_5yr correctly", {
+  out <- prep_trajectory(example_market_share(), span_5yr = TRUE)
+  expect_true(all(out$year <= min(out$year) + 5))
+})

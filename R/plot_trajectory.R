@@ -2,9 +2,6 @@
 #'
 #' @param data A data frame like the outputs of `prep_trajectory()`.
 #' * (Optional) If present, the column `label` is used for data labels.
-#' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
-#'   the start year (the default behavior of `qplot_trajectory()`), or use
-#'   `FALSE` to impose no restriction.
 #' @param center_y Logical. Use `TRUE` to center the y-axis around start value
 #'   (the default behavior of `qplot_trajectory()`), or use `FALSE` to not
 #'   center.
@@ -34,15 +31,10 @@
 #'   perc_y_scale = TRUE
 #' )
 plot_trajectory <- function(data,
-                            span_5yr = FALSE,
                             center_y = FALSE,
                             perc_y_scale = FALSE) {
   env <- list(data = substitute(data))
   check_plot_trajectory(data, env = env)
-
-  if (span_5yr) {
-    data <- span_5yr(data)
-  }
 
   start_year <- min(data$year, na.rm = TRUE)
 
