@@ -1,6 +1,10 @@
 # r2dii.plot (development version)
 
 ## Breaking change
+* All `plot_*()` functions have had the data preparation step extracted into 
+`prep_*()` functions. This means that from now on `prep_*()` function needs
+to be called on `data` prior to `plot_*()`. The APIs of `qplot_*()` functions stay 
+unchanged (#465).
 * `scale_colour_r2dii` has argument renamed from `labels` to `colour_labels` (#527).
 
 ## Bug fixes

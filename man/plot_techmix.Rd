@@ -4,42 +4,10 @@
 \alias{plot_techmix}
 \title{Create a techmix plot}
 \usage{
-plot_techmix(
-  data,
-  span_5yr = FALSE,
-  convert_label = identity,
-  convert_tech_label = identity
-)
+plot_techmix(data)
 }
 \arguments{
-\item{data}{A data frame. Requirements:
-\itemize{
-\item The structure must be like \link{market_share}.
-\item The following columns must have a single value: \code{sector}, \code{region},
-\code{scenario_source}.
-\item The column \code{metric} must have a portfolio (e.g. "projected"), a benchmark
-(e.g. "corporate_economy"), and a single \code{scenario} (e.g. "target_sds").
-\item (Optional) If present, the column \code{label} is used for data labels.
-\item (Optional) If present, the column \code{label_tech} is used for technology
-labels.
-}}
-
-\item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
-the start year (the default behavior of \code{qplot_techmix()}), or use
-\code{FALSE} to impose no restriction.}
-
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-y-axis labels. For example:
-\itemize{
-\item To convert labels to uppercase use \code{convert_label = toupper}.
-\item To get the default behavior of \code{qplot_techmix()} use
-\code{convert_label = recode_metric_techmix}.
-}}
-
-\item{convert_tech_label}{A symbol. The unquoted name of a function to apply
-to technology legend labels. For example, to convert labels to uppercase
-use \code{convert_tech_label = toupper}. To get the default behavior of
-\code{qplot_techmix()} use \code{convert_tech_label = spell_out_technology}.}
+\item{data}{A data frame like the output of \code{prep_techmix()}.}
 }
 \value{
 An object of class "ggplot".
@@ -48,24 +16,21 @@ An object of class "ggplot".
 Create a techmix plot
 }
 \examples{
-# `data` must meet documented "Requirements"
+# plot with `qplot_techmix()` parameters
 data <- subset(
   market_share,
   scenario_source == "demo_2020" &
     sector == "power" &
     region == "global" &
     metric \%in\% c("projected", "corporate_economy", "target_sds")
-)
-
-plot_techmix(data)
-
-# plot with `qplot_techmix()` parameters
-plot_techmix(
-  data,
+) \%>\%
+prep_techmix(
   span_5yr = TRUE,
   convert_label = recode_metric_techmix,
   convert_tech_label = spell_out_technology
-)
+  )
+
+plot_techmix(data)
 }
 \seealso{
 \link{market_share}.

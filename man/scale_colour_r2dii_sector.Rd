@@ -37,7 +37,7 @@ ggplot(mpg) +
 }
 \seealso{
 Other r2dii scales: 
-\code{\link{scale_colour_r2dii_tech}()},
-\code{\link{scale_colour_r2dii}()}
+\code{\link{scale_colour_r2dii}()},
+\code{\link{scale_colour_r2dii_tech}()}
 }
 \concept{r2dii scales}

@@ -55,12 +55,13 @@ Each plot can be created using two types of functions:
 
 * `qplot_*()` for standardized plots,
 * `plot_*()` for 'bare' plots leaving the customization
-to the user.
+to the user. These require that you first prepare the data using a `prep_*()` 
+function.
 
 For each kind, you'll need to subset the specific rows you want to plot (for
 example with `subset()` or `dplyr:filter()`). For details see the documented
-"Requirements" of the argument `data` of each `plot_*()` or `qplot_*()` function
-(e.g. see `?plot_emission_intensity`). If you forget to meet the `data`
+"Requirements" of the argument `data` of each `prep_*()` or `qplot_*()` function
+(e.g. see `?prep_emission_intensity`). If you forget to meet the `data`
 requirements the error message should guide you.
 
 ## 'Quick' plots
@@ -146,11 +147,14 @@ data <- matched %>%
     scenario_source == "demo_2020"
   )
 
+data <- prep_emission_intensity(data)
+
 plot_emission_intensity(data)
 ```
 
-You can use parameters of `plot_emission_intensity()` to replicate features of 
-`qplot_emission_intensity()`(strategy 1), and add plot labels with 
+You can use parameters of `prep_emission_intensity` and 
+`plot_emission_intensity()` to replicate features of 
+`qplot_emission_intensity()` (strategy 1), and add plot labels with 
 `ggplot2::labs()` (strategy 3).
 
 ```{r}
@@ -162,7 +166,9 @@ data <- matched %>%
     scenario_source == "demo_2020"
   )
 
-plot_emission_intensity(data, convert_label = to_title, span_5yr = TRUE) +
+data <- prep_emission_intensity(data, convert_label = to_title, span_5yr = TRUE)
+
+plot_emission_intensity(data) +
   labs(
     title = "Emission Intensity Trend for the Cement Sector",
     x = "Year",
@@ -201,6 +207,8 @@ data <- sda %>%
     year <= 2030
   )
 
+data <- prep_emission_intensity(data)
+
 plot_emission_intensity(data) +
   labs(
     title = "Emission intensity plot for cement",
@@ -236,6 +244,8 @@ data <- matched %>%
     )
   )
 
+data <- prep_trajectory(data)
+
 plot_trajectory(data) +
   scale_x_continuous(n.breaks = 3) +
   labs(
@@ -267,6 +277,8 @@ data <- market_share %>%
     )
   )
 
+data <- prep_techmix(data)
+
 plot_techmix(data) +
   scale_fill_manual(
     values = c("black", "brown", "grey", "yellow", "blue", "green4"),
@@ -287,6 +299,8 @@ data <- market_share %>%
   filter(
     !((metric == "target_sds") & (year == 2020))
   )
+
+data <- prep_techmix(data)
 
 plot_techmix(data)
 ```

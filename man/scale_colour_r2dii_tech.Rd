@@ -42,7 +42,7 @@ ggplot(mpg) +
 }
 \seealso{
 Other r2dii scales: 
-\code{\link{scale_colour_r2dii_sector}()},
-\code{\link{scale_colour_r2dii}()}
+\code{\link{scale_colour_r2dii}()},
+\code{\link{scale_colour_r2dii_sector}()}
 }
 \concept{r2dii scales}

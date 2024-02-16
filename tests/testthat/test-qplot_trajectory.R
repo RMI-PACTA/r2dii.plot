@@ -215,7 +215,7 @@ test_that("the errors message includes the name of the user's data", {
 test_that("by defeault centers the Y axis", {
   data <- example_market_share()
   data_prep <- data %>%
-    prep_trajectory(convert_label = identity, span_5yr = FALSE, center_y = TRUE)
+    prep_trajectory(convert_label = identity)
   start_val <- start_value_portfolio(data_prep)
 
   p <- qplot_trajectory(data)

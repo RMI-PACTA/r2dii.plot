@@ -31,7 +31,8 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 })
 
 test_that("doesn't output pretty labels", {
-  data <- filter(sda, sector == "cement")
+  data <- filter(sda, sector == "cement") %>%
+    prep_emission_intensity()
   p <- plot_emission_intensity(data)
 
   metrics <- unique(p$data$label)
@@ -39,36 +40,9 @@ test_that("doesn't output pretty labels", {
   expect_equal(metrics, ugly)
 })
 
-test_that("with too many lines to plot errors gracefully", {
-  data <- filter(sda, sector == "cement") %>%
-    bind_fake_sda_metrics(8)
-  expect_snapshot_error(plot_emission_intensity(data))
-})
-
-test_that("is sensitive to `convert_label`", {
-  data <- filter(sda, sector == "cement")
-
-  labels_def <- plot_emission_intensity(data) %>%
-    unique_plot_data("label")
-  labels_mod <- plot_emission_intensity(data, convert_label = toupper) %>%
-    unique_plot_data("label")
-
-  expect_false(identical(labels_def, labels_mod))
-})
-
-test_that("is sensitive to `span_5yr`", {
-  data <- filter(sda, sector == "cement")
-  abort_if_year_range_is_5yr_already(data)
-
-  p_f <- plot_emission_intensity(data, span_5yr = FALSE)
-  expect_false(diff(year_range(p_f)) == 5)
-
-  p_t <- plot_emission_intensity(data, span_5yr = TRUE)
-  expect_true(diff(year_range(p_t)) == 5)
-})
-
 test_that("with n metrics in input outputs n lines", {
-  data <- filter(sda, sector == "cement", year >= 2020, region == "global")
+  data <- filter(sda, sector == "cement", year >= 2020, region == "global") %>%
+    prep_emission_intensity()
   n_metrics <- length(unique(data$emission_factor_metric))
 
   n_labels <- plot_emission_intensity(data) %>%
@@ -79,14 +53,6 @@ test_that("with n metrics in input outputs n lines", {
 })
 
 options(warn = 0)
-
-test_that("throws expected warning about API change", {
-  data <- head(filter(sda, sector == "cement"))
-  expect_snapshot_error(
-    plot_emission_intensity(data),
-    class = "warning"
-  )
-})
 
 test_that("with data with `label` column and with `scale_colour_r2dii()`,
           outputs expected labels and colours (#535)", {
@@ -107,7 +73,8 @@ test_that("with data with `label` column and with `scale_colour_r2dii()`,
                   levels = input_levels
                 ),
                 label = to_title(.data$emission_factor_metric)
-              )
+              ) %>%
+              prep_emission_intensity()
 
             input_colour_scale <- c(
               "dark_blue",
@@ -186,7 +153,8 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with
         .data$emission_factor_metric,
         levels = input_levels
       )
-    )
+    ) %>%
+    prep_emission_intensity(convert_label = to_title)
 
   input_colour_scale <- c(
     "dark_blue",
@@ -203,7 +171,7 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with
 
 
   p <- suppressWarnings(
-    plot_emission_intensity(data, convert_label = to_title),
+    plot_emission_intensity(data),
     classes = "lifecycle_warning_deprecated"
   )
 
@@ -247,4 +215,12 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with
   )
 
 
+})
+
+test_that("with too many lines to plot errors gracefully", {
+  data <- filter(sda, sector == "cement") %>%
+    bind_fake_sda_metrics(8) %>%
+    prep_emission_intensity()
+
+  expect_snapshot_error(plot_emission_intensity(data))
 })

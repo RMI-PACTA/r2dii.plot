@@ -25,7 +25,7 @@
 #' qplot_trajectory(data)
 qplot_trajectory <- function(data) {
   env <- list(data = substitute(data))
-  check_plot_trajectory(
+  check_qplot_trajectory(
     data,
     value_col = c("percentage_of_initial_production_by_scope", "scope"),
     env = env
@@ -35,10 +35,12 @@ qplot_trajectory <- function(data) {
     prep_trajectory(
       convert_label = recode_metric_trajectory,
       span_5yr = TRUE,
-      center_y = TRUE,
       value_col = "percentage_of_initial_production_by_scope"
     ) %>%
-    plot_trajectory_impl(perc_y_scale = TRUE) %>%
+    plot_trajectory(
+      center_y = TRUE,
+      perc_y_scale = TRUE
+      ) %>%
     labs_trajectory(data)
 }
 
@@ -62,4 +64,18 @@ labs_trajectory <- function(p, data) {
       x = "Year",
       y = glue("Change in production relative to the total\ninitial production of {eval(parse(text = scope))} {scope} (%)")
     )
+}
+
+check_qplot_trajectory <- function(data, value_col, env) {
+  stopifnot(is.data.frame(data))
+  crucial <- c(common_crucial_market_share_columns(), value_col)
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  abort_if_has_zero_rows(data, env = env)
+  enforce_single_value <- c("sector", "technology", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, env = env)
+  abort_if_invalid_scenarios_number(data)
+  abort_if_too_many_lines(max = 4, summarise_max_year_by_scenario(data))
+  abort_if_too_many_lines(max = 5, summarise_max_year_by_traj_metric(data))
+
+  invisible(data)
 }

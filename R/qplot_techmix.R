@@ -30,10 +30,9 @@ qplot_techmix <- function(data) {
     prep_techmix(
       convert_label = recode_metric_techmix,
       span_5yr = TRUE,
-      convert_tech_label = spell_out_technology,
-      env = env
+      convert_tech_label = spell_out_technology
     ) %>%
-    plot_techmix_impl() %>%
+    plot_techmix() %>%
     labs_techmix()
 }
 
