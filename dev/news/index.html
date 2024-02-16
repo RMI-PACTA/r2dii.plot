@@ -71,7 +71,8 @@
 <h2 class="pkg-version" data-toc-text="development version" id="r2diiplot-development-version">r2dii.plot (development version)<a class="anchor" aria-label="anchor" href="#r2diiplot-development-version"></a></h2>
 <div class="section level3">
 <h3 id="breaking-change-development-version">Breaking change<a class="anchor" aria-label="anchor" href="#breaking-change-development-version"></a></h3>
-<ul><li>
+<ul><li>All <code>plot_*()</code> functions have had the data preparation step extracted into <code>prep_*()</code> functions. This means that from now on <code>prep_*()</code> function needs to be called on <code>data</code> prior to <code>plot_*()</code>. The APIs of <code>qplot_*()</code> functions stay unchanged (<a href="https://github.com/RMI-PACTA/r2dii.plot/issues/465" class="external-link">#465</a>).</li>
+<li>
 <code>scale_colour_r2dii</code> has argument renamed from <code>labels</code> to <code>colour_labels</code> (<a href="https://github.com/RMI-PACTA/r2dii.plot/issues/527" class="external-link">#527</a>).</li>
 </ul></div>
 <div class="section level3">

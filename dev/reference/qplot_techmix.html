@@ -95,15 +95,7 @@ outputs a title.
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
-<dd><p>A data frame. Requirements:</p><ul><li><p>The structure must be like <a href="market_share.html">market_share</a>.</p></li>
-<li><p>The following columns must have a single value: <code>sector</code>, <code>region</code>,
-<code>scenario_source</code>.</p></li>
-<li><p>The column <code>metric</code> must have a portfolio (e.g. "projected"), a benchmark
-(e.g. "corporate_economy"), and a single <code>scenario</code> (e.g. "target_sds").</p></li>
-<li><p>(Optional) If present, the column <code>label</code> is used for data labels.</p></li>
-<li><p>(Optional) If present, the column <code>label_tech</code> is used for technology
-labels.</p></li>
-</ul></dd>
+<dd><p>A data frame like the output of <code><a href="prep_techmix.html">prep_techmix()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -130,7 +122,7 @@ labels.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">qplot_techmix</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The `technology_share` values are plotted for extreme years.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Do you want to plot different years? E.g. filter . with:`subset(., year %in% c(2020, 2030))`.</span>
 <span class="r-plt img"><img src="qplot_techmix-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
