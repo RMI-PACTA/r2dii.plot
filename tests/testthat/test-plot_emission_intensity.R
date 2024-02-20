@@ -9,6 +9,11 @@ test_that("if `data` is not sda-like errors gracefully", {
   expect_snapshot_error(plot_emission_intensity(bad))
 })
 
+test_that("if `data` has zero rows errors gracefully", {
+  zero_row <- prep_emission_intensity(sda)[0L, ]
+  expect_snapshot_error(plot_emission_intensity(zero_row))
+})
+
 test_that("with too many sectors errors gracefully", {
   data <- head(sda, 2)
   data$sector <- c("a", "b")

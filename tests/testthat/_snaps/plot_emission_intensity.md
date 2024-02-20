@@ -11,6 +11,11 @@
     ! `data` must have all the expected names.
     x Missing names: emission_factor_metric, emission_factor_value, label.
 
+# if `data` has zero rows errors gracefully
+
+    `zero_row` must have some rows.
+    x `zero_row` has zero rows.
+
 # with too many sectors errors gracefully
 
     `data` must have all the expected names.
