@@ -67,6 +67,8 @@ test_that("with data having specific level factors, scales colours as expected
       )
     )
 
+  data <- prep_emission_intensity(data)
+
   p <- suppressWarnings(
     plot_emission_intensity(data),
     classes = "lifecycle_warning_deprecated"
