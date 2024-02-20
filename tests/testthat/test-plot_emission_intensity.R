@@ -21,7 +21,9 @@ test_that("with too many sectors errors gracefully", {
 })
 
 test_that("outputs an object with no factor-columns derived from `specs`", {
-  data <- head(filter(sda, sector == "cement"))
+  data <- prep_emission_intensity(
+    head(filter(sda, sector == "cement"))
+  )
 
   p <- plot_emission_intensity(data)
   p_data <- p$layers[[1]]$data
