@@ -15,6 +15,11 @@ test_that("handles span_5yr correctly", {
   expect_true(all(as.integer(format(result$year, "%Y")) <= min(test_data$year) + 5))
 })
 
+test_that("if `data` has zero rows errors gracefully", {
+  zero_row <- sda[0L, ]
+  expect_snapshot_error(prep_emission_intensity(zero_row))
+})
+
 # Test handling of convert_label for factor and non-factor labels
 test_that("handles convert_label correctly", {
   # Mock convert_label function for testing
