@@ -35,7 +35,6 @@ Depends:
     R (>= 3.4)
 Imports: 
     dplyr,
-    forcats,
     ggplot2,
     ggrepel,
     glue,
