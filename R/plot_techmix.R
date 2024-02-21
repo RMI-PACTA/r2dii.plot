@@ -75,7 +75,12 @@ plot_techmix <- function(data) {
 
 check_plot_techmix <- function(data, env) {
   stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+  crucial <- c(
+    common_crucial_market_share_columns(),
+    "technology_share",
+    "label",
+    "label_tech"
+    )
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
   abort_if_has_zero_rows(data, env = env)
   enforce_single_value <- c("sector", "region", "scenario_source")
