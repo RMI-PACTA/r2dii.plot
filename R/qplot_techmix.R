@@ -24,7 +24,7 @@
 #' qplot_techmix(data)
 qplot_techmix <- function(data) {
   env <- list(data = substitute(data))
-  check_plot_techmix(data, env = env)
+  check_prep_techmix(data, env = env)
 
   data %>%
     prep_techmix(
