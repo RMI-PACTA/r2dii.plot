@@ -42,7 +42,13 @@ prep_techmix <- function(data,
                          convert_tech_label = identity) {
 
   env <- list(data = substitute(data))
-  check_prep_techmix(data, env = env)
+  check_prep_techmix(
+    data,
+    convert_label = convert_label,
+    convert_tech_label = convert_tech_label,
+    span_5yr = span_5yr,
+    env = env
+    )
 
   out <- data %>%
     prep_common() %>%
@@ -86,11 +92,17 @@ recode_sector <- function(x) {
   # styler: on
 }
 
-check_prep_techmix <- function(data, env) {
+check_prep_techmix <- function(data, convert_label, convert_tech_label, span_5yr, env) {
   stopifnot(is.data.frame(data))
+  stopifnot(is.function(convert_label))
+  stopifnot(is.function(convert_tech_label))
+  stopifnot(is.logical(span_5yr))
+
   crucial <- c(common_crucial_market_share_columns(), "technology_share")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+
   abort_if_has_zero_rows(data, env = env)
+
   enforce_single_value <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
   abort_if_multiple_scenarios(data, env = env)
