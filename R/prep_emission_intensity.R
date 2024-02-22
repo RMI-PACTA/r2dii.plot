@@ -24,7 +24,12 @@ prep_emission_intensity <- function(data,
                                     convert_label = identity,
                                     span_5yr = FALSE) {
 
-  check_prep_emission_intensity(data, env = list(data = substitute(data)))
+  check_prep_emission_intensity(
+    data,
+    span_5yr,
+    env = list(data = substitute(data))
+    )
+
   out <- data %>%
     prep_common()
 
@@ -47,8 +52,9 @@ prep_emission_intensity <- function(data,
     )
 }
 
-check_prep_emission_intensity <- function(data, env) {
+check_prep_emission_intensity <- function(data, span_5yr, env) {
   stopifnot(is.data.frame(data))
+  stopifnot(is.logical(span_5yr))
   crucial <- prep_emission_factor_crucial
   hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
   enforce_single_value <- "sector"
