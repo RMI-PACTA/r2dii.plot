@@ -32,7 +32,6 @@ prep_trajectory <- function(data,
                             convert_label = identity,
                             span_5yr = FALSE,
                             value_col = "percentage_of_initial_production_by_scope") {
-
   env <- list(data = substitute(data))
   check_prep_trajectory(
     data,
@@ -40,7 +39,7 @@ prep_trajectory <- function(data,
     span_5yr = span_5yr,
     value_col = value_col,
     env = env
-    )
+  )
 
   data <- data %>%
     prep_common() %>%
@@ -59,7 +58,6 @@ check_prep_trajectory <- function(data,
                                   span_5yr,
                                   value_col,
                                   env) {
-
   stopifnot(is.data.frame(data))
   stopifnot(is.function(convert_label))
   stopifnot(is.logical(span_5yr))

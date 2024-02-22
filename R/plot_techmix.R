@@ -16,10 +16,10 @@
 #'     region == "global" &
 #'     metric %in% c("projected", "corporate_economy", "target_sds")
 #' ) %>%
-#' prep_techmix(
-#'   span_5yr = TRUE,
-#'   convert_label = recode_metric_techmix,
-#'   convert_tech_label = spell_out_technology
+#'   prep_techmix(
+#'     span_5yr = TRUE,
+#'     convert_label = recode_metric_techmix,
+#'     convert_tech_label = spell_out_technology
 #'   )
 #'
 #' plot_techmix(data)
@@ -81,7 +81,7 @@ check_plot_techmix <- function(data, env) {
     "technology_share",
     "label",
     "label_tech"
-    )
+  )
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
 
   abort_if_has_zero_rows(data, env = env)

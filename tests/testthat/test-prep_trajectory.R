@@ -21,7 +21,6 @@ test_that("returns expected columns", {
 })
 
 test_that("handles value_col correctly", {
-
   test_data_dif_value_col <- test_data %>%
     rename(new_column = percentage_of_initial_production_by_scope)
 
@@ -31,13 +30,12 @@ test_that("handles value_col correctly", {
   expect_equal(
     setdiff(names(result), names(result_dif_col)),
     "percentage_of_initial_production_by_scope"
-    )
+  )
 
   expect_equal(
     setdiff(names(result_dif_col), names(result)),
     "new_column"
   )
-
 })
 
 test_that("handles span_5yr correctly", {

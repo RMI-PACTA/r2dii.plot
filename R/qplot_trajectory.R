@@ -40,7 +40,7 @@ qplot_trajectory <- function(data) {
     plot_trajectory(
       center_y = TRUE,
       perc_y_scale = TRUE
-      ) %>%
+    ) %>%
     labs_trajectory(data)
 }
 

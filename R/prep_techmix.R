@@ -40,7 +40,6 @@ prep_techmix <- function(data,
                          convert_label = identity,
                          span_5yr = FALSE,
                          convert_tech_label = identity) {
-
   env <- list(data = substitute(data))
   check_prep_techmix(
     data,
@@ -48,7 +47,7 @@ prep_techmix <- function(data,
     convert_tech_label = convert_tech_label,
     span_5yr = span_5yr,
     env = env
-    )
+  )
 
   out <- data %>%
     prep_common() %>%
