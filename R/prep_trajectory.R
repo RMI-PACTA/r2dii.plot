@@ -33,7 +33,8 @@ prep_trajectory <- function(data,
                             span_5yr = FALSE,
                             value_col = "percentage_of_initial_production_by_scope") {
 
-  check_prep_trajectory(data, value_col = value_col)
+  env <- list(data = substitute(data))
+  check_prep_trajectory(data, value_col = value_col, env = env)
 
   data <- data %>%
     prep_common() %>%
@@ -47,9 +48,12 @@ prep_trajectory <- function(data,
   data
 }
 
-check_prep_trajectory <- function(data, value_col) {
+check_prep_trajectory <- function(data, value_col, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), value_col)
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  enforce_single_value <- c("sector", "technology", "region", "scenario_source")
+  abort_if_multiple(data, enforce_single_value, env = env)
+
   invisible(data)
 }
