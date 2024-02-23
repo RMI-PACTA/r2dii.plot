@@ -164,3 +164,11 @@ test_that("with input data before start year of 'projected' prep_techmix
 
             expect_equal(min(prep_techmix(data)$year, na.rm = TRUE), start_year)
           })
+
+test_that("input with no `projected` value errors gracefully", {
+  bad_data <- filter(
+    test_data,
+    metric != "projected"
+  )
+  expect_error(prep_techmix(bad_data), class = "no_projected")
+})

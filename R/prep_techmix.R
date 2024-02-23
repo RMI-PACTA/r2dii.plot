@@ -102,6 +102,8 @@ check_prep_techmix <- function(data, convert_label, convert_tech_label, span_5yr
 
   abort_if_has_zero_rows(data, env = env)
 
+  abort_if_metric_has_no_projected(data)
+
   enforce_single_value <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
   abort_if_wrong_number_of_scenarios(data, env = env)
