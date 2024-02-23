@@ -88,12 +88,12 @@ check_plot_techmix <- function(data, env) {
 
   enforce_single_value <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
-  abort_if_multiple_scenarios(data, env = env)
+  abort_if_wrong_number_of_scenarios(data, env = env)
 
   invisible(data)
 }
 
-abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
+abort_if_wrong_number_of_scenarios <- function(data, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
   scen <- extract_scenarios(data$metric)
