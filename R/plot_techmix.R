@@ -16,10 +16,10 @@
 #'     region == "global" &
 #'     metric %in% c("projected", "corporate_economy", "target_sds")
 #' ) %>%
-#' prep_techmix(
-#'   span_5yr = TRUE,
-#'   convert_label = recode_metric_techmix,
-#'   convert_tech_label = spell_out_technology
+#'   prep_techmix(
+#'     span_5yr = TRUE,
+#'     convert_label = recode_metric_techmix,
+#'     convert_tech_label = spell_out_technology
 #'   )
 #'
 #' plot_techmix(data)
@@ -75,17 +75,25 @@ plot_techmix <- function(data) {
 
 check_plot_techmix <- function(data, env) {
   stopifnot(is.data.frame(data))
-  crucial <- c(common_crucial_market_share_columns(), "technology_share")
+
+  crucial <- c(
+    common_crucial_market_share_columns(),
+    "technology_share",
+    "label",
+    "label_tech"
+  )
   hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+
   abort_if_has_zero_rows(data, env = env)
+
   enforce_single_value <- c("sector", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
-  abort_if_multiple_scenarios(data, env = env)
+  abort_if_wrong_number_of_scenarios(data, env = env)
 
   invisible(data)
 }
 
-abort_if_multiple_scenarios <- function(data, env = parent.frame()) {
+abort_if_wrong_number_of_scenarios <- function(data, env = parent.frame()) {
   .data <- deparse_1(substitute(data, env = env))
 
   scen <- extract_scenarios(data$metric)

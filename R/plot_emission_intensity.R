@@ -39,9 +39,12 @@ plot_emission_intensity <- function(data) {
 }
 
 check_plot_emission_intensity <- function(data, env) {
-  check_prep_emission_intensity(data, env)
+  stopifnot(is.data.frame(data))
   crucial <- c(prep_emission_factor_crucial, "label")
   hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
+  enforce_single_value <- "sector"
+  abort_if_multiple(data, enforce_single_value)
+  abort_if_has_zero_rows(data, env = env)
   abort_if_too_many_lines(data, max = 7)
 
   invisible(data)

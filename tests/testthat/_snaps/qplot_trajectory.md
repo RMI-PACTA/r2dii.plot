@@ -5,11 +5,11 @@
 # if `data` is not market_share-like errors gracefully
 
     `data` must have all the expected names.
-    x Missing names: metric, percentage_of_initial_production_by_scope, scope, technology.
+    x Missing names: metric, percentage_of_initial_production_by_scope, technology.
     i Is your data `market_share`-like?
     Caused by error in `abort_if_missing_names()`:
     ! `data` must have all the expected names.
-    x Missing names: metric, percentage_of_initial_production_by_scope, scope, technology.
+    x Missing names: metric, percentage_of_initial_production_by_scope, technology.
 
 # with zero-row data errors gracefully
 

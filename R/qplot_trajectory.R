@@ -27,7 +27,7 @@ qplot_trajectory <- function(data) {
   env <- list(data = substitute(data))
   check_qplot_trajectory(
     data,
-    value_col = c("percentage_of_initial_production_by_scope", "scope"),
+    value_col = "percentage_of_initial_production_by_scope",
     env = env
   )
 
@@ -40,7 +40,7 @@ qplot_trajectory <- function(data) {
     plot_trajectory(
       center_y = TRUE,
       perc_y_scale = TRUE
-      ) %>%
+    ) %>%
     labs_trajectory(data)
 }
 

@@ -21,7 +21,6 @@ test_that("returns expected columns", {
 })
 
 test_that("handles value_col correctly", {
-
   test_data_dif_value_col <- test_data %>%
     rename(new_column = percentage_of_initial_production_by_scope)
 
@@ -31,16 +30,23 @@ test_that("handles value_col correctly", {
   expect_equal(
     setdiff(names(result), names(result_dif_col)),
     "percentage_of_initial_production_by_scope"
-    )
+  )
 
   expect_equal(
     setdiff(names(result_dif_col), names(result)),
     "new_column"
   )
-
 })
 
 test_that("handles span_5yr correctly", {
   out <- prep_trajectory(example_market_share(), span_5yr = TRUE)
   expect_true(all(out$year <= min(out$year) + 5))
+})
+
+test_that("the errors message includes the name of the user's data", {
+  # Keep even if already tested in qplot_. Non-standard evaluation is fragile
+  bad_region <- head(market_share, 2L) %>%
+    mutate(region = c("a", "b"))
+
+  expect_error(prep_trajectory(bad_region), "bad_region")
 })

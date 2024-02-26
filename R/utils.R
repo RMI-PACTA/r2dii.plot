@@ -321,3 +321,17 @@ get_ordered_scenarios <- function(data) {
 extract_scenarios <- function(x) {
   unique(x[startsWith(x, "target_")])
 }
+
+abort_if_metric_has_no_projected <- function(data) {
+  if (!any(data[["metric"]] %in% "projected")) {
+    abort(
+      message = c(
+        "The column `metric` has no value 'projected' .",
+        i = "Did you accidentally filter out the 'projected' values?"
+      ),
+      class = "no_projected"
+    )
+  }
+
+  invisible(data)
+}
