@@ -24,10 +24,10 @@ data <- subset(
     region == "global" &
     metric \%in\% c("projected", "corporate_economy", "target_sds")
 ) \%>\%
-prep_techmix(
-  span_5yr = TRUE,
-  convert_label = recode_metric_techmix,
-  convert_tech_label = spell_out_technology
+  prep_techmix(
+    span_5yr = TRUE,
+    convert_label = recode_metric_techmix,
+    convert_tech_label = spell_out_technology
   )
 
 plot_techmix(data)
