@@ -100,7 +100,9 @@ data <- market_share %>%
     )
   )
 
-plot_trajectory(data) +
+data %>%
+  prep_trajectory() %>%
+  plot_trajectory() +
   labs(
     title = "Power production trajectory for Renewables",
     subtitle = "With reference to climate scenarios.",
