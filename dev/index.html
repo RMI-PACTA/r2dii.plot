@@ -171,22 +171,15 @@
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">data</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Power production trajectory for Renewables"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"With reference to climate scenarios."</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Year"</span>,</span>
 <span>    y <span class="op">=</span> <span class="st">"Production (normalized to 2020)"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `data` argument of `plot_trajectory()` must be prepped already as of</span></span>
-<span><span class="co">#&gt; r2dii.plot 0.4.0.</span></span>
-<span><span class="co">#&gt; ℹ From the next release you will need to call</span></span>
-<span><span class="co">#&gt;   `r2dii.plot::plot_trajectory(data)` prior to calling</span></span>
-<span><span class="co">#&gt;   `r2dii.plot::plot_trajectory()`.</span></span>
-<span><span class="co">#&gt; ℹ Alternatively custom data preparation will also become possible.</span></span>
-<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
-<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
-<span><span class="co">#&gt; generated.</span></span></code></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>For examples of other plots and data sets please visit <a href="https://rmi-pacta.github.io/r2dii.plot/articles/r2dii-plot.html">Get started with r2dii.plot</a>.</p>
 </div>
