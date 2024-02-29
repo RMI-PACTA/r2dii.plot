@@ -42,8 +42,7 @@ Imports:
     r2dii.data,
     rlang,
     stringr,
-    scales,
-    lifecycle
+    scales
 Suggests: 
     covr,
     r2dii.analysis,

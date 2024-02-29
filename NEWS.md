@@ -1,19 +1,17 @@
 # r2dii.plot (development version)
 
-## Breaking change
-* All `plot_*()` functions have had the data preparation step extracted into 
-`prep_*()` functions. This means that from now on `prep_*()` function needs
-to be called on `data` prior to `plot_*()`. The APIs of `qplot_*()` functions stay 
-unchanged (#465).
-* `scale_colour_r2dii` has argument renamed from `labels` to `colour_labels` (#527).
+## Breaking changes
 
-## Bug fixes
-* `scale_colour_r2dii`, with input colours and levels, now outputs line plot 
-  with correctly coloured lines (#527). 
+* All `plot_*()` functions have had the data preparation step extracted into 
+`prep_*()` functions. This means that from now on `prep_*()` function needs to be called on `data` prior to `plot_*()`. The APIs of `qplot_*()` functions remain unchanged (#465).
+* `scale_colour_r2dii` has argument renamed from `labels` to `colour_labels` (#527).
 
 ## New features
 
-* techmix plot does not show the start year scenario bar anymore. (#513)
+* `techmix` plot does not show the start year scenario bar anymore. (#513)
+
+## Bug fixes
+* `scale_colour_r2dii`, with input colours and levels, now outputs line plot with correctly coloured lines (#527). 
 
 # r2dii.plot 0.3.1
 

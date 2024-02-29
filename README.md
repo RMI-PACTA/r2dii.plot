@@ -92,22 +92,15 @@ data <- market_share %>%
     )
   )
 
-plot_trajectory(data) +
+data %>%
+  prep_trajectory() %>%
+  plot_trajectory() +
   labs(
     title = "Power production trajectory for Renewables",
     subtitle = "With reference to climate scenarios.",
     x = "Year",
     y = "Production (normalized to 2020)"
   )
-#> Warning: The `data` argument of `plot_trajectory()` must be prepped already as of
-#> r2dii.plot 0.4.0.
-#> ℹ From the next release you will need to call
-#>   `r2dii.plot::plot_trajectory(data)` prior to calling
-#>   `r2dii.plot::plot_trajectory()`.
-#> ℹ Alternatively custom data preparation will also become possible.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto auto auto 0;" />
