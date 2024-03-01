@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="r2dii.plot">
 <meta property="og:description" content="r2dii.plot">
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">r2dii.plot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,14 +141,15 @@ r2dii.analysis.</p>
 <code>qplot_*()</code> for standardized plots,</li>
 <li>
 <code>plot_*()</code> for ‘bare’ plots leaving the customization to
-the user.</li>
+the user. These require that you first prepare the data using a
+<code>prep_*()</code> function.</li>
 </ul>
 <p>For each kind, you’ll need to subset the specific rows you want to
 plot (for example with <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> or
 <code>dplyr:filter()</code>). For details see the documented
 “Requirements” of the argument <code>data</code> of each
-<code>plot_*()</code> or <code>qplot_*()</code> function (e.g. see
-<code><a href="../reference/plot_emission_intensity.html">?plot_emission_intensity</a></code>). If you forget to meet the
+<code>prep_*()</code> or <code>qplot_*()</code> function (e.g. see
+<code><a href="../reference/prep_emission_intensity.html">?prep_emission_intensity</a></code>). If you forget to meet the
 <code>data</code> requirements the error message should guide you.</p>
 <div class="section level2">
 <h2 id="quick-plots">‘Quick’ plots<a class="anchor" aria-label="anchor" href="#quick-plots"></a>
@@ -204,7 +205,7 @@ data.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/qplot_techmix.html">qplot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span></span>
-<span><span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></span></code></pre></div>
+<span><span class="co">#&gt; Do you want to plot different years? E.g. filter . with:`subset(., year %in% c(2020, 2030))`.</span></span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -236,21 +237,14 @@ based on <code><a href="../reference/plot_emission_intensity.html">plot_emission
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removing rows in abcd where `emission_factor` is NA</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `data` argument of `plot_emission_intensity()` must be prepped already as</span></span>
-<span><span class="co">#&gt; of r2dii.plot 0.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> From the next release you will need to call</span></span>
-<span><span class="co">#&gt;   `r2dii.plot::plot_emission_intensity(data)` prior to calling</span></span>
-<span><span class="co">#&gt;   `r2dii.plot::plot_emission_intensity()`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Alternatively custom data preparation will also become possible.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_emission_intensity.html">prep_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<p>You can use parameters of <code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> to
-replicate features of <code><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity()</a></code>(strategy
-1), and add plot labels with <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs()</a></code> (strategy
-3).</p>
+<p>You can use parameters of <code>prep_emission_intensity</code> and
+<code><a href="../reference/plot_emission_intensity.html">plot_emission_intensity()</a></code> to replicate features of
+<code><a href="../reference/qplot_emission_intensity.html">qplot_emission_intensity()</a></code> (strategy 1), and add plot
+labels with <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggplot2::labs()</a></code> (strategy 3).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">matched</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rmi-pacta.github.io/r2dii.analysis/reference/target_sda.html" class="external-link">target_sda</a></span><span class="op">(</span><span class="va">abcd</span>, co2_intensity_scenario <span class="op">=</span> <span class="va">scenario</span>, region_isos <span class="op">=</span> <span class="va">region</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -261,7 +255,9 @@ replicate features of <code><a href="../reference/qplot_emission_intensity.html"
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removing rows in abcd where `emission_factor` is NA</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span>, convert_label <span class="op">=</span> <span class="va">to_title</span>, span_5yr <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_emission_intensity.html">prep_emission_intensity</a></span><span class="op">(</span><span class="va">data</span>, convert_label <span class="op">=</span> <span class="va">to_title</span>, span_5yr <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Emission Intensity Trend for the Cement Sector"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Year"</span>,</span>
@@ -307,6 +303,8 @@ labels and modify colours and legend labels.</li>
 <span>    <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2030</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_emission_intensity.html">prep_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/plot_emission_intensity.html">plot_emission_intensity</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Emission intensity plot for cement"</span>,</span>
@@ -345,6 +343,8 @@ column and add custom title and axis labels.</li>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_trajectory.html">prep_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/plot_trajectory.html">plot_trajectory</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
@@ -353,15 +353,6 @@ column and add custom title and axis labels.</li>
 <span>    y <span class="op">=</span> <span class="st">"Production normalized to start year"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">6</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span> <span class="co"># so the long labels fit</span></span>
-<span><span class="co">#&gt; Warning: The `data` argument of `plot_trajectory()` must be prepped already as of</span></span>
-<span><span class="co">#&gt; r2dii.plot 0.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> From the next release you will need to call</span></span>
-<span><span class="co">#&gt;   `r2dii.plot::plot_trajectory(data)` prior to calling</span></span>
-<span><span class="co">#&gt;   `r2dii.plot::plot_trajectory()`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Alternatively custom data preparation will also become possible.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
@@ -388,21 +379,15 @@ apply custom colours and modify legend labels.</li>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_techmix.html">prep_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span></span>
+<span><span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span></span>
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"brown"</span>, <span class="st">"grey"</span>, <span class="st">"yellow"</span>, <span class="st">"blue"</span>, <span class="st">"green4"</span><span class="op">)</span>,</span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Coal"</span>, <span class="st">"Oil"</span>, <span class="st">"Gas"</span>, <span class="st">"Nuclear"</span>, <span class="st">"Hydro"</span>, <span class="st">"Renewables"</span><span class="op">)</span>, <span class="st">"Cap."</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `data` argument of `plot_techmix()` must be prepped already as of</span></span>
-<span><span class="co">#&gt; r2dii.plot 0.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> From the next release you will need to call `r2dii.plot::plot_techmix(data)`</span></span>
-<span><span class="co">#&gt;   prior to calling `r2dii.plot::plot_techmix()`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Alternatively custom data preparation will also become possible.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
-<span><span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span></span>
-<span><span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></span>
 <span><span class="co">#&gt; Scale for <span style="color: #00BB00;">fill</span> is already present.</span></span>
 <span><span class="co">#&gt; Adding another scale for <span style="color: #00BB00;">fill</span>, which will replace the existing scale.</span></span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
@@ -423,9 +408,11 @@ year.</li>
 <span>    <span class="op">!</span><span class="op">(</span><span class="op">(</span><span class="va">metric</span> <span class="op">==</span> <span class="st">"target_sds"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_techmix.html">prep_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The `technology_share` values are plotted for extreme years.</span></span>
-<span><span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></span></code></pre></div>
+<span><span class="co">#&gt; Do you want to plot different years? E.g. filter data with:`subset(data, year %in% c(2020, 2030))`.</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_techmix.html">plot_techmix</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 </div>
@@ -503,7 +490,7 @@ for technologies (see <code>?scale_colour_2dii_tech()</code> to find out
 what are the available colour labels).</li>
 </ul>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">technologies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">technologies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coalcap"</span>, <span class="st">"oilcap"</span>, <span class="st">"gascap"</span>, <span class="st">"nuclearcap"</span>, <span class="st">"hydrocap"</span>, <span class="st">"renewablescap"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">market_share</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
