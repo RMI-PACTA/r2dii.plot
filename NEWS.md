@@ -1,4 +1,4 @@
-# r2dii.plot (development version)
+# r2dii.plot 0.4.0
 
 ## Breaking changes
 
