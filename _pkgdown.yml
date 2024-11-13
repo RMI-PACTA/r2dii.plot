@@ -40,6 +40,8 @@ navbar:
       href: https://rmi-pacta.github.io/r2dii.analysis
     - text: r2dii.plot
       href: https://rmi-pacta.github.io/r2dii.plot
+    - text: pacta.multi.loanbook
+      href: https://rmi-pacta.github.io/pacta.multi.loanbook
   - icon: fa-github
     href: https://github.com/RMI-PACTA/r2dii.plot
 reference:
