@@ -4,11 +4,6 @@ development:
 template:
   package: pacta.pkgdown.rmitemplate
 url: https://rmi-pacta.github.io/r2dii.plot
-authors:
-  Monika Furdyna:
-    href: https://github.com/MonikaFu/
-  Rocky Mountain Institute:
-    href: https://rmi.org/
 home:
   links:
   - text: Learn more
