@@ -1,0 +1,13 @@
+dataset,column,typeof,definition
+prep_trajectory_output,sector,character,
+prep_trajectory_output,technology,character,
+prep_trajectory_output,year,integer,
+prep_trajectory_output,region,character,
+prep_trajectory_output,scenario_source,character,
+prep_trajectory_output,metric,character,
+prep_trajectory_output,production,double,
+prep_trajectory_output,technology_share,double,
+prep_trajectory_output,scope,character,
+prep_trajectory_output,percentage_of_initial_production_by_scope,double,
+prep_trajectory_output,label,character,
+prep_trajectory_output,value,double,

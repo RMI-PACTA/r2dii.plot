@@ -1,0 +1,8 @@
+dataset,column,typeof,definition
+prep_emission_intensity_output,sector,character,
+prep_emission_intensity_output,year,double,
+prep_emission_intensity_output,region,character,
+prep_emission_intensity_output,scenario_source,character,
+prep_emission_intensity_output,emission_factor_metric,character,
+prep_emission_intensity_output,emission_factor_value,double,
+prep_emission_intensity_output,label,character,

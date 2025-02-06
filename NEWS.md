@@ -1,5 +1,7 @@
 # r2dii.plot (development version)
 
+* `data_dictionary` dataset added to define the columns in each dataset used or exported by the functions in this package
+
 # r2dii.plot 0.4.0
 
 ## Breaking changes
