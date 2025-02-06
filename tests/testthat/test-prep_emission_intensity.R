@@ -40,7 +40,7 @@ test_that("handles convert_label correctly", {
 test_that("columns in output match what is documented in `data_dictionary`", {
   out <- prep_emission_intensity(test_data)
 
-  data_dict <- dplyr::filter(r2dii.plot::data_dictionary, dataset == "prep_emission_intensity_output")
+  data_dict <- dplyr::filter(data_dictionary, dataset == "prep_emission_intensity_output")
 
   expect_setequal(names(out), data_dict[["column"]])
   expect_mapequal(sapply(out, typeof), setNames(data_dict[["typeof"]], data_dict[["column"]]))
