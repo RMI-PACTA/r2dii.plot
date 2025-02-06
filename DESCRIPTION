@@ -17,7 +17,7 @@ Authors@R:
              role = c("aut", "ctr"),
              email = "alex@2degrees-investing.org",
              comment = c(ORCID = "0000-0001-8579-8565")),
-      person(given = "Rocky Mountain Institute",
+      person(given = "RMI",
              role = c("cph", "fnd"),
              email = "PACTA4banks@rmi.org"))
 Description: Create plots to visualize the alignment of a corporate
