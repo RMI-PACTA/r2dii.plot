@@ -4,46 +4,34 @@ development:
 template:
   package: pacta.pkgdown.rmitemplate
 url: https://rmi-pacta.github.io/r2dii.plot
-authors:
-  Monika Furdyna:
-    href: https://github.com/MonikaFu/
-  Rocky Mountain Institute:
-    href: https://rmi.org/
 home:
   links:
   - text: Learn more
     href: https://rmi.org/
 navbar:
-  type: default
-  left:
-  - text: Get started
-    href: articles/r2dii-plot.html
-  - text: Reference
-    href: reference/index.html
-  - text: News
-    menu:
-    - text: r2dii blog posts
-      href: https://rmi-pacta.github.io/#category:r2dii
-    - text: '----------------------'
-    - text: Change log
-      href: news/index.html
-  right:
-  - icon: fa-gavel
-    href: https://github.com/MonikaFu
-  - text: Packages
-    menu:
-    - text: r2dii.data
-      href: https://rmi-pacta.github.io/r2dii.data
-    - text: r2dii.match
-      href: https://rmi-pacta.github.io/r2dii.match
-    - text: r2dii.analysis
-      href: https://rmi-pacta.github.io/r2dii.analysis
-    - text: r2dii.plot
-      href: https://rmi-pacta.github.io/r2dii.plot
-    - text: pacta.multi.loanbook
-      href: https://rmi-pacta.github.io/pacta.multi.loanbook
-  - icon: fa-github
-    href: https://github.com/RMI-PACTA/r2dii.plot
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, packages, github]
+  components:
+    news:
+      text: News
+      menu:
+      - text: r2dii blog posts
+        href: https://rmi-pacta.github.io/#category:r2dii
+      - text: '----------------------'
+      - text: Change log
+        href: news/index.html
+    packages:
+      text: Packages
+      menu:
+      - text: r2dii.data
+        href: https://rmi-pacta.github.io/r2dii.data
+      - text: r2dii.match
+        href: https://rmi-pacta.github.io/r2dii.match
+      - text: r2dii.analysis
+        href: https://rmi-pacta.github.io/r2dii.analysis
+      - text: r2dii.plot
+        href: https://rmi-pacta.github.io/r2dii.plot
 reference:
 - title: Plot
 - subtitle: Quick plots
