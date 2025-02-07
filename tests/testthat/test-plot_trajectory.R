@@ -37,8 +37,14 @@ test_that("outputs default axis labels", {
   data <- prep_trajectory(example_market_share())
   p <- plot_trajectory(data)
 
-  expect_equal(p$labels$x, "year")
-  expect_equal(p$labels$y, "value")
+  labels <- if ("get_labs" %in% getNamespaceExports("ggplot2")) {
+    ggplot2::get_labs(p)
+  } else {
+    p$labels
+  }
+
+  expect_equal(labels$x, "year")
+  expect_equal(labels$y, "value")
 })
 
 test_that("By default doesn't center the Y axis", {
