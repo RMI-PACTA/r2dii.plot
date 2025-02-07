@@ -48,4 +48,5 @@ reference:
   contents: to_title
 - title: Datasets
   contents: has_concept("datasets")
-
+- title: Data dictionary
+  contents: has_concept("data dictionary")

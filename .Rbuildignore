@@ -13,3 +13,4 @@
 ^pkgdown$
 ^r2dii\.plot\.Rproj$
 ^vignettes/r2dii-plot\.Rmd$
+^data-raw$

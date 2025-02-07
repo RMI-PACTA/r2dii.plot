@@ -36,3 +36,12 @@ test_that("handles convert_label correctly", {
   result <- prep_emission_intensity(test_data_nonfactor, convert_label = mock_convert_label)
   expect_true(all(grepl("Converted_", result$label)))
 })
+
+test_that("columns in output match what is documented in `data_dictionary`", {
+  out <- prep_emission_intensity(test_data)
+
+  data_dict <- dplyr::filter(data_dictionary, dataset == "prep_emission_intensity_output")
+
+  expect_setequal(names(out), data_dict[["column"]])
+  expect_mapequal(sapply(out, typeof), setNames(data_dict[["typeof"]], data_dict[["column"]]))
+})
