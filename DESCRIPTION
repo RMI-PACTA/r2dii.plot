@@ -1,6 +1,6 @@
 Package: r2dii.plot
 Title: Visualize the Climate Scenario Alignment of a Financial Portfolio
-Version: 0.4.0.9007
+Version: 0.4.0.9009
 Authors@R: 
     c(person(given = "Monika",
              family = "Furdyna",
@@ -28,8 +28,8 @@ Description: Create plots to visualize the alignment of a corporate
     Financial institutions use 'PACTA' to study how their capital
     allocation decisions align with climate change mitigation goals.
 License: MIT + file LICENSE
-URL: https://github.com/RMI-PACTA/r2dii.plot,
-    https://rmi-pacta.github.io/r2dii.plot/
+URL: https://rmi-pacta.github.io/r2dii.plot/,
+    https://github.com/RMI-PACTA/r2dii.plot
 BugReports: https://github.com/RMI-PACTA/r2dii.plot/issues
 Depends: 
     R (>= 3.5)

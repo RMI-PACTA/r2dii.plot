@@ -13,8 +13,8 @@ Create plots to visualize the alignment of a corporate lending financial portfol
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/RMI-PACTA/r2dii.plot}
   \item \url{https://rmi-pacta.github.io/r2dii.plot/}
+  \item \url{https://github.com/RMI-PACTA/r2dii.plot}
   \item Report bugs at \url{https://github.com/RMI-PACTA/r2dii.plot/issues}
 }
 
