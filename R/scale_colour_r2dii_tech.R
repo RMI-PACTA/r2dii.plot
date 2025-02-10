@@ -29,13 +29,39 @@
 #'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
 #'   scale_fill_r2dii_tech("automotive")
 scale_colour_r2dii_tech <- function(sector, technologies = NULL, ...) {
-  discrete_scale("colour", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
+  if (utils::packageVersion("ggplot2") >= numeric_version("3.5.0")) {
+    discrete_scale(
+      aesthetics = "colour",
+      palette = r2dii_tech_pal(sector, technologies),
+      ...
+    )
+  } else {
+    discrete_scale(
+      aesthetics = "colour",
+      scale_name = "r2dii_tech",
+      palette = r2dii_tech_pal(sector, technologies),
+      ...
+    )
+  }
 }
 
 #' @rdname scale_colour_r2dii_tech
 #' @export
 scale_fill_r2dii_tech <- function(sector, technologies = NULL, ...) {
-  discrete_scale("fill", "r2dii_tech", r2dii_tech_pal(sector, technologies), ...)
+  if (utils::packageVersion("ggplot2") >= numeric_version("3.5.0")) {
+    discrete_scale(
+      aesthetics = "fill",
+      palette = r2dii_tech_pal(sector, technologies),
+      ...
+    )
+  } else {
+    discrete_scale(
+      aesthetics = "fill",
+      scale_name = "r2dii_tech",
+      palette = r2dii_tech_pal(sector, technologies),
+      ...
+    )
+  }
 }
 
 r2dii_tech_pal <- function(sector, technologies = NULL) {

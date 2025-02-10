@@ -24,13 +24,39 @@
 #'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
 #'   scale_fill_r2dii()
 scale_colour_r2dii <- function(colour_labels = NULL, ...) {
-  discrete_scale("colour", "r2dii", r2dii_pal(colour_labels), ...)
+  if (utils::packageVersion("ggplot2") >= numeric_version("3.5.0")) {
+    discrete_scale(
+      aesthetics = "colour",
+      palette = r2dii_pal(colour_labels),
+      ...
+    )
+  } else {
+    discrete_scale(
+      aesthetics = "colour",
+      scale_name = "r2dii",
+      palette = r2dii_pal(colour_labels),
+      ...
+    )
+  }
 }
 
 #' @rdname scale_colour_r2dii
 #' @export
 scale_fill_r2dii <- function(colour_labels = NULL, ...) {
-  discrete_scale("fill", "r2dii", r2dii_pal(colour_labels), ...)
+  if (utils::packageVersion("ggplot2") >= numeric_version("3.5.0")) {
+    discrete_scale(
+      aesthetics = "fill",
+      palette = r2dii_pal(colour_labels),
+      ...
+    )
+  } else {
+    discrete_scale(
+      aesthetics = "fill",
+      scale_name = "r2dii",
+      palette = r2dii_pal(colour_labels),
+      ...
+    )
+  }
 }
 
 r2dii_pal <- function(colour_labels = NULL) {
