@@ -17,8 +17,7 @@ knitr::opts_chunk$set(
 # r2dii.plot <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Codecov test coverage](https://codecov.io/gh/RMI-PACTA/r2dii.plot/branch/master/graph/badge.svg)](https://app.codecov.io/gh/RMI-PACTA/r2dii.plot?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project.org/package=r2dii.plot)
 [![R-CMD-check](https://github.com/RMI-PACTA/r2dii.plot/actions/workflows/R.yml/badge.svg)](https://github.com/RMI-PACTA/r2dii.plot/actions/workflows/R.yml)
