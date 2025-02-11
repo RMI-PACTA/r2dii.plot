@@ -25,13 +25,39 @@
 #'   geom_histogram(aes(cyl, fill = class), position = "dodge", bins = 5) +
 #'   scale_fill_r2dii_sector()
 scale_colour_r2dii_sector <- function(sectors = NULL, ...) {
-  discrete_scale("colour", "r2dii_sector", r2dii_sec_pal(sectors), ...)
+  if (utils::packageVersion("ggplot2") >= numeric_version("3.5.0")) {
+    discrete_scale(
+      aesthetics = "colour",
+      palette = r2dii_sec_pal(sectors),
+      ...
+    )
+  } else {
+    discrete_scale(
+      aesthetics = "colour",
+      scale_name = "r2dii_sector",
+      palette = r2dii_sec_pal(sectors),
+      ...
+    )
+  }
 }
 
 #' @rdname scale_colour_r2dii_sector
 #' @export
 scale_fill_r2dii_sector <- function(sectors = NULL, ...) {
-  discrete_scale("fill", "r2dii_sector", r2dii_sec_pal(sectors), ...)
+  if (utils::packageVersion("ggplot2") >= numeric_version("3.5.0")) {
+    discrete_scale(
+      aesthetics = "fill",
+      palette = r2dii_sec_pal(sectors),
+      ...
+    )
+  } else {
+    discrete_scale(
+      aesthetics = "fill",
+      scale_name = "r2dii_sector",
+      palette = r2dii_sec_pal(sectors),
+      ...
+    )
+  }
 }
 
 r2dii_sec_pal <- function(sectors = NULL) {
