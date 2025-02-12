@@ -1,6 +1,17 @@
 # r2dii.plot (development version)
 
-* `data_dictionary` dataset added to define the columns in each dataset used or exported by the functions in this package
+## New features
+
+* `data_dictionary` dataset added to define the columns in each dataset used or exported by the functions in this package (#576).
+
+## Lifecycle changes
+
+* `r2dii.plot` is now [stable](https://lifecycle.r-lib.org/articles/stages.html) (#587).
+
+## Upkeep
+
+* Handle deprecation of argument `"scale_name"` in `discrete_scale()` calls (deprecated in `ggplot2` 3.5.0) (#575).
+* `r2dii.plot` updated for compatibility with `ggplot2` 3.6.0 (#575).
 
 # r2dii.plot 0.4.0
 
