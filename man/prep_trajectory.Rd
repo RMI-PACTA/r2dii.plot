@@ -24,7 +24,8 @@ prep_trajectory(
 y-axis labels. For example:
 \itemize{
 \item To convert labels to uppercase use \code{convert_label = toupper}.
-\item To get the default behavior of `
+\item To get the default behavior of \code{qplot_trajectory()} use
+\code{convert_label = recode_metric_trajectory}.
 }}
 
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from
