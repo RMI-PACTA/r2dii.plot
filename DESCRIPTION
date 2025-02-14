@@ -48,6 +48,7 @@ Suggests:
     covr,
     r2dii.analysis,
     r2dii.match,
+    readr,
     rmarkdown,
     spelling,
     testthat (>= 3.0.0),
