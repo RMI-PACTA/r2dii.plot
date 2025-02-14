@@ -1,5 +1,5 @@
 dataset,column,typeof,definition
-prep_emission_intensity_output,XXX,character,The sector of the technology
+prep_emission_intensity_output,sector,character,The sector of the technology
 prep_emission_intensity_output,year,double,The year of the data
 prep_emission_intensity_output,region,character,The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used
 prep_emission_intensity_output,scenario_source,character,The publication the scenario data is based on
