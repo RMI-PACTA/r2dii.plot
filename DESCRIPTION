@@ -44,12 +44,14 @@ Imports:
     stringr,
     scales
 Suggests: 
+    cli,
     covr,
     r2dii.analysis,
     r2dii.match,
     rmarkdown,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    waldo
 Config/testthat/edition: 3
 Config/Needs/website: rmi-pacta/pacta.pkgdown.rmitemplate
 Encoding: UTF-8
