@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   r2dii-plot: r2dii-plot.html
-last_built: 2025-02-17T10:37Z
+last_built: 2025-02-18T13:27Z
 urls:
   reference: https://rmi-pacta.github.io/r2dii.plot/reference
   article: https://rmi-pacta.github.io/r2dii.plot/articles
