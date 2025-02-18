@@ -8,10 +8,15 @@
 
 ## R CMD check results
 
+❯ checking CRAN incoming feasibility ... [3s/17s] NOTE
+  Maintainer: ‘Monika Furdyna <monika.furdyna@gmail.com>’
+  
+  Days since last update: 6
+
 ❯ checking for future file timestamps ... NOTE
   unable to verify current time
 
-0 errors | 0 warnings | 1 note
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
 ## revdepcheck results
 
