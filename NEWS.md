@@ -1,4 +1,4 @@
-# r2dii.plot (development version)
+# r2dii.plot 0.5.1
 
  * add definitions to `data_dictionary` (#597)
 
