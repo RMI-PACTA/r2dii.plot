@@ -41,6 +41,7 @@ Imports:
     magrittr,
     r2dii.data,
     rlang,
+    shiny,
     stringr,
     scales
 Suggests: 
