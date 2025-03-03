@@ -8,5 +8,5 @@
 
 ---
 
-    [1] "Tons of CO2 per Ton of Production Unit"
+    "Tons of" ~ CO^2 ~ "per Ton of Production Unit"
 
