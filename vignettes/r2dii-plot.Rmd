@@ -172,7 +172,7 @@ plot_emission_intensity(data) +
   labs(
     title = "Emission Intensity Trend for the Cement Sector",
     x = "Year",
-    y = "Tons of CO2 per Ton of Production Unit"
+    y = bquote("Tons of" ~ CO^2 ~ "per Ton of Production Unit")
   )
 ```
 
@@ -213,7 +213,7 @@ plot_emission_intensity(data) +
   labs(
     title = "Emission intensity plot for cement",
     x = "Time",
-    y = "Tons of CO2 per ton of cement produced"
+    y = bquote("Tons of" ~ CO^2 ~ "per ton of cement produced")
   ) +
   scale_color_manual(
     values = c("#4a5e54", "#a63d57", "#78c4d6", "#f2e06e"),

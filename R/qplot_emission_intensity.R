@@ -44,6 +44,6 @@ labs_emission_intensity <- function(p) {
   p + labs(
     title = glue("Emission Intensity Trend for the {sector} Sector"),
     x = "Year",
-    y = "Tons of CO2 per Ton of Production Unit"
+    y = bquote("Tons of" ~ CO^2 ~ "per Ton of Production Unit")
   )
 }
