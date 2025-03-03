@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">r2dii.plot</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.1.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -269,7 +269,7 @@ labels with <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" cl
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Emission Intensity Trend for the Cement Sector"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Year"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Tons of CO2 per Ton of Production Unit"</span></span>
+<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/bquote.html" class="external-link">bquote</a></span><span class="op">(</span><span class="st">"Tons of"</span> <span class="op">~</span> <span class="va">CO</span><span class="op">^</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"per Ton of Production Unit"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="r2dii-plot_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
@@ -317,7 +317,7 @@ labels and modify colours and legend labels.</li>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Emission intensity plot for cement"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Time"</span>,</span>
-<span>    y <span class="op">=</span> <span class="st">"Tons of CO2 per ton of cement produced"</span></span>
+<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/bquote.html" class="external-link">bquote</a></span><span class="op">(</span><span class="st">"Tons of"</span> <span class="op">~</span> <span class="va">CO</span><span class="op">^</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"per ton of cement produced"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#4a5e54"</span>, <span class="st">"#a63d57"</span>, <span class="st">"#78c4d6"</span>, <span class="st">"#f2e06e"</span><span class="op">)</span>,</span>
