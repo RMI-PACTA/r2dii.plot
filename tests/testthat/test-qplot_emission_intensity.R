@@ -23,7 +23,7 @@ test_that("Prints axis labels as expected", {
   expect_equal(p$labels$x, "Year")
   expect_snapshot_output(p$labels$x)
 
-  expect_equal(p$labels$y, "Tons of CO2 per Ton of Production Unit")
+  expect_equal(p$labels$y, bquote("Tons of" ~ CO^2 ~ "per Ton of Production Unit"))
   expect_snapshot_output(p$labels$y)
 })
 
