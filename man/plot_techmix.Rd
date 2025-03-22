@@ -18,7 +18,7 @@ Create a techmix plot
 \examples{
 # plot with `qplot_techmix()` parameters
 data <- subset(
-  market_share,
+  market_share_demo,
   scenario_source == "demo_2020" &
     sector == "power" &
     region == "global" &
@@ -33,5 +33,5 @@ data <- subset(
 plot_techmix(data)
 }
 \seealso{
-\link{market_share}.
+\link{market_share_demo}.
 }

@@ -17,11 +17,11 @@ Create an emission intensity plot
 }
 \examples{
 # plot with `qplot_emission_intensity()` parameters
-data <- subset(sda, sector == "cement" & region == "global") \%>\%
+data <- subset(sda_demo, sector == "cement" & region == "global") \%>\%
   prep_emission_intensity(span_5yr = TRUE, convert_label = to_title)
 
 plot_emission_intensity(data)
 }
 \seealso{
-\link{sda}.
+\link{sda_demo}.
 }

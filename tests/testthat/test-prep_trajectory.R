@@ -1,5 +1,5 @@
 test_data <- subset(
-  market_share,
+  market_share_demo,
   sector == "power" &
     technology == "renewablescap" &
     region == "global" &
@@ -45,7 +45,7 @@ test_that("handles span_5yr correctly", {
 
 test_that("the errors message includes the name of the user's data", {
   # Keep even if already tested in qplot_. Non-standard evaluation is fragile
-  bad_region <- head(market_share, 2L) %>%
+  bad_region <- head(market_share_demo, 2L) %>%
     mutate(region = c("a", "b"))
 
   expect_error(prep_trajectory(bad_region), "bad_region")

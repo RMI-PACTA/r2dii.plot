@@ -24,7 +24,7 @@ Compared to \code{\link[=plot_techmix]{plot_techmix()}} this function:
 \examples{
 # `data` must meet documented "Requirements"
 data <- subset(
-  market_share,
+  market_share_demo,
   sector == "power" &
     region == "global" &
     scenario_source == "demo_2020" &

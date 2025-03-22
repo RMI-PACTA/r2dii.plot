@@ -4,25 +4,25 @@ test_that("if `data` is not a data frame errors gracefully", {
   expect_snapshot_error(plot_emission_intensity(1))
 })
 
-test_that("if `data` is not sda-like errors gracefully", {
-  bad <- head(market_share, 1L)
+test_that("if `data` is not sda_demo-like errors gracefully", {
+  bad <- head(market_share_demo, 1L)
   expect_snapshot_error(plot_emission_intensity(bad))
 })
 
 test_that("if `data` has zero rows errors gracefully", {
-  zero_row <- prep_emission_intensity(sda)[0L, ]
+  zero_row <- prep_emission_intensity(sda_demo)[0L, ]
   expect_snapshot_error(plot_emission_intensity(zero_row))
 })
 
 test_that("with too many sectors errors gracefully", {
-  data <- head(sda, 2)
+  data <- head(sda_demo, 2)
   data$sector <- c("a", "b")
   expect_snapshot_error(plot_emission_intensity(data))
 })
 
 test_that("outputs an object with no factor-columns derived from `specs`", {
   data <- prep_emission_intensity(
-    head(filter(sda, sector == "cement"))
+    head(filter(sda_demo, sector == "cement"))
   )
 
   p <- plot_emission_intensity(data)
@@ -33,7 +33,7 @@ test_that("outputs an object with no factor-columns derived from `specs`", {
 })
 
 test_that("doesn't output pretty labels", {
-  data <- filter(sda, sector == "cement") %>%
+  data <- filter(sda_demo, sector == "cement") %>%
     prep_emission_intensity()
   p <- plot_emission_intensity(data)
 
@@ -43,7 +43,7 @@ test_that("doesn't output pretty labels", {
 })
 
 test_that("with n metrics in input outputs n lines", {
-  data <- filter(sda, sector == "cement", year >= 2020, region == "global") %>%
+  data <- filter(sda_demo, sector == "cement", year >= 2020, region == "global") %>%
     prep_emission_intensity()
   n_metrics <- length(unique(data$emission_factor_metric))
 
@@ -68,7 +68,7 @@ test_that("with data with `label` column and with `scale_colour_r2dii()`,
               "adjusted_scenario_demo"
             )
 
-            data <- filter(sda, sector == "cement", region == "global") %>%
+            data <- filter(sda_demo, sector == "cement", region == "global") %>%
               dplyr::mutate(
                 emission_factor_metric = factor(
                   .data$emission_factor_metric,
@@ -149,7 +149,7 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with
     "adjusted_scenario_demo"
   )
 
-  data <- filter(sda, sector == "cement", region == "global") %>%
+  data <- filter(sda_demo, sector == "cement", region == "global") %>%
     dplyr::mutate(
       emission_factor_metric = factor(
         .data$emission_factor_metric,
@@ -220,7 +220,7 @@ test_that("with `convert_label = to_title`, outputs custom colour scale with
 })
 
 test_that("with too many lines to plot errors gracefully", {
-  data <- filter(sda, sector == "cement") %>%
+  data <- filter(sda_demo, sector == "cement") %>%
     bind_fake_sda_metrics(8) %>%
     prep_emission_intensity()
 
