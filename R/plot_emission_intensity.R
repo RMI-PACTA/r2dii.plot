@@ -9,8 +9,8 @@
 #' @export
 #' @examples
 #' # plot with `qplot_emission_intensity()` parameters
-#' data <- subset(sda, sector == "cement" & region == "global") %>%
-#'   prep_emission_intensity(span_5yr = TRUE, convert_label = to_title)
+#' data <- subset(sda, sector == "cement" & region == "global")
+#' data <- prep_emission_intensity(data, span_5yr = TRUE, convert_label = to_title)
 #'
 #' plot_emission_intensity(data)
 plot_emission_intensity <- function(data) {
