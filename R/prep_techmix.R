@@ -1,7 +1,7 @@
 #' Prepare data for plotting technology mix
 #'
 #' @param data A data frame. Requirements:
-#'   * The structure must be like [market_share].
+#'   * The structure must be like [market_share_demo].
 #'   * The following columns must have a single value: `sector`, `region`,
 #'   `scenario_source`.
 #'   * The column `metric` must have a portfolio (e.g. "projected"), a benchmark
@@ -20,7 +20,7 @@
 #'   use `convert_tech_label = toupper`. To get the default behavior of
 #'   `qplot_techmix()` use `convert_tech_label = spell_out_technology`.
 #'
-#' @seealso [market_share].
+#' @seealso [market_share_demo].
 #'
 #' @return A data-frame ready to be plotted using `plot_techmix()`.
 #' @export
@@ -28,7 +28,7 @@
 #' @examples
 #' # `data` must meet documented "Requirements"
 #' data <- subset(
-#'   market_share,
+#'   market_share_demo,
 #'   scenario_source == "demo_2020" &
 #'     sector == "power" &
 #'     region == "global" &
@@ -98,7 +98,7 @@ check_prep_techmix <- function(data, convert_label, convert_tech_label, span_5yr
   stopifnot(is.logical(span_5yr))
 
   crucial <- c(common_crucial_market_share_columns(), "technology_share")
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share_demo")
 
   abort_if_has_zero_rows(data, env = env)
 

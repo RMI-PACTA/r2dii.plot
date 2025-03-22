@@ -12,7 +12,7 @@ test_that("outputs a ggplot", {
 })
 
 test_that("with missing crucial names errors gracefully", {
-  data <- head(market_share)
+  data <- head(market_share_demo)
 
   bad <- select(data, -metric)
   expect_error(class = "hint_missing_names", plot_techmix(bad))
@@ -29,7 +29,7 @@ test_that("with missing crucial names errors gracefully", {
 
 test_that("informs that extreme years are used", {
   mydata <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -46,7 +46,7 @@ test_that("informs that extreme years are used", {
 
 test_that("does not modify `metric`", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -61,7 +61,7 @@ test_that("does not modify `metric`", {
 
 test_that("Outputs no title", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -76,7 +76,7 @@ test_that("Outputs no title", {
 
 test_that("Does not output pretty labels", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -93,7 +93,7 @@ test_that("Does not output pretty labels", {
 
 test_that("Doesn't output pretty legend labels", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -108,7 +108,7 @@ test_that("Doesn't output pretty legend labels", {
   expect_equal(metrics[1:3], ugly)
 
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "automotive",
     region == "global",
     year <= 2025,
@@ -125,7 +125,7 @@ test_that("Doesn't output pretty legend labels", {
 
 test_that("When data has 'label_tech' it is used in the plot", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "automotive",
     region == "global",
     year <= 2025,
@@ -143,7 +143,7 @@ test_that("When data has 'label_tech' it is used in the plot", {
 })
 
 test_that("With random order of data ouputs plot with labels in the right order", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       year %in% c(2020, 2025),
       scenario_source == "demo_2020",
@@ -167,7 +167,7 @@ test_that("With random order of data ouputs plot with labels in the right order"
 })
 
 test_that("with no scenario for start year of 'projected' doesn't plot scenario bar", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       year %in% c(2020, 2025),
       scenario_source == "demo_2020",

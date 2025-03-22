@@ -1,4 +1,4 @@
-test_data <- subset(sda, sector == "cement" & region == "global")
+test_data <- subset(sda_demo, sector == "cement" & region == "global")
 
 test_that("returns a data frame", {
   result <- prep_emission_intensity(test_data)
@@ -16,7 +16,7 @@ test_that("handles span_5yr correctly", {
 })
 
 test_that("if `data` has zero rows errors gracefully", {
-  zero_row <- sda[0L, ]
+  zero_row <- sda_demo[0L, ]
   expect_snapshot_error(prep_emission_intensity(zero_row))
 })
 

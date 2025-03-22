@@ -7,7 +7,7 @@
 
     `data` must have all the expected names.
     x Missing names: metric, technology, technology_share.
-    i Is your data `market_share`-like?
+    i Is your data `market_share_demo`-like?
     Caused by error in `abort_if_missing_names()`:
     ! `data` must have all the expected names.
     x Missing names: metric, technology, technology_share.

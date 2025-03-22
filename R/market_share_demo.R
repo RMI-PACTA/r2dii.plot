@@ -1,4 +1,4 @@
-#' An example of a `market_share`-like dataset
+#' An example of a `market_share_demo`-like dataset
 #'
 #' Dataset imitating the output of [r2dii.analysis::target_market_share()].
 #'
@@ -6,5 +6,5 @@
 #' @family datasets
 #'
 #' @examples
-#' market_share
-"market_share"
+#' market_share_demo
+"market_share_demo"

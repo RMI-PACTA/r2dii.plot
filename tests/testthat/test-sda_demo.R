@@ -1,10 +1,10 @@
 test_that("outputs a data.frame", {
-  expect_s3_class(sda, "data.frame")
+  expect_s3_class(sda_demo, "data.frame")
 })
 
 test_that("outputs the expected snapshot", {
   skip_if(r_version_is_older_than(4))
-  expect_snapshot(sda)
+  expect_snapshot(sda_demo)
 })
 
 test_that("outputs like r2dii.analysis::target_sda()", {
@@ -31,7 +31,7 @@ test_that("outputs like r2dii.analysis::target_sda()", {
     ) %>%
     sort_df() %>%
     vapply(typeof, character(1))
-  actual <- sda %>%
+  actual <- sda_demo %>%
     sort_df() %>%
     vapply(typeof, character(1))
   expect_equal(actual, expected)

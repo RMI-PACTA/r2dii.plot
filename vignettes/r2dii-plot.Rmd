@@ -76,7 +76,7 @@ characteristics are:
 * Formatted axis labels and scales.
 * A title (and a subtitle).
 
-Use `qplot_emission_intensity()` with `sda`-like data.
+Use `qplot_emission_intensity()` with `sda_demo`-like data.
 
 ```{r}
 data <- matched %>%
@@ -90,7 +90,7 @@ data <- matched %>%
 qplot_emission_intensity(data)
 ```
 
-Use `qplot_trajectory()` with `market_share`-like data.
+Use `qplot_trajectory()` with `market_share_demo`-like data.
 
 ```{r}
 data <- matched %>%
@@ -104,7 +104,7 @@ data <- matched %>%
 qplot_trajectory(data)
 ```
 
-Use `qplot_techmix()` with `market_share`-like data.
+Use `qplot_techmix()` with `market_share_demo`-like data.
 
 ```{r}
 data <- matched %>%
@@ -183,7 +183,7 @@ example:
 
 * Changing the time span.
 * Adding custom labels by adding a column 'label' or 'label_tech' to
-`market_share`-like data.
+`market_share_demo`-like data.
 
 And by modifying output `ggplot` object (strategy 3), for example:
 
@@ -199,7 +199,7 @@ Here is how you might customize each of the three kinds of plots using strategy
 colours and legend labels.
 
 ```{r}
-data <- sda %>%
+data <- sda_demo %>%
   filter(
     sector == "cement",
     region == "global",
@@ -260,7 +260,7 @@ plot_trajectory(data) +
 and modify legend labels.
 
 ```{r}
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     metric %in% c("projected", "corporate_economy", "target_sds"),
     sector == "power",
@@ -289,7 +289,7 @@ plot_techmix(data) +
 * `plot_techmix()` - remove scenario data for start year.
 
 ```{r}
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     metric %in% c("projected", "corporate_economy", "target_sds"),
     sector == "power",
@@ -312,7 +312,7 @@ A number of functions allow you to customize any of your plots using the 2DII st
 * Use `theme_2dii()` to change the display of non-data content.
 
 ```{r}
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     metric == "projected",
     sector == "power",
@@ -331,7 +331,7 @@ palette (see `?scale_colour_2dii()` to find out what are the available colour
 labels).
 
 ```{r}
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     metric != "corporate_economy",
     sector == "power",
@@ -350,7 +350,7 @@ the 2DII colour palette for sectors (see `?scale_colour_2dii_sector()` to find
 out what are the available colour labels).
 
 ```{r}
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     metric == "projected",
     region == "global",
@@ -373,7 +373,7 @@ out what are the available colour labels).
 ```{r}
 technologies <- c("coalcap", "oilcap", "gascap", "nuclearcap", "hydrocap", "renewablescap")
 
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     metric == "projected",
     sector == "power",

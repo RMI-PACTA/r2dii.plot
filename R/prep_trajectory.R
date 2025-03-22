@@ -1,7 +1,7 @@
 #' Prepare data for a trajectory plot
 #'
 #' @param data A data frame. Requirements:
-#' * The structure must be like [market_share].
+#' * The structure must be like [market_share_demo].
 #' * The following columns must have a single value: `sector`, `technology`,
 #' `region`, `scenario_source`.
 #' * (Optional) If present, the column `label` is used for data labels.
@@ -14,7 +14,7 @@
 #' @param value_col Character. Name of the column to be used as a value to be
 #'   plotted.
 #'
-#' @seealso [market_share].
+#' @seealso [market_share_demo].
 #'
 #' @return A data-frame ready to be plotted using `plot_trajectory()`.
 #' @export
@@ -22,7 +22,7 @@
 #' @examples
 #' # `data` must meet documented "Requirements"
 #' data <- subset(
-#'   market_share,
+#'   market_share_demo,
 #'   sector == "power" &
 #'     technology == "renewablescap" &
 #'     region == "global" &
@@ -66,7 +66,7 @@ check_prep_trajectory <- function(data,
   stopifnot(is.character(value_col))
 
   crucial <- c(common_crucial_market_share_columns(), value_col)
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share_demo")
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)
 

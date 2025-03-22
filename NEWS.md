@@ -1,5 +1,7 @@
 # r2dii.plot (development version)
 
+* `market_share` and `sda` datasets renamed to `market_share_demo` and `sda_demo` respectively
+
 # r2dii.plot 0.5.1
 
  * add definitions to `data_dictionary` (#597)

@@ -1,6 +1,6 @@
 test_that("Plots a data set with maximum time horizon of 5 years", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -12,7 +12,7 @@ test_that("Plots a data set with maximum time horizon of 5 years", {
 
 test_that("Outputs pretty labels", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -27,7 +27,7 @@ test_that("Outputs pretty labels", {
 
 test_that("Has the title as expected", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -40,7 +40,7 @@ test_that("Has the title as expected", {
 
 test_that("Outputs pretty legend labels", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
@@ -53,7 +53,7 @@ test_that("Outputs pretty legend labels", {
   expect_equal(metrics[1:3], pretty)
 
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "automotive",
     region == "global",
     year <= 2025,

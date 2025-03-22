@@ -2,14 +2,14 @@
 #'
 #' @param data A data frame like the output of `prep_emission_intensity()`.
 #'
-#' @seealso [sda].
+#' @seealso [sda_demo].
 #'
 #' @return An object of class "ggplot".
 #'
 #' @export
 #' @examples
 #' # plot with `qplot_emission_intensity()` parameters
-#' data <- subset(sda, sector == "cement" & region == "global")
+#' data <- subset(sda_demo, sector == "cement" & region == "global")
 #' data <- prep_emission_intensity(data, span_5yr = TRUE, convert_label = to_title)
 #'
 #' plot_emission_intensity(data)
@@ -41,7 +41,7 @@ plot_emission_intensity <- function(data) {
 check_plot_emission_intensity <- function(data, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(prep_emission_factor_crucial, "label")
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "sda")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "sda_demo")
   enforce_single_value <- "sector"
   abort_if_multiple(data, enforce_single_value)
   abort_if_has_zero_rows(data, env = env)

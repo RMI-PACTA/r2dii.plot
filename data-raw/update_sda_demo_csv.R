@@ -16,4 +16,4 @@ out <- out %>%
     year >= 2020
   )
 
-readr::write_csv(out, here::here("data-raw", "sda.csv"))
+readr::write_csv(out, here::here("data-raw", "sda_demo.csv"))

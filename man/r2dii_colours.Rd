@@ -48,8 +48,8 @@ technology_colours
 }
 \seealso{
 Other datasets: 
-\code{\link{market_share}},
-\code{\link{sda}}
+\code{\link{market_share_demo}},
+\code{\link{sda_demo}}
 }
 \concept{datasets}
 \keyword{datasets}

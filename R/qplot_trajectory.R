@@ -15,7 +15,7 @@
 #' @examples
 #' # `data` must meet documented "Requirements"
 #' data <- subset(
-#'   market_share,
+#'   market_share_demo,
 #'   sector == "power" &
 #'     technology == "renewablescap" &
 #'     region == "global" &
@@ -69,7 +69,7 @@ labs_trajectory <- function(p, data) {
 check_qplot_trajectory <- function(data, value_col, env) {
   stopifnot(is.data.frame(data))
   crucial <- c(common_crucial_market_share_columns(), value_col)
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share_demo")
   abort_if_has_zero_rows(data, env = env)
   enforce_single_value <- c("sector", "technology", "region", "scenario_source")
   abort_if_multiple(data, enforce_single_value, env = env)

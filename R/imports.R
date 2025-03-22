@@ -9,7 +9,7 @@
 NULL
 
 utils::globalVariables(c(
-  "market_share",
+  "market_share_demo",
   "palette_colours",
   "scenario_colours",
   "sector_colours",

@@ -56,7 +56,7 @@ library(r2dii.plot)
 
 ``` r
 # `data` must meet documented "Requirements"
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     sector == "power",
     technology == "renewablescap",
@@ -73,7 +73,7 @@ qplot_trajectory(data)
   by modifying the input data and applying `ggplot2` functions.
 
 ``` r
-data <- market_share %>%
+data <- market_share_demo %>%
   filter(
     sector == "power",
     technology == "renewablescap",

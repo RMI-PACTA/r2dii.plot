@@ -12,4 +12,4 @@ out <- r2dii.data::loanbook_demo %>%
     .data$region == "global"
   )
 
-readr::write_csv(out, here::here("data-raw", "market_share.csv"))
+readr::write_csv(out, here::here("data-raw", "market_share_demo.csv"))

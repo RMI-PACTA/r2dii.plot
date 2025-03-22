@@ -2,7 +2,7 @@
 #'
 #' @param data A data frame like the output of `prep_techmix()`.
 #'
-#' @seealso [market_share].
+#' @seealso [market_share_demo].
 #'
 #' @return An object of class "ggplot".
 #'
@@ -10,7 +10,7 @@
 #' @examples
 #' # plot with `qplot_techmix()` parameters
 #' data <- subset(
-#'   market_share,
+#'   market_share_demo,
 #'   scenario_source == "demo_2020" &
 #'     sector == "power" &
 #'     region == "global" &
@@ -83,7 +83,7 @@ check_plot_techmix <- function(data, env) {
     "label",
     "label_tech"
   )
-  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share")
+  hint_if_missing_names(abort_if_missing_names(data, crucial), "market_share_demo")
 
   abort_if_has_zero_rows(data, env = env)
 

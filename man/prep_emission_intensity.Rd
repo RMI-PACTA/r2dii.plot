@@ -9,7 +9,7 @@ prep_emission_intensity(data, convert_label = identity, span_5yr = FALSE)
 \arguments{
 \item{data}{A data frame. Requirements:
 \itemize{
-\item The structure must be like \link{sda}.
+\item The structure must be like \link{sda_demo}.
 \item The column \code{sector} must have a single value (e.g. "cement").
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
@@ -34,9 +34,9 @@ Prepare data for a emission intensity plot
 }
 \examples{
 # `data` must meet documented "Requirements"
-data <- subset(sda, sector == "cement" & region == "global")
+data <- subset(sda_demo, sector == "cement" & region == "global")
 prep_emission_intensity(data)
 }
 \seealso{
-\link{sda}.
+\link{sda_demo}.
 }

@@ -2,11 +2,11 @@
 
     is.data.frame(data) is not TRUE
 
-# if `data` is not sda-like errors gracefully
+# if `data` is not sda_demo-like errors gracefully
 
     `data` must have all the expected names.
     x Missing names: emission_factor_metric, emission_factor_value, label.
-    i Is your data `sda`-like?
+    i Is your data `sda_demo`-like?
     Caused by error in `abort_if_missing_names()`:
     ! `data` must have all the expected names.
     x Missing names: emission_factor_metric, emission_factor_value, label.
@@ -20,7 +20,7 @@
 
     `data` must have all the expected names.
     x Missing names: label.
-    i Is your data `sda`-like?
+    i Is your data `sda_demo`-like?
     Caused by error in `abort_if_missing_names()`:
     ! `data` must have all the expected names.
     x Missing names: label.

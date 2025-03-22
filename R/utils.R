@@ -102,11 +102,11 @@ fmt_vector <- function(x) {
 }
 
 example_market_share <- function(...) {
-  filter(market_share, .data$technology == first(.data$technology), ...)
+  filter(market_share_demo, .data$technology == first(.data$technology), ...)
 }
 
 example_tech_mix <- function(...) {
-  out <- filter(market_share, .data$sector == first(.data$sector), ...)
+  out <- filter(market_share_demo, .data$sector == first(.data$sector), ...)
 
   filter(out, .data$metric %in% c("projected", "target_sds", "corporate_economy"))
 }
@@ -144,8 +144,8 @@ get_projected_start_year <- function(data) {
 #' The name of the column holding metrics such as projected, corporate_economy
 #'
 #' @examples
-#' metric(sda)
-#' metric(market_share)
+#' metric(sda_demo)
+#' metric(market_share_demo)
 #' @noRd
 metric <- function(data) {
   extract_names(data, metric_names())
@@ -166,8 +166,8 @@ metric_names <- function() c("metric", "emission_factor_metric")
 #' Extract names matching `possible_names`
 #'
 #' @examples
-#' extract_names(sda, metric_names())
-#' extract_names(market_share, metric_names())
+#' extract_names(sda_demo, metric_names())
+#' extract_names(market_share_demo, metric_names())
 #' extract_names(mtcars, c("mpg", "bad", "disp"))
 #' @noRd
 extract_names <- function(data, possible_names) {
