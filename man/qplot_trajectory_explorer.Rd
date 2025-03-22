@@ -7,8 +7,21 @@
 qplot_trajectory_explorer(data)
 }
 \arguments{
-\item{data}{a network description in one of numerous forms (see details)}
+\item{data}{A data frame like the outputs of \code{prep_trajectory()}.
+\itemize{
+\item (Optional) If present, the column \code{label} is used for data labels.
+}}
+}
+\value{
+An object of class "ggplot".
 }
 \description{
 An interactive shiny widget to explore the \code{qplot_trajectory} options.
+}
+\examples{
+qplot_trajectory_explorer(market_share)
+
+}
+\seealso{
+plot_trajectory
 }

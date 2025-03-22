@@ -1,9 +1,12 @@
 #' Interactive `qplot_trajectory` options explorer
 #'
-#' @param data a network description in one of numerous forms (see details)
+#' @inherit qplot_trajectory
 #'
 #' @description
 #' An interactive shiny widget to explore the `qplot_trajectory` options.
+#'
+#' @examples
+#' qplot_trajectory_explorer(market_share)
 #'
 #' @export
 
