@@ -22,8 +22,8 @@
 #'     technology == "renewablescap" &
 #'     region == "global" &
 #'     scenario_source == "demo_2020"
-#' ) %>%
-#'   prep_trajectory()
+#' )
+#' data <- prep_trajectory(data)
 #'
 #' plot_trajectory(
 #'   data,
