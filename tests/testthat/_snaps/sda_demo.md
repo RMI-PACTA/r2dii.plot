@@ -1,7 +1,7 @@
 # outputs the expected snapshot
 
     Code
-      sda
+      sda_demo
     Output
       # A tibble: 110 x 6
          sector  year region             scenario_source emission_factor_metric

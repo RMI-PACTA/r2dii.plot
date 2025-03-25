@@ -61,7 +61,7 @@ test_that("By default doesn't center the Y axis", {
 })
 
 test_that("x-axis plots year-breaks as integers (i.e. round numbers, with no-decimals)", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       sector == "power",
       technology == "renewablescap",
@@ -109,7 +109,7 @@ test_that("with bad `perc_y_scale` errors gracefully", {
 })
 
 test_that("with 0 as extreme value plots areas correctly", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       sector == "power",
       technology == "oilcap",
@@ -129,7 +129,7 @@ test_that("with 0 as extreme value plots areas correctly", {
 
   expect_true(min(p$data$value_low) <= min(p$data$value))
 
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       sector == "power",
       technology == "renewablescap",

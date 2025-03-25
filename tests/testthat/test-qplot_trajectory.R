@@ -31,36 +31,36 @@ test_that("if `data` is not a data frame errors gracefully", {
   expect_snapshot_error(qplot_trajectory(1))
 })
 
-test_that("if `data` is not market_share-like errors gracefully", {
-  bad <- head(sda)
+test_that("if `data` is not market_share_demo-like errors gracefully", {
+  bad <- head(sda_demo)
   expect_snapshot_error(qplot_trajectory(bad))
 })
 
 test_that("with zero-row data errors gracefully", {
-  zero_row <- market_share[0L, ]
+  zero_row <- market_share_demo[0L, ]
   expect_snapshot_error(qplot_trajectory(zero_row))
 })
 
 test_that("with too many sectors errors gracefully", {
-  bad_sector <- head(market_share, 2L)
+  bad_sector <- head(market_share_demo, 2L)
   bad_sector$sector <- c("a", "b")
   expect_snapshot_error(qplot_trajectory(bad_sector))
 })
 
 test_that("with too many technologies errors gracefully", {
-  bad_tech <- head(market_share, 2L)
+  bad_tech <- head(market_share_demo, 2L)
   bad_tech$technology <- c("a", "b")
   expect_snapshot_error(qplot_trajectory(bad_tech))
 })
 
 test_that("with too many regions errors gracefully", {
-  bad_region <- head(market_share, 2L)
+  bad_region <- head(market_share_demo, 2L)
   bad_region$region <- c("a", "b")
   expect_snapshot_error(qplot_trajectory(bad_region))
 })
 
 test_that("with too many scenario_source errors gracefully", {
-  bad_scenario_source <- head(market_share, 2L)
+  bad_scenario_source <- head(market_share_demo, 2L)
   bad_scenario_source$scenario_source <- c("a", "b")
   expect_snapshot_error(qplot_trajectory(bad_scenario_source))
 })
@@ -80,7 +80,7 @@ test_that("with too many metrics errors gracefully", {
 })
 
 test_that("with missing crucial names errors gracefully", {
-  data <- head(market_share)
+  data <- head(market_share_demo)
 
   bad <- select(data, -metric)
   expect_error(class = "hint_missing_names", qplot_trajectory(bad))
@@ -106,7 +106,7 @@ test_that("with missing crucial names errors gracefully", {
 
 test_that("works with brown technology", {
   brown <- "oil"
-  data <- filter(market_share, technology == brown, region == first(region))
+  data <- filter(market_share_demo, technology == brown, region == first(region))
   expect_warning(
     regexp = NA,
     qplot_trajectory(data)
@@ -151,7 +151,7 @@ test_that("'metric' in plot data is a factor with 'projected' as last element", 
   expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")
 
   brown <- "oil"
-  data <- filter(market_share, technology == brown, region == first(region))
+  data <- filter(market_share_demo, technology == brown, region == first(region))
   plot <- qplot_trajectory(data)
   expect_equal(levels(plot$data$metric)[nlevels(plot$data$metric)], "projected")
 })
@@ -207,7 +207,7 @@ test_that("Prints axis labels as expected", {
 
 test_that("the errors message includes the name of the user's data", {
   # Keep even if already tested in qplot_. Non-standard evaluation is fragile
-  bad_region <- head(market_share, 2L)
+  bad_region <- head(market_share_demo, 2L)
   bad_region$region <- c("a", "b")
   expect_error(qplot_trajectory(bad_region), "bad_region")
 })

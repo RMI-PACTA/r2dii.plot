@@ -1,5 +1,5 @@
 test_data <- subset(
-  market_share,
+  market_share_demo,
   scenario_source == "demo_2020" &
     sector == "power" &
     region == "global" &
@@ -13,7 +13,7 @@ test_that("prep_techmix returns a data frame", {
 })
 
 test_that("with zero-row data errors gracefully", {
-  zero_row <- market_share[0L, ]
+  zero_row <- market_share_demo[0L, ]
 
   expect_snapshot_error(
     prep_techmix(zero_row)
@@ -21,7 +21,7 @@ test_that("with zero-row data errors gracefully", {
 })
 
 test_that("without `market_share` data errors gracefully", {
-  bad_kind <- filter(sda, sector == first(sector))
+  bad_kind <- filter(sda_demo, sector == first(sector))
 
   expect_snapshot_error(prep_techmix(bad_kind))
 })
@@ -32,25 +32,25 @@ test_that("with more than one scenario errors gracefully", {
 })
 
 test_that("with too many sectors errors gracefully", {
-  bad_sector <- head(market_share, 2L)
+  bad_sector <- head(market_share_demo, 2L)
   bad_sector$sector <- c("a", "b")
   expect_snapshot_error(prep_techmix(bad_sector))
 })
 
 test_that("with too many regions errors gracefully", {
-  bad_region <- head(market_share, 2L)
+  bad_region <- head(market_share_demo, 2L)
   bad_region$region <- c("a", "b")
   expect_snapshot_error(prep_techmix(bad_region))
 })
 
 test_that("with too many scenario_source errors gracefully", {
-  bad_scenario_source <- head(market_share, 2L)
+  bad_scenario_source <- head(market_share_demo, 2L)
   bad_scenario_source$scenario_source <- c("a", "b")
   expect_snapshot_error(prep_techmix(bad_scenario_source))
 })
 
 test_that("with too few scenarios errors gracefully", {
-  too_few <- head(market_share, 2L)
+  too_few <- head(market_share_demo, 2L)
   too_few$metric <- c(main_line(), "corporate_economy")
   expect_snapshot_error(prep_techmix(too_few))
 })
@@ -84,7 +84,7 @@ test_that("prep_techmix filters years correctly", {
 })
 
 test_that("is sensitive to `span_5yr`", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       scenario_source == "demo_2020",
       sector == "power",
@@ -101,7 +101,7 @@ test_that("is sensitive to `span_5yr`", {
 })
 
 test_that("is sensitive to `convert_tech_label`", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       year %in% c(2020, 2025),
       scenario_source == "demo_2020",
@@ -122,7 +122,7 @@ test_that("is sensitive to `convert_tech_label`", {
 })
 
 test_that("is sensitive to `convert_label`", {
-  data <- market_share %>%
+  data <- market_share_demo %>%
     filter(
       year %in% c(2020, 2025),
       scenario_source == "demo_2020",
@@ -142,7 +142,7 @@ test_that("is sensitive to `convert_label`", {
 test_that("with input data before start year of 'projected' prep_techmix
           outputs data with start year of 'projected'", {
   data <- filter(
-    market_share,
+    market_share_demo,
     sector == "power",
     region == "global",
     year <= 2025,
