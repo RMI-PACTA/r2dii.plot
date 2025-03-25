@@ -14,7 +14,7 @@ prep_trajectory(
 \arguments{
 \item{data}{A data frame. Requirements:
 \itemize{
-\item The structure must be like \link{market_share}.
+\item The structure must be like \link{market_share_demo}.
 \item The following columns must have a single value: \code{sector}, \code{technology},
 \code{region}, \code{scenario_source}.
 \item (Optional) If present, the column \code{label} is used for data labels.
@@ -44,7 +44,7 @@ Prepare data for a trajectory plot
 \examples{
 # `data` must meet documented "Requirements"
 data <- subset(
-  market_share,
+  market_share_demo,
   sector == "power" &
     technology == "renewablescap" &
     region == "global" &
@@ -54,5 +54,5 @@ data <- subset(
 prep_trajectory(data)
 }
 \seealso{
-\link{market_share}.
+\link{market_share_demo}.
 }

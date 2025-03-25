@@ -14,7 +14,7 @@ prep_techmix(
 \arguments{
 \item{data}{A data frame. Requirements:
 \itemize{
-\item The structure must be like \link{market_share}.
+\item The structure must be like \link{market_share_demo}.
 \item The following columns must have a single value: \code{sector}, \code{region},
 \code{scenario_source}.
 \item The column \code{metric} must have a portfolio (e.g. "projected"), a benchmark
@@ -50,7 +50,7 @@ Prepare data for plotting technology mix
 \examples{
 # `data` must meet documented "Requirements"
 data <- subset(
-  market_share,
+  market_share_demo,
   scenario_source == "demo_2020" &
     sector == "power" &
     region == "global" &
@@ -60,5 +60,5 @@ data <- subset(
 prep_techmix(data)
 }
 \seealso{
-\link{market_share}.
+\link{market_share_demo}.
 }

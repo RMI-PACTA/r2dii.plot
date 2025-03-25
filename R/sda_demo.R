@@ -1,4 +1,4 @@
-#' An example of an `sda`-like dataset
+#' An example of an `sda_demo`-like dataset
 #'
 #' Dataset imitating the output of [r2dii.analysis::target_sda()].
 #'
@@ -7,5 +7,5 @@
 #'
 #' @source <https://github.com/RMI-PACTA/r2dii.plot/issues/55>.
 #' @examples
-#' sda
-"sda"
+#' sda_demo
+"sda_demo"
