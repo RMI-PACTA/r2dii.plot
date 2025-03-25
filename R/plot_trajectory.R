@@ -143,13 +143,13 @@ scenario <- function(data, center_y = FALSE) {
     data_scenarios <- data_scenarios %>%
       group_by(.data$year, .data$technology, .data$sector) %>%
       mutate(metric = factor(.data$metric,
-                             levels = rev(get_ordered_scenarios(data_scenarios))
+        levels = rev(get_ordered_scenarios(data_scenarios))
       )) %>%
       arrange(.data$year, .data$metric) %>%
       rename(value_low = "value") %>%
       mutate(value = lead(.data$value_low,
-                          n = 1,
-                          default = area_borders$upper
+        n = 1,
+        default = area_borders$upper
       ))
   } else {
     data_worse_than_scenarios$value <- area_borders$upper
@@ -347,10 +347,10 @@ get_ordered_scenario_colours <- function(n) {
   pick <- function(cols) filter(scenario_colours, .data$label %in% cols)
 
   switch(as.character(n),
-         "2" = pick(c("light_green", "red")),
-         "3" = pick(c("light_green", "light_yellow", "red")),
-         "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
-         "5" = scenario_colours,
-         abort(c("`n` must be between 2 and 5.", x = glue("Provided: {n}."))) # nocov
+    "2" = pick(c("light_green", "red")),
+    "3" = pick(c("light_green", "light_yellow", "red")),
+    "4" = pick(c("light_green", "dark_yellow", "light_yellow", "red")),
+    "5" = scenario_colours,
+    abort(c("`n` must be between 2 and 5.", x = glue("Provided: {n}."))) # nocov
   )
 }

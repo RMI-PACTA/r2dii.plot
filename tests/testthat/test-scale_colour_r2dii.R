@@ -32,7 +32,6 @@ test_that("changes the plot fill as expected", {
 
 test_that("with data having specific level factors, scales colours as expected
           (#527)", {
-
   skip_if(r_version_is_older_than(4))
   data <- filter(sda, sector == "cement", region == "global")
 
@@ -74,8 +73,8 @@ test_that("with data having specific level factors, scales colours as expected
     classes = "lifecycle_warning_deprecated"
   )
   p <- p + scale_colour_r2dii(
-     colour_labels = input_color_scale,
-     labels = input_levels
+    colour_labels = input_color_scale,
+    labels = input_levels
   )
 
   # print the levels that colours are applied to
@@ -103,5 +102,4 @@ test_that("with data having specific level factors, scales colours as expected
   expect_equal(out$corporate_economy$hex_out, out$corporate_economy$hex_expected)
   expect_equal(out$target_demo$hex_out, out$target_demo$hex_expected)
   expect_equal(out$adjusted_scenario_demo$hex_out, out$adjusted_scenario_demo$hex_expected)
-
 })
