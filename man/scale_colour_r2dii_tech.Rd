@@ -26,7 +26,7 @@ parameter in \code{\link[ggplot2:scale_manual]{ggplot2::scale_colour_manual()}}.
 An object of class "ScaleDiscrete".
 }
 \description{
-A custom discrete colour and fill scales with colours from PACTA technology
+A custom discrete colour and fill scales with colours from the PACTA technology
 palette.
 }
 \examples{

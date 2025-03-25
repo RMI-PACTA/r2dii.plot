@@ -1,6 +1,6 @@
 #' Custom PACTA technology colour and fill scales
 #'
-#' A custom discrete colour and fill scales with colours from PACTA technology
+#' A custom discrete colour and fill scales with colours from the PACTA technology
 #' palette.
 #'
 #' @param sector A string. Sector name specifying a colour palette. Run
