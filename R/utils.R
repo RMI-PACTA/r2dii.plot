@@ -242,7 +242,6 @@ prep_common <- function(data) {
 
 factor_label_if_factored_metric <- function(data) {
   if (is.factor(data[[metric(data)]])) {
-
     arranged_factors <- arrange(
       unique(data[c(metric(data), "label")])
     )

@@ -141,29 +141,29 @@ test_that("is sensitive to `convert_label`", {
 
 test_that("with input data before start year of 'projected' prep_techmix
           outputs data with start year of 'projected'", {
-            data <- filter(
-              market_share_demo,
-              sector == "power",
-              region == "global",
-              year <= 2025,
-              metric %in% c("projected", "corporate_economy", "target_sds")
-            )
-            start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
-            early_row <- tibble(
-              sector = "power",
-              technology = "renewablescap",
-              year = start_year - 1,
-              region = "global",
-              scenario_source = "demo_2020",
-              metric = "corporate_economy",
-              production = 1,
-              technology_share = 0.1
-            )
-            data <- data %>%
-              bind_rows(early_row)
+  data <- filter(
+    market_share_demo,
+    sector == "power",
+    region == "global",
+    year <= 2025,
+    metric %in% c("projected", "corporate_economy", "target_sds")
+  )
+  start_year <- min(filter(data, metric == "projected")$year, na.rm = TRUE)
+  early_row <- tibble(
+    sector = "power",
+    technology = "renewablescap",
+    year = start_year - 1,
+    region = "global",
+    scenario_source = "demo_2020",
+    metric = "corporate_economy",
+    production = 1,
+    technology_share = 0.1
+  )
+  data <- data %>%
+    bind_rows(early_row)
 
-            expect_equal(min(prep_techmix(data)$year, na.rm = TRUE), start_year)
-          })
+  expect_equal(min(prep_techmix(data)$year, na.rm = TRUE), start_year)
+})
 
 test_that("input with no `projected` value errors gracefully", {
   bad_data <- filter(

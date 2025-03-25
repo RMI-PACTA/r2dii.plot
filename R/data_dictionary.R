@@ -15,5 +15,4 @@
 #'
 #' @examples
 #' data_dictionary
-
 "data_dictionary"
