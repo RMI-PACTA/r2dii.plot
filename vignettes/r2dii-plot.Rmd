@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of r2dii.plot is to help you plot 2DII data in an informative,
+The goal of r2dii.plot is to help you plot PACTA data in an informative,
 beautiful, and easy way. It is designed to work smoothly with other "r2dii"
 packages -- [r2dii.data](https://rmi-pacta.github.io/r2dii.data/),
 [r2dii.match](https://rmi-pacta.github.io/r2dii.match/), and
@@ -307,7 +307,7 @@ plot_techmix(data)
 
 ## Styling functions
 
-A number of functions allow you to customize any of your plots using the 2DII style:
+A number of functions allow you to customize any of your plots using the PACTA style:
 
 * Use `theme_2dii()` to change the display of non-data content.
 
@@ -326,7 +326,7 @@ ggplot(data, aes(x = factor(year), y = production)) +
   theme_2dii()
 ```
 
-* Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply the 2DII colour
+* Use `scale_colour_r2dii()` and `scale_fill_r2dii()` to apply the PACTA colour
 palette (see `?scale_colour_2dii()` to find out what are the available colour 
 labels).
 
@@ -346,7 +346,7 @@ ggplot(data, aes(x = year, y = production, color = metric)) +
 ```
 
 * Use `scale_colour_r2dii_sector()` and `scale_fill_r2dii_sector()` to apply
-the 2DII colour palette for sectors (see `?scale_colour_2dii_sector()` to find 
+the PACTA colour palette for sectors (see `?scale_colour_2dii_sector()` to find 
 out what are the available colour labels).
 
 ```{r}
@@ -367,7 +367,7 @@ ggplot(data, aes(x = factor(year), y = production, fill = sector)) +
 ```
 
 * Use `scale_colour_r2dii_tech()` and `scale_fill_r2dii_tech()` to apply the
-2DII colour palette for technologies (see `?scale_colour_2dii_tech()` to find 
+PACTA colour palette for technologies (see `?scale_colour_2dii_tech()` to find 
 out what are the available colour labels).
 
 ```{r}

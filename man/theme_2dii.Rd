@@ -24,7 +24,7 @@ theme_2dii(
 An object of class "theme", "gg".
 }
 \description{
-A ggplot theme which can be applied to all graphs to appear according to 2DII
+A ggplot theme which can be applied to all graphs to appear according to the PACTA
 plotting aesthetics.
 }
 \examples{

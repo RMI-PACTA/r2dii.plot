@@ -14,7 +14,7 @@ status](https://www.r-pkg.org/badges/version/r2dii.plot)](https://CRAN.R-project
 [![R-CMD-check](https://github.com/RMI-PACTA/r2dii.plot/actions/workflows/R.yml/badge.svg)](https://github.com/RMI-PACTA/r2dii.plot/actions/workflows/R.yml)
 <!-- badges: end -->
 
-The goal of r2dii.plot is to help you plot 2DII data in an informative,
+The goal of r2dii.plot is to help you plot PACTA data in an informative,
 beautiful, and easy way.
 
 ## Installation

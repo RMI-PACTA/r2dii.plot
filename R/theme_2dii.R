@@ -1,6 +1,6 @@
 #' Complete theme
 #'
-#' A ggplot theme which can be applied to all graphs to appear according to 2DII
+#' A ggplot theme which can be applied to all graphs to appear according to the PACTA
 #' plotting aesthetics.
 #'
 #' @inheritParams ggplot2::theme_classic
