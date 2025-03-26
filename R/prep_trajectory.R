@@ -5,9 +5,7 @@
 #' * The following columns must have a single value: `sector`, `technology`,
 #' `region`, `scenario_source`.
 #' * (Optional) If present, the column `label` is used for data labels.
-#' @template convert_label
-#' @templateVar fun qplot_trajectory
-#' @templateVar value recode_metric_trajectory
+#' @param convert_label `r convert_label_docs("qplot_trajectory", "recode_metric_trajectory")`
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_trajectory()`), or use
 #'   `FALSE` to impose no restriction.

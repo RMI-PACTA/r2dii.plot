@@ -20,12 +20,10 @@ prep_trajectory(
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-y-axis labels. For example:
+\item{convert_label}{A symbol. The unquoted name of a function to apply to y-axis labels. For example:
 \itemize{
 \item To convert labels to uppercase use \code{convert_label = toupper}.
-\item To get the default behavior of \code{qplot_trajectory()} use
-\code{convert_label = recode_metric_trajectory}.
+\item To get the default behavior of \code{qplot_trajectory} use \code{convert_label = recode_metric_trajectory}.
 }}
 
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from

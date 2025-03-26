@@ -24,12 +24,10 @@ prep_techmix(
 labels.
 }}
 
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-y-axis labels. For example:
+\item{convert_label}{A symbol. The unquoted name of a function to apply to y-axis labels. For example:
 \itemize{
 \item To convert labels to uppercase use \code{convert_label = toupper}.
-\item To get the default behavior of \code{qplot_techmix()} use
-\code{convert_label = recode_metric_techmix}.
+\item To get the default behavior of \code{qplot_techmix} use \code{convert_label = recode_metric_techmix}.
 }}
 
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from

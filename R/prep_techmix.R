@@ -9,9 +9,7 @@
 #'   * (Optional) If present, the column `label` is used for data labels.
 #'   * (Optional) If present, the column `label_tech` is used for technology
 #'   labels.
-#' @template convert_label
-#' @templateVar fun qplot_techmix
-#' @templateVar value recode_metric_techmix
+#' @param convert_label `r convert_label_docs("qplot_techmix", "recode_metric_techmix")`
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_techmix()`), or use
 #'   `FALSE` to impose no restriction.
