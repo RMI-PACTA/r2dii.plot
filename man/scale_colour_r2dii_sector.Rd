@@ -4,7 +4,7 @@
 \alias{scale_colour_r2dii_sector}
 \alias{scale_color_r2dii_sector}
 \alias{scale_fill_r2dii_sector}
-\title{Custom 2DII sector colour and fill scales}
+\title{Custom PACTA sector colour and fill scales}
 \usage{
 scale_colour_r2dii_sector(sectors = NULL, ...)
 
@@ -21,7 +21,7 @@ labels. Similar to \code{value} parameter in \code{\link[ggplot2:scale_manual]{g
 An object of class "ScaleDiscrete".
 }
 \description{
-A custom discrete colour and fill scales with colours from 2DII sector
+A custom discrete colour and fill scales with colours from the PACTA sector
 palette.
 }
 \examples{

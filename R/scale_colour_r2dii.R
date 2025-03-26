@@ -1,6 +1,6 @@
-#' Custom 2DII colour and fill scales
+#' Custom PACTA colour and fill scales
 #'
-#' A custom discrete colour and fill scales with colours from 2DII palette.
+#' A custom discrete colour and fill scales with colours from the PACTA palette.
 #'
 #' @param colour_labels A character vector. Specifies colour labels to use and their
 #'   order. Run `unique(r2dii.plot:::palette_colours$label)` to see available

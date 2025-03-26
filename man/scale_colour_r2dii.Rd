@@ -4,7 +4,7 @@
 \alias{scale_colour_r2dii}
 \alias{scale_color_r2dii}
 \alias{scale_fill_r2dii}
-\title{Custom 2DII colour and fill scales}
+\title{Custom PACTA colour and fill scales}
 \usage{
 scale_colour_r2dii(colour_labels = NULL, ...)
 
@@ -21,7 +21,7 @@ colours. Similar to \code{value} parameter in \code{\link[ggplot2:scale_manual]{
 An object of class "ScaleDiscrete".
 }
 \description{
-A custom discrete colour and fill scales with colours from 2DII palette.
+A custom discrete colour and fill scales with colours from the PACTA palette.
 }
 \examples{
 library(ggplot2, warn.conflicts = FALSE)

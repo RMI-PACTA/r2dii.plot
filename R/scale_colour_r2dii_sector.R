@@ -1,6 +1,6 @@
-#' Custom 2DII sector colour and fill scales
+#' Custom PACTA sector colour and fill scales
 #'
-#' A custom discrete colour and fill scales with colours from 2DII sector
+#' A custom discrete colour and fill scales with colours from the PACTA sector
 #' palette.
 #'
 #' @param sectors A character vector. Specifies sector colours to use and their
