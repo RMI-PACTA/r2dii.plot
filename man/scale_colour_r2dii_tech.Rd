@@ -4,7 +4,7 @@
 \alias{scale_colour_r2dii_tech}
 \alias{scale_color_r2dii_tech}
 \alias{scale_fill_r2dii_tech}
-\title{Custom 2DII technology colour and fill scales}
+\title{Custom PACTA technology colour and fill scales}
 \usage{
 scale_colour_r2dii_tech(sector, technologies = NULL, ...)
 
@@ -26,7 +26,7 @@ parameter in \code{\link[ggplot2:scale_manual]{ggplot2::scale_colour_manual()}}.
 An object of class "ScaleDiscrete".
 }
 \description{
-A custom discrete colour and fill scales with colours from 2DII technology
+A custom discrete colour and fill scales with colours from the PACTA technology
 palette.
 }
 \examples{
