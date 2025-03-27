@@ -14,12 +14,10 @@ prep_emission_intensity(data, convert_label = identity, span_5yr = FALSE)
 \item (Optional) If present, the column \code{label} is used for data labels.
 }}
 
-\item{convert_label}{A symbol. The unquoted name of a function to apply to
-y-axis labels. For example:
+\item{convert_label}{A symbol. The unquoted name of a function to apply to y-axis labels. For example:
 \itemize{
 \item To convert labels to uppercase use \code{convert_label = toupper}.
-\item To get the default behavior of \code{qplot_emission_intensity()} use
-\code{convert_label = to_title}.
+\item To get the default behavior of \code{qplot_emission_intensity} use \code{convert_label = to_title}.
 }}
 
 \item{span_5yr}{Logical. Use \code{TRUE} to restrict the time span to 5 years from

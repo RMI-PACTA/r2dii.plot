@@ -9,7 +9,6 @@
 ^cran-comments\.md$
 ^data-raw/.*$
 ^docs$
-^man-roxygen$
 ^pkgdown$
 ^r2dii\.plot\.Rproj$
 ^vignettes/r2dii-plot\.Rmd$

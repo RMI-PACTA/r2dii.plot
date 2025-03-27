@@ -4,9 +4,7 @@
 #'   * The structure must be like [sda_demo].
 #'   * The column `sector` must have a single value (e.g. "cement").
 #'   * (Optional) If present, the column `label` is used for data labels.
-#' @template convert_label
-#' @templateVar fun qplot_emission_intensity
-#' @templateVar value to_title
+#' @param convert_label `r convert_label_docs("qplot_emission_intensity", "to_title")`
 #' @param span_5yr Logical. Use `TRUE` to restrict the time span to 5 years from
 #'   the start year (the default behavior of `qplot_emission_intensity()`), or use
 #'   `FALSE` to impose no restriction.
