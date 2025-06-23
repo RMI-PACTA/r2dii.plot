@@ -1,3 +1,5 @@
+# r2dii.plot (development version)
+
 # r2dii.plot 0.5.2
 
 * `market_share` and `sda` datasets renamed to `market_share_demo` and `sda_demo` respectively
